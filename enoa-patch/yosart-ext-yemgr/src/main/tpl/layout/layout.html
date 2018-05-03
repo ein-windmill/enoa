@@ -1,0 +1,58 @@
+#define layout()
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+
+  <title>#(name ?? 'Yosart') #(subtitle == null ? '' : '-') #(subtitle ?? '')</title>
+  #include('dependency.html')
+  <style>
+    body, a {
+      cursor: default !important;
+    }
+    table, tr, th, td, dt, dd, p {
+      white-space: normal !important;
+    }
+  </style>
+  #@css()
+</head>
+<body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+  <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
+    <div class="mdl-layout--large-screen-only mdl-layout__header-row"></div>
+    <div class="mdl-layout--large-screen-only mdl-layout__header-row">
+      <h3>#(name)</h3>
+    </div>
+    <div class="mdl-layout--large-screen-only mdl-layout__header-row"></div>
+    <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
+      #for(menu : menus)
+      <a href="#(context)#(menu.uri)" class="mdl-layout__tab #(req.uri == context+menu.uri ? 'is-active' : '')">#(menu.name)</a>
+      #end
+    </div>
+  </header>
+
+  <main class="mdl-layout__content">
+    <div class="mdl-layout__tab-panel is-active">
+    #@main()
+    </div>
+  </main>
+
+  <footer class="mdl-mega-footer">
+    <div class="mdl-mega-footer--bottom-section">
+      <div class="mdl-logo">
+        Powered by <a href="https://github.com/ein-windmill/enoa" target="_blank">Yosart</a><sup>#(version)</sup>
+      </div>
+    </div>
+  </footer>
+</div>
+</body>
+</html>
+#end

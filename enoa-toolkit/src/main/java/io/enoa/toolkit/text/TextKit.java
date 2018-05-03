@@ -1,0 +1,223 @@
+/*
+ * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package io.enoa.toolkit.text;
+
+import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.digest.DigestKit;
+
+/**
+ * TextKit.
+ */
+public class TextKit {
+
+  /**
+   * 首字母变小写
+   */
+  public static String firstToLower(String str) {
+    char firstChar = str.charAt(0);
+    if (firstChar >= 'A' && firstChar <= 'Z') {
+      char[] arr = str.toCharArray();
+      arr[0] += ('a' - 'A');
+      return new String(arr);
+    }
+    return str;
+  }
+
+  /**
+   * 首字母变大写
+   */
+  public static String firstToUpper(String str) {
+    char firstChar = str.charAt(0);
+    if (firstChar >= 'a' && firstChar <= 'z') {
+      char[] arr = str.toCharArray();
+      arr[0] -= ('a' - 'A');
+      return new String(arr);
+    }
+    return str;
+  }
+
+  /**
+   * 字符串为 null 或者内部字符全部为 ' ' '\t' '\n' '\r' 这四类字符时返回 true
+   */
+  public static boolean isBlank(String str) {
+    if (str == null) {
+      return true;
+    }
+    int len = str.length();
+    if (len == 0) {
+      return true;
+    }
+    for (int i = 0; i < len; i++) {
+      switch (str.charAt(i)) {
+        case ' ':
+        case '\t':
+        case '\n':
+        case '\r':
+          // case '\b':
+          // case '\f':
+          break;
+        default:
+          return false;
+      }
+    }
+    return true;
+  }
+
+  public static boolean isBlank(String... strings) {
+    if (CollectionKit.isEmpty(strings))
+      return true;
+    boolean pass = true;
+    for (String string : strings) {
+      if (isBlank(string))
+        continue;
+      pass = false;
+      break;
+    }
+    return pass;
+  }
+
+  public static boolean notBlank(String str) {
+    return !isBlank(str);
+  }
+
+  public static boolean notBlank(String... strings) {
+    if (CollectionKit.isEmpty(strings)) {
+      return false;
+    }
+    for (String str : strings) {
+      if (isBlank(str)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  /**
+   * 是否為 null
+   *
+   * @param paras paras
+   * @return boolean
+   */
+  public static boolean isNull(Object... paras) {
+    if (paras == null)
+      return true;
+    for (Object para : paras) {
+      if (para == null)
+        return true;
+    }
+    return false;
+  }
+
+  public static boolean notNull(Object... paras) {
+    return !isNull(paras);
+  }
+
+  public static String join(String[] strings) {
+    return join(strings, "");
+  }
+
+  public static String join(String[] strings, String separator) {
+    return String.join(separator, strings);
+  }
+
+  public static String lower(String str) {
+    return str == null ? null : str.toLowerCase();
+  }
+
+  public static String upper(String str) {
+    return str == null ? null : str.toUpperCase();
+  }
+
+  public static boolean slowEquals(String a, String b) {
+    byte[] aBytes = (a != null ? a.getBytes() : null);
+    byte[] bBytes = (b != null ? b.getBytes() : null);
+    return DigestKit.slowEquals(aBytes, bBytes);
+  }
+
+  /**
+   * 刪除空白字符
+   * 如果選擇激進的方案, 會一併刪除 換行 tab 等字符
+   *
+   * @param text    text
+   * @param extreme 激進方案選擇
+   * @return String
+   */
+  public static String nospace(String text, boolean extreme) {
+    if (isBlank(text))
+      return text;
+    if (!extreme)
+      return text.trim();
+
+    StringBuilder sb = new StringBuilder(text);
+    int ix = 0;
+    while (sb.length() > ix) {
+      switch (sb.charAt(ix)) {
+        case ' ':
+        case '\t':
+        case '\n':
+        case '\r':
+          sb.deleteCharAt(ix);
+          break;
+        default:
+      }
+      ix++;
+    }
+    return sb.toString();
+  }
+
+  public static String nospace(String text) {
+    return nospace(text, false);
+  }
+
+  public static String union(String text, Object... union) {
+    if (union == null)
+      return text;
+    StringBuilder ret = new StringBuilder(text);
+    for (Object u : union) {
+      ret.append(u);
+    }
+    return ret.toString();
+  }
+
+  public static String ellipsis(String text) {
+    return ellipsis(text, 1000);
+  }
+
+  public static String ellipsis(String text, int len) {
+    if (text == null)
+      return null;
+    if ("".equals(text))
+      return "";
+    return union(text.substring(0, text.length() > len ? len : text.length()), "...");
+  }
+
+  /**
+   * 字符反轉
+   *
+   * @param text 字符
+   * @return String
+   */
+  public static String reverse(String text) {
+    if (text == null)
+      return null;
+    StringBuilder ret = new StringBuilder();
+    for (int i = text.length() - 1; i >= 0; i--) {
+      ret.append(text.charAt(i));
+    }
+    return ret.toString();
+  }
+
+}

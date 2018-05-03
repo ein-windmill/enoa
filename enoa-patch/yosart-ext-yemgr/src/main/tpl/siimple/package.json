@@ -1,0 +1,19 @@
+{
+  "requires": true,
+  "lockfileVersion": 1,
+  "dependencies": {
+    "siimple": {
+      "version": "3.0.0",
+      "resolved": "https://registry.npmjs.org/siimple/-/siimple-3.0.0.tgz",
+      "integrity": "sha512-pANfEAV4ZzohtOu3RkZJsaM19u9ea0IFsOKY4mgwTPX/drqk4q5ozljKaBthYbZx8zQpo5J+BtufrUQd4S88Eg==",
+      "requires": {
+        "siimple-colors": "0.2.0"
+      }
+    },
+    "siimple-colors": {
+      "version": "0.2.0",
+      "resolved": "https://registry.npmjs.org/siimple-colors/-/siimple-colors-0.2.0.tgz",
+      "integrity": "sha512-OX8047boLkCvtjNkRL9pHc/E6vOvjagesfR9aqf0fkuqr0KzGoSdaUPGemBQYWEVJZP1kBwprGjhzVQnrDd40w=="
+    }
+  }
+}

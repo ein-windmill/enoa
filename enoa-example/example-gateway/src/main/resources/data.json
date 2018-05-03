@@ -1,0 +1,20 @@
+{
+  "mappings": [
+    {
+      "name": "Home page",
+      "source": "/",
+      "dest": "http://localhost:8001"
+    },
+    {
+      "name": "Account manager",
+      "source": "/account",
+      "dest": "http://localhost:8002"
+    }
+  ],
+  "skips": [
+    "/config"
+  ],
+  "noauths": [
+    "/account/*"
+  ]
+}

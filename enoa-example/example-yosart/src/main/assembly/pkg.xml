@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly>
+
+  <id>dist</id>
+  <formats>
+    <format>dir</format>
+    <format>tar.gz</format>
+  </formats>
+  <baseDirectory>${project.artifactId}</baseDirectory>
+
+  <includeBaseDirectory>true</includeBaseDirectory>
+
+  <fileSets>
+    <fileSet>
+      <directory>${project.basedir}</directory>
+      <outputDirectory>/</outputDirectory>
+      <includes>
+        <include>README.md</include>
+      </includes>
+    </fileSet>
+    <fileSet>
+      <directory>${project.basedir}/src/main/resources</directory>
+      <includes>
+        <include>*</include>
+      </includes>
+      <outputDirectory>/resources</outputDirectory>
+      <filtered>true</filtered>
+    </fileSet>
+    <fileSet>
+      <directory>${project.basedir}/src/main/sqls</directory>
+      <includes>
+        <include>**/*</include>
+      </includes>
+      <outputDirectory>/resources/sqls</outputDirectory>
+      <filtered>true</filtered>
+    </fileSet>
+    <fileSet>
+      <directory>${project.basedir}/src/main/tpl</directory>
+      <includes>
+        <include>**/*</include>
+      </includes>
+      <outputDirectory>/resources/tpl</outputDirectory>
+      <filtered>true</filtered>
+    </fileSet>
+    <fileSet>
+      <directory>${project.basedir}/src/main/bin</directory>
+      <includes>
+        <include>*</include>
+      </includes>
+      <outputDirectory>/bin</outputDirectory>
+      <fileMode>0755</fileMode>
+    </fileSet>
+    <fileSet>
+      <directory>${project.basedir}/target</directory>
+      <includes>
+        <include>*.jar</include>
+      </includes>
+      <outputDirectory>/lib</outputDirectory>
+    </fileSet>
+  </fileSets>
+
+  <dependencySets>
+    <dependencySet>
+      <outputDirectory>/lib</outputDirectory>
+    </dependencySet>
+  </dependencySets>
+</assembly>

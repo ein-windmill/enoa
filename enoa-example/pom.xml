@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>enoa</artifactId>
+    <groupId>io.enoa</groupId>
+    <version>1.3-beta</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>enoa-example</artifactId>
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>example-repeater</module>
+    <module>example-yosart</module>
+    <module>example-yosart-simple</module>
+    <module>example-db</module>
+    <module>example-template</module>
+    <module>example-http</module>
+    <module>example-redis</module>
+    <module>example-yosart-anost</module>
+    <module>example-gateway</module>
+    <module>example-trydb</module>
+    <module>example-eml</module>
+    <module>example-json</module>
+    <module>example-stove</module>
+  </modules>
+
+
+</project>

@@ -1,0 +1,42 @@
+#@layout()
+
+#define css()
+
+
+#end
+
+
+#define main()
+
+
+<div class="mdl-grid">
+
+  #for(group : mount.keySet())
+  <div class="mdl-cell mdl-cell--4-col">
+
+    <div class="yo-gap mdl-card mdl-shadow--2dp" id="#(group)">
+      <div class="mdl-card__title mdl-card--border">
+        <h2 class="mdl-card__title-text">#(group)</h2>
+      </div>
+      #for(g : mount.get(group))
+      <div class="mdl-card__supporting-text">
+        <strong>Name</strong>
+        <p>#(g.name)</p>
+
+        <strong>Description</strong>
+        <p>#(g.description)</p>
+
+        <strong>Url</strong>
+        <p><a target="_blank" href="#(context)/mounts#(g.uri)">#(yemgrc)/mounts#(g.uri)</a></p>
+      </div>
+      #end
+
+    </div>
+  </div>
+  #end
+
+</div>
+
+
+#end
+

@@ -1,0 +1,22 @@
+info:
+  description: testconfig
+  url: https://www.example.com
+
+spring:
+  cloud:
+    stream:
+       bindings:
+         springCloudBusInput:
+           destination: testExchange
+           group: testQueue
+         springCloudBusOutput:
+           destination: testExchange
+           group: testQueue
+  sleuth:
+    scheduled:
+      skipPattern: org.springframework.cloud.netflix.hystrix.stream.HystrixStreamTask
+
+# Protocols
+protocols:
+   - http
+   - https

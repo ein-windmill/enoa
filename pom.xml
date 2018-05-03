@@ -1,0 +1,848 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>io.enoa</groupId>
+  <artifactId>enoa</artifactId>
+  <version>1.3-beta</version>
+  <packaging>pom</packaging>
+
+  <description>
+    Enoa
+  </description>
+
+  <issueManagement>
+    <url>https://github.com/ein-windmill/enoa/issues</url>
+  </issueManagement>
+
+  <licenses>
+    <license>
+      <name>Apache License 2.0</name>
+      <url>http://www.apache.org/licenses/</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>ein.windmill</name>
+      <email>ein.windmill@outlook.com</email>
+      <organization>--</organization>
+      <organizationUrl>https://github.com/ein-windmill</organizationUrl>
+    </developer>
+  </developers>
+
+
+  <repositories>
+    <repository>
+      <id>jitpack.io</id>
+      <name>jitpack</name>
+      <url>https://jitpack.io</url>
+    </repository>
+  </repositories>
+
+
+  <modules>
+    <module>enoa-toolkit</module>
+    <module>enoa-log</module>
+    <module>enoa-json</module>
+    <module>enoa-http</module>
+    <module>enoa-xml</module>
+    <module>enoa-doc</module>
+    <module>enoa-conf</module>
+    <module>enoa-repeater</module>
+    <module>enoa-template</module>
+    <module>enoa-example</module>
+    <module>enoa-yosart</module>
+    <module>enoa-db</module>
+    <module>enoa-nosql</module>
+    <module>enoa-serialization</module>
+    <module>enoa-reflect</module>
+    <module>enoa-gateway</module>
+    <module>enoa-trydb</module>
+    <module>enoa-eml</module>
+    <module>enoa-patch</module>
+    <module>enoa-promise</module>
+    <module>enoa-stove</module>
+  </modules>
+
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+    <project-charset>UTF-8</project-charset>
+    <basedir>${project.basedir}</basedir>
+    <version-java>1.8</version-java>
+
+    <version-plugin-jar>2.3</version-plugin-jar>
+    <version-plugin-war>2.1.1</version-plugin-war>
+    <version-plugin-compiler>3.2</version-plugin-compiler>
+    <version-plugin-surefire>2.18</version-plugin-surefire>
+    <version-plugin-resources>2.7</version-plugin-resources>
+    <version-plugin-source>3.0.1</version-plugin-source>
+    <version-plugin-assembly>2.4.1</version-plugin-assembly>
+    <version-plugin-dependency>2.10</version-plugin-dependency>
+    <version-plugin-deploy>2.8.2</version-plugin-deploy>
+
+
+    <version-logback>1.1.2</version-logback>
+    <version-log4j>1.2.17</version-log4j>
+    <version-log4j2>2.8.2</version-log4j2>
+    <vension-slf4j>1.7.12</vension-slf4j>
+    <version-junit>4.12</version-junit>
+
+    <version-fastjson>1.2.36</version-fastjson>
+    <version-gson>2.8.1</version-gson>
+    <version-jackson>2.9.0</version-jackson>
+    <version-typebuilder>1.0</version-typebuilder>
+
+    <version-okhttp>3.5.0</version-okhttp>
+    <version-httpclient>4.5.3</version-httpclient>
+
+    <version-druid>1.1.2</version-druid>
+    <version-hikaricp>2.6.3</version-hikaricp>
+    <version-c3p0>0.9.5.2</version-c3p0>
+    <version-jdbc-pgsql>42.1.4</version-jdbc-pgsql>
+    <version-jdbc-mysql>6.0.6</version-jdbc-mysql>
+    <version-beetlsql>2.10.4</version-beetlsql>
+    <version-mybatis>3.4.5</version-mybatis>
+    <version-activerecord>3.3</version-activerecord>
+
+    <version-freemarker>2.3.23</version-freemarker>
+    <version-enjoy>3.3</version-enjoy>
+    <version-velocity>1.7</version-velocity>
+    <version-beetl>2.7.22</version-beetl>
+    <version-rocker>0.23.0</version-rocker>
+    <version-watertemplate>1.2.2</version-watertemplate>
+    <version-htmlcompressor>1.5.2</version-htmlcompressor>
+    <version-yuicompressor>2.4.8</version-yuicompressor>
+
+    <version-snowflake>1.0.0</version-snowflake>
+    <version-jgit>4.9.1.201712030800-r</version-jgit>
+    <version-snakeyaml>1.9</version-snakeyaml>
+    <version-jbcrypt>0.4</version-jbcrypt>
+
+    <version-snowflake>1.0.0</version-snowflake>
+
+    <version-nanohttpd>2.3.1</version-nanohttpd>
+    <version-jetty>9.4.8.v20171121</version-jetty>
+    <version-netty>4.1.22.Final</version-netty>
+    <version-tio-http>0.0.5-tio-http</version-tio-http>
+    <version-tomcat>9.0.0.M13</version-tomcat>
+
+    <version-jedis>2.9.0</version-jedis>
+
+    <version-fst>2.57</version-fst>
+    <version-hessian>4.0.51</version-hessian>
+    <version-kryo>2.24.0</version-kryo>
+
+    <version-crash-shell>1.3.2</version-crash-shell>
+
+    <version-graphql>7.0</version-graphql>
+
+    <version-java-scan>v2.1.0</version-java-scan>
+    <version-fastclasspathscanner>2.18.1</version-fastclasspathscanner>
+    <version-email>1.4.7</version-email>
+  </properties>
+
+
+  <dependencyManagement>
+    <dependencies>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-doc</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-http</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-json</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-log</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-toolkit</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-eosh</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>stove-api</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>stove-template</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-xml</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-conf</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-template</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-db</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-repeater</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>repeater-cos</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-serialization</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>repeater-fastcgi</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>repeater-nanohttpd</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>repeater-netty</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>repeater-jetty</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>repeater-tio</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>repeater-tomcat</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-yosart</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>yosart-ext-router-anost</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>yosart-ext-render-template</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>yosart-ext-bea-beaction</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>yosart-ext-yemgr</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>yosart-ext-sess</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>yosart-plugin-json</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>yosart-plugin-conf</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>yosart-plugin-db</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>yosart-plugin-redis</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>yosart-plugin-eml</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>nosql-redis</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-reflect</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-gateway</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-trydb</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-firesh</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-eml</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-template-beetl</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-template-rocker</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-template-enjoy</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-serialization-fst</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-serialization-hessian</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-serialization-kryo</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-log-log4j</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-log-log4j2</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-log-logback</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-json-fastjson</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-json-gson</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-json-jackson</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-ds-c3p0</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-ds-druid</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-ds-hikaricp</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-db-activerecord</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-db-beetlsql</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-db-mybatis</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-promise</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-core</artifactId>
+        <version>${version-logback}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>${version-logback}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-access</artifactId>
+        <version>${version-logback}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>log4j</groupId>
+        <artifactId>log4j</artifactId>
+        <version>${version-log4j}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-api</artifactId>
+        <version>${version-log4j2}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
+        <version>${version-log4j2}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${vension-slf4j}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${version-junit}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.google.code.gson</groupId>
+        <artifactId>gson</artifactId>
+        <version>${version-gson}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-core</artifactId>
+        <version>${version-jackson}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>${version-jackson}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>fastjson</artifactId>
+        <version>${version-fastjson}</version>
+      </dependency>
+
+      <!--TypeBuild Test-->
+      <dependency>
+        <groupId>com.github.ikidou</groupId>
+        <artifactId>TypeBuilder</artifactId>
+        <version>${version-typebuilder}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.squareup.okhttp3</groupId>
+        <artifactId>okhttp</artifactId>
+        <version>${version-okhttp}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.httpcomponents</groupId>
+        <artifactId>httpclient</artifactId>
+        <version>${version-httpclient}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>druid</artifactId>
+        <version>${version-druid}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.zaxxer</groupId>
+        <artifactId>HikariCP</artifactId>
+        <version>${version-hikaricp}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.mchange</groupId>
+        <artifactId>c3p0</artifactId>
+        <version>${version-c3p0}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        <version>${version-jdbc-pgsql}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>${version-jdbc-mysql}</version>
+      </dependency>
+
+
+      <dependency>
+        <groupId>com.ibeetl</groupId>
+        <artifactId>beetl</artifactId>
+        <version>${version-beetl}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.velocity</groupId>
+        <artifactId>velocity</artifactId>
+        <version>${version-velocity}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.freemarker</groupId>
+        <artifactId>freemarker</artifactId>
+        <version>${version-freemarker}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.jfinal</groupId>
+        <artifactId>enjoy</artifactId>
+        <version>${version-enjoy}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.fizzed</groupId>
+        <artifactId>rocker-runtime</artifactId>
+        <version>${version-rocker}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.fizzed</groupId>
+        <artifactId>rocker-compiler</artifactId>
+        <version>${version-rocker}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.watertemplate</groupId>
+        <artifactId>watertemplate-engine</artifactId>
+        <version>${version-watertemplate}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.googlecode.htmlcompressor</groupId>
+        <artifactId>htmlcompressor</artifactId>
+        <version>${version-htmlcompressor}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.yahoo.platform.yui</groupId>
+        <artifactId>yuicompressor</artifactId>
+        <version>${version-yuicompressor}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.ibeetl</groupId>
+        <artifactId>beetlsql</artifactId>
+        <version>${version-beetlsql}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.mybatis</groupId>
+        <artifactId>mybatis</artifactId>
+        <version>${version-mybatis}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.github.ein-windmill</groupId>
+        <artifactId>activerecord</artifactId>
+        <version>${version-activerecord}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>xyz.downgoon</groupId>
+        <artifactId>snowflake</artifactId>
+        <version>${version-snowflake}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.eclipse.jgit</groupId>
+        <artifactId>org.eclipse.jgit</artifactId>
+        <version>${version-jgit}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.yaml</groupId>
+        <artifactId>snakeyaml</artifactId>
+        <version>${version-snakeyaml}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.mindrot</groupId>
+        <artifactId>jbcrypt</artifactId>
+        <version>${version-jbcrypt}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.nanohttpd</groupId>
+        <artifactId>nanohttpd</artifactId>
+        <version>${version-nanohttpd}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-server</artifactId>
+        <version>${version-jetty}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.netty</groupId>
+        <artifactId>netty-all</artifactId>
+        <version>${version-netty}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.t-io</groupId>
+        <artifactId>tio-http-server</artifactId>
+        <version>${version-tio-http}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.tomcat.embed</groupId>
+        <artifactId>tomcat-embed-core</artifactId>
+        <version>${version-tomcat}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>redis.clients</groupId>
+        <artifactId>jedis</artifactId>
+        <version>${version-jedis}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>de.ruedigermoeller</groupId>
+        <artifactId>fst</artifactId>
+        <version>${version-fst}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.caucho</groupId>
+        <artifactId>hessian</artifactId>
+        <version>${version-hessian}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.esotericsoftware.kryo</groupId>
+        <artifactId>kryo</artifactId>
+        <version>${version-kryo}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.crashub</groupId>
+        <artifactId>crash.shell</artifactId>
+        <version>${version-crash-shell}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.graphql-java</groupId>
+        <artifactId>graphql-java</artifactId>
+        <version>${version-graphql}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.github.lukehutch</groupId>
+        <artifactId>fast-classpath-scanner</artifactId>
+        <version>${version-fastclasspathscanner}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>javax.mail</groupId>
+        <artifactId>mail</artifactId>
+        <version>${version-email}</version>
+      </dependency>
+
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>${version-plugin-jar}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <version>${version-plugin-assembly}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${version-plugin-compiler}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${version-plugin-surefire}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>${version-plugin-war}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>${version-plugin-resources}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>${version-plugin-dependency}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>${version-plugin-source}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>${version-plugin-deploy}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+
+</project>

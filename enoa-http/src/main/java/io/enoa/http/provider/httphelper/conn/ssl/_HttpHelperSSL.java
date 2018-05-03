@@ -1,0 +1,52 @@
+/*
+ * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package io.enoa.http.provider.httphelper.conn.ssl;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import java.security.SecureRandom;
+
+public class _HttpHelperSSL {
+
+  private static final SSLSocketFactory sslSocket;
+  private static final TrustAnyHostnameVerifier trustAnyHostnameVerifier = new TrustAnyHostnameVerifier();
+
+  static {
+    sslSocket = init();
+  }
+
+  private static SSLSocketFactory init() {
+    try {
+      TrustManager[] e = new TrustManager[]{new TrustAnyTrustManager()};
+      SSLContext sslContext = SSLContext.getInstance("TLSv1.1", "SunJSSE");
+      sslContext.init(null, e, new SecureRandom());
+      return sslContext.getSocketFactory();
+    } catch (Exception e) {
+      throw new RuntimeException(e.getMessage(), e);
+    }
+  }
+
+  public static SSLSocketFactory sslSocket() {
+    return sslSocket;
+  }
+
+  public static HostnameVerifier hostnameVerifier() {
+    return trustAnyHostnameVerifier;
+  }
+
+}

@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>${title} - Stove</title>
+</head>
+<body>
+<div>
+  #if a then
+    #if b then
+      #if c then
+      #fi
+    #fi
+  #fi
+  <p>000\r</p>
+
+  ${some0}
+
+  <p>111</p>
+
+  ${some1}${some2|pip0!'def'}
+  ${some3!}	${some4!'1'}
+
+  <p>222</p>
+
+  #if a then
+    <p>${a.a}</p>
+    #if b ; then
+      <p>${b.b}
+        ${b.c}</p>
+    #fi
+  #fi
+
+  <p>Text</p>
+  <p>${some5}\${some6}\\${some7}xxx</p>
+</div>
+</body>
+</html>

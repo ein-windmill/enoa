@@ -1,0 +1,91 @@
+/*
+ * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package io.enoa.http.provider.httphelper.async;
+
+import io.enoa.http.EoEmit;
+import io.enoa.http.EoUrl;
+import io.enoa.http.protocol.HttpResponse;
+import io.enoa.promise.PromiseResult;
+import io.enoa.promise.PromiseThen;
+import io.enoa.promise.PromiseValid;
+
+class HttpHelperAsync implements Runnable {
+
+  private final EoEmit emit;
+  private final String name;
+  private final HttpHelperPromise promise;
+
+  HttpHelperAsync(EoUrl url, EoEmit emit, HttpHelperPromise promise) {
+    String utx = url.end();
+    this.name = utx.substring(0, utx.length() < 70 ? utx.length() : 70).concat("...");
+    this.emit = emit;
+    this.promise = promise;
+  }
+
+  @Override
+  public void run() {
+    String oldName = Thread.currentThread().getName();
+    Thread.currentThread().setName(this.name);
+    try {
+      HttpResponse resp = this.emit.emit();
+
+      int code = resp.code();
+      if (this.promise.oks != null && code < 400)
+        this.promise.oks.forEach(ok -> ok.execute(resp));
+
+      if (this.promise.errors != null && code >= 400)
+        this.promise.errors.forEach(error -> error.execute(resp));
+
+      Object value = resp;
+
+      if (this.promise.thens != null)
+        for (PromiseThen then : this.promise.thens)
+          value = then.execute(value);
+
+      boolean pass = true;
+      if (this.promise.valids != null) {
+        for (PromiseValid valid : this.promise.valids) {
+          if (valid.execute(value))
+            continue;
+          pass = false;
+          break;
+        }
+      }
+
+      if (pass) {
+        if (this.promise.execs != null)
+          for (PromiseResult execute : this.promise.execs)
+            execute.execute(value);
+        return;
+      }
+
+      if (this.promise.fails != null)
+        for (PromiseResult execute : this.promise.fails)
+          execute.execute(value);
+
+    } catch (Exception e) {
+      if (this.promise.captures == null) {
+        e.printStackTrace();
+        return;
+      }
+      this.promise.captures.forEach(capture -> capture.execute(e));
+    } finally {
+      if (this.promise.always != null)
+        this.promise.always.execute();
+      Thread.currentThread().setName(oldName);
+    }
+  }
+}

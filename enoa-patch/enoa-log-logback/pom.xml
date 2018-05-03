@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>enoa-patch</artifactId>
+    <groupId>io.enoa</groupId>
+    <version>1.3-beta</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>enoa-log-logback</artifactId>
+
+
+  <dependencies>
+
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-access</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>io.enoa</groupId>
+      <artifactId>enoa-log</artifactId>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>${project.basedir}/src/main/resources</directory>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <directory>${project.basedir}/src/main/resources</directory>
+      </testResource>
+      <testResource>
+        <directory>${project.basedir}/src/test/resources</directory>
+      </testResource>
+    </testResources>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>${version-java}</source>
+          <target>${version-java}</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <includes>
+            <include>**/*.class</include>
+            <include>**/eocnf/*.eo.properties</include>
+          </includes>
+          <finalName>${project.artifactId}-${project.version}</finalName>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

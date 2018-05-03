@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>enoa</artifactId>
+    <groupId>io.enoa</groupId>
+    <version>1.3-beta</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>enoa-patch</artifactId>
+  <packaging>pom</packaging>
+  <modules>
+    <module>enoa-template-rocker</module>
+    <module>enoa-template-beetl</module>
+    <module>enoa-template-enjoy</module>
+    <module>repeater-cos</module>
+    <module>repeater-fastcgi</module>
+    <module>repeater-nanohttpd</module>
+    <module>repeater-netty</module>
+    <module>repeater-jetty</module>
+    <module>repeater-tio</module>
+    <module>repeater-tomcat</module>
+    <module>yosart-plugin-json</module>
+    <module>yosart-plugin-conf</module>
+    <module>yosart-plugin-db</module>
+    <module>yosart-plugin-ioc</module>
+    <module>yosart-plugin-redis</module>
+    <module>yosart-plugin-eml</module>
+    <module>yosart-ext-router-anost</module>
+    <module>yosart-ext-render-template</module>
+    <module>yosart-ext-bea-beaction</module>
+    <module>yosart-ext-yemgr</module>
+    <module>yosart-ext-sess</module>
+    <module>enoa-serialization-fst</module>
+    <module>enoa-serialization-hessian</module>
+    <module>enoa-serialization-kryo</module>
+    <module>enoa-log-log4j</module>
+    <module>enoa-log-log4j2</module>
+    <module>enoa-log-logback</module>
+    <module>enoa-json-fastjson</module>
+    <module>enoa-json-gson</module>
+    <module>enoa-json-jackson</module>
+    <module>enoa-ds-c3p0</module>
+    <module>enoa-ds-druid</module>
+    <module>enoa-ds-hikaricp</module>
+    <module>enoa-db-activerecord</module>
+    <module>enoa-db-mybatis</module>
+    <module>enoa-db-beetlsql</module>
+  </modules>
+
+
+</project>
