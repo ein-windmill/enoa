@@ -16,20 +16,21 @@
 package io.enoa.http.provider.httphelper.async;
 
 import io.enoa.http.protocol.HttpPromise;
-import io.enoa.promise.*;
+import io.enoa.promise.arg.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+// todo 不再使用同包可见方式实现, 切换为 Promise Builder 机制
 class HttpHelperPromise implements HttpPromise {
 
-  List<PromiseResult> oks;
-  List<PromiseResult> errors;
+  List<PromiseArg> oks;
+  List<PromiseArg> errors;
   List<PromiseThen> thens;
   List<PromiseCapture> captures;
-  List<PromiseValid> valids;
-  List<PromiseResult> execs;
-  List<PromiseResult> fails;
+  List<PromiseBool> valids;
+  List<PromiseArg> execs;
+  List<PromiseArg> fails;
   PromiseVoid always;
 
   @Override
@@ -41,7 +42,7 @@ class HttpHelperPromise implements HttpPromise {
   }
 
   @Override
-  public HttpPromise ok(PromiseResult ok) {
+  public HttpPromise ok(PromiseArg ok) {
     if (this.oks == null)
       this.oks = new ArrayList<>();
     this.oks.add(ok);
@@ -49,7 +50,7 @@ class HttpHelperPromise implements HttpPromise {
   }
 
   @Override
-  public HttpPromise error(PromiseResult error) {
+  public HttpPromise error(PromiseArg error) {
     if (this.errors == null)
       this.errors = new ArrayList<>();
     this.errors.add(error);
@@ -57,7 +58,7 @@ class HttpHelperPromise implements HttpPromise {
   }
 
   @Override
-  public <T> HttpPromise valid(PromiseValid<T> valid) {
+  public <T> HttpPromise valid(PromiseBool<T> valid) {
     if (this.valids == null)
       this.valids = new ArrayList<>();
     this.valids.add(valid);
@@ -65,7 +66,7 @@ class HttpHelperPromise implements HttpPromise {
   }
 
   @Override
-  public <T> HttpPromise execute(PromiseResult<T> exec) {
+  public <T> HttpPromise execute(PromiseArg<T> exec) {
     if (this.execs == null)
       this.execs = new ArrayList<>();
     this.execs.add(exec);
@@ -73,7 +74,7 @@ class HttpHelperPromise implements HttpPromise {
   }
 
   @Override
-  public <T> HttpPromise fail(PromiseResult<T> fail) {
+  public <T> HttpPromise fail(PromiseArg<T> fail) {
     if (this.fails == null)
       this.fails = new ArrayList<>();
     this.fails.add(fail);

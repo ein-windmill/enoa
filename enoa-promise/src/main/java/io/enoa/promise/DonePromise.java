@@ -15,8 +15,10 @@
  */
 package io.enoa.promise;
 
-public interface PromiseValid<T> extends Promise {
+import io.enoa.promise.arg.PromiseVoid;
 
-  boolean execute(T data);
+public interface DonePromise extends EoPromise<DonePromise> {
+
+  DonePromise done(PromiseVoid done);
 
 }

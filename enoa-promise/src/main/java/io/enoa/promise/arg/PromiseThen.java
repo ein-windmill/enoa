@@ -13,13 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.eml.api.promise;
+package io.enoa.promise.arg;
 
-import io.enoa.promise.EoPromise;
-import io.enoa.promise.PromiseVoid;
+import io.enoa.promise.Promise;
 
-public interface SendPromise extends EoPromise<SendPromise> {
+public interface PromiseThen<R, T> extends Promise {
 
-  SendPromise done(PromiseVoid done);
+  R execute(T body);
 
 }

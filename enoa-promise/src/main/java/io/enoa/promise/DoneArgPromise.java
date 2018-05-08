@@ -13,24 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.eml.provider.enoa;
+package io.enoa.promise;
 
-import java.util.concurrent.*;
+import io.enoa.promise.arg.PromiseArg;
 
-class _EnoaEmailThreadPool {
+public interface DoneArgPromise extends EoPromise<DoneArgPromise> {
 
-
-  private static ThreadFactory threadFactory(final String name, final boolean daemon) {
-    return runnable -> {
-      Thread result = new Thread(runnable, name);
-      result.setDaemon(daemon);
-      return result;
-    };
-  }
-
-  static ExecutorService executorService(String name) {
-    return new ThreadPoolExecutor(0, Integer.MAX_VALUE, 60, TimeUnit.SECONDS,
-      new SynchronousQueue<>(), threadFactory(name, false));
-  }
+  <T> DoneArgPromise done(PromiseArg<T> done);
 
 }

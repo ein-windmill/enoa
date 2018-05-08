@@ -17,6 +17,7 @@ package io.enoa.example.stove;
 
 import io.enoa.stove.template.Stove;
 import io.enoa.stove.template.StoveConfig;
+import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.path.PathKit;
 
 public class StoveExample {
@@ -32,10 +33,18 @@ public class StoveExample {
   private void start() {
     Stove stove = Stove.engine(this.conf0());
 
-//    String body0 = stove.template("tpl0.html").render();
-//    System.out.println(body0);
+    String body0 = stove.template("tpl0.html").render(
+      Kv.by("title", "Test Tile")
+        .set("user", Kv.by("name", "jack").set("age", 10))
+        .set("arr", new Object[]{
+          Kv.by("ix", 1),
+          Kv.by("ix", 2),
+          Kv.by("ix", 3)
+        })
+    );
+    System.out.println(body0);
 
-    String body1 = stove.template("tpl1.sql").render();
+//    String body1 = stove.template("tpl1.sql").render();
 //    System.out.println(body1);
   }
 

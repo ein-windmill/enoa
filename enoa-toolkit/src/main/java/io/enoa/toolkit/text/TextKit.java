@@ -17,6 +17,7 @@ package io.enoa.toolkit.text;
 
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.digest.DigestKit;
+import io.enoa.toolkit.number.NumberKit;
 
 /**
  * TextKit.
@@ -125,13 +126,13 @@ public class TextKit {
     return !isNull(paras);
   }
 
-  public static String join(String[] strings) {
-    return join(strings, "");
-  }
-
-  public static String join(String[] strings, String separator) {
-    return String.join(separator, strings);
-  }
+//  public static String join(String[] strings) {
+//    return join(strings, "");
+//  }
+//
+//  public static String join(String[] strings, String separator) {
+//    return String.join(separator, strings);
+//  }
 
   public static String lower(String str) {
     return str == null ? null : str.toLowerCase();
@@ -218,6 +219,54 @@ public class TextKit {
       ret.append(text.charAt(i));
     }
     return ret.toString();
+  }
+
+  /**
+   * 字符串格式化, 格式化方式采用与 MessageFormat 格式相同, 兼容 MessageFormat
+   * <p>
+   * Example:
+   * This is text from {0} and {1}.
+   * arg0 arg1
+   *
+   * @param message 消息
+   * @param formats 格式化
+   * @return String
+   */
+  public static String format(String message, Object... formats) {
+    if (message == null)
+      return null;
+    StringBuilder msg = new StringBuilder();
+    StringBuilder ixb = new StringBuilder();
+    boolean fillMode = false;
+    for (char c : message.toCharArray()) {
+      if (c == '}') {
+        int _ix = NumberKit.integer(ixb.toString());
+        if (_ix + 1 > formats.length) {
+          msg.append("{").append(_ix).append("}");
+        } else {
+          msg.append(formats[_ix]);
+        }
+        ixb.delete(0, ixb.length());
+        fillMode = false;
+        continue;
+      }
+
+      if (!fillMode) {
+        if (c == '{') {
+          fillMode = true;
+          continue;
+        } else {
+          msg.append(c);
+          continue;
+        }
+      }
+
+      if (!NumberKit.isDigit(String.valueOf(c), false))
+        throw new IllegalArgumentException("无法解析参数 => " + message); // todo tip
+      ixb.append(c);
+    }
+    ixb.delete(0, ixb.length());
+    return msg.toString();
   }
 
 }

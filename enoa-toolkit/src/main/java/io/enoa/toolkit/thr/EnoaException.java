@@ -15,18 +15,18 @@
  */
 package io.enoa.toolkit.thr;
 
-import java.text.MessageFormat;
+import io.enoa.toolkit.text.TextKit;
 
 public class EnoaException extends Exception {
   public EnoaException() {
   }
 
   public EnoaException(String message, Object... format) {
-    super(message == null ? null : MessageFormat.format(message, format));
+    super(message == null ? null : TextKit.format(message, format));
   }
 
   public EnoaException(String message, Throwable cause, Object... format) {
-    super(message == null ? null : MessageFormat.format(message, format), cause);
+    super(message == null ? null : TextKit.format(message, format), cause);
   }
 
   public EnoaException(Throwable cause) {
@@ -34,6 +34,6 @@ public class EnoaException extends Exception {
   }
 
   public EnoaException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, Object... format) {
-    super(message == null ? null : MessageFormat.format(message, format), cause, enableSuppression, writableStackTrace);
+    super(message == null ? null : TextKit.format(message, format), cause, enableSuppression, writableStackTrace);
   }
 }

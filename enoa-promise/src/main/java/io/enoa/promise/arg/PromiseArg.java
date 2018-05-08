@@ -13,10 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.promise;
+package io.enoa.promise.arg;
 
-public interface PromiseCapture extends Promise {
+import io.enoa.promise.Promise;
 
-  void execute(Throwable e);
+public interface PromiseArg<T> extends Promise {
+
+  void execute(T result);
 
 }

@@ -26,24 +26,10 @@ import io.enoa.toolkit.collection.CollectionKit;
 import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
-public class _StoveAst {
+public class VotsAst {
 
-  private SPM spm;
-  private StoveConfig config;
-
-  public _StoveAst(SPM spm, StoveConfig config) {
-    this.spm = spm;
-    this.config = config;
-  }
-
-  public String analysis(Path path, String source, Map<String, ?> attr) {
-    this.buildAst(path, source);
-    return source;
-  }
-
-  private void buildAst(Path path, String source) {
+  public static List<Ast> analysis(SPM spm, StoveConfig config, Path path, String source) {
     long start = System.currentTimeMillis();
     String[] lines = source.split("\n");
     int ix = 0;
@@ -54,7 +40,7 @@ public class _StoveAst {
     historys.add(asts);
 
     while (ix < lines.length) {
-      ix = _AstBuilder.instance().build(this.spm, path, this.config, historys, asts, asr, lines, ix);
+      ix = _AstBuilder.instance().build(spm, path, config, historys, asts, asr, lines, ix);
     }
     if (!asr.resolve()) {
       throw new SyntaxException("Asr not resolve.");
@@ -62,8 +48,12 @@ public class _StoveAst {
     asr.clear();
     CollectionKit.clear(historys);
     long end = System.currentTimeMillis();
-    asts.forEach(System.out::print);
+
+//    asts.forEach(System.out::print);
+//    System.out.println();
+
     System.out.println("Time-consuming: " + (end - start));
+    return asts;
   }
 
 }

@@ -13,10 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.promise;
+package io.enoa.promise.arg;
 
-public interface PromiseVoid extends Promise {
+import io.enoa.promise.Promise;
 
-  void execute();
+public interface PromiseBool<T> extends Promise {
+
+  boolean execute(T data);
 
 }

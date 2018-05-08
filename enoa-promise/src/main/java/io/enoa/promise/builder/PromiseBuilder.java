@@ -13,25 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.http.protocol;
+package io.enoa.promise.builder;
 
-import io.enoa.promise.EoPromise;
-import io.enoa.promise.arg.PromiseArg;
-import io.enoa.promise.arg.PromiseThen;
-import io.enoa.promise.arg.PromiseBool;
+public class PromiseBuilder {
 
-public interface HttpPromise extends EoPromise<HttpPromise> {
+  private PromiseBuilder() {
+  }
 
-  HttpPromise ok(PromiseArg<HttpResponse> result);
+  public static AonePromiseExecutorBuilder executor() {
+    return AonePromiseExecutorBuilder.instance();
+  }
 
-  HttpPromise error(PromiseArg<HttpResponse> result);
+  public static EOePromiseBuilder eo() {
+    return new EOePromiseBuilder();
+  }
 
-  <T> HttpPromise then(PromiseThen<Object, T> then);
+  public static EEnodPromiseBuilder done() {
+    return new EEnodPromiseBuilder();
+  }
 
-  <T> HttpPromise valid(PromiseBool<T> valid);
-
-  <T> HttpPromise execute(PromiseArg<T> execute);
-
-  <T> HttpPromise fail(PromiseArg<T> fail);
+  /**
+   * 带参数 dong promise
+   *
+   * @return EGraenodPromiseBuilder
+   */
+  public static EGraenodPromiseBuilder donearg() {
+    return new EGraenodPromiseBuilder();
+  }
 
 }

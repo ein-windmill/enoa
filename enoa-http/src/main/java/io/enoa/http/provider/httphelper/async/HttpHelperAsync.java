@@ -18,9 +18,9 @@ package io.enoa.http.provider.httphelper.async;
 import io.enoa.http.EoEmit;
 import io.enoa.http.EoUrl;
 import io.enoa.http.protocol.HttpResponse;
-import io.enoa.promise.PromiseResult;
-import io.enoa.promise.PromiseThen;
-import io.enoa.promise.PromiseValid;
+import io.enoa.promise.arg.PromiseArg;
+import io.enoa.promise.arg.PromiseThen;
+import io.enoa.promise.arg.PromiseBool;
 
 class HttpHelperAsync implements Runnable {
 
@@ -57,7 +57,7 @@ class HttpHelperAsync implements Runnable {
 
       boolean pass = true;
       if (this.promise.valids != null) {
-        for (PromiseValid valid : this.promise.valids) {
+        for (PromiseBool valid : this.promise.valids) {
           if (valid.execute(value))
             continue;
           pass = false;
@@ -67,13 +67,13 @@ class HttpHelperAsync implements Runnable {
 
       if (pass) {
         if (this.promise.execs != null)
-          for (PromiseResult execute : this.promise.execs)
+          for (PromiseArg execute : this.promise.execs)
             execute.execute(value);
         return;
       }
 
       if (this.promise.fails != null)
-        for (PromiseResult execute : this.promise.fails)
+        for (PromiseArg execute : this.promise.fails)
           execute.execute(value);
 
     } catch (Exception e) {

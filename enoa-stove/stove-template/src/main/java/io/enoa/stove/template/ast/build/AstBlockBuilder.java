@@ -51,7 +51,7 @@ class AstBlockBuilder {
 
     // 当前指令与需要的指令结束符相同
     if (cmdname.equals(asr.need())) {
-      Ast ast = new BlockSemAst(blockStart, nextIx, nextIx);
+      Ast ast = new BlockSemAst(TextKit.union(blockStart, "\n"), nextIx, nextIx);
       asr.rem();
       asts.add(ast);
       historys.remove(historys.size() - 1);
@@ -72,14 +72,14 @@ class AstBlockBuilder {
 
 
     // 单行指令直接添加
-    Ast ast = new BlockSemAst(blockStart, nextIx, nextIx);
+    Ast ast = new BlockSemAst(TextKit.union(blockStart, "\n"), nextIx, nextIx);
     asts.add(ast);
     return nextIx;
   }
 
   private int resolveBlock(SPM spm, Path path, StoveConfig config, List<List<Ast>> historys, List<Ast> asts, AstStamar asr, String[] lines, int ix, String blockStart) {
     List<Ast> subasts = new LinkedList<>();
-    subasts.add(new BlockSemAst(blockStart, ix, ix));
+    subasts.add(new BlockSemAst(TextKit.union(blockStart, "\n"), ix, ix));
     Ast ast = new BlockAst(subasts, ix, ix);
     asts.add(ast);
     historys.add(subasts);
