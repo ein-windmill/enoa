@@ -13,28 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.stove.template.command.result;
+package io.enoa.stove.template.expression;
 
-import io.enoa.stove.template.command.StoveResult;
-import io.enoa.toolkit.value.EnoaValue;
+public class _Expression {
 
-public final class VoidResult implements StoveResult {
 
-  private static class Holder {
-    private static final VoidResult INSTANCE = new VoidResult();
-  }
 
-  public static VoidResult instance() {
-    return Holder.INSTANCE;
-  }
-
-  @Override
-  public Object value() {
-    return null;
-  }
-
-//  @Override
-//  public EnoaValue pipeval() {
-//    return EnoaValue.NULL;
-//  }
 }

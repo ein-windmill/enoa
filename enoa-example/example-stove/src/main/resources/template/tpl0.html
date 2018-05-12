@@ -6,27 +6,36 @@
 </head>
 <body>
 <div>
-  #if a then
-    #if b then
-      #if c then
+
+  #if 1+1==2
+    1+1=2
+  #fi
+
+  #if co1
+      a
+    #if co1
+        b
+      #if co0
+          c
       #fi
     #fi
   #fi
   <p>000\r</p>
 
-  ${arr[1]}
+  ${co1|pi0!false ? arr[1].u0.get('A 0')[2].who.real() : (co0 ? arr[1].u0.get('A 0')[2].who.nick() : arr[1].u0.get('A 0')[2].who.name()!a)!vvv(v)v}
+  ${(co0|pi0!false ? arr[1].u0.get('A 0')[2].who.real() : (co1 ? arr[1].u0.get('A 0')[2].who.nick() : arr[1].u0.get('A 0')[2].who.name()!a))|pipe1!vvvv(v)}
 
   <p>111</p>
 
   ${some1}${some2|pip0!!!!def}
   ${some3!}	${some4!1ssa}
-  ${user.name} -> ${user.age}
+  ${user.name} -> ${user.age} => ${user.inf.h}
 
   <p>222</p>
 
-  #if a then
-    <p>${a.a}</p>
-    #if b ; then
+  #if co1
+    <p>${arr[0].u0.get('A 0')[2]}</p>
+    #if b
       <p>${b.b}
         ${b.c}</p>
     #fi

@@ -15,7 +15,7 @@
  */
 package io.enoa.stove.template.renderer.var;
 
-import io.enoa.stove.template.ast.tree.VarAst;
+import io.enoa.stove.template.ast.tree.Ast;
 import io.enoa.stove.template.thr.StoveException;
 import io.enoa.stove.template.thr.SyntaxException;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
@@ -35,7 +35,6 @@ class VarValueArray {
     return Holder.INSTANCE;
   }
 
-
   private char nextChar(char[] cas, int ix) {
     char ca = cas[ix];
     if (ca == ' ')
@@ -49,7 +48,7 @@ class VarValueArray {
    * @param var var
    * @return bolean
    */
-  boolean isArrVar(VarAst ast, String var) {
+  boolean isArrVar(Ast ast, String var) {
 
     // 判定数组取值语法是否正确, 如果有 [ 则必须要有 ] 结束
 
@@ -93,13 +92,14 @@ class VarValueArray {
         nend = "[";
         continue;
       }
-      if (c == ' ') {
-        if (isArr)
-          continue;
-        if (nend != null)
-          continue;
-        throw new SyntaxException("语法错误 获取数组值错误 => `{0}` line =>{1}", ast.code(), ast.start());
-      }
+//      if (c == ' ') {
+//        if (isArr)
+//          continue;
+//        if (nend != null)
+//          continue;
+//      // get('A 0')[2] // 检测错误
+//        throw new SyntaxException("语法错误 获取数组值错误 => `{0}` line =>{1}", ast.code(), ast.start());
+//      }
       if (!slove) {
         if (!NumberKit.isDigit(TextKit.nospace(String.valueOf(c))))
           throw new SyntaxException("语法错误 数组取值只可为数字 => `{0}` line =>{1}", ast.code(), ast.start());
@@ -110,16 +110,24 @@ class VarValueArray {
   }
 
 
-  Object parseArrayValue(VarAst ast, String var, Map<String, ?> attr) {
+  Object parseArrayValueFromAttr(Ast ast, String var, Map<String, ?> attr) {
     String _var0 = var.substring(0, var.indexOf("["));
     Object _val0 = attr.get(_var0);
     if (_val0 == null)
       throw new StoveException("不存在 {0} => line {1}", _var0, ast.start());
-
-    Class<?> oclazz = _val0.getClass();
-    if (!this.isArr(oclazz))
+//    Class<?> oclazz = _val0.getClass();
+    if (!this.isArr(_val0))
       throw new StoveException("访问值非数组 => {0}", var);
 
+    List<Integer> ixs = this.ixs(ast, var);
+    for (Integer ix : ixs) {
+      _val0 = this.arrVal(ast, _val0, ix);
+    }
+
+    return _val0;
+  }
+
+  private List<Integer> ixs(Ast ast, String var) {
     String ixsr = var.substring(var.indexOf("["), var.lastIndexOf("]") + 1);
     List<Integer> ixs = new ArrayList<>();
 
@@ -146,23 +154,17 @@ class VarValueArray {
       sbix.append(c);
       ci += 1;
     }
-
-
-    for (Integer ix : ixs) {
-      _val0 = this.arrVal(ast, _val0, ix, oclazz);
-    }
-
-    return _val0;
+    return ixs;
   }
 
-  private Object arrVal(VarAst ast, Object obj, Integer ix, Class<?> oclazz) {
-    if (oclazz.isArray()) {
+  private Object arrVal(Ast ast, Object obj, Integer ix) {
+    if (obj.getClass().isArray()) {
       int len = Array.getLength(obj);
       if (ix + 1 > len)
         throw new ArrayIndexOutOfBoundsException(EnoaTipKit.message("获取数组长度超出数据长度 => {0} => line {1}", ast.code(), ast.start()));
       return Array.get(obj, ix);
     }
-    if (oclazz.isAssignableFrom(Collection.class)) {
+    if (obj instanceof Collection) {
       Collection cols = (Collection) obj;
       if (ix + 1 > cols.size())
         throw new ArrayIndexOutOfBoundsException(EnoaTipKit.message("获取数组长度超出数据长度 => {0} => line {1}", ast.code(), ast.start()));
@@ -172,14 +174,35 @@ class VarValueArray {
         Object next = iterator.next();
         if (i == ix)
           return next;
-        ix += 1;
+        i += 1;
       }
     }
     throw new StoveException("错误的数组数据类型");
   }
 
-  private boolean isArr(Class<?> clazz) {
-    return clazz.isArray() || clazz.isAssignableFrom(Collection.class);
+  private boolean isArr(Object obj) {
+    return obj.getClass().isArray() || obj instanceof Collection;
+  }
+
+  Object parseArrayValueFromObject(Ast ast, String var, Object source, Map<String, ?> attr) {
+//    if (!this.isArr(source))
+//      throw new StoveException("访问值非数组 => {0}", var);
+
+    String _var0 = var.substring(0, var.indexOf("["));
+    Object _val0 = VarValueObject.instance().parseObjectValue(ast, _var0, source, attr);
+
+    if (_val0 == null)
+      throw new StoveException("不存在 {0} => line {1}", _var0, ast.start());
+
+    if (!this.isArr(_val0))
+      throw new StoveException("访问值非数组 => {0}", var);
+
+    List<Integer> ixs = this.ixs(ast, var);
+    for (Integer ix : ixs) {
+      _val0 = this.arrVal(ast, _val0, ix);
+    }
+
+    return _val0;
   }
 
 }

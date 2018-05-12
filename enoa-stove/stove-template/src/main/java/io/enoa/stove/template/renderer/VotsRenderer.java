@@ -21,6 +21,7 @@ import io.enoa.stove.template.ast.tree.Ast;
 import io.enoa.stove.template.ast.tree.BlockAst;
 import io.enoa.stove.template.ast.tree.TextAst;
 import io.enoa.stove.template.ast.tree.VarAst;
+import io.enoa.stove.template.renderer.block.BlockRenderer;
 import io.enoa.stove.template.renderer.var.VarRenderer;
 
 import java.util.List;
@@ -36,19 +37,16 @@ public class VotsRenderer {
           result.append(((TextAst) ast).code());
           break;
         case VAR:
-          String retVar = VarRenderer.render(spm, config, (VarAst) ast, attr);
-          result.append(retVar == null ? "" : retVar);
+          String _ret0 = VarRenderer.render(spm, config, (VarAst) ast, attr);
+          result.append(_ret0 == null ? "" : _ret0);
           break;
         case BLOCK:
-          result.append(renderBlock(spm, config, (BlockAst) ast, attr));
+          String _ret1 = BlockRenderer.render(spm, config, (BlockAst) ast, attr);
+          result.append(_ret1 == null ? "" : _ret1);
           break;
       }
     }
     return result.toString();
-  }
-
-  private static String renderBlock(SPM spm, StoveConfig config, BlockAst ast, Map<String, ?> attr) {
-    return "/////.//.///";
   }
 
 }

@@ -31,5 +31,7 @@ public interface Ast extends Serializable {
 
   AstType type();
 
+  String code();
+
 
 }

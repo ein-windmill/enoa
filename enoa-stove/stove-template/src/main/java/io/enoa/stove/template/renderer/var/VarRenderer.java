@@ -18,7 +18,6 @@ package io.enoa.stove.template.renderer.var;
 import io.enoa.stove.template.SPM;
 import io.enoa.stove.template.StoveConfig;
 import io.enoa.stove.template.ast.tree.VarAst;
-import io.enoa.stove.template.pipeline.Pipeline;
 import io.enoa.stove.template.thr.StoveException;
 
 import java.util.Map;
@@ -37,28 +36,15 @@ public class VarRenderer {
     String full = ast.code();
     String code = full.substring(config.tokenVarStart().length());
     code = code.substring(0, code.lastIndexOf(config.tokenVarEnd()));
-    String def = this.def(code);
-    if (def != null)
-      code = code.substring(0, code.indexOf("!"));
 
     try {
-      Pipeline pipeline = Pipeline.parse(code, config.tokenPipeline());
-      String value = VarValue.parse(ast, pipeline.mainly(), attr, def);
-      if (pipeline.pipelines().length == 1)
-        return value;
-      return value;
+      String value = VarValue.parse(spm, config, ast, code, attr);
+      return value == null ? "" : value;
     } catch (Throwable e) {
       if (e instanceof RuntimeException)
         throw e;
       throw new StoveException(e.getMessage(), e);
     }
-  }
-
-  private String def(String code) {
-    int ix = code.indexOf("!");
-    if (ix == -1)
-      return null;
-    return code.substring(ix + 1);
   }
 
 }

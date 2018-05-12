@@ -15,12 +15,16 @@
  */
 package io.enoa.stove.template.command;
 
+import io.enoa.stove.template.SPM;
 import io.enoa.stove.template.StoveConfig;
+import io.enoa.stove.template.ast.tree.Ast;
 import io.enoa.stove.template.ast.tree.BlockAst;
 import io.enoa.stove.template.command.helper.StoveHelper;
 import io.enoa.stove.template.thr.SyntaxException;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.value.EnoaValue;
+
+import java.util.Map;
 
 public interface StoveCommand {
 
@@ -40,5 +44,5 @@ public interface StoveCommand {
     return null;
   }
 
-  StoveResult execute(StoveConfig config, EnoaValue pipeval, BlockAst ast) throws SyntaxException;
+  StoveResult execute(SPM spm, StoveConfig config, EnoaValue pipeval, Ast ast, Map<String, ?> attr) throws SyntaxException;
 }
