@@ -41,8 +41,7 @@ public class TSqlInsert implements Trysql<TSqlInsert> {
 
   @Override
   public TSqlInsert dialect(IDialect dialect) {
-    if (this.dialect == null)
-      this.dialect = dialect;
+    this.dialect = dialect;
     return this;
   }
 

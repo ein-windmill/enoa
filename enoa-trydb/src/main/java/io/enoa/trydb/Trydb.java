@@ -17,8 +17,10 @@ package io.enoa.trydb;
 
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.map.Kv;
+import io.enoa.trydb.page.Page;
 import io.enoa.trydb.thr.TrydbException;
 import io.enoa.trydb.tsql.Trysql;
+import io.enoa.trydb.tsql.psql.IPSql;
 import io.enoa.trydb.tx.IAtom;
 import io.enoa.trydb.tx.TxLevel;
 
@@ -70,6 +72,26 @@ public interface Trydb {
     ttsql = TemplateTrydb.with(name, use(name));
     TrydbHolder.reg(name, ttsql);
     return ttsql;
+  }
+
+  /**
+   * todo 异步数据库操作, 暂未完善, 不可使用
+   *
+   * @return EnqueueTrydb
+   */
+  @Deprecated
+  static EnqueueTrydb enqueue() {
+    return enqueue("main");
+  }
+
+  @Deprecated
+  static EnqueueTrydb enqueue(String name) {
+    EnqueueTrydb qtdb = TrydbHolder.qtdb(name);
+    if (qtdb != null)
+      return qtdb;
+    qtdb = EnqueueTrydb.with(use(name));
+    TrydbHolder.reg(name, qtdb);
+    return qtdb;
   }
 
   static boolean exists(String name) {
@@ -162,6 +184,70 @@ public interface Trydb {
 
   static int update(Trysql sql, Object... paras) {
     return use().update(sql, paras);
+  }
+
+  static Page<Kv> pagekv(int pn, int ps, String sql) {
+    return use().pagekv(pn, ps, sql);
+  }
+
+  static Page<Kv> pagekv(int pn, int ps, String sql, Object... paras) {
+    return use().pagekv(pn, ps, sql, paras);
+  }
+
+  static Page<Kv> pagekv(int pn, int ps, Trysql sql) {
+    return use().pagekv(pn, ps, sql);
+  }
+
+  static Page<Kv> pagekv(int pn, int ps, Trysql sql, Object... paras) {
+    return use().pagekv(pn, ps, sql, paras);
+  }
+
+  static <T> Page<T> page(int pn, int ps, String sql, Class<T> clazz) {
+    return use().page(pn, ps, sql, clazz);
+  }
+
+  static <T> Page<T> page(int pn, int ps, String sql, Class<T> clazz, Object... paras) {
+    return use().page(pn, ps, sql, clazz, paras);
+  }
+
+  static <T> Page<T> page(int pn, int ps, Trysql sql, Class<T> clazz) {
+    return use().page(pn, ps, sql, clazz);
+  }
+
+  static <T> Page<T> page(int pn, int ps, Trysql sql, Class<T> clazz, Object... paras) {
+    return use().page(pn, ps, sql, clazz, paras);
+  }
+
+  static Page<Kv> pagekv(IPSql ipsql, int pn, int ps, String sql) {
+    return use().pagekv(ipsql, pn, ps, sql);
+  }
+
+  static Page<Kv> pagekv(IPSql ipsql, int pn, int ps, String sql, Object... paras) {
+    return use().pagekv(ipsql, pn, ps, sql, paras);
+  }
+
+  static Page<Kv> pagekv(IPSql ipsql, int pn, int ps, Trysql sql) {
+    return use().pagekv(ipsql, pn, ps, sql);
+  }
+
+  static Page<Kv> pagekv(IPSql ipsql, int pn, int ps, Trysql sql, Object... paras) {
+    return use().pagekv(ipsql, pn, ps, sql, paras);
+  }
+
+  static <T> Page<T> page(IPSql ipsql, int pn, int ps, String sql, Class<T> clazz) {
+    return use().page(ipsql, pn, ps, sql, clazz);
+  }
+
+  static <T> Page<T> page(IPSql ipsql, int pn, int ps, String sql, Class<T> clazz, Object... paras) {
+    return use().page(ipsql, pn, ps, sql, clazz, paras);
+  }
+
+  static <T> Page<T> page(IPSql ipsql, int pn, int ps, Trysql sql, Class<T> clazz) {
+    return use().page(ipsql, pn, ps, sql, clazz);
+  }
+
+  static <T> Page<T> page(IPSql ipsql, int pn, int ps, Trysql sql, Class<T> clazz, Object... paras) {
+    return use().page(ipsql, pn, ps, sql, clazz, paras);
   }
 
 }

@@ -28,6 +28,7 @@ public class TrydbConfig {
   private final DataSource ds;
   private final IDialect dialect;
   private final TxLevel level;
+  private final ISqlReport report;
 
 
   private TrydbConfig(Builder builder) {
@@ -36,6 +37,7 @@ public class TrydbConfig {
     this.ds = builder.ds;
     this.dialect = builder.dialect;
     this.level = builder.level;
+    this.report = builder.report;
   }
 
   public String name() {
@@ -58,16 +60,22 @@ public class TrydbConfig {
     return level;
   }
 
+  public ISqlReport report() {
+    return this.report;
+  }
+
   public static class Builder {
     private String name;
     private boolean debug;
     private DataSource ds;
     private IDialect dialect;
     private TxLevel level;
+    private ISqlReport report;
 
     public Builder() {
       this.name = "main";
       this.level = TxLevel.REPEATABLE_READ;
+      this.debug = false;
     }
 
     public TrydbConfig build() {
@@ -100,6 +108,22 @@ public class TrydbConfig {
 
     public Builder txlevel(TxLevel level) {
       this.level = level;
+      return this;
+    }
+
+    public Builder showSql() {
+      return this.showSql(true);
+    }
+
+    public Builder showSql(boolean showSql) {
+      if (!showSql)
+        return this;
+      this.report = _TrydbSqlReport.instance();
+      return this;
+    }
+
+    public Builder report(ISqlReport report) {
+      this.report = report;
       return this;
     }
   }

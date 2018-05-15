@@ -23,7 +23,6 @@ public class DruidDs {
 
   private DruidDataSource ds;
 
-
   private void init() {
     this.ds = new DruidDataSource();
     ds.setName("test");

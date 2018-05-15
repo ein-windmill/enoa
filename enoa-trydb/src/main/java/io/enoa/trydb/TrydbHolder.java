@@ -26,10 +26,12 @@ class TrydbHolder {
 
   private Map<String, EnoaTrydb> etdb;
   private Map<String, TemplateTrydb> ttsql;
+  private Map<String, EnqueueTrydb> qtdb;
 
   private TrydbHolder() {
     this.etdb = new HashMap<>();
     this.ttsql = new HashMap<>();
+    this.qtdb = new HashMap<>();
   }
 
   static void reg(String name, EnoaTrydb trydb) {
@@ -40,12 +42,20 @@ class TrydbHolder {
     Holder.INSTANCE.ttsql.put(name, ttdb);
   }
 
+  static void reg(String name, EnqueueTrydb qtdb) {
+    Holder.INSTANCE.qtdb.put(name, qtdb);
+  }
+
   static EnoaTrydb trydb(String name) {
     return Holder.INSTANCE.etdb.get(name);
   }
 
   static TemplateTrydb ttsql(String name) {
     return Holder.INSTANCE.ttsql.get(name);
+  }
+
+  static EnqueueTrydb qtdb(String name) {
+    return Holder.INSTANCE.qtdb.get(name);
   }
 
   static boolean exists(String name) {

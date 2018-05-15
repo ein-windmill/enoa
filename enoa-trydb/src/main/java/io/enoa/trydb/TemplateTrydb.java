@@ -17,8 +17,10 @@ package io.enoa.trydb;
 
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.map.Kv;
+import io.enoa.trydb.page.Page;
 import io.enoa.trydb.thr.TrydbException;
 import io.enoa.trydb.tsql.Trysql;
+import io.enoa.trydb.tsql.psql.IPSql;
 import io.enoa.trydb.tsql.template.TSql;
 import io.enoa.trydb.tx.IAtom;
 import io.enoa.trydb.tx.TxLevel;
@@ -42,10 +44,14 @@ public class TemplateTrydb implements TrydbCommandBase<TemplateTrydb>, TrydbComm
   }
 
   private TSql tsql(String name) {
-    return this.tsql(name, null);
+//    return this.tsql(name, null);
+    TSql tsql = Trysql.template(this.trysqlName).render(name);
+    if (tsql == null)
+      throw new TrydbException(EnoaTipKit.message("eo.tip.trydb.sql_null"));
+    return tsql;
   }
 
-  private TSql tsql(String name, Map kv) {
+  private TSql tsql(String name, Map<String, ?> kv) {
     TSql tsql;
     if (kv == null) {
       tsql = Trysql.template(this.trysqlName).render(name);
@@ -71,13 +77,13 @@ public class TemplateTrydb implements TrydbCommandBase<TemplateTrydb>, TrydbComm
   @Override
   public List<Kv> find(String name, Object... paras) {
     TSql tsql = this.tsql(name);
-    return this.trydb.find(tsql.sql(), paras);
+    return this.trydb.find(tsql, paras);
   }
 
   @Override
   public Kv first(String name) {
     TSql tsql = this.tsql(name);
-    return this.trydb.first(tsql.sql());
+    return this.trydb.first(tsql);
   }
 
   @Override
@@ -160,5 +166,41 @@ public class TemplateTrydb implements TrydbCommandBase<TemplateTrydb>, TrydbComm
   public int update(String name, Map<String, ?> para) {
     TSql tsql = this.tsql(name, para);
     return this.trydb.update(tsql.sql(), tsql.paras());
+  }
+
+  @Override
+  public Page<Kv> pagekv(IPSql ipsql, int pn, int ps, String name) {
+    TSql tsql = this.tsql(name);
+    return this.trydb.pagekv(ipsql, pn, ps, tsql, tsql.paras());
+  }
+
+  @Override
+  public Page<Kv> pagekv(IPSql ipsql, int pn, int ps, String name, Object... paras) {
+    TSql tsql = this.tsql(name);
+    return this.trydb.pagekv(ipsql, pn, ps, tsql.sql(), paras);
+  }
+
+  @Override
+  public Page<Kv> pagekv(IPSql ipsql, int pn, int ps, String name, Map<String, ?> para) {
+    TSql tsql = this.tsql(name, para);
+    return this.trydb.pagekv(ipsql, pn, ps, tsql.sql(), tsql.paras());
+  }
+
+  @Override
+  public <T> Page<T> page(IPSql ipsql, int pn, int ps, String name, Class<T> clazz) {
+    TSql tsql = this.tsql(name);
+    return this.trydb.page(ipsql, pn, ps, tsql.sql(), clazz, tsql.paras());
+  }
+
+  @Override
+  public <T> Page<T> page(IPSql ipsql, int pn, int ps, String name, Class<T> clazz, Object... paras) {
+    TSql tsql = this.tsql(name);
+    return this.trydb.page(ipsql, pn, ps, tsql.sql(), clazz, paras);
+  }
+
+  @Override
+  public <T> Page<T> page(IPSql ipsql, int pn, int ps, String name, Class<T> clazz, Map<String, ?> para) {
+    TSql tsql = this.tsql(name, para);
+    return this.trydb.page(ipsql, pn, ps, tsql.sql(), clazz, tsql.paras());
   }
 }

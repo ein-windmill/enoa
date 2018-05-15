@@ -16,6 +16,8 @@
 package io.enoa.trydb;
 
 import io.enoa.toolkit.map.Kv;
+import io.enoa.trydb.page.Page;
+import io.enoa.trydb.tsql.psql.IPSql;
 import io.enoa.trydb.tx.IAtom;
 import io.enoa.trydb.tx.TxLevel;
 
@@ -49,5 +51,29 @@ interface TrydbCommandBase<S extends TrydbCommandBase> {
   int update(String sql);
 
   int update(String sql, Object... paras);
+
+  default Page<Kv> pagekv(int pn, int ps, String sql) {
+    return this.pagekv(IPSql.sqlfrom(), pn, ps, sql);
+  }
+
+  default Page<Kv> pagekv(int pn, int ps, String sql, Object... paras) {
+    return this.pagekv(IPSql.sqlfrom(), pn, ps, sql, paras);
+  }
+
+  default <T> Page<T> page(int pn, int ps, String sql, Class<T> clazz) {
+    return this.page(IPSql.sqlfrom(), pn, ps, sql, clazz);
+  }
+
+  default <T> Page<T> page(int pn, int ps, String sql, Class<T> clazz, Object... paras) {
+    return this.page(IPSql.sqlfrom(), pn, ps, sql, clazz, paras);
+  }
+
+  Page<Kv> pagekv(IPSql ipsql, int pn, int ps, String sql);
+
+  Page<Kv> pagekv(IPSql ipsql, int pn, int ps, String sql, Object... paras);
+
+  <T> Page<T> page(IPSql ipsql, int pn, int ps, String sql, Class<T> clazz);
+
+  <T> Page<T> page(IPSql ipsql, int pn, int ps, String sql, Class<T> clazz, Object... paras);
 
 }

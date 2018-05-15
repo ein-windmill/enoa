@@ -15,15 +15,13 @@
  */
 package io.enoa.trydb.tsql.template;
 
-import io.enoa.stove.api.StoveTemplate;
-
 import java.util.Map;
 
 /**
  * Sql template api
  * read sql from template
  */
-public interface TSqlTemplate extends StoveTemplate<TSql> {
+public interface TSqlTemplate /*extends StoveTemplate<TSql>*/ {
 
 
   /**
@@ -32,10 +30,8 @@ public interface TSqlTemplate extends StoveTemplate<TSql> {
    * @param name sql template name
    * @return TSql
    */
-  @Override
-  default TSql render(String name) {
-    return this.render(name, null);
-  }
+//  @Override
+  TSql render(String name);
 
   /**
    * get sql from template
@@ -44,6 +40,6 @@ public interface TSqlTemplate extends StoveTemplate<TSql> {
    * @param para para extends Map&lt;String, Object&gt;
    * @return TSql
    */
-  @Override
+//  @Override
   TSql render(String name, Map<String, ?> para);
 }

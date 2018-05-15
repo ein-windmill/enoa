@@ -21,29 +21,41 @@ import io.enoa.trydb.thr.TrysqlException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EnoaTSqlTemplateMgr {
-
+public class TPM {
 
   private static class Holder {
-    private static final Map<String, TSqlTemplate> CACHE = new HashMap<>();
+    private static final TPM INSTANCE = new TPM();
   }
 
-  private static boolean exists(String name) {
-    return Holder.CACHE.keySet().stream().anyMatch(n -> n.equals(name));
+  private TPM() {
   }
 
-  public static void install(TSqlTemplate template) {
+  private Map<String, TSqlTemplate> cache = new HashMap<>();
+
+  public static TPM instance() {
+    return Holder.INSTANCE;
+  }
+
+  private boolean exists(String name) {
+    return this.cache.keySet().stream().anyMatch(n -> n.equals(name));
+  }
+
+  public void install(TSqlTemplate template) {
     install("main", template);
   }
 
-  public static void install(String name, TSqlTemplate template) {
+  public void install(String name, TSqlTemplate template) {
     if (exists(name))
       throw new TrysqlException(EnoaTipKit.message("eo.tip.trydb.tsql_template_name_exists"));
-    Holder.CACHE.put(name, template);
+    this.cache.put(name, template);
   }
 
-  public static TSqlTemplate template(String name) {
-    return Holder.CACHE.get(name);
+  public TSqlTemplate tsql() {
+    return this.tsql("main");
+  }
+
+  public TSqlTemplate tsql(String name) {
+    return this.cache.get(name);
   }
 
 }

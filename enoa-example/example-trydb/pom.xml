@@ -69,6 +69,11 @@
       <artifactId>enoa-json</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>io.enoa</groupId>
+      <artifactId>trydb-ttsql-enjoy</artifactId>
+    </dependency>
+
   </dependencies>
 
   <build>

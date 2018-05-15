@@ -369,6 +369,12 @@
 
       <dependency>
         <groupId>io.enoa</groupId>
+        <artifactId>trydb-ttsql-enjoy</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
         <artifactId>enoa-firesh</artifactId>
         <version>${project.version}</version>
       </dependency>

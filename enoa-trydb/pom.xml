@@ -37,27 +37,42 @@
       <scope>test</scope>
     </dependency>
 
+    <!--
     <dependency>
       <groupId>io.enoa</groupId>
       <artifactId>stove-api</artifactId>
     </dependency>
+    -->
 
     <dependency>
       <groupId>io.enoa</groupId>
       <artifactId>enoa-toolkit</artifactId>
     </dependency>
 
-<!--
+    <!--
     <dependency>
       <groupId>io.enoa</groupId>
       <artifactId>enoa-log</artifactId>
     </dependency>
--->
+    -->
 
     <dependency>
       <groupId>io.enoa</groupId>
       <artifactId>enoa-promise</artifactId>
     </dependency>
+
+    <dependency>
+      <groupId>io.enoa</groupId>
+      <artifactId>enoa-json-fastjson</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.github.ikidou</groupId>
+      <artifactId>TypeBuilder</artifactId>
+      <scope>test</scope>
+    </dependency>
+
 
   </dependencies>
 

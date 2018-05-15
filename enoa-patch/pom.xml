@@ -48,6 +48,7 @@
     <module>enoa-db-activerecord</module>
     <module>enoa-db-mybatis</module>
     <module>enoa-db-beetlsql</module>
+    <module>trydb-ttsql-enjoy</module>
   </modules>
 
 

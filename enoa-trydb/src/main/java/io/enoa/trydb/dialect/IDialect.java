@@ -24,7 +24,7 @@ import java.util.Iterator;
 
 public interface IDialect {
 
-  default String defPrmaryKey() {
+  default String defPrimaryKey() {
     return "id";
   }
 
@@ -54,5 +54,7 @@ public interface IDialect {
   default String[] keywords() {
     return CollectionKit.emptyArray(String.class);
   }
+
+  String pageSql(long offset, int size, String psql);
 
 }

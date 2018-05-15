@@ -17,6 +17,7 @@ package io.enoa.trydb.build;
 
 import io.enoa.toolkit.convert.ConvertKit;
 import io.enoa.toolkit.map.Kv;
+import io.enoa.toolkit.sys.ReflectKit;
 import io.enoa.trydb.convert._BlobConverter;
 import io.enoa.trydb.convert._ClobConverter;
 import io.enoa.trydb.convert._NClobConverter;
@@ -28,11 +29,12 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-class KvBuilder implements IBuilder<Kv> {
+class MapBuilder implements IRsBuilder<Map> {
 
 
-  KvBuilder() {
+  MapBuilder() {
 
   }
 
@@ -43,21 +45,28 @@ class KvBuilder implements IBuilder<Kv> {
     }
   }
 
+  private Map newMap(Class<Map> clazz) {
+//    if (clazz.isInterface())
+    if (Map.class.getName().equals(clazz.getName()))
+      return Kv.create();
+    return ReflectKit.newInstance(clazz);
+  }
+
   @Override
-  public List<Kv> build(ResultSet rs, Class<Kv> clazz) throws SQLException {
-    List<Kv> rets = new ArrayList<>();
+  public List<Map> build(ResultSet rs, Class<Map> clazz) throws SQLException {
+    List<Map> rets = new ArrayList<>();
     ResultSetMetaData meta = rs.getMetaData();
     int cct = meta.getColumnCount();
     String[] names = new String[cct + 1];
     int[] types = new int[cct + 1];
     this.buildLabelNamesAndTypes(meta, names, types);
     while (rs.next()) {
-      Kv kv = Kv.create();
+      Map map = this.newMap(clazz);
       for (int i = 1; i <= cct; i++) {
         Object value;
         if (types[i] < Types.BLOB) {
           value = rs.getObject(i);
-          kv.set(names[i], value);
+          map.put(names[i], value);
           continue;
         }
 
@@ -82,9 +91,9 @@ class KvBuilder implements IBuilder<Kv> {
             throw (SQLException) cause;
           throw e;
         }
-        kv.set(names[i], value);
+        map.put(names[i], value);
       }
-      rets.add(kv);
+      rets.add(map);
     }
 
     return rets;

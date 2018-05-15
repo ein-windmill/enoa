@@ -16,6 +16,8 @@
 package io.enoa.trydb;
 
 import io.enoa.toolkit.map.Kv;
+import io.enoa.trydb.page.Page;
+import io.enoa.trydb.tsql.psql.IPSql;
 
 import java.util.List;
 import java.util.Map;
@@ -31,5 +33,17 @@ interface TrydbCommandTemplate {
   <T> T bean(String name, Class<T> clazz, Map<String, ?> para);
 
   int update(String name, Map<String, ?> para);
+
+  default Page<Kv> pagekv(int pn, int ps, String name, Map<String, ?> para) {
+    return this.pagekv(IPSql.sqlfrom(), pn, ps, name, para);
+  }
+
+  default <T> Page<T> page(int pn, int ps, String name, Class<T> clazz, Map<String, ?> para) {
+    return this.page(IPSql.sqlfrom(), pn, ps, name, clazz, para);
+  }
+
+  Page<Kv> pagekv(IPSql ipsql, int pn, int ps, String name, Map<String, ?> para);
+
+  <T> Page<T> page(IPSql ipsql, int pn, int ps, String name, Class<T> clazz, Map<String, ?> para);
 
 }

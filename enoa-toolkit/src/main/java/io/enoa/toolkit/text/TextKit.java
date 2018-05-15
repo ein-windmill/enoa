@@ -269,4 +269,40 @@ public class TextKit {
     return msg.toString();
   }
 
+  public static String removeRightChar(String text, char c) {
+    return removeChar(text, c, 0);
+  }
+
+  public static String removeLeftChar(String text, char c) {
+    return removeChar(text, c, 1);
+  }
+
+  private static String removeChar(String text, char c, int direct) {
+    StringBuilder _text = new StringBuilder(text);
+    int len = _text.length();
+    boolean has = Boolean.FALSE;
+    int leftOffset = 0;
+    for (int i = len; i-- > 0; ) {
+      int ix = direct == 1 ? leftOffset : i;
+      char _c = _text.charAt(ix);
+      if (has) {
+        if (_c == c) {
+          _text.deleteCharAt(ix);
+          continue;
+        }
+        break;
+      }
+      if ((c != ' ' && c != '\t' && c != '\n' && c != '\r') && (_c == ' ' || _c == '\t' || _c == '\n' || _c == '\r')) {
+        if (direct == 1)
+          leftOffset += 1;
+        continue;
+      }
+      if (_c != c)
+        break;
+      _text.deleteCharAt(ix);
+      has = Boolean.TRUE;
+    }
+    return _text.toString();
+  }
+
 }

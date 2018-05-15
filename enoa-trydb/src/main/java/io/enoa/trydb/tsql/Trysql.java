@@ -22,7 +22,7 @@ import io.enoa.trydb.tsql.generate.TSqlDelete;
 import io.enoa.trydb.tsql.generate.TSqlInsert;
 import io.enoa.trydb.tsql.generate.TSqlSelect;
 import io.enoa.trydb.tsql.generate.TSqlUpdate;
-import io.enoa.trydb.tsql.template.EnoaTSqlTemplateMgr;
+import io.enoa.trydb.tsql.template.TPM;
 import io.enoa.trydb.tsql.template.TSqlTemplate;
 
 public interface Trysql<T extends Trysql> {
@@ -77,12 +77,15 @@ public interface Trysql<T extends Trysql> {
   }
 
   static TSqlTemplate template(String name) {
-    TSqlTemplate template = EnoaTSqlTemplateMgr.template(name);
+    TSqlTemplate template = TPM.instance().tsql(name);
     if (template == null)
       throw new TrysqlException(EnoaTipKit.message("eo.tip.trydb.tsql_template_null"));
     return template;
   }
 
+  static TPM tpm() {
+    return TPM.instance();
+  }
 
   /**
    * 數據庫方言

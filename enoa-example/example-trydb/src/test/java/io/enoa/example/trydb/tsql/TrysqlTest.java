@@ -1,11 +1,14 @@
 package io.enoa.example.trydb.tsql;
 
 import io.enoa.toolkit.map.Kv;
+import io.enoa.toolkit.path.PathKit;
 import io.enoa.trydb.dialect.PostgreDialect;
 import io.enoa.trydb.tsql.Trysql;
 import io.enoa.trydb.tsql.generate.where.TSqlCond;
 import io.enoa.trydb.tsql.generate.where.TSqlRelation;
 import io.enoa.trydb.tsql.template.TSql;
+import io.enoa.trydb.tsql.template.TPM;
+import io.enoa.trydb.tsql.template.enjoy.EnjoyTSqlTemplate;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,7 +16,7 @@ public class TrysqlTest {
 
   @Before
   public void init() {
-//    EnoaTSqlTemplateMgr.install(new NoneTSqlTemplate());
+//    TPM.install(new NoneTSqlTemplate());
   }
 
   @Test
@@ -79,7 +82,14 @@ public class TrysqlTest {
 
   @Test
   public void template() {
-    TSql sql = Trysql.template().render("User.findById", Kv.by("id", 1));
+    TPM tmgr = Trysql.tpm();
+    tmgr.install("main",
+      new EnjoyTSqlTemplate(PathKit.bootPath().resolve("src/test/resources/sqls"),
+        "template.sql",
+        true));
+
+    TSql sql = Trysql.template("main").render("Binary.list", Kv.by("id", 2345678945678L));
+//    TSql sql = Trysql.template("main").render("Binary.list", 2345678945678L);
     System.out.println(sql);
   }
 

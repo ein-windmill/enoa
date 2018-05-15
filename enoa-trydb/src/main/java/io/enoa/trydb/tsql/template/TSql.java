@@ -15,25 +15,29 @@
  */
 package io.enoa.trydb.tsql.template;
 
-import io.enoa.stove.api.StoveBody;
 import io.enoa.toolkit.collection.CollectionKit;
-import io.enoa.toolkit.text.TextKit;
+import io.enoa.trydb.dialect.IDialect;
+import io.enoa.trydb.tsql.Trysql;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public abstract class TSql implements StoveBody {
+public interface TSql extends Trysql<TSql> /*, StoveBody*/ {
 
-  public abstract String sql();
+  Object[] paras();
 
-  public abstract Object[] paras();
-
-  public static TSql create(String sql) {
+  static TSql create(String sql) {
     return create(sql, CollectionKit.emptyArray(Object.class));
   }
 
-  public static TSql create(String sql, Object... paras) {
+  static TSql create(String sql, Object... paras) {
     return new TSql() {
+
+      @Override
+      public TSql dialect(IDialect dialect) {
+        return this;
+      }
+
       @Override
       public String sql() {
         return sql;
@@ -43,14 +47,19 @@ public abstract class TSql implements StoveBody {
       public Object[] paras() {
         return paras;
       }
-    };
-  }
 
-  @Override
-  public String toString() {
-    return TextKit.union(this.sql(),
-      " ----> ",
-      "[", String.join(",", Arrays.stream(this.paras()).map(Object::toString).collect(Collectors.toList())), "]");
+      @Override
+      public String toString() {
+        StringBuilder ret = new StringBuilder();
+        ret.append(this.sql());
+        if (CollectionKit.isEmpty(this.paras()))
+          return ret.toString();
+        ret.append("       ----> [");
+        ret.append(String.join(",", Arrays.stream(this.paras()).map(Object::toString).collect(Collectors.toList())));
+        ret.append("]");
+        return ret.toString();
+      }
+    };
   }
 
 }

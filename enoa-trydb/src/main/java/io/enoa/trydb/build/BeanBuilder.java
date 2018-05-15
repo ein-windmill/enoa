@@ -25,10 +25,10 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-class BeanBuilder<T> implements IBuilder<T> {
+class BeanBuilder<T> implements IRsBuilder<T> {
   @Override
   public List<T> build(ResultSet rs, Class<T> clazz) throws SQLException {
-    List<Map> data = TrydbBuilder.build(rs, Map.class);
+    List<Map> data = RsBuilder.build(rs, Map.class);
     List<T> rets = BeanKit.reductionMaps(data, clazz, NamecaseKit.namecase(NamecaseType.CASE_UNDERLINE), false);
     CollectionKit.clear(data);
     return rets;

@@ -47,8 +47,7 @@ public class TSqlSelect implements Trysql<TSqlSelect> {
 
   @Override
   public TSqlSelect dialect(IDialect dialect) {
-    if (this.dialect == null)
-      this.dialect = dialect;
+    this.dialect = dialect;
     return this;
   }
 

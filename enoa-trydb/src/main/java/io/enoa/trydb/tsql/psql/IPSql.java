@@ -13,15 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.trydb.build;
+package io.enoa.trydb.tsql.psql;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
+public interface IPSql {
 
-public interface IBuilder<R> {
+  static IPSql subquery() {
+    return _DefaultPSqlBuilder.instance().subquery();
+  }
 
+  static IPSql sqlfrom() {
+    return _DefaultPSqlBuilder.instance().sqlfrom();
+  }
 
-  List<R> build(ResultSet rs, Class<R> clazz) throws SQLException;
+  PSql psql(String sql);
 
 }

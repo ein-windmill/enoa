@@ -25,8 +25,7 @@ public class TSqlProcedure implements Trysql<TSqlProcedure> {
 
   @Override
   public TSqlProcedure dialect(IDialect dialect) {
-    if (this.dialect == null)
-      this.dialect = dialect;
+    this.dialect = dialect;
     return this;
   }
 
