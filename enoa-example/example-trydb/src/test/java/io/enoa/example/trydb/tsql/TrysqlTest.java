@@ -2,7 +2,7 @@ package io.enoa.example.trydb.tsql;
 
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.path.PathKit;
-import io.enoa.trydb.dialect.PostgreDialect;
+import io.enoa.trydb.dialect.PostgreSQLDialect;
 import io.enoa.trydb.tsql.Trysql;
 import io.enoa.trydb.tsql.generate.where.TSqlCond;
 import io.enoa.trydb.tsql.generate.where.TSqlRelation;
@@ -22,7 +22,7 @@ public class TrysqlTest {
   @Test
   public void select() {
     String sql = Trysql.select()
-      .dialect(new PostgreDialect())
+      .dialect(new PostgreSQLDialect())
       .table("user")
       .column("id", "name")
       .column("age", "key")
@@ -41,7 +41,7 @@ public class TrysqlTest {
   public void insert() {
     String sql = Trysql.insert()
       .table("user")
-      .dialect(new PostgreDialect())
+      .dialect(new PostgreSQLDialect())
       .multiple()
       .column("id", "name", "age")
       .value(1, "xiaoming", 23)
@@ -53,7 +53,7 @@ public class TrysqlTest {
   @Test
   public void update() {
     String sql = Trysql.update("user")
-      .dialect(new PostgreDialect())
+      .dialect(new PostgreSQLDialect())
       .set("name", "Tom'v")
       .set("age", 19)
       .where()

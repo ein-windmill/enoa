@@ -15,9 +15,7 @@
  */
 package io.enoa.trydb.dialect;
 
-import io.enoa.toolkit.text.TextKit;
-
-public class PostgreDialect implements IDialect {
+public class SqlServer2012Dialect implements IDialect {
 
   private static final String[] KEYWORDS = {
     "select", "update", "insert", "delete",
@@ -30,12 +28,12 @@ public class PostgreDialect implements IDialect {
 
   @Override
   public String identifierQuoteStringLeft() {
-    return "\"";
+    return "[";
   }
 
   @Override
   public String identifierQuoteStringRight() {
-    return "\"";
+    return "]";
   }
 
   @Override
@@ -45,6 +43,15 @@ public class PostgreDialect implements IDialect {
 
   @Override
   public String pageSql(long offset, int size, String psql) {
-    return TextKit.union(psql, " limit ", size, " offset ", offset);
+    StringBuilder builder = new StringBuilder(psql);
+    if (!psql.matches("(?i).* order by[^)]+$")) {
+      builder.append(" order by current_timestamp");
+    }
+    builder.append(" offset ")
+      .append(offset)
+      .append(" rows fetch next ")
+      .append(size)
+      .append(" rows only ");
+    return builder.toString();
   }
 }

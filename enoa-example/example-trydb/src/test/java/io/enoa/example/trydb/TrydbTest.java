@@ -23,9 +23,10 @@ import io.enoa.toolkit.path.PathKit;
 import io.enoa.trydb.Trydb;
 import io.enoa.trydb.TrydbBootstrap;
 import io.enoa.trydb.TrydbConfig;
-import io.enoa.trydb.dialect.PostgreDialect;
+import io.enoa.trydb.dialect.PostgreSQLDialect;
 import io.enoa.trydb.page.Page;
 import io.enoa.trydb.tsql.Trysql;
+import io.enoa.trydb.tsql.psql.IPSql;
 import io.enoa.trydb.tsql.template.enjoy.EnjoyTSqlTemplate;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,7 +44,7 @@ public class TrydbTest {
       .debug(true)
       .ds(new DruidDs().ds())
       .showSql()
-      .dialect(new PostgreDialect())
+      .dialect(new PostgreSQLDialect())
       .build();
     TrydbBootstrap bootstrap = new TrydbBootstrap(config);
     bootstrap.start();
@@ -142,7 +143,7 @@ public class TrydbTest {
     Page<EBinary> pkv4 = Trydb.template().page(3, 1, "Binary.page0", EBinary.class, 3456789);
     System.out.println(pkv4);
 
-    Page<EBinary> pkv5 = Trydb.template().page(3, 1, "Binary.page1", EBinary.class, Kv.by("max", 3456789));
+    Page<EBinary> pkv5 = Trydb.template().page(IPSql.subquery(), 3, 1, "Binary.page1", EBinary.class, Kv.by("max", 3456789));
     System.out.println(pkv5);
 
     Page<EBinary> pkv6 = Trydb.elegant()

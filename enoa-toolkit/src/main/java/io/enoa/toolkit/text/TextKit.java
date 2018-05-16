@@ -183,14 +183,19 @@ public class TextKit {
     return nospace(text, false);
   }
 
-  public static String union(String text, Object... union) {
+  public static String union(int capacity, String text, Object... union) {
     if (union == null)
       return text;
-    StringBuilder ret = new StringBuilder(text);
+    StringBuilder ret = new StringBuilder(capacity);
+    ret.append(text);
     for (Object u : union) {
       ret.append(u);
     }
     return ret.toString();
+  }
+
+  public static String union(String text, Object... union) {
+    return union(text.length() + 16, text, union);
   }
 
   public static String ellipsis(String text) {
