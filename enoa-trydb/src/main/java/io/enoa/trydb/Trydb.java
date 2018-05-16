@@ -94,6 +94,10 @@ public interface Trydb {
     return qtdb;
   }
 
+  static TrydbConfig config() {
+    return config("main");
+  }
+
   static TrydbConfig config(String name) {
     EnoaTrydb trydb = use(name);
     if (trydb == null)
