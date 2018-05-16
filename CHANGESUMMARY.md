@@ -69,6 +69,18 @@
 
 ### io.enoa.db.provider.ds.druid._Druid
 
+### sqlkit
+
+> io.enoa.trydb.tsql.template.enjoy => com.jfinal.plugin.activerecord.sql
+
+- NameSpaceDirective
+- ParaDirective
+- SqlDirective
+- SqlKit
+- SqlPara
+- SqlSource
+
+
 
 
 ## OkHttp

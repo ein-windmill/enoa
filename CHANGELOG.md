@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Reflect manager, singleton support. -> `enoa-reflect`
 - Add UnicodeKit support unicode and character convert -> `enoa-toolkit`
 - CollectionKit add split and parts collection -> `enoa-toolkit`
+- Add trydb -> `enoa-trydb`
 
 ### Changed
 
