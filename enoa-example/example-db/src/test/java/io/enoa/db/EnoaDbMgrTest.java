@@ -22,12 +22,11 @@ import io.enoa.db.mapper.BaseMapper;
 import io.enoa.db.mapper.UserMapper;
 import io.enoa.db.provider.db.activerecord.ActiveRecordConfig;
 import io.enoa.db.provider.db.activerecord.ActiveRecordProvider;
-import io.enoa.provider.db.beetlsql.BeetlSQLConfig;
-import io.enoa.provider.db.beetlsql.BeetlSQLKit;
-import io.enoa.provider.db.beetlsql.BeetlSQLProvider;
 import io.enoa.db.provider.db.mybatis.MybatisConfig;
 import io.enoa.db.provider.db.mybatis.MybatisKit;
 import io.enoa.db.provider.db.mybatis.MybatisProvider;
+import io.enoa.db.provider.db.trydb.EoTrydbConfig;
+import io.enoa.db.provider.db.trydb.TrydbProvider;
 import io.enoa.db.provider.ds.c3p0.C3p0Config;
 import io.enoa.db.provider.ds.c3p0.C3p0Provider;
 import io.enoa.db.provider.ds.druid.DruidConfig;
@@ -36,9 +35,17 @@ import io.enoa.db.provider.ds.hikaricp.HikariCpConfig;
 import io.enoa.db.provider.ds.hikaricp.HikariCpProvider;
 import io.enoa.json.kit.JsonKit;
 import io.enoa.log.kit.LogKit;
+import io.enoa.provider.db.beetlsql.BeetlSQLConfig;
+import io.enoa.provider.db.beetlsql.BeetlSQLKit;
+import io.enoa.provider.db.beetlsql.BeetlSQLProvider;
+import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.path.PathKit;
+import io.enoa.trydb.Trydb;
+import io.enoa.trydb.tsql.Trysql;
+import io.enoa.trydb.tsql.template.enjoy.EnjoyTSqlTemplate;
 import org.beetl.sql.core.db.MySqlStyle;
 import org.beetl.sql.core.db.PostgresStyle;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -153,12 +160,43 @@ public class EnoaDbMgrTest {
     LogKit.debug(JsonKit.toJson(rets2));
   }
 
+  private void testTrydb() {
+    EoDbConfig dbc1 = new EoTrydbConfig.Builder()
+      .debug(true)
+      .dialect(new io.enoa.trydb.dialect.MysqlDialect())
+      .showSql()
+      .ds(DS.C3P0_MYSQL.ds, DS.C3P0_MYSQL.config)
+      .build();
+    EnoaDbMgr.instance().start(new TrydbProvider(), dbc1);
+    List<Kv> rets0 = Trydb.find("select * from t_user");
+
+
+    EoDbConfig dbc2 = new EoTrydbConfig.Builder()
+      .name("pgsql")
+      .debug(true)
+      .dialect(new io.enoa.trydb.dialect.PostgreSQLDialect())
+      .showSql()
+      .ds(DS.DRUID_PGSQL.ds, DS.DRUID_PGSQL.config)
+      .template(new EnjoyTSqlTemplate(PathKit.path("activerecord"), "template.sql"))
+      .build();
+    EnoaDbMgr.instance().start(new TrydbProvider(), dbc2);
+    List<Kv> rets2 = Trydb.template("pgsql").find("User.list");
+    List<Kv> rets3 = Trydb.use("pgsql").find(Trysql.tsql("pgsql", "User.list"));
+
+    System.out.println(rets0);
+    System.out.println(rets2);
+    System.out.println(rets3);
+
+  }
+
   @Test
+  @Ignore
   public void testStart() {
     try {
-      this.testBeetlSQL();
-      this.testMybatis();
-      this.testActiveRecord();
+//      this.testBeetlSQL();
+//      this.testMybatis();
+//      this.testActiveRecord();
+      this.testTrydb();
     } catch (Exception e) {
       LogKit.error(e.getMessage(), e);
     }

@@ -53,6 +53,10 @@ public class EnoaTrydb implements TrydbCommandBase<EnoaTrydb>, TrydbCommandTSql<
     this.config = config;
   }
 
+  TrydbConfig config() {
+    return this.config;
+  }
+
   private Connection conn() throws SQLException {
     if (this.xconn != null)
       return this.xconn;
@@ -166,7 +170,7 @@ public class EnoaTrydb implements TrydbCommandBase<EnoaTrydb>, TrydbCommandTSql<
       PreparedStatement pst = conn.prepareStatement(sql);
       this.dialect().fillParas(pst, paras);
       ResultSet rs = pst.executeQuery();
-      List<T> rets = RsBuilder.build(rs, clazz);
+      List<T> rets = RsBuilder.build(rs, clazz, this.config.namecase());
       StreamKit.close(false, pst, rs);
       return rets;
     } catch (SQLException e) {

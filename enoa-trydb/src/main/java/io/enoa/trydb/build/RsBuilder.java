@@ -15,6 +15,8 @@
  */
 package io.enoa.trydb.build;
 
+import io.enoa.toolkit.namecase.INameCase;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -55,23 +57,23 @@ public class RsBuilder {
     return Holder.INSTANCE;
   }
 
-  public static <T> List<T> build(ResultSet rs, Class<T> clazz) throws SQLException {
+  public static <T> List<T> build(ResultSet rs, Class<T> clazz, INameCase namecase) throws SQLException {
     if (clazz == null) {
 //      throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.trydb.target_clazz_null"));
-      return Holder.DEFAULT_BUILDER.build(rs, clazz);
+      return Holder.DEFAULT_BUILDER.build(rs, clazz, namecase);
     }
 
     Boolean isJavaType = Holder.MAP_JAVA_TYPE.get(clazz.getName());
     if (isJavaType != null && isJavaType) {
-      return Holder.DEFAULT_BUILDER.build(rs, clazz);
+      return Holder.DEFAULT_BUILDER.build(rs, clazz, namecase);
     }
 
     boolean isMap = Map.class.isAssignableFrom(clazz);
     if (isMap) {
-      return Holder.MAP_BUILDER.build(rs, clazz);
+      return Holder.MAP_BUILDER.build(rs, clazz, namecase);
     }
 
-    return Holder.BEAN_BUILDER.build(rs, clazz);
+    return Holder.BEAN_BUILDER.build(rs, clazz, namecase);
   }
 
 }

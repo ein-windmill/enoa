@@ -94,6 +94,13 @@ public interface Trydb {
     return qtdb;
   }
 
+  static TrydbConfig config(String name) {
+    EnoaTrydb trydb = use(name);
+    if (trydb == null)
+      throw new TrydbException(EnoaTipKit.message("eo.tip.trydb.tsql_template_notfound", name));
+    return trydb.config();
+  }
+
   static boolean exists(String name) {
     return TrydbHolder.exists(name);
   }

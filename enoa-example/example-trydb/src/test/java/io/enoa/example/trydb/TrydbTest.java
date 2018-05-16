@@ -45,10 +45,12 @@ public class TrydbTest {
       .ds(new DruidDs().ds())
       .showSql()
       .dialect(new PostgreSQLDialect())
+      .template(new EnjoyTSqlTemplate(PathKit.bootPath().resolve("src/test/resources/sqls"), "template.sql", true))
       .build();
     TrydbBootstrap bootstrap = new TrydbBootstrap(config);
     bootstrap.start();
   }
+
 
   @Test
   public void find() {
@@ -78,7 +80,7 @@ public class TrydbTest {
     LogKit.debug(JsonKit.toJson(bean1));
 
 
-    Trydb.first(Trysql.template().render("Binary.list"));
+    Trydb.first(Trysql.tsql("Binary.list"));
   }
 
   @Test
@@ -106,14 +108,6 @@ public class TrydbTest {
   private boolean updateBin(int times) {
     byte[] bytes = {1, 3, 4, 5, 6, 3, 4, 5, 6, 3, 4, 5, 6, (byte) times};
     return Trydb.update("update t_binary set bin=? where id=1", new Object[]{bytes}) != 0;
-  }
-
-  @Before
-  public void before() {
-    Trysql.tpm().install("main",
-      new EnjoyTSqlTemplate(PathKit.bootPath().resolve("src/test/resources/sqls"),
-        "template.sql",
-        true));
   }
 
   @Test

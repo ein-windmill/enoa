@@ -16,14 +16,18 @@
 package io.enoa.trydb.tsql;
 
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
+import io.enoa.trydb.Trydb;
+import io.enoa.trydb.TrydbConfig;
 import io.enoa.trydb.dialect.IDialect;
-import io.enoa.trydb.thr.TrysqlException;
+import io.enoa.trydb.thr.TrydbException;
 import io.enoa.trydb.tsql.generate.TSqlDelete;
 import io.enoa.trydb.tsql.generate.TSqlInsert;
 import io.enoa.trydb.tsql.generate.TSqlSelect;
 import io.enoa.trydb.tsql.generate.TSqlUpdate;
-import io.enoa.trydb.tsql.template.TPM;
+import io.enoa.trydb.tsql.template.TSql;
 import io.enoa.trydb.tsql.template.TSqlTemplate;
+
+import java.util.Map;
 
 public interface Trysql<T extends Trysql> {
 
@@ -72,19 +76,30 @@ public interface Trysql<T extends Trysql> {
     return new TSqlInsert(table);
   }
 
-  static TSqlTemplate template() {
-    return template("main");
+  static TSql tsql(String key) {
+    return tsql("main", key);
   }
 
-  static TSqlTemplate template(String name) {
-    TSqlTemplate template = TPM.instance().tsql(name);
-    if (template == null)
-      throw new TrysqlException(EnoaTipKit.message("eo.tip.trydb.tsql_template_null"));
-    return template;
+  static TSql tsql(String key, Map<String, ?> para) {
+    return tsql("main", key, para);
   }
 
-  static TPM tpm() {
-    return TPM.instance();
+  static TSql tsql(String name, String key) {
+    return tsql(name, key, null);
+  }
+
+  static TSql tsql(String name, String key, Map<String, ?> para) {
+    TrydbConfig config = Trydb.config(name);
+    TSqlTemplate template = config.template();
+    TSql tsql;
+    if (para == null) {
+      tsql = template.render(key);
+    } else {
+      tsql = template.render(key, para);
+    }
+    if (tsql == null)
+      throw new TrydbException(EnoaTipKit.message("eo.tip.trydb.sql_null"));
+    return tsql;
   }
 
   /**

@@ -17,6 +17,7 @@ package io.enoa.trydb.build;
 
 import io.enoa.toolkit.convert.ConvertKit;
 import io.enoa.toolkit.map.Kv;
+import io.enoa.toolkit.namecase.INameCase;
 import io.enoa.toolkit.sys.ReflectKit;
 import io.enoa.trydb.convert._BlobConverter;
 import io.enoa.trydb.convert._ClobConverter;
@@ -53,7 +54,7 @@ class MapBuilder implements IRsBuilder<Map> {
   }
 
   @Override
-  public List<Map> build(ResultSet rs, Class<Map> clazz) throws SQLException {
+  public List<Map> build(ResultSet rs, Class<Map> clazz, INameCase namecase) throws SQLException {
     List<Map> rets = new ArrayList<>();
     ResultSetMetaData meta = rs.getMetaData();
     int cct = meta.getColumnCount();

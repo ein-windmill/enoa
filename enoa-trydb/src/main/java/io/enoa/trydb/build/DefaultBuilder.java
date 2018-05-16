@@ -15,6 +15,8 @@
  */
 package io.enoa.trydb.build;
 
+import io.enoa.toolkit.namecase.INameCase;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ import java.util.List;
 class DefaultBuilder<T> implements IRsBuilder<T> {
 
   @Override
-  public List<T> build(ResultSet rs, Class<T> clazz) throws SQLException {
+  public List<T> build(ResultSet rs, Class<T> clazz, INameCase namecase) throws SQLException {
     List result = new ArrayList();
     int colAmount = rs.getMetaData().getColumnCount();
 

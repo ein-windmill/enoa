@@ -105,6 +105,17 @@
       <scope>provided</scope>
     </dependency>
 
+    <dependency>
+      <groupId>io.enoa</groupId>
+      <artifactId>enoa-db-trydb</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>io.enoa</groupId>
+      <artifactId>trydb-ttsql-enjoy</artifactId>
+      <scope>provided</scope>
+    </dependency>
 
   </dependencies>
 

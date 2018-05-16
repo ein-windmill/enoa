@@ -49,6 +49,7 @@
     <module>enoa-db-mybatis</module>
     <module>enoa-db-beetlsql</module>
     <module>trydb-ttsql-enjoy</module>
+    <module>enoa-db-trydb</module>
   </modules>
 
 
