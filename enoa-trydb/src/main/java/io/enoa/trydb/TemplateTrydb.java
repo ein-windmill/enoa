@@ -120,31 +120,31 @@ public class TemplateTrydb implements TrydbCommandBase<TemplateTrydb>, TrydbComm
 
   @Override
   public List<Kv> find(String name, Map<String, ?> para) {
-    TSql tsql = Trysql.tsql(name, para);
+    TSql tsql = Trysql.tsql(this.config.name(), name, para);
     return this.trydb.find(tsql.sql(), tsql.paras());
   }
 
   @Override
   public Kv first(String name, Map<String, ?> para) {
-    TSql tsql = Trysql.tsql(name, para);
+    TSql tsql = Trysql.tsql(this.config.name(), name, para);
     return this.trydb.first(tsql.sql(), tsql.paras());
   }
 
   @Override
   public <T> List<T> beans(String name, Class<T> clazz, Map<String, ?> para) {
-    TSql tsql = Trysql.tsql(name, para);
+    TSql tsql = Trysql.tsql(this.config.name(), name, para);
     return this.trydb.beans(tsql.sql(), clazz, tsql.paras());
   }
 
   @Override
   public <T> T bean(String name, Class<T> clazz, Map<String, ?> para) {
-    TSql tsql = Trysql.tsql(name, para);
+    TSql tsql = Trysql.tsql(this.config.name(), name, para);
     return this.trydb.bean(tsql.sql(), clazz, tsql.paras());
   }
 
   @Override
   public int update(String name, Map<String, ?> para) {
-    TSql tsql = Trysql.tsql(name, para);
+    TSql tsql = Trysql.tsql(this.config.name(), name, para);
     return this.trydb.update(tsql.sql(), tsql.paras());
   }
 
@@ -162,7 +162,7 @@ public class TemplateTrydb implements TrydbCommandBase<TemplateTrydb>, TrydbComm
 
   @Override
   public Page<Kv> pagekv(IPSql ipsql, int pn, int ps, String name, Map<String, ?> para) {
-    TSql tsql = Trysql.tsql(name, para);
+    TSql tsql = Trysql.tsql(this.config.name(), name, para);
     return this.trydb.pagekv(ipsql, pn, ps, tsql.sql(), tsql.paras());
   }
 
@@ -180,7 +180,7 @@ public class TemplateTrydb implements TrydbCommandBase<TemplateTrydb>, TrydbComm
 
   @Override
   public <T> Page<T> page(IPSql ipsql, int pn, int ps, String name, Class<T> clazz, Map<String, ?> para) {
-    TSql tsql = Trysql.tsql(name, para);
+    TSql tsql = Trysql.tsql(this.config.name(), name, para);
     return this.trydb.page(ipsql, pn, ps, tsql.sql(), clazz, tsql.paras());
   }
 }
