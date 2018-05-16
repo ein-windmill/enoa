@@ -17,6 +17,7 @@ package io.enoa.toolkit.text;
 
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.digest.DigestKit;
+import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.number.NumberKit;
 
 /**
@@ -267,7 +268,7 @@ public class TextKit {
       }
 
       if (!NumberKit.isDigit(String.valueOf(c), false))
-        throw new IllegalArgumentException("无法解析参数 => " + message); // todo tip
+        throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.toolkit.text_format_cant_parse_arg", message));
       ixb.append(c);
     }
     ixb.delete(0, ixb.length());

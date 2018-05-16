@@ -42,8 +42,8 @@ public class HttpHelperExecutor implements EoExecutor {
 
   @Override
   public HttpPromise enqueue(EoUrl url, EoEmit emit) {
-    HttpHelperPromise promise = new HttpHelperPromise();
-    this.executorService().execute(new HttpHelperAsync(url, emit, promise));
-    return promise;
+    HttpHelperPromiseBuilder hpb = new HttpHelperPromiseBuilder();
+    this.executorService().execute(new HttpHelperAsync(url, emit, hpb));
+    return hpb.build();
   }
 }

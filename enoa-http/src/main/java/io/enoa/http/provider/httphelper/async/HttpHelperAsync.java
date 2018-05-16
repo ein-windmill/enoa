@@ -19,16 +19,16 @@ import io.enoa.http.EoEmit;
 import io.enoa.http.EoUrl;
 import io.enoa.http.protocol.HttpResponse;
 import io.enoa.promise.arg.PromiseArg;
-import io.enoa.promise.arg.PromiseThen;
 import io.enoa.promise.arg.PromiseBool;
+import io.enoa.promise.arg.PromiseThen;
 
 class HttpHelperAsync implements Runnable {
 
   private final EoEmit emit;
   private final String name;
-  private final HttpHelperPromise promise;
+  private final HttpHelperPromiseBuilder promise;
 
-  HttpHelperAsync(EoUrl url, EoEmit emit, HttpHelperPromise promise) {
+  HttpHelperAsync(EoUrl url, EoEmit emit, HttpHelperPromiseBuilder promise) {
     String utx = url.end();
     this.name = utx.substring(0, utx.length() < 70 ? utx.length() : 70).concat("...");
     this.emit = emit;
@@ -43,21 +43,21 @@ class HttpHelperAsync implements Runnable {
       HttpResponse resp = this.emit.emit();
 
       int code = resp.code();
-      if (this.promise.oks != null && code < 400)
-        this.promise.oks.forEach(ok -> ok.execute(resp));
+      if (this.promise.oks() != null && code < 400)
+        this.promise.oks().forEach(ok -> ok.execute(resp));
 
-      if (this.promise.errors != null && code >= 400)
-        this.promise.errors.forEach(error -> error.execute(resp));
+      if (this.promise.errors() != null && code >= 400)
+        this.promise.errors().forEach(error -> error.execute(resp));
 
       Object value = resp;
 
-      if (this.promise.thens != null)
-        for (PromiseThen then : this.promise.thens)
+      if (this.promise.thens() != null)
+        for (PromiseThen then : this.promise.thens())
           value = then.execute(value);
 
       boolean pass = true;
-      if (this.promise.valids != null) {
-        for (PromiseBool valid : this.promise.valids) {
+      if (this.promise.valids() != null) {
+        for (PromiseBool valid : this.promise.valids()) {
           if (valid.execute(value))
             continue;
           pass = false;
@@ -66,25 +66,25 @@ class HttpHelperAsync implements Runnable {
       }
 
       if (pass) {
-        if (this.promise.execs != null)
-          for (PromiseArg execute : this.promise.execs)
+        if (this.promise.execs() != null)
+          for (PromiseArg execute : this.promise.execs())
             execute.execute(value);
         return;
       }
 
-      if (this.promise.fails != null)
-        for (PromiseArg execute : this.promise.fails)
+      if (this.promise.fails() != null)
+        for (PromiseArg execute : this.promise.fails())
           execute.execute(value);
 
     } catch (Exception e) {
-      if (this.promise.captures == null) {
+      if (this.promise.captures() == null) {
         e.printStackTrace();
         return;
       }
-      this.promise.captures.forEach(capture -> capture.execute(e));
+      this.promise.captures().forEach(capture -> capture.execute(e));
     } finally {
-      if (this.promise.always != null)
-        this.promise.always.execute();
+      if (this.promise.always() != null)
+        this.promise.always().execute();
       Thread.currentThread().setName(oldName);
     }
   }
