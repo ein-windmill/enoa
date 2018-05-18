@@ -26,18 +26,18 @@ import java.util.List;
 public class JsonKit {
 
   public static String toJson(Object object) {
-    return EMgrJson.instance().json().toJson(object);
+    return EMgrJson.json().toJson(object);
   }
 
   public static <T> T parse(String json, Class<T> type) {
-    return EMgrJson.instance().json().parse(json, type);
+    return EMgrJson.json().parse(json, type);
   }
 
   public static <T> T parse(String json, Type type) {
-    return EMgrJson.instance().json().parse(json, type);
+    return EMgrJson.json().parse(json, type);
   }
 
   public static <T> List<T> parseArray(String json, Class<T> type) {
-    return EMgrJson.instance().json().parseArray(json, type);
+    return EMgrJson.json().parseArray(json, type);
   }
 }
