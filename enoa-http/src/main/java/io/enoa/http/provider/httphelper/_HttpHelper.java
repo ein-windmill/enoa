@@ -150,14 +150,17 @@ class _HttpHelper implements Http {
   }
 
   @Override
-  public Http encode() {
-    this.encode = true;
+  public Http encode(boolean encode) {
+    this.encode = encode;
     return this;
   }
 
   private Http para(String name, Object value, boolean array) {
     if (this.paras == null)
       this.paras = new HashSet<>();
+    if (value instanceof Path) {
+      return this.para(name, (Path) value);
+    }
 
     Set<HttpPara> itm = new HashSet<>();
     Iterator<HttpPara> iterator = this.paras.iterator();
@@ -174,7 +177,7 @@ class _HttpHelper implements Http {
       iterator.remove();
       itm.add(new HttpPara(para.name(), para.value(), true));
     }
-    itm.add(new HttpPara(name, value.toString(), array));
+    itm.add(new HttpPara(name, String.valueOf(value), array));
     this.paras.addAll(itm);
     itm.clear();
     return this;

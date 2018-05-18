@@ -66,6 +66,7 @@
     <module>enoa-patch</module>
     <module>enoa-promise</module>
     <module>enoa-stove</module>
+    <module>enoa-rpc</module>
   </modules>
 
 

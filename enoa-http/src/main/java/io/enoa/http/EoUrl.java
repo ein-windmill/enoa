@@ -30,7 +30,7 @@ public interface EoUrl {
 
   EoUrl subpath(String subpath);
 
-  EoUrl subpath(String... subpath);
+  EoUrl subpath(String... subpaths);
 
   EoUrl para(String name, Object value);
 
@@ -40,10 +40,22 @@ public interface EoUrl {
 
   HttpPara[] paras();
 
+  default EoUrl traditional() {
+    return this.traditional(Boolean.TRUE);
+  }
+
   EoUrl traditional(boolean traditional);
 
-  EoUrl encode();
+  default EoUrl encode() {
+    return this.encode(true);
+  }
+
+  EoUrl encode(boolean encode);
 
   String end();
+
+//  default String url() {
+//    return this.end();
+//  }
 
 }

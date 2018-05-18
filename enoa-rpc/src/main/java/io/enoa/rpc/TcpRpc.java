@@ -13,92 +13,85 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.http;
+package io.enoa.rpc;
 
+import io.enoa.http.EoExecutor;
+import io.enoa.http.EoHttpConfig;
+import io.enoa.http.HttpAuth;
 import io.enoa.http.protocol.HttpHeader;
 import io.enoa.http.protocol.HttpMethod;
 import io.enoa.http.protocol.HttpPara;
-import io.enoa.http.protocol.HttpPromise;
-import io.enoa.http.provider.httphelper.HttpHelperProvider;
 import io.enoa.http.proxy.HttpProxy;
 import io.enoa.http.proxy.TcpProxy;
+import io.enoa.rpc.handler.IHandler;
+import io.enoa.rpc.http.HttpRpcPromise;
+import io.enoa.rpc.http.HttpRpcResult;
 
+import java.lang.reflect.Type;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.Collection;
 
-public interface Http extends EoEmit {
+public interface TcpRpc {
 
-  static Http use(EoHttp http) {
-    return http.http();
+  TcpRpc executor(EoExecutor executor);
+
+  default <T> HttpRpcPromise<T> enqueue(Class<T> clazz) {
+    return this.enqueue((Type) clazz);
   }
 
-  static Http request() {
-    return use(HttpHelperProvider.instance());
+  <T> HttpRpcPromise<T> enqueue(Type type);
+
+  <T> HttpRpcPromise<T> enqueue(IHandler<T> handler);
+
+  <T> HttpRpcResult<T> emit(IHandler<T> handler);
+
+  default <T> HttpRpcResult<T> emit(Class<T> clazz) {
+    return this.emit((Type) clazz);
   }
 
-  static Http request(String url) {
-    return request(EoUrl.with(url));
-  }
+  <T> HttpRpcResult<T> emit(Type type);
 
-  static Http request(HttpMethod method, String url) {
-    return request(method, EoUrl.with(url));
-  }
+  TcpRpc method(HttpMethod method);
 
-  static Http request(EoUrl url) {
-    return request().url(url);
-  }
+  TcpRpc config(EoHttpConfig config);
 
-  static Http request(HttpMethod method, EoUrl url) {
-    return request().method(method).url(url);
-  }
+  TcpRpc charset(Charset charset);
 
-  Http executor(EoExecutor executor);
+//  default TcpRpc url(String url) {
+//    return null;
+//  }
+//
+//  TcpRpc url(EoUrl url);
 
-  HttpPromise enqueue();
-
-  Http method(HttpMethod method);
-
-  Http config(EoHttpConfig config);
-
-  Http charset(Charset charset);
-
-  default Http url(String url) {
-    if (url == null)
-      throw new IllegalArgumentException("url == null");
-    return this.url(EoUrl.with(url));
-  }
-
-  Http url(EoUrl url);
-
-  default Http traditional() {
+  default TcpRpc traditional() {
     return this.traditional(true);
   }
 
-  Http traditional(boolean traditional);
+  TcpRpc traditional(boolean traditional);
 
-  default Http encode() {
+  default TcpRpc encode() {
     return this.encode(true);
   }
 
-  Http encode(boolean encode);
+  TcpRpc encode(boolean encode);
 
-  Http para(String name, Object value);
+  TcpRpc para(String name, Object value);
 
-  Http para(String name, Object... values);
+  TcpRpc para(String name, Object... values);
 
-  Http para(String name, Collection values);
+  TcpRpc para(String name, Collection values);
 
-  Http para(String name, Path path);
+  TcpRpc para(String name, Path path);
 
-  Http para(String name, String filename, byte[] bytes);
+  TcpRpc para(String name, String filename, byte[] bytes);
 
-  default Http para(HttpPara para) {
+  default TcpRpc para(HttpPara para) {
     return this.para(para.name(), para.value());
   }
 
-  default Http para(HttpPara... paras) {
+  default TcpRpc para(HttpPara... paras) {
     if (paras == null)
       throw new IllegalArgumentException("paras == null");
     for (HttpPara para : paras) {
@@ -107,29 +100,29 @@ public interface Http extends EoEmit {
     return this;
   }
 
-  default Http para(Collection<HttpPara> paras) {
+  default TcpRpc para(Collection<HttpPara> paras) {
     if (paras == null)
       throw new IllegalArgumentException("paras == null");
     paras.forEach(para -> this.para(para.name(), para.value()));
     return this;
   }
 
-  Http para(Path path);
+  TcpRpc para(Path path);
 
-  default Http raw(String raw) {
+  default TcpRpc raw(String raw) {
     return this.raw(raw, null);
   }
 
-  Http raw(String raw, String contentType);
+  TcpRpc raw(String raw, String contentType);
 
-  default Http header(String name, String value) {
+  default TcpRpc header(String name, String value) {
     this.header(new HttpHeader(name, value));
     return this;
   }
 
-  Http header(HttpHeader header);
+  TcpRpc header(HttpHeader header);
 
-  default Http header(HttpHeader[] headers) {
+  default TcpRpc header(HttpHeader[] headers) {
     if (headers == null)
       throw new IllegalArgumentException("headers == null");
     for (HttpHeader header : headers) {
@@ -138,36 +131,36 @@ public interface Http extends EoEmit {
     return this;
   }
 
-  default Http header(Collection<HttpHeader> headers) {
+  default TcpRpc header(Collection<HttpHeader> headers) {
     if (headers == null)
       throw new IllegalArgumentException("headers == null");
     headers.forEach(this::header);
     return this;
   }
 
-  Http cookie(String name, String value);
+  TcpRpc cookie(String name, String value);
 
-  Http contentType(String contentType);
+  TcpRpc contentType(String contentType);
 
-  Http proxy(HttpProxy proxy);
+  TcpRpc proxy(HttpProxy proxy);
 
-  default Http proxy(String host, int port) {
+  default TcpRpc proxy(String host, int port) {
     return this.proxy(host, port, null, null);
   }
 
-  default Http proxy(String host, int port, String user) {
+  default TcpRpc proxy(String host, int port, String user) {
     return this.proxy(host, port, user, null);
   }
 
-  default Http proxy(String host, int port, String user, String passwd) {
+  default TcpRpc proxy(String host, int port, String user, String passwd) {
     return this.proxy(new TcpProxy(host, port, user, passwd));
   }
 
-  Http auth(HttpAuth auth);
+  TcpRpc auth(HttpAuth auth);
 
-  Http binary(byte[] bytes);
+  TcpRpc binary(byte[] bytes);
 
-  default Http binary(ByteBuffer binary) {
+  default TcpRpc binary(ByteBuffer binary) {
     if (binary == null)
       throw new IllegalArgumentException("binary == null");
     return this.binary(binary.array());

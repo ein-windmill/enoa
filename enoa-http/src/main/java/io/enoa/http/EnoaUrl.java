@@ -23,19 +23,23 @@ import java.nio.charset.Charset;
 import java.util.*;
 import java.util.stream.Collectors;
 
-class EnoaUrl implements EoUrl {
+public class EnoaUrl implements EoUrl {
 
   private Charset charset;
   private String url;
   private Set<HttpPara> paras;
-  private boolean traditional = true;
-  private boolean encode = false;
+  private boolean traditional;
+  private boolean encode;
   private boolean change;
 
-  EnoaUrl(String url) {
+  public EnoaUrl(String url) {
+    this(true, url);
+  }
+
+  protected EnoaUrl(boolean valid, String url) {
     if (url == null)
       throw new IllegalArgumentException("Url can not be null.");
-    if (!url.startsWith("http://") && !url.startsWith("https://"))
+    if (valid && (!url.startsWith("http://") && !url.startsWith("https://")))
       throw new IllegalArgumentException("Url must http(s):// protocol -> " + url);
     int qIx = url.indexOf("?");
     this.charset = Charset.forName("UTF-8");
@@ -47,7 +51,9 @@ class EnoaUrl implements EoUrl {
       Set<HttpPara> pas = HttpPara.parse(url.substring(qIx + 1));
       this.paras = new HashSet<>(pas);
     }
-    this.change = false;
+    this.change = Boolean.FALSE;
+    this.encode = Boolean.FALSE;
+    this.traditional = Boolean.TRUE;
   }
 
   private EoUrl para(String name, Object value, boolean array) {
@@ -167,7 +173,9 @@ class EnoaUrl implements EoUrl {
   }
 
   @Override
-  public EoUrl encode() {
+  public EoUrl encode(boolean encode) {
+    if (!encode)
+      return this;
     this.encode = true;
     this.change = true;
     return this;
