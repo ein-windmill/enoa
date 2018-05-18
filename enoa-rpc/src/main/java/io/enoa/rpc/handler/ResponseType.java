@@ -13,24 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.rpc;
+package io.enoa.rpc.handler;
 
-import io.enoa.http.EoHttp;
-import io.enoa.rpc.config.RpcConfig;
-import io.enoa.rpc.http.EnoaHttpRpc;
+public enum ResponseType {
 
-public interface Rpc {
+  JSON,
 
-  static RpcConfig config() {
-    return RpcConfig.instance();
-  }
+  XML,
 
-  static TcpRpc http(String name, String api) {
-    return new EnoaHttpRpc(name, api);
-  }
+  BINARY,
 
-  static TcpRpc http(EoHttp http, String name, String api) {
-    return new EnoaHttpRpc(http, name, api);
-  }
+  OBJCET
 
 }

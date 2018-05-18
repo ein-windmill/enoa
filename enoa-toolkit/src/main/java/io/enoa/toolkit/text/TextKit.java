@@ -246,6 +246,10 @@ public class TextKit {
     boolean fillMode = false;
     for (char c : message.toCharArray()) {
       if (c == '}') {
+        if (ixb.length() == 0) {
+          msg.append(c);
+          continue;
+        }
         int _ix = NumberKit.integer(ixb.toString());
         if (_ix + 1 > formats.length) {
           msg.append("{").append(_ix).append("}");
@@ -267,8 +271,13 @@ public class TextKit {
         }
       }
 
-      if (!NumberKit.isDigit(String.valueOf(c), false))
-        throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.toolkit.text_format_cant_parse_arg", message));
+      if (!NumberKit.isDigit(String.valueOf(c), false)) {
+        msg.append('{').append(c);
+        ixb.delete(0, ixb.length());
+        fillMode = false;
+        continue;
+//        throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.toolkit.text_format_cant_parse_arg", message));
+      }
       ixb.append(c);
     }
     ixb.delete(0, ixb.length());

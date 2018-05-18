@@ -13,4 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.rpc.http;
+package io.enoa.rpc;
+
+import java.io.Serializable;
+
+public interface RpcResult<T> extends Serializable {
+
+  T result();
+
+}

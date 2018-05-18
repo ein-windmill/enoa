@@ -13,24 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.rpc;
+package io.enoa.rpc.config;
 
-import io.enoa.http.EoHttp;
-import io.enoa.rpc.config.RpcConfig;
-import io.enoa.rpc.http.EnoaHttpRpc;
+import io.enoa.http.protocol.HttpResponseBody;
+import io.enoa.rpc.Rpc;
+import io.enoa.rpc.handler.IHandler;
 
-public interface Rpc {
+import java.lang.reflect.Type;
 
-  static RpcConfig config() {
-    return RpcConfig.instance();
+class _DefaultJsonHandler<T> implements IHandler<T> {
+  @Override
+  public T handle(HttpResponseBody body, Type type) {
+    return Rpc.config().factory().json().parse(body.string(), type);
   }
-
-  static TcpRpc http(String name, String api) {
-    return new EnoaHttpRpc(name, api);
-  }
-
-  static TcpRpc http(EoHttp http, String name, String api) {
-    return new EnoaHttpRpc(http, name, api);
-  }
-
 }

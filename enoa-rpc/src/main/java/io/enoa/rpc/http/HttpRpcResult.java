@@ -13,24 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.rpc;
+package io.enoa.rpc.http;
 
-import io.enoa.http.EoHttp;
-import io.enoa.rpc.config.RpcConfig;
-import io.enoa.rpc.http.EnoaHttpRpc;
+import io.enoa.http.protocol.HttpResponse;
+import io.enoa.rpc.RpcResult;
 
-public interface Rpc {
+public interface HttpRpcResult<T> extends RpcResult<T> {
 
-  static RpcConfig config() {
-    return RpcConfig.instance();
-  }
+  HttpResponse response();
 
-  static TcpRpc http(String name, String api) {
-    return new EnoaHttpRpc(name, api);
-  }
-
-  static TcpRpc http(EoHttp http, String name, String api) {
-    return new EnoaHttpRpc(http, name, api);
-  }
-
+  @Override
+  T result();
 }
