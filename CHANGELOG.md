@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add UnicodeKit support unicode and character convert -> `enoa-toolkit`
 - CollectionKit add split and parts collection -> `enoa-toolkit`
 - Add trydb -> `enoa-trydb`
+- Add rpc, support http rpc -> `enoa-rpc`
 
 ### Changed
 
