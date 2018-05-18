@@ -3,6 +3,16 @@
 
 This article will document some plans/changes in future releases.
 
+## [1.6-beta]
+
+### Added
+
+### Changed
+
+- Stove support
+
+### Removed
+
 ## [1.5-beta]
 
 ### Added
