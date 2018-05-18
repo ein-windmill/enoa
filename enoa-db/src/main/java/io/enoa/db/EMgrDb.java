@@ -18,24 +18,16 @@ package io.enoa.db;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class EnoaDbMgr {
-
-  private static class Holder {
-    private static final EnoaDbMgr INSTANCE = new EnoaDbMgr();
-  }
-
-  public static EnoaDbMgr instance() {
-    return Holder.INSTANCE;
-  }
+public class EMgrDb {
 
   private static Map<String, EnoaDb> edbm = new ConcurrentHashMap<>();
 
-  private boolean exists(String name) {
+  private static boolean exists(String name) {
     return edbm.keySet().stream().anyMatch(k -> k.equals(name));
   }
 
-  public void start(EoDbFactory db, EoDbConfig config) {
-    if (this.exists(config.name()))
+  public static void start(EoDbFactory db, EoDbConfig config) {
+    if (exists(config.name()))
       throw new RuntimeException("this db plugin name is exists. => " + config.name());
 
     EnoaDb eodb = db.db(config);
@@ -43,7 +35,7 @@ public class EnoaDbMgr {
     edbm.put(config.name(), eodb);
   }
 
-  public void stop(EoDbConfig config) {
+  public static void stop(EoDbConfig config) {
     edbm.get(config.name()).stop();
   }
 

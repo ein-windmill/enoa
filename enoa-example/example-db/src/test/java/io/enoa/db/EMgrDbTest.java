@@ -51,7 +51,7 @@ import org.junit.Test;
 import java.util.List;
 import java.util.Map;
 
-public class EnoaDbMgrTest {
+public class EMgrDbTest {
 
   private static final String URL_MYSQL = "jdbc:mysql://localhost:3306/enoa?useUnicode=true&characterEncoding=utf-8&useSSL=false&nullNamePatternMatchesAll=true";
   private static final String URL_PGSQL = "jdbc:postgresql://localhost:5432/enoa";
@@ -87,7 +87,7 @@ public class EnoaDbMgrTest {
       .ds(DS.DRUID_MYSQL.ds, DS.DRUID_MYSQL.config)
       .style(new MySqlStyle())
       .build();
-    EnoaDbMgr.instance().start(new BeetlSQLProvider(), dbc1);
+    EMgrDb.start(new BeetlSQLProvider(), dbc1);
     List<Map> rets1 = BeetlSQLKit.select("User.list", Map.class);
 
 
@@ -98,7 +98,7 @@ public class EnoaDbMgrTest {
       .ds(DS.C3P0_PGSQL.ds, DS.C3P0_PGSQL.config)
       .style(new PostgresStyle())
       .build();
-    EnoaDbMgr.instance().start(new BeetlSQLProvider(), dbc2);
+    EMgrDb.start(new BeetlSQLProvider(), dbc2);
     List<Map> rets2 = BeetlSQLKit.use("pgsql").select("User.list", Map.class);
 
 
@@ -115,7 +115,7 @@ public class EnoaDbMgrTest {
       .suffix("xml")
       .ds(DS.HIKARICP_MYSQL.ds, DS.HIKARICP_MYSQL.config)
       .build();
-    EnoaDbMgr.instance().start(new MybatisProvider(), dbc1);
+    EMgrDb.start(new MybatisProvider(), dbc1);
     List<Map> rets1 = MybatisKit.with(UserMapper.class).list();
 
     EoDbConfig dbc2 = new MybatisConfig.Builder()
@@ -126,7 +126,7 @@ public class EnoaDbMgrTest {
       .name("pgsql")
       .ds(DS.DRUID_PGSQL.ds, DS.DRUID_PGSQL.config)
       .build();
-    EnoaDbMgr.instance().start(new MybatisProvider(), dbc2);
+    EMgrDb.start(new MybatisProvider(), dbc2);
     List<Map> rets2 = MybatisKit.use("pgsql").with(UserMapper.class).list();
 
     // print
@@ -142,7 +142,7 @@ public class EnoaDbMgrTest {
       .dialect(new MysqlDialect())
       .ds(DS.C3P0_MYSQL.ds, DS.C3P0_MYSQL.config)
       .build();
-    EnoaDbMgr.instance().start(new ActiveRecordProvider(), dbc1);
+    EMgrDb.start(new ActiveRecordProvider(), dbc1);
     List<Record> rets1 = Db.find(Db.getSql("User.list"));
 
     EoDbConfig dbc2 = new ActiveRecordConfig.Builder()
@@ -152,7 +152,7 @@ public class EnoaDbMgrTest {
       .dialect(new MysqlDialect())
       .ds(DS.HIKARICP_PGSQL.ds, DS.HIKARICP_PGSQL.config)
       .build();
-    EnoaDbMgr.instance().start(new ActiveRecordProvider(), dbc2);
+    EMgrDb.start(new ActiveRecordProvider(), dbc2);
     List<Record> rets2 = Db.use("pgsql").find(Db.getSql("User.list"));
 
 
@@ -167,7 +167,7 @@ public class EnoaDbMgrTest {
       .showSql()
       .ds(DS.C3P0_MYSQL.ds, DS.C3P0_MYSQL.config)
       .build();
-    EnoaDbMgr.instance().start(new TrydbProvider(), dbc1);
+    EMgrDb.start(new TrydbProvider(), dbc1);
     List<Kv> rets0 = Trydb.find("select * from t_user");
 
 
@@ -179,7 +179,7 @@ public class EnoaDbMgrTest {
       .ds(DS.DRUID_PGSQL.ds, DS.DRUID_PGSQL.config)
       .template(new EnjoyTSqlTemplate(PathKit.path("activerecord"), "template.sql"))
       .build();
-    EnoaDbMgr.instance().start(new TrydbProvider(), dbc2);
+    EMgrDb.start(new TrydbProvider(), dbc2);
     List<Kv> rets2 = Trydb.template("pgsql").find("User.list");
     List<Kv> rets3 = Trydb.use("pgsql").find(Trysql.tsql("pgsql", "User.list"));
 

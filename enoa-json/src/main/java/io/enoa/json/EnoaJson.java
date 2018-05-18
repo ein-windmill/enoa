@@ -22,8 +22,8 @@ public abstract class EnoaJson implements _Json {
 
   protected String datePattern = null;
 
-  public String defaultDatePattern() {
-    return EnoaJsonMgr.defDatePattern;
+  protected String defaultDatePattern() {
+    return EMgrJson.defDatePattern;
   }
 
 

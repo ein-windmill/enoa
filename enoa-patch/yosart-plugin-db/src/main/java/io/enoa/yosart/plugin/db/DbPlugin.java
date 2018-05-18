@@ -15,7 +15,7 @@
  */
 package io.enoa.yosart.plugin.db;
 
-import io.enoa.db.EnoaDbMgr;
+import io.enoa.db.EMgrDb;
 import io.enoa.db.EoDbConfig;
 import io.enoa.db.EoDbFactory;
 import io.enoa.log.kit.LogKit;
@@ -50,7 +50,7 @@ public class DbPlugin implements YoPlugin {
   @Override
   public boolean start() throws OyPluginException {
     try {
-      EnoaDbMgr.instance().start(this.db, this.config);
+      EMgrDb.start(this.db, this.config);
       return true;
     } catch (Exception e) {
       LogKit.error(e.getMessage(), e);
@@ -60,7 +60,7 @@ public class DbPlugin implements YoPlugin {
 
   @Override
   public boolean stop() throws OyPluginException {
-    EnoaDbMgr.instance().stop(this.config);
+    EMgrDb.stop(this.config);
     return true;
   }
 }

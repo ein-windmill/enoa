@@ -22,20 +22,11 @@ import io.enoa.log.provider.slf4j.Slf4JLogProvider;
 /**
  * Logger manager, switch log provider
  */
-public class EnoaLogMgr {
+public class EMgrLog {
 
-  private static class Holder {
-    private static final EnoaLogMgr INSTSNCE = new EnoaLogMgr();
-  }
-
-  private EnoaLogMgr() {
+  private EMgrLog() {
 
   }
-
-  public static EnoaLogMgr instance() {
-    return Holder.INSTSNCE;
-  }
-
 
   private static EoLogFactory defLogFactory;
 
@@ -68,7 +59,7 @@ public class EnoaLogMgr {
     return defLogFactory.logger(name);
   }
 
-  public void defLogFactory(EoLogFactory factory) {
+  public static void defLogFactory(EoLogFactory factory) {
     if (factory == null)
       throw new IllegalArgumentException("LogFactory can not be null.");
 

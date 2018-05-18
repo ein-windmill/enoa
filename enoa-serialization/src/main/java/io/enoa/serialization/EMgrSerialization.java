@@ -13,26 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.gateway.data;
+package io.enoa.serialization;
 
-import io.enoa.gateway.auth.GatewayAuth;
+import io.enoa.serialization.provider.jdk.JdkSerializeProvider;
 
-public class EnoaGatewayAuthData {
+public class EMgrSerialization {
 
-  private String uri;
-  private GatewayAuth auth;
+  private static EoSerializationFactory factory = new JdkSerializeProvider();
 
-
-  public EnoaGatewayAuthData(String uri, GatewayAuth auth) {
-    this.uri = uri;
-    this.auth = auth;
+  public static void defSerializationFactory(EoSerializationFactory factory) {
+    if (factory == null)
+      throw new IllegalArgumentException("Factory can not be null.");
+    EMgrSerialization.factory = factory;
   }
 
-  public String uri() {
-    return uri;
+  public static EoSerializationFactory serialization() {
+    return factory;
   }
 
-  public GatewayAuth auth() {
-    return auth;
-  }
 }

@@ -1,7 +1,7 @@
 package io.enoa.trydb.page;
 
 import ikidou.reflect.TypeBuilder;
-import io.enoa.json.EnoaJsonMgr;
+import io.enoa.json.EMgrJson;
 import io.enoa.json.kit.JsonKit;
 import io.enoa.json.provider.fastjson.FastjsonProvider;
 import org.junit.Before;
@@ -13,7 +13,7 @@ public class PageTest {
 
   @Before
   public void before() {
-    EnoaJsonMgr.instance().defJsonFactory(new FastjsonProvider());
+    EMgrJson.instance().defJsonFactory(new FastjsonProvider());
   }
 
 

@@ -13,11 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.toolkit.date;
+package io.enoa.gateway.data;
 
-class EnoaDateFormat {
+import io.enoa.gateway.auth.GatewayAuth;
+
+// GatewayAuthData
+public class GAuthData {
+
+  private String uri;
+  private GatewayAuth auth;
 
 
+  public GAuthData(String uri, GatewayAuth auth) {
+    this.uri = uri;
+    this.auth = auth;
+  }
 
+  public String uri() {
+    return uri;
+  }
 
+  public GatewayAuth auth() {
+    return auth;
+  }
 }

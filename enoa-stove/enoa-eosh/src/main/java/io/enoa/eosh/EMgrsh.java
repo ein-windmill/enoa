@@ -15,7 +15,7 @@
  */
 package io.enoa.eosh;
 
-public class EnoashMgr {
+public class EMgrsh {
 
 
 

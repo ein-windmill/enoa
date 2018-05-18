@@ -19,14 +19,14 @@ import io.enoa.gateway.auth.GatewayAuth;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.http.UriKit;
 
-public class GatewayMapping {
+public class GMapping {
 
   private String name;
   private String source;
   private String dest;
   private GatewayAuth auth;
 
-  public GatewayMapping(String name, String source, String dest, GatewayAuth auth) {
+  public GMapping(String name, String source, String dest, GatewayAuth auth) {
     if (source == null)
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.gateway.mapping_source_null"));
     if (dest == null)
@@ -38,15 +38,15 @@ public class GatewayMapping {
     this.auth = auth;
   }
 
-  public GatewayMapping(String name, String source, String dest) {
+  public GMapping(String name, String source, String dest) {
     this(name, source, dest, null);
   }
 
-  public GatewayMapping(String source, String dest, GatewayAuth auth) {
+  public GMapping(String source, String dest, GatewayAuth auth) {
     this(null, source, dest, auth);
   }
 
-  public GatewayMapping(String source, String dest) {
+  public GMapping(String source, String dest) {
     this(null, source, dest, null);
   }
 
@@ -76,18 +76,18 @@ public class GatewayMapping {
 
   @Override
   public boolean equals(Object obj) {
-    if (!(obj instanceof GatewayMapping))
+    if (!(obj instanceof GMapping))
       return false;
     if (this == obj)
       return true;
-    GatewayMapping that = (GatewayMapping) obj;
+    GMapping that = (GMapping) obj;
     return that.source.equals(this.source)
       && that.dest.equals(this.dest);
   }
 
   @Override
   public String toString() {
-    return "GatewayMapping{" +
+    return "GMapping{" +
       "name='" + name + '\'' +
       ", source='" + source + '\'' +
       ", dest='" + dest + '\'' +

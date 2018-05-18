@@ -28,7 +28,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EnoaSerializationMgrTest {
+public class EMgrSerializationTest {
 
   private Map<String, Object> data() {
     Map<String, Object> ret = new HashMap<>();
@@ -46,8 +46,8 @@ public class EnoaSerializationMgrTest {
 
   @Test
   public void testSerialize() throws Exception {
-    EnoaSerializationMgr.me.defSerializationFactory(new JdkSerializeProvider());
-    EoSerializer serializer = EnoaSerializationMgr.me.defSerializationFactory().serializer();
+    EMgrSerialization.defSerializationFactory(new JdkSerializeProvider());
+    EoSerializer serializer = EMgrSerialization.serialization().serializer();
 
     byte[] serialize = serializer.serialize(this.data());
 

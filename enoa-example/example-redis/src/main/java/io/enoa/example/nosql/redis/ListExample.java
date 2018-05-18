@@ -15,7 +15,7 @@
  */
 package io.enoa.example.nosql.redis;
 
-import io.enoa.nosql.redis.EnoaRedisMgr;
+import io.enoa.nosql.redis.EMgrRedis;
 import io.enoa.nosql.redis.Redis;
 import io.enoa.serialization.provider.hessian.HessianProvider;
 
@@ -40,7 +40,7 @@ public class ListExample {
 
   public static void main(String[] args) {
     ListExample example = new ListExample();
-    EnoaRedisMgr.start("localhost", 6379, new HessianProvider());
+    EMgrRedis.start("localhost", 6379, new HessianProvider());
     example.lpush();
     example.llen();
     example.lrange();

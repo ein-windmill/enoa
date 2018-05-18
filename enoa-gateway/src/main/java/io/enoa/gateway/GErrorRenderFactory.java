@@ -21,7 +21,7 @@ import io.enoa.repeater.http.HttpStatus;
 import io.enoa.repeater.http.Response;
 import io.enoa.repeater.http.ResponseBody;
 
-public interface GatewayErrorRenderFactory extends EoxErrorRenderFactory {
+public interface GErrorRenderFactory extends EoxErrorRenderFactory {
 
   @Override
   default Response renderError(HttpStatus stat) {

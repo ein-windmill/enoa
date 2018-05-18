@@ -76,7 +76,7 @@ public class AdvExample {
 
     String ret0 = Redis.run((jedis, serializer) -> {
       byte[] key = SafeEncoder.encode(this.key);
-      // this serializer is EnoaRedisMgr.start set serializer provider
+      // this serializer is EMgrRedis.start set serializer provider
       byte[] value = serializer.serialize(data);
       // use jedisn binart set
       return jedis.set(key, value);
@@ -107,7 +107,7 @@ public class AdvExample {
         add("192.168.1.22:63793");
       }})
       .build();
-    EnoaRedisMgr.start(config);
+    EMgrRedis.start(config);
     EnoaRedis redis = Redis.use("sentinel");
     System.out.println(redis.set(this.key, "sentinel value"));
     String ret = redis.get(this.key);
@@ -117,9 +117,9 @@ public class AdvExample {
 
   public static void main(String[] args) {
     AdvExample example = new AdvExample();
-    EnoaRedisMgr.start("localhost", 6379, new JdkSerializeProvider());
-//    EnoaRedisMgr.start("main", "localhost", 6379, new JdkSerializeProvider()); // default name is main
-    EnoaRedisMgr.start("other", "localhost", 6379);
+    EMgrRedis.start("localhost", 6379, new JdkSerializeProvider());
+//    EMgrRedis.start("main", "localhost", 6379, new JdkSerializeProvider()); // default name is main
+    EMgrRedis.start("other", "localhost", 6379);
     example.run();
     example.jedis();
     example.use();

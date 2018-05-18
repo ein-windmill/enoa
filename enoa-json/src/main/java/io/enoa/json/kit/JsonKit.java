@@ -15,7 +15,7 @@
  */
 package io.enoa.json.kit;
 
-import io.enoa.json.EnoaJsonMgr;
+import io.enoa.json.EMgrJson;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -26,18 +26,18 @@ import java.util.List;
 public class JsonKit {
 
   public static String toJson(Object object) {
-    return EnoaJsonMgr.instance().json().toJson(object);
+    return EMgrJson.instance().json().toJson(object);
   }
 
   public static <T> T parse(String json, Class<T> type) {
-    return EnoaJsonMgr.instance().json().parse(json, type);
+    return EMgrJson.instance().json().parse(json, type);
   }
 
   public static <T> T parse(String json, Type type) {
-    return EnoaJsonMgr.instance().json().parse(json, type);
+    return EMgrJson.instance().json().parse(json, type);
   }
 
   public static <T> List<T> parseArray(String json, Class<T> type) {
-    return EnoaJsonMgr.instance().json().parseArray(json, type);
+    return EMgrJson.instance().json().parseArray(json, type);
   }
 }

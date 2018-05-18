@@ -18,7 +18,6 @@ package io.enoa.yosart.ext.render.template;
 import io.enoa.log.kit.LogKit;
 import io.enoa.repeater.http.Request;
 import io.enoa.template.EnoaEngine;
-import io.enoa.template.EnoaTemplateMgr;
 import io.enoa.template.EoEngineConfig;
 import io.enoa.template.EoTemplateFactory;
 import io.enoa.template.compressor.EoCompressorFactory;
@@ -41,6 +40,8 @@ public class TemplateRenderExt implements YmRenderExt {
   private EoTemplateFactory factory;
   private String suffix;
   private EoEngineConfig config;
+
+  private EnoaEngine engine;
 
   public TemplateRenderExt(EoTemplateFactory factory, String basePath) {
     this(factory, basePath, null);
@@ -77,9 +78,12 @@ public class TemplateRenderExt implements YmRenderExt {
   }
 
   private EnoaEngine engine() {
-    EnoaTemplateMgr.instance().defTemplateFactory(this.factory)
-      .defConfig(this.config == null ? this.defConfig() : this.config);
-    return EnoaTemplateMgr.instance().defEngine();
+    if (this.engine != null)
+      return this.engine;
+    this.engine = this.factory.engine(this.config == null ? this.defConfig() : this.config);
+//    EnoaTemplateMgr.defEngine(this.factory, this.config == null ? this.defConfig() : this.config);
+//    return EnoaTemplateMgr.defEngine();
+    return this.engine;
   }
 
 

@@ -27,7 +27,7 @@ import redis.clients.util.Pool;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EnoaRedisMgr {
+public class EMgrRedis {
 
 
   private static EoSerializationFactory DEF_SERIALIZATION = new JdkSerializeProvider();

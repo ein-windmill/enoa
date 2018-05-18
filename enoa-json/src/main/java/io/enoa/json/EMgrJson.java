@@ -20,35 +20,26 @@ import io.enoa.json.provider.enoa.EoJsonProvider;
 /**
  * enoa - io.enoa.json
  */
-public class EnoaJsonMgr {
-
-  private static class Holder {
-    private static EnoaJsonMgr INSTANCE = new EnoaJsonMgr();
-  }
+public class EMgrJson {
 
 
   private static EoJsonFactory defJsonFactory = new EoJsonProvider();
 
   static String defDatePattern = null;
 
-
-  public static EnoaJsonMgr instance() {
-    return Holder.INSTANCE;
-  }
-
-  public void defJsonFactory(EoJsonFactory factory) {
+  public static void defJsonFactory(EoJsonFactory factory) {
     if (factory == null)
       throw new IllegalArgumentException("Json factory can not be null.");
     defJsonFactory = factory;
   }
 
-  public void defDatePattern(String pattern) {
+  public static void defDatePattern(String pattern) {
     if (pattern == null || "".equals(pattern))
       throw new IllegalArgumentException("defaultDatePattern can not be blank.");
     defDatePattern = pattern;
   }
 
-  public EnoaJson json() {
+  public static EnoaJson json() {
     return defJsonFactory.json();
   }
 }

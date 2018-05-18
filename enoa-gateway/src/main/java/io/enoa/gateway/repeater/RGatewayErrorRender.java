@@ -15,7 +15,7 @@
  */
 package io.enoa.gateway.repeater;
 
-import io.enoa.gateway.GatewayErrorRenderFactory;
+import io.enoa.gateway.GErrorRenderFactory;
 import io.enoa.log.kit.LogKit;
 import io.enoa.repeater.Repeater;
 import io.enoa.repeater.http.HttpStatus;
@@ -23,7 +23,7 @@ import io.enoa.repeater.http.Response;
 import io.enoa.repeater.http.ResponseBody;
 import io.enoa.toolkit.sys.ThrowableKit;
 
-public class EnoaGatewayErrorRender implements GatewayErrorRenderFactory {
+public class RGatewayErrorRender implements GErrorRenderFactory {
 
 
   @Override

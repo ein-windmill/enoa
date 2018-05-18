@@ -23,14 +23,14 @@ import redis.clients.util.SafeEncoder;
 
 import java.sql.Timestamp;
 
-public class EnoaRedisMgrTest {
+public class EMgrRedisTest {
 
   private String name = "ENOA_REDIS_TEST";
 
   @Before
   public void init() {
     try {
-      EnoaRedisMgr.start(this.name, "localhost", 6379, new JdkSerializeProvider());
+      EMgrRedis.start(this.name, "localhost", 6379, new JdkSerializeProvider());
     } catch (Exception e) {
       LogKit.error(e.getMessage(), e);
     }

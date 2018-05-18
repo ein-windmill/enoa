@@ -16,9 +16,9 @@
 package io.enoa.gateway.handler;
 
 import io.enoa.gateway.GatewayHandler;
-import io.enoa.gateway.data.EnoaGatewayAuthData;
-import io.enoa.gateway.data.EnoaGatewayData;
-import io.enoa.gateway.data.GatewayMapping;
+import io.enoa.gateway.data.GAuthData;
+import io.enoa.gateway.data.GData;
+import io.enoa.gateway.data.GMapping;
 import io.enoa.gateway.thr.GatewayAuthException;
 import io.enoa.gateway.thr.GatewayException;
 import io.enoa.gateway.thr.RouteNotFoundException;
@@ -34,23 +34,23 @@ import io.enoa.toolkit.text.TextKit;
 import java.nio.ByteBuffer;
 import java.util.Map;
 
-public class EnoaGatewayHandler implements GatewayHandler {
+public class EGatewayHandler implements GatewayHandler {
 
   private EoxConfig eoxconfig;
 
-  public EnoaGatewayHandler(EoxConfig eoxconfig) {
+  public EGatewayHandler(EoxConfig eoxconfig) {
     this.eoxconfig = eoxconfig;
   }
 
   @Override
-  public Response handle(Request request, EnoaGatewayData gateway) throws GatewayException {
+  public Response handle(Request request, GData gateway) throws GatewayException {
     String uri = UriKit.correct(request.uri());
     if (!"/".equals(uri))
       uri = TextKit.union(uri, "/");
 
     this.auth(request, uri, gateway);
 
-    GatewayMapping mapping = this.chooseMapping(uri, gateway.mappings());
+    GMapping mapping = this.chooseMapping(uri, gateway.mappings());
     if (mapping == null) {
       throw new RouteNotFoundException("Not found mapping -> {0}", uri);
     }
@@ -62,7 +62,7 @@ public class EnoaGatewayHandler implements GatewayHandler {
     return this.call(request, uri, mapping);
   }
 
-  private boolean noauths(String originUri, EnoaGatewayData gateway) {
+  private boolean noauths(String originUri, GData gateway) {
     String[] noauths = gateway.noauths();
     boolean noa = false;
     for (String noauth : noauths) {
@@ -74,13 +74,13 @@ public class EnoaGatewayHandler implements GatewayHandler {
     return noa;
   }
 
-  private void auth(Request request, String originUri, EnoaGatewayData gateway) throws GatewayAuthException {
+  private void auth(Request request, String originUri, GData gateway) throws GatewayAuthException {
     // options 请求不验证
     if (request.method() == Method.OPTIONS)
       return;
 
-    EnoaGatewayAuthData[] gads = gateway.auth();
-    for (EnoaGatewayAuthData gad : gads) {
+    GAuthData[] authData = gateway.auth();
+    for (GAuthData gad : authData) {
 
       /*
       鑑定當前請求 uri 是否無需進行權限認證
@@ -111,11 +111,11 @@ public class EnoaGatewayHandler implements GatewayHandler {
    *
    * @param uri      请求 uri
    * @param mappings 网关列表
-   * @return GatewayMapping
+   * @return GMapping
    */
-  private GatewayMapping chooseMapping(String uri, GatewayMapping[] mappings) {
-    GatewayMapping last = null;
-    for (GatewayMapping mapping : mappings) {
+  private GMapping chooseMapping(String uri, GMapping[] mappings) {
+    GMapping last = null;
+    for (GMapping mapping : mappings) {
       // 判定请求 uri 与网关地址都是根路径 直接选取
       if ("/".equals(uri) && "/".equals(mapping.source()))
         return mapping;
@@ -140,7 +140,7 @@ public class EnoaGatewayHandler implements GatewayHandler {
    * @param mapping   mappding 网关映射
    * @return Response
    */
-  private Response call(Request request, String originUri, GatewayMapping mapping) {
+  private Response call(Request request, String originUri, GMapping mapping) {
     String sourceUri = originUri.replace(mapping.source(), "/");
     sourceUri = UriKit.correct(sourceUri);
     String callUrl = TextKit.union(mapping.dest(), sourceUri);

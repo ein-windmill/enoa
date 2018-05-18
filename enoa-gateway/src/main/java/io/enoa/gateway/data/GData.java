@@ -16,28 +16,28 @@
 package io.enoa.gateway.data;
 
 
-import io.enoa.gateway.GatewayErrorRenderFactory;
+import io.enoa.gateway.GErrorRenderFactory;
 
 import java.util.Arrays;
 
-public class EnoaGatewayData {
+public class GData {
 
-  private GatewayMapping[] mappings;
+  private GMapping[] mappings;
   private String[] noauths;
-  private EnoaGatewayAuthData[] auths;
-  private GatewayErrorRenderFactory errorRenderFactory;
+  private GAuthData[] auths;
+  private GErrorRenderFactory errorRenderFactory;
 
-  public EnoaGatewayData(GatewayMapping[] mappings,
-                         String[] noauths,
-                         EnoaGatewayAuthData[] auths,
-                         GatewayErrorRenderFactory errorRenderFactory) {
+  public GData(GMapping[] mappings,
+               String[] noauths,
+               GAuthData[] auths,
+               GErrorRenderFactory errorRenderFactory) {
     this.mappings = mappings;
     this.noauths = noauths;
     this.auths = auths;
     this.errorRenderFactory = errorRenderFactory;
   }
 
-  public GatewayMapping[] mappings() {
+  public GMapping[] mappings() {
     return mappings;
   }
 
@@ -45,17 +45,17 @@ public class EnoaGatewayData {
     return noauths;
   }
 
-  public EnoaGatewayAuthData[] auth() {
+  public GAuthData[] auth() {
     return auths;
   }
 
-  public GatewayErrorRenderFactory errorRenderFactory() {
+  public GErrorRenderFactory errorRenderFactory() {
     return errorRenderFactory;
   }
 
   @Override
   public String toString() {
-    return "EnoaGatewayData{" +
+    return "GData{" +
       "mappings=" + Arrays.toString(mappings) +
       ", noauths=" + Arrays.toString(noauths) +
       ", auths=" + Arrays.toString(auths) +

@@ -24,9 +24,9 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EnoaSingletonMgr {
+public class EnoaSingleton {
 
-  public EnoaSingletonMgr scan(String pkg) {
+  public EnoaSingleton scan(String pkg) {
     if (pkg == null || "".equals(pkg))
       throw new IllegalArgumentException("Scan package can not be null.");
     List<Object> singletons = this.singletons(pkg);

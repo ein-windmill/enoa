@@ -16,7 +16,7 @@
 package io.enoa.gateway.repeater;
 
 import io.enoa.gateway.GatewayHandler;
-import io.enoa.gateway.data.EnoaGatewayData;
+import io.enoa.gateway.data.GData;
 import io.enoa.repeater.EoxAccessor;
 import io.enoa.repeater.http.Header;
 import io.enoa.repeater.http.HttpStatus;
@@ -27,15 +27,15 @@ import io.enoa.toolkit.text.TextKit;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EnoaGatewayAccessor implements EoxAccessor {
+public class RGatewayAccessor implements EoxAccessor {
 
   private List<Header> DEF_CROS_HEADERS;
   private GatewayHandler handler;
-  private EnoaGatewayData gateway;
+  private GData gateway;
   private boolean cros;
   private List<Header> crosHeaders;
 
-  public EnoaGatewayAccessor(GatewayHandler handler, EnoaGatewayData gateway, boolean cros, List<Header> crosHeaders) {
+  public RGatewayAccessor(GatewayHandler handler, GData gateway, boolean cros, List<Header> crosHeaders) {
     this.handler = handler;
     this.gateway = gateway;
     this.cros = cros;

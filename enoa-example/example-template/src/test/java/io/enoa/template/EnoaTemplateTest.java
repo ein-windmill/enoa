@@ -93,8 +93,8 @@ public class EnoaTemplateTest {
 
   private void testEnjoy() {
     System.out.println("===================== ENJOY START");
-    EnoaTemplateMgr.instance().defTemplateFactory(new EnjoyProvider()).defConfig(this.genConfig(ENGINE.ENJOY));
-    EnoaEngine engine = EnoaTemplateMgr.instance().defEngine();
+//    EnoaTemplateMgr.instance().defTemplateFactory(new EnjoyProvider()).defConfig(this.genConfig(ENGINE.ENJOY));
+    EnoaEngine engine = new EnjoyProvider().engine(this.genConfig(ENGINE.ENJOY));
 
     EnoaTemplate a = engine.template("/enjoy/a.html");
     System.out.println(a.render(data()));
@@ -106,8 +106,9 @@ public class EnoaTemplateTest {
 
   private void testBeetl() {
     System.out.println("===================== BEETL START");
-    EnoaTemplateMgr.instance().defTemplateFactory(new BeetlProvider()).defConfig(this.genConfig(ENGINE.BEETL));
-    EnoaEngine engine = EnoaTemplateMgr.instance().defEngine();
+//    EnoaTemplateMgr.instance().defTemplateFactory(new BeetlProvider()).defConfig(this.genConfig(ENGINE.BEETL));
+//    EnoaEngine engine = EnoaTemplateMgr.instance().defEngine();
+    EnoaEngine engine = new BeetlProvider().engine(this.genConfig(ENGINE.BEETL));
 
     EnoaTemplate a = engine.template("/beetl/a.html");
     System.out.println(a.render(data()));
@@ -120,8 +121,9 @@ public class EnoaTemplateTest {
 
   private void testFreemarker() {
     System.out.println("===================== FREEMARKER START");
-    EnoaTemplateMgr.instance().defTemplateFactory(new FreemarkerProvider()).defConfig(this.genConfig(ENGINE.FREEMARKER));
-    EnoaEngine engine = EnoaTemplateMgr.instance().defEngine();
+//    EnoaTemplateMgr.instance().defTemplateFactory(new FreemarkerProvider()).defConfig(this.genConfig(ENGINE.FREEMARKER));
+//    EnoaEngine engine = EnoaTemplateMgr.instance().defEngine();
+    EnoaEngine engine = new FreemarkerProvider().engine(this.genConfig(ENGINE.FREEMARKER));
 
     EnoaTemplate a = engine.template("/freemarker/a.ftl");
     System.out.println(a.render(data()));
@@ -134,8 +136,9 @@ public class EnoaTemplateTest {
 
   private void testVelocity() {
     System.out.println("===================== VELOCITY START");
-    EnoaTemplateMgr.instance().defTemplateFactory(new VelocityProvider()).defConfig(this.genConfig(ENGINE.VELOCITY));
-    EnoaEngine engine = EnoaTemplateMgr.instance().defEngine();
+//    EnoaTemplateMgr.instance().defTemplateFactory(new VelocityProvider()).defConfig(this.genConfig(ENGINE.VELOCITY));
+//    EnoaEngine engine = EnoaTemplateMgr.instance().defEngine();
+    EnoaEngine engine = new VelocityProvider().engine(this.genConfig(ENGINE.VELOCITY));
 
     EnoaTemplate a = engine.template("/velocity/a.vm");
     System.out.println(a.render(data()));
