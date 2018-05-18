@@ -35,8 +35,7 @@ public class TSqlDelete implements Trysql<TSqlDelete> {
 
   @Override
   public TSqlDelete dialect(IDialect dialect) {
-    if (this.dialect == null)
-      this.dialect = dialect;
+    this.dialect = dialect;
     return this;
   }
 

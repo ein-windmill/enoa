@@ -78,7 +78,11 @@ public interface Http extends EoEmit {
 
   Http traditional(boolean traditional);
 
-  Http encode();
+  default Http encode() {
+    return this.encode(true);
+  }
+
+  Http encode(boolean encode);
 
   Http para(String name, Object value);
 

@@ -15,7 +15,7 @@
  */
 package io.enoa.yosart.plugin.redis;
 
-import io.enoa.nosql.redis.EnoaRedisMgr;
+import io.enoa.nosql.redis.EMgrRedis;
 import io.enoa.nosql.redis.RedisConfig;
 import io.enoa.nosql.redis.RedisSentinelConfig;
 import io.enoa.serialization.EoSerializationFactory;
@@ -111,11 +111,11 @@ public class RedisPlugin implements YoPlugin {
   @Override
   public boolean start() throws OyPluginException {
     if (this.config != null) {
-      EnoaRedisMgr.start(this.config, this.serialization);
+      EMgrRedis.start(this.config, this.serialization);
       return true;
     }
     if (this.sentinel != null) {
-      EnoaRedisMgr.start(this.sentinel, this.serialization);
+      EMgrRedis.start(this.sentinel, this.serialization);
       return true;
     }
     return false;
@@ -127,7 +127,7 @@ public class RedisPlugin implements YoPlugin {
     if (name == null)
       return false;
 
-    EnoaRedisMgr.stop(name);
+    EMgrRedis.stop(name);
     return true;
   }
 

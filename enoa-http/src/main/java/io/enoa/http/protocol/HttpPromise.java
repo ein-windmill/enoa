@@ -16,22 +16,22 @@
 package io.enoa.http.protocol;
 
 import io.enoa.promise.EoPromise;
-import io.enoa.promise.PromiseResult;
-import io.enoa.promise.PromiseThen;
-import io.enoa.promise.PromiseValid;
+import io.enoa.promise.arg.PromiseArg;
+import io.enoa.promise.arg.PromiseThen;
+import io.enoa.promise.arg.PromiseBool;
 
 public interface HttpPromise extends EoPromise<HttpPromise> {
 
-  HttpPromise ok(PromiseResult<HttpResponse> result);
+  HttpPromise ok(PromiseArg<HttpResponse> result);
 
-  HttpPromise error(PromiseResult<HttpResponse> result);
+  HttpPromise error(PromiseArg<HttpResponse> result);
 
   <T> HttpPromise then(PromiseThen<Object, T> then);
 
-  <T> HttpPromise valid(PromiseValid<T> valid);
+  <T> HttpPromise valid(PromiseBool<T> valid);
 
-  <T> HttpPromise execute(PromiseResult<T> execute);
+  <T> HttpPromise execute(PromiseArg<T> execute);
 
-  <T> HttpPromise fail(PromiseResult<T> fail);
+  <T> HttpPromise fail(PromiseArg<T> fail);
 
 }

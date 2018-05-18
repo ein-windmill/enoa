@@ -40,8 +40,7 @@ public class TSqlUpdate implements Trysql<TSqlUpdate> {
 
   @Override
   public TSqlUpdate dialect(IDialect dialect) {
-    if (this.dialect == null)
-      this.dialect = dialect;
+    this.dialect = dialect;
     return this;
   }
 

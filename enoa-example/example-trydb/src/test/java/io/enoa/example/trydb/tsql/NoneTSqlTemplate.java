@@ -23,8 +23,12 @@ import java.util.Map;
 public class NoneTSqlTemplate implements TSqlTemplate {
 
   @Override
+  public TSql render(String name) {
+    return null;
+  }
+
+  @Override
   public TSql render(String name, Map<String, ?> kv) {
-//    return TSql.create(name);
     return null;
   }
 }

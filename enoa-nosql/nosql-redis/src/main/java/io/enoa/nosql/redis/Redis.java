@@ -31,9 +31,9 @@ public class Redis {
   }
 
   public static EnoaRedis use(String name) {
-    if (EnoaRedisMgr.POOL == null || EnoaRedisMgr.POOL.isEmpty())
-      throw new RuntimeException("Please do start redis. `EnoaRedisMgr.start()`");
-    EnoaRedis redis = EnoaRedisMgr.POOL.get(name);
+    if (EMgrRedis.POOL == null || EMgrRedis.POOL.isEmpty())
+      throw new RuntimeException("Please do start redis. `EMgrRedis.start()`");
+    EnoaRedis redis = EMgrRedis.POOL.get(name);
     if (redis == null)
       throw new NullPointerException("This redis client name is not exists. => " + name);
     return redis;

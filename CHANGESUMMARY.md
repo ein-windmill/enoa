@@ -28,11 +28,10 @@
 
 > com.jfinal.kit.StrKit
 
-- add lower
-- add upper
-- add pad
-- add lpad
-- add rpad
+- use isBlank
+- use notBlank
+- use firstToLower
+- use firstToUpper
 
 ### io.enoa.toolkit.prop.Prop
 
@@ -69,6 +68,16 @@
 
 ### io.enoa.db.provider.ds.druid._Druid
 
+### sqlkit
+
+> io.enoa.trydb.tsql.template.enjoy => com.jfinal.plugin.activerecord.sql
+
+- NameSpaceDirective
+- ParaDirective
+- SqlDirective
+- SqlKit
+- SqlPara
+- SqlSource
 
 
 ## OkHttp

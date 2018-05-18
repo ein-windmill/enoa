@@ -17,12 +17,18 @@ package io.enoa.trydb;
 
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.map.Kv;
+import io.enoa.toolkit.number.NumberKit;
+import io.enoa.toolkit.random.RandomKit;
 import io.enoa.toolkit.stream.StreamKit;
-import io.enoa.trydb.build.TrydbBuilder;
+import io.enoa.toolkit.text.TextKit;
+import io.enoa.trydb.build.RsBuilder;
 import io.enoa.trydb.dialect.IDialect;
+import io.enoa.trydb.page.Page;
 import io.enoa.trydb.thr.NestedTransactionHelpException;
 import io.enoa.trydb.thr.TrydbException;
 import io.enoa.trydb.tsql.Trysql;
+import io.enoa.trydb.tsql.psql.IPSql;
+import io.enoa.trydb.tsql.psql.PSql;
 import io.enoa.trydb.tx.IAtom;
 import io.enoa.trydb.tx.TxLevel;
 
@@ -30,6 +36,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 
 public class EnoaTrydb implements TrydbCommandBase<EnoaTrydb>, TrydbCommandTSql<EnoaTrydb> {
@@ -44,6 +51,10 @@ public class EnoaTrydb implements TrydbCommandBase<EnoaTrydb>, TrydbCommandTSql<
   EnoaTrydb(TrydbConfig config) {
     LOCAL_CONN = new ThreadLocal<>();
     this.config = config;
+  }
+
+  TrydbConfig config() {
+    return this.config;
   }
 
   private Connection conn() throws SQLException {
@@ -71,6 +82,17 @@ public class EnoaTrydb implements TrydbCommandBase<EnoaTrydb>, TrydbCommandTSql<
     if (conn == null)
       return;
     StreamKit.close(conn);
+  }
+
+  private String reportMark() {
+    return this.config.report() == null ? String.valueOf(RandomKit.nextInt(100, 999)) : this.config.report().mark();
+  }
+
+  private void reportSql(String mark, String sql, Object... paras) {
+    ISqlReport report = this.config.report();
+    if (report == null)
+      return;
+    report.report(mark, sql, paras);
   }
 
   @Override
@@ -136,13 +158,19 @@ public class EnoaTrydb implements TrydbCommandBase<EnoaTrydb>, TrydbCommandTSql<
 
   @Override
   public <T> List<T> beans(String sql, Class<T> clazz, Object... paras) {
+    String mark = this.reportMark();
+    return this.beans(mark, sql, clazz, paras);
+  }
+
+  private <T> List<T> beans(String mark, String sql, Class<T> clazz, Object... paras) {
     Connection conn = null;
     try {
+      this.reportSql(mark, sql, paras);
       conn = this.conn();
       PreparedStatement pst = conn.prepareStatement(sql);
       this.dialect().fillParas(pst, paras);
       ResultSet rs = pst.executeQuery();
-      List<T> rets = TrydbBuilder.build(rs, clazz);
+      List<T> rets = RsBuilder.build(rs, clazz, this.config.namecase());
       StreamKit.close(false, pst, rs);
       return rets;
     } catch (SQLException e) {
@@ -269,11 +297,13 @@ public class EnoaTrydb implements TrydbCommandBase<EnoaTrydb>, TrydbCommandTSql<
   public int update(String sql, Object... paras) {
     Connection conn = null;
     try {
+      String mark = this.reportMark();
+      this.reportSql(mark, sql, paras);
       conn = this.conn();
       PreparedStatement pst = conn.prepareStatement(sql);
       this.dialect().fillParas(pst, paras);
       int ret = pst.executeUpdate();
-      StreamKit.close(pst);
+      StreamKit.close(false, pst);
       return ret;
     } catch (SQLException e) {
       throw new TrydbException(e.getMessage(), e);
@@ -290,6 +320,69 @@ public class EnoaTrydb implements TrydbCommandBase<EnoaTrydb>, TrydbCommandTSql<
   @Override
   public int update(Trysql sql, Object... paras) {
     return this.update(sql.dialect(this.config.dialect()).sql(), paras);
+  }
+
+  @Override
+  public Page<Kv> pagekv(IPSql ipsql, int pn, int ps, Trysql sql) {
+    return this.page(ipsql, pn, ps, sql, Kv.class);
+  }
+
+  @Override
+  public Page<Kv> pagekv(IPSql ipsql, int pn, int ps, Trysql sql, Object... paras) {
+    return this.page(ipsql, pn, ps, sql, Kv.class, paras);
+  }
+
+  @Override
+  public Page<Kv> pagekv(IPSql ipsql, int pn, int ps, String sql) {
+    return this.page(ipsql, pn, ps, sql, Kv.class);
+  }
+
+  @Override
+  public Page<Kv> pagekv(IPSql ipsql, int pn, int ps, String sql, Object... paras) {
+    return this.page(ipsql, pn, ps, sql, Kv.class, paras);
+  }
+
+  @Override
+  public <T> Page<T> page(IPSql ipsql, int pn, int ps, Trysql sql, Class<T> clazz) {
+    return this.page(ipsql, pn, ps, sql.dialect(this.config.dialect()).sql(), clazz);
+  }
+
+  @Override
+  public <T> Page<T> page(IPSql ipsql, int pn, int ps, Trysql sql, Class<T> clazz, Object... paras) {
+    return this.page(ipsql, pn, ps, sql.dialect(this.config.dialect()).sql(), clazz, paras);
+  }
+
+  @Override
+  public <T> Page<T> page(IPSql ipsql, int pn, int ps, String sql, Class<T> clazz) {
+    return this.page(ipsql, pn, ps, sql, clazz, CollectionKit.emptyArray(Object.class));
+  }
+
+  @Override
+  public <T> Page<T> page(IPSql ipsql, int pn, int ps, String sql, Class<T> clazz, Object... paras) {
+    PSql _psql = ipsql.psql(sql);
+    String mark = this.reportMark();
+
+    long _rows;
+    List relts = this.beans(mark, _psql.countSql(), null, paras);
+    int size = relts.size();
+//      boolean groupby = size > 1;
+    _rows = size > 1 ? size : (size > 0 ? NumberKit.longx((Number) relts.get(0)) : 0);
+
+    if (_rows == 0L)
+      return new Page<>(pn, ps, 0, 0L, 0L, Collections.emptyList());
+
+    int totalPage = NumberKit.integer(_rows / ps);
+    if (_rows % ps != 0)
+      totalPage += 1;
+
+    long offset = ps * (pn - 1);
+
+    if (pn > totalPage)
+      return new Page<>(pn, ps, totalPage, offset, _rows, Collections.emptyList());
+
+    String pageSql = this.config.dialect().pageSql(offset, ps, TextKit.removeRightChar(_psql.selectSql(), ';'));
+    List<T> beans = this.beans(mark, pageSql, clazz, paras);
+    return new Page<>(pn, ps, totalPage, offset, _rows, beans);
   }
 
 }

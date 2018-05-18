@@ -15,7 +15,7 @@
  */
 package io.enoa.example.nosql.redis;
 
-import io.enoa.nosql.redis.EnoaRedisMgr;
+import io.enoa.nosql.redis.EMgrRedis;
 import io.enoa.nosql.redis.Redis;
 import io.enoa.serialization.provider.jdk.JdkSerializeProvider;
 import redis.clients.util.SafeEncoder;
@@ -55,7 +55,7 @@ public class StringExample {
   }
 
   public static void main(String[] args) {
-    EnoaRedisMgr.start("localhost", 6379, new JdkSerializeProvider());
+    EMgrRedis.start("localhost", 6379, new JdkSerializeProvider());
     StringExample example = new StringExample();
     example.set();
     example.get();

@@ -46,19 +46,19 @@ public class LogKitTest {
     LogKit.debug(LogKit.name());
 
 
-//    EnoaLogMgr.instance().loggerFactory(new JdkLogProvider());
+//    EMgrLog.instance().loggerFactory(new JdkLogProvider());
 //    LogKit.debug("TEST JDK");
 //
-//    EnoaLogMgr.instance().loggerFactory(new Log4JProvider());
+//    EMgrLog.instance().loggerFactory(new Log4JProvider());
 //    LogKit.debug("TEST Log4j");
 //
-//    EnoaLogMgr.instance().loggerFactory(new Log4J2Provider());
+//    EMgrLog.instance().loggerFactory(new Log4J2Provider());
 //    LogKit.debug("TEST Log4j2");
 //
-//    EnoaLogMgr.instance().loggerFactory(new LogbackProvider());
+//    EMgrLog.instance().loggerFactory(new LogbackProvider());
 //    LogKit.debug("TEST Logback");
 //
-//    EnoaLogMgr.instance().loggerFactory(new Slf4JLogProvider());
+//    EMgrLog.instance().loggerFactory(new Slf4JLogProvider());
 //    LogKit.debug("TEST Slf4j");
   }
 

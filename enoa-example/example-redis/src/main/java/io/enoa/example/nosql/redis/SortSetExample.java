@@ -15,7 +15,7 @@
  */
 package io.enoa.example.nosql.redis;
 
-import io.enoa.nosql.redis.EnoaRedisMgr;
+import io.enoa.nosql.redis.EMgrRedis;
 import io.enoa.nosql.redis.Redis;
 import io.enoa.serialization.provider.jdk.JdkSerializeProvider;
 
@@ -41,7 +41,7 @@ public class SortSetExample {
 
   public static void main(String[] args) {
     SortSetExample example = new SortSetExample();
-    EnoaRedisMgr.start("localhost", 6379, new JdkSerializeProvider());
+    EMgrRedis.start("localhost", 6379, new JdkSerializeProvider());
     example.zadd();
     example.zrange();
     Redis.del(example.key);

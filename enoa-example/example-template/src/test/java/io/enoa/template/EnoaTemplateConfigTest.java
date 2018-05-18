@@ -74,15 +74,9 @@ public class EnoaTemplateConfigTest {
 
   @Test
   public void startEnjoy() {
-    EnoaTemplateMgr.instance()
-      .defTemplateFactory(new EnjoyProvider())
-      .defConfig(
-        new EnjoyConfig.Builder()
-//          .viewPath(PathKit.path().concat("/src/test/tpl/enjoy"))
-          .viewPath(PathKit.path("enjoy").toString())
-          .build()
-      );
-    EnoaEngine engine = EnoaTemplateMgr.instance().defEngine();
+    EnoaEngine engine = new EnjoyProvider().engine(new EnjoyConfig.Builder()
+      .viewPath(PathKit.path("enjoy").toString())
+      .build());
   }
 
   @Test

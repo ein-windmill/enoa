@@ -15,18 +15,18 @@
  */
 package io.enoa.toolkit.thr;
 
-import java.text.MessageFormat;
+import io.enoa.toolkit.text.TextKit;
 
 public class EoException extends RuntimeException {
   public EoException() {
   }
 
   public EoException(String message, Object... format) {
-    super(message == null ? null : MessageFormat.format(message, format));
+    super(message == null ? null : TextKit.format(message, format));
   }
 
   public EoException(String message, Throwable cause, Object... format) {
-    super(message == null ? null : MessageFormat.format(message, format), cause);
+    super(message == null ? null : TextKit.format(message, format), cause);
   }
 
   public EoException(Throwable cause) {
@@ -34,6 +34,6 @@ public class EoException extends RuntimeException {
   }
 
   public EoException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, Object... format) {
-    super(message == null ? null : MessageFormat.format(message, format), cause, enableSuppression, writableStackTrace);
+    super(message == null ? null : TextKit.format(message, format), cause, enableSuppression, writableStackTrace);
   }
 }

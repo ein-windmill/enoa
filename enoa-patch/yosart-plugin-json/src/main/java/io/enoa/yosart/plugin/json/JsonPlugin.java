@@ -15,7 +15,7 @@
  */
 package io.enoa.yosart.plugin.json;
 
-import io.enoa.json.EnoaJsonMgr;
+import io.enoa.json.EMgrJson;
 import io.enoa.json.EoJsonFactory;
 import io.enoa.json.provider.enoa.EoJsonProvider;
 import io.enoa.toolkit.text.TextKit;
@@ -57,9 +57,9 @@ public class JsonPlugin implements YoPlugin {
 
   @Override
   public boolean start() throws OyPluginException {
-    EnoaJsonMgr.instance().defJsonFactory(this.factory);
+    EMgrJson.defJsonFactory(this.factory);
     if (TextKit.notBlank(this.datePattern))
-      EnoaJsonMgr.instance().defDatePattern(this.datePattern);
+      EMgrJson.defDatePattern(this.datePattern);
     return true;
   }
 

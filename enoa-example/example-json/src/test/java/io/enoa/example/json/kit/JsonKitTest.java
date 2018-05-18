@@ -16,7 +16,7 @@
 package io.enoa.example.json.kit;
 
 import io.enoa.example.json.User;
-import io.enoa.json.EnoaJsonMgr;
+import io.enoa.json.EMgrJson;
 import io.enoa.json.kit.JsonKit;
 import io.enoa.json.provider.enoa.EoJsonProvider;
 import io.enoa.json.provider.fastjson.FastjsonProvider;
@@ -59,38 +59,38 @@ public class JsonKitTest {
 
   @Test
   public void testToJson() throws Exception {
-//    EnoaJsonMgr.instance().defDatePattern("yyyy-MM-dd HH:mm:ss.SSS");
+//    EMgrJson.defDatePattern("yyyy-MM-dd HH:mm:ss.SSS");
 
     Map<String, Object> dmp = this.dataMap();
-    EnoaJsonMgr.instance().defJsonFactory(new EoJsonProvider());
+    EMgrJson.defJsonFactory(new EoJsonProvider());
     System.out.println(JsonKit.toJson(dmp));
-    EnoaJsonMgr.instance().defJsonFactory(new JacksonProvider());
+    EMgrJson.defJsonFactory(new JacksonProvider());
     System.out.println(JsonKit.toJson(dmp));
-    EnoaJsonMgr.instance().defJsonFactory(new GsonProvider());
+    EMgrJson.defJsonFactory(new GsonProvider());
     System.out.println(JsonKit.toJson(dmp));
-    EnoaJsonMgr.instance().defJsonFactory(new FastjsonProvider());
+    EMgrJson.defJsonFactory(new FastjsonProvider());
     System.out.println(JsonKit.toJson(dmp));
 
     User dmu = this.dataUser();
-    EnoaJsonMgr.instance().defJsonFactory(new EoJsonProvider());
+    EMgrJson.defJsonFactory(new EoJsonProvider());
     System.out.println(JsonKit.toJson(dmu));
-    EnoaJsonMgr.instance().defJsonFactory(new JacksonProvider());
+    EMgrJson.defJsonFactory(new JacksonProvider());
     System.out.println(JsonKit.toJson(dmu));
-    EnoaJsonMgr.instance().defJsonFactory(new GsonProvider());
+    EMgrJson.defJsonFactory(new GsonProvider());
     System.out.println(JsonKit.toJson(dmu));
-    EnoaJsonMgr.instance().defJsonFactory(new FastjsonProvider());
+    EMgrJson.defJsonFactory(new FastjsonProvider());
     System.out.println(JsonKit.toJson(dmu));
 
     List<User> us = new ArrayList<>();
     us.add(this.dataUser());
     us.add(this.dataUser());
-    EnoaJsonMgr.instance().defJsonFactory(new EoJsonProvider());
+    EMgrJson.defJsonFactory(new EoJsonProvider());
     System.out.println(JsonKit.toJson(us));
-    EnoaJsonMgr.instance().defJsonFactory(new JacksonProvider());
+    EMgrJson.defJsonFactory(new JacksonProvider());
     System.out.println(JsonKit.toJson(us));
-    EnoaJsonMgr.instance().defJsonFactory(new GsonProvider());
+    EMgrJson.defJsonFactory(new GsonProvider());
     System.out.println(JsonKit.toJson(us));
-    EnoaJsonMgr.instance().defJsonFactory(new FastjsonProvider());
+    EMgrJson.defJsonFactory(new FastjsonProvider());
     System.out.println(JsonKit.toJson(us));
   }
 
@@ -101,23 +101,23 @@ public class JsonKitTest {
     User dmu = this.dataUser();
     String dmus = JsonKit.toJson(dmu);
 
-    EnoaJsonMgr.instance().defJsonFactory(new FastjsonProvider());
+    EMgrJson.defJsonFactory(new FastjsonProvider());
     dmp = JsonKit.parse(dmps, Map.class);
     System.out.println(JsonKit.toJson(dmp));
-    EnoaJsonMgr.instance().defJsonFactory(new JacksonProvider());
+    EMgrJson.defJsonFactory(new JacksonProvider());
     dmp = JsonKit.parse(dmps, Map.class);
     System.out.println(JsonKit.toJson(dmp));
-    EnoaJsonMgr.instance().defJsonFactory(new GsonProvider());
+    EMgrJson.defJsonFactory(new GsonProvider());
     dmp = JsonKit.parse(dmps, Map.class);
     System.out.println(JsonKit.toJson(dmp));
 
-    EnoaJsonMgr.instance().defJsonFactory(new FastjsonProvider());
+    EMgrJson.defJsonFactory(new FastjsonProvider());
     dmu = JsonKit.parse(dmps, User.class);
     System.out.println(JsonKit.toJson(dmu));
-    EnoaJsonMgr.instance().defJsonFactory(new JacksonProvider());
+    EMgrJson.defJsonFactory(new JacksonProvider());
     dmu = JsonKit.parse(dmps, User.class);
     System.out.println(JsonKit.toJson(dmu));
-    EnoaJsonMgr.instance().defJsonFactory(new GsonProvider());
+    EMgrJson.defJsonFactory(new GsonProvider());
     dmu = JsonKit.parse(dmps, User.class);
     System.out.println(JsonKit.toJson(dmu));
 

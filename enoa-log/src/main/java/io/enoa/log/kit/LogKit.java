@@ -15,8 +15,8 @@
  */
 package io.enoa.log.kit;
 
+import io.enoa.log.EMgrLog;
 import io.enoa.log.EnoaLog;
-import io.enoa.log.EnoaLogMgr;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,7 +46,7 @@ public class LogKit {
 
   private static class Holder {
     private static Map<String, EnoaLog> LOG_CACHE = new HashMap<>();
-    private static EnoaLog log = EnoaLogMgr.getLog(LogKit.class);
+    private static EnoaLog log = EMgrLog.getLog(LogKit.class);
 
     private static EnoaLog log() {
       String className = Thread.currentThread().getStackTrace()[4].getClassName();
@@ -56,14 +56,14 @@ public class LogKit {
     private static EnoaLog log(String className) {
       if (LOG_CACHE.get(className) != null)
         return LOG_CACHE.get(className);
-      log = EnoaLogMgr.getLog(className);
+      log = EMgrLog.getLog(className);
       LOG_CACHE.put(className, log);
       return log;
     }
   }
 
   public static void syncLog() {
-    Holder.log = EnoaLogMgr.getLog(LogKit.class);
+    Holder.log = EMgrLog.getLog(LogKit.class);
   }
 
   public static EnoaLog use(Class<?> clazz) {

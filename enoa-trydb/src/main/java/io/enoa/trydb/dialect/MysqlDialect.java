@@ -15,6 +15,8 @@
  */
 package io.enoa.trydb.dialect;
 
+import io.enoa.toolkit.text.TextKit;
+
 public class MysqlDialect implements IDialect {
 
   private static final String[] KEYWORDS = {
@@ -39,5 +41,10 @@ public class MysqlDialect implements IDialect {
   @Override
   public String[] keywords() {
     return KEYWORDS;
+  }
+
+  @Override
+  public String pageSql(long offset, int size, String psql) {
+    return TextKit.union(psql, " limit ", offset, ", ", size);
   }
 }

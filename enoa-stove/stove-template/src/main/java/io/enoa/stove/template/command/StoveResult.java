@@ -20,10 +20,12 @@ import io.enoa.toolkit.value.EnoaValue;
 
 public interface StoveResult {
 
-  StoveResult VOID = VoidResult.instance();
+  StoveResult NULL = VoidResult.instance();
 
-  String value();
+  Object value();
 
-  EnoaValue pipeval();
+//  default EnoaValue pipeval() {
+//    return EnoaValue.with(this.value());
+//  }
 
 }

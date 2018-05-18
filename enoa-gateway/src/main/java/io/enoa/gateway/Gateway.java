@@ -16,7 +16,7 @@
 package io.enoa.gateway;
 
 import io.enoa.gateway.auth.GatewayAuth;
-import io.enoa.gateway.data.GatewayMapping;
+import io.enoa.gateway.data.GMapping;
 import io.enoa.log.EoLogFactory;
 import io.enoa.repeater.EoxConfig;
 import io.enoa.repeater.factory.server.RepeaterServerFactory;
@@ -34,7 +34,7 @@ public interface Gateway {
 
   Gateway log(EoLogFactory logFactory);
 
-  Gateway capture(GatewayErrorRenderFactory capture);
+  Gateway capture(GErrorRenderFactory capture);
 
   default Gateway ssl() {
     return this.ssl(Boolean.TRUE);
@@ -70,11 +70,11 @@ public interface Gateway {
 
   Gateway mapping(String source, String dest);
 
-  Gateway mapping(GatewayMapping mapping);
+  Gateway mapping(GMapping mapping);
 
-  Gateway mapping(GatewayMapping[] mappings);
+  Gateway mapping(GMapping[] mappings);
 
-  Gateway mapping(Collection<GatewayMapping> mappings);
+  Gateway mapping(Collection<GMapping> mappings);
 
   void listen(String hostname, int port);
 

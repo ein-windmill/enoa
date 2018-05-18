@@ -20,7 +20,7 @@ import io.enoa.http.protocol.HttpHeader;
 import io.enoa.http.protocol.HttpMethod;
 import io.enoa.http.protocol.HttpResponse;
 import io.enoa.http.protocol.HttpResponseBody;
-import io.enoa.log.EnoaLogMgr;
+import io.enoa.log.EMgrLog;
 import io.enoa.log.kit.LogKit;
 import io.enoa.log.provider.slf4j.Slf4JLogProvider;
 import io.enoa.serialization.EoSerializer;
@@ -44,7 +44,7 @@ public class HttpTest {
 
   @Before
   public void before() {
-    EnoaLogMgr.instance().defLogFactory(new Slf4JLogProvider());
+    EMgrLog.defLogFactory(new Slf4JLogProvider());
   }
 
   @Test

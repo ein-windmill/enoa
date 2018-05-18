@@ -29,12 +29,12 @@ public final class VoidResult implements StoveResult {
   }
 
   @Override
-  public String value() {
+  public Object value() {
     return null;
   }
 
-  @Override
-  public EnoaValue pipeval() {
-    return EnoaValue.NULL;
-  }
+//  @Override
+//  public EnoaValue pipeval() {
+//    return EnoaValue.NULL;
+//  }
 }

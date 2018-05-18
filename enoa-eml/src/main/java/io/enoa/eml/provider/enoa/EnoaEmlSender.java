@@ -20,18 +20,20 @@ import io.enoa.eml.EmlProtocol;
 import io.enoa.eml.EmlSender;
 import io.enoa.eml.EoEmlSession;
 import io.enoa.eml.api.SenderHandler;
-import io.enoa.eml.api.promise.SendPromise;
 import io.enoa.eml.entity.Attachment;
 import io.enoa.eml.entity.MailPerson;
 import io.enoa.eml.thr.EoEmailException;
-import io.enoa.promise.PromiseCapture;
-import io.enoa.promise.PromiseVoid;
+import io.enoa.promise.DonePromise;
+import io.enoa.promise.builder.EEnodPromiseBuilder;
+import io.enoa.promise.builder.PromiseBuilder;
+import io.enoa.promise.arg.PromiseCapture;
+import io.enoa.promise.arg.PromiseVoid;
 import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.binary.EnoaBinary;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.stream.StreamKit;
+import io.enoa.toolkit.text.TextKit;
 
 import javax.activation.DataHandler;
 import javax.mail.Message;
@@ -48,8 +50,8 @@ import java.util.concurrent.ExecutorService;
 class EnoaEmlSender implements EmlSender {
 
 
-  private static ExecutorService EXEC_HANDLER = _EnoaEmailThreadPool.executorService("EnoaEmail Handler Dispatcher");
-  private static ExecutorService EXEC_ENQUEUE = _EnoaEmailThreadPool.executorService("EnoaEmail Enqueue Dispatcher");
+  private static ExecutorService EXEC_HANDLER = PromiseBuilder.executor().enqueue("EnoaEmail Handler Dispatcher");
+  private static ExecutorService EXEC_ENQUEUE = PromiseBuilder.executor().enqueue("EnoaEmail Enqueue Dispatcher");
 
   private Charset charset;
   private MailPerson from;
@@ -241,32 +243,33 @@ class EnoaEmlSender implements EmlSender {
   }
 
   @Override
-  public SendPromise enqueue() {
-    _EnoaSendPromise esp = new _EnoaSendPromise();
+  public DonePromise enqueue() {
+    EEnodPromiseBuilder builder = PromiseBuilder.done();
     EXEC_ENQUEUE.execute(() -> {
       String oldName = Thread.currentThread().getName();
       Thread.currentThread().setName(TextKit.union("ENOA-EMAIL-SENDER-ENQUEUE-", oldName));
       try {
         this.emit();
-        if (esp.dones != null) {
-          for (PromiseVoid done : esp.dones) {
+
+        if (CollectionKit.notEmpty(builder.dones())) {
+          for (PromiseVoid done : builder.dones()) {
             done.execute();
           }
         }
       } catch (Exception e) {
-        if (esp.captures != null) {
-          for (PromiseCapture capture : esp.captures) {
+        if (CollectionKit.notEmpty(builder.captures())) {
+          for (PromiseCapture capture : builder.captures()) {
             capture.execute(e);
           }
         }
       } finally {
-        if (esp.always != null) {
-          esp.always.execute();
+        if (builder.always() != null) {
+          builder.always().execute();
         }
         Thread.currentThread().setName(oldName);
       }
     });
-    return esp;
+    return builder.build();
   }
 
   private InternetAddress addr(MailPerson personal, Charset charset) throws AddressException, UnsupportedEncodingException {

@@ -15,7 +15,7 @@
  */
 package io.enoa.example.nosql.redis;
 
-import io.enoa.nosql.redis.EnoaRedisMgr;
+import io.enoa.nosql.redis.EMgrRedis;
 import io.enoa.nosql.redis.Redis;
 import io.enoa.serialization.provider.fst.FstProvider;
 
@@ -48,7 +48,7 @@ public class HashExample {
 
   public static void main(String[] args) {
     HashExample example = new HashExample();
-    EnoaRedisMgr.start("localhost", 6379, new FstProvider());
+    EMgrRedis.start("localhost", 6379, new FstProvider());
     example.hset();
     example.hexists();
     example.hget();

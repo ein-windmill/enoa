@@ -18,13 +18,16 @@ package io.enoa.stove.template.eot;
 import io.enoa.stove.template.SPM;
 import io.enoa.stove.template.StoveConfig;
 import io.enoa.stove.template.Tpl;
-import io.enoa.stove.template.ast._StoveAst;
+import io.enoa.stove.template.ast.VotsAst;
+import io.enoa.stove.template.ast.tree.Ast;
+import io.enoa.stove.template.renderer.VotsRenderer;
 import io.enoa.toolkit.binary.EnoaBinary;
 import io.enoa.toolkit.file.FileKit;
 import io.enoa.toolkit.text.TextKit;
 
 import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class _StoveTemplate implements Tpl {
@@ -65,8 +68,8 @@ public class _StoveTemplate implements Tpl {
     Path path = this.config.path().resolve(this.fileName(this.tpl));
     EnoaBinary binary = FileKit.read(path);
     String string = binary.string();
-    _StoveAst ast = new _StoveAst(this.spm, this.config);
-    return ast.analysis(path, string, attr);
+    List<Ast> asts = VotsAst.analysis(this.spm, this.config, path, string);
+    return VotsRenderer.render(this.spm, this.config, asts, attr);
   }
 
 

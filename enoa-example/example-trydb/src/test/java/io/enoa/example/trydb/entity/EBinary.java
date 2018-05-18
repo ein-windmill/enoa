@@ -15,6 +15,8 @@
  */
 package io.enoa.example.trydb.entity;
 
+import java.util.Arrays;
+
 public class EBinary {
 
   private int id;
@@ -34,5 +36,13 @@ public class EBinary {
 
   public void setBin(byte[] bin) {
     this.bin = bin;
+  }
+
+  @Override
+  public String toString() {
+    return "EBinary{" +
+      "id=" + id +
+      ", bin=" + Arrays.toString(bin) +
+      '}';
   }
 }

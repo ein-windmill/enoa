@@ -1,25 +1,22 @@
 package io.enoa.example.trydb.tsql;
 
 import io.enoa.toolkit.map.Kv;
-import io.enoa.trydb.dialect.PostgreDialect;
+import io.enoa.toolkit.path.PathKit;
+import io.enoa.trydb.dialect.PostgreSQLDialect;
 import io.enoa.trydb.tsql.Trysql;
 import io.enoa.trydb.tsql.generate.where.TSqlCond;
 import io.enoa.trydb.tsql.generate.where.TSqlRelation;
 import io.enoa.trydb.tsql.template.TSql;
-import org.junit.Before;
+import io.enoa.trydb.tsql.template.TSqlTemplate;
+import io.enoa.trydb.tsql.template.enjoy.EnjoyTSqlTemplate;
 import org.junit.Test;
 
 public class TrysqlTest {
 
-  @Before
-  public void init() {
-//    EnoaTSqlTemplateMgr.install(new NoneTSqlTemplate());
-  }
-
   @Test
   public void select() {
     String sql = Trysql.select()
-      .dialect(new PostgreDialect())
+      .dialect(new PostgreSQLDialect())
       .table("user")
       .column("id", "name")
       .column("age", "key")
@@ -38,7 +35,7 @@ public class TrysqlTest {
   public void insert() {
     String sql = Trysql.insert()
       .table("user")
-      .dialect(new PostgreDialect())
+      .dialect(new PostgreSQLDialect())
       .multiple()
       .column("id", "name", "age")
       .value(1, "xiaoming", 23)
@@ -50,7 +47,7 @@ public class TrysqlTest {
   @Test
   public void update() {
     String sql = Trysql.update("user")
-      .dialect(new PostgreDialect())
+      .dialect(new PostgreSQLDialect())
       .set("name", "Tom'v")
       .set("age", 19)
       .where()
@@ -79,7 +76,8 @@ public class TrysqlTest {
 
   @Test
   public void template() {
-    TSql sql = Trysql.template().render("User.findById", Kv.by("id", 1));
+    TSqlTemplate template = new EnjoyTSqlTemplate(PathKit.bootPath().resolve("src/test/resources/sqls"), "template.sql", true);
+    TSql sql = template.render("Binary.list", Kv.by("id", 2345678945678L));
     System.out.println(sql);
   }
 
