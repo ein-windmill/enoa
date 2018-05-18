@@ -28,11 +28,10 @@
 
 > com.jfinal.kit.StrKit
 
-- add lower
-- add upper
-- add pad
-- add lpad
-- add rpad
+- use isBlank
+- use notBlank
+- use firstToLower
+- use firstToUpper
 
 ### io.enoa.toolkit.prop.Prop
 
@@ -79,8 +78,6 @@
 - SqlKit
 - SqlPara
 - SqlSource
-
-
 
 
 ## OkHttp
