@@ -21,15 +21,6 @@
     </dependency>
 
     <dependency>
-      <groupId>io.enoa</groupId>
-      <artifactId>enoa-log</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>io.enoa</groupId>
-      <artifactId>enoa-toolkit</artifactId>
-    </dependency>
-    <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-core</artifactId>
       <scope>provided</scope>
@@ -46,7 +37,6 @@
       <artifactId>logback-access</artifactId>
       <scope>provided</scope>
     </dependency>
-
 
     <dependency>
       <groupId>io.enoa</groupId>
