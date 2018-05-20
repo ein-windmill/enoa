@@ -13,7 +13,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
+- Move yosart-ext-anost to enoa-yosart
+- Change yosart default router ext to anost.
+
 ### Removed
+
+- Remove yosart-ext-beaction
+- Remove yosart-ext-anost
 
 
 ## [Released]
