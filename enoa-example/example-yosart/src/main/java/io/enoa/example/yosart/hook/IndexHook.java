@@ -13,19 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.example.yosart.interceptor;
+package io.enoa.example.yosart.hook;
 
-import io.enoa.ext.bea.beaction.Interceptor;
-import io.enoa.ext.bea.beaction.Invocation;
+import io.enoa.yosart.ext.anost.hook.HookException;
+import io.enoa.yosart.ext.anost.hook.IHook;
+import io.enoa.yosart.ext.anost.valid.Valid;
 import io.enoa.yosart.kernel.http.YoRequest;
 import io.enoa.yosart.resp.Resp;
 
-public class GoPartyInterceptor implements Interceptor {
+public class IndexHook implements IHook {
+
   @Override
-  public void intercept(Invocation inv) {
-    YoRequest req = inv.req();
-    Resp resp = inv.resp();
-    resp.renderHtml("Interceptor test");
-//    inv.next();
+  public void hook(YoRequest request, Resp resp) throws HookException {
+    Valid valid = Valid.with(request);
+
+    valid.object("where")
+      .blank("Please input an address");
+
+    valid.number("age");
   }
+
 }

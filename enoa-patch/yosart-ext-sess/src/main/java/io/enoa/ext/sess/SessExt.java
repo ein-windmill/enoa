@@ -15,6 +15,7 @@
  */
 package io.enoa.ext.sess;
 
+import io.enoa.toolkit.random.RandomKit;
 import io.enoa.yosart.kernel.ext.YmSessionExt;
 import io.enoa.yosart.kernel.http.Session;
 import io.enoa.yosart.kernel.http.YoRequest;
@@ -22,6 +23,8 @@ import io.enoa.yosart.kernel.http.YoRequest;
 public class SessExt implements YmSessionExt {
 
   private SessFactory factory;
+
+  private double wight = RandomKit.nextDouble(1, 9);
 
   public SessExt(SessFactory factory) {
     this.factory = factory;
@@ -40,5 +43,10 @@ public class SessExt implements YmSessionExt {
   @Override
   public String version() {
     return "1";
+  }
+
+  @Override
+  public double weight() {
+    return this.wight;
   }
 }

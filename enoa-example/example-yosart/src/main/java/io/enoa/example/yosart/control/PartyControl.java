@@ -15,21 +15,26 @@
  */
 package io.enoa.example.yosart.control;
 
-import io.enoa.example.yosart.entity.Party;
-import io.enoa.example.yosart.handler.PartyGoHandler;
-import io.enoa.example.yosart.interceptor.GoPartyInterceptor;
-import io.enoa.example.yosart.valid.PartyGoValid;
-import io.enoa.ext.bea.beaction.Before;
-import io.enoa.ext.bea.beaction.Clear;
+import io.enoa.example.yosart.hook.IndexHook;
 import io.enoa.json.kit.JsonKit;
 import io.enoa.log.kit.LogKit;
 import io.enoa.repeater.http.Cookie;
 import io.enoa.repeater.http.Method;
 import io.enoa.toolkit.map.Kv;
+import io.enoa.toolkit.ret.EoResp;
+import io.enoa.toolkit.ret.Ret;
+import io.enoa.yosart.ext.anost.hook.Hook;
+import io.enoa.yosart.ext.anost.para.Para;
+import io.enoa.yosart.ext.anost.para.Paras;
 import io.enoa.yosart.kernel.anno.Action;
+import io.enoa.yosart.kernel.http.YoRequest;
 import io.enoa.yosart.kernel.resources.YoControl;
 
+import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class PartyControl extends YoControl<PartyControl> {
 
@@ -45,10 +50,14 @@ public class PartyControl extends YoControl<PartyControl> {
     LogKit.debug(JsonKit.toJson(super.attrNames()));
   }
 
-  @Action(method = {Method.GET, Method.POST}, uri = "/go")
-  @Before({GoPartyInterceptor.class, PartyGoValid.class, PartyGoHandler.class})
-  @Clear(GoPartyInterceptor.class)
-  public Object go(Party party, int stat, long id, byte b, char c, String name, String where, Date ctime) {
+  @Action(method = {Method.GET, Method.POST}, value = "go")
+  @Hook(IndexHook.class)
+  @Paras({
+    @Para(index = 3, value = "ts", format = "yyyy-MM-dd"),
+    @Para(index = 1, value = "where", def = "street #1"),
+    @Para(value = "zone", def = "9")
+  })
+  public Ret go(YoRequest request, String where, int zone, Timestamp ts) {
     String context = super.request().context();
     LogKit.debug(context);
 
@@ -60,8 +69,8 @@ public class PartyControl extends YoControl<PartyControl> {
     super.cookie(new Cookie.Builder().name("k").value("v").build());
     super.cookie(new Cookie.Builder().name("z").value("y").build());
 
-    super.renderText("LogKit.debug(JsonKit.toJson(super.headerNames()));");
-    return null;
+//    super.renderText("LogKit.debug(JsonKit.toJson(super.headerNames()));");
+    return EoResp.ok("OK");
   }
 
   @Action("/finish/:id/where/:where/:times")
@@ -123,4 +132,35 @@ public class PartyControl extends YoControl<PartyControl> {
     LogKit.debug(super.variable("id"));
     super.renderText("delete patch");
   }
+
+  @Para("pas")
+  public Ret arr0(String[] pas) {
+    LogKit.debug(JsonKit.toJson(pas));
+    return EoResp.ok();
+  }
+
+  @Para("pas")
+  public Ret arr1(List<Integer> pas) {
+    LogKit.debug(JsonKit.toJson(pas));
+    return EoResp.ok();
+  }
+
+  @Para("pas")
+  public Ret arr2(Set<Integer> pas) {
+    LogKit.debug(JsonKit.toJson(pas));
+    return EoResp.ok();
+  }
+
+  @Para("pas")
+  public Ret arr3(TreeSet<Double> pas) {
+    LogKit.debug(JsonKit.toJson(pas));
+    return EoResp.ok();
+  }
+
+  @Para("pas")
+  public Ret arr4(short... pas) {
+    LogKit.debug(JsonKit.toJson(pas));
+    return EoResp.ok();
+  }
+
 }

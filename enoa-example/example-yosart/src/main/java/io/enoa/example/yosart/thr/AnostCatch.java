@@ -1,7 +1,8 @@
-package io.enoa.example.yosart.anost.thr;
+package io.enoa.example.yosart.thr;
 
 import io.enoa.repeater.http.HttpStatus;
 import io.enoa.repeater.http.Response;
+import io.enoa.toolkit.random.RandomKit;
 import io.enoa.yosart.ext.anost.valid.ValidException;
 import io.enoa.yosart.kernel.ext.YmExceptionExt;
 import io.enoa.yosart.kernel.http.YoRequest;
@@ -10,6 +11,8 @@ import io.enoa.yosart.resp.Renderer;
 import io.enoa.yosart.resp.Resp;
 
 public class AnostCatch implements YmExceptionExt {
+
+  private double wight = RandomKit.nextDouble(1, 9);
 
   @Override
   public Response handle(YoRequest request, Resp resp, Throwable throwable) {
@@ -32,5 +35,10 @@ public class AnostCatch implements YmExceptionExt {
   @Override
   public String version() {
     return "1";
+  }
+
+  @Override
+  public double weight() {
+    return this.wight;
   }
 }

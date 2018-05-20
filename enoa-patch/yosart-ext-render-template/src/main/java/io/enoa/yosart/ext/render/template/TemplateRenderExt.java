@@ -24,6 +24,7 @@ import io.enoa.template.compressor.EoCompressorFactory;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.path.PathKit;
+import io.enoa.toolkit.random.RandomKit;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.yosart.Oysart;
 import io.enoa.yosart.kernel.ext.YmRenderExt;
@@ -42,6 +43,8 @@ public class TemplateRenderExt implements YmRenderExt {
   private EoEngineConfig config;
 
   private EnoaEngine engine;
+
+  private double wight = RandomKit.nextDouble(1, 9);
 
   public TemplateRenderExt(EoTemplateFactory factory, String basePath) {
     this(factory, basePath, null);
@@ -145,6 +148,11 @@ public class TemplateRenderExt implements YmRenderExt {
   @Override
   public String name() {
     return "TemplateRender";
+  }
+
+  @Override
+  public double weight() {
+    return this.wight;
   }
 
   @Override

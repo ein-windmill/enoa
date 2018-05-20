@@ -82,11 +82,11 @@ class YoExtd {
           return;
         superClazz = YmRouterExt.class.getName();
         break;
-      case BEFORE_ACTION:
-        if (ext instanceof YmBeforeActionExt)
-          return;
-        superClazz = YmBeforeActionExt.class.getName();
-        break;
+//      case BEFORE_ACTION:
+//        if (ext instanceof YmBeforeActionExt)
+//          return;
+//        superClazz = YmBeforeActionExt.class.getName();
+//        break;
       case SESSION:
         if (ext instanceof YmSessionExt)
           return;

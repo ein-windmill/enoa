@@ -141,10 +141,12 @@
     </dependency>
 
 
+<!--
     <dependency>
       <groupId>io.enoa</groupId>
       <artifactId>yosart-ext-bea-beaction</artifactId>
     </dependency>
+-->
 
 
     <dependency>

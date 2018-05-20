@@ -17,10 +17,14 @@ package io.enoa.yosart.plugin.json.ext;
 
 import io.enoa.repeater.http.Request;
 import io.enoa.toolkit.map.Kv;
+import io.enoa.toolkit.random.RandomKit;
 import io.enoa.yosart.kernel.ext.YmRenderExt;
 import io.enoa.yosart.kernel.render.YoRender;
 
 public class JsonRenderExt implements YmRenderExt {
+
+  private double wight = RandomKit.nextDouble(1, 9);
+
   @Override
   public String renderType() {
     return YoRender.Type.JSON.name();
@@ -41,4 +45,8 @@ public class JsonRenderExt implements YmRenderExt {
     return "1";
   }
 
+  @Override
+  public double weight() {
+    return this.wight;
+  }
 }

@@ -286,21 +286,17 @@
 
       <dependency>
         <groupId>io.enoa</groupId>
-        <artifactId>yosart-ext-router-anost</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>io.enoa</groupId>
         <artifactId>yosart-ext-render-template</artifactId>
         <version>${project.version}</version>
       </dependency>
 
+<!--
       <dependency>
         <groupId>io.enoa</groupId>
         <artifactId>yosart-ext-bea-beaction</artifactId>
         <version>${project.version}</version>
       </dependency>
+-->
 
       <dependency>
         <groupId>io.enoa</groupId>

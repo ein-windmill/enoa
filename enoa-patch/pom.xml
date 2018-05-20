@@ -28,9 +28,7 @@
     <module>yosart-plugin-ioc</module>
     <module>yosart-plugin-redis</module>
     <module>yosart-plugin-eml</module>
-    <module>yosart-ext-router-anost</module>
     <module>yosart-ext-render-template</module>
-    <module>yosart-ext-bea-beaction</module>
     <module>yosart-ext-yemgr</module>
     <module>yosart-ext-sess</module>
     <module>enoa-serialization-fst</module>

@@ -69,6 +69,11 @@ public class AnostExt implements YmRouterExt {
   }
 
   @Override
+  public double weight() {
+    return 2D;
+  }
+
+  @Override
   public Response handle(String action, Request request) {
 
     YoConfig config = Oysart.config();
@@ -82,14 +87,12 @@ public class AnostExt implements YmRouterExt {
       variable = PathVariableKit.parse(action, Oysart.resources().keySet());
       // no handle return 404
       if (variable == null) {
-//        return Resp.with(request).renderError(HttpStatus.NOT_FOUND).end();
         return this.renderError(request, HttpStatus.NOT_FOUND);
       }
       resource = OyResourceKit.choose(request.method(), variable.uri());
     }
 
     if (resource == null) {
-//      return Resp.with(request).renderError(HttpStatus.NOT_FOUND).end();
       return this.renderError(request, HttpStatus.NOT_FOUND);
     }
 
@@ -117,7 +120,6 @@ public class AnostExt implements YmRouterExt {
       force = true;
       Throwable accurate = ThrowableKit.accurate(e);
       LogKit.error(e.getMessage(), accurate);
-//      return Renderer.with(req).renderError(HttpStatus.INTERNAL_ERROR, config.debug() ? accurate : null).end();
       return this.renderError(req, resp, HttpStatus.INTERNAL_ERROR, config.debug() ? accurate : null);
     } finally {
       Boolean reqclear = request.attr("_eo.request.clear");

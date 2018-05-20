@@ -36,10 +36,11 @@ public interface YoExt {
      * static resource
      */
     ASSETS(true),
-    /**
-     * before start action
-     */
-    BEFORE_ACTION(false),
+//    /**
+//     * before start action
+//     */
+//    @Deprecated
+//    BEFORE_ACTION(false),
     /**
      * render
      */
@@ -99,7 +100,7 @@ public interface YoExt {
    * @return double
    */
   default double weight() {
-    return RandomKit.nextDouble(1, 9);
+    return 8.9999999999D;
   }
 
 }
