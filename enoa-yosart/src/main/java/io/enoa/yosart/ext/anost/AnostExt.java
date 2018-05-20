@@ -84,6 +84,10 @@ public class AnostExt implements YmRouterExt {
 
     // if not resource handle try restful uri handle
     if (resource == null) {
+      // no resources return 404
+      if (Oysart.resources() == null)
+        return this.renderError(request, HttpStatus.NOT_FOUND);
+
       variable = PathVariableKit.parse(action, Oysart.resources().keySet());
       // no handle return 404
       if (variable == null) {

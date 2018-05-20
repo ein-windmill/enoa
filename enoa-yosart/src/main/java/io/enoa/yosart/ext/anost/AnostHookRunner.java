@@ -63,7 +63,7 @@ class AnostHookRunner {
     /*
     優先添加全局 hook
      */
-    CACHE_OPTIONS = new ArrayList<>(hookMgr.globals());
+    CACHE_OPTIONS = CollectionKit.isEmpty(hookMgr.globals()) ? new ArrayList<>() : new ArrayList<>(hookMgr.globals());
 
     /*
     优先加入规则配置 Hook
