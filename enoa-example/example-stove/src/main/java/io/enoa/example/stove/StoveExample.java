@@ -27,7 +27,7 @@ public class StoveExample {
   private StoveConfig conf0() {
     return new StoveConfig.Builder()
       .debug()
-      .path(PathKit.bootPath().resolve("src/main/resources/template"))
+      .path(PathKit.debugPath().resolve("src/main/resources/template"))
 //      .suffix("html")
       .build();
   }

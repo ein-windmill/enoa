@@ -18,10 +18,12 @@ package io.enoa.db;
 import io.enoa.db.provider.ds.c3p0.C3p0Config;
 import io.enoa.db.provider.ds.c3p0.C3p0Provider;
 import io.enoa.log.kit.LogKit;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.sql.DataSource;
 
+@Ignore
 public class DsTest {
 
   @Test

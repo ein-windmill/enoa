@@ -45,7 +45,7 @@ public class TrydbTest {
       .ds(new DruidDs().ds())
       .showSql()
       .dialect(new PostgreSQLDialect())
-      .template(new EnjoyTSqlTemplate(PathKit.bootPath().resolve("src/test/resources/sqls"), "template.sql", true))
+      .template(new EnjoyTSqlTemplate(PathKit.debugPath().resolve("src/test/resources/sqls"), "template.sql", true))
       .build();
     TrydbBootstrap bootstrap = new TrydbBootstrap(config);
     bootstrap.start();

@@ -68,7 +68,7 @@ public class EmlExample {
       .bcc(this.email)
       .subject(TextKit.union("SUBJECT -> ", UUIDKit.next()))
       .body("<h1>BODY</h1>")
-      .attachment(PathKit.bootPath().resolve("file/attachment.txt"))
+      .attachment(PathKit.debugPath().resolve("file/attachment.txt"))
       .handler(stream -> System.out.println("FROM -> " + stream))
       .handler(stream -> System.out.println("TO -> " + stream.tos()))
       .handler(stream -> System.out.println("REQ BODY -> " + stream.req().string()))

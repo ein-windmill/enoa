@@ -56,7 +56,6 @@ import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.path.PathKit;
 import io.enoa.toolkit.sys.EnvKit;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.yosart.YoConfig;
 import io.enoa.yosart.Yosart;
 import io.enoa.yosart.ext.anost.AnostExt;
@@ -133,7 +132,7 @@ public class YosartBoot {
 
 
     public String basePath() {
-      Path tplPath = ISPKG ? PathKit.path().resolve("resources/tpl") : PathKit.bootPath().resolve("src/main/tpl/");
+      Path tplPath = ISPKG ? PathKit.path().resolve("resources/tpl") : PathKit.debugPath().resolve("src/main/tpl/");
       LogKit.debug("Template path: {}", tplPath);
       return tplPath.resolve(this.name().toLowerCase()).toString();
     }

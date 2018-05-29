@@ -22,6 +22,7 @@ import io.enoa.db.provider.ds.c3p0.C3p0Config;
 import io.enoa.db.provider.ds.c3p0.C3p0Provider;
 import io.enoa.log.kit.LogKit;
 import io.enoa.toolkit.path.PathKit;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class DbTest {
@@ -45,6 +46,7 @@ public class DbTest {
   }
 
   @Test
+  @Ignore
   public void testMybatis() {
     try {
       this.mybatis();

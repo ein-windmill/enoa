@@ -75,7 +75,7 @@ public class HttpTest {
 
   private Http http() {
 //    Path upload = Paths.get(PathKit.path().concat("/upload/file.txt"));
-    Path upload = PathKit.bootPath().resolve("/upload/file.txt");
+    Path upload = PathKit.debugPath().resolve("/upload/file.txt");
     String url;
     url = "http://localhost:9001/example";
     url = "http://localhost:9102/example/actionsess";

@@ -59,7 +59,7 @@ public class EnoaConfTest {
   @Test
   public void testYml() throws FileNotFoundException {
     Yaml yaml = new Yaml();
-    Map conf = yaml.loadAs(new FileInputStream(PathKit.bootPath().resolve("src/test/resources/conf.yml").toFile()),
+    Map conf = yaml.loadAs(new FileInputStream(PathKit.debugPath().resolve("src/test/resources/conf.yml").toFile()),
       Map.class);
     System.out.println(conf);
   }

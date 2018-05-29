@@ -76,7 +76,7 @@ public class TrysqlTest {
 
   @Test
   public void template() {
-    TSqlTemplate template = new EnjoyTSqlTemplate(PathKit.bootPath().resolve("src/test/resources/sqls"), "template.sql", true);
+    TSqlTemplate template = new EnjoyTSqlTemplate(PathKit.debugPath().resolve("src/test/resources/sqls"), "template.sql", true);
     TSql sql = template.render("Binary.list", Kv.by("id", 2345678945678L));
     System.out.println(sql);
   }
