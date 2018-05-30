@@ -18,6 +18,7 @@ package io.enoa.yosart.ext.anost.valid.ivalid;
 import io.enoa.yosart.ext.anost.valid.ValidException;
 import io.enoa.yosart.kernel.http.YoRequest;
 
+@FunctionalInterface
 public interface ISpecialValid {
 
   /**

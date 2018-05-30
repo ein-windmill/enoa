@@ -19,6 +19,7 @@ import io.enoa.http.protocol.HttpResponseBody;
 
 import java.lang.reflect.Type;
 
+@FunctionalInterface
 public interface IHandler<T> {
 
   T handle(HttpResponseBody body, Type type);

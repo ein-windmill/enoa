@@ -153,7 +153,7 @@ public class EGatewayHandler implements GatewayHandler {
       contentType = contentType.toLowerCase();
 
       // http body 請求
-      if (!contentType.toLowerCase().startsWith("application/x-www-form-urlencoded")) {
+      if (!contentType.startsWith("application/x-www-form-urlencoded")) {
         RequestBody rb = request.body();
         if (rb != null) {
           try {

@@ -17,6 +17,7 @@ package io.enoa.promise.arg;
 
 import io.enoa.promise.Promise;
 
+@FunctionalInterface
 public interface PromiseVoid extends Promise {
 
   void execute();

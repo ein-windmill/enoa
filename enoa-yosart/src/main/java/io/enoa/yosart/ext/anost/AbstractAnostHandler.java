@@ -66,8 +66,9 @@ abstract class AbstractAnostHandler {
       if (eext != null)
         return eext.handle(request, resp, e);
     } catch (Exception ex) {
+      LogKit.error(ex.getMessage(), ex);
       return Renderer.with(request)
-        .renderError(HttpStatus.INTERNAL_ERROR, e)
+        .renderError(HttpStatus.INTERNAL_ERROR, ex)
         .end();
     }
 

@@ -16,6 +16,7 @@
 package io.enoa.gateway.repeater;
 
 import io.enoa.gateway.GErrorRenderFactory;
+import io.enoa.gateway.thr.GatewayAuthException;
 import io.enoa.log.kit.LogKit;
 import io.enoa.repeater.Repeater;
 import io.enoa.repeater.http.HttpStatus;
@@ -35,7 +36,11 @@ public class RGatewayErrorRender implements GErrorRenderFactory {
       Throwable e = ThrowableKit.accurate(ex);
       builder.body(ResponseBody.create(String.format("error %d <br> <pre>%s</pre>", stat.code(), ThrowableKit.string(e)),
         Repeater.config().charset()));
-      LogKit.error(e.getMessage(), e);
+      if (e instanceof GatewayAuthException) {
+        LogKit.error(e.getMessage());
+      } else {
+        LogKit.error(e.getMessage(), e);
+      }
     } else {
       builder.body(ResponseBody.create(String.format("error %d", stat.code()),
         Repeater.config().charset()));
