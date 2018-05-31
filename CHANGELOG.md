@@ -15,12 +15,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Move yosart-ext-anost to enoa-yosart
 - Change yosart default router ext to anost.
+- Change EMgr* manager class to EPM(enoa package manager)
+- Change some kit class name to origin name. and this class include EPM { JsonKit => Json, LogKit => Log }
 
 ### Removed
 
 - Remove yosart-ext-beaction
 - Remove yosart-ext-anost
-
+- Remove EMgr* manager class
 
 ## [Released]
 
