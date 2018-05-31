@@ -10,12 +10,9 @@ This article will document some plans/changes in future releases.
 ### Changed
 
 - Stove support
-- Change EMgr* manager class to EPM(enoa package manager)
-- Change some kit class name to origin name. and this class include EPM e.g. JsonKit => Json
 
 ### Removed
 
-- Remove EMgr* manager class
 
 ## [1.5-beta]
 
@@ -24,9 +21,13 @@ This article will document some plans/changes in future releases.
 ### Changed
 
 - Change anost router ext to default yosart router.
+- Change EMgr* manager class to EPM(enoa package manager)
+- Change some kit class name to origin name. and this class include EPM e.g. JsonKit => Json
+
 
 ### Removed
 
 - Yosart remove default router EyRouterExt
 - Remove yosart-ext-bea-beaction
+- Remove EMgr* manager class
 
