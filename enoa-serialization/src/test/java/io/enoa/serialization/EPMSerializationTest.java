@@ -28,7 +28,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EMgrSerializationTest {
+public class EPMSerializationTest {
 
   private Map<String, Object> data() {
     Map<String, Object> ret = new HashMap<>();
@@ -46,8 +46,11 @@ public class EMgrSerializationTest {
 
   @Test
   public void testSerialize() throws Exception {
-    EMgrSerialization.defSerializationFactory(new JdkSerializeProvider());
-    EoSerializer serializer = EMgrSerialization.serialization().serializer();
+//    EMgrSerialization.defSerializationFactory(new JdkSerializeProvider());
+//    EoSerializer serializer = EMgrSerialization.serialization().serializer();
+
+    EoSerializer.epm().install(new JdkSerializeProvider());
+    EoSerializer serializer = EoSerializer.epm().serializer();
 
     byte[] serialize = serializer.serialize(this.data());
 

@@ -16,7 +16,7 @@
 //package io.enoa.example.yosart.valid;
 //
 //import io.enoa.ext.bea.beaction.Validator;
-//import io.enoa.json.kit.JsonKit;
+//import io.enoa.json.Json;
 //import io.enoa.toolkit.map.Kv;
 //import io.enoa.yosart.kernel.http.YoRequest;
 //import io.enoa.yosart.resp.Resp;
@@ -37,7 +37,7 @@
 //
 //  @Override
 //  protected void handle(Kv attr, Resp resp) {
-//    resp.renderHtml(JsonKit.toJson(attr));
+//    resp.renderHtml(Json.toJson(attr));
 //  }
 //
 //}

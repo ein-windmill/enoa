@@ -16,8 +16,8 @@
 package io.enoa.example.yosart.control;
 
 import io.enoa.example.yosart.hook.IndexHook;
-import io.enoa.json.kit.JsonKit;
-import io.enoa.log.kit.LogKit;
+import io.enoa.json.Json;
+import io.enoa.log.Log;
 import io.enoa.repeater.http.Cookie;
 import io.enoa.repeater.http.Method;
 import io.enoa.toolkit.map.Kv;
@@ -40,14 +40,14 @@ public class PartyControl extends YoControl<PartyControl> {
 
   public void index() {
     String context = super.request().context();
-    LogKit.debug(context);
-    LogKit.debug(JsonKit.toJson(super.paraNames()));
+    Log.debug(context);
+    Log.debug(Json.toJson(super.paraNames()));
     for (String s : super.paraNames()) {
-      LogKit.debug("{}={}", s, super.para(s));
+      Log.debug("{}={}", s, super.para(s));
     }
-    LogKit.debug(JsonKit.toJson(super.headerNames()));
-    LogKit.debug(JsonKit.toJson(super.variableNames()));
-    LogKit.debug(JsonKit.toJson(super.attrNames()));
+    Log.debug(Json.toJson(super.headerNames()));
+    Log.debug(Json.toJson(super.variableNames()));
+    Log.debug(Json.toJson(super.attrNames()));
   }
 
   @Action(method = {Method.GET, Method.POST}, value = "go")
@@ -59,24 +59,24 @@ public class PartyControl extends YoControl<PartyControl> {
   })
   public Ret go(YoRequest request, String where, int zone, Timestamp ts) {
     String context = super.request().context();
-    LogKit.debug(context);
+    Log.debug(context);
 
-    LogKit.debug(JsonKit.toJson(super.headerNames()));
-    LogKit.debug(JsonKit.toJson(super.variableNames()));
-    LogKit.debug(JsonKit.toJson(super.attrNames()));
+    Log.debug(Json.toJson(super.headerNames()));
+    Log.debug(Json.toJson(super.variableNames()));
+    Log.debug(Json.toJson(super.attrNames()));
 
     super.header("from", "CoC.");
     super.cookie(new Cookie.Builder().name("k").value("v").build());
     super.cookie(new Cookie.Builder().name("z").value("y").build());
 
-//    super.renderText("LogKit.debug(JsonKit.toJson(super.headerNames()));");
+//    super.renderText("Log.debug(Json.toJson(super.headerNames()));");
     return EoResp.ok("OK");
   }
 
   @Action("/finish/:id/where/:where/:times")
   public void finish(Date time) {
-    LogKit.debug(JsonKit.toJson(super.variableNames()));
-    LogKit.debug(JsonKit.toJson(super.paraNames()));
+    Log.debug(Json.toJson(super.variableNames()));
+    Log.debug(Json.toJson(super.paraNames()));
     super.forward("/party/again/aaa/where/JNS/2/go");
   }
 
@@ -96,8 +96,8 @@ public class PartyControl extends YoControl<PartyControl> {
 
   @Action("/again/:id1/where/:where1/:times1/go")
   public void again1() {
-    LogKit.debug(JsonKit.toJson(super.variableNames()));
-    LogKit.debug(JsonKit.toJson(super.paraNames()));
+    Log.debug(Json.toJson(super.variableNames()));
+    Log.debug(Json.toJson(super.paraNames()));
   }
 
   /**
@@ -111,55 +111,55 @@ public class PartyControl extends YoControl<PartyControl> {
    */
   @Action("/again/:id2/:where2/:times2")
   public void again2() {
-    LogKit.debug(JsonKit.toJson(super.variableNames()));
-    LogKit.debug(JsonKit.toJson(super.paraNames()));
+    Log.debug(Json.toJson(super.variableNames()));
+    Log.debug(Json.toJson(super.paraNames()));
   }
 
   @Action(method = Method.GET, value = "/rest/:id")
   public void restGet() {
-    LogKit.debug(super.variable("id"));
+    Log.debug(super.variable("id"));
     super.renderText("get");
   }
 
   @Action(method = Method.PUT, value = "/rest/:id")
   public void restPut() {
-    LogKit.debug(super.variable("id"));
+    Log.debug(super.variable("id"));
     super.renderText("put");
   }
 
   @Action(method = {Method.DELETE, Method.PATCH}, value = "/rest/:id")
   public void restOther() {
-    LogKit.debug(super.variable("id"));
+    Log.debug(super.variable("id"));
     super.renderText("delete patch");
   }
 
   @Para("pas")
   public Ret arr0(String[] pas) {
-    LogKit.debug(JsonKit.toJson(pas));
+    Log.debug(Json.toJson(pas));
     return EoResp.ok();
   }
 
   @Para("pas")
   public Ret arr1(List<Integer> pas) {
-    LogKit.debug(JsonKit.toJson(pas));
+    Log.debug(Json.toJson(pas));
     return EoResp.ok();
   }
 
   @Para("pas")
   public Ret arr2(Set<Integer> pas) {
-    LogKit.debug(JsonKit.toJson(pas));
+    Log.debug(Json.toJson(pas));
     return EoResp.ok();
   }
 
   @Para("pas")
   public Ret arr3(TreeSet<Double> pas) {
-    LogKit.debug(JsonKit.toJson(pas));
+    Log.debug(Json.toJson(pas));
     return EoResp.ok();
   }
 
   @Para("pas")
   public Ret arr4(short... pas) {
-    LogKit.debug(JsonKit.toJson(pas));
+    Log.debug(Json.toJson(pas));
     return EoResp.ok();
   }
 

@@ -15,51 +15,52 @@
  */
 package io.enoa.log.kit;
 
+import io.enoa.log.Log;
 import org.junit.Test;
 
 /**
  * Created by ein on 2017/8/14.
  */
-public class LogKitTest {
+public class LogTest {
 
   @Test
   public void testLog() {
 
-    LogKit.debug("Debug log");
-    LogKit.info("Info log");
-    LogKit.warn("Warn log");
-    LogKit.error("Error log");
-    LogKit.debug(LogKit.name());
-    LogKit.use("TEST");
-    LogKit.debug("============");
-    LogKit.debug("Debug log");
-    LogKit.info("Info log");
-    LogKit.warn("Warn log");
-    LogKit.error("Error log");
-    LogKit.debug(LogKit.name());
-    LogKit.use(LogKitTest.class);
-    LogKit.debug("============");
-    LogKit.debug("Debug log");
-    LogKit.info("Info log");
-    LogKit.warn("Warn log");
-    LogKit.error("Error log");
-    LogKit.debug(LogKit.name());
+    Log.debug("Debug log");
+    Log.info("Info log");
+    Log.warn("Warn log");
+    Log.error("Error log");
+    Log.debug(Log.name());
+    Log.use("TEST");
+    Log.debug("============");
+    Log.debug("Debug log");
+    Log.info("Info log");
+    Log.warn("Warn log");
+    Log.error("Error log");
+    Log.debug(Log.name());
+    Log.use(LogTest.class);
+    Log.debug("============");
+    Log.debug("Debug log");
+    Log.info("Info log");
+    Log.warn("Warn log");
+    Log.error("Error log");
+    Log.debug(Log.name());
 
 
 //    EMgrLog.instance().loggerFactory(new JdkLogProvider());
-//    LogKit.debug("TEST JDK");
+//    Log.debug("TEST JDK");
 //
 //    EMgrLog.instance().loggerFactory(new Log4JProvider());
-//    LogKit.debug("TEST Log4j");
+//    Log.debug("TEST Log4j");
 //
 //    EMgrLog.instance().loggerFactory(new Log4J2Provider());
-//    LogKit.debug("TEST Log4j2");
+//    Log.debug("TEST Log4j2");
 //
 //    EMgrLog.instance().loggerFactory(new LogbackProvider());
-//    LogKit.debug("TEST Logback");
+//    Log.debug("TEST Logback");
 //
 //    EMgrLog.instance().loggerFactory(new Slf4JLogProvider());
-//    LogKit.debug("TEST Slf4j");
+//    Log.debug("TEST Slf4j");
   }
 
 }

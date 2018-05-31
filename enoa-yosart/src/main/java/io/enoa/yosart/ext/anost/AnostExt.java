@@ -15,7 +15,7 @@
  */
 package io.enoa.yosart.ext.anost;
 
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import io.enoa.repeater.http.HttpStatus;
 import io.enoa.repeater.http.Request;
 import io.enoa.repeater.http.Response;
@@ -124,7 +124,7 @@ public class AnostExt implements YmRouterExt {
     } catch (Exception e) {
       force = true;
       Throwable accurate = ThrowableKit.accurate(e);
-      LogKit.error(e.getMessage(), accurate);
+      Log.error(e.getMessage(), accurate);
       return this.renderError(req, resp, HttpStatus.INTERNAL_ERROR, config.debug() ? accurate : null);
     } finally {
       Boolean reqclear = request.attr("_eo.request.clear");

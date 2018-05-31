@@ -9,8 +9,10 @@ import io.enoa.trydb.tsql.generate.where.TSqlRelation;
 import io.enoa.trydb.tsql.template.TSql;
 import io.enoa.trydb.tsql.template.TSqlTemplate;
 import io.enoa.trydb.tsql.template.enjoy.EnjoyTSqlTemplate;
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public class TrysqlTest {
 
   @Test

@@ -15,7 +15,7 @@
  */
 package io.enoa.yosart.kit.tip;
 
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.yosart.Oysart;
 
@@ -49,7 +49,7 @@ public class OysartTip {
 
   private static void print(String text) {
     if (Oysart.config().infoUseLog()) {
-      LogKit.debug(text);
+      Log.debug(text);
       return;
     }
     System.out.println(text);

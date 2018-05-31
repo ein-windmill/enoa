@@ -15,7 +15,7 @@
  */
 package io.enoa.yosart.ext.anost;
 
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import io.enoa.repeater.http.HttpStatus;
 import io.enoa.repeater.http.Response;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
@@ -66,7 +66,7 @@ abstract class AbstractAnostHandler {
       if (eext != null)
         return eext.handle(request, resp, e);
     } catch (Exception ex) {
-      LogKit.error(ex.getMessage(), ex);
+      Log.error(ex.getMessage(), ex);
       return Renderer.with(request)
         .renderError(HttpStatus.INTERNAL_ERROR, ex)
         .end();
@@ -75,7 +75,7 @@ abstract class AbstractAnostHandler {
     Throwable throwable = ThrowableKit.accurate(e);
     String message = EnoaTipKit.message("eo.tip.yosart.router.call_fail",
       resource.funcName(), resource.identityFuncName());
-    LogKit.error("{} -> {}", throwable.getMessage(), message, throwable);
+    Log.error("{} -> {}", throwable.getMessage(), message, throwable);
     return Renderer.with(request)
       .attr("msg", message)
       .renderError(HttpStatus.INTERNAL_ERROR, throwable)

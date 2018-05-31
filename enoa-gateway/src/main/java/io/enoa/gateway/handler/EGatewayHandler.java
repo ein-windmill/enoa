@@ -25,7 +25,7 @@ import io.enoa.gateway.thr.RouteNotFoundException;
 import io.enoa.http.Http;
 import io.enoa.http.protocol.HttpMethod;
 import io.enoa.http.protocol.HttpResponse;
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import io.enoa.repeater.EoxConfig;
 import io.enoa.repeater.http.*;
 import io.enoa.toolkit.http.UriKit;
@@ -144,7 +144,7 @@ public class EGatewayHandler implements GatewayHandler {
     String sourceUri = originUri.replace(mapping.source(), "/");
     sourceUri = UriKit.correct(sourceUri);
     String callUrl = TextKit.union(mapping.dest(), sourceUri);
-    LogKit.info("{} -> [{}] => [{}]", request.method().name(), originUri, callUrl);
+    Log.info("{} -> [{}] => [{}]", request.method().name(), originUri, callUrl);
 
     Http http = Http.request(callUrl);
 

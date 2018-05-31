@@ -15,8 +15,8 @@
  */
 package io.enoa.yosart.plugin.json;
 
-import io.enoa.json.EMgrJson;
 import io.enoa.json.EoJsonFactory;
+import io.enoa.json.Json;
 import io.enoa.json.provider.enoa.EoJsonProvider;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.yosart.YoPlugin;
@@ -57,9 +57,10 @@ public class JsonPlugin implements YoPlugin {
 
   @Override
   public boolean start() throws OyPluginException {
-    EMgrJson.defJsonFactory(this.factory);
-    if (TextKit.notBlank(this.datePattern))
-      EMgrJson.defDatePattern(this.datePattern);
+//    EMgrJson.defJsonFactory(this.factory);
+//    if (TextKit.notBlank(this.datePattern))
+//      EMgrJson.defDatePattern(this.datePattern);
+    Json.epm().install(this.factory, TextKit.isBlank(this.datePattern) ? null : this.datePattern);
     return true;
   }
 

@@ -15,7 +15,7 @@
  */
 package io.enoa.yosart;
 
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.yosart.kernel.ext.*;
@@ -42,7 +42,7 @@ class YoExtd {
       if (!oldExt.type().onlyOne())
         continue;
       boolean same = oldExt.getClass().getName().equalsIgnoreCase(newExt.getClass().getName());
-      LogKit.warn(EnoaTipKit.message("eo.tip.yosart.ext_only_one",
+      Log.warn(EnoaTipKit.message("eo.tip.yosart.ext_only_one",
         same ? oldExt.toString() : oldExt.getClass().getName(),
         same ? newExt.toString() : newExt.getClass().getName()));
       this.exts.remove(i);

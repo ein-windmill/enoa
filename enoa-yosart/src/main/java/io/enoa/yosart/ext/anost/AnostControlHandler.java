@@ -15,7 +15,7 @@
  */
 package io.enoa.yosart.ext.anost;
 
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import io.enoa.repeater.http.Cookie;
 import io.enoa.repeater.http.HttpStatus;
 import io.enoa.repeater.http.Method;
@@ -66,7 +66,7 @@ class AnostControlHandler extends AbstractAnostHandler {
     try {
       ctl = ReflectKit.newInstance(control);
     } catch (Exception e) {
-      LogKit.error(e.getMessage(), e);
+      Log.error(e.getMessage(), e);
       Renderer renderer = Renderer.with(request);
       if (config.debug())
         renderer.attr("msg", EnoaTipKit.message("eo.tip.yosart.cant_not_create_control_instance"));

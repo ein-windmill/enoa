@@ -23,7 +23,8 @@ public abstract class EnoaJson implements _Json {
   protected String datePattern = null;
 
   protected String defaultDatePattern() {
-    return EMgrJson.defDatePattern;
+//    return EMgrJson.defDatePattern;
+    return Json.epm().defDatePattern();
   }
 
 

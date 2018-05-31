@@ -15,7 +15,7 @@
  */
 package io.enoa.ext.sess.impl.redis;
 
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import io.enoa.nosql.redis.EnoaRedis;
 import io.enoa.repeater.http.Cookie;
 import io.enoa.toolkit.collection.CollectionKit;
@@ -90,7 +90,7 @@ class RedisSessionImpl implements Session {
   public String[] names() {
     String sessVal = this._value == null ? this.request.cookie(this.sessKey) : this._value;
     if (TextKit.isBlank(sessVal)) {
-      LogKit.warn(EnoaTipKit.message("eo.tip.ext.sess.session_404", this.sessKey));
+      Log.warn(EnoaTipKit.message("eo.tip.ext.sess.session_404", this.sessKey));
       return CollectionKit.emptyArray(String.class);
     }
     Kv data = this.redis.hget(this.sessKey, sessVal);
@@ -101,7 +101,7 @@ class RedisSessionImpl implements Session {
   public <T> T get(String name) {
     String sessVal = this._value == null ? this.request.cookie(this.sessKey) : this._value;
     if (TextKit.isBlank(sessVal)) {
-      LogKit.warn(EnoaTipKit.message("eo.tip.ext.sess.session_404", this.sessKey));
+      Log.warn(EnoaTipKit.message("eo.tip.ext.sess.session_404", this.sessKey));
       return null;
     }
     Kv data = this.redis.hget(this.sessKey, sessVal);

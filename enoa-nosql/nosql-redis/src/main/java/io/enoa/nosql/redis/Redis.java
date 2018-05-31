@@ -30,10 +30,12 @@ public class Redis {
   private Redis() {
   }
 
+  public static EPMRedis epm() {
+    return EPMRedis.instance();
+  }
+
   public static EnoaRedis use(String name) {
-    if (EMgrRedis.POOL == null || EMgrRedis.POOL.isEmpty())
-      throw new RuntimeException("Please do start redis. `EMgrRedis.start()`");
-    EnoaRedis redis = EMgrRedis.POOL.get(name);
+    EnoaRedis redis = epm().redis(name);
     if (redis == null)
       throw new NullPointerException("This redis client name is not exists. => " + name);
     return redis;

@@ -20,7 +20,7 @@ import io.enoa.db.provider.db.mybatis.MybatisConfig;
 import io.enoa.db.provider.db.mybatis.MybatisProvider;
 import io.enoa.db.provider.ds.c3p0.C3p0Config;
 import io.enoa.db.provider.ds.c3p0.C3p0Provider;
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import io.enoa.toolkit.path.PathKit;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -51,7 +51,7 @@ public class DbTest {
     try {
       this.mybatis();
     } catch (Exception e) {
-      LogKit.error(e.getMessage(), e);
+      Log.error(e.getMessage(), e);
     }
   }
 

@@ -15,7 +15,7 @@
  */
 package io.enoa.repeater.provider.fastcgi.server;
 
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import io.enoa.repeater.EoxAccessor;
 import io.enoa.repeater.EoxConfig;
 import io.enoa.repeater.factory.provider.EoxProviderFactory;
@@ -38,7 +38,7 @@ class _FastCGI implements RepeaterServer {
     try {
       server.listen(hostname, port);
     } catch (IOException e) {
-      LogKit.error(e.getMessage(), e);
+      Log.error(e.getMessage(), e);
     }
   }
 }

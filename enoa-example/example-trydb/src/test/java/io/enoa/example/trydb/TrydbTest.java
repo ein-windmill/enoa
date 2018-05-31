@@ -16,8 +16,8 @@
 package io.enoa.example.trydb;
 
 import io.enoa.example.trydb.entity.EBinary;
-import io.enoa.json.kit.JsonKit;
-import io.enoa.log.kit.LogKit;
+import io.enoa.json.Json;
+import io.enoa.log.Log;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.path.PathKit;
 import io.enoa.trydb.Trydb;
@@ -29,12 +29,14 @@ import io.enoa.trydb.tsql.Trysql;
 import io.enoa.trydb.tsql.psql.IPSql;
 import io.enoa.trydb.tsql.template.enjoy.EnjoyTSqlTemplate;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Ignore
 public class TrydbTest {
 
   @Before
@@ -55,29 +57,29 @@ public class TrydbTest {
   @Test
   public void find() {
     List<Kv> kvs = Trydb.find("select * from t_binary");
-    LogKit.debug(JsonKit.toJson(kvs));
+    Log.debug(Json.toJson(kvs));
 
     List<EBinary> beans = Trydb.beans("select * from t_binary", EBinary.class);
-    LogKit.debug(JsonKit.toJson(beans));
+    Log.debug(Json.toJson(beans));
 
     List<EBinary> beans2 = Trydb.elegant()
       .target(EBinary.class)
       .beans("select * from t_binary");
-    LogKit.debug(JsonKit.toJson(beans2));
+    Log.debug(Json.toJson(beans2));
   }
 
   @Test
   public void first() {
     Kv kv = Trydb.first("select * from t_binary limit 1");
-    LogKit.debug(JsonKit.toJson(kv));
+    Log.debug(Json.toJson(kv));
 
     EBinary bean = Trydb.bean("select * from t_binary limit 1", EBinary.class);
-    LogKit.debug(JsonKit.toJson(bean));
+    Log.debug(Json.toJson(bean));
 
     EBinary bean1 = Trydb.elegant()
       .target(EBinary.class)
       .bean("select * from t_binary");
-    LogKit.debug(JsonKit.toJson(bean1));
+    Log.debug(Json.toJson(bean1));
 
 
     Trydb.first(Trysql.tsql("Binary.list"));
@@ -93,7 +95,7 @@ public class TrydbTest {
 //      return true;
     });
     this.first();
-    LogKit.debug("TX RET: {}", ret);
+    Log.debug("TX RET: {}", ret);
   }
 
   private boolean tx1() {
@@ -115,7 +117,7 @@ public class TrydbTest {
     Map<String, Object> paras = new HashMap<>();
     List<Kv> kvs = Trydb.template("main")
       .find("Binary.list", paras);
-    LogKit.debug(JsonKit.toJson(kvs));
+    Log.debug(Json.toJson(kvs));
   }
 
   @Test

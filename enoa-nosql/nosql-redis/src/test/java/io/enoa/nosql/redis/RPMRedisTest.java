@@ -15,7 +15,7 @@
  */
 package io.enoa.nosql.redis;
 
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import io.enoa.serialization.provider.jdk.JdkSerializeProvider;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,16 +23,16 @@ import redis.clients.util.SafeEncoder;
 
 import java.sql.Timestamp;
 
-public class EMgrRedisTest {
+public class RPMRedisTest {
 
   private String name = "ENOA_REDIS_TEST";
 
   @Before
   public void init() {
     try {
-      EMgrRedis.start(this.name, "localhost", 6379, new JdkSerializeProvider());
+      Redis.epm().install(this.name, "localhost", 6379, new JdkSerializeProvider());
     } catch (Exception e) {
-      LogKit.error(e.getMessage(), e);
+      Log.error(e.getMessage(), e);
     }
   }
 
@@ -52,7 +52,7 @@ public class EMgrRedisTest {
       Redis.use(this.name).run((jedis, serializer) -> jedis.set("tk0", "tv0"));
       Redis.use(this.name).run((jedis, serializer) -> jedis.set(SafeEncoder.encode("tk1"), serializer.serialize("tv1")));
     } catch (Exception e) {
-      LogKit.error(e.getMessage(), e);
+      Log.error(e.getMessage(), e);
     }
   }
 
@@ -64,14 +64,14 @@ public class EMgrRedisTest {
 //  @Test
 //  public void testRedis() {
 //    String u0 = Redis.set("user", this.user());
-//    LogKit.debug(u0);
+//    Log.debug(u0);
 //
 //    EnoaRedis ers = Redis.use();
 //    String u1 = ers.set("user", this.user());
-//    LogKit.debug(u1);
+//    Log.debug(u1);
 //
 //    User u2 = Redis.get("user");
-//    LogKit.debug(JsonKit.toJson(u2));
+//    Log.debug(Json.toJson(u2));
 //
 //
 //  }

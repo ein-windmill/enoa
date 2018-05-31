@@ -15,14 +15,32 @@
  */
 package io.enoa.serialization;
 
-public interface EoSerializer {
+import io.enoa.serialization.provider.jdk.JdkSerializeProvider;
 
-  static EPMSerialization epm() {
-    return EPMSerialization.instance();
+public class EPMSerialization {
+
+  private EPMSerialization() {
+
   }
 
-  <T> byte[] serialize(T object);
+  private static class Holder {
+    private static final EPMSerialization INSTANCE = new EPMSerialization();
+  }
 
-  <T> T reduction(byte[] bytes);
+  static EPMSerialization instance() {
+    return Holder.INSTANCE;
+  }
+
+  private EoSerializationFactory factory = new JdkSerializeProvider();
+
+  public void install(EoSerializationFactory factory) {
+    if (factory == null)
+      throw new IllegalArgumentException("Factory can not be null.");
+    this.factory = factory;
+  }
+
+  public EoSerializer serializer() {
+    return this.factory.serializer();
+  }
 
 }

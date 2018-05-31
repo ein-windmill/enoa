@@ -13,40 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.log.kit;
-
-import io.enoa.log.EMgrLog;
-import io.enoa.log.EnoaLog;
+package io.enoa.log;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * LogKit
+ * Log
  * <p>
  * ```java
- * LogKit.debug()
- * LogKit.info()
- * LogKit.warn()
- * LogKit.error()
+ * Log.debug()
+ * Log.info()
+ * Log.warn()
+ * Log.error()
  * <p>
- * LogKit.use("name").debug()
- * LogKit.use("name").info()
- * LogKit.use("name").warn()
- * LogKit.use("name").error()
+ * Log.use("name").debug()
+ * Log.use("name").info()
+ * Log.use("name").warn()
+ * Log.use("name").error()
  * <p>
- * LogKit.use(Class).debug()
- * LogKit.use(Class).info()
- * LogKit.use(Class).warn()
- * LogKit.use(Class).error()
+ * Log.use(Class).debug()
+ * Log.use(Class).info()
+ * Log.use(Class).warn()
+ * Log.use(Class).error()
  * ```
  */
-public class LogKit {
+public class Log {
 
 
   private static class Holder {
     private static Map<String, EnoaLog> LOG_CACHE = new HashMap<>();
-    private static EnoaLog log = EMgrLog.getLog(LogKit.class);
+    private static EnoaLog log = epm().log(Log.class);
 
     private static EnoaLog log() {
       String className = Thread.currentThread().getStackTrace()[4].getClassName();
@@ -56,14 +53,18 @@ public class LogKit {
     private static EnoaLog log(String className) {
       if (LOG_CACHE.get(className) != null)
         return LOG_CACHE.get(className);
-      log = EMgrLog.getLog(className);
+      log = epm().log(className);
       LOG_CACHE.put(className, log);
       return log;
     }
   }
 
+  public static EPMLog epm() {
+    return EPMLog.instance();
+  }
+
   public static void syncLog() {
-    Holder.log = EMgrLog.getLog(LogKit.class);
+    Holder.log = epm().log(Log.class);
   }
 
   public static EnoaLog use(Class<?> clazz) {

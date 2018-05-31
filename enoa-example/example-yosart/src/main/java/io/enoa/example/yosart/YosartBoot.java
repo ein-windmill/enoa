@@ -38,7 +38,7 @@ import io.enoa.example.yosart.thr.AnostCatch;
 import io.enoa.ext.sess.SessExt;
 import io.enoa.ext.sess.impl.file.FileSession;
 import io.enoa.json.provider.enoa.EoJsonProvider;
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import io.enoa.log.provider.slf4j.Slf4JLogProvider;
 import io.enoa.provider.db.beetlsql.BeetlSQLConfig;
 import io.enoa.provider.db.beetlsql.BeetlSQLProvider;
@@ -133,7 +133,7 @@ public class YosartBoot {
 
     public String basePath() {
       Path tplPath = ISPKG ? PathKit.path().resolve("resources/tpl") : PathKit.debugPath().resolve("src/main/tpl/");
-      LogKit.debug("Template path: {}", tplPath);
+      Log.debug("Template path: {}", tplPath);
       return tplPath.resolve(this.name().toLowerCase()).toString();
     }
   }

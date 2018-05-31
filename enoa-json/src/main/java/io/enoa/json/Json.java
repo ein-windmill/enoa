@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.json.kit;
-
-import io.enoa.json.EMgrJson;
+package io.enoa.json;
 
 import java.lang.reflect.Type;
 import java.util.List;
@@ -23,21 +21,34 @@ import java.util.List;
 /**
  * enoa - io.enoa.json.kit
  */
-public class JsonKit {
+public class Json {
+
+  private Json() {
+
+  }
+
+  public static EPMJson epm() {
+    return EPMJson.instance();
+  }
 
   public static String toJson(Object object) {
-    return EMgrJson.json().toJson(object);
+//    return EMgrJson.json().toJson(object);
+    return epm().json().toJson(object);
   }
 
   public static <T> T parse(String json, Class<T> type) {
-    return EMgrJson.json().parse(json, type);
+//    return EMgrJson.json().parse(json, type);
+    return epm().json().parse(json, type);
   }
 
   public static <T> T parse(String json, Type type) {
-    return EMgrJson.json().parse(json, type);
+//    return EMgrJson.json().parse(json, type);
+    return epm().json().parse(json, type);
   }
 
   public static <T> List<T> parseArray(String json, Class<T> type) {
-    return EMgrJson.json().parseArray(json, type);
+//    return EMgrJson.json().parseArray(json, type);
+    return epm().json().parseArray(json, type);
   }
+
 }

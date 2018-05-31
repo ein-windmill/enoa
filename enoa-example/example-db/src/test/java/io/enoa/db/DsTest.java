@@ -17,7 +17,7 @@ package io.enoa.db;
 
 import io.enoa.db.provider.ds.c3p0.C3p0Config;
 import io.enoa.db.provider.ds.c3p0.C3p0Provider;
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -34,7 +34,7 @@ public class DsTest {
       );
       DataSource dataSource = ds.open();
     } catch (Exception e) {
-      LogKit.error(e.getMessage(), e);
+      Log.error(e.getMessage(), e);
     }
   }
 
@@ -69,7 +69,7 @@ public class DsTest {
       });
       DataSource dataSource = ds.open();
     } catch (Exception e) {
-      LogKit.error(e.getMessage(), e);
+      Log.error(e.getMessage(), e);
     }
   }
 

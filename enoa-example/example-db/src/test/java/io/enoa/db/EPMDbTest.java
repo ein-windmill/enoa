@@ -33,8 +33,8 @@ import io.enoa.db.provider.ds.druid.DruidConfig;
 import io.enoa.db.provider.ds.druid.DruidProvider;
 import io.enoa.db.provider.ds.hikaricp.HikariCpConfig;
 import io.enoa.db.provider.ds.hikaricp.HikariCpProvider;
-import io.enoa.json.kit.JsonKit;
-import io.enoa.log.kit.LogKit;
+import io.enoa.json.Json;
+import io.enoa.log.Log;
 import io.enoa.provider.db.beetlsql.BeetlSQLConfig;
 import io.enoa.provider.db.beetlsql.BeetlSQLKit;
 import io.enoa.provider.db.beetlsql.BeetlSQLProvider;
@@ -51,7 +51,7 @@ import org.junit.Test;
 import java.util.List;
 import java.util.Map;
 
-public class EMgrDbTest {
+public class EPMDbTest {
 
   private static final String URL_MYSQL = "jdbc:mysql://localhost:3306/enoa?useUnicode=true&characterEncoding=utf-8&useSSL=false&nullNamePatternMatchesAll=true";
   private static final String URL_PGSQL = "jdbc:postgresql://localhost:5432/enoa";
@@ -87,7 +87,7 @@ public class EMgrDbTest {
       .ds(DS.DRUID_MYSQL.ds, DS.DRUID_MYSQL.config)
       .style(new MySqlStyle())
       .build();
-    EMgrDb.start(new BeetlSQLProvider(), dbc1);
+    EPMDb.install(new BeetlSQLProvider(), dbc1);
     List<Map> rets1 = BeetlSQLKit.select("User.list", Map.class);
 
 
@@ -98,13 +98,13 @@ public class EMgrDbTest {
       .ds(DS.C3P0_PGSQL.ds, DS.C3P0_PGSQL.config)
       .style(new PostgresStyle())
       .build();
-    EMgrDb.start(new BeetlSQLProvider(), dbc2);
+    EPMDb.install(new BeetlSQLProvider(), dbc2);
     List<Map> rets2 = BeetlSQLKit.use("pgsql").select("User.list", Map.class);
 
 
     // print
-    LogKit.debug(JsonKit.toJson(rets1));
-    LogKit.debug(JsonKit.toJson(rets2));
+    Log.debug(Json.toJson(rets1));
+    Log.debug(Json.toJson(rets2));
   }
 
   private void testMybatis() {
@@ -115,7 +115,7 @@ public class EMgrDbTest {
       .suffix("xml")
       .ds(DS.HIKARICP_MYSQL.ds, DS.HIKARICP_MYSQL.config)
       .build();
-    EMgrDb.start(new MybatisProvider(), dbc1);
+    EPMDb.install(new MybatisProvider(), dbc1);
     List<Map> rets1 = MybatisKit.with(UserMapper.class).list();
 
     EoDbConfig dbc2 = new MybatisConfig.Builder()
@@ -126,12 +126,12 @@ public class EMgrDbTest {
       .name("pgsql")
       .ds(DS.DRUID_PGSQL.ds, DS.DRUID_PGSQL.config)
       .build();
-    EMgrDb.start(new MybatisProvider(), dbc2);
+    EPMDb.install(new MybatisProvider(), dbc2);
     List<Map> rets2 = MybatisKit.use("pgsql").with(UserMapper.class).list();
 
     // print
-    LogKit.debug(JsonKit.toJson(rets1));
-    LogKit.debug(JsonKit.toJson(rets2));
+    Log.debug(Json.toJson(rets1));
+    Log.debug(Json.toJson(rets2));
   }
 
   private void testActiveRecord() {
@@ -142,7 +142,7 @@ public class EMgrDbTest {
       .dialect(new MysqlDialect())
       .ds(DS.C3P0_MYSQL.ds, DS.C3P0_MYSQL.config)
       .build();
-    EMgrDb.start(new ActiveRecordProvider(), dbc1);
+    EPMDb.install(new ActiveRecordProvider(), dbc1);
     List<Record> rets1 = Db.find(Db.getSql("User.list"));
 
     EoDbConfig dbc2 = new ActiveRecordConfig.Builder()
@@ -152,12 +152,12 @@ public class EMgrDbTest {
       .dialect(new MysqlDialect())
       .ds(DS.HIKARICP_PGSQL.ds, DS.HIKARICP_PGSQL.config)
       .build();
-    EMgrDb.start(new ActiveRecordProvider(), dbc2);
+    EPMDb.install(new ActiveRecordProvider(), dbc2);
     List<Record> rets2 = Db.use("pgsql").find(Db.getSql("User.list"));
 
 
-    LogKit.debug(JsonKit.toJson(rets1));
-    LogKit.debug(JsonKit.toJson(rets2));
+    Log.debug(Json.toJson(rets1));
+    Log.debug(Json.toJson(rets2));
   }
 
   private void testTrydb() {
@@ -167,7 +167,7 @@ public class EMgrDbTest {
       .showSql()
       .ds(DS.C3P0_MYSQL.ds, DS.C3P0_MYSQL.config)
       .build();
-    EMgrDb.start(new TrydbProvider(), dbc1);
+    EPMDb.install(new TrydbProvider(), dbc1);
     List<Kv> rets0 = Trydb.find("select * from t_user");
 
 
@@ -179,7 +179,7 @@ public class EMgrDbTest {
       .ds(DS.DRUID_PGSQL.ds, DS.DRUID_PGSQL.config)
       .template(new EnjoyTSqlTemplate(PathKit.path("activerecord"), "template.sql"))
       .build();
-    EMgrDb.start(new TrydbProvider(), dbc2);
+    EPMDb.install(new TrydbProvider(), dbc2);
     List<Kv> rets2 = Trydb.template("pgsql").find("User.list");
     List<Kv> rets3 = Trydb.use("pgsql").find(Trysql.tsql("pgsql", "User.list"));
 
@@ -198,7 +198,7 @@ public class EMgrDbTest {
 //      this.testActiveRecord();
       this.testTrydb();
     } catch (Exception e) {
-      LogKit.error(e.getMessage(), e);
+      Log.error(e.getMessage(), e);
     }
   }
 

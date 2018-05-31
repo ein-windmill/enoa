@@ -17,7 +17,7 @@ package io.enoa.conf.impl;
 
 import io.enoa.conf.EnoaConfDomain;
 import io.enoa.conf._EnoaConfReader;
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.file.FileKit;
 import io.enoa.toolkit.text.TextKit;
@@ -35,12 +35,12 @@ public class EoGitReader extends _EnoaConfReader {
 
   private void clone(String url, String localPath) {
     try {
-      LogKit.debug("Start clone {} to [{}]", url, localPath);
+      Log.debug("Start clone {} to [{}]", url, localPath);
       CloneCommand cc = Git.cloneRepository().setURI(url);
       cc.setDirectory(new File(localPath)).call();
-      LogKit.debug("Clone done");
+      Log.debug("Clone done");
     } catch (Exception e) {
-      LogKit.error(e.getMessage(), e);
+      Log.error(e.getMessage(), e);
       throw new EoException(e.getMessage(), e);
     }
   }

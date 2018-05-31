@@ -17,7 +17,7 @@ package io.enoa.example.yosart.control;
 
 import io.enoa.example.yosart.entity.Gender;
 import io.enoa.example.yosart.entity.User;
-import io.enoa.json.kit.JsonKit;
+import io.enoa.json.Json;
 import io.enoa.repeater.http.Cookie;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.yosart.kernel.http.Session;
@@ -55,7 +55,7 @@ public class SessControl extends YoControl<SessControl> {
       data.set(name, session.get(name));
     }
     cks.add("<br><br><br>");
-    cks.add(JsonKit.toJson(data));
+    cks.add(Json.toJson(data));
     super.renderHtml(String.join("<br>", cks));
   }
 
