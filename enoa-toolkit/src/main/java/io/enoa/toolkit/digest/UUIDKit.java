@@ -38,6 +38,10 @@ public final class UUIDKit {
     return uuid.toString();
   }
 
+  public static String multiple(int num) {
+    return multiple(num, false);
+  }
+
   public static String multiple(boolean segment) {
     return multiple(2, segment);
   }
