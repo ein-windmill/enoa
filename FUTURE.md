@@ -18,6 +18,8 @@ This article will document some plans/changes in future releases.
 
 ### Added
 
+- Add solr support
+
 ### Changed
 
 - Change anost router ext to default yosart router.
