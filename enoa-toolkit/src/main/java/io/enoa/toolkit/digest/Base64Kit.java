@@ -35,6 +35,53 @@ public final class Base64Kit {
     }
   }
 
+  public enum Mode {
+    GENERALLY,
+    URLSAFE
+  }
+
+
+  /**
+   * 编码
+   *
+   * @param value byte数组
+   * @param mode  模式
+   * @return {String}
+   */
+  public static String encode(Mode mode, byte[] value) {
+    String _v = DELEGATE.encode(value);
+    if (mode == Mode.GENERALLY)
+      return _v;
+    _v = _v.replace('+', '-');
+    _v = _v.replace('/', '_');
+    _v = _v.replace("=", "");
+    return _v;
+  }
+
+  /**
+   * 编码
+   *
+   * @param value 字符串
+   * @param mode  模式
+   * @return {String}
+   */
+  public static String encode(Mode mode, String value) {
+    return encode(mode, value, EoConst.CHARSET);
+  }
+
+  /**
+   * 编码
+   *
+   * @param value   字符串
+   * @param mode    模式
+   * @param charset charset
+   * @return {String}
+   */
+  public static String encode(Mode mode, String value, Charset charset) {
+    byte[] val = value.getBytes(charset);
+    return encode(mode, val);
+  }
+
   /**
    * 编码
    *
@@ -42,7 +89,7 @@ public final class Base64Kit {
    * @return {String}
    */
   public static String encode(byte[] value) {
-    return DELEGATE.encode(value);
+    return encode(Mode.GENERALLY, value);
   }
 
   /**
@@ -52,7 +99,7 @@ public final class Base64Kit {
    * @return {String}
    */
   public static String encode(String value) {
-    return encode(value, EoConst.CHARSET);
+    return encode(Mode.GENERALLY, value);
   }
 
   /**
@@ -64,32 +111,40 @@ public final class Base64Kit {
    */
   public static String encode(String value, Charset charset) {
     byte[] val = value.getBytes(charset);
-    return DELEGATE.encode(val);
+    return encode(Mode.GENERALLY, val);
   }
-
-  /**
-   * 编码
-   *
-   * @param binary binary
-   * @return {String}
-   */
-  public static String encode(EnoaBinary binary) {
-    return encode(binary.bytes());
-  }
-
 
   /**
    * 解码
    *
+   * @param mode  模式
    * @param value 字符串
    * @return {byte[]}
    */
+  public static EnoaBinary decode(Mode mode, String value) {
+    return decode(mode, value, EoConst.CHARSET);
+  }
+
+  public static EnoaBinary decode(Mode mode, String value, Charset charset) {
+    EnoaBinary binary = EnoaBinary.create(DELEGATE.decode(value), charset);
+    if (mode != Mode.URLSAFE)
+      return binary;
+    String _v = binary.string();
+    _v = _v.replace('-', '+');
+    _v = _v.replace('_', '/');
+    int mod4 = _v.length() % 4;
+    if (mod4 > 0) {
+      _v = _v + "====".substring(mod4);
+    }
+    return EnoaBinary.create(_v.getBytes(charset), charset);
+  }
+
   public static EnoaBinary decode(String value) {
-    return decode(value, EoConst.CHARSET);
+    return decode(Mode.GENERALLY, value, EoConst.CHARSET);
   }
 
   public static EnoaBinary decode(String value, Charset charset) {
-    return EnoaBinary.create(DELEGATE.decode(value), charset);
+    return decode(Mode.GENERALLY, value, charset);
   }
 
   private static boolean isPresent(String className, ClassLoader classLoader) {

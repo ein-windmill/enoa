@@ -67,6 +67,7 @@
     <module>enoa-promise</module>
     <module>enoa-stove</module>
     <module>enoa-rpc</module>
+    <module>enoa-index</module>
   </modules>
 
 
@@ -499,6 +500,12 @@
       <dependency>
         <groupId>io.enoa</groupId>
         <artifactId>enoa-promise</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>index-solr</artifactId>
         <version>${project.version}</version>
       </dependency>
 
