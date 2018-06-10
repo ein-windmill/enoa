@@ -108,7 +108,7 @@ public class _HttpHelperConn {
 
       if (this.request.body() != null) {
         os = conn.getOutputStream();
-        os.write(this.request.body().content());
+        os.write(this.request.body().bytes());
         os.flush();
         os.close();
       }

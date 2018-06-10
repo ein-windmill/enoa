@@ -13,26 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.index.solr;
+package io.enoa.index.solr.action.select;
 
-public class Solr {
+import io.enoa.http.protocol.HttpPara;
 
-  public static EPMSolr epm() {
-    return EPMSolr.instance();
-  }
+import java.util.Set;
 
-  public static EoSolr use(String name) {
-    SolrConfig config = epm().config(name);
-    return new EnoaSolrImpl(config);
-  }
+abstract class _AdvancedSelect {
 
-  public static EoSolr use() {
-    return use("main");
-  }
+  abstract SolrSelect end();
 
-  public static EoSolr core(String core) {
-    return use().core(core);
-  }
-
+  protected abstract Set<HttpPara> paras();
 
 }

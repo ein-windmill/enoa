@@ -13,26 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.index.solr;
+package io.enoa.index.solr.action;
 
-public class Solr {
+import io.enoa.http.Http;
+import io.enoa.index.solr.SolrConfig;
 
-  public static EPMSolr epm() {
-    return EPMSolr.instance();
+public class SolrUpdate implements SolrAction {
+
+  private SolrConfig config;
+  private String core;
+  private Http http;
+
+  public SolrUpdate(Http http, SolrConfig config, String core) {
+    this.http = http;
+    this.config = config;
+    this.core = core;
   }
 
-  public static EoSolr use(String name) {
-    SolrConfig config = epm().config(name);
-    return new EnoaSolrImpl(config);
-  }
+  @Override
+  public void emit() {
 
-  public static EoSolr use() {
-    return use("main");
   }
-
-  public static EoSolr core(String core) {
-    return use().core(core);
-  }
-
 
 }

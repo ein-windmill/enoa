@@ -103,4 +103,10 @@ public class UrlKit {
     return TextKit.union(protocol, "://", uri);
   }
 
+  public static String[] analysis(String url) {
+    int ix = url.indexOf("/", url.indexOf("//") + 2);
+    String host = url.substring(0, ix),
+      remain = url.substring(ix);
+    return new String[]{host, remain};
+  }
 }

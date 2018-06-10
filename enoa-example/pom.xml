@@ -24,6 +24,7 @@
     <module>example-eml</module>
     <module>example-json</module>
     <module>example-stove</module>
+    <module>example-index</module>
   </modules>
 
 

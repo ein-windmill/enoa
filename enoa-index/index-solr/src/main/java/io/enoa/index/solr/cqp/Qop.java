@@ -13,26 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.index.solr;
+package io.enoa.index.solr.cqp;
 
-public class Solr {
+import io.enoa.toolkit.mark.IMarkVal;
 
-  public static EPMSolr epm() {
-    return EPMSolr.instance();
+public enum Qop implements IMarkVal {
+
+
+  AND("and"),
+
+  OR("or"),
+  //
+  ;
+
+  private String val;
+
+  Qop(String val) {
+    this.val = val;
   }
 
-  public static EoSolr use(String name) {
-    SolrConfig config = epm().config(name);
-    return new EnoaSolrImpl(config);
+
+  @Override
+  public String val() {
+    return this.val;
   }
 
-  public static EoSolr use() {
-    return use("main");
+  public static Qop of(String op) {
+    if (op == null)
+      return null;
+    for (Qop _q : Qop.values()) {
+      if (_q.val.equalsIgnoreCase(op))
+        return _q;
+    }
+    return null;
   }
-
-  public static EoSolr core(String core) {
-    return use().core(core);
-  }
-
-
 }

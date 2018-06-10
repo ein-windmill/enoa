@@ -13,23 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.http.provider.httphelper.async;
+package io.enoa.http.provider.httphelper;
 
-import io.enoa.http.EoEmit;
-import io.enoa.http.EoExecutor;
-import io.enoa.http.EoUrl;
-import io.enoa.http.protocol.HttpPromise;
+import io.enoa.http.protocol.enoa.HttpHandler;
+import io.enoa.http.protocol.enoa.HttpRequest;
 import io.enoa.promise.builder.PromiseBuilder;
 
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 
-public class HttpHelperExecutor implements EoExecutor {
+class HttpHandlerExecutor {
 
   private static class Holder {
-    private static final HttpHelperExecutor INSTANCE = new HttpHelperExecutor();
+    private static final HttpHandlerExecutor INSTANCE = new HttpHandlerExecutor();
   }
 
-  public static HttpHelperExecutor instance() {
+  static HttpHandlerExecutor instance() {
     return Holder.INSTANCE;
   }
 
@@ -37,15 +36,23 @@ public class HttpHelperExecutor implements EoExecutor {
 
   private ExecutorService executorService() {
     if (executorService == null) {
-      executorService = PromiseBuilder.executor().enqueue("HttpHelper Dispatcher", false);
+      executorService = PromiseBuilder.executor().enqueue("HttpHelper Handler Dispatcher", false);
     }
     return executorService;
   }
 
-  @Override
-  public HttpPromise enqueue(EoUrl url, EoEmit emit) {
-    HttpHelperPromiseBuilder hpb = new HttpHelperPromiseBuilder();
-    this.executorService().execute(new HttpHelperAsync(url, emit, hpb));
-    return hpb.build();
+  void handle(List<HttpHandler> handlers, HttpRequest request) {
+    this.executorService().execute(() -> {
+      String oldName = Thread.currentThread().getName();
+      Thread.currentThread().setName(request.url().substring(0, request.url().length() < 70 ? request.url().length() : 70).concat("..."));
+      try {
+        handlers.forEach(handler -> handler.handle(request));
+      } catch (Exception e) {
+        e.printStackTrace();
+      } finally {
+        Thread.currentThread().setName(oldName);
+      }
+    });
   }
+
 }

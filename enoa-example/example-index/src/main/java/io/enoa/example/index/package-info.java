@@ -13,26 +13,4 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.index.solr;
-
-public class Solr {
-
-  public static EPMSolr epm() {
-    return EPMSolr.instance();
-  }
-
-  public static EoSolr use(String name) {
-    SolrConfig config = epm().config(name);
-    return new EnoaSolrImpl(config);
-  }
-
-  public static EoSolr use() {
-    return use("main");
-  }
-
-  public static EoSolr core(String core) {
-    return use().core(core);
-  }
-
-
-}
+package io.enoa.example.index;

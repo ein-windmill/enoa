@@ -19,6 +19,7 @@ import io.enoa.http.protocol.HttpHeader;
 import io.enoa.http.protocol.HttpMethod;
 import io.enoa.http.protocol.HttpPara;
 import io.enoa.http.protocol.HttpPromise;
+import io.enoa.http.protocol.enoa.HttpHandler;
 import io.enoa.http.provider.httphelper.HttpHelperProvider;
 import io.enoa.http.proxy.HttpProxy;
 import io.enoa.http.proxy.TcpProxy;
@@ -57,6 +58,8 @@ public interface Http extends EoEmit {
   Http executor(EoExecutor executor);
 
   HttpPromise enqueue();
+
+  Http handler(HttpHandler handler);
 
   Http method(HttpMethod method);
 

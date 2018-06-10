@@ -30,7 +30,7 @@ public class EnoaUrl implements EoUrl {
   private Set<HttpPara> paras;
   private boolean traditional;
   private boolean encode;
-  private boolean change;
+//  private boolean change;
 
   public EnoaUrl(String url) {
     this(true, url);
@@ -51,7 +51,7 @@ public class EnoaUrl implements EoUrl {
       Set<HttpPara> pas = HttpPara.parse(url.substring(qIx + 1));
       this.paras = new HashSet<>(pas);
     }
-    this.change = Boolean.FALSE;
+//    this.change = Boolean.FALSE;
     this.encode = Boolean.FALSE;
     this.traditional = Boolean.TRUE;
   }
@@ -75,7 +75,7 @@ public class EnoaUrl implements EoUrl {
     itm.add(new HttpPara(name, value.toString(), array));
     this.paras.addAll(itm);
     itm.clear();
-    this.change = true;
+//    this.change = true;
     return this;
   }
 
@@ -105,7 +105,7 @@ public class EnoaUrl implements EoUrl {
   @Override
   public EoUrl charset(Charset charset) {
     this.charset = charset;
-    this.change = true;
+//    this.change = true;
     return this;
   }
 
@@ -168,7 +168,7 @@ public class EnoaUrl implements EoUrl {
   @Override
   public EoUrl traditional(boolean traditional) {
     this.traditional = traditional;
-    this.change = true;
+//    this.change = true;
     return this;
   }
 
@@ -177,7 +177,7 @@ public class EnoaUrl implements EoUrl {
     if (!encode)
       return this;
     this.encode = true;
-    this.change = true;
+//    this.change = true;
     return this;
   }
 
@@ -188,14 +188,13 @@ public class EnoaUrl implements EoUrl {
 
   @Override
   public String end() {
-    if (!this.change)
-      return this.url;
+//    if (!this.change)
+//      return this.url;
 
     String paras = String.join("&", this.paras.stream()
       .map(para -> this.encode ? this.endWithEncode(para) : this.endNoEncode(para))
       .collect(Collectors.toSet()));
-    this.url = this.url.concat("?").concat(paras);
-    return this.url;
+    return this.url.concat("?").concat(paras);
   }
 
   @Override

@@ -17,13 +17,16 @@ package io.enoa.http.provider.httphelper.http.req;
 
 import io.enoa.http.protocol.HttpHeader;
 import io.enoa.http.protocol.HttpMethod;
+import io.enoa.http.protocol.HttpVersion;
+import io.enoa.http.protocol.enoa.HttpRequest;
 import io.enoa.http.provider.httphelper.HttpHelperConfig;
 import io.enoa.http.proxy.HttpProxy;
 
 import java.nio.charset.Charset;
+import java.util.HashSet;
 import java.util.Set;
 
-public class _HttpHelperRequest {
+public class _HttpHelperRequest implements HttpRequest {
 
   private final HttpMethod method;
   private final Charset charset;
@@ -32,6 +35,7 @@ public class _HttpHelperRequest {
   private final Set<HttpHeader> headers;
   private final _HttpHelperRequestBody body;
   private final HttpHelperConfig config;
+  private final HttpVersion version;
 
   _HttpHelperRequest(Builder builder) {
     this.method = builder.method;
@@ -41,46 +45,89 @@ public class _HttpHelperRequest {
     this.proxy = builder.proxy;
     this.headers = builder.headers;
     this.config = builder.config;
+    this.version = builder.version;
   }
 
+  @Override
   public HttpMethod method() {
     return method;
   }
 
+  @Override
   public Charset charset() {
     return charset;
   }
 
+  @Override
+  public HttpVersion version() {
+    return this.version;
+  }
+
+  @Override
   public String url() {
     return url;
   }
 
+  @Override
   public HttpProxy proxy() {
     return proxy;
   }
 
+  @Override
   public _HttpHelperRequestBody body() {
     return this.body;
   }
 
+  @Override
   public Set<HttpHeader> headers() {
     return this.headers;
   }
 
+  @Override
   public HttpHelperConfig config() {
     return this.config;
   }
 
   @Override
   public String toString() {
-    return "_HttpHelperRequest{" +
-      "method=" + method +
-      ", charset=" + charset +
-      ", url='" + url + '\'' +
-      ", proxy=" + proxy +
-      ", headers=" + headers +
-      ", body=" + body +
-      '}';
+    StringBuilder _ret = new StringBuilder();
+    String url = this.url();
+    String uri = url.substring(url.indexOf("//") + 2);
+    uri = uri.substring(uri.indexOf("/"));
+    _ret.append(this.method().name()).append(" ").append(uri).append(" ").append("HTTP/1.1").append("\r\n");
+
+
+    Set<HttpHeader> headers = this.headers();
+    headers.forEach(header -> _ret.append(header.name()).append(" ").append(header.value()).append("\r\n"));
+    _ret.append("\r\n");
+
+    if (this.body == null)
+      return _ret.toString();
+
+    HttpHeader contentType = headers.stream()
+      .filter(h -> h.name().equalsIgnoreCase("content-type"))
+      .findFirst()
+      .orElse(null);
+
+    if (contentType == null) {
+      _ret.append("+============================================+");
+      _ret.append("+ Unknown body content type                  +");
+      _ret.append("+============================================+");
+      return _ret.toString();
+    }
+
+    String _ctype = contentType.value().toLowerCase();
+    if (_ctype.contains("/x-www-form-urlencoded") ||
+      _ctype.contains("/json") ||
+      _ctype.contains("/xml") ||
+      _ctype.equals("text/plain")) {
+      _ret.append(this.body.string());
+      return _ret.toString();
+    }
+    _ret.append("+============================================+");
+    _ret.append("+ Can not support octet-stream data show     +");
+    _ret.append("+============================================+");
+    return _ret.toString();
   }
 
   public static class Builder {
@@ -92,6 +139,12 @@ public class _HttpHelperRequest {
     private Set<HttpHeader> headers;
     private _HttpHelperRequestBody body;
     private HttpHelperConfig config;
+    private HttpVersion version;
+
+    public Builder() {
+      this.version = HttpVersion.HTTP_1_1;
+      this.method = HttpMethod.GET;
+    }
 
     public _HttpHelperRequest build() {
       return new _HttpHelperRequest(this);
@@ -117,6 +170,13 @@ public class _HttpHelperRequest {
       return this;
     }
 
+    public Builder header(HttpHeader header) {
+      if (this.headers == null)
+        this.headers = new HashSet<>();
+      this.headers.add(header);
+      return this;
+    }
+
     public Builder headers(Set<HttpHeader> headers) {
       this.headers = headers;
       return this;
@@ -129,6 +189,11 @@ public class _HttpHelperRequest {
 
     public Builder config(HttpHelperConfig config) {
       this.config = config;
+      return this;
+    }
+
+    public Builder version(HttpVersion version) {
+      this.version = version;
       return this;
     }
 
