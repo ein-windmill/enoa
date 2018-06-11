@@ -17,8 +17,8 @@ package io.enoa.index.solr;
 
 import io.enoa.http.EoHttp;
 import io.enoa.http.Http;
-import io.enoa.index.solr.action.SolrUpdate;
-import io.enoa.index.solr.action.select.SolrSelect;
+import io.enoa.index.solr.action.SUpdate;
+import io.enoa.index.solr.action.select.SSelect;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 
 class EnoaSolrImpl implements EoSolr {
@@ -51,17 +51,17 @@ class EnoaSolrImpl implements EoSolr {
   }
 
   @Override
-  public SolrSelect select() {
+  public SSelect select() {
     if (this.core == null)
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.solr.core_null"));
-    return new SolrSelect(this.http(), this.config, this.core);
+    return new SSelect(this.http(), this.config, this.core);
   }
 
   @Override
-  public SolrUpdate update() {
+  public SUpdate update() {
     if (this.core == null)
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.solr.core_null"));
-    return new SolrUpdate(this.http(), this.config, this.core);
+    return new SUpdate(this.http(), this.config, this.core);
   }
 
 }

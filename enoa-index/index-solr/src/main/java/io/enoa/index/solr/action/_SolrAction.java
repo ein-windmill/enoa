@@ -13,23 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.index.solr;
+package io.enoa.index.solr.action;
 
-import io.enoa.http.EoHttp;
-import io.enoa.http.Http;
-import io.enoa.index.solr.action.SUpdate;
-import io.enoa.index.solr.action.select.SSelect;
+import io.enoa.index.solr.parser.SParser;
+import io.enoa.index.solr.parser.OriginParser;
+import io.enoa.promise.DoneArgPromise;
 
-public interface EoSolr {
+public interface _SolrAction {
 
-  EoSolr http(EoHttp http);
+  default String emit() {
+    return this.emit(OriginParser.create());
+  }
 
-  Http http();
+  default DoneArgPromise enqueue() {
+    return this.enqueue(OriginParser.create());
+  }
 
-  EoSolr core(String core);
+  <T> T emit(SParser<T> parser);
 
-  SSelect select();
-
-  SUpdate update();
+  <T> DoneArgPromise enqueue(SParser<T> parser);
 
 }

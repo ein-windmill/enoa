@@ -22,13 +22,13 @@ import java.util.Set;
 
 public class Facet extends _AdvancedSelect {
 
-  private SolrSelect select;
+  private SSelect select;
 
   private String query;
   private String field;
   private String prefix;
 
-  Facet(SolrSelect select) {
+  Facet(SSelect select) {
     this.select = select;
   }
 
@@ -48,7 +48,7 @@ public class Facet extends _AdvancedSelect {
   }
 
   @Override
-  public SolrSelect end() {
+  public SSelect end() {
     return this.select;
   }
 

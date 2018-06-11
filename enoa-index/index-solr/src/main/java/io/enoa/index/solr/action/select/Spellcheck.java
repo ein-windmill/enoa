@@ -22,7 +22,7 @@ import java.util.Set;
 
 public class Spellcheck extends _AdvancedSelect {
 
-  private SolrSelect select;
+  private SSelect select;
 
 
   private boolean build;
@@ -37,7 +37,7 @@ public class Spellcheck extends _AdvancedSelect {
   private String maxCollationTries;
   private String accuracy;
 
-  Spellcheck(SolrSelect select) {
+  Spellcheck(SSelect select) {
     this.select = select;
 
     this.build = Boolean.FALSE;
@@ -123,7 +123,7 @@ public class Spellcheck extends _AdvancedSelect {
   }
 
   @Override
-  public SolrSelect end() {
+  public SSelect end() {
     return this.select;
   }
 

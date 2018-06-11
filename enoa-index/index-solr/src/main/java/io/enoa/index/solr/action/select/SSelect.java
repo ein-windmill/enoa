@@ -21,25 +21,30 @@ import io.enoa.http.protocol.HttpMethod;
 import io.enoa.http.protocol.HttpPara;
 import io.enoa.http.protocol.HttpResponse;
 import io.enoa.index.solr.SolrConfig;
-import io.enoa.index.solr.action.SolrAction;
+import io.enoa.index.solr.action.SActionExecutor;
+import io.enoa.index.solr.action._SolrAction;
 import io.enoa.index.solr.cqp.Fq;
-import io.enoa.index.solr.cqp.Qop;
 import io.enoa.index.solr.cqp.Sort;
 import io.enoa.index.solr.cqp.Wt;
+import io.enoa.index.solr.parser.SParser;
+import io.enoa.promise.DoneArgPromise;
+import io.enoa.promise.builder.EGraenodPromiseBuilder;
+import io.enoa.promise.builder.PromiseBuilder;
 import io.enoa.toolkit.EoConst;
+import io.enoa.toolkit.collection.CollectionKit;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-public class SolrSelect implements SolrAction {
+public class SSelect implements _SolrAction {
 
   private SolrConfig config;
   private Http http;
   private String core;
 
   private String q;
-  private Qop qop;
+  //  private Qop qop;
   private Set<String> fqs;
   private Set<String> sorts;
   private long start;
@@ -59,7 +64,8 @@ public class SolrSelect implements SolrAction {
   private Spatial spatial;
   private Spellcheck spellcheck;
 
-  public SolrSelect(Http http, SolrConfig config, String core) {
+
+  public SSelect(Http http, SolrConfig config, String core) {
     this.http = http;
     this.config = config;
     this.core = core;
@@ -75,92 +81,92 @@ public class SolrSelect implements SolrAction {
    * 查询字符串
    *
    * @param q q
-   * @return SolrSelect
+   * @return SSelect
    */
-  public SolrSelect q(String q) {
+  public SSelect q(String q) {
     this.q = q;
     return this;
   }
 
-  /**
-   * query operation
-   * AND OR
-   *
-   * @param qop qop
-   * @return SolrSelect
-   */
-  public SolrSelect qop(Qop qop) {
-    this.qop = qop;
-    return this;
-  }
+//  /**
+//   * query operation
+//   * AND OR
+//   *
+//   * @param qop qop
+//   * @return SSelect
+//   */
+//  public SSelect qop(Qop qop) {
+//    this.qop = qop;
+//    return this;
+//  }
 
-  public SolrSelect fq(String fq) {
+  public SSelect fq(String fq) {
     if (this.fqs == null)
       this.fqs = new HashSet<>();
     this.fqs.add(fq);
     return this;
   }
 
-  public SolrSelect fq(String... fqs) {
+  public SSelect fq(String... fqs) {
     for (String fq : fqs)
       this.fq(fq);
     return this;
   }
 
-  public SolrSelect fq(Fq fq) {
+  public SSelect fq(Fq fq) {
     return this.fq(fq.string());
   }
 
-  public SolrSelect fq(Fq... fqs) {
+  public SSelect fq(Fq... fqs) {
     for (Fq fq : fqs)
       this.fq(fq.string());
     return this;
   }
 
-  public SolrSelect fq(Collection<Fq> fqs) {
+  public SSelect fq(Collection<Fq> fqs) {
     fqs.forEach(fq -> this.fq(fq.string()));
     return this;
   }
 
-  public SolrSelect sort(String sort) {
+  public SSelect sort(String sort) {
     if (this.sorts == null)
       this.sorts = new HashSet<>();
     this.sorts.add(sort);
     return this;
   }
 
-  public SolrSelect sort(String... sorts) {
+  public SSelect sort(String... sorts) {
     for (String sort : sorts)
       this.sort(sort);
     return this;
   }
 
-  public SolrSelect sort(Sort sort) {
+  public SSelect sort(Sort sort) {
     return this.sort(sort.string());
   }
 
-  public SolrSelect sort(Sort... sorts) {
+  public SSelect sort(Sort... sorts) {
     for (Sort sort : sorts)
       this.sort(sort.string());
     return this;
   }
 
-  public SolrSelect sort(Collection<Sort> sorts) {
+  public SSelect sort(Collection<Sort> sorts) {
     sorts.forEach(sort -> this.sort(sort.string()));
     return this;
   }
 
-  public SolrSelect start(long offset) {
+  public SSelect start(long offset) {
     this.start = offset;
     return this;
   }
 
-  public SolrSelect rows(long rows) {
+  public SSelect rows(long rows) {
     this.rows = rows;
     return this;
   }
 
-  public SolrSelect limit(long offset, long rows) {
+  public SSelect limit(long offset, long rows) {
     this.start = offset;
     this.rows = rows;
     return this;
@@ -170,22 +176,22 @@ public class SolrSelect implements SolrAction {
    * field list
    *
    * @param fl fl
-   * @return SolrSelect
+   * @return SSelect
    */
-  public SolrSelect fl(String fl) {
+  public SSelect fl(String fl) {
     if (this.fls == null)
       this.fls = new HashSet<>();
     this.fls.add(fl);
     return this;
   }
 
-  public SolrSelect fl(String... fls) {
+  public SSelect fl(String... fls) {
     for (String fl : fls)
       this.fl(fl);
     return this;
   }
 
-  public SolrSelect fl(Collection<String> fls) {
+  public SSelect fl(Collection<String> fls) {
     fls.forEach(this::fl);
     return this;
   }
@@ -194,9 +200,9 @@ public class SolrSelect implements SolrAction {
    * default filed
    *
    * @param df df
-   * @return SolrSelect
+   * @return SSelect
    */
-  public SolrSelect df(String df) {
+  public SSelect df(String df) {
     this.df = df;
     return this;
   }
@@ -205,14 +211,14 @@ public class SolrSelect implements SolrAction {
    * raw query param
    *
    * @param raw raw
-   * @return SolrSelect
+   * @return SSelect
    */
-  public SolrSelect raw(String raw) {
+  public SSelect raw(String raw) {
     this.raw = raw;
     return this;
   }
 
-  public SolrSelect wt(Wt wt) {
+  public SSelect wt(Wt wt) {
     this.wt = wt;
     return this;
   }
@@ -220,22 +226,22 @@ public class SolrSelect implements SolrAction {
   /**
    * 是否縮進
    *
-   * @return SolrSelect
+   * @return SSelect
    */
-  public SolrSelect indent() {
+  public SSelect indent() {
     return this.indent(true);
   }
 
-  public SolrSelect indent(boolean indent) {
+  public SSelect indent(boolean indent) {
     this.indent = indent;
     return this;
   }
 
-  public SolrSelect debug() {
+  public SSelect debug() {
     return this.debug(true);
   }
 
-  public SolrSelect debug(boolean debug) {
+  public SSelect debug(boolean debug) {
     this.debug = debug;
     return this;
   }
@@ -271,7 +277,7 @@ public class SolrSelect implements SolrAction {
   }
 
   @Override
-  public void emit() {
+  public <T> T emit(SParser<T> resulter) {
     this.http.method(HttpMethod.GET)
       .url(EoUrl.with(this.config.host()).subpath(this.core).subpath("select"))
       .charset(EoConst.CHARSET)
@@ -324,8 +330,28 @@ public class SolrSelect implements SolrAction {
 
     HttpResponse response = this.http.emit();
 
-    // todo solr emit callbak
-    System.out.println(response.body().string());
+    return resulter.result(response.body().string());
+  }
+
+  @Override
+  public <T> DoneArgPromise enqueue(SParser<T> parser) {
+    EGraenodPromiseBuilder donearg = PromiseBuilder.donearg();
+    SActionExecutor.select().execute(() -> {
+      try {
+        T ret = this.emit(parser);
+        if (CollectionKit.isEmpty(donearg.dones()))
+          return;
+        donearg.dones().forEach(done -> done.execute(ret));
+      } catch (Exception e) {
+        if (CollectionKit.isEmpty(donearg.captures()))
+          return;
+        donearg.captures().forEach(capture -> capture.execute(e));
+      } finally {
+        if (donearg.always() != null)
+          donearg.always().execute();
+      }
+    });
+    return donearg.build();
   }
 
 }

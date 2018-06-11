@@ -22,7 +22,7 @@ import java.util.Set;
 
 public class Dismax extends _AdvancedSelect {
 
-  private SolrSelect select;
+  private SSelect select;
 
   private String qalt;
   private String qf;
@@ -34,7 +34,7 @@ public class Dismax extends _AdvancedSelect {
   private String bq;
   private String bf;
 
-  Dismax(SolrSelect select) {
+  Dismax(SSelect select) {
     this.select = select;
   }
 
@@ -90,7 +90,7 @@ public class Dismax extends _AdvancedSelect {
   }
 
   @Override
-  public SolrSelect end() {
+  public SSelect end() {
     return this.select;
   }
 

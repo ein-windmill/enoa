@@ -30,7 +30,7 @@ public class Edismax extends Dismax {
   private boolean stopwords;
   private boolean operators;
 
-  Edismax(SolrSelect select) {
+  Edismax(SSelect select) {
     super(select);
   }
 
@@ -138,7 +138,7 @@ public class Edismax extends Dismax {
   }
 
   @Override
-  public SolrSelect end() {
+  public SSelect end() {
     return super.end();
   }
 

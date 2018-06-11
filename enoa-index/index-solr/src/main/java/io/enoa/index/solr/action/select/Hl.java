@@ -22,7 +22,7 @@ import java.util.Set;
 
 public class Hl extends _AdvancedSelect {
 
-  private SolrSelect select;
+  private SSelect select;
 
   private String fl;
   private String pre;
@@ -31,7 +31,7 @@ public class Hl extends _AdvancedSelect {
   private boolean use;
   private boolean term;
 
-  Hl(SolrSelect select) {
+  Hl(SSelect select) {
     this.select = select;
     this.match = Boolean.FALSE;
     this.use = Boolean.FALSE;
@@ -81,7 +81,7 @@ public class Hl extends _AdvancedSelect {
   }
 
   @Override
-  public SolrSelect end() {
+  public SSelect end() {
     return this.select;
   }
 
@@ -89,7 +89,7 @@ public class Hl extends _AdvancedSelect {
   protected Set<HttpPara> paras() {
     Set<HttpPara> paras = new HashSet<>();
     paras.add(new HttpPara("hl", "on"));
-    
+
     if (this.fl != null)
       paras.add(new HttpPara("hl.fl", this.fl));
     if (this.pre != null)

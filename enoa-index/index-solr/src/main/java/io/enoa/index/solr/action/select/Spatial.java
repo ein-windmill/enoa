@@ -22,13 +22,13 @@ import java.util.Set;
 
 public class Spatial extends _AdvancedSelect {
 
-  private SolrSelect select;
+  private SSelect select;
 
   private String pt;
   private String d;
   private String sfield;
 
-  Spatial(SolrSelect select) {
+  Spatial(SSelect select) {
     this.select = select;
   }
 
@@ -45,7 +45,7 @@ public class Spatial extends _AdvancedSelect {
   }
 
   @Override
-  public SolrSelect end() {
+  public SSelect end() {
     return this.select;
   }
 

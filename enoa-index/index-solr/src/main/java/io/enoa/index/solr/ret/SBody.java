@@ -13,26 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.index.solr.action;
+package io.enoa.index.solr.ret;
 
-import io.enoa.http.Http;
-import io.enoa.index.solr.SolrConfig;
-
-public class SolrUpdate implements SolrAction {
-
-  private SolrConfig config;
-  private String core;
-  private Http http;
-
-  public SolrUpdate(Http http, SolrConfig config, String core) {
-    this.http = http;
-    this.config = config;
-    this.core = core;
-  }
-
-  @Override
-  public void emit() {
-
-  }
+public interface SBody<T> extends _Result {
 
 }

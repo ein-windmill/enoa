@@ -21,7 +21,7 @@ import java.util.Set;
 
 abstract class _AdvancedSelect {
 
-  abstract SolrSelect end();
+  abstract SSelect end();
 
   protected abstract Set<HttpPara> paras();
 

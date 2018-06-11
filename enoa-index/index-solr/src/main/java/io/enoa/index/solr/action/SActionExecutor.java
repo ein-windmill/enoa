@@ -15,8 +15,26 @@
  */
 package io.enoa.index.solr.action;
 
-public interface SolrAction {
+import io.enoa.promise.builder.PromiseBuilder;
 
-  void emit();
+import java.util.concurrent.ExecutorService;
+
+public class SActionExecutor {
+
+  private static class Holder0 {
+    private static ExecutorService ES = PromiseBuilder.executor().enqueue("Solr select");
+  }
+
+  private static class Holder1 {
+    private static ExecutorService ES = PromiseBuilder.executor().enqueue("Solr update");
+  }
+
+  public static ExecutorService select() {
+    return Holder0.ES;
+  }
+
+  public static ExecutorService update() {
+    return Holder1.ES;
+  }
 
 }

@@ -13,23 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.index.solr;
+package io.enoa.index.solr.ret;
 
-import io.enoa.http.EoHttp;
-import io.enoa.http.Http;
-import io.enoa.index.solr.action.SUpdate;
-import io.enoa.index.solr.action.select.SSelect;
+import java.io.Serializable;
 
-public interface EoSolr {
-
-  EoSolr http(EoHttp http);
-
-  Http http();
-
-  EoSolr core(String core);
-
-  SSelect select();
-
-  SUpdate update();
-
+interface _Result extends Serializable {
 }

@@ -13,23 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.index.solr;
+package io.enoa.index.solr.parser;
 
-import io.enoa.http.EoHttp;
-import io.enoa.http.Http;
-import io.enoa.index.solr.action.SUpdate;
-import io.enoa.index.solr.action.select.SSelect;
+public class OriginParser implements SParser<String> {
 
-public interface EoSolr {
+  private static class Holder {
+    private static final OriginParser INSTANCE = new OriginParser();
+  }
 
-  EoSolr http(EoHttp http);
+  public static OriginParser create() {
+    return Holder.INSTANCE;
+  }
 
-  Http http();
-
-  EoSolr core(String core);
-
-  SSelect select();
-
-  SUpdate update();
-
+  @Override
+  public String result(String resp) {
+    return resp;
+  }
 }

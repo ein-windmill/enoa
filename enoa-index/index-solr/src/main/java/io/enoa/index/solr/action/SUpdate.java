@@ -13,23 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.index.solr;
+package io.enoa.index.solr.action;
 
-import io.enoa.http.EoHttp;
 import io.enoa.http.Http;
-import io.enoa.index.solr.action.SUpdate;
-import io.enoa.index.solr.action.select.SSelect;
+import io.enoa.index.solr.SolrConfig;
+import io.enoa.index.solr.parser.SParser;
+import io.enoa.promise.DoneArgPromise;
 
-public interface EoSolr {
+public class SUpdate implements _SolrAction {
 
-  EoSolr http(EoHttp http);
+  private SolrConfig config;
+  private String core;
+  private Http http;
 
-  Http http();
+  public SUpdate(Http http, SolrConfig config, String core) {
+    this.http = http;
+    this.config = config;
+    this.core = core;
+  }
 
-  EoSolr core(String core);
 
-  SSelect select();
+  @Override
+  public Object emit(SParser resulter) {
+    return null;
+  }
 
-  SUpdate update();
-
+  @Override
+  public DoneArgPromise enqueue(SParser resulter) {
+    return null;
+  }
 }
