@@ -17,7 +17,7 @@ package io.enoa.index.solr;
 
 import io.enoa.http.EoHttp;
 import io.enoa.http.Http;
-import io.enoa.index.solr.action.SUpdate;
+import io.enoa.index.solr.action.update.SUpdate;
 import io.enoa.index.solr.action.select.SSelect;
 
 public interface EoSolr {

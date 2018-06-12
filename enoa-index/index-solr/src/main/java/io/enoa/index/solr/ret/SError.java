@@ -19,7 +19,7 @@ import io.enoa.toolkit.sys.ObjectKit;
 
 import java.util.List;
 
-public class SError implements SBody {
+public class SError implements _Result {
 
   private List<String> metadata;
   private String msg;

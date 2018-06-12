@@ -21,17 +21,12 @@ import io.enoa.http.protocol.HttpMethod;
 import io.enoa.http.protocol.HttpPara;
 import io.enoa.http.protocol.HttpResponse;
 import io.enoa.index.solr.SolrConfig;
-import io.enoa.index.solr.action.SActionExecutor;
 import io.enoa.index.solr.action._SolrAction;
 import io.enoa.index.solr.cqp.Fq;
 import io.enoa.index.solr.cqp.Sort;
 import io.enoa.index.solr.cqp.Wt;
 import io.enoa.index.solr.parser.SParser;
-import io.enoa.promise.DoneArgPromise;
-import io.enoa.promise.builder.EGraenodPromiseBuilder;
-import io.enoa.promise.builder.PromiseBuilder;
 import io.enoa.toolkit.EoConst;
-import io.enoa.toolkit.collection.CollectionKit;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -330,28 +325,7 @@ public class SSelect implements _SolrAction {
 
     HttpResponse response = this.http.emit();
 
-    return resulter.result(response.body().string());
-  }
-
-  @Override
-  public <T> DoneArgPromise enqueue(SParser<T> parser) {
-    EGraenodPromiseBuilder donearg = PromiseBuilder.donearg();
-    SActionExecutor.select().execute(() -> {
-      try {
-        T ret = this.emit(parser);
-        if (CollectionKit.isEmpty(donearg.dones()))
-          return;
-        donearg.dones().forEach(done -> done.execute(ret));
-      } catch (Exception e) {
-        if (CollectionKit.isEmpty(donearg.captures()))
-          return;
-        donearg.captures().forEach(capture -> capture.execute(e));
-      } finally {
-        if (donearg.always() != null)
-          donearg.always().execute();
-      }
-    });
-    return donearg.build();
+    return resulter.result(response);
   }
 
 }

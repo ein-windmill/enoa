@@ -15,6 +15,8 @@
  */
 package io.enoa.index.solr.parser;
 
+import io.enoa.http.protocol.HttpResponse;
+
 public class OriginParser implements SParser<String> {
 
   private static class Holder {
@@ -26,7 +28,7 @@ public class OriginParser implements SParser<String> {
   }
 
   @Override
-  public String result(String resp) {
-    return resp;
+  public String result(HttpResponse resp) {
+    return resp.body().string();
   }
 }

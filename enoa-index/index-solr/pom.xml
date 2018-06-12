@@ -30,12 +30,6 @@
     </dependency>
 
     <dependency>
-      <groupId>com.github.ikidou</groupId>
-      <artifactId>TypeBuilder</artifactId>
-      <version>${version-typebuilder}</version>
-    </dependency>
-    
-    <dependency>
       <groupId>io.enoa</groupId>
       <artifactId>enoa-log</artifactId>
     </dependency>

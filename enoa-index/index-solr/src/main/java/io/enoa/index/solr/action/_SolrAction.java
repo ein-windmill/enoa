@@ -15,9 +15,12 @@
  */
 package io.enoa.index.solr.action;
 
-import io.enoa.index.solr.parser.SParser;
 import io.enoa.index.solr.parser.OriginParser;
+import io.enoa.index.solr.parser.SParser;
 import io.enoa.promise.DoneArgPromise;
+import io.enoa.promise.builder.EGraenodPromiseBuilder;
+import io.enoa.promise.builder.PromiseBuilder;
+import io.enoa.toolkit.collection.CollectionKit;
 
 public interface _SolrAction {
 
@@ -31,6 +34,25 @@ public interface _SolrAction {
 
   <T> T emit(SParser<T> parser);
 
-  <T> DoneArgPromise enqueue(SParser<T> parser);
+  default <T> DoneArgPromise enqueue(SParser<T> parser) {
+    EGraenodPromiseBuilder donearg = PromiseBuilder.donearg();
+    SActionExecutor.select().execute(() -> {
+      try {
+        T ret = this.emit(parser);
+        if (CollectionKit.isEmpty(donearg.dones()))
+          return;
+        donearg.dones().forEach(done -> done.execute(ret));
+      } catch (Exception e) {
+        if (CollectionKit.isEmpty(donearg.captures()))
+          return;
+        donearg.captures().forEach(capture -> capture.execute(e));
+      } finally {
+        if (donearg.always() != null)
+          donearg.always().execute();
+      }
+    });
+    return donearg.build();
+  }
+
 
 }

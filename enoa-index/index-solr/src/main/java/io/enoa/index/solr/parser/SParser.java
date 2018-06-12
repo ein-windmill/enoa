@@ -15,12 +15,14 @@
  */
 package io.enoa.index.solr.parser;
 
+import io.enoa.http.protocol.HttpResponse;
+
 public interface SParser<T> {
 
   static SParser<String> def() {
     return OriginParser.create();
   }
 
-  T result(String resp);
+  T result(HttpResponse resp);
 
 }

@@ -19,29 +19,35 @@ import io.enoa.toolkit.mark.IMarkVal;
 
 public enum Wt implements IMarkVal {
 
-  JSON("json"),
+  JSON("json", "application/json"),
 
-  XML("xml"),
+  XML("xml", "text/xml"),
 
-  PTHON("python"),
+  PYTHON("python", "application/x-python"),
 
-  RUBY("ruby"),
+  RUBY("ruby", "text/x-ruby"),
 
-  PHP("php"),
+  PHP("php", "text/php"),
 
-  CSV("csv"),
+  CSV("csv", "text/csv"),
   //
   ;
 
   private String val;
+  private String contentType;
 
-  Wt(String val) {
+  Wt(String val, String contentType) {
     this.val = val;
+    this.contentType = contentType;
   }
 
   @Override
   public String val() {
     return this.val;
+  }
+
+  public String contentType() {
+    return this.contentType;
   }
 
   public static Wt of(String wt) {

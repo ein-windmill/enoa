@@ -16,17 +16,28 @@
 package io.enoa.example.index.solr;
 
 import io.enoa.example.index.entity.Barcode;
+import io.enoa.http.EoUrl;
 import io.enoa.http.Http;
+import io.enoa.http.protocol.HttpMethod;
 import io.enoa.http.protocol.enoa.HttpHandler;
 import io.enoa.index.solr.EoSolr;
 import io.enoa.index.solr.Solr;
 import io.enoa.index.solr.SolrConfig;
 import io.enoa.index.solr.cqp.Fq;
-import io.enoa.index.solr.parser.SParser;
+import io.enoa.index.solr.cqp.Wt;
 import io.enoa.index.solr.parser.JsonParser;
 import io.enoa.index.solr.ret.SRet;
 import io.enoa.json.Json;
 import io.enoa.json.provider.fastjson.FastjsonProvider;
+import io.enoa.toolkit.digest.DigestKit;
+import io.enoa.toolkit.digest.UUIDKit;
+import io.enoa.toolkit.map.Kv;
+import io.enoa.toolkit.text.TextKit;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class SolrExample {
 
@@ -40,7 +51,7 @@ public class SolrExample {
       .rows(2)
       .emit(JsonParser.create(Barcode.class));
 
-    System.out.println(ret);
+    System.out.println(Json.toJson(ret));
     System.out.println("=====================> selectWithHttpInfo");
   }
 
@@ -51,7 +62,7 @@ public class SolrExample {
       .rows(2)
       .emit(JsonParser.create(Barcode.class));
 
-    System.out.println(ret);
+    System.out.println(Json.toJson(ret));
     System.out.println("=====================> testSelect");
   }
 
@@ -77,9 +88,55 @@ public class SolrExample {
   }
 
   private void testUpdate() {
-    Solr.core("barcode")
+    EoSolr solr = Solr.core("stest");
+    Http http = solr.http();
+    http.handler(HttpHandler.def());
+
+    SRet<Void> ret = solr.update()
+      .overwrite(true)
+      .commitWithin(1000)
+      .wt(Wt.JSON)
+      .body(Json.toJson(this.kvs(20)))
+      .emit(JsonParser.create());
+
+    System.out.println(ret);
+    System.out.println("=====================> testUpdate");
+  }
+
+  private void enqueueUpdate() {
+    Solr.core("stest")
       .update()
-      .emit(SParser.def());
+      .body(Json.toJson(this.kvs(30)))
+      .enqueue()
+      .done(System.out::println)
+      .capture(Throwable::printStackTrace)
+      .always(() -> System.out.println("=====================> enqueueUpdate"));
+  }
+
+  private List<Kv> kvs(int size) {
+    List<Kv> kvs = new ArrayList<>();
+    for (int i = 0; i < size; i++) {
+      Kv kv = Kv.create()
+        .set("id", DigestKit.sha1(UUIDKit.next()))
+        .set("title", this.moreText(10, 15))
+        .set("body", this.moreText(100, 150))
+        .set("stat", i % 2 == 0 ? 1 : 2)
+        .set("ctime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date()));
+      kvs.add(kv);
+    }
+    return kvs;
+  }
+
+  private String moreText(int mix, int max) {
+    String text = Http.request(EoUrl.with("http://more.handlino.com/sentences.json"))
+      .handler(HttpHandler.def())
+      .method(HttpMethod.GET)
+      .para("limit", TextKit.union(String.valueOf(mix), ",", max))
+      .emit()
+      .body()
+      .string();
+    Kv kv = Json.parse(text, Kv.class);
+    return ((List<String>) kv.as("sentences")).get(0);
   }
 
   public static void main(String[] args) {
@@ -99,5 +156,6 @@ public class SolrExample {
     e.enqueueSelect();
     e.defaultParserSelect();
     e.testUpdate();
+    e.enqueueUpdate();
   }
 }

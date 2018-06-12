@@ -18,13 +18,9 @@ package io.enoa.index.solr.ret;
 import io.enoa.toolkit.sys.ObjectKit;
 
 public class SRet<T> implements _Result {
-  
-  private SHeader responseHeader;
-  private T response;
 
-  /*
-  SolrCore is loading
-   */
+  private SHeader responseHeader;
+  private SResponse<T> response;
   private SError error;
 
   public SHeader getResponseHeader() {
@@ -35,11 +31,11 @@ public class SRet<T> implements _Result {
     this.responseHeader = responseHeader;
   }
 
-  public SBody<T> getResponse() {
-    return (SBody<T>) response;
+  public SResponse<T> getResponse() {
+    return response;
   }
 
-  public void setResponse(T response) {
+  public void setResponse(SResponse<T> response) {
     this.response = response;
   }
 

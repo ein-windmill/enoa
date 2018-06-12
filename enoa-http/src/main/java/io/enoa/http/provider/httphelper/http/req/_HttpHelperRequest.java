@@ -101,7 +101,7 @@ public class _HttpHelperRequest implements HttpRequest {
     headers.forEach(header -> _ret.append(header.name()).append(" ").append(header.value()).append("\r\n"));
     _ret.append("\r\n");
 
-    if (this.body == null)
+    if (this.body() == null)
       return _ret.toString();
 
     HttpHeader contentType = headers.stream()
@@ -110,9 +110,9 @@ public class _HttpHelperRequest implements HttpRequest {
       .orElse(null);
 
     if (contentType == null) {
-      _ret.append("+============================================+");
-      _ret.append("+ Unknown body content type                  +");
-      _ret.append("+============================================+");
+      _ret.append("+============================================+\r\n");
+      _ret.append("+ Unknown body content type                  +\r\n");
+      _ret.append("+============================================+\r\n");
       return _ret.toString();
     }
 
@@ -120,13 +120,13 @@ public class _HttpHelperRequest implements HttpRequest {
     if (_ctype.contains("/x-www-form-urlencoded") ||
       _ctype.contains("/json") ||
       _ctype.contains("/xml") ||
-      _ctype.equals("text/plain")) {
-      _ret.append(this.body.string());
+      _ctype.startsWith("text/")) {
+      _ret.append(this.body().string());
       return _ret.toString();
     }
-    _ret.append("+============================================+");
-    _ret.append("+ Can not support octet-stream data show     +");
-    _ret.append("+============================================+");
+    _ret.append("+============================================+\r\n");
+    _ret.append("+ Can not support octet-stream data show     +\r\n");
+    _ret.append("+============================================+\r\n");
     return _ret.toString();
   }
 
