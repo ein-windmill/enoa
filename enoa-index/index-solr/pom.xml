@@ -29,11 +29,6 @@
       <artifactId>enoa-json</artifactId>
     </dependency>
 
-    <dependency>
-      <groupId>io.enoa</groupId>
-      <artifactId>enoa-log</artifactId>
-    </dependency>
-
   </dependencies>
 
 
