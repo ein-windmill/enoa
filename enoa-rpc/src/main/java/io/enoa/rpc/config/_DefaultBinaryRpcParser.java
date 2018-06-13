@@ -13,17 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.eml.api;
+package io.enoa.rpc.config;
 
-import io.enoa.eml.api.stream.MailSenderStream;
+import io.enoa.http.protocol.HttpResponseBody;
+import io.enoa.rpc.parser.IRpcParser;
 
-public interface SenderHandler {
+import java.lang.reflect.Type;
 
-  /**
-   * 郵件發送記錄處理
-   *
-   * @param stream 郵件發送內容
-   */
-  void handle(MailSenderStream stream);
-
+class _DefaultBinaryRpcParser implements IRpcParser<byte[]> {
+  @Override
+  public byte[] parse(HttpResponseBody body, Type type) {
+    return body.bytes();
+  }
 }

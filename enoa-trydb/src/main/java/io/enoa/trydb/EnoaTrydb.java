@@ -85,11 +85,11 @@ public class EnoaTrydb implements TrydbCommandBase<EnoaTrydb>, TrydbCommandTSql<
   }
 
   private String reportMark() {
-    return this.config.report() == null ? String.valueOf(RandomKit.nextInt(100, 999)) : this.config.report().mark();
+    return this.config.reporter() == null ? String.valueOf(RandomKit.nextInt(100, 999)) : this.config.reporter().mark();
   }
 
   private void reportSql(String mark, String sql, Object... paras) {
-    ISqlReport report = this.config.report();
+    ISqlReporter report = this.config.reporter();
     if (report == null)
       return;
     report.report(mark, sql, paras);

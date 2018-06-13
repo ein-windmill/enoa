@@ -13,33 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.json;
+package io.enoa.index.solr.ret;
 
-import java.lang.reflect.Type;
-import java.util.List;
+import java.io.Serializable;
 
-/**
- * enoa - io.enoa.json
- */
-interface _Json {
-
-//  /**
-//   * Origin json class
-//   * like
-//   * Gson -> Gson
-//   * jackson -> ObjectMapper
-//   * Note: Not all json providers will have corresponding original class, depending on the specific provider
-//   *
-//   * @return Object
-//   */
-//  Object origin();
-
-  String toJson(Object object);
-
-  <T> T parse(String json, Class<T> type);
-
-  <T> T parse(String json, Type type);
-
-  <T> List<T> parseArray(String json, Class<T> type);
-
+interface _Ret extends Serializable {
 }

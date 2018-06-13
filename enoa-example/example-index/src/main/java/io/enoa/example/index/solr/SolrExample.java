@@ -20,7 +20,6 @@ import io.enoa.http.EoUrl;
 import io.enoa.http.Http;
 import io.enoa.http.protocol.HttpMethod;
 import io.enoa.http.protocol.enoa.HttpHandler;
-import io.enoa.index.solr.EoSolr;
 import io.enoa.index.solr.Solr;
 import io.enoa.index.solr.SolrConfig;
 import io.enoa.index.solr.cqp.Fq;
@@ -28,6 +27,7 @@ import io.enoa.index.solr.cqp.OrderBy;
 import io.enoa.index.solr.cqp.Sort;
 import io.enoa.index.solr.cqp.Wt;
 import io.enoa.index.solr.parser.JsonParser;
+import io.enoa.index.solr.parser.SParser;
 import io.enoa.index.solr.ret.SRet;
 import io.enoa.json.Json;
 import io.enoa.json.provider.fastjson.FastjsonProvider;
@@ -45,11 +45,12 @@ public class SolrExample {
 
   private void selectWithHttpInfo() {
     SRet<Barcode> ret = Solr.core("barcode")
-      .http(Http.use().handler(HttpHandler.def()))
+      .http(() -> Http.use().handler(HttpHandler.def()))
       .select()
       .fq(Fq.create("name", "药"))
       .rows(2)
-      .emit(JsonParser.create(Barcode.class));
+      .emit(SParser.json(Barcode.class))
+      .value();
 
     System.out.println(Json.toJson(ret));
     System.out.println("=====================> selectWithHttpInfo");
@@ -61,7 +62,9 @@ public class SolrExample {
       .fq(Fq.create("name", "药"))
       .rows(2)
       .sort(Sort.create("ctime", OrderBy.DESC))
-      .emit(JsonParser.create(Barcode.class));
+      .emit(JsonParser.create(Barcode.class))
+      .report(System.out::println)
+      .value();
 
     System.out.println(Json.toJson(ret));
     System.out.println("=====================> testSelect");
@@ -72,7 +75,8 @@ public class SolrExample {
       .select()
       .fq(Fq.create("name", "药"))
       .rows(2)
-      .emit();
+      .emit()
+      .value();
     System.out.println(ret);
     System.out.println("=====================> defaultParserSelect");
   }
@@ -89,11 +93,9 @@ public class SolrExample {
   }
 
   private void testUpdate() {
-    EoSolr solr = Solr.core("stest");
-    Http http = solr.http();
-    http.handler(HttpHandler.def());
-
-    SRet<Void> ret = solr.update()
+    SRet<Void> ret = Solr.core("stest")
+      .http(() -> Http.use().handler(HttpHandler.def()))
+      .update()
       .overwrite(true)
       .commitWithin(1000)
       .wt(Wt.JSON)

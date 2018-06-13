@@ -13,33 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.json;
+package io.enoa.index.solr.promise;
 
-import java.lang.reflect.Type;
-import java.util.List;
+import io.enoa.promise.DoneArgPromise;
+import io.enoa.promise.arg.PromiseArg;
+import io.enoa.promise.arg.PromiseCapture;
 
-/**
- * enoa - io.enoa.json
- */
-interface _Json {
+public interface ReporterDoneArgPromise<DT> extends DoneArgPromise<ReporterDoneArgPromise> {
 
-//  /**
-//   * Origin json class
-//   * like
-//   * Gson -> Gson
-//   * jackson -> ObjectMapper
-//   * Note: Not all json providers will have corresponding original class, depending on the specific provider
-//   *
-//   * @return Object
-//   */
-//  Object origin();
+  ReporterDoneArgPromise report(DT ret);
 
-  String toJson(Object object);
+  @Override
+  <T> ReporterDoneArgPromise done(PromiseArg<T> done);
 
-  <T> T parse(String json, Class<T> type);
-
-  <T> T parse(String json, Type type);
-
-  <T> List<T> parseArray(String json, Class<T> type);
+  @Override
+  ReporterDoneArgPromise capture(PromiseCapture capture);
 
 }

@@ -13,15 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.rpc.handler;
+package io.enoa.eml.api;
 
-import io.enoa.http.protocol.HttpResponseBody;
+import io.enoa.eml.api.stream.MailSenderStream;
 
-import java.lang.reflect.Type;
+public interface ISenderReporter {
 
-@FunctionalInterface
-public interface IHandler<T> {
-
-  T handle(HttpResponseBody body, Type type);
+  /**
+   * 郵件發送記錄處理
+   *
+   * @param stream 郵件發送內容
+   */
+  void report(MailSenderStream stream);
 
 }

@@ -30,6 +30,11 @@ class _EnoaJson extends EnoaJson {
 
   private static final String DEF_TIP_NOTSUPPORT = "The default json provider (EoJsonProvider) can not support convert json string to object, please choose another json provider.";
 
+//  @Override
+//  public Object origin() {
+//    return null;
+//  }
+
   @Override
   public String toJson(Object object) {
     return jFinalJson.toJson(object);

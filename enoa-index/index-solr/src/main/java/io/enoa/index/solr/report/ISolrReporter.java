@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.index.solr.ret;
+package io.enoa.index.solr.report;
 
-import java.io.Serializable;
+public interface ISolrReporter<T> {
 
-interface _Result extends Serializable {
+  void report(T ret);
+
 }

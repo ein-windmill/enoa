@@ -19,8 +19,8 @@ import io.enoa.http.protocol.HttpResponse;
 import io.enoa.http.protocol.HttpResponseBody;
 import io.enoa.log.EnoaLog;
 import io.enoa.rpc.Rpc;
-import io.enoa.rpc.handler.IHandler;
-import io.enoa.rpc.handler.ResponseType;
+import io.enoa.rpc.parser.IRpcParser;
+import io.enoa.rpc.parser.ResponseType;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thr.EoException;
@@ -31,8 +31,8 @@ class HttpRpcHandler {
 
   private static EnoaLog log = Rpc.config().factory().log("rpc_handler");
 
-  private static <T> IHandler<T> handler(ResponseType type) {
-    IHandler<T> handler = Rpc.config().handler().handler(type);
+  private static <T> IRpcParser<T> handler(ResponseType type) {
+    IRpcParser<T> handler = Rpc.config().handler().handler(type);
     if (handler == null)
       throw new EoException(EnoaTipKit.message("eo.tip.rpc.handler_null", type.name()));
     return handler;
@@ -45,8 +45,8 @@ class HttpRpcHandler {
     if (contentType.contains("application/json")) {
       HttpResponseBody body = response.body();
       try {
-        IHandler<T> handler = handler(ResponseType.JSON);
-        return handler.handle(body, type);
+        IRpcParser<T> handler = handler(ResponseType.JSON);
+        return handler.parse(body, type);
       } catch (Exception e) {
         if (e instanceof EoException)
           throw e;
@@ -55,13 +55,13 @@ class HttpRpcHandler {
       }
     }
     if (contentType.contains("text/xml") || contentType.contains("application/xml")) {
-      IHandler<T> handler = handler(ResponseType.XML);
-      return handler.handle(response.body(), type);
+      IRpcParser<T> handler = handler(ResponseType.XML);
+      return handler.parse(response.body(), type);
     }
     if (contentType.contains("application/octet-stream") ||
       contentType.contains("image")) {
-      IHandler<T> handler = handler(ResponseType.BINARY);
-      return handler.handle(response.body(), type);
+      IRpcParser<T> handler = handler(ResponseType.BINARY);
+      return handler.parse(response.body(), type);
     }
 
     int fix = contentType.indexOf(";");

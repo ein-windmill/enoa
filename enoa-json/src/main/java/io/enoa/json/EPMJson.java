@@ -43,6 +43,10 @@ public class EPMJson {
     this.defDatePattern = pattern;
   }
 
+  public EoJsonFactory defFactory() {
+    return defJsonFactory;
+  }
+
   public EnoaJson json() {
     return this.defJsonFactory.json();
   }

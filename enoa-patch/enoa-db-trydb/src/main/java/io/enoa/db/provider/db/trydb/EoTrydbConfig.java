@@ -21,7 +21,7 @@ import io.enoa.db.EoDsFactory;
 import io.enoa.toolkit.namecase.INameCase;
 import io.enoa.toolkit.namecase.NamecaseKit;
 import io.enoa.toolkit.namecase.NamecaseType;
-import io.enoa.trydb.ISqlReport;
+import io.enoa.trydb.ISqlReporter;
 import io.enoa.trydb.dialect.IDialect;
 import io.enoa.trydb.tsql.template.TSqlTemplate;
 import io.enoa.trydb.tx.TxLevel;
@@ -34,7 +34,7 @@ public class EoTrydbConfig implements EoDbConfig {
   private final EoDsConfig dsConfig;
   private final IDialect dialect;
   private final TxLevel level;
-  private final ISqlReport report;
+  private final ISqlReporter reporter;
   private final INameCase namecase;
   private final boolean showSql;
   private final TSqlTemplate sqltemplate;
@@ -46,7 +46,7 @@ public class EoTrydbConfig implements EoDbConfig {
     this.dsConfig = builder.dsConfig;
     this.dialect = builder.dialect;
     this.level = builder.level;
-    this.report = builder.report;
+    this.reporter = builder.reporter;
     this.namecase = builder.namecase;
     this.showSql = builder.showSql;
     this.sqltemplate = builder.sqltemplate;
@@ -79,8 +79,8 @@ public class EoTrydbConfig implements EoDbConfig {
     return level;
   }
 
-  public ISqlReport report() {
-    return this.report;
+  public ISqlReporter reporter() {
+    return this.reporter;
   }
 
   public INameCase namecase() {
@@ -102,7 +102,7 @@ public class EoTrydbConfig implements EoDbConfig {
     private EoDsConfig dsConfig;
     private IDialect dialect;
     private TxLevel level;
-    private ISqlReport report;
+    private ISqlReporter reporter;
     private INameCase namecase;
     private boolean showSql;
     private TSqlTemplate sqltemplate;
@@ -158,8 +158,8 @@ public class EoTrydbConfig implements EoDbConfig {
       return this;
     }
 
-    public Builder report(ISqlReport report) {
-      this.report = report;
+    public Builder reporter(ISqlReporter reporter) {
+      this.reporter = reporter;
       return this;
     }
 

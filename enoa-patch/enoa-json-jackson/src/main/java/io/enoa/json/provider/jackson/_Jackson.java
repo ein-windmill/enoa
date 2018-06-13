@@ -34,21 +34,41 @@ class _Jackson extends EnoaJson {
   // generateNullValue 通过设置此值，可临时改变默认生成 null value 的行为
   private Boolean generateNullValue = null;
 
-  private ObjectMapper objectMapper = new ObjectMapper();
+  private ObjectMapper objectMapper;
+
+  private static class Holder {
+    private static final EnoaJson INSTANCE = new _Jackson();
+  }
+
+  static EnoaJson instance() {
+    return Holder.INSTANCE;
+  }
+
+  private _Jackson() {
+
+  }
+
+  private ObjectMapper mapper() {
+    if (this.objectMapper != null)
+      return this.objectMapper;
+
+    this.objectMapper = new ObjectMapper();
+    String dp = datePattern != null ? datePattern : defaultDatePattern();
+    if (dp != null)
+      this.objectMapper.setDateFormat(new SimpleDateFormat(dp));
+    this.objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+    return this.objectMapper;
+  }
+
+//  @Override
+//  public Object origin() {
+//    return this.mapper();
+//  }
 
   @Override
   public String toJson(Object object) {
     try {
-      String dp = datePattern != null ? datePattern : defaultDatePattern();
-      if (dp != null)
-        objectMapper.setDateFormat(new SimpleDateFormat(dp));
-
-      // 优先使用对象属性 generateNullValue，决定转换 json时是否生成 null value
-      Boolean pnv = generateNullValue != null ? generateNullValue : defaultGenerateNullValue;
-      if (!pnv)
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-
-      return objectMapper.writeValueAsString(object);
+      return this.mapper().writeValueAsString(object);
     } catch (Exception e) {
       throw e instanceof RuntimeException ? (RuntimeException) e : new RuntimeException(e);
     }
@@ -57,7 +77,7 @@ class _Jackson extends EnoaJson {
   @Override
   public <T> T parse(String json, Class<T> type) {
     try {
-      return objectMapper.readValue(json, type);
+      return this.mapper().readValue(json, type);
     } catch (Exception e) {
       throw e instanceof RuntimeException ? (RuntimeException) e : new RuntimeException(e);
     }
@@ -66,7 +86,7 @@ class _Jackson extends EnoaJson {
   @Override
   public <T> T parse(String json, Type type) {
     try {
-      return objectMapper.readValue(json, objectMapper.getTypeFactory().constructType(type));
+      return this.mapper().readValue(json, this.mapper().getTypeFactory().constructType(type));
     } catch (Exception e) {
       throw e instanceof RuntimeException ? (RuntimeException) e : new RuntimeException(e);
     }
@@ -75,7 +95,7 @@ class _Jackson extends EnoaJson {
   @Override
   public <T> List<T> parseArray(String json, Class<T> type) {
     try {
-      return objectMapper.readValue(json, objectMapper.getTypeFactory().constructArrayType(type));
+      return this.mapper().readValue(json, this.mapper().getTypeFactory().constructArrayType(type));
     } catch (Exception e) {
       throw e instanceof RuntimeException ? (RuntimeException) e : new RuntimeException(e);
     }

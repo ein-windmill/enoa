@@ -13,16 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.rpc.handler;
+package io.enoa.rpc.parser;
 
-public enum ResponseType {
+import io.enoa.http.protocol.HttpResponseBody;
 
-  JSON,
+import java.lang.reflect.Type;
 
-  XML,
+@FunctionalInterface
+public interface IRpcParser<T> {
 
-  BINARY,
-
-  OBJCET
+  T parse(HttpResponseBody body, Type type);
 
 }

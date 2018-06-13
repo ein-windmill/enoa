@@ -19,7 +19,7 @@ import io.enoa.toolkit.sys.ObjectKit;
 
 import java.util.List;
 
-public class SError implements _Result {
+public class SError implements _Ret {
 
   private List<String> metadata;
   private String msg;

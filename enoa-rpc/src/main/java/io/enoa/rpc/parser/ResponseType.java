@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.rpc.config;
+package io.enoa.rpc.parser;
 
-import io.enoa.http.protocol.HttpResponseBody;
-import io.enoa.rpc.handler.IHandler;
+public enum ResponseType {
 
-import java.lang.reflect.Type;
+  JSON,
 
-class _DefaultBinaryHandler implements IHandler<byte[]> {
-  @Override
-  public byte[] handle(HttpResponseBody body, Type type) {
-    return body.bytes();
-  }
+  XML,
+
+  BINARY,
+
+  OBJCET
+
 }

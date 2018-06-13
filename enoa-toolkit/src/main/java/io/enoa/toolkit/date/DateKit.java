@@ -18,11 +18,12 @@ package io.enoa.toolkit.date;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.thr.EoException;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class DateKit {
 
@@ -30,6 +31,18 @@ public class DateKit {
   }
 
   private static Map<String, SimpleDateFormat> CACHE;
+
+  private static DateFormat dateFormat(String format) {
+    if (CACHE == null)
+      CACHE = new ConcurrentHashMap<>();
+
+    SimpleDateFormat sdf = CACHE.get(format);
+    if (sdf == null) {
+      sdf = new SimpleDateFormat(format);
+      CACHE.put(format, sdf);
+    }
+    return sdf;
+  }
 
   public static Date parse(String text, String format) {
     try {
@@ -39,14 +52,7 @@ public class DateKit {
       if (format == null)
         throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.toolkit.date_parse_format_null"));
 
-      if (CACHE == null)
-        CACHE = new HashMap<>();
-      SimpleDateFormat sdf = CACHE.get(format);
-      if (sdf == null) {
-        sdf = new SimpleDateFormat(format);
-        CACHE.put(format, sdf);
-      }
-      return sdf.parse(text);
+      return dateFormat(format).parse(text);
     } catch (ParseException e) {
       throw new EoException(e.getMessage(), e);
     }
@@ -64,6 +70,19 @@ public class DateKit {
 //  public static Date parse(String text) {
 //    throw new RuntimeException("Can not support now.");
 //  }
+
+  public static String format(Date date, String format) {
+    try {
+      DateFormat df = dateFormat(format);
+      return df.format(date);
+    } catch (Exception e) {
+      throw new EoException(e.getMessage(), e);
+    }
+  }
+
+  public static String format(long ts, String format) {
+    return format(new Date(ts), format);
+  }
 
 
 }

@@ -26,6 +26,7 @@ import io.enoa.index.solr.cqp.Fq;
 import io.enoa.index.solr.cqp.Sort;
 import io.enoa.index.solr.cqp.Wt;
 import io.enoa.index.solr.parser.SParser;
+import io.enoa.index.solr.result.ISolrResult;
 import io.enoa.toolkit.EoConst;
 
 import java.util.Collection;
@@ -272,7 +273,7 @@ public class SSelect implements _SolrAction {
   }
 
   @Override
-  public <T> T emit(SParser<T> resulter) {
+  public <T> ISolrResult<T> emit(SParser<T> resulter) {
     this.http.method(HttpMethod.GET)
       .url(EoUrl.with(this.config.host()).subpath(this.core).subpath("select"))
       .charset(EoConst.CHARSET)
@@ -325,7 +326,7 @@ public class SSelect implements _SolrAction {
 
     HttpResponse response = this.http.emit();
 
-    return resulter.result(response);
+    return ISolrResult.create(resulter.result(response));
   }
 
 }

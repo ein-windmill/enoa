@@ -15,7 +15,13 @@
  */
 package io.enoa.http;
 
+import io.enoa.http.provider.httphelper.HttpHelperProvider;
+
 public interface EoHttp {
+
+  static EoHttp def() {
+    return HttpHelperProvider.instance();
+  }
 
   Http http();
 

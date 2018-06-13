@@ -26,6 +26,24 @@ import java.util.List;
  * enoa - io.enoa.json.provider.fastjson
  */
 class _Fastjson extends EnoaJson {
+
+  private static class Holder {
+    private static final EnoaJson INSTANCE = new _Fastjson();
+  }
+
+  static EnoaJson instance() {
+    return Holder.INSTANCE;
+  }
+
+  private _Fastjson() {
+
+  }
+
+//  @Override
+//  public Object origin() {
+//    return null;
+//  }
+
   @Override
   public String toJson(Object object) {
     String dp = datePattern != null ? datePattern : defaultDatePattern();

@@ -17,13 +17,13 @@ package io.enoa.rpc.config;
 
 import io.enoa.http.protocol.HttpResponseBody;
 import io.enoa.rpc.Rpc;
-import io.enoa.rpc.handler.IHandler;
+import io.enoa.rpc.parser.IRpcParser;
 
 import java.lang.reflect.Type;
 
-class _DefaultJsonHandler<T> implements IHandler<T> {
+class _DefaultJsonRpcParser<T> implements IRpcParser<T> {
   @Override
-  public T handle(HttpResponseBody body, Type type) {
+  public T parse(HttpResponseBody body, Type type) {
     return Rpc.config().factory().json().parse(body.string(), type);
   }
 }

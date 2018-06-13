@@ -21,13 +21,13 @@ import io.enoa.toolkit.text.TextKit;
 
 import java.util.Arrays;
 
-class _TrydbSqlReport implements ISqlReport {
+class _TrydbSqlReporter implements ISqlReporter {
 
   private static class Holder {
-    private static _TrydbSqlReport INSTANCE = new _TrydbSqlReport();
+    private static _TrydbSqlReporter INSTANCE = new _TrydbSqlReporter();
   }
 
-  public static ISqlReport instance() {
+  public static ISqlReporter instance() {
     return Holder.INSTANCE;
   }
 

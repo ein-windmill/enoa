@@ -13,16 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.rpc.config;
+package io.enoa.index.solr.result;
 
-import io.enoa.http.protocol.HttpResponseBody;
-import io.enoa.rpc.handler.IHandler;
+import io.enoa.index.solr.report.ISolrReporter;
 
-import java.lang.reflect.Type;
+public interface ISolrResult<T> {
 
-class _DefaultXmlHandler<T> implements IHandler<T> {
-  @Override
-  public T handle(HttpResponseBody body, Type type) {
-    return null;
+  static <DT> ISolrResult<DT> create(DT ret) {
+    return new _DefaultSolrResult<>(ret);
   }
+
+  ISolrResult<T> report(ISolrReporter<T> reporter);
+
+  T value();
+
 }

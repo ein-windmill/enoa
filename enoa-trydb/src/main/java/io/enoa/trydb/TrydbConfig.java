@@ -32,7 +32,7 @@ public class TrydbConfig {
   private final DataSource ds;
   private final IDialect dialect;
   private final TxLevel level;
-  private final ISqlReport report;
+  private final ISqlReporter reporter;
   private final INameCase namecase;
   private final TSqlTemplate sqltemplate;
 
@@ -43,7 +43,7 @@ public class TrydbConfig {
     this.ds = builder.ds;
     this.dialect = builder.dialect;
     this.level = builder.level;
-    this.report = builder.report;
+    this.reporter = builder.report;
     this.namecase = builder.namecase;
     this.sqltemplate = builder.sqltemplate;
   }
@@ -68,8 +68,8 @@ public class TrydbConfig {
     return level;
   }
 
-  public ISqlReport report() {
-    return this.report;
+  public ISqlReporter reporter() {
+    return this.reporter;
   }
 
   public INameCase namecase() {
@@ -86,7 +86,7 @@ public class TrydbConfig {
     private DataSource ds;
     private IDialect dialect;
     private TxLevel level;
-    private ISqlReport report;
+    private ISqlReporter report;
     private INameCase namecase;
     private TSqlTemplate sqltemplate;
 
@@ -137,12 +137,12 @@ public class TrydbConfig {
     public Builder showSql(boolean showSql) {
       if (!showSql)
         return this;
-      this.report = _TrydbSqlReport.instance();
+      this.report = _TrydbSqlReporter.instance();
       return this;
     }
 
-    public Builder report(ISqlReport report) {
-      this.report = report;
+    public Builder reporter(ISqlReporter reporter) {
+      this.report = reporter;
       return this;
     }
 

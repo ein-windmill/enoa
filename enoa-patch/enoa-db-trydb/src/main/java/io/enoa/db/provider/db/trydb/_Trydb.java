@@ -41,10 +41,10 @@ class _Trydb extends EnoaDb {
       .namecase(this.config.namecase())
       .template(this.config.template());
 
-    if (this.config.report() != null)
-      tconf.report(this.config.report());
+    if (this.config.reporter() != null)
+      tconf.reporter(this.config.reporter());
 
-    if (this.config.report() == null && this.config.showSql())
+    if (this.config.reporter() == null && this.config.showSql())
       tconf.showSql();
 
     TrydbBootstrap bootstrap = new TrydbBootstrap(tconf.build());

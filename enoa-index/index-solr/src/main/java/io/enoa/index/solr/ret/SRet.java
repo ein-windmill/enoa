@@ -17,7 +17,7 @@ package io.enoa.index.solr.ret;
 
 import io.enoa.toolkit.sys.ObjectKit;
 
-public class SRet<T> implements _Result {
+public class SRet<T> implements _Ret {
 
   private SHeader responseHeader;
   private SResponse<T> response;

@@ -45,6 +45,11 @@ class _JFinalJson extends EnoaJson {
   private String timestampPattern = "yyyy-MM-dd HH:mm:ss";
   private static final String DEF_DATE_PATTERN = "yyyy-MM-dd";
 
+//  @Override
+//  public Object origin() {
+//    return null;
+//  }
+
   @Override
   public String toJson(Object object) {
     return toJson(object, convertDepth);

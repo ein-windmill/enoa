@@ -16,15 +16,15 @@
 package io.enoa.rpc.config;
 
 import io.enoa.log.provider.jdk.JdkLogProvider;
-import io.enoa.rpc.handler.ResponseType;
+import io.enoa.rpc.parser.ResponseType;
 
 public class RpcConfig {
 
   private static final RpcConfig INSTANCE = new RpcConfig();
 
   static {
-    instance().handler().reg(ResponseType.JSON, new _DefaultJsonHandler());
-    instance().handler().reg(ResponseType.BINARY, new _DefaultBinaryHandler());
+    instance().handler().reg(ResponseType.JSON, new _DefaultJsonRpcParser());
+    instance().handler().reg(ResponseType.BINARY, new _DefaultBinaryRpcParser());
     instance().factory().log(new JdkLogProvider());
   }
 

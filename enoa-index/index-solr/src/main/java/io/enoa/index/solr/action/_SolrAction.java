@@ -17,6 +17,7 @@ package io.enoa.index.solr.action;
 
 import io.enoa.index.solr.parser.OriginParser;
 import io.enoa.index.solr.parser.SParser;
+import io.enoa.index.solr.result.ISolrResult;
 import io.enoa.promise.DoneArgPromise;
 import io.enoa.promise.builder.EGraenodPromiseBuilder;
 import io.enoa.promise.builder.PromiseBuilder;
@@ -24,7 +25,7 @@ import io.enoa.toolkit.collection.CollectionKit;
 
 public interface _SolrAction {
 
-  default String emit() {
+  default ISolrResult<String> emit() {
     return this.emit(OriginParser.create());
   }
 
@@ -32,13 +33,14 @@ public interface _SolrAction {
     return this.enqueue(OriginParser.create());
   }
 
-  <T> T emit(SParser<T> parser);
+  <T> ISolrResult<T> emit(SParser<T> parser);
 
+  // todo emit reporter support
   default <T> DoneArgPromise enqueue(SParser<T> parser) {
     EGraenodPromiseBuilder donearg = PromiseBuilder.donearg();
     SActionExecutor.select().execute(() -> {
       try {
-        T ret = this.emit(parser);
+        ISolrResult<T> ret = this.emit(parser);
         if (CollectionKit.isEmpty(donearg.dones()))
           return;
         donearg.dones().forEach(done -> done.execute(ret));

@@ -23,7 +23,7 @@ import io.enoa.http.protocol.HttpResponse;
 import io.enoa.http.provider.httphelper.HttpHelperProvider;
 import io.enoa.http.proxy.HttpProxy;
 import io.enoa.rpc.TcpRpc;
-import io.enoa.rpc.handler.IHandler;
+import io.enoa.rpc.parser.IRpcParser;
 import io.enoa.rpc.thr.RpcException;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
@@ -67,13 +67,13 @@ public class EnoaHttpRpc implements TcpRpc {
   }
 
   @Override
-  public <T> HttpRpcPromise<T> enqueue(IHandler<T> handler) {
+  public <T> HttpRpcPromise<T> enqueue(IRpcParser<T> handler) {
     HttpPromise promise = this.http.enqueue();
     return new _HttpRpcPromiseImpl<>(promise, null, handler);
   }
 
   @Override
-  public <T> HttpRpcResult<T> emit(IHandler<T> handler) {
+  public <T> HttpRpcResult<T> emit(IRpcParser<T> handler) {
     HttpResponse response = this.http.emit();
     return new _HttpRpcResultImpl<>(response, null, handler);
   }

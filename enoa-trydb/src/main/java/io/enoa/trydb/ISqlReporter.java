@@ -13,33 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.json;
+package io.enoa.trydb;
 
-import java.lang.reflect.Type;
-import java.util.List;
+import io.enoa.toolkit.random.RandomKit;
 
 /**
- * enoa - io.enoa.json
+ * sql 汇报接口, 用于每次将查询数据库的 sql 以及 参数调用接口,
+ * 提供应用程序做其他操作
  */
-interface _Json {
+public interface ISqlReporter {
 
-//  /**
-//   * Origin json class
-//   * like
-//   * Gson -> Gson
-//   * jackson -> ObjectMapper
-//   * Note: Not all json providers will have corresponding original class, depending on the specific provider
-//   *
-//   * @return Object
-//   */
-//  Object origin();
+  default String mark() {
+    return String.valueOf(RandomKit.nextInt(100, 999));
+  }
 
-  String toJson(Object object);
-
-  <T> T parse(String json, Class<T> type);
-
-  <T> T parse(String json, Type type);
-
-  <T> List<T> parseArray(String json, Class<T> type);
+  void report(String mark, String sql, Object[] paras);
 
 }

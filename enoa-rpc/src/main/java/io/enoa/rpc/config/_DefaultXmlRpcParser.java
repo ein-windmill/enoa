@@ -13,20 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.trydb;
+package io.enoa.rpc.config;
 
-import io.enoa.toolkit.random.RandomKit;
+import io.enoa.http.protocol.HttpResponseBody;
+import io.enoa.rpc.parser.IRpcParser;
 
-/**
- * sql 汇报接口, 用于每次将查询数据库的 sql 以及 参数调用接口,
- * 提供应用程序做其他操作
- */
-public interface ISqlReport {
+import java.lang.reflect.Type;
 
-  default String mark() {
-    return String.valueOf(RandomKit.nextInt(100, 999));
+class _DefaultXmlRpcParser<T> implements IRpcParser<T> {
+  @Override
+  public T parse(HttpResponseBody body, Type type) {
+    return null;
   }
-
-  void report(String mark, String sql, Object[] paras);
-
 }

@@ -18,7 +18,7 @@ package io.enoa.index.solr.ret;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.sys.ObjectKit;
 
-public class SHeader implements _Result {
+public class SHeader implements _Ret {
 
   private Integer status;
   private Integer QTime;

@@ -16,11 +16,39 @@
 package io.enoa.index.solr.parser;
 
 import io.enoa.http.protocol.HttpResponse;
+import io.enoa.json.EoJsonFactory;
 
+import java.lang.reflect.Type;
+
+@FunctionalInterface
 public interface SParser<T> {
 
-  static SParser<String> def() {
+  static OriginParser string() {
     return OriginParser.create();
+  }
+
+  static <R> JsonParser<R> json(EoJsonFactory ejf, Class<R> type) {
+    return JsonParser.create(ejf, type);
+  }
+
+  static <R> JsonParser<R> json(EoJsonFactory ejf, Type type) {
+    return JsonParser.create(ejf, type);
+  }
+
+  static <R> JsonParser<R> json(Class<R> type) {
+    return JsonParser.create(type);
+  }
+
+  static <R> JsonParser<R> json(Type type) {
+    return JsonParser.create(type);
+  }
+
+  static JsonParser<Void> json(EoJsonFactory ejf) {
+    return JsonParser.create(ejf);
+  }
+
+  static JsonParser<Void> json() {
+    return JsonParser.create();
   }
 
   T result(HttpResponse resp);

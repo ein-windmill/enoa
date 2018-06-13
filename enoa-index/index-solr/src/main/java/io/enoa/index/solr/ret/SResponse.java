@@ -19,7 +19,7 @@ import io.enoa.toolkit.sys.ObjectKit;
 
 import java.util.List;
 
-public class SResponse<T> implements _Result {
+public class SResponse<T> implements _Ret {
 
   private Integer numFound;
   private Long start;

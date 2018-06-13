@@ -69,11 +69,11 @@ public class EmlExample {
       .subject(TextKit.union("SUBJECT -> ", UUIDKit.next()))
       .body("<h1>BODY</h1>")
       .attachment(PathKit.debugPath().resolve("file/attachment.txt"))
-      .handler(stream -> System.out.println("FROM -> " + stream))
-      .handler(stream -> System.out.println("TO -> " + stream.tos()))
-      .handler(stream -> System.out.println("REQ BODY -> " + stream.req().string()))
-      .handler(stream -> System.out.println("EML -> " + stream.eml().string()))
-      .handler(stream -> System.out.println("SUBJECT -> " + stream.subject()));
+      .reporter(stream -> System.out.println("FROM -> " + stream))
+      .reporter(stream -> System.out.println("TO -> " + stream.tos()))
+      .reporter(stream -> System.out.println("REQ BODY -> " + stream.req().string()))
+      .reporter(stream -> System.out.println("EML -> " + stream.eml().string()))
+      .reporter(stream -> System.out.println("SUBJECT -> " + stream.subject()));
     if (!async) {
       sender.emit();
       return;

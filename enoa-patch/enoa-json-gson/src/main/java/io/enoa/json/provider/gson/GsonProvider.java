@@ -24,6 +24,6 @@ import io.enoa.json.EoJsonFactory;
 public class GsonProvider implements EoJsonFactory {
   @Override
   public EnoaJson json() {
-    return new _Gson();
+    return _Gson.instance();
   }
 }

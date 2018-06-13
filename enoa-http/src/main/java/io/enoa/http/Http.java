@@ -31,16 +31,12 @@ import java.util.Collection;
 
 public interface Http extends EoEmit {
 
-//  static EoHttp def() {
-//    return HttpHelperProvider.instance();
-//  }
-
   static Http use(EoHttp http) {
     return http.http();
   }
 
   static Http use() {
-    return use(HttpHelperProvider.instance());
+    return use(EoHttp.def());
   }
 
   static Http request() {
