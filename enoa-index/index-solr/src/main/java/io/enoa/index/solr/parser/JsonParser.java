@@ -16,6 +16,7 @@
 package io.enoa.index.solr.parser;
 
 import io.enoa.http.protocol.HttpResponse;
+import io.enoa.index.solr.ret.SError;
 import io.enoa.index.solr.ret.SRet;
 import io.enoa.json.EnoaJson;
 import io.enoa.json.EoJsonFactory;
@@ -63,11 +64,26 @@ public class JsonParser<T> implements SParser<SRet<T>> {
 
 
   @Override
-  public SRet<T> result(HttpResponse hresp) {
-    String resp = hresp.body().string();
-    if (resp == null)
+  public SRet<T> result(HttpResponse resp) {
+    String ctype = resp.header("content-type");
+    if (ctype == null)
       return null;
-    EnoaJson json = this.json == null ? Json.epm().json() : this.json;
-    return json.parse(resp, new ParameterizedTypeImpl(SRet.class, new Type[]{this.type}));
+
+    ctype = ctype.toLowerCase();
+    if (ctype.contains("/json")) {
+      String body = resp.body().string();
+      if (body == null)
+        return null;
+      EnoaJson json = this.json == null ? Json.epm().json() : this.json;
+      return json.parse(body, new ParameterizedTypeImpl(SRet.class, new Type[]{this.type}));
+    }
+    if (ctype.contains("text/html")) {
+      SRet<T> ret = new SRet<>();
+      SError error = new SError();
+      error.setMsg(resp.body().string());
+      ret.setError(error);
+      return ret;
+    }
+    return null;
   }
 }
