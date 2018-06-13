@@ -24,6 +24,8 @@ import io.enoa.index.solr.EoSolr;
 import io.enoa.index.solr.Solr;
 import io.enoa.index.solr.SolrConfig;
 import io.enoa.index.solr.cqp.Fq;
+import io.enoa.index.solr.cqp.OrderBy;
+import io.enoa.index.solr.cqp.Sort;
 import io.enoa.index.solr.cqp.Wt;
 import io.enoa.index.solr.parser.JsonParser;
 import io.enoa.index.solr.ret.SRet;
@@ -42,11 +44,9 @@ import java.util.List;
 public class SolrExample {
 
   private void selectWithHttpInfo() {
-    EoSolr solr = Solr.core("barcode");
-    Http http = solr.http();
-    http.handler(HttpHandler.def());
-
-    SRet<Barcode> ret = solr.select()
+    SRet<Barcode> ret = Solr.core("barcode")
+      .http(Http.use().handler(HttpHandler.def()))
+      .select()
       .fq(Fq.create("name", "药"))
       .rows(2)
       .emit(JsonParser.create(Barcode.class));
@@ -60,6 +60,7 @@ public class SolrExample {
       .select()
       .fq(Fq.create("name", "药"))
       .rows(2)
+      .sort(Sort.create("ctime", OrderBy.DESC))
       .emit(JsonParser.create(Barcode.class));
 
     System.out.println(Json.toJson(ret));

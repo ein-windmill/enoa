@@ -17,7 +17,7 @@ package io.enoa.index.solr.cqp;
 
 import io.enoa.toolkit.mark.IMarkVal;
 
-public enum ORDER implements IMarkVal {
+public enum OrderBy implements IMarkVal {
 
   ASC("asc"),
 
@@ -27,7 +27,7 @@ public enum ORDER implements IMarkVal {
 
   private final String val;
 
-  ORDER(String val) {
+  OrderBy(String val) {
     this.val = val;
   }
 
@@ -36,10 +36,10 @@ public enum ORDER implements IMarkVal {
     return this.val;
   }
 
-  public static ORDER of(String val) {
+  public static OrderBy of(String val) {
     if (val == null)
       return null;
-    for (ORDER order : ORDER.values()) {
+    for (OrderBy order : OrderBy.values()) {
       if (order.val.equalsIgnoreCase(val))
         return order;
     }

@@ -17,8 +17,8 @@ package io.enoa.index.solr;
 
 import io.enoa.http.EoHttp;
 import io.enoa.http.Http;
-import io.enoa.index.solr.action.update.SUpdate;
 import io.enoa.index.solr.action.select.SSelect;
+import io.enoa.index.solr.action.update.SUpdate;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 
 class EnoaSolrImpl implements EoSolr {
@@ -34,6 +34,12 @@ class EnoaSolrImpl implements EoSolr {
   @Override
   public EoSolr http(EoHttp http) {
     this.http = http.http();
+    return this;
+  }
+
+  @Override
+  public EoSolr http(Http http) {
+    this.http = http;
     return this;
   }
 

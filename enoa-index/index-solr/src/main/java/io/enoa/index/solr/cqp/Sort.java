@@ -23,9 +23,9 @@ import java.io.Serializable;
 public class Sort implements Serializable {
 
   private String field;
-  private ORDER order;
+  private OrderBy order;
 
-  public Sort(String field, ORDER order) {
+  public Sort(String field, OrderBy order) {
     if (TextKit.isBlank(field))
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.solr.cqp_sort_field_null"));
     if (order == null)
@@ -35,7 +35,7 @@ public class Sort implements Serializable {
     this.order = order;
   }
 
-  public static Sort create(String field, ORDER order) {
+  public static Sort create(String field, OrderBy order) {
     return new Sort(field, order);
   }
 
@@ -43,7 +43,7 @@ public class Sort implements Serializable {
     return this.field;
   }
 
-  public ORDER order() {
+  public OrderBy order() {
     return this.order;
   }
 
