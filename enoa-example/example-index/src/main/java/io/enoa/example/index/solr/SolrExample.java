@@ -19,7 +19,7 @@ import io.enoa.example.index.entity.Barcode;
 import io.enoa.http.EoUrl;
 import io.enoa.http.Http;
 import io.enoa.http.protocol.HttpMethod;
-import io.enoa.http.protocol.enoa.HttpHandler;
+import io.enoa.http.protocol.enoa.IHttpHandler;
 import io.enoa.index.solr.Solr;
 import io.enoa.index.solr.SolrConfig;
 import io.enoa.index.solr.cqp.Fq;
@@ -45,12 +45,11 @@ public class SolrExample {
 
   private void selectWithHttpInfo() {
     SRet<Barcode> ret = Solr.core("barcode")
-      .http(() -> Http.use().handler(HttpHandler.def()))
+      .http(() -> Http.use().handler(IHttpHandler.def()).reporter(System.out::println))
       .select()
       .fq(Fq.create("name", "药"))
       .rows(2)
-      .emit(SParser.json(Barcode.class))
-      .value();
+      .emit(SParser.json(Barcode.class));
 
     System.out.println(Json.toJson(ret));
     System.out.println("=====================> selectWithHttpInfo");
@@ -62,9 +61,7 @@ public class SolrExample {
       .fq(Fq.create("name", "药"))
       .rows(2)
       .sort(Sort.create("ctime", OrderBy.DESC))
-      .emit(JsonParser.create(Barcode.class))
-      .report(System.out::println)
-      .value();
+      .emit(JsonParser.create(Barcode.class));
 
     System.out.println(Json.toJson(ret));
     System.out.println("=====================> testSelect");
@@ -75,8 +72,7 @@ public class SolrExample {
       .select()
       .fq(Fq.create("name", "药"))
       .rows(2)
-      .emit()
-      .value();
+      .emit();
     System.out.println(ret);
     System.out.println("=====================> defaultParserSelect");
   }
@@ -94,7 +90,7 @@ public class SolrExample {
 
   private void testUpdate() {
     SRet<Void> ret = Solr.core("stest")
-      .http(() -> Http.use().handler(HttpHandler.def()))
+      .http(() -> Http.use().handler(IHttpHandler.def()).reporter(System.out::println))
       .update()
       .overwrite(true)
       .commitWithin(1000)
@@ -132,7 +128,7 @@ public class SolrExample {
 
   private String moreText(int mix, int max) {
     String text = Http.request(EoUrl.with("http://more.handlino.com/sentences.json"))
-      .handler(HttpHandler.def())
+      .handler(IHttpHandler.def())
       .method(HttpMethod.GET)
       .para("limit", TextKit.union(String.valueOf(mix), ",", max))
       .emit()

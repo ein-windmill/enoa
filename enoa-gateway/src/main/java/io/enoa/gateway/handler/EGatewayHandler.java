@@ -25,7 +25,7 @@ import io.enoa.gateway.thr.RouteNotFoundException;
 import io.enoa.http.Http;
 import io.enoa.http.protocol.HttpMethod;
 import io.enoa.http.protocol.HttpResponse;
-import io.enoa.http.protocol.enoa.HttpHandler;
+import io.enoa.http.protocol.enoa.IHttpHandler;
 import io.enoa.log.Log;
 import io.enoa.repeater.EoxConfig;
 import io.enoa.repeater.http.*;
@@ -197,7 +197,7 @@ public class EGatewayHandler implements GatewayHandler {
     http.method(HttpMethod.of(request.method().name()));
 
     if (this.eoxconfig.debug())
-      http.handler(HttpHandler.def());
+      http.handler(IHttpHandler.def());
 
     HttpResponse resp = http.emit();
     this.clearRequest(request);

@@ -17,7 +17,8 @@ package io.enoa.http.provider.httphelper;
 
 import io.enoa.http.*;
 import io.enoa.http.protocol.*;
-import io.enoa.http.protocol.enoa.HttpHandler;
+import io.enoa.http.protocol.enoa.IHttpHandler;
+import io.enoa.http.protocol.enoa.IHttpReporter;
 import io.enoa.http.provider.httphelper.async.HttpHelperExecutor;
 import io.enoa.http.provider.httphelper.conn._HttpHelperConn;
 import io.enoa.http.provider.httphelper.http.req._HttpHelperRequest;
@@ -52,7 +53,8 @@ class _HttpHelper implements Http {
   private HttpHelperConfig config;
   private EoExecutor executor;
 
-  private List<HttpHandler> handlers;
+  private List<IHttpHandler> handlers;
+  private List<IHttpReporter> reporters;
 
   _HttpHelper() {
     this.traditional = true;
@@ -79,7 +81,7 @@ class _HttpHelper implements Http {
     if (this.config == null)
       this.config = new HttpHelperConfig.Builder().build();
 
-    
+
     RequestBuilder builder = new RequestBuilder();
     builder.method = this.method;
     builder.charset = this.charset;
@@ -100,13 +102,17 @@ class _HttpHelper implements Http {
     _HttpHelperRequest request = builder.build();
 
     if (this.config.debug())
-      this.handler(HttpHandler.def());
+      this.handler(IHttpHandler.def());
 
     if (this.handlers != null)
-      HttpHandlerExecutor.instance().handle(this.handlers, request);
+      HttpExtExecutor.instance().handle(this.handlers, request);
 
     _HttpHelperConn conn = new _HttpHelperConn(request);
-    return conn.execute();
+    HttpResponse response = conn.execute();
+    if (this.reporters != null)
+      HttpExtExecutor.instance().report(this.reporters, response);
+    
+    return response;
   }
 
   @Override
@@ -123,10 +129,18 @@ class _HttpHelper implements Http {
   }
 
   @Override
-  public Http handler(HttpHandler handler) {
+  public Http handler(IHttpHandler handler) {
     if (this.handlers == null)
       this.handlers = new ArrayList<>();
     this.handlers.add(handler);
+    return this;
+  }
+
+  @Override
+  public Http reporter(IHttpReporter reporter) {
+    if (this.reporters == null)
+      this.reporters = new ArrayList<>();
+    this.reporters.add(reporter);
     return this;
   }
 

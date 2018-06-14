@@ -18,11 +18,11 @@ package io.enoa.promise;
 import io.enoa.promise.arg.PromiseArg;
 import io.enoa.promise.arg.PromiseCapture;
 
-public interface DoneArgPromise<RESP extends DoneArgPromise> extends EoPromise<RESP> {
+public interface DoneArgPromise<PARA> extends EoPromise<DoneArgPromise> {
 
-  <T> RESP done(PromiseArg<T> done);
+  DoneArgPromise<PARA> done(PromiseArg<PARA> done);
 
   @Override
-  RESP capture(PromiseCapture capture);
+  DoneArgPromise<PARA> capture(PromiseCapture capture);
 
 }

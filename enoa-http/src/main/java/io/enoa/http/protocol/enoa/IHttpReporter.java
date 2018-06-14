@@ -15,22 +15,14 @@
  */
 package io.enoa.http.protocol.enoa;
 
-class DefaultHttpHandler implements IHttpHandler {
+import io.enoa.http.protocol.HttpResponse;
 
-  private static class Holder {
-    private static final DefaultHttpHandler INSTANCE = new DefaultHttpHandler();
+public interface IHttpReporter {
+
+  static IHttpReporter def() {
+    return DefaultHttpReporter.instance();
   }
 
-  private DefaultHttpHandler() {
+  void report(HttpResponse response);
 
-  }
-
-  static DefaultHttpHandler instance() {
-    return Holder.INSTANCE;
-  }
-
-  @Override
-  public void handle(HttpRequest request) {
-    System.out.println(request.toString());
-  }
 }

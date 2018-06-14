@@ -17,7 +17,6 @@ package io.enoa.index.solr.action;
 
 import io.enoa.index.solr.parser.OriginParser;
 import io.enoa.index.solr.parser.SParser;
-import io.enoa.index.solr.result.ISolrResult;
 import io.enoa.promise.DoneArgPromise;
 import io.enoa.promise.builder.EGraenodPromiseBuilder;
 import io.enoa.promise.builder.PromiseBuilder;
@@ -25,35 +24,35 @@ import io.enoa.toolkit.collection.CollectionKit;
 
 public interface _SolrAction {
 
-  default ISolrResult<String> emit() {
+  default String emit() {
     return this.emit(OriginParser.create());
   }
 
-  default DoneArgPromise enqueue() {
+  default DoneArgPromise<String> enqueue() {
     return this.enqueue(OriginParser.create());
   }
 
-  <T> ISolrResult<T> emit(SParser<T> parser);
+  <T> T emit(SParser<T> parser);
 
-  // todo emit reporter support
-  default <T> DoneArgPromise enqueue(SParser<T> parser) {
-    EGraenodPromiseBuilder donearg = PromiseBuilder.donearg();
+  default <T> DoneArgPromise<T> enqueue(SParser<T> parser) {
+    EGraenodPromiseBuilder<T> builder = PromiseBuilder.donearg();
     SActionExecutor.select().execute(() -> {
       try {
-        ISolrResult<T> ret = this.emit(parser);
-        if (CollectionKit.isEmpty(donearg.dones()))
+        T ret = this.emit(parser);
+
+        if (CollectionKit.isEmpty(builder.dones()))
           return;
-        donearg.dones().forEach(done -> done.execute(ret));
+        builder.dones().forEach(done -> done.execute(ret));
       } catch (Exception e) {
-        if (CollectionKit.isEmpty(donearg.captures()))
+        if (CollectionKit.isEmpty(builder.captures()))
           return;
-        donearg.captures().forEach(capture -> capture.execute(e));
+        builder.captures().forEach(capture -> capture.execute(e));
       } finally {
-        if (donearg.always() != null)
-          donearg.always().execute();
+        if (builder.always() != null)
+          builder.always().execute();
       }
     });
-    return donearg.build();
+    return builder.build();
   }
 
 

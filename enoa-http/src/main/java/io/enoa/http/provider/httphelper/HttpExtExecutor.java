@@ -15,20 +15,22 @@
  */
 package io.enoa.http.provider.httphelper;
 
-import io.enoa.http.protocol.enoa.HttpHandler;
+import io.enoa.http.protocol.HttpResponse;
 import io.enoa.http.protocol.enoa.HttpRequest;
+import io.enoa.http.protocol.enoa.IHttpHandler;
+import io.enoa.http.protocol.enoa.IHttpReporter;
 import io.enoa.promise.builder.PromiseBuilder;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 
-class HttpHandlerExecutor {
+class HttpExtExecutor {
 
   private static class Holder {
-    private static final HttpHandlerExecutor INSTANCE = new HttpHandlerExecutor();
+    private static final HttpExtExecutor INSTANCE = new HttpExtExecutor();
   }
 
-  static HttpHandlerExecutor instance() {
+  static HttpExtExecutor instance() {
     return Holder.INSTANCE;
   }
 
@@ -36,17 +38,35 @@ class HttpHandlerExecutor {
 
   private ExecutorService executorService() {
     if (executorService == null) {
-      executorService = PromiseBuilder.executor().enqueue("HttpHelper Handler Dispatcher", false);
+      executorService = PromiseBuilder.executor().enqueue("HttpHelper Ext Dispatcher", false);
     }
     return executorService;
   }
 
-  void handle(List<HttpHandler> handlers, HttpRequest request) {
+  void handle(List<IHttpHandler> handlers, HttpRequest request) {
+    if (handlers == null)
+      return;
     this.executorService().execute(() -> {
       String oldName = Thread.currentThread().getName();
       Thread.currentThread().setName(request.url().substring(0, request.url().length() < 70 ? request.url().length() : 70).concat("..."));
       try {
         handlers.forEach(handler -> handler.handle(request));
+      } catch (Exception e) {
+        e.printStackTrace();
+      } finally {
+        Thread.currentThread().setName(oldName);
+      }
+    });
+  }
+
+  void report(List<IHttpReporter> reporters, HttpResponse response) {
+    if (reporters == null)
+      return;
+    this.executorService().execute(() -> {
+      String oldName = Thread.currentThread().getName();
+      Thread.currentThread().setName(response.url().substring(0, response.url().length() < 70 ? response.url().length() : 70).concat("..."));
+      try {
+        reporters.forEach(reporter -> reporter.report(response));
       } catch (Exception e) {
         e.printStackTrace();
       } finally {

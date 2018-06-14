@@ -120,7 +120,7 @@ public class _HttpHelperRequest implements HttpRequest {
     if (_ctype.contains("/x-www-form-urlencoded") ||
       _ctype.contains("/json") ||
       _ctype.contains("/xml") ||
-      _ctype.startsWith("text/")) {
+      _ctype.contains("text/")) {
       _ret.append(this.body().string());
       return _ret.toString();
     }

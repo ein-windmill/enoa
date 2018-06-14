@@ -221,7 +221,7 @@ public class _HttpHelperResponse implements HttpResponse {
       return this.header.get(null);
     for (String headerName : this.headerNames()) {
       if (name.equalsIgnoreCase(headerName))
-        return this.header.get(name);
+        return this.header.get(headerName);
     }
     return Collections.emptyList();
   }
@@ -242,11 +242,35 @@ public class _HttpHelperResponse implements HttpResponse {
 
   @Override
   public String toString() {
-    return "_HttpHelperResponse{" +
-      "code=" + code +
-      ", protocol='" + protocol + '\'' +
-      ", charset=" + charset +
-      ", header=" + header +
-      '}';
+    StringBuilder _ret = new StringBuilder();
+    _ret.append(this.header(null)).append("\r\n");
+    String[] hnames = this.headerNames();
+    for (String hname : hnames) {
+      if (hname == null)
+        continue;
+      List<String> headers = this.headers(hname);
+      for (String header : headers) {
+        _ret.append(hname).append(" ").append(header).append("\r\n");
+      }
+    }
+    _ret.append("\r\n");
+
+    String contentType = this.header("content-type");
+    if (contentType == null) {
+      _ret.append("+============================================+\r\n");
+      _ret.append("+ Unknown body content type                  +\r\n");
+      _ret.append("+============================================+\r\n");
+      return _ret.toString();
+    }
+    if (contentType.contains("text/") ||
+      contentType.contains("/json") ||
+      contentType.contains("/xml")) {
+      _ret.append(this.body().string());
+      return _ret.toString();
+    }
+    _ret.append("+============================================+\r\n");
+    _ret.append("+ Can not support octet-stream data show     +\r\n");
+    _ret.append("+============================================+\r\n");
+    return _ret.toString();
   }
 }

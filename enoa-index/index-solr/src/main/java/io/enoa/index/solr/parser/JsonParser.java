@@ -70,7 +70,7 @@ public class JsonParser<T> implements SParser<SRet<T>> {
       return null;
 
     ctype = ctype.toLowerCase();
-    if (ctype.contains("/json")) {
+    if (ctype.contains("/json") || ctype.contains("text/plain")) {
       String body = resp.body().string();
       if (body == null)
         return null;

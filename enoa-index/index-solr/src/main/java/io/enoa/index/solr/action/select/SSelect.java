@@ -26,7 +26,6 @@ import io.enoa.index.solr.cqp.Fq;
 import io.enoa.index.solr.cqp.Sort;
 import io.enoa.index.solr.cqp.Wt;
 import io.enoa.index.solr.parser.SParser;
-import io.enoa.index.solr.result.ISolrResult;
 import io.enoa.toolkit.EoConst;
 
 import java.util.Collection;
@@ -68,7 +67,6 @@ public class SSelect implements _SolrAction {
     this.q = "*:*";
     this.start = 0;
     this.rows = 10;
-    this.wt = Wt.JSON;
     this.debug = Boolean.FALSE;
     this.indent = Boolean.TRUE;
   }
@@ -273,7 +271,7 @@ public class SSelect implements _SolrAction {
   }
 
   @Override
-  public <T> ISolrResult<T> emit(SParser<T> resulter) {
+  public <T> T emit(SParser<T> parser) {
     this.http.method(HttpMethod.GET)
       .url(EoUrl.with(this.config.host()).subpath(this.core).subpath("select"))
       .charset(EoConst.CHARSET)
@@ -295,7 +293,8 @@ public class SSelect implements _SolrAction {
     if (this.df != null)
       this.http.para("df", this.df);
 
-    this.http.para("wt", this.wt.val());
+    if (this.wt != null)
+      this.http.para("wt", this.wt.val());
 
     if (this.raw != null)
       this.http.para(HttpPara.parse(this.raw));
@@ -325,8 +324,7 @@ public class SSelect implements _SolrAction {
       this.http.para(this.spellcheck.paras());
 
     HttpResponse response = this.http.emit();
-
-    return ISolrResult.create(resulter.result(response));
+    return parser.result(response);
   }
 
 }

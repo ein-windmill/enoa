@@ -80,10 +80,12 @@ public class SUpdate implements _SolrAction {
     return this;
   }
 
+
   @Override
   public <T> T emit(SParser<T> parser) {
+
     if (TextKit.isBlank(this.body))
-      return parser.result(null);
+      return null;
 
     this.http.method(HttpMethod.POST)
       .url(EoUrl.with(this.config.host()).subpath(this.core).subpath("update"))
@@ -102,6 +104,4 @@ public class SUpdate implements _SolrAction {
 
     return parser.result(response);
   }
-
-
 }
