@@ -1,5 +1,11 @@
 # CHANGESUMMARY
 
+## base62
+
+### io.enoa.toolkit.digest.base.Base62
+
+> https://github.com/seruco/base62
+
 ## Beetl
 
 ### io.enoa.toolkit.number.NumberKit
