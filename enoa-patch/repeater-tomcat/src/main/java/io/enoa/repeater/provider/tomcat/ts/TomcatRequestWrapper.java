@@ -23,8 +23,8 @@ import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.convert.ConvertKit;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.file.FileKit;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.stream.StreamKit;
+import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thr.EoException;
 
 import javax.servlet.ServletException;

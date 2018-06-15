@@ -24,8 +24,8 @@ import io.enoa.repeater.http.Request;
 import io.enoa.repeater.http.RequestBody;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.convert.ConvertKit;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.stream.StreamKit;
+import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thr.EoException;
 
 import javax.servlet.http.HttpServletRequest;

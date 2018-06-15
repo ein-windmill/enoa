@@ -37,7 +37,7 @@ public class _HttpHelperRequest implements HttpRequest {
   private final HttpHelperConfig config;
   private final HttpVersion version;
 
-  _HttpHelperRequest(Builder builder) {
+  private _HttpHelperRequest(Builder builder) {
     this.method = builder.method;
     this.charset = builder.charset;
     this.url = builder.url;

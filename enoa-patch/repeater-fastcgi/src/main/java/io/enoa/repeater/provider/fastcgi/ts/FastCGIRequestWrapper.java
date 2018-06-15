@@ -26,8 +26,8 @@ import io.enoa.repeater.kit.http.EnoaHttpKit;
 import io.enoa.repeater.provider.fastcgi.server.plus._RepeaterFastCGIRequest;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.convert.ConvertKit;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.stream.StreamKit;
+import io.enoa.toolkit.text.TextKit;
 
 import java.io.ByteArrayInputStream;
 import java.util.*;

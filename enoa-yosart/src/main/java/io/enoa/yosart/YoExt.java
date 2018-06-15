@@ -15,8 +15,6 @@
  */
 package io.enoa.yosart;
 
-import io.enoa.toolkit.random.RandomKit;
-
 public interface YoExt {
 
   enum Type {

@@ -17,7 +17,6 @@ package io.enoa.toolkit.text;
 
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.digest.DigestKit;
-import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.number.NumberKit;
 
 /**

@@ -17,8 +17,8 @@ package io.enoa.repeater.provider.fastcgi.kernel;
 
 import io.enoa.log.Log;
 import io.enoa.repeater.http.Response;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.stream.StreamKit;
+import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thr.EoException;
 
 import java.io.IOException;
