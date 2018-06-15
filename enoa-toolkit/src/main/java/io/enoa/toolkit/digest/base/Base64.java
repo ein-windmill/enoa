@@ -13,22 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.toolkit.digest;
+package io.enoa.toolkit.digest.base;
 
 import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.binary.EnoaBinary;
 
 import java.nio.charset.Charset;
 
-public final class Base64Kit {
+final class Base64 {
 
   private static IBase64 DELEGATE;
 
-  private Base64Kit() {
+  private Base64() {
   }
 
   static {
-    if (isPresent("java.util.Base64", Base64Kit.class.getClassLoader())) {
+    if (isPresent("java.util.Base64", Base64.class.getClassLoader())) {
       DELEGATE = new Java8Base64();
     } else {
       DELEGATE = new Java67Base64();

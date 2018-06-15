@@ -67,21 +67,6 @@ public final class NumberKit {
 
 
   /**
-   * Signopt 0x HexDigits
-   * Signopt 0X HexDigits
-   * Signopt # HexDigits
-   * 是否为十六进制
-   *
-   * @param text value
-   * @return boolean
-   */
-  private static boolean isHexNumber(String text) {
-    int index = (text.startsWith("-") ? 1 : 0);
-    return (text.startsWith("0x", index) || text.startsWith("0X", index) || text.startsWith("#", index));
-  }
-
-
-  /**
    * 字符串是否數字, 支持最高 10 進制
    * 同時支持負數浮點數校驗
    *
@@ -246,10 +231,10 @@ public final class NumberKit {
     String trimmed = TextKit.nospace(text, true);
 
     if (to.equals(Integer.class)) {
-      return (T) (isHexNumber(trimmed) ? Integer.decode(trimmed) : Integer.valueOf(trimmed));
+      return (T) (HexKit.isHexNumber(trimmed) ? Integer.decode(trimmed) : Integer.valueOf(trimmed));
     }
     if (to.equals(Long.class)) {
-      return (T) (isHexNumber(trimmed) ? Long.decode(trimmed) : Long.valueOf(trimmed));
+      return (T) (HexKit.isHexNumber(trimmed) ? Long.decode(trimmed) : Long.valueOf(trimmed));
     }
     if (to.equals(Float.class)) {
       return (T) Float.valueOf(trimmed);
@@ -261,13 +246,13 @@ public final class NumberKit {
       return (T) new BigDecimal(trimmed);
     }
     if (to.equals(Short.class)) {
-      return (T) (isHexNumber(trimmed) ? Short.decode(trimmed) : Short.valueOf(trimmed));
+      return (T) (HexKit.isHexNumber(trimmed) ? Short.decode(trimmed) : Short.valueOf(trimmed));
     }
     if (to.equals(BigInteger.class)) {
-      return (T) (isHexNumber(trimmed) ? decodeBigInteger(trimmed) : new BigInteger(trimmed));
+      return (T) (HexKit.isHexNumber(trimmed) ? decodeBigInteger(trimmed) : new BigInteger(trimmed));
     }
     if (to.equals(Byte.class)) {
-      return (T) (isHexNumber(trimmed) ? Byte.decode(trimmed) : Byte.valueOf(trimmed));
+      return (T) (HexKit.isHexNumber(trimmed) ? Byte.decode(trimmed) : Byte.valueOf(trimmed));
     }
     throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.toolkit.number_str_to_cant", text, to.getName()));
   }

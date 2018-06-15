@@ -37,6 +37,7 @@ public class SUpdate implements _SolrAction {
   private boolean overwrite;
   private Wt wt;
   private String body;
+  private String contentType;
 
   public SUpdate(Http http, SolrConfig config, String core) {
     this.http = http;
@@ -44,7 +45,7 @@ public class SUpdate implements _SolrAction {
     this.core = core;
 
     this.overwrite = Boolean.TRUE;
-    this.wt = Wt.JSON;
+    this.contentType = "application/json";
   }
 
 //  public SUpdate autoCommit() {
@@ -75,6 +76,11 @@ public class SUpdate implements _SolrAction {
     return this;
   }
 
+  public SUpdate contentType(String contentType) {
+    this.contentType = contentType;
+    return this;
+  }
+
   public SUpdate body(String body) {
     this.body = body;
     return this;
@@ -95,10 +101,12 @@ public class SUpdate implements _SolrAction {
     int _cwn = this.commitWithin == null ? 1000 : this.commitWithin;
 
     this.http.para("commitWithin", _cwn)
-      .para("wt", this.wt.val())
       .para("overwrite", this.overwrite)
       .raw(this.body)
-      .header("Content-Type", this.wt.contentType());
+      .header("Content-Type", this.contentType);
+
+    if (this.wt != null)
+      this.http.para("wt", this.wt.val());
 
     HttpResponse response = this.http.emit();
 
