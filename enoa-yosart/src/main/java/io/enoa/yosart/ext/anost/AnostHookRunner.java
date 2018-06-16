@@ -70,6 +70,14 @@ class AnostHookRunner {
      */
     this.loadHooks(request, hookMgr, CACHE_OPTIONS);
 
+    /*
+    先清除全局  Hook
+     */
+    this.unloadGlobalHooks(hookMgr, CACHE_OPTIONS);
+
+    /*
+    根据规则清除无需执行的 Hook
+     */
     this.unloadHooks(request, hookMgr, CACHE_OPTIONS);
 
     return CACHE_OPTIONS;
@@ -116,6 +124,11 @@ class AnostHookRunner {
     }
 
     /*
+    先清除全局  Hook
+     */
+    this.unloadGlobalHooks(hookMgr, ihooks);
+
+    /*
     根据规则清除无需执行的 Hook
      */
     this.unloadHooks(request, hookMgr, ihooks);
@@ -150,6 +163,11 @@ class AnostHookRunner {
     });
   }
 
+  private void unloadGlobalHooks(AnostHookMgr hookMgr, List<IHook> rets) {
+    List<Class<? extends IHook>> hks = hookMgr.globalUnloads();
+    hks.forEach(hk -> this.clearHook(hk, rets));
+  }
+
   private void unloadHooks(YoRequest request, AnostHookMgr hookMgr, List<IHook> rets) {
     if (CollectionKit.isEmpty(rets))
       return;
@@ -162,15 +180,15 @@ class AnostHookRunner {
       switch (un.mode()) {
         case FULL:
           if (uri.equals(un.uri()))
-            this.clearHook(un, rets);
+            this.clearHook(un.unload(), rets);
           break;
         case PREFIX:
           if (uri.startsWith(un.uri()))
-            this.clearHook(un, rets);
+            this.clearHook(un.unload(), rets);
           break;
         case REGEX:
           if (uri.matches(un.uri()))
-            this.clearHook(un, rets);
+            this.clearHook(un.unload(), rets);
           break;
         default:
           break;
@@ -178,10 +196,10 @@ class AnostHookRunner {
     });
   }
 
-  private void clearHook(HookUnload un, List<IHook> rets) {
+  private void clearHook(Class<? extends IHook> hclz, List<IHook> rets) {
     for (int i = rets.size(); i-- > 0; ) {
       IHook ret = rets.get(i);
-      if (!un.unload().getName().equals(ret.getClass().getName()))
+      if (!hclz.getName().equals(ret.getClass().getName()))
         continue;
       rets.remove(i);
       i--;
