@@ -84,5 +84,8 @@ public class DateKit {
     return format(new Date(ts), format);
   }
 
+  public static String format(String format) {
+    return format(System.currentTimeMillis(), format);
+  }
 
 }

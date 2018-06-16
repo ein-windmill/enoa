@@ -63,14 +63,15 @@ class AnostHookRunner {
     /*
     優先添加全局 hook
      */
-    CACHE_OPTIONS = CollectionKit.isEmpty(hookMgr.globals()) ? new ArrayList<>() : new ArrayList<>(hookMgr.globals());
+    CACHE_OPTIONS = CollectionKit.isEmpty(hookMgr.globalLoads()) ? new ArrayList<>() : new ArrayList<>(hookMgr.globalLoads());
 
     /*
     优先加入规则配置 Hook
      */
-    this.loadHookMgr(request, hookMgr, CACHE_OPTIONS);
+    this.loadHooks(request, hookMgr, CACHE_OPTIONS);
 
-    this.clearHooks(hookMgr, CACHE_OPTIONS);
+    this.unloadHooks(request, hookMgr, CACHE_OPTIONS);
+
     return CACHE_OPTIONS;
   }
 
@@ -91,14 +92,14 @@ class AnostHookRunner {
     /*
     优先执行全局 Hook
      */
-    if (CollectionKit.notEmpty(hookMgr.globals())) {
-      ihooks.addAll(hookMgr.globals());
+    if (CollectionKit.notEmpty(hookMgr.globalLoads())) {
+      ihooks.addAll(hookMgr.globalLoads());
     }
 
     /*
     优先加入规则配置 Hook
      */
-    this.loadHookMgr(request, hookMgr, ihooks);
+    this.loadHooks(request, hookMgr, ihooks);
 
     /*
     最后加入 function 添加 Hook
@@ -117,12 +118,13 @@ class AnostHookRunner {
     /*
     根据规则清除无需执行的 Hook
      */
-    this.clearHooks(hookMgr, ihooks);
+    this.unloadHooks(request, hookMgr, ihooks);
+
     CACHE.put(resource.hashName(), ihooks);
     return ihooks;
   }
 
-  private void loadHookMgr(YoRequest request, AnostHookMgr hookMgr, List<IHook> rets) {
+  private void loadHooks(YoRequest request, AnostHookMgr hookMgr, List<IHook> rets) {
     String uri = UriKit.rmcontext(request.context(), request.uri());
     List<HookLoad> loads = hookMgr.loads();
     if (CollectionKit.isEmpty(loads))
@@ -148,22 +150,42 @@ class AnostHookRunner {
     });
   }
 
-  private void clearHooks(AnostHookMgr hookMgr, List<IHook> rets) {
+  private void unloadHooks(YoRequest request, AnostHookMgr hookMgr, List<IHook> rets) {
     if (CollectionKit.isEmpty(rets))
       return;
     List<HookUnload> unloads = hookMgr.unloads();
     if (CollectionKit.isEmpty(unloads))
       return;
+    String uri = UriKit.rmcontext(request.context(), request.uri());
 
     unloads.forEach(un -> {
-      for (int i = rets.size(); i-- > 0; ) {
-        IHook ret = rets.get(i);
-        if (!un.unload().getName().equals(ret.getClass().getName()))
-          continue;
-        rets.remove(i);
-        i--;
+      switch (un.mode()) {
+        case FULL:
+          if (uri.equals(un.uri()))
+            this.clearHook(un, rets);
+          break;
+        case PREFIX:
+          if (uri.startsWith(un.uri()))
+            this.clearHook(un, rets);
+          break;
+        case REGEX:
+          if (uri.matches(un.uri()))
+            this.clearHook(un, rets);
+          break;
+        default:
+          break;
       }
     });
+  }
+
+  private void clearHook(HookUnload un, List<IHook> rets) {
+    for (int i = rets.size(); i-- > 0; ) {
+      IHook ret = rets.get(i);
+      if (!un.unload().getName().equals(ret.getClass().getName()))
+        continue;
+      rets.remove(i);
+      i--;
+    }
   }
 
 }

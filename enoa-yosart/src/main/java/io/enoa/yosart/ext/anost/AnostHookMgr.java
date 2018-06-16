@@ -22,9 +22,10 @@ import java.util.List;
 
 public class AnostHookMgr {
 
-  private static List<IHook> GLOBALS;
-  private static List<HookLoad> LOADS;
-  private static List<HookUnload> UNLOADS;
+  private List<IHook> GLOBALS_LOAD;
+  private List<Class<? extends IHook>> GLOBALS_UNLOAD;
+  private List<HookLoad> LOADS;
+  private List<HookUnload> UNLOADS;
 
   public enum Mode {
     /**
@@ -42,9 +43,9 @@ public class AnostHookMgr {
   }
 
   public AnostHookMgr load(String uri, IHook hook, Mode mode) {
-    if (LOADS == null)
-      LOADS = new ArrayList<>();
-    LOADS.add(new HookLoad(uri, hook, mode));
+    if (this.LOADS == null)
+      this.LOADS = new ArrayList<>();
+    this.LOADS.add(new HookLoad(uri, hook, mode));
     return this;
   }
 
@@ -53,33 +54,44 @@ public class AnostHookMgr {
   }
 
   public AnostHookMgr load(IHook hook) {
-    if (GLOBALS == null)
-      GLOBALS = new ArrayList<>();
-    GLOBALS.add(hook);
+    if (this.GLOBALS_LOAD == null)
+      this.GLOBALS_LOAD = new ArrayList<>();
+    this.GLOBALS_LOAD.add(hook);
     return this;
   }
 
-  public AnostHookMgr unload(String uri, Class<? extends IHook> unloads, Mode mode) {
-    if (UNLOADS == null)
-      UNLOADS = new ArrayList<>();
-    UNLOADS.add(new HookUnload(uri, unloads, mode));
+  public AnostHookMgr unload(String uri, Class<? extends IHook> unload, Mode mode) {
+    if (this.UNLOADS == null)
+      this.UNLOADS = new ArrayList<>();
+    this.UNLOADS.add(new HookUnload(uri, unload, mode));
     return this;
   }
 
-  public AnostHookMgr unload(String uri, Class<? extends IHook> unloads) {
-    return this.unload(uri, unloads, Mode.FULL);
+  public AnostHookMgr unload(String uri, Class<? extends IHook> unload) {
+    return this.unload(uri, unload, Mode.FULL);
   }
 
-  List<IHook> globals() {
-    return GLOBALS;
+  public AnostHookMgr unload(Class<? extends IHook> unload) {
+    if (this.GLOBALS_UNLOAD == null)
+      this.GLOBALS_UNLOAD = new ArrayList<>();
+    this.GLOBALS_UNLOAD.add(unload);
+    return this;
+  }
+
+  List<IHook> globalLoads() {
+    return this.GLOBALS_LOAD;
+  }
+
+  List<Class<? extends IHook>> globalUnloads() {
+    return this.GLOBALS_UNLOAD;
   }
 
   List<HookLoad> loads() {
-    return LOADS;
+    return this.LOADS;
   }
 
   List<HookUnload> unloads() {
-    return UNLOADS;
+    return this.UNLOADS;
   }
 
 }
