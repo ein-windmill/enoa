@@ -366,7 +366,7 @@ public class EnoaTrydb implements TrydbCommandBase<EnoaTrydb>, TrydbCommandTSql<
     List relts = this.beans(mark, _psql.countSql(), null, paras);
     int size = relts.size();
 //      boolean groupby = size > 1;
-    _rows = size > 1 ? size : (size > 0 ? NumberKit.longx((Number) relts.get(0)) : 0);
+    _rows = size > 1 ? size : (size > 0 ? NumberKit.longer((Number) relts.get(0)) : 0);
 
     if (_rows == 0L)
       return new Page<>(pn, ps, 0, 0L, 0L, Collections.emptyList());

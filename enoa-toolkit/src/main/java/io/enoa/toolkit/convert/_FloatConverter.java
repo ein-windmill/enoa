@@ -25,6 +25,6 @@ class _FloatConverter implements IConverter<Float, String> {
 
   @Override
   public Float convert(String origin) {
-    return ConvertKit.floatx(origin, this.primitive ? 0F : null);
+    return ConvertKit.floater(origin, this.primitive ? 0F : null);
   }
 }

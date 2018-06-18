@@ -70,40 +70,40 @@ public class EnoaValue implements Serializable {
     return this.integer(null);
   }
 
-  public Long longx(Long def) {
+  public Long longer(Long def) {
     String string = this.string();
-    return TextKit.isBlank(string) ? def : NumberKit.longx(string);
+    return TextKit.isBlank(string) ? def : NumberKit.longer(string);
   }
 
-  public Long longx() {
-    return this.longx(null);
+  public Long longer() {
+    return this.longer(null);
   }
 
-  public Double doublex(Double def) {
+  public Double doubler(Double def) {
     String string = this.string();
-    return TextKit.isBlank(string) ? def : NumberKit.doublex(string);
+    return TextKit.isBlank(string) ? def : NumberKit.doubler(string);
   }
 
-  public Double doublex() {
-    return this.doublex(null);
+  public Double doubler() {
+    return this.doubler(null);
   }
 
-  public Float floatx(Float def) {
+  public Float floater(Float def) {
     String string = this.string();
-    return TextKit.isBlank(string) ? def : NumberKit.floatx(string);
+    return TextKit.isBlank(string) ? def : NumberKit.floater(string);
   }
 
-  public Float floatx() {
-    return this.floatx(null);
+  public Float floater() {
+    return this.floater(null);
   }
 
-  public Short shortx(Short def) {
+  public Short shorter(Short def) {
     String string = this.string();
-    return TextKit.isBlank(string) ? def : NumberKit.shortx(string);
+    return TextKit.isBlank(string) ? def : NumberKit.shorter(string);
   }
 
-  public Short shortx() {
-    return this.shortx(null);
+  public Short shorter() {
+    return this.shorter(null);
   }
 
   public BigInteger bigint(BigInteger def) {

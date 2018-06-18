@@ -141,7 +141,7 @@ class FastCGIRequestWrapper extends EoxAbstractCosRequest {
     String val = this.cookie(name);
     if (TextKit.isBlank(val))
       return def;
-    return ConvertKit.longx(val);
+    return ConvertKit.longer(val);
   }
 
   @Override
@@ -175,7 +175,7 @@ class FastCGIRequestWrapper extends EoxAbstractCosRequest {
 
   @Override
   public Long paraToLong(String name, Long def) {
-    return ConvertKit.longx(this.para(name), def);
+    return ConvertKit.longer(this.para(name), def);
   }
 
   @Override
@@ -185,7 +185,7 @@ class FastCGIRequestWrapper extends EoxAbstractCosRequest {
 
   @Override
   public Double paraToDouble(String name, Double def) {
-    return ConvertKit.doublex(this.para(name), def);
+    return ConvertKit.doubler(this.para(name), def);
   }
 
 
@@ -254,7 +254,7 @@ class FastCGIRequestWrapper extends EoxAbstractCosRequest {
     String[] vals = this.paraValues(name);
     Long[] rets = new Long[vals.length];
     for (int i = 0; i < vals.length; i++) {
-      rets[i] = ConvertKit.longx(vals[i]);
+      rets[i] = ConvertKit.longer(vals[i]);
     }
     return rets;
   }

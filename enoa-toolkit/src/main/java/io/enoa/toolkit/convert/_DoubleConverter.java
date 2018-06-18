@@ -25,6 +25,6 @@ class _DoubleConverter implements IConverter<Double, String> {
 
   @Override
   public Double convert(String origin) {
-    return ConvertKit.doublex(origin, this.primitive ? 0D : null);
+    return ConvertKit.doubler(origin, this.primitive ? 0D : null);
   }
 }

@@ -190,7 +190,7 @@ class NanoRequestWrapper extends EoxAbstractCosRequest {
 
   @Override
   public Long paraToLong(String name, Long def) {
-    return ConvertKit.longx(this.para(name), def);
+    return ConvertKit.longer(this.para(name), def);
   }
 
   @Override
@@ -200,7 +200,7 @@ class NanoRequestWrapper extends EoxAbstractCosRequest {
 
   @Override
   public Double paraToDouble(String name, Double def) {
-    return ConvertKit.doublex(this.para(name), def);
+    return ConvertKit.doubler(this.para(name), def);
   }
 
   @Override
@@ -248,7 +248,7 @@ class NanoRequestWrapper extends EoxAbstractCosRequest {
     String[] vals = this.paraValues(name);
     Long[] rets = new Long[vals.length];
     for (int i = 0; i < vals.length; i++) {
-      rets[i] = ConvertKit.longx(vals[i]);
+      rets[i] = ConvertKit.longer(vals[i]);
     }
     return rets;
   }

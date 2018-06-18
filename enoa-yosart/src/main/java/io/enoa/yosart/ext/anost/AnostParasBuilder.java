@@ -195,23 +195,23 @@ class AnostParasBuilder {
     if (type == Integer.class)
       return ConvertKit.integer(value, null);
     if (type == Double.class)
-      return ConvertKit.doublex(value, null);
+      return ConvertKit.doubler(value, null);
     if (type == Float.class)
-      return NumberKit.floatx(value);
+      return NumberKit.floater(value);
     if (type == Long.class)
-      return NumberKit.longx(value);
+      return NumberKit.longer(value);
     if (type == Short.class)
-      return NumberKit.shortx(value);
+      return NumberKit.shorter(value);
     if (type == int.class)
       return value == null ? 0 : NumberKit.integer(value);
     if (type == double.class)
-      return value == null ? 0D : NumberKit.doublex(value);
+      return value == null ? 0D : NumberKit.doubler(value);
     if (type == float.class)
-      return value == null ? 0F : NumberKit.floatx(value);
+      return value == null ? 0F : NumberKit.floater(value);
     if (type == long.class)
-      return value == null ? 0L : NumberKit.longx(value);
+      return value == null ? 0L : NumberKit.longer(value);
     if (type == short.class)
-      return value == null ? (short) 0 : NumberKit.shortx(value);
+      return value == null ? (short) 0 : NumberKit.shorter(value);
     if (type == boolean.class)
       return ConvertKit.bool(value, false);
 

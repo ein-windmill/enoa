@@ -25,6 +25,6 @@ class _LongConverter implements IConverter<Long, String> {
 
   @Override
   public Long convert(String origin) {
-    return ConvertKit.longx(origin, this.primitive ? 0L : null);
+    return ConvertKit.longer(origin, this.primitive ? 0L : null);
   }
 }
