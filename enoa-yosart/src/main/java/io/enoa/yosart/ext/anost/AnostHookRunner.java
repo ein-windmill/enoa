@@ -165,6 +165,8 @@ class AnostHookRunner {
 
   private void unloadGlobalHooks(AnostHookMgr hookMgr, List<IHook> rets) {
     List<Class<? extends IHook>> hks = hookMgr.globalUnloads();
+    if (CollectionKit.isEmpty(hks))
+      return;
     hks.forEach(hk -> this.clearHook(hk, rets));
   }
 

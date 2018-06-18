@@ -17,8 +17,10 @@ package io.enoa.rpc.config;
 
 import io.enoa.json.EnoaJson;
 import io.enoa.json.EoJsonFactory;
+import io.enoa.json.Json;
 import io.enoa.log.EnoaLog;
 import io.enoa.log.EoLogFactory;
+import io.enoa.log.Log;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.thr.EoException;
 
@@ -29,7 +31,8 @@ public class ORpcFactory {
   }
 
   private ORpcFactory() {
-
+    this.json = Json.epm().factory();
+    this.log = Log.epm().factory();
   }
 
   static ORpcFactory instance() {
@@ -38,6 +41,7 @@ public class ORpcFactory {
 
   private EoJsonFactory json;
   private EoLogFactory log;
+
 
   public ORpcFactory json(EoJsonFactory json) {
     this.json = json;

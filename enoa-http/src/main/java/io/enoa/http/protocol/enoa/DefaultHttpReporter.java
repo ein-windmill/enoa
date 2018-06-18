@@ -34,6 +34,6 @@ public class DefaultHttpReporter implements IHttpReporter {
 
   @Override
   public void report(HttpResponse response) {
-
+    System.out.println(response);
   }
 }

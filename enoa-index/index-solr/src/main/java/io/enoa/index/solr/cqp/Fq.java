@@ -17,15 +17,16 @@ package io.enoa.index.solr.cqp;
 
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.text.TextKit;
+import io.enoa.toolkit.value.EnoaValue;
 
 import java.io.Serializable;
 
 public class Fq implements Serializable {
 
   private String field;
-  private String value;
+  private Object value;
 
-  public Fq(String field, String value) {
+  public Fq(String field, Object value) {
     if (TextKit.isBlank(field))
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.solr.cqp_fq_field_null"));
     if (value == null)
@@ -35,7 +36,7 @@ public class Fq implements Serializable {
     this.value = value;
   }
 
-  public static Fq create(String field, String value) {
+  public static Fq create(String field, Object value) {
     return new Fq(field, value);
   }
 
@@ -43,8 +44,8 @@ public class Fq implements Serializable {
     return this.field;
   }
 
-  public String value() {
-    return this.value;
+  public EnoaValue value() {
+    return EnoaValue.with(this.value);
   }
 
   public String string() {
@@ -58,14 +59,14 @@ public class Fq implements Serializable {
 
     Fq fq = (Fq) object;
 
-    if (!field.equals(fq.field)) return false;
-    return value.equals(fq.value);
+    if (field != null ? !field.equals(fq.field) : fq.field != null) return false;
+    return value != null ? value.equals(fq.value) : fq.value == null;
   }
 
   @Override
   public int hashCode() {
-    int result = field.hashCode();
-    result = 31 * result + value.hashCode();
+    int result = field != null ? field.hashCode() : 0;
+    result = 31 * result + (value != null ? value.hashCode() : 0);
     return result;
   }
 

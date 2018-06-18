@@ -95,6 +95,8 @@ public class SSelect implements _SolrAction {
 //  }
 
   public SSelect fq(String fq) {
+    if (fq == null)
+      return this;
     if (this.fqs == null)
       this.fqs = new HashSet<>();
     this.fqs.add(fq);
@@ -123,6 +125,8 @@ public class SSelect implements _SolrAction {
   }
 
   public SSelect sort(String sort) {
+    if (sort == null)
+      return this;
     if (this.sorts == null)
       this.sorts = new HashSet<>();
     this.sorts.add(sort);
@@ -173,6 +177,8 @@ public class SSelect implements _SolrAction {
    * @return SSelect
    */
   public SSelect fl(String fl) {
+    if (fl == null)
+      return this;
     if (this.fls == null)
       this.fls = new HashSet<>();
     this.fls.add(fl);
@@ -277,9 +283,11 @@ public class SSelect implements _SolrAction {
       .charset(EoConst.CHARSET)
       .encode();
 
+    this.http.para("_", System.currentTimeMillis());
+
     this.http.para("q", this.q);
     if (this.fqs != null)
-      this.http.para("fq", this.fqs);
+      this.fqs.forEach(fq -> this.http.para("fq", fq));
 
     if (this.sorts != null)
       this.http.para("sort", String.join(",", this.sorts));
@@ -288,7 +296,7 @@ public class SSelect implements _SolrAction {
     this.http.para("rows", this.rows);
 
     if (this.fls != null)
-      this.http.para("fl", this.fls);
+      this.http.para("fl", String.join(",", this.fls));
 
     if (this.df != null)
       this.http.para("df", this.df);

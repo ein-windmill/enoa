@@ -48,6 +48,9 @@ public class EPMLog {
     Log.syncLog();
   }
 
+  public EoLogFactory factory() {
+    return this.defLogFactory;
+  }
 
   public EnoaLog log(Class<?> clazz) {
     if (this.defLogFactory == null)

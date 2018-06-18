@@ -100,7 +100,8 @@ public class SUpdate implements _SolrAction {
 
     int _cwn = this.commitWithin == null ? 1000 : this.commitWithin;
 
-    this.http.para("commitWithin", _cwn)
+    this.http.para("_", System.currentTimeMillis())
+      .para("commitWithin", _cwn)
       .para("overwrite", this.overwrite)
       .raw(this.body)
       .header("Content-Type", this.contentType);

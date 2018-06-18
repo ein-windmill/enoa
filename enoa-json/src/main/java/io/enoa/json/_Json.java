@@ -36,6 +36,8 @@ interface _Json {
 
   String toJson(Object object);
 
+  String toJson(Object object, String datePattern);
+
   <T> T parse(String json, Class<T> type);
 
   <T> T parse(String json, Type type);

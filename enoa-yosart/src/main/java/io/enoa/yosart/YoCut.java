@@ -15,7 +15,7 @@
  */
 package io.enoa.yosart;
 
-public interface YoBefore {
+public interface YoCut {
 
   void execute();
 

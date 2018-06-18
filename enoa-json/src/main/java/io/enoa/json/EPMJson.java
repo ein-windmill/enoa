@@ -32,28 +32,17 @@ public class EPMJson {
   }
 
   private EoJsonFactory defJsonFactory = new EoJsonProvider();
-  private String defDatePattern;
 
   public void install(EoJsonFactory factory) {
-    this.install(factory, null);
-  }
-
-  public void install(EoJsonFactory factory, String pattern) {
     this.defJsonFactory = factory;
-    this.defDatePattern = pattern;
   }
 
-  public EoJsonFactory defFactory() {
+  public EoJsonFactory factory() {
     return defJsonFactory;
   }
 
   public EnoaJson json() {
     return this.defJsonFactory.json();
   }
-
-  public String defDatePattern() {
-    return this.defDatePattern;
-  }
-
 
 }

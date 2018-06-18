@@ -46,11 +46,12 @@ class _Fastjson extends EnoaJson {
 
   @Override
   public String toJson(Object object) {
-    String dp = datePattern != null ? datePattern : defaultDatePattern();
-    if (dp == null)
-      return JSON.toJSONString(object);
+    return JSON.toJSONString(object);
+  }
 
-    return JSON.toJSONStringWithDateFormat(object, dp, SerializerFeature.WriteDateUseDateFormat);
+  @Override
+  public String toJson(Object object, String datePattern) {
+    return JSON.toJSONStringWithDateFormat(object, datePattern, SerializerFeature.WriteDateUseDateFormat);
   }
 
   @Override

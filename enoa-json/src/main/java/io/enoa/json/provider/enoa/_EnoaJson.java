@@ -41,6 +41,11 @@ class _EnoaJson extends EnoaJson {
   }
 
   @Override
+  public String toJson(Object object, String format) {
+    return jFinalJson.toJson(object, format);
+  }
+
+  @Override
   public <T> T parse(String json, Class<T> type) {
 //    throw new RuntimeException(EnoaTipKit.message("eo.tip.json.parse.notsupport"));
     throw new RuntimeException(DEF_TIP_NOTSUPPORT);

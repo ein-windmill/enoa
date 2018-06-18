@@ -58,14 +58,14 @@ public class Sort implements Serializable {
 
     Sort sort = (Sort) object;
 
-    if (!field.equals(sort.field)) return false;
+    if (field != null ? !field.equals(sort.field) : sort.field != null) return false;
     return order == sort.order;
   }
 
   @Override
   public int hashCode() {
-    int result = field.hashCode();
-    result = 31 * result + order.hashCode();
+    int result = field != null ? field.hashCode() : 0;
+    result = 31 * result + (order != null ? order.hashCode() : 0);
     return result;
   }
 

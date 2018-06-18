@@ -21,14 +21,18 @@ import io.enoa.json.EnoaJson;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * enoa - io.enoa.json.provider.gson
  */
 class _Gson extends EnoaJson {
 
-  private Gson gson;
+//  private Gson gson;
+
+  private Map<String, Gson> CACHE = new HashMap<>();
 
   private static class Holder {
     private static final EnoaJson INSTANCE = new _Gson();
@@ -42,17 +46,23 @@ class _Gson extends EnoaJson {
 
   }
 
-  private Gson gson() {
-    if (this.gson != null)
-      return this.gson;
+  private Gson gson(String datePattern) {
+    Gson _gson = CACHE.get(datePattern == null ? "def" : datePattern);
+    if (_gson != null)
+      return _gson;
 
-    String dp = datePattern != null ? datePattern : defaultDatePattern();
-    if (dp == null) {
-      this.gson = new Gson();
-    } else {
-      this.gson = new GsonBuilder().setDateFormat(dp).create();
+    if (datePattern == null) {
+      _gson = new Gson();
+      CACHE.put("def", _gson);
+      return _gson;
     }
-    return this.gson;
+    _gson = new GsonBuilder().setDateFormat(datePattern).create();
+    CACHE.put(datePattern, _gson);
+    return _gson;
+  }
+
+  private Gson gson() {
+    return this.gson(null);
   }
 
 //  @Override
@@ -63,6 +73,11 @@ class _Gson extends EnoaJson {
   @Override
   public String toJson(Object object) {
     return this.gson().toJson(object);
+  }
+
+  @Override
+  public String toJson(Object object, String datePattern) {
+    return this.gson(datePattern).toJson(object);
   }
 
   @Override

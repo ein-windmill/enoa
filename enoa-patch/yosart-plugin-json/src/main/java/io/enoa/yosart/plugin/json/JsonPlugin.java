@@ -18,26 +18,19 @@ package io.enoa.yosart.plugin.json;
 import io.enoa.json.EoJsonFactory;
 import io.enoa.json.Json;
 import io.enoa.json.provider.enoa.EoJsonProvider;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.yosart.YoPlugin;
 import io.enoa.yosart.thr.OyPluginException;
 
 public class JsonPlugin implements YoPlugin {
 
   private EoJsonFactory factory;
-  private String datePattern;
 
   public JsonPlugin() {
-    this(new EoJsonProvider(), null);
+    this(new EoJsonProvider());
   }
 
   public JsonPlugin(EoJsonFactory factory) {
-    this(factory, null);
-  }
-
-  public JsonPlugin(EoJsonFactory factory, String datePattern) {
     this.factory = factory;
-    this.datePattern = datePattern;
   }
 
   @Override
@@ -60,7 +53,7 @@ public class JsonPlugin implements YoPlugin {
 //    EMgrJson.defJsonFactory(this.factory);
 //    if (TextKit.notBlank(this.datePattern))
 //      EMgrJson.defDatePattern(this.datePattern);
-    Json.epm().install(this.factory, TextKit.isBlank(this.datePattern) ? null : this.datePattern);
+    Json.epm().install(this.factory);
     return true;
   }
 

@@ -24,6 +24,8 @@ import io.enoa.json.provider.jackson.JacksonProvider;
 import org.junit.Test;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -130,6 +132,12 @@ public class JsonTest {
     List<Map> pu = Json.parseArray(mpsr, Map.class);
     System.out.println(Json.toJson(pu));
 
+  }
+
+  @Test
+  public void testFormat() {
+    DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    System.out.println(format.toString());
   }
 
 
