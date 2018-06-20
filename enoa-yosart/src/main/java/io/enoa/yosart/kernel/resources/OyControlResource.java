@@ -16,6 +16,7 @@
 package io.enoa.yosart.kernel.resources;
 
 import io.enoa.toolkit.digest.DigestKit;
+import io.enoa.toolkit.http.UriKit;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -77,7 +78,7 @@ public class OyControlResource implements OyResource {
                     Parameter[] paras, String[] vars) {
     this.type = Type.CONTROL;
     this.control = control;
-    this.route = route;
+    this.route = UriKit.correct(route);
     this.methods = methods;
     this.func = func;
     this.funcName = funcName;
