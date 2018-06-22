@@ -17,6 +17,16 @@ package io.enoa.firetpl;
 
 import io.enoa.stove.api.StoveTemplate;
 
+import java.util.Map;
+
 public interface Firetpl extends StoveTemplate<FireBody> {
+
+  @Override
+  default FireBody render(String name) {
+    return this.render(name, null);
+  }
+
+  @Override
+  FireBody render(String name, Map<String, ?> para);
 
 }
