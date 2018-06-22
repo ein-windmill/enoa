@@ -63,7 +63,7 @@ class _HttpHelper implements Http {
     this.method = HttpMethod.GET;
     this.charset = Charset.forName("UTF-8");
     this.headers = new HashSet<>();
-    this.headers.add(new HttpHeader("User-Agent", "Mozilla/5.0 Enoa/1.5-beta.0 HttpHelper/4.0"));
+    this.headers.add(new HttpHeader("User-Agent", "Mozilla/5.0 Enoa/1.5-beta.1 HttpHelper/4.0"));
     this.executor = HttpHelperExecutor.instance();
   }
 
@@ -111,7 +111,7 @@ class _HttpHelper implements Http {
     HttpResponse response = conn.execute();
     if (this.reporters != null)
       HttpExtExecutor.instance().report(this.reporters, response);
-    
+
     return response;
   }
 
