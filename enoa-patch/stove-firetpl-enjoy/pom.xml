@@ -16,7 +16,6 @@
     <dependency>
       <groupId>io.enoa</groupId>
       <artifactId>stove-firetpl</artifactId>
-      <scope>provided</scope>
     </dependency>
 
     <dependency>
