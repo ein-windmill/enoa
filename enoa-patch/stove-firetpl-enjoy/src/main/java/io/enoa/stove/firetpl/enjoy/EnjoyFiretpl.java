@@ -1,5 +1,7 @@
 package io.enoa.stove.firetpl.enjoy;
 
+import com.jfinal.template.Engine;
+import com.jfinal.template.source.ClassPathSourceFactory;
 import io.enoa.firetpl.FireBody;
 import io.enoa.firetpl.Firetpl;
 import io.enoa.stove.api.StoveException;
@@ -19,6 +21,18 @@ public class EnjoyFiretpl implements Firetpl {
   public EnjoyFiretpl(Path basePath, String template, boolean debug) {
     this.esql = new SqlKit(UUID.randomUUID().toString(), debug);
     this.esql.setBaseSqlTemplatePath(basePath.toString());
+    this.esql.addSqlTemplate(template);
+    this.esql.parseSqlTemplate();
+  }
+
+  public EnjoyFiretpl(String template) {
+    this(template, false);
+  }
+
+  public EnjoyFiretpl(String template, boolean debug) {
+    this.esql = new SqlKit(UUID.randomUUID().toString(), debug);
+    Engine engine = this.esql.getEngine();
+    engine.setSourceFactory(new ClassPathSourceFactory());
     this.esql.addSqlTemplate(template);
     this.esql.parseSqlTemplate();
   }
