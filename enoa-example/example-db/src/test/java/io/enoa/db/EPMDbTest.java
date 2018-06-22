@@ -38,11 +38,11 @@ import io.enoa.log.Log;
 import io.enoa.provider.db.beetlsql.BeetlSQLConfig;
 import io.enoa.provider.db.beetlsql.BeetlSQLKit;
 import io.enoa.provider.db.beetlsql.BeetlSQLProvider;
+import io.enoa.stove.firetpl.enjoy.EnjoyFiretpl;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.path.PathKit;
 import io.enoa.trydb.Trydb;
 import io.enoa.trydb.tsql.Trysql;
-import io.enoa.trydb.tsql.template.enjoy.EnjoyTSqlTemplate;
 import org.beetl.sql.core.db.MySqlStyle;
 import org.beetl.sql.core.db.PostgresStyle;
 import org.junit.Ignore;
@@ -177,7 +177,7 @@ public class EPMDbTest {
       .dialect(new io.enoa.trydb.dialect.PostgreSQLDialect())
       .showSql()
       .ds(DS.DRUID_PGSQL.ds, DS.DRUID_PGSQL.config)
-      .template(new EnjoyTSqlTemplate(PathKit.path("activerecord"), "template.sql"))
+      .template(new EnjoyFiretpl(PathKit.path("activerecord"), "template.sql"))
       .build();
     EPMDb.install(new TrydbProvider(), dbc2);
     List<Kv> rets2 = Trydb.template("pgsql").find("User.list");

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.enoa.trydb.tsql.template.enjoy;
+package io.enoa.stove.firetpl.enjoy;
 
 import com.jfinal.kit.StrKit;
 import com.jfinal.template.Engine;

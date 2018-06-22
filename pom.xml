@@ -291,13 +291,13 @@
         <version>${project.version}</version>
       </dependency>
 
-<!--
-      <dependency>
-        <groupId>io.enoa</groupId>
-        <artifactId>yosart-ext-bea-beaction</artifactId>
-        <version>${project.version}</version>
-      </dependency>
--->
+      <!--
+            <dependency>
+              <groupId>io.enoa</groupId>
+              <artifactId>yosart-ext-bea-beaction</artifactId>
+              <version>${project.version}</version>
+            </dependency>
+      -->
 
       <dependency>
         <groupId>io.enoa</groupId>
@@ -365,15 +365,23 @@
         <version>${project.version}</version>
       </dependency>
 
+<!--
       <dependency>
         <groupId>io.enoa</groupId>
         <artifactId>trydb-ttsql-enjoy</artifactId>
         <version>${project.version}</version>
       </dependency>
+-->
 
       <dependency>
         <groupId>io.enoa</groupId>
-        <artifactId>enoa-firesh</artifactId>
+        <artifactId>stove-firetpl</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>stove-firetpl-enjoy</artifactId>
         <version>${project.version}</version>
       </dependency>
 

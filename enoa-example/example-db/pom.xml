@@ -111,10 +111,15 @@
       <scope>provided</scope>
     </dependency>
 
-    <dependency>
+    <!--<dependency>
       <groupId>io.enoa</groupId>
       <artifactId>trydb-ttsql-enjoy</artifactId>
       <scope>provided</scope>
+    </dependency>-->
+
+    <dependency>
+      <groupId>io.enoa</groupId>
+      <artifactId>stove-firetpl-enjoy</artifactId>
     </dependency>
 
   </dependencies>

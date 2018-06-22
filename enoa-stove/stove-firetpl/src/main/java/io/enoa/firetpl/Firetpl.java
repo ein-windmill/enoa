@@ -13,12 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.firesh;
+package io.enoa.firetpl;
 
-import io.enoa.stove.api.StoveBody;
+import io.enoa.stove.api.StoveTemplate;
 
-public class FireBody implements StoveBody {
-
-
+public interface Firetpl extends StoveTemplate<FireBody> {
 
 }

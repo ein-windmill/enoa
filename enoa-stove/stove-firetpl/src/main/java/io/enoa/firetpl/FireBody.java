@@ -13,35 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.trydb.tsql.template;
+package io.enoa.firetpl;
 
-import io.enoa.firetpl.FireBody;
-import io.enoa.toolkit.collection.CollectionKit;
-import io.enoa.trydb.dialect.IDialect;
-import io.enoa.trydb.tsql.Trysql;
+import io.enoa.stove.api.StoveBody;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public interface TSql extends Trysql<TSql> {
+public interface FireBody extends StoveBody {
 
+  /**
+   * template value
+   *
+   * @return String
+   */
+  String tpl();
+
+  /**
+   * template paras
+   * like. sql select * from table where id=<paras>
+   *
+   * @return Object[]
+   */
   Object[] paras();
 
-  static TSql create(String sql) {
-    return create(sql, CollectionKit.emptyArray(Object.class));
-  }
 
-  static TSql create(String sql, Object... paras) {
-    return new TSql() {
+  static FireBody create(String tpl, Object... paras) {
+    return new FireBody() {
 
       @Override
-      public TSql dialect(IDialect dialect) {
-        return this;
-      }
-
-      @Override
-      public String sql() {
-        return sql;
+      public String tpl() {
+        return tpl;
       }
 
       @Override
@@ -52,19 +54,16 @@ public interface TSql extends Trysql<TSql> {
       @Override
       public String toString() {
         StringBuilder ret = new StringBuilder();
-        ret.append(this.sql());
-        if (CollectionKit.isEmpty(this.paras()))
+        ret.append(this.tpl());
+        if (this.paras() == null || this.paras().length == 0)
           return ret.toString();
+
         ret.append("       ----> [");
         ret.append(String.join(",", Arrays.stream(this.paras()).map(Object::toString).collect(Collectors.toList())));
         ret.append("]");
         return ret.toString();
       }
     };
-  }
-
-  static TSql create(FireBody body) {
-    return create(body.tpl(), body.paras());
   }
 
 }

@@ -18,12 +18,12 @@ package io.enoa.db.provider.db.trydb;
 import io.enoa.db.EoDbConfig;
 import io.enoa.db.EoDsConfig;
 import io.enoa.db.EoDsFactory;
+import io.enoa.firetpl.Firetpl;
 import io.enoa.toolkit.namecase.INameCase;
 import io.enoa.toolkit.namecase.NamecaseKit;
 import io.enoa.toolkit.namecase.NamecaseType;
 import io.enoa.trydb.ISqlReporter;
 import io.enoa.trydb.dialect.IDialect;
-import io.enoa.trydb.tsql.template.TSqlTemplate;
 import io.enoa.trydb.tx.TxLevel;
 
 public class EoTrydbConfig implements EoDbConfig {
@@ -37,7 +37,7 @@ public class EoTrydbConfig implements EoDbConfig {
   private final ISqlReporter reporter;
   private final INameCase namecase;
   private final boolean showSql;
-  private final TSqlTemplate sqltemplate;
+  private final Firetpl sqltemplate;
 
   private EoTrydbConfig(Builder builder) {
     this.name = builder.name;
@@ -91,7 +91,7 @@ public class EoTrydbConfig implements EoDbConfig {
     return this.showSql;
   }
 
-  public TSqlTemplate template() {
+  public Firetpl template() {
     return this.sqltemplate;
   }
 
@@ -105,7 +105,7 @@ public class EoTrydbConfig implements EoDbConfig {
     private ISqlReporter reporter;
     private INameCase namecase;
     private boolean showSql;
-    private TSqlTemplate sqltemplate;
+    private Firetpl sqltemplate;
 
 
     public Builder() {
@@ -168,7 +168,7 @@ public class EoTrydbConfig implements EoDbConfig {
       return this;
     }
 
-    public Builder template(TSqlTemplate template) {
+    public Builder template(Firetpl template) {
       this.sqltemplate = template;
       return this;
     }

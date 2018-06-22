@@ -9,7 +9,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>enoa-firesh</artifactId>
+  <artifactId>stove-firetpl</artifactId>
 
   <dependencies>
     <!--
@@ -23,7 +23,7 @@
 
     <dependency>
       <groupId>io.enoa</groupId>
-      <artifactId>stove-template</artifactId>
+      <artifactId>stove-api</artifactId>
     </dependency>
 
   </dependencies>

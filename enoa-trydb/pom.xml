@@ -37,12 +37,10 @@
       <scope>test</scope>
     </dependency>
 
-    <!--
     <dependency>
       <groupId>io.enoa</groupId>
-      <artifactId>stove-api</artifactId>
+      <artifactId>stove-firetpl</artifactId>
     </dependency>
-    -->
 
     <dependency>
       <groupId>io.enoa</groupId>

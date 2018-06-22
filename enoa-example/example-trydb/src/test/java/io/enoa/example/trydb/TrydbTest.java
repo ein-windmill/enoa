@@ -18,6 +18,7 @@ package io.enoa.example.trydb;
 import io.enoa.example.trydb.entity.EBinary;
 import io.enoa.json.Json;
 import io.enoa.log.Log;
+import io.enoa.stove.firetpl.enjoy.EnjoyFiretpl;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.path.PathKit;
 import io.enoa.trydb.Trydb;
@@ -27,7 +28,6 @@ import io.enoa.trydb.dialect.PostgreSQLDialect;
 import io.enoa.trydb.page.Page;
 import io.enoa.trydb.tsql.Trysql;
 import io.enoa.trydb.tsql.psql.IPSql;
-import io.enoa.trydb.tsql.template.enjoy.EnjoyTSqlTemplate;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -47,7 +47,7 @@ public class TrydbTest {
       .ds(new DruidDs().ds())
       .showSql()
       .dialect(new PostgreSQLDialect())
-      .template(new EnjoyTSqlTemplate(PathKit.debugPath().resolve("src/test/resources/sqls"), "template.sql", true))
+      .template(new EnjoyFiretpl(PathKit.debugPath().resolve("src/test/resources/sqls"), "template.sql", true))
       .build();
     TrydbBootstrap bootstrap = new TrydbBootstrap(config);
     bootstrap.start();

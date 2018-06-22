@@ -19,11 +19,6 @@
     </dependency>
 
     <dependency>
-      <groupId>io.enoa</groupId>
-      <artifactId>enoa-firesh</artifactId>
-    </dependency>
-
-    <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-core</artifactId>
     </dependency>
@@ -71,7 +66,19 @@
 
     <dependency>
       <groupId>io.enoa</groupId>
-      <artifactId>trydb-ttsql-enjoy</artifactId>
+      <artifactId>enoa-log</artifactId>
+    </dependency>
+
+    <!--
+        <dependency>
+          <groupId>io.enoa</groupId>
+          <artifactId>trydb-ttsql-enjoy</artifactId>
+        </dependency>
+    -->
+
+    <dependency>
+      <groupId>io.enoa</groupId>
+      <artifactId>stove-firetpl-enjoy</artifactId>
     </dependency>
 
   </dependencies>

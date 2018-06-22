@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-package io.enoa.trydb.tsql.template.enjoy;
-
-import io.enoa.toolkit.collection.CollectionKit;
+package io.enoa.stove.firetpl.enjoy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +24,8 @@ import java.util.List;
  * 封装查询使用的 sql 与参数，主要用于 getSqlPara(...) 返回值
  */
 class SqlPara {
+
+  private static final Object[] EMTPY_ARRAY = new Object[0];
 
   String sql;
   List<Object> paraList;
@@ -49,7 +49,7 @@ class SqlPara {
 
   public Object[] getPara() {
     if (paraList == null || paraList.size() == 0) {
-      return CollectionKit.emptyArray(Object.class);
+      return EMTPY_ARRAY;
     } else {
       return paraList.toArray(new Object[paraList.size()]);
     }

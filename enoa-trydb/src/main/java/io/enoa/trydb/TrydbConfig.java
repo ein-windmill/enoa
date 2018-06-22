@@ -15,11 +15,11 @@
  */
 package io.enoa.trydb;
 
+import io.enoa.firetpl.Firetpl;
 import io.enoa.toolkit.namecase.INameCase;
 import io.enoa.toolkit.namecase.NamecaseKit;
 import io.enoa.toolkit.namecase.NamecaseType;
 import io.enoa.trydb.dialect.IDialect;
-import io.enoa.trydb.tsql.template.TSqlTemplate;
 import io.enoa.trydb.tx.TxLevel;
 
 import javax.sql.DataSource;
@@ -34,7 +34,7 @@ public class TrydbConfig {
   private final TxLevel level;
   private final ISqlReporter reporter;
   private final INameCase namecase;
-  private final TSqlTemplate sqltemplate;
+  private final Firetpl sqltemplate;
 
 
   private TrydbConfig(Builder builder) {
@@ -76,7 +76,7 @@ public class TrydbConfig {
     return namecase;
   }
 
-  public TSqlTemplate template() {
+  public Firetpl template() {
     return this.sqltemplate;
   }
 
@@ -88,7 +88,7 @@ public class TrydbConfig {
     private TxLevel level;
     private ISqlReporter report;
     private INameCase namecase;
-    private TSqlTemplate sqltemplate;
+    private Firetpl sqltemplate;
 
     public Builder() {
       this.name = "main";
@@ -151,7 +151,7 @@ public class TrydbConfig {
       return this;
     }
 
-    public Builder template(TSqlTemplate template) {
+    public Builder template(Firetpl template) {
       this.sqltemplate = template;
       return this;
     }
