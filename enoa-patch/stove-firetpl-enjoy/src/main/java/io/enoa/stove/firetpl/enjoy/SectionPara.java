@@ -20,22 +20,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * SqlPara
- * 封装查询使用的 sql 与参数，主要用于 getSqlPara(...) 返回值
+ * SectionPara
+ * 封装查询使用的 sql 与参数，主要用于 getBlockPara(...) 返回值
  */
-class SqlPara {
+class SectionPara {
 
   private static final Object[] EMTPY_ARRAY = new Object[0];
 
   String sql;
   List<Object> paraList;
 
-  public SqlPara setSql(String sql) {
+  public SectionPara setSql(String sql) {
     this.sql = sql;
     return this;
   }
 
-  public SqlPara addPara(Object para) {
+  public SectionPara addPara(Object para) {
     if (paraList == null) {
       paraList = new ArrayList<Object>();
     }
@@ -55,7 +55,7 @@ class SqlPara {
     }
   }
 
-  public SqlPara clear() {
+  public SectionPara clear() {
     sql = null;
     if (paraList != null) {
       paraList.clear();

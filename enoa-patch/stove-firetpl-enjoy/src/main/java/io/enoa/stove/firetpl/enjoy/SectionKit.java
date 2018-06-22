@@ -27,10 +27,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * SqlKit
+ * SectionKit
  */
 @SuppressWarnings({"unchecked", "rawtypes"})
-class SqlKit {
+class SectionKit {
 
   static final String SQL_TEMPLATE_MAP_KEY = "_SQL_TEMPLATE_MAP_";
   static final String SQL_PARA_KEY = "_SQL_PARA_";
@@ -39,10 +39,10 @@ class SqlKit {
   private String configName;
   private boolean devMode;
   private Engine engine;
-  private List<SqlSource> sqlSourceList = new ArrayList<SqlSource>();
+  private List<SectionSource> sectionSourceList = new ArrayList<SectionSource>();
   private Map<String, Template> sqlTemplateMap;
 
-  public SqlKit(String configName, boolean devMode) {
+  public SectionKit(String configName, boolean devMode) {
     this.configName = configName;
     this.devMode = devMode;
 
@@ -50,12 +50,12 @@ class SqlKit {
     engine.setDevMode(devMode);
 
     engine.addDirective("namespace", NameSpaceDirective.class);
-    engine.addDirective("sql", SqlDirective.class);
+    engine.addDirective("section", SectionDirective.class);
     engine.addDirective("para", ParaDirective.class);
     engine.addDirective("p", ParaDirective.class);    // 配置 #para 指令的别名指令 #p，不建议使用，在此仅为兼容 3.0 版本
   }
 
-  public SqlKit(String configName) {
+  public SectionKit(String configName) {
     this(configName, false);
   }
 
@@ -76,19 +76,19 @@ class SqlKit {
     if (StrKit.isBlank(sqlTemplate)) {
       throw new IllegalArgumentException("sqlTemplate can not be blank");
     }
-    sqlSourceList.add(new SqlSource(sqlTemplate));
+    sectionSourceList.add(new SectionSource(sqlTemplate));
   }
 
   public void addSqlTemplate(ISource sqlTemplate) {
     if (sqlTemplate == null) {
       throw new IllegalArgumentException("sqlTemplate can not be null");
     }
-    sqlSourceList.add(new SqlSource(sqlTemplate));
+    sectionSourceList.add(new SectionSource(sqlTemplate));
   }
 
   public synchronized void parseSqlTemplate() {
     Map<String, Template> sqlTemplateMap = new HashMap<String, Template>();
-    for (SqlSource ss : sqlSourceList) {
+    for (SectionSource ss : sectionSourceList) {
       Template template = ss.isFile() ? engine.getTemplate(ss.file) : engine.getTemplate(ss.source);
       Map<Object, Object> data = new HashMap<Object, Object>();
       data.put(SQL_TEMPLATE_MAP_KEY, sqlTemplateMap);
@@ -154,19 +154,19 @@ class SqlKit {
    * <p>
    * 2：java 代码
    * Kv cond = Kv.by("id", 123).set("age", 18);
-   * getSqlPara("key", cond);
+   * getBlockPara("key", cond);
    */
-  public SqlPara getSqlPara(String key, Map data) {
+  public SectionPara getBlockPara(String key, Map data) {
     Template template = getSqlTemplate(key);
     if (template == null) {
       return null;
     }
 
-    SqlPara sqlPara = new SqlPara();
-    data.put(SQL_PARA_KEY, sqlPara);
-    sqlPara.setSql(template.renderToString(data));
+    SectionPara sectionPara = new SectionPara();
+    data.put(SQL_PARA_KEY, sectionPara);
+    sectionPara.setSql(template.renderToString(data));
     data.remove(SQL_PARA_KEY);  // 避免污染传入的 Map
-    return sqlPara;
+    return sectionPara;
   }
 
   /**
@@ -177,21 +177,21 @@ class SqlKit {
    * #end
    * <p>
    * 2：java 代码
-   * getSqlPara("key", 123, 456);
+   * getBlockPara("key", 123, 456);
    */
-  public SqlPara getSqlPara(String key, Object... paras) {
+  public SectionPara getBlockPara(String key, Object... paras) {
     Template template = getSqlTemplate(key);
     if (template == null) {
       return null;
     }
 
-    SqlPara sqlPara = new SqlPara();
+    SectionPara sectionPara = new SectionPara();
     Map data = new HashMap();
-    data.put(SQL_PARA_KEY, sqlPara);
+    data.put(SQL_PARA_KEY, sectionPara);
     data.put(PARA_ARRAY_KEY, paras);
-    sqlPara.setSql(template.renderToString(data));
+    sectionPara.setSql(template.renderToString(data));
     // data 为本方法中创建，不会污染用户数据，无需移除 SQL_PARA_KEY、PARA_ARRAY_KEY
-    return sqlPara;
+    return sectionPara;
   }
 
   public java.util.Set<Map.Entry<String, Template>> getSqlMapEntrySet() {
@@ -199,7 +199,7 @@ class SqlKit {
   }
 
   public String toString() {
-    return "SqlKit for config : " + configName;
+    return "SectionKit for config : " + configName;
   }
 }
 

@@ -27,14 +27,14 @@ import java.util.UUID;
 
 public class EnjoyFiretpl implements Firetpl {
 
-  private SqlKit esql;
+  private SectionKit esql;
 
   public EnjoyFiretpl(Path basePath, String template) {
     this(basePath, template, false);
   }
 
   public EnjoyFiretpl(Path basePath, String template, boolean debug) {
-    this.esql = new SqlKit(UUID.randomUUID().toString(), debug);
+    this.esql = new SectionKit(UUID.randomUUID().toString(), debug);
     this.esql.setBaseSqlTemplatePath(basePath.toString());
     this.esql.addSqlTemplate(template);
     this.esql.parseSqlTemplate();
@@ -45,7 +45,7 @@ public class EnjoyFiretpl implements Firetpl {
   }
 
   public EnjoyFiretpl(String template, boolean debug) {
-    this.esql = new SqlKit(UUID.randomUUID().toString(), debug);
+    this.esql = new SectionKit(UUID.randomUUID().toString(), debug);
     Engine engine = this.esql.getEngine();
     engine.setSourceFactory(new ClassPathSourceFactory());
     this.esql.addSqlTemplate(template);
@@ -62,7 +62,7 @@ public class EnjoyFiretpl implements Firetpl {
 
   @Override
   public FireBody render(String name, Map<String, ?> para) {
-    SqlPara sp = this.esql.getSqlPara(name, para);
+    SectionPara sp = this.esql.getBlockPara(name, para);
     if (sp == null)
       throw new StoveException("Template name not found => " + name);
     return FireBody.create(sp.getSql(), sp.getPara());

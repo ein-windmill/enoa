@@ -21,17 +21,17 @@ import com.jfinal.template.source.ISource;
 /**
  * 封装 sql 模板源
  */
-class SqlSource {
+class SectionSource {
 
   String file;
   ISource source;
 
-  SqlSource(String file) {
+  SectionSource(String file) {
     this.file = file;
     this.source = null;
   }
 
-  SqlSource(ISource source) {
+  SectionSource(ISource source) {
     this.file = null;
     this.source = source;
   }

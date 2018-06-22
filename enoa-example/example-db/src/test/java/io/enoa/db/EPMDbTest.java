@@ -177,7 +177,7 @@ public class EPMDbTest {
       .dialect(new io.enoa.trydb.dialect.PostgreSQLDialect())
       .showSql()
       .ds(DS.DRUID_PGSQL.ds, DS.DRUID_PGSQL.config)
-      .template(new EnjoyFiretpl(PathKit.path("activerecord"), "template.sql"))
+      .template(new EnjoyFiretpl(PathKit.path("trydb"), "template.sql"))
       .build();
     EPMDb.install(new TrydbProvider(), dbc2);
     List<Kv> rets2 = Trydb.template("pgsql").find("User.list");
