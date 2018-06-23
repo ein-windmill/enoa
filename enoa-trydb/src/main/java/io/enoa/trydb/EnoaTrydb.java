@@ -23,6 +23,8 @@ import io.enoa.toolkit.stream.StreamKit;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.trydb.build.RsBuilder;
 import io.enoa.trydb.dialect.IDialect;
+import io.enoa.trydb.async.EnoaEnqueueTrydb;
+import io.enoa.trydb.async.TAsyncSupport;
 import io.enoa.trydb.page.Page;
 import io.enoa.trydb.thr.NestedTransactionHelpException;
 import io.enoa.trydb.thr.TrydbException;
@@ -39,7 +41,7 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
-public class EnoaTrydb implements TrydbCommandBase<EnoaTrydb>, TrydbCommandTSql<EnoaTrydb> {
+public class EnoaTrydb implements _TrydbCommandBase<EnoaTrydb>, _TrydbCommandTSql<EnoaTrydb>, TAsyncSupport<EnoaEnqueueTrydb> {
 
 
   private final ThreadLocal<Connection> LOCAL_CONN;
@@ -383,6 +385,11 @@ public class EnoaTrydb implements TrydbCommandBase<EnoaTrydb>, TrydbCommandTSql<
     String pageSql = this.config.dialect().pageSql(offset, ps, TextKit.removeRightChar(_psql.selectSql(), ';'));
     List<T> beans = this.beans(mark, pageSql, clazz, paras);
     return new Page<>(pn, ps, totalPage, offset, _rows, beans);
+  }
+
+  @Override
+  public EnoaEnqueueTrydb async() {
+    return new EnoaEnqueueTrydb(this);
   }
 
 }

@@ -22,7 +22,7 @@ import io.enoa.trydb.tsql.psql.IPSql;
 import java.util.List;
 import java.util.Map;
 
-interface TrydbCommandTemplate {
+interface _TrydbCommandTemplate {
 
   List<Kv> find(String name, Map<String, ?> para);
 

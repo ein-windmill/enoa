@@ -16,6 +16,8 @@
 package io.enoa.trydb;
 
 import io.enoa.toolkit.map.Kv;
+import io.enoa.trydb.async.TAsyncSupport;
+import io.enoa.trydb.async.TemplateEnqueueTrydb;
 import io.enoa.trydb.page.Page;
 import io.enoa.trydb.tsql.Trysql;
 import io.enoa.trydb.tsql.psql.IPSql;
@@ -27,7 +29,7 @@ import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
-public class TemplateTrydb implements TrydbCommandBase<TemplateTrydb>, TrydbCommandTemplate {
+public class TemplateTrydb implements _TrydbCommandBase<TemplateTrydb>, _TrydbCommandTemplate, TAsyncSupport<TemplateEnqueueTrydb> {
 
   private String trysqlName;
   private EnoaTrydb trydb;
@@ -183,4 +185,10 @@ public class TemplateTrydb implements TrydbCommandBase<TemplateTrydb>, TrydbComm
     TSql tsql = Trysql.tsql(this.config.name(), name, para);
     return this.trydb.page(ipsql, pn, ps, tsql.sql(), clazz, tsql.paras());
   }
+
+  @Override
+  public TemplateEnqueueTrydb async() {
+    return new TemplateEnqueueTrydb(this);
+  }
+
 }

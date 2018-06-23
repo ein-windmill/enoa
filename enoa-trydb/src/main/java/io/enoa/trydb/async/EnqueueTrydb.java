@@ -13,22 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.trydb.promise;
+package io.enoa.trydb.async;
 
-import io.enoa.promise.DoneArgPromise;
-import io.enoa.promise.arg.PromiseArg;
-import io.enoa.promise.arg.PromiseCapture;
-import io.enoa.promise.arg.PromiseVoid;
+import io.enoa.trydb.promise.TrydbPromise;
 
-public interface TrydbPromise<T> extends DoneArgPromise<T> {
+public interface EnqueueTrydb<T> {
 
-  @Override
-  DoneArgPromise<T> done(PromiseArg<T> done);
+  static <PARA> EnqueueTrydb<PARA> create(AsyncRunner<PARA> executor) {
+    return new _DefaultTrydbEnqueueImpl<>(executor);
+  }
 
-  @Override
-  DoneArgPromise<T> capture(PromiseCapture capture);
-
-  @Override
-  void always(PromiseVoid always);
+  TrydbPromise<T> enqueue();
 
 }

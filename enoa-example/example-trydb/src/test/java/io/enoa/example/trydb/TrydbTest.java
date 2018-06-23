@@ -151,4 +151,40 @@ public class TrydbTest {
 
   }
 
+  @Test
+  public void enqueue() {
+
+    Trydb.async()
+      .find("select * from t_binary")
+      .enqueue()
+      .done(System.out::println)
+      .capture(System.out::println)
+      .always(() -> System.out.println("always"));
+
+    Trydb.use()
+      .async()
+      .find("select * from t_binary")
+      .enqueue()
+      .done(System.out::println)
+      .capture(System.out::println)
+      .always(() -> System.out.println("always"));
+
+    Trydb.elegant()
+      .async()
+      .bean("select * from t_binary")
+      .enqueue()
+      .done(System.out::println)
+      .capture(System.out::println)
+      .always(() -> System.out.println("always"));
+
+    Trydb.template()
+      .async()
+      .find("Binary.list")
+      .enqueue()
+      .done(System.out::println)
+      .capture(System.out::println)
+      .always(() -> System.out.println("always"));
+
+  }
+
 }

@@ -23,7 +23,7 @@ import io.enoa.trydb.tsql.psql.IPSql;
 
 import java.util.List;
 
-interface TrydbCommandTSql<S extends TrydbCommandTSql> {
+interface _TrydbCommandTSql<S extends _TrydbCommandTSql> {
 
   S dialect(IDialect dialect);
 
@@ -47,20 +47,20 @@ interface TrydbCommandTSql<S extends TrydbCommandTSql> {
 
   int update(Trysql sql, Object... paras);
 
-  default Page<Kv> pagekv(int pageNumber, int pageSize, Trysql sql) {
-    return this.pagekv(IPSql.sqlfrom(), pageNumber, pageSize, sql);
+  default Page<Kv> pagekv(int pn, int ps, Trysql sql) {
+    return this.pagekv(IPSql.sqlfrom(), pn, ps, sql);
   }
 
-  default Page<Kv> pagekv(int pageNumber, int pageSize, Trysql sql, Object... paras) {
-    return this.pagekv(IPSql.sqlfrom(), pageNumber, pageSize, sql, paras);
+  default Page<Kv> pagekv(int pn, int ps, Trysql sql, Object... paras) {
+    return this.pagekv(IPSql.sqlfrom(), pn, ps, sql, paras);
   }
 
-  default <T> Page<T> page(int pageNumber, int pageSize, Trysql sql, Class<T> clazz) {
-    return this.page(IPSql.sqlfrom(), pageNumber, pageSize, sql, clazz);
+  default <T> Page<T> page(int pn, int ps, Trysql sql, Class<T> clazz) {
+    return this.page(IPSql.sqlfrom(), pn, ps, sql, clazz);
   }
 
-  default <T> Page<T> page(int pageNumber, int pageSize, Trysql sql, Class<T> clazz, Object... paras) {
-    return this.page(IPSql.sqlfrom(), pageNumber, pageSize, sql, clazz, paras);
+  default <T> Page<T> page(int pn, int ps, Trysql sql, Class<T> clazz, Object... paras) {
+    return this.page(IPSql.sqlfrom(), pn, ps, sql, clazz, paras);
   }
 
   Page<Kv> pagekv(IPSql ipsql, int pageNumber, int pageSize, Trysql sql);

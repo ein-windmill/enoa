@@ -17,6 +17,7 @@ package io.enoa.trydb;
 
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.map.Kv;
+import io.enoa.trydb.async.EnoaEnqueueTrydb;
 import io.enoa.trydb.page.Page;
 import io.enoa.trydb.thr.TrydbException;
 import io.enoa.trydb.tsql.Trysql;
@@ -74,24 +75,12 @@ public interface Trydb {
     return ttsql;
   }
 
-  /**
-   * todo 异步数据库操作, 暂未完善, 不可使用
-   *
-   * @return EnqueueTrydb
-   */
-  @Deprecated
-  static EnqueueTrydb enqueue() {
-    return enqueue("main");
+  static EnoaEnqueueTrydb async() {
+    return use().async();
   }
 
-  @Deprecated
-  static EnqueueTrydb enqueue(String name) {
-    EnqueueTrydb qtdb = TrydbHolder.qtdb(name);
-    if (qtdb != null)
-      return qtdb;
-    qtdb = EnqueueTrydb.with(use(name));
-    TrydbHolder.reg(name, qtdb);
-    return qtdb;
+  static EnoaEnqueueTrydb async(String name) {
+    return use(name).async();
   }
 
   static TrydbConfig config() {

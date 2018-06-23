@@ -24,7 +24,7 @@ import io.enoa.trydb.tx.TxLevel;
 import java.sql.Connection;
 import java.util.List;
 
-interface TrydbCommandBase<S extends TrydbCommandBase> {
+interface _TrydbCommandBase<S extends _TrydbCommandBase> {
 
   S conn(Connection conn);
 
