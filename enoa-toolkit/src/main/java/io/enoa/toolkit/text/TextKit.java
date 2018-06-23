@@ -319,4 +319,12 @@ public class TextKit {
     return _text.toString();
   }
 
+  public static String safeBlank(String text) {
+    return safeBlank(text, null);
+  }
+
+  public static String safeBlank(String text, String def) {
+    return TextKit.isBlank(text) ? def : text;
+  }
+
 }

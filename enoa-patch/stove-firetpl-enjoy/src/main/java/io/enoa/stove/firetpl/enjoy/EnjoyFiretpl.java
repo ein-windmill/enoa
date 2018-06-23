@@ -46,10 +46,13 @@ public class EnjoyFiretpl implements Firetpl {
 
   public EnjoyFiretpl(String template, boolean debug) {
     this.esql = new SectionKit(UUID.randomUUID().toString(), debug);
-    Engine engine = this.esql.getEngine();
-    engine.setSourceFactory(new ClassPathSourceFactory());
+    this.engine().setSourceFactory(new ClassPathSourceFactory());
     this.esql.addSqlTemplate(template);
     this.esql.parseSqlTemplate();
+  }
+
+  public Engine engine() {
+    return this.esql.getEngine();
   }
 
   @Override
