@@ -22,6 +22,7 @@ import io.enoa.yosart.kernel.ext.*;
 import io.enoa.yosart.thr.OyExtException;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 class YoExtd {
@@ -121,10 +122,19 @@ class YoExtd {
     if (ext.type().onlyOne())
       this.unload(ext);
 
-    for (YoExt yet : this.exts) {
+    Iterator<YoExt> eiterator = this.exts.iterator();
+    while (eiterator.hasNext()) {
+      YoExt yet = eiterator.next();
       // renew same extension
       if (yet.getClass().getName().equals(ext.getClass().getName()))
-        this.exts.remove(yet);
+        eiterator.remove();
+
+      if (ext instanceof YmRenderExt) {
+        if (!(yet instanceof YmRenderExt))
+          continue;
+        if (((YmRenderExt) yet).renderType().equals(((YmRenderExt) ext).renderType()))
+          eiterator.remove();
+      }
     }
 
     this.exts.add(ext);

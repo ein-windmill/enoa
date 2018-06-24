@@ -15,6 +15,7 @@
  */
 package io.enoa.yosart.ext.anost;
 
+import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.yosart.ext.anost.hook.IHook;
 
 import java.util.ArrayList;
@@ -60,22 +61,43 @@ public class AnostHookMgr {
     return this;
   }
 
-  public AnostHookMgr unload(String uri, Class<? extends IHook> unload, Mode mode) {
+  public AnostHookMgr unload(Class<? extends IHook> unload) {
+    if (this.GLOBALS_UNLOAD == null)
+      this.GLOBALS_UNLOAD = new ArrayList<>();
+    this.GLOBALS_UNLOAD.add(unload);
+    return this;
+  }
+
+  public AnostHookMgr unload(Class<? extends IHook> unload, Mode mode, String uri) {
     if (this.UNLOADS == null)
       this.UNLOADS = new ArrayList<>();
     this.UNLOADS.add(new HookUnload(uri, unload, mode));
     return this;
   }
 
-  public AnostHookMgr unload(String uri, Class<? extends IHook> unload) {
-    return this.unload(uri, unload, Mode.FULL);
+  public AnostHookMgr unload(Class<? extends IHook> unload, String uri) {
+    return this.unload(unload, Mode.FULL, uri);
   }
 
-  public AnostHookMgr unload(Class<? extends IHook> unload) {
-    if (this.GLOBALS_UNLOAD == null)
-      this.GLOBALS_UNLOAD = new ArrayList<>();
-    this.GLOBALS_UNLOAD.add(unload);
+  /**
+   * 取消加载 Hook, 需要注意与 unload(Class unload) 的区别, 这里并非添加全局
+   * 取消 Hook 如果没有传递 uri 则会放弃添加
+   *
+   * @param unload Hook class
+   * @param uris   uris
+   * @return AnostHookMgr
+   */
+  public AnostHookMgr unload(Class<? extends IHook> unload, Mode mode, String... uris) {
+    if (CollectionKit.isEmpty(uris))
+      return this;
+    for (String uri : uris) {
+      this.unload(unload, mode, uri);
+    }
     return this;
+  }
+
+  public AnostHookMgr unload(Class<? extends IHook> unload, String... uris) {
+    return this.unload(unload, Mode.FULL, uris);
   }
 
   List<IHook> globalLoads() {
