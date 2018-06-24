@@ -19,7 +19,6 @@ import io.enoa.log.Log;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.yosart.Oysart;
 
-import java.text.MessageFormat;
 import java.util.stream.Stream;
 
 public class OysartTip {
@@ -34,7 +33,8 @@ public class OysartTip {
       return text;
 
     Object[] fags = Stream.of(args).map(o -> o == null ? null : o.toString()).toArray(Object[]::new);
-    String ret = MessageFormat.format(text, fags);
+//    String ret = MessageFormat.format(text, fags);
+    String ret = TextKit.format(text, fags);
     if (ret.charAt(0) == '\n') {
       ret = TextKit.union("\n", MARK, " ", ret.substring(1));
     } else {
