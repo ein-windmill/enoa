@@ -29,8 +29,8 @@ import java.util.List;
 
 public interface Trydb {
 
-  static void reg(String name, EnoaTrydb trydb) {
-    TrydbHolder.reg(name, trydb);
+  static EPMTrydb epm() {
+    return EPMTrydb.instance();
   }
 
   static EnoaTrydb use() {
@@ -38,7 +38,7 @@ public interface Trydb {
   }
 
   static EnoaTrydb use(String name) {
-    EnoaTrydb trydb = TrydbHolder.trydb(name);
+    EnoaTrydb trydb = epm().trydb(name);
     if (trydb == null)
       throw new TrydbException(EnoaTipKit.message("eo.tip.trydb.trydb_null"));
     return trydb;
@@ -67,11 +67,11 @@ public interface Trydb {
   }
 
   static TemplateTrydb template(String name) {
-    TemplateTrydb ttsql = TrydbHolder.ttsql(name);
+    TemplateTrydb ttsql = epm().ttsql(name);
     if (ttsql != null)
       return ttsql;
     ttsql = TemplateTrydb.with(name, use(name));
-    TrydbHolder.reg(name, ttsql);
+    epm().install(name, ttsql);
     return ttsql;
   }
 
@@ -94,9 +94,9 @@ public interface Trydb {
     return trydb.config();
   }
 
-  static boolean exists(String name) {
-    return TrydbHolder.exists(name);
-  }
+//  static boolean exists(String name) {
+//    return TrydbHolder.exists(name);
+//  }
 
   static List<Kv> find(String sql) {
     return use().find(sql);

@@ -22,7 +22,6 @@ import io.enoa.stove.firetpl.enjoy.EnjoyFiretpl;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.path.PathKit;
 import io.enoa.trydb.Trydb;
-import io.enoa.trydb.TrydbBootstrap;
 import io.enoa.trydb.TrydbConfig;
 import io.enoa.trydb.dialect.PostgreSQLDialect;
 import io.enoa.trydb.page.Page;
@@ -49,8 +48,7 @@ public class TrydbTest {
       .dialect(new PostgreSQLDialect())
       .template(new EnjoyFiretpl(PathKit.debugPath().resolve("src/test/resources/sqls"), "template.sql", true))
       .build();
-    TrydbBootstrap bootstrap = new TrydbBootstrap(config);
-    bootstrap.start();
+    Trydb.epm().install(config);
   }
 
 

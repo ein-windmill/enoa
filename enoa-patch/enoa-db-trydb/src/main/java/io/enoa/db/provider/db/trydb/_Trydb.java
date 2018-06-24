@@ -17,7 +17,7 @@ package io.enoa.db.provider.db.trydb;
 
 import io.enoa.db.EnoaDb;
 import io.enoa.db.EnoaDs;
-import io.enoa.trydb.TrydbBootstrap;
+import io.enoa.trydb.Trydb;
 import io.enoa.trydb.TrydbConfig;
 
 class _Trydb extends EnoaDb {
@@ -25,7 +25,7 @@ class _Trydb extends EnoaDb {
   private EoTrydbConfig config;
   private EnoaDs ds;
 
-  public _Trydb(EoTrydbConfig config) {
+  _Trydb(EoTrydbConfig config) {
     this.config = config;
     this.ds = this.config.ds().dataSource(this.config.dsConfig());
   }
@@ -47,8 +47,7 @@ class _Trydb extends EnoaDb {
     if (this.config.reporter() == null && this.config.showSql())
       tconf.showSql();
 
-    TrydbBootstrap bootstrap = new TrydbBootstrap(tconf.build());
-    bootstrap.start();
+    Trydb.epm().install(tconf.build());
   }
 
   @Override
