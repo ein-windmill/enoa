@@ -32,15 +32,15 @@ import java.util.Map;
 @SuppressWarnings({"unchecked", "rawtypes"})
 class SectionKit {
 
-  static final String SQL_TEMPLATE_MAP_KEY = "_SQL_TEMPLATE_MAP_";
-  static final String SQL_PARA_KEY = "_SQL_PARA_";
+  static final String SECTION_TEMPLATE_MAP_KEY = "_SECTION_TEMPLATE_MAP_";
+  static final String SECTION_PARA_KEY = "_SECTION_PARA_";
   static final String PARA_ARRAY_KEY = "_PARA_ARRAY_"; // 此参数保持不动，已被用于模板取值 _PARA_ARRAY_[n]
 
   private String configName;
   private boolean devMode;
   private Engine engine;
-  private List<SectionSource> sectionSourceList = new ArrayList<SectionSource>();
-  private Map<String, Template> sqlTemplateMap;
+  private List<SectionSource> sectionSourceList = new ArrayList<>();
+  private Map<String, Template> sectionTemplateMap;
 
   public SectionKit(String configName, boolean devMode) {
     this.configName = configName;
@@ -68,42 +68,42 @@ class SectionKit {
     engine.setDevMode(devMode);
   }
 
-  public void setBaseSqlTemplatePath(String baseSqlTemplatePath) {
+  public void setBaseSectionTemplatePath(String baseSqlTemplatePath) {
     engine.setBaseTemplatePath(baseSqlTemplatePath);
   }
 
-  public void addSqlTemplate(String sqlTemplate) {
+  public void addSectionTemplate(String sqlTemplate) {
     if (StrKit.isBlank(sqlTemplate)) {
       throw new IllegalArgumentException("sqlTemplate can not be blank");
     }
     sectionSourceList.add(new SectionSource(sqlTemplate));
   }
 
-  public void addSqlTemplate(ISource sqlTemplate) {
+  public void addSectionTemplate(ISource sqlTemplate) {
     if (sqlTemplate == null) {
       throw new IllegalArgumentException("sqlTemplate can not be null");
     }
     sectionSourceList.add(new SectionSource(sqlTemplate));
   }
 
-  public synchronized void parseSqlTemplate() {
+  public synchronized void parseSectionTemplate() {
     Map<String, Template> sqlTemplateMap = new HashMap<String, Template>();
     for (SectionSource ss : sectionSourceList) {
       Template template = ss.isFile() ? engine.getTemplate(ss.file) : engine.getTemplate(ss.source);
       Map<Object, Object> data = new HashMap<Object, Object>();
-      data.put(SQL_TEMPLATE_MAP_KEY, sqlTemplateMap);
+      data.put(SECTION_TEMPLATE_MAP_KEY, sqlTemplateMap);
       template.renderToString(data);
     }
-    this.sqlTemplateMap = sqlTemplateMap;
+    this.sectionTemplateMap = sqlTemplateMap;
   }
 
   private void reloadModifiedSqlTemplate() {
     engine.removeAllTemplateCache();  // 去除 Engine 中的缓存，以免 get 出来后重新判断 isModified
-    parseSqlTemplate();
+    parseSectionTemplate();
   }
 
   private boolean isSqlTemplateModified() {
-    for (Template template : sqlTemplateMap.values()) {
+    for (Template template : sectionTemplateMap.values()) {
       if (template.isModified()) {
         return true;
       }
@@ -111,8 +111,8 @@ class SectionKit {
     return false;
   }
 
-  private Template getSqlTemplate(String key) {
-    Template template = sqlTemplateMap.get(key);
+  private Template getSectionTemplate(String key) {
+    Template template = sectionTemplateMap.get(key);
     if (template == null) {  // 此 if 分支，处理起初没有定义，但后续不断追加 sql 的情况
       if (!devMode) {
         return null;
@@ -121,7 +121,7 @@ class SectionKit {
         synchronized (this) {
           if (isSqlTemplateModified()) {
             reloadModifiedSqlTemplate();
-            template = sqlTemplateMap.get(key);
+            template = sectionTemplateMap.get(key);
           }
         }
       }
@@ -130,72 +130,72 @@ class SectionKit {
 
     if (devMode && template.isModified()) {
       synchronized (this) {
-        template = sqlTemplateMap.get(key);
+        template = sectionTemplateMap.get(key);
         if (template.isModified()) {
           reloadModifiedSqlTemplate();
-          template = sqlTemplateMap.get(key);
+          template = sectionTemplateMap.get(key);
         }
       }
     }
     return template;
   }
 
-  public String getSql(String key) {
-    Template template = getSqlTemplate(key);
+  public String getSection(String key) {
+    Template template = getSectionTemplate(key);
     return template != null ? template.renderToString(null) : null;
   }
 
   /**
    * 示例：
-   * 1：sql 定义
-   * #sql("key")
+   * 1：section 定义
+   * #section("key")
    * select * from xxx where id = #para(id) and age > #para(age)
    * #end
    * <p>
    * 2：java 代码
    * Kv cond = Kv.by("id", 123).set("age", 18);
-   * getBlockPara("key", cond);
+   * getSectionPara("key", cond);
    */
-  public SectionPara getBlockPara(String key, Map data) {
-    Template template = getSqlTemplate(key);
+  public SectionPara getSectionPara(String key, Map data) {
+    Template template = getSectionTemplate(key);
     if (template == null) {
       return null;
     }
 
     SectionPara sectionPara = new SectionPara();
-    data.put(SQL_PARA_KEY, sectionPara);
+    data.put(SECTION_PARA_KEY, sectionPara);
     sectionPara.setSql(template.renderToString(data));
-    data.remove(SQL_PARA_KEY);  // 避免污染传入的 Map
+    data.remove(SECTION_PARA_KEY);  // 避免污染传入的 Map
     return sectionPara;
   }
 
   /**
    * 示例：
-   * 1：sql 定义
-   * #sql("key")
+   * 1：section 定义
+   * #section("key")
    * select * from xxx where a = #para(0) and b = #para(1)
    * #end
    * <p>
    * 2：java 代码
-   * getBlockPara("key", 123, 456);
+   * getSectionPara("key", 123, 456);
    */
-  public SectionPara getBlockPara(String key, Object... paras) {
-    Template template = getSqlTemplate(key);
+  public SectionPara getSectionPara(String key, Object... paras) {
+    Template template = getSectionTemplate(key);
     if (template == null) {
       return null;
     }
 
     SectionPara sectionPara = new SectionPara();
     Map data = new HashMap();
-    data.put(SQL_PARA_KEY, sectionPara);
+    data.put(SECTION_PARA_KEY, sectionPara);
     data.put(PARA_ARRAY_KEY, paras);
     sectionPara.setSql(template.renderToString(data));
-    // data 为本方法中创建，不会污染用户数据，无需移除 SQL_PARA_KEY、PARA_ARRAY_KEY
+    // data 为本方法中创建，不会污染用户数据，无需移除 SECTION_PARA_KEY、PARA_ARRAY_KEY
     return sectionPara;
   }
 
   public java.util.Set<Map.Entry<String, Template>> getSqlMapEntrySet() {
-    return sqlTemplateMap.entrySet();
+    return sectionTemplateMap.entrySet();
   }
 
   public String toString() {

@@ -21,30 +21,30 @@ import java.util.List;
 
 /**
  * SectionPara
- * 封装查询使用的 sql 与参数，主要用于 getBlockPara(...) 返回值
+ * 封装查询使用的 sql 与参数，主要用于 getSectionPara(...) 返回值
  */
 class SectionPara {
 
   private static final Object[] EMTPY_ARRAY = new Object[0];
 
-  String sql;
+  String section;
   List<Object> paraList;
 
-  public SectionPara setSql(String sql) {
-    this.sql = sql;
+  public SectionPara setSql(String section) {
+    this.section = section;
     return this;
   }
 
   public SectionPara addPara(Object para) {
     if (paraList == null) {
-      paraList = new ArrayList<Object>();
+      paraList = new ArrayList<>();
     }
     paraList.add(para);
     return this;
   }
 
-  public String getSql() {
-    return sql;
+  public String getSection() {
+    return section;
   }
 
   public Object[] getPara() {
@@ -56,7 +56,7 @@ class SectionPara {
   }
 
   public SectionPara clear() {
-    sql = null;
+    section = null;
     if (paraList != null) {
       paraList.clear();
     }
@@ -64,6 +64,6 @@ class SectionPara {
   }
 
   public String toString() {
-    return "Sql: " + sql + "\nPara: " + paraList;
+    return "Section: " + section + "\nPara: " + paraList;
   }
 }

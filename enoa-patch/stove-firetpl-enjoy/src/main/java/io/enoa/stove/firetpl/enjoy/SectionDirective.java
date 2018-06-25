@@ -56,7 +56,7 @@ public class SectionDirective extends Directive {
   public void exec(Env env, Scope scope, Writer writer) {
     String nameSpace = (String) scope.get(NameSpaceDirective.NAME_SPACE_KEY);
     String key = StrKit.isBlank(nameSpace) ? id : nameSpace + "." + id;
-    Map<String, Template> sqlTemplateMap = (Map<String, Template>) scope.get(SectionKit.SQL_TEMPLATE_MAP_KEY);
+    Map<String, Template> sqlTemplateMap = (Map<String, Template>) scope.get(SectionKit.SECTION_TEMPLATE_MAP_KEY);
     if (sqlTemplateMap.containsKey(key)) {
       throw new ParseException("Block already exists with key : " + key, location);
     }

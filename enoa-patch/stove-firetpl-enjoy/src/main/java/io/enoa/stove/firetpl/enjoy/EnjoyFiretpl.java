@@ -27,17 +27,17 @@ import java.util.UUID;
 
 public class EnjoyFiretpl implements Firetpl {
 
-  private SectionKit esql;
+  private SectionKit section;
 
   public EnjoyFiretpl(Path basePath, String template) {
     this(basePath, template, false);
   }
 
   public EnjoyFiretpl(Path basePath, String template, boolean debug) {
-    this.esql = new SectionKit(UUID.randomUUID().toString(), debug);
-    this.esql.setBaseSqlTemplatePath(basePath.toString());
-    this.esql.addSqlTemplate(template);
-    this.esql.parseSqlTemplate();
+    this.section = new SectionKit(UUID.randomUUID().toString(), debug);
+    this.section.setBaseSectionTemplatePath(basePath.toString());
+    this.section.addSectionTemplate(template);
+    this.section.parseSectionTemplate();
   }
 
   public EnjoyFiretpl(String template) {
@@ -45,29 +45,29 @@ public class EnjoyFiretpl implements Firetpl {
   }
 
   public EnjoyFiretpl(String template, boolean debug) {
-    this.esql = new SectionKit(UUID.randomUUID().toString(), debug);
+    this.section = new SectionKit(UUID.randomUUID().toString(), debug);
     this.engine().setSourceFactory(new ClassPathSourceFactory());
-    this.esql.addSqlTemplate(template);
-    this.esql.parseSqlTemplate();
+    this.section.addSectionTemplate(template);
+    this.section.parseSectionTemplate();
   }
 
   public Engine engine() {
-    return this.esql.getEngine();
+    return this.section.getEngine();
   }
 
   @Override
   public FireBody render(String name) {
-    String sql = this.esql.getSql(name);
-    if (sql == null)
+    String section = this.section.getSection(name);
+    if (section == null)
       throw new StoveException("Template name not found => " + name);
-    return FireBody.create(sql);
+    return FireBody.create(section);
   }
 
   @Override
   public FireBody render(String name, Map<String, ?> para) {
-    SectionPara sp = this.esql.getBlockPara(name, para);
+    SectionPara sp = this.section.getSectionPara(name, para);
     if (sp == null)
       throw new StoveException("Template name not found => " + name);
-    return FireBody.create(sp.getSql(), sp.getPara());
+    return FireBody.create(sp.getSection(), sp.getPara());
   }
 }
