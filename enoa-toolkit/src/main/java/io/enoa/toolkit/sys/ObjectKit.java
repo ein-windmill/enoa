@@ -17,6 +17,7 @@ package io.enoa.toolkit.sys;
 
 import io.enoa.toolkit.text.TextKit;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Set;
@@ -51,7 +52,8 @@ public class ObjectKit {
             System.out.println(1);
             tos.append(field.getName())
               .append(": ");
-            tos.append(o);
+//            tos.append();
+            fillObjectString(tos, o);
             tos.append(", ");
           } else {
 
@@ -70,9 +72,10 @@ public class ObjectKit {
               continue;
             Object o = method.invoke(object);
             tos.append(fname)
-              .append(": ")
-              .append(o)
-              .append(", ");
+              .append(": ");
+//              .append(o)
+            fillObjectString(tos, o);
+            tos.append(", ");
           }
         }
       } catch (Exception e) {
@@ -87,6 +90,33 @@ public class ObjectKit {
     tos.insert(0, cname.substring(cname.lastIndexOf(".") + 1) + " => { ");
     tos.append(" }");
     return tos.toString();
+  }
+
+  private static void fillObjectString(StringBuilder tos, Object object) {
+    if (object == null) {
+      tos.append("null");
+      return;
+    }
+    if (!object.getClass().isArray()) {
+      tos.append(object);
+      return;
+    }
+
+    int _len = Array.getLength(object);
+    boolean _overflow = _len > 30;
+    int _max = _len > 30 ? 30 : _len;
+    StringBuilder _ars = new StringBuilder(_max * 3 + 5);
+    _ars.append('[');
+    for (int i = 0; i < _max; i++) {
+      _ars.append(Array.get(object, i));
+      if (i + 1 >= _max)
+        continue;
+      _ars.append(", ");
+    }
+    if (_overflow)
+      _ars.append(" ...");
+    _ars.append("]");
+    tos.append(_ars);
   }
 
 
