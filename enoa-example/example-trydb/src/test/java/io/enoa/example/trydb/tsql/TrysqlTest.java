@@ -1,14 +1,14 @@
 package io.enoa.example.trydb.tsql;
 
+import io.enoa.firetpl.FireBody;
+import io.enoa.firetpl.Firetpl;
+import io.enoa.stove.firetpl.enjoy.EnjoyFiretpl;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.path.PathKit;
 import io.enoa.trydb.dialect.PostgreSQLDialect;
 import io.enoa.trydb.tsql.Trysql;
 import io.enoa.trydb.tsql.generate.where.TSqlCond;
 import io.enoa.trydb.tsql.generate.where.TSqlRelation;
-import io.enoa.trydb.tsql.template.TSql;
-import io.enoa.trydb.tsql.template.TSqlTemplate;
-import io.enoa.trydb.tsql.template.enjoy.EnjoyTSqlTemplate;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -78,9 +78,9 @@ public class TrysqlTest {
 
   @Test
   public void template() {
-    TSqlTemplate template = new EnjoyTSqlTemplate(PathKit.debugPath().resolve("src/test/resources/sqls"), "template.sql", true);
-    TSql sql = template.render("Binary.list", Kv.by("id", 2345678945678L));
-    System.out.println(sql);
+    Firetpl template = new EnjoyFiretpl(PathKit.debugPath().resolve("src/test/resources/sqls"), "template.sql", true);
+    FireBody body = template.render("Binary.list", Kv.by("id", 2345678945678L));
+    System.out.println(body);
   }
 
 }
