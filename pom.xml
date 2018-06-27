@@ -6,7 +6,7 @@
 
   <groupId>io.enoa</groupId>
   <artifactId>enoa</artifactId>
-  <version>1.5-beta.4</version>
+  <version>1.5-beta.5</version>
   <packaging>pom</packaging>
 
   <description>

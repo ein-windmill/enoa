@@ -21,6 +21,7 @@ import io.enoa.json.provider.enoa.EoJsonProvider;
 import io.enoa.json.provider.fastjson.FastjsonProvider;
 import io.enoa.json.provider.gson.GsonProvider;
 import io.enoa.json.provider.jackson.JacksonProvider;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.sql.Timestamp;
@@ -31,6 +32,7 @@ import java.util.*;
 /**
  * Created by ein on 2017/8/20.
  */
+@Ignore
 public class JsonTest {
 
 
