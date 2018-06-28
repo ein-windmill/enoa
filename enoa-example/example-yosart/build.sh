@@ -3,5 +3,5 @@
 #
 #
 
-docker build --rm -t yosart:1.5-beta.5 -f src/main/docker/Dockerfile .
+docker build --rm -t yosart:1.5-beta.6 -f src/main/docker/Dockerfile .
 
