@@ -66,9 +66,10 @@
     <module>enoa-patch</module>
     <module>enoa-promise</module>
     <module>enoa-stove</module>
-    <module>enoa-eson</module>
     <module>enoa-rpc</module>
     <module>enoa-index</module>
+    <module>enoa-tryjson</module>
+    <module>enoa-typebuilder</module>
   </modules>
 
 
@@ -366,13 +367,13 @@
         <version>${project.version}</version>
       </dependency>
 
-<!--
-      <dependency>
-        <groupId>io.enoa</groupId>
-        <artifactId>trydb-ttsql-enjoy</artifactId>
-        <version>${project.version}</version>
-      </dependency>
--->
+      <!--
+            <dependency>
+              <groupId>io.enoa</groupId>
+              <artifactId>trydb-ttsql-enjoy</artifactId>
+              <version>${project.version}</version>
+            </dependency>
+      -->
 
       <dependency>
         <groupId>io.enoa</groupId>
@@ -515,6 +516,12 @@
       <dependency>
         <groupId>io.enoa</groupId>
         <artifactId>index-solr</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-typebuilder</artifactId>
         <version>${project.version}</version>
       </dependency>
 

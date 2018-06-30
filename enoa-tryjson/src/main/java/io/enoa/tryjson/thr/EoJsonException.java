@@ -13,35 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.eson;
+package io.enoa.tryjson.thr;
 
-import io.enoa.eson.json.Ja;
-import io.enoa.eson.json.Jo;
+import io.enoa.toolkit.thr.EoException;
 
-import java.util.List;
-
-public interface Eson {
-
-  static String json(Object object) {
-    return null;
+public class EoJsonException extends EoException {
+  public EoJsonException() {
+    super();
   }
 
-  static Ja array(String json) {
-
-    return null;
+  public EoJsonException(String message, Object... format) {
+    super(message, format);
   }
 
-  static <T> List<T> array(String json, Class<T> clazz) {
-
-    return null;
+  public EoJsonException(String message, Throwable cause, Object... format) {
+    super(message, cause, format);
   }
 
-  static Jo object(String json) {
-    return null;
+  public EoJsonException(Throwable cause) {
+    super(cause);
   }
 
-  static <T> T object(String json, Class<T> clazz) {
-    return null;
+  public EoJsonException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, Object... format) {
+    super(message, cause, enableSuppression, writableStackTrace, format);
   }
-
 }

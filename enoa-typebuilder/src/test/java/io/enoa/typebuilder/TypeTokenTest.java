@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright 2016 ikidou
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,27 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.eson.json;
 
-import io.enoa.eson.Eson;
-import io.enoa.toolkit.map.FastKv;
+package io.enoa.typebuilder;
 
-import java.util.Map;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class Jo extends _Jo implements FastKv<Jo> {
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
-  public Jo() {
+public class TypeTokenTest {
+  @Test
+  public void testClass() {
+    Type type = new TypeToken<String>() {
+    }.getType();
+    Assert.assertEquals(type, String.class);
   }
 
-  public Jo(Map<String, Object> map) {
-    super(map);
+  @Test
+  public void testParameterizedType() {
+    Type type = new TypeToken<ArrayList<String>>() {
+    }.getType();
+
+    Type type1 = new ArrayList<String>() {
+    }.getClass().getGenericSuperclass();
+
+    Assert.assertEquals(type, type1);
   }
-
-
-  @Override
-  public String json() {
-    return Eson.json(this);
-  }
-
-
 }

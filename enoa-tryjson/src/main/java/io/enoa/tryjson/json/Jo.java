@@ -13,28 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.eson.thr;
+package io.enoa.tryjson.json;
 
-import io.enoa.toolkit.thr.EoException;
 
-public class EoJsonException extends EoException {
-  public EoJsonException() {
-    super();
+import io.enoa.toolkit.map.FastKv;
+import io.enoa.tryjson.Tryjson;
+
+import java.util.Map;
+
+public class Jo extends _Jo implements FastKv<Jo> {
+
+  public Jo() {
   }
 
-  public EoJsonException(String message, Object... format) {
-    super(message, format);
+  public Jo(Map<String, Object> map) {
+    super(map);
   }
 
-  public EoJsonException(String message, Throwable cause, Object... format) {
-    super(message, cause, format);
+
+  @Override
+  public String json() {
+    return Tryjson.json(this);
   }
 
-  public EoJsonException(Throwable cause) {
-    super(cause);
-  }
 
-  public EoJsonException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, Object... format) {
-    super(message, cause, enableSuppression, writableStackTrace, format);
-  }
 }

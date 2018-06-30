@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.eson.json;
+package io.enoa.tryjson.json;
 
-import io.enoa.eson.Eson;
+
+import io.enoa.tryjson.Tryjson;
 
 import java.util.Collection;
 
@@ -30,7 +31,7 @@ public class Ja<E> extends _Ja<E> {
 
   @Override
   public String json() {
-    return Eson.json(this);
+    return Tryjson.json(this);
   }
 
 

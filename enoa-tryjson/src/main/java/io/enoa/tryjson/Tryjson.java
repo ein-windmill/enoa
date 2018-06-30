@@ -13,10 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.eson.json;
+package io.enoa.tryjson;
 
-interface _Json {
 
-  String json();
+import io.enoa.tryjson.json.Ja;
+import io.enoa.tryjson.json.Jo;
+
+import java.util.List;
+
+public interface Tryjson {
+
+  static String json(Object object) {
+    return null;
+  }
+
+  static Ja array(String json) {
+
+    return null;
+  }
+
+  static <T> List<T> array(String json, Class<T> clazz) {
+
+    return null;
+  }
+
+  static Jo object(String json) {
+    return null;
+  }
+
+  static <T> T object(String json, Class<T> clazz) {
+    return null;
+  }
 
 }
