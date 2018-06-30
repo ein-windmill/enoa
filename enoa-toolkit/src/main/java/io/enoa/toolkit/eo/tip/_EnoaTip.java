@@ -17,11 +17,10 @@ package io.enoa.toolkit.eo.tip;
 
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.prop.Prop;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.sys.OSKit;
+import io.enoa.toolkit.text.TextKit;
 
 import java.io.Serializable;
-import java.text.MessageFormat;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
@@ -63,7 +62,7 @@ class _EnoaTip implements Serializable {
     if (CollectionKit.isEmpty(args))
       return text;
     Object[] fags = Stream.of(args).map(o -> o == null ? null : o.toString()).toArray(Object[]::new);
-    return MessageFormat.format(text, fags);
+    return TextKit.format(text, fags);
   }
 
   String message(String key, Object... args) {

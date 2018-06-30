@@ -15,7 +15,7 @@
  */
 package io.enoa.toolkit.image;
 
-import io.enoa.toolkit.digest.Base64Kit;
+import io.enoa.toolkit.digest.base.BaseKit;
 import io.enoa.toolkit.file.FileKit;
 
 import javax.imageio.ImageIO;
@@ -78,7 +78,7 @@ public class ImageKit {
     String type = FileKit.extension(path).toLowerCase();
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
     ImageIO.write(bi, type, baos);
-    return Base64Kit.encode(baos.toByteArray());
+    return BaseKit.ebase64(baos.toByteArray());
   }
 
 }

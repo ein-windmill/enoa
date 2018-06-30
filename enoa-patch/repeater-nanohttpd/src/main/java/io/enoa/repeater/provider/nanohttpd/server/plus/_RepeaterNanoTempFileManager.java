@@ -16,7 +16,7 @@
 package io.enoa.repeater.provider.nanohttpd.server.plus;
 
 import fi.iki.elonen.NanoHTTPD;
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import io.enoa.repeater.EoxConfig;
 import io.enoa.toolkit.thr.EoException;
 
@@ -55,7 +55,7 @@ public class _RepeaterNanoTempFileManager implements NanoHTTPD.TempFileManager {
       try {
         file.delete();
       } catch (Exception ignored) {
-        LogKit.warn("could not delete file ", ignored);
+        Log.warn("could not delete file ", ignored);
       }
     }
     this.tempFiles.clear();

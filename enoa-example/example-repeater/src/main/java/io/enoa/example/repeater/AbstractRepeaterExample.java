@@ -40,7 +40,7 @@ abstract class AbstractRepeaterExample {
       .infoUseLog(false)
       .context("/example")
 //      .tmp(Paths.get(PathKit.path(), "tmp"))
-      .tmp(PathKit.bootPath().resolve("tmp"))
+      .tmp(PathKit.debugPath().resolve("tmp"))
       .build();
   }
 

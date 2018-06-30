@@ -15,7 +15,11 @@
  */
 package io.enoa.toolkit.digest;
 
+import io.enoa.toolkit.EoConst;
+
+import java.nio.charset.Charset;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public final class DigestKit {
 
@@ -56,20 +60,31 @@ public final class DigestKit {
   }
 
   public static String hash(String algorithm, String text) {
+    return hash(algorithm, text, EoConst.CHARSET);
+  }
+
+  public static String hash(String algorithm, String text, Charset charset) {
+    return hash(algorithm, text.getBytes(charset));
+  }
+
+  public static String hash(String algorithm, byte[] binary) {
+    byte[] bytes = digest(algorithm).digest(binary);
+    return hex(bytes);
+  }
+
+  public static MessageDigest digest(String algorithm) {
     try {
-      MessageDigest md = MessageDigest.getInstance(algorithm);
-      byte[] bytes = md.digest(text.getBytes("utf-8"));
-      return toHex(bytes);
-    } catch (Exception e) {
-      throw new RuntimeException(e);
+      return MessageDigest.getInstance(algorithm.toUpperCase());
+    } catch (NoSuchAlgorithmException e) {
+      throw new RuntimeException(e.getMessage(), e);
     }
   }
 
-  public static String toHex(byte[] bytes) {
+  public static String hex(byte[] bytes) {
     StringBuilder ret = new StringBuilder(bytes.length * 2);
-    for (int i = 0; i < bytes.length; i++) {
-      ret.append(HEX_DIGITS[(bytes[i] >> 4) & 0x0f]);
-      ret.append(HEX_DIGITS[bytes[i] & 0x0f]);
+    for (byte b : bytes) {
+      ret.append(HEX_DIGITS[(b >> 4) & 0x0f]);
+      ret.append(HEX_DIGITS[b & 0x0f]);
     }
     return ret.toString();
   }
@@ -81,7 +96,7 @@ public final class DigestKit {
    * sha384 384bit 48bytes
    * sha512 512bit 64bytes
    */
-  public static String generateSalt(int saltLength) {
+  public static String salt(int saltLength) {
     StringBuilder salt = new StringBuilder(saltLength);
     for (int i = 0; i < saltLength; i++) {
       salt.append(CHAR_ARRAY[random.nextInt(CHAR_ARRAY.length)]);
@@ -89,12 +104,12 @@ public final class DigestKit {
     return salt.toString();
   }
 
-  public static String generateSaltForSha256() {
-    return generateSalt(32);
+  public static String saltSha256() {
+    return salt(32);
   }
 
-  public static String generateSaltForSha512() {
-    return generateSalt(64);
+  public static String saltSha512() {
+    return salt(64);
   }
 
   public static boolean slowEquals(byte[] a, byte[] b) {

@@ -15,14 +15,17 @@
  */
 package io.enoa.trydb;
 
+import io.enoa.trydb.async.ElegantEnqueueTrydb;
+import io.enoa.trydb.async.TAsyncSupport;
 import io.enoa.trydb.dialect.IDialect;
+import io.enoa.trydb.page.Page;
 import io.enoa.trydb.tsql.Trysql;
+import io.enoa.trydb.tsql.psql.IPSql;
 
 import java.sql.Connection;
 import java.util.List;
 
-//@SuppressWarnings("unchecked")
-public class ElegantTrydb {
+public class ElegantTrydb implements TAsyncSupport<ElegantEnqueueTrydb> {
 
   private Class clazz;
   private EnoaTrydb trydb;
@@ -81,4 +84,42 @@ public class ElegantTrydb {
   public <T> T bean(Trysql sql, Object... paras) {
     return this.trydb.bean(sql, (Class<T>) this.clazz, paras);
   }
+
+  public <T> Page<T> page(int pn, int ps, String sql) {
+    return this.trydb.page(pn, ps, sql, (Class<T>) this.clazz);
+  }
+
+  public <T> Page<T> page(int pn, int ps, String sql, Object... paras) {
+    return this.trydb.page(pn, ps, sql, (Class<T>) this.clazz, paras);
+  }
+
+  public <T> Page<T> page(int pn, int ps, Trysql sql) {
+    return this.trydb.page(pn, ps, sql, (Class<T>) this.clazz);
+  }
+
+  public <T> Page<T> page(int pn, int ps, Trysql sql, Object... paras) {
+    return this.trydb.page(pn, ps, sql, (Class<T>) this.clazz, paras);
+  }
+
+  public <T> Page<T> page(IPSql ipsql, int pn, int ps, String sql) {
+    return this.trydb.page(ipsql, pn, ps, sql, (Class<T>) this.clazz);
+  }
+
+  public <T> Page<T> page(IPSql ipsql, int pn, int ps, String sql, Object... paras) {
+    return this.trydb.page(ipsql, pn, ps, sql, (Class<T>) this.clazz, paras);
+  }
+
+  public <T> Page<T> page(IPSql ipsql, int pn, int ps, Trysql sql) {
+    return this.trydb.page(ipsql, pn, ps, sql, (Class<T>) this.clazz);
+  }
+
+  public <T> Page<T> page(IPSql ipsql, int pn, int ps, Trysql sql, Object... paras) {
+    return this.trydb.page(ipsql, pn, ps, sql, (Class<T>) this.clazz, paras);
+  }
+
+  @Override
+  public ElegantEnqueueTrydb async() {
+    return new ElegantEnqueueTrydb(this);
+  }
+
 }

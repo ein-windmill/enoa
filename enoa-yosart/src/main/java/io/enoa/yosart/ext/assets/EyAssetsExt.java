@@ -15,7 +15,7 @@
  */
 package io.enoa.yosart.ext.assets;
 
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import io.enoa.repeater.http.HttpStatus;
 import io.enoa.repeater.http.Request;
 import io.enoa.repeater.http.Response;
@@ -94,7 +94,7 @@ public class EyAssetsExt implements YmAssetsExt {
 
       return renderer.renderError(HttpStatus.NOT_FOUND).end();
     } catch (Exception e) {
-      LogKit.error(e.getMessage(), e);
+      Log.error(e.getMessage(), e);
       return renderer.renderError(HttpStatus.INTERNAL_ERROR, e).end();
     }
   }
@@ -118,7 +118,7 @@ public class EyAssetsExt implements YmAssetsExt {
   }
 
   private Response renderFile(String action, Request request, Path path) throws IOException {
-    LogKit.debug(this.chooseContentType(path));
+    Log.debug(this.chooseContentType(path));
     return Renderer.with(request).renderFile(path, path.getFileName().toString(), this.chooseContentType(path)).end();
   }
 

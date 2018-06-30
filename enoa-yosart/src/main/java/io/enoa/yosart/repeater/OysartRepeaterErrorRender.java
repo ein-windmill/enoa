@@ -15,7 +15,7 @@
  */
 package io.enoa.yosart.repeater;
 
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import io.enoa.repeater.factory.error.EoxErrorRenderFactory;
 import io.enoa.repeater.http.HttpStatus;
 import io.enoa.repeater.http.Response;
@@ -36,7 +36,7 @@ public class OysartRepeaterErrorRender implements EoxErrorRenderFactory {
 
     Throwable e = ThrowableKit.accurate(ex);
     renderer.renderError(stat, e);
-    LogKit.error(e.getMessage(), e);
+    Log.error(e.getMessage(), e);
     return renderer.end();
   }
 }

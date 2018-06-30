@@ -15,10 +15,10 @@
  */
 package io.enoa.yosart.plugin.db;
 
-import io.enoa.db.EnoaDbMgr;
+import io.enoa.db.EPMDb;
 import io.enoa.db.EoDbConfig;
 import io.enoa.db.EoDbFactory;
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import io.enoa.yosart.YoPlugin;
 import io.enoa.yosart.thr.OyPluginException;
 
@@ -50,17 +50,17 @@ public class DbPlugin implements YoPlugin {
   @Override
   public boolean start() throws OyPluginException {
     try {
-      EnoaDbMgr.instance().start(this.db, this.config);
+      EPMDb.install(this.db, this.config);
       return true;
     } catch (Exception e) {
-      LogKit.error(e.getMessage(), e);
+      Log.error(e.getMessage(), e);
       return false;
     }
   }
 
   @Override
   public boolean stop() throws OyPluginException {
-    EnoaDbMgr.instance().stop(this.config);
+    EPMDb.uninstall(this.config);
     return true;
   }
 }

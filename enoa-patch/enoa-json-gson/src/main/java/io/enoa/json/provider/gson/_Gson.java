@@ -21,46 +21,78 @@ import io.enoa.json.EnoaJson;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * enoa - io.enoa.json.provider.gson
  */
 class _Gson extends EnoaJson {
 
-  private static Map<String, Gson> CACHE = new ConcurrentHashMap<>();
-  private Gson gson = new Gson();
+//  private Gson gson;
+
+  private Map<String, Gson> CACHE = new HashMap<>();
+
+  private static class Holder {
+    private static final EnoaJson INSTANCE = new _Gson();
+  }
+
+  static EnoaJson instance() {
+    return Holder.INSTANCE;
+  }
+
+  private _Gson() {
+
+  }
+
+  private Gson gson(String datePattern) {
+    Gson _gson = CACHE.get(datePattern == null ? "def" : datePattern);
+    if (_gson != null)
+      return _gson;
+
+    if (datePattern == null) {
+      _gson = new Gson();
+      CACHE.put("def", _gson);
+      return _gson;
+    }
+    _gson = new GsonBuilder().setDateFormat(datePattern).create();
+    CACHE.put(datePattern, _gson);
+    return _gson;
+  }
+
+  private Gson gson() {
+    return this.gson(null);
+  }
+
+//  @Override
+//  public Object origin() {
+//    return this.gson();
+//  }
 
   @Override
   public String toJson(Object object) {
-    String dp = datePattern != null ? datePattern : defaultDatePattern();
-    Gson gson = this.gson;
-    if (dp != null) {
-      String key = dp.replaceAll(" ", "");
-      if (CACHE.get(key) == null) {
-        gson = new GsonBuilder().setDateFormat(dp).create();
-      } else {
-        gson = CACHE.get(key);
-      }
-    }
-    return gson.toJson(object);
+    return this.gson().toJson(object);
+  }
+
+  @Override
+  public String toJson(Object object, String datePattern) {
+    return this.gson(datePattern).toJson(object);
   }
 
   @Override
   public <T> T parse(String json, Class<T> type) {
-    return this.gson.fromJson(json, type);
+    return this.gson().fromJson(json, type);
   }
 
   @Override
   public <T> T parse(String json, Type type) {
-    return this.gson.fromJson(json, type);
+    return this.gson().fromJson(json, type);
   }
 
   @Override
   public <T> List<T> parseArray(String json, Class<T> type) {
-    return this.gson.fromJson(json, new _ParameterizedTypeImpl(List.class, new Class[]{type}));
+    return this.gson().fromJson(json, new _ParameterizedTypeImpl(List.class, new Class[]{type}));
   }
 
   /**
@@ -72,7 +104,7 @@ class _Gson extends EnoaJson {
     private final Class raw;
     private final Type[] args;
 
-    public _ParameterizedTypeImpl(Class raw, Type[] args) {
+    private _ParameterizedTypeImpl(Class raw, Type[] args) {
       this.raw = raw;
       this.args = args != null ? args : new Type[0];
     }

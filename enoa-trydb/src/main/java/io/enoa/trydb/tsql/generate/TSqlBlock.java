@@ -18,7 +18,7 @@ package io.enoa.trydb.tsql.generate;
 import io.enoa.trydb.dialect.IDialect;
 import io.enoa.trydb.tsql.Trysql;
 
-public interface TSqlBlock<T extends Trysql> {
+interface TSqlBlock<T extends Trysql> {
 
 
   /**

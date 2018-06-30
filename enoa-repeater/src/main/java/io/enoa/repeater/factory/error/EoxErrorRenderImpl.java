@@ -15,7 +15,7 @@
  */
 package io.enoa.repeater.factory.error;
 
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import io.enoa.repeater.Repeater;
 import io.enoa.repeater.http.HttpStatus;
 import io.enoa.repeater.http.Response;
@@ -37,7 +37,7 @@ class EoxErrorRenderImpl implements EoxErrorRenderFactory {
   public Response renderError(HttpStatus stat, Throwable e) {
     // 默认错误渲染不进行 throwable 优化处理
     if (e != null)
-      LogKit.error(e.getMessage(), e);
+      Log.error(e.getMessage(), e);
     return new Response.Builder()
       .status(stat)
       .contentType("text/html")

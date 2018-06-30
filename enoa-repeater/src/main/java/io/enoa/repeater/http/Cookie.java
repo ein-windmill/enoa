@@ -221,10 +221,17 @@ public class Cookie {
     result.append(value);
 
     if (persistent) {
-      if (expires == Long.MIN_VALUE) {
+      long now = System.currentTimeMillis();
+      if (this.expires == Long.MIN_VALUE) {
         result.append("; max-age=0");
       } else {
-        result.append("; expires=").append(HttpDate.format(new Date(expires)));
+        long expires = now + this.expires;
+
+        if (expires < 0) {
+          result.append("; max-age=0");
+        } else {
+          result.append("; expires=").append(HttpDate.format(new Date(expires)));
+        }
       }
     }
 

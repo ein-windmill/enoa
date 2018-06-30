@@ -52,8 +52,7 @@ public class TSqlWhere<T extends Trysql> implements TSqlBlock<T> {
 
   @Override
   public T dialect(IDialect dialect) {
-    if (this.dialect == null)
-      this.dialect = dialect;
+    this.dialect = dialect;
     return (T) this.origin;
   }
 

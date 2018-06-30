@@ -19,7 +19,8 @@ import io.enoa.http.protocol.HttpHeader;
 import io.enoa.http.protocol.HttpMethod;
 import io.enoa.http.protocol.HttpPara;
 import io.enoa.http.protocol.HttpPromise;
-import io.enoa.http.provider.httphelper.HttpHelperProvider;
+import io.enoa.http.protocol.enoa.IHttpHandler;
+import io.enoa.http.protocol.enoa.IHttpReporter;
 import io.enoa.http.proxy.HttpProxy;
 import io.enoa.http.proxy.TcpProxy;
 
@@ -34,8 +35,12 @@ public interface Http extends EoEmit {
     return http.http();
   }
 
+  static Http use() {
+    return use(EoHttp.def());
+  }
+
   static Http request() {
-    return use(HttpHelperProvider.instance());
+    return use();
   }
 
   static Http request(String url) {
@@ -58,6 +63,10 @@ public interface Http extends EoEmit {
 
   HttpPromise enqueue();
 
+  Http handler(IHttpHandler handler);
+
+  Http reporter(IHttpReporter reporter);
+
   Http method(HttpMethod method);
 
   Http config(EoHttpConfig config);
@@ -78,7 +87,11 @@ public interface Http extends EoEmit {
 
   Http traditional(boolean traditional);
 
-  Http encode();
+  default Http encode() {
+    return this.encode(true);
+  }
+
+  Http encode(boolean encode);
 
   Http para(String name, Object value);
 

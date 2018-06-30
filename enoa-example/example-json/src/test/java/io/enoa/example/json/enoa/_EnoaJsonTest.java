@@ -15,6 +15,7 @@
  */
 package io.enoa.example.json.enoa;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Locale;
@@ -22,6 +23,7 @@ import java.util.Locale;
 /**
  * Created by ein on 2017/8/20.
  */
+@Ignore
 public class _EnoaJsonTest {
 
 

@@ -15,7 +15,7 @@
  */
 package io.enoa.yosart.plugin.json.ext;
 
-import io.enoa.json.kit.JsonKit;
+import io.enoa.json.Json;
 import io.enoa.repeater.http.Header;
 import io.enoa.repeater.http.HttpStatus;
 import io.enoa.repeater.http.Request;
@@ -58,7 +58,7 @@ class JsonRender implements YoRender {
   public ResponseBody render() {
     if (this.object instanceof String)
       return ResponseBody.create((String) this.object, this.charset);
-    return ResponseBody.create(JsonKit.toJson(this.object), this.charset);
+    return ResponseBody.create(Json.toJson(this.object), this.charset);
   }
 
 }

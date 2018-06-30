@@ -1,5 +1,11 @@
 # CHANGESUMMARY
 
+## base62
+
+### io.enoa.toolkit.digest.base.Base62
+
+> https://github.com/seruco/base62
+
 ## Beetl
 
 ### io.enoa.toolkit.number.NumberKit
@@ -28,11 +34,10 @@
 
 > com.jfinal.kit.StrKit
 
-- add lower
-- add upper
-- add pad
-- add lpad
-- add rpad
+- use isBlank
+- use notBlank
+- use firstToLower
+- use firstToUpper
 
 ### io.enoa.toolkit.prop.Prop
 
@@ -69,6 +74,16 @@
 
 ### io.enoa.db.provider.ds.druid._Druid
 
+### sqlkit
+
+> io.enoa.stove.firetpl.enjoy => com.jfinal.plugin.activerecord.sql
+
+- NameSpaceDirective
+- ParaDirective
+- SqlDirective -> SectionDirective
+- SqlKit -> SectionKit
+- SqlPara -> SectionPara
+- SqlSource -> SectionSource
 
 
 ## OkHttp

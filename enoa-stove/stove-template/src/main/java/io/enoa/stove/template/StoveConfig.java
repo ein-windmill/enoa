@@ -28,6 +28,7 @@ public class StoveConfig {
   //  private final String tokenBlockStart;
 //  private final String tokenBlockEnd;
   private final String tokenPipeline;
+  private final String tokenCommend;
 
 
   private StoveConfig(Builder builder) {
@@ -40,6 +41,7 @@ public class StoveConfig {
 //    this.tokenBlockEnd = builder.tokenBlockEnd;
     this.tokenPipeline = builder.tokenPipeline;
     this.tokenBlock = builder.tokenBlock;
+    this.tokenCommend = builder.tokenCommend;
   }
 
 
@@ -71,6 +73,10 @@ public class StoveConfig {
     return this.tokenBlock;
   }
 
+  public String tokenCommend() {
+    return this.tokenCommend;
+  }
+
 //  public String tokenBlockStart() {
 //    return tokenBlockStart;
 //  }
@@ -90,6 +96,7 @@ public class StoveConfig {
     //    private String tokenBlockStart;
 //    private String tokenBlockEnd;
     private String tokenPipeline;
+    private String tokenCommend;
 
     public Builder() {
       this.debug = Boolean.TRUE;
@@ -99,6 +106,7 @@ public class StoveConfig {
 //      this.tokenBlockStart = "#";
 //      this.tokenBlockEnd = null;
       this.tokenPipeline = "|";
+      this.tokenCommend = "##";
     }
 
     public StoveConfig build() {

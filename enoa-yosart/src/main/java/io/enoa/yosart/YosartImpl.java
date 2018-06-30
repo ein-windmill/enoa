@@ -44,7 +44,8 @@ class YosartImpl extends YasartImpl {
   private YdAssets assets;
   private YoConfig config;
   private List<YdRouterInfo> routerRegisters;
-  private List<YoBefore> befores;
+  private List<YoCut> befores;
+  private List<YoCut> afters;
 
   YosartImpl() {
     this.name = "Yosart";
@@ -57,7 +58,7 @@ class YosartImpl extends YasartImpl {
   private void init() {
 
     if (this.befores != null) {
-      this.befores.forEach(YoBefore::execute);
+      this.befores.forEach(YoCut::execute);
     }
 
     /*
@@ -108,6 +109,11 @@ class YosartImpl extends YasartImpl {
     }
 
     Oysartd.yo(builder);
+
+
+    if (this.afters != null)
+      this.afters.forEach(YoCut::execute);
+
   }
 
   @Override
@@ -128,10 +134,18 @@ class YosartImpl extends YasartImpl {
   }
 
   @Override
-  public Yosart before(YoBefore before) {
+  public Yosart before(YoCut before) {
     if (this.befores == null)
       this.befores = new ArrayList<>();
     this.befores.add(before);
+    return this;
+  }
+
+  @Override
+  public Yosart after(YoCut after) {
+    if (this.afters == null)
+      this.afters = new ArrayList<>();
+    this.afters.add(after);
     return this;
   }
 

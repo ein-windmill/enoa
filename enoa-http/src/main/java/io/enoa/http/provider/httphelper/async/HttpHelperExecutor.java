@@ -19,39 +19,33 @@ import io.enoa.http.EoEmit;
 import io.enoa.http.EoExecutor;
 import io.enoa.http.EoUrl;
 import io.enoa.http.protocol.HttpPromise;
+import io.enoa.promise.builder.PromiseBuilder;
 
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
 
 public class HttpHelperExecutor implements EoExecutor {
 
-  private static final HttpHelperExecutor instance = new HttpHelperExecutor();
+  private static class Holder {
+    private static final HttpHelperExecutor INSTANCE = new HttpHelperExecutor();
+  }
 
   public static HttpHelperExecutor instance() {
-    return instance;
+    return Holder.INSTANCE;
   }
 
   private ExecutorService executorService;
 
-  private static ThreadFactory threadFactory(final String name, final boolean daemon) {
-    return runnable -> {
-      Thread result = new Thread(runnable, name);
-      result.setDaemon(daemon);
-      return result;
-    };
-  }
-
   private ExecutorService executorService() {
     if (executorService == null) {
-      executorService = new ThreadPoolExecutor(0, Integer.MAX_VALUE, 60, TimeUnit.SECONDS,
-        new SynchronousQueue<>(), threadFactory("HttpHelper Dispatcher", false));
+      executorService = PromiseBuilder.executor().enqueue("HttpHelper Dispatcher", false);
     }
     return executorService;
   }
 
   @Override
   public HttpPromise enqueue(EoUrl url, EoEmit emit) {
-    HttpHelperPromise promise = new HttpHelperPromise();
-    this.executorService().execute(new HttpHelperAsync(url, emit, promise));
-    return promise;
+    HttpHelperPromiseBuilder hpb = new HttpHelperPromiseBuilder();
+    this.executorService().execute(new HttpHelperAsync(url, emit, hpb));
+    return hpb.build();
   }
 }

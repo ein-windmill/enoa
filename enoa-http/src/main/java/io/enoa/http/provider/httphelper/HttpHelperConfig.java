@@ -21,11 +21,13 @@ public class HttpHelperConfig implements EoHttpConfig {
 
   private final int connectionTimeout;
   private final int soTimeout;
+  private final boolean debug;
 
 
   private HttpHelperConfig(Builder builder) {
     this.connectionTimeout = builder.connectionTimeout;
     this.soTimeout = builder.soTimeout;
+    this.debug = builder.debug;
   }
 
   public HttpHelperConfig(EoHttpConfig config) {
@@ -42,14 +44,21 @@ public class HttpHelperConfig implements EoHttpConfig {
     return this.soTimeout;
   }
 
+  @Override
+  public boolean debug() {
+    return this.debug;
+  }
+
   public static class Builder {
     private int connectionTimeout;
     private int soTimeout;
+    private boolean debug;
 
 
     public Builder() {
       this.connectionTimeout = 20000;
       this.soTimeout = 30000;
+      this.debug = Boolean.FALSE;
     }
 
     private Builder(EoHttpConfig config) {
@@ -69,6 +78,15 @@ public class HttpHelperConfig implements EoHttpConfig {
 
     public Builder soTimeout(int soTimeout) {
       this.soTimeout = soTimeout;
+      return this;
+    }
+
+    public Builder debug() {
+      return this.debug(Boolean.TRUE);
+    }
+
+    public Builder debug(boolean debug) {
+      this.debug = debug;
       return this;
     }
 

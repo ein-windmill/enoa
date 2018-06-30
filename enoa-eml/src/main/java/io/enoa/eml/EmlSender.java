@@ -15,10 +15,10 @@
  */
 package io.enoa.eml;
 
-import io.enoa.eml.api.SenderHandler;
+import io.enoa.eml.api.ISenderReporter;
 import io.enoa.eml.entity.Attachment;
 import io.enoa.eml.entity.MailPerson;
-import io.enoa.eml.api.promise.SendPromise;
+import io.enoa.promise.DonePromise;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 
 import java.nio.charset.Charset;
@@ -229,9 +229,9 @@ public interface EmlSender {
     return this;
   }
 
-  EmlSender handler(SenderHandler handler);
+  EmlSender reporter(ISenderReporter reporter);
 
   void emit();
 
-  SendPromise enqueue();
+  DonePromise enqueue();
 }

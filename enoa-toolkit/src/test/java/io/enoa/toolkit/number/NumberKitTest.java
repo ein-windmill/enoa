@@ -31,7 +31,7 @@ public class NumberKitTest {
     System.out.println(c1);
     Integer c2 = NumberKit.integer(bd0);
     System.out.println(c2);
-    Long c3 = NumberKit.longx(bd0);
+    Long c3 = NumberKit.longer(bd0);
     System.out.println(c3);
     BigDecimal c4 = NumberKit.bigdecimal(310.19304);
     System.out.println(c4);

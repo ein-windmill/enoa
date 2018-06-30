@@ -22,8 +22,9 @@ import io.enoa.toolkit.map.OKv;
 import io.enoa.toolkit.namecase.INameCase;
 import io.enoa.toolkit.namecase.NamecaseKit;
 import io.enoa.toolkit.namecase.NamecaseType;
-import io.enoa.toolkit.text.TextKit;
+import io.enoa.toolkit.number.NumberKit;
 import io.enoa.toolkit.sys.ReflectKit;
+import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thr.EoException;
 
 import java.beans.BeanInfo;
@@ -182,19 +183,28 @@ public class BeanKit {
     Method[] methods = clazz.getMethods();
     for (Method method : methods) {
       String name = method.getName();
-      // todo 支持与变量同名方法, 无需 set
-      if (!name.startsWith("set"))
-        continue;
-      name = TextKit.firstToLower(name.substring(3));
       Object val = map.get(name);
       if (val == null) {
-        name = namecase.convert(name);
-        val = map.get(name);
-        if (val == null)
+        if (!name.startsWith("set"))
           continue;
+        name = TextKit.firstToLower(name.substring(3));
+        val = map.get(name);
+        if (val == null) {
+          val = map.get(namecase.convert(name));
+          if (val == null)
+            continue;
+        }
       }
+
       try {
-        method.invoke(ret, val);
+        if (val instanceof Number) {
+          Class<?>[] pts = method.getParameterTypes();
+          if (CollectionKit.isEmpty(pts))
+            throw new IllegalArgumentException("NOT FOUND ARGUMENTS");
+          method.invoke(ret, NumberKit.to((Number) val, pts[0]));
+        } else {
+          method.invoke(ret, val);
+        }
       } catch (IllegalArgumentException e) {
         if (skipError) {
           continue;

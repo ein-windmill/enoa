@@ -26,8 +26,8 @@ import io.enoa.repeater.kit.http.EnoaHttpKit;
 import io.enoa.repeater.provider.netty.server.plus._RepeaterNettyRequest;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.convert.ConvertKit;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.stream.StreamKit;
+import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thr.EoException;
 import io.netty.buffer.ByteBufInputStream;
 import io.netty.handler.codec.http.HttpHeaders;
@@ -147,7 +147,7 @@ class NettyCosRequestWrapper extends EoxAbstractCosRequest {
   @Override
   public Long cookieToLong(String name, Long def) {
     String cookie = this.cookie(name);
-    return ConvertKit.longx(cookie, def);
+    return ConvertKit.longer(cookie, def);
   }
 
   @Override
@@ -181,7 +181,7 @@ class NettyCosRequestWrapper extends EoxAbstractCosRequest {
 
   @Override
   public Long paraToLong(String name, Long def) {
-    return ConvertKit.longx(this.para(name), def);
+    return ConvertKit.longer(this.para(name), def);
   }
 
   @Override
@@ -191,7 +191,7 @@ class NettyCosRequestWrapper extends EoxAbstractCosRequest {
 
   @Override
   public Double paraToDouble(String name, Double def) {
-    return ConvertKit.doublex(this.para(name), def);
+    return ConvertKit.doubler(this.para(name), def);
   }
 
   @Override
@@ -274,7 +274,7 @@ class NettyCosRequestWrapper extends EoxAbstractCosRequest {
     String[] vals = this.paraValues(name);
     Long[] rets = new Long[vals.length];
     for (int i = 0; i < vals.length; i++) {
-      rets[i] = ConvertKit.longx(vals[i]);
+      rets[i] = ConvertKit.longer(vals[i]);
     }
     return rets;
   }

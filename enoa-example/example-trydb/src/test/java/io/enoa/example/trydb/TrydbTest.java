@@ -16,63 +16,71 @@
 package io.enoa.example.trydb;
 
 import io.enoa.example.trydb.entity.EBinary;
-import io.enoa.json.kit.JsonKit;
-import io.enoa.log.kit.LogKit;
+import io.enoa.json.Json;
+import io.enoa.log.Log;
+import io.enoa.stove.firetpl.enjoy.EnjoyFiretpl;
 import io.enoa.toolkit.map.Kv;
+import io.enoa.toolkit.path.PathKit;
 import io.enoa.trydb.Trydb;
-import io.enoa.trydb.TrydbBootstrap;
 import io.enoa.trydb.TrydbConfig;
-import io.enoa.trydb.dialect.PostgreDialect;
+import io.enoa.trydb.dialect.PostgreSQLDialect;
+import io.enoa.trydb.page.Page;
+import io.enoa.trydb.tsql.Trysql;
+import io.enoa.trydb.tsql.psql.IPSql;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
-import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Ignore
 public class TrydbTest {
 
   @Before
   public void ibe() {
-    DruidDs druid = new DruidDs();
-    DataSource ds = druid.ds();
     TrydbConfig config = new TrydbConfig.Builder()
       .name("main")
       .debug(true)
-      .ds(ds)
-      .dialect(new PostgreDialect())
+      .ds(new DruidDs().ds())
+      .showSql()
+      .dialect(new PostgreSQLDialect())
+      .template(new EnjoyFiretpl(PathKit.debugPath().resolve("src/test/resources/sqls"), "template.sql", true))
       .build();
-    TrydbBootstrap bootstrap = new TrydbBootstrap(config);
-    bootstrap.start();
+    Trydb.epm().install(config);
   }
+
 
   @Test
   public void find() {
     List<Kv> kvs = Trydb.find("select * from t_binary");
-    LogKit.debug(JsonKit.toJson(kvs));
+    Log.debug(Json.toJson(kvs));
 
     List<EBinary> beans = Trydb.beans("select * from t_binary", EBinary.class);
-    LogKit.debug(JsonKit.toJson(beans));
+    Log.debug(Json.toJson(beans));
 
     List<EBinary> beans2 = Trydb.elegant()
       .target(EBinary.class)
       .beans("select * from t_binary");
-    LogKit.debug(JsonKit.toJson(beans2));
+    Log.debug(Json.toJson(beans2));
   }
 
   @Test
   public void first() {
     Kv kv = Trydb.first("select * from t_binary limit 1");
-    LogKit.debug(JsonKit.toJson(kv));
+    Log.debug(Json.toJson(kv));
 
     EBinary bean = Trydb.bean("select * from t_binary limit 1", EBinary.class);
-    LogKit.debug(JsonKit.toJson(bean));
+    Log.debug(Json.toJson(bean));
 
     EBinary bean1 = Trydb.elegant()
       .target(EBinary.class)
       .bean("select * from t_binary");
-    LogKit.debug(JsonKit.toJson(bean1));
+    Log.debug(Json.toJson(bean1));
+
+
+    Trydb.first(Trysql.tsql("Binary.list"));
   }
 
   @Test
@@ -85,7 +93,7 @@ public class TrydbTest {
 //      return true;
     });
     this.first();
-    LogKit.debug("TX RET: {}", ret);
+    Log.debug("TX RET: {}", ret);
   }
 
   private boolean tx1() {
@@ -102,17 +110,79 @@ public class TrydbTest {
     return Trydb.update("update t_binary set bin=? where id=1", new Object[]{bytes}) != 0;
   }
 
-  @Before
-  public void before() {
-//    EnoaTSqlTemplateMgr.install();
-  }
-
   @Test
   public void template() {
     Map<String, Object> paras = new HashMap<>();
-    List<Kv> kvs = Trydb.template()
-      .find("Test.find", paras);
-    LogKit.debug(JsonKit.toJson(kvs));
+    List<Kv> kvs = Trydb.template("main")
+      .find("Binary.list", paras);
+    Log.debug(Json.toJson(kvs));
+  }
+
+  @Test
+  public void page() {
+    Page<Kv> pkv0 = Trydb.pagekv(3, 1, "select * from t_binary");
+    System.out.println(pkv0);
+
+    Page<Kv> pkv1 = Trydb.template().pagekv(3, 1, "Binary.page1", Kv.by("max", 3456789));
+    System.out.println(pkv1);
+
+    Page<Kv> pkv2 = Trydb.elegant()
+      .target(Kv.class)
+      .page(3, 1, "select * from t_binary");
+    System.out.println(pkv2);
+
+    Page<EBinary> pkv3 = Trydb.page(3, 1, "select * from t_binary", EBinary.class);
+    System.out.println(pkv3);
+
+    Page<EBinary> pkv4 = Trydb.template().page(3, 1, "Binary.page0", EBinary.class, 3456789);
+    System.out.println(pkv4);
+
+    Page<EBinary> pkv5 = Trydb.template().page(IPSql.subquery(), 3, 1, "Binary.page1", EBinary.class, Kv.by("max", 3456789));
+    System.out.println(pkv5);
+
+    Page<EBinary> pkv6 = Trydb.elegant()
+      .target(EBinary.class)
+      .page(3, 1, "select * from t_binary");
+    System.out.println(pkv6);
+
+    System.out.println();
+
+  }
+
+  @Test
+  public void enqueue() {
+
+    Trydb.async()
+      .find("select * from t_binary")
+      .enqueue()
+      .done(System.out::println)
+      .capture(System.out::println)
+      .always(() -> System.out.println("always"));
+
+    Trydb.use()
+      .async()
+      .find("select * from t_binary")
+      .enqueue()
+      .done(System.out::println)
+      .capture(System.out::println)
+      .always(() -> System.out.println("always"));
+
+    Trydb.elegant()
+      .async()
+      .bean("select * from t_binary")
+      .enqueue()
+      .done(System.out::println)
+      .capture(System.out::println)
+      .always(() -> System.out.println("always"));
+
+    Trydb.template()
+      .async()
+      .find("Binary.list")
+      .enqueue()
+      .done(System.out::println)
+      .capture(System.out::println)
+      .always(() -> System.out.println("always"));
+
   }
 
 }

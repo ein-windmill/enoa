@@ -42,11 +42,11 @@ class RequestBuilder {
   private static final String DISPOSITION_PREFIX = "--";
   private static final String DISPOSITION_END = "\r\n";
 
-  private static final HttpHelperConfig DEF_CONFIG;
+//  private static final HttpHelperConfig DEF_CONFIG;
 
-  static {
-    DEF_CONFIG = new HttpHelperConfig.Builder().build();
-  }
+//  static {
+//    DEF_CONFIG = new HttpHelperConfig.Builder().build();
+//  }
 
   HttpMethod method;
   Charset charset;
@@ -71,8 +71,8 @@ class RequestBuilder {
   _HttpHelperRequest build() {
     this.request = new _HttpHelperRequest.Builder();
     this.buildAuth();
-    this.buildHeader();
     this.buildBody();
+    this.buildHeader();
     this.buildContentType();
     this.buildConfig();
 
@@ -101,6 +101,15 @@ class RequestBuilder {
   private void buildHeader() {
     this.fillCookie();
     this.request.headers(this.headers);
+
+    boolean hasHost = this.headers.stream().anyMatch(header -> header.name().equalsIgnoreCase("host"));
+    if (hasHost)
+      return;
+
+    String _url = this.url.end();
+    int ix = _url.indexOf("/", _url.indexOf("//") + 2);
+    String host = _url.substring(0, ix);
+    this.request.header(new HttpHeader("Host", host));
   }
 
   private HttpHeader header(String name) {
@@ -130,7 +139,7 @@ class RequestBuilder {
   }
 
   private void buildConfig() {
-    this.request.config(this.config == null ? DEF_CONFIG : this.config);
+    this.request.config(this.config);
   }
 
   private void buildContentType() {

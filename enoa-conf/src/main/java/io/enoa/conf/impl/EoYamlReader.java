@@ -16,7 +16,7 @@
 package io.enoa.conf.impl;
 
 import io.enoa.conf.EnoaConfDomain;
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thr.EoException;
@@ -50,7 +50,7 @@ class EoYamlReader extends _AbstractFileReader {
     try {
       return yaml.loadAs(new FileInputStream(new File(path)), Map.class);
     } catch (FileNotFoundException e) {
-      LogKit.error("Load yml file {} fail: {}", path, e.getMessage());
+      Log.error("Load yml file {} fail: {}", path, e.getMessage());
       throw new EoException(e.getMessage(), e);
     }
   }

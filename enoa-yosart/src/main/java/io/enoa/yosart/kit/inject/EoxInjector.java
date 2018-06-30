@@ -18,8 +18,8 @@ package io.enoa.yosart.kit.inject;
 
 import io.enoa.repeater.http.Request;
 import io.enoa.toolkit.convert.ConvertKit;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.sys.ReflectKit;
+import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thr.EoException;
 
 import java.lang.reflect.Method;

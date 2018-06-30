@@ -15,7 +15,6 @@
  */
 package io.enoa.example.nosql.redis;
 
-import io.enoa.nosql.redis.EnoaRedisMgr;
 import io.enoa.nosql.redis.Redis;
 import io.enoa.serialization.provider.kryo.KryoProvider;
 
@@ -42,7 +41,7 @@ public class SetExample {
 
   public static void main(String[] args) {
     SetExample example = new SetExample();
-    EnoaRedisMgr.start("localhost", 6379, new KryoProvider());
+    Redis.epm().install("localhost", 6379, new KryoProvider());
     example.sadd();
     example.smembers();
     example.srem();

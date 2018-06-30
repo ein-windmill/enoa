@@ -16,12 +16,12 @@
 package io.enoa.gateway;
 
 import io.enoa.gateway.auth.GatewayAuth;
-import io.enoa.gateway.data.EnoaGatewayAuthData;
-import io.enoa.gateway.data.EnoaGatewayData;
-import io.enoa.gateway.data.GatewayMapping;
-import io.enoa.gateway.handler.EnoaGatewayHandler;
-import io.enoa.gateway.repeater.EnoaGatewayAccessor;
-import io.enoa.gateway.repeater.EnoaGatewayErrorRender;
+import io.enoa.gateway.data.GAuthData;
+import io.enoa.gateway.data.GData;
+import io.enoa.gateway.data.GMapping;
+import io.enoa.gateway.handler.EGatewayHandler;
+import io.enoa.gateway.repeater.RGatewayAccessor;
+import io.enoa.gateway.repeater.RGatewayErrorRender;
 import io.enoa.log.EoLogFactory;
 import io.enoa.log.provider.jdk.JdkLogProvider;
 import io.enoa.repeater.EoxConfig;
@@ -39,12 +39,12 @@ import java.util.List;
 class _EnoaGateway implements Gateway {
 
   private RepeaterServerFactory provider;
-  private GatewayErrorRenderFactory capture;
+  private GErrorRenderFactory capture;
   private boolean ssl;
   private EoxConfig eoxconfig;
-  private List<GatewayMapping> mappings;
+  private List<GMapping> mappings;
   private List<String> noauths;
-  private List<EnoaGatewayAuthData> auths;
+  private List<GAuthData> auths;
   private EoLogFactory log;
   private boolean cros;
   private List<Header> crosHeaders;
@@ -77,7 +77,7 @@ class _EnoaGateway implements Gateway {
   }
 
   @Override
-  public Gateway capture(GatewayErrorRenderFactory capture) {
+  public Gateway capture(GErrorRenderFactory capture) {
     this.capture = capture;
     return this;
   }
@@ -139,7 +139,7 @@ class _EnoaGateway implements Gateway {
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.gateway.auth_null"));
     if (this.auths == null)
       this.auths = new ArrayList<>();
-    this.auths.add(new EnoaGatewayAuthData(uri, auth));
+    this.auths.add(new GAuthData(uri, auth));
     return this;
   }
 
@@ -172,26 +172,26 @@ class _EnoaGateway implements Gateway {
 
   @Override
   public Gateway mapping(String name, String source, String dest, GatewayAuth auth) {
-    return this.mapping(new GatewayMapping(name, source, dest, auth));
+    return this.mapping(new GMapping(name, source, dest, auth));
   }
 
   @Override
   public Gateway mapping(String source, String dest, GatewayAuth auth) {
-    return this.mapping(new GatewayMapping(source, dest, auth));
+    return this.mapping(new GMapping(source, dest, auth));
   }
 
   @Override
   public Gateway mapping(String name, String source, String dest) {
-    return this.mapping(new GatewayMapping(name, source, dest));
+    return this.mapping(new GMapping(name, source, dest));
   }
 
   @Override
   public Gateway mapping(String source, String dest) {
-    return this.mapping(new GatewayMapping(source, dest));
+    return this.mapping(new GMapping(source, dest));
   }
 
   @Override
-  public Gateway mapping(GatewayMapping mapping) {
+  public Gateway mapping(GMapping mapping) {
     if (mapping == null)
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.gateway.mapping_null"));
     if (this.mappings == null)
@@ -202,17 +202,17 @@ class _EnoaGateway implements Gateway {
   }
 
   @Override
-  public Gateway mapping(GatewayMapping[] mappings) {
+  public Gateway mapping(GMapping[] mappings) {
     if (CollectionKit.isEmpty(mappings))
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.gateway.mapping_null"));
-    for (GatewayMapping mapping : mappings) {
+    for (GMapping mapping : mappings) {
       this.mapping(mapping);
     }
     return this;
   }
 
   @Override
-  public Gateway mapping(Collection<GatewayMapping> mappings) {
+  public Gateway mapping(Collection<GMapping> mappings) {
     if (CollectionKit.isEmpty(mappings))
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.gateway.mapping_null"));
     mappings.forEach(this::mapping);
@@ -231,19 +231,19 @@ class _EnoaGateway implements Gateway {
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.gateway.no_provider"));
 
     this.eoxconfig = this.eoxconfig == null ? EoxConfig.def() : this.eoxconfig;
-    this.capture = this.capture == null ? new EnoaGatewayErrorRender() : this.capture;
+    this.capture = this.capture == null ? new RGatewayErrorRender() : this.capture;
     this.printlog();
 
-    GatewayHandler handler = new EnoaGatewayHandler(this.eoxconfig);
-    EnoaGatewayData data = new EnoaGatewayData(
-      this.mappings == null ? CollectionKit.emptyArray(GatewayMapping.class) : this.mappings.toArray(new GatewayMapping[this.mappings.size()]),
+    GatewayHandler handler = new EGatewayHandler(this.eoxconfig);
+    GData data = new GData(
+      this.mappings == null ? CollectionKit.emptyArray(GMapping.class) : this.mappings.toArray(new GMapping[this.mappings.size()]),
       this.noauths == null ? CollectionKit.emptyArray(String.class) : this.noauths.toArray(new String[this.noauths.size()]),
-      this.auths == null ? CollectionKit.emptyArray(EnoaGatewayAuthData.class) : this.auths.toArray(new EnoaGatewayAuthData[this.auths.size()]),
+      this.auths == null ? CollectionKit.emptyArray(GAuthData.class) : this.auths.toArray(new GAuthData[this.auths.size()]),
       this.capture
     );
 
 
-    EnoaGatewayAccessor accessor = new EnoaGatewayAccessor(handler, data, this.cros, this.crosHeaders);
+    RGatewayAccessor accessor = new RGatewayAccessor(handler, data, this.cros, this.crosHeaders);
     Repeater.createServer(this.provider)
       .accessor(accessor)
       .log(this.log)

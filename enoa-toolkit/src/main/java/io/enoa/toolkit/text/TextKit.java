@@ -17,6 +17,7 @@ package io.enoa.toolkit.text;
 
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.digest.DigestKit;
+import io.enoa.toolkit.number.NumberKit;
 
 /**
  * TextKit.
@@ -125,13 +126,13 @@ public class TextKit {
     return !isNull(paras);
   }
 
-  public static String join(String[] strings) {
-    return join(strings, "");
-  }
-
-  public static String join(String[] strings, String separator) {
-    return String.join(separator, strings);
-  }
+//  public static String join(String[] strings) {
+//    return join(strings, "");
+//  }
+//
+//  public static String join(String[] strings, String separator) {
+//    return String.join(separator, strings);
+//  }
 
   public static String lower(String str) {
     return str == null ? null : str.toLowerCase();
@@ -182,14 +183,19 @@ public class TextKit {
     return nospace(text, false);
   }
 
-  public static String union(String text, Object... union) {
+  public static String union(int capacity, String text, Object... union) {
     if (union == null)
       return text;
-    StringBuilder ret = new StringBuilder(text);
+    StringBuilder ret = new StringBuilder(capacity);
+    ret.append(text);
     for (Object u : union) {
       ret.append(u);
     }
     return ret.toString();
+  }
+
+  public static String union(String text, Object... union) {
+    return union(text.length() + 16, text, union);
   }
 
   public static String ellipsis(String text) {
@@ -218,6 +224,108 @@ public class TextKit {
       ret.append(text.charAt(i));
     }
     return ret.toString();
+  }
+
+  /**
+   * 字符串格式化, 格式化方式采用与 MessageFormat 格式相同, 兼容 MessageFormat
+   * MessageFormat 使用中如果 formats 中传递有 {} 格式文本, 会抛出异常, 这里的替换方案中不会有此现象
+   * <p>
+   * Example:
+   * This is text from {0} and {1}.
+   * arg0 arg1
+   *
+   * @param message 消息
+   * @param formats 格式化
+   * @return String
+   */
+  public static String format(String message, Object... formats) {
+    if (message == null)
+      return null;
+    StringBuilder msg = new StringBuilder();
+    StringBuilder ixb = new StringBuilder();
+    boolean fillMode = false;
+    for (char c : message.toCharArray()) {
+      if (c == '}') {
+        if (ixb.length() == 0) {
+          msg.append(c);
+          continue;
+        }
+        int _ix = NumberKit.integer(ixb.toString());
+        if (_ix + 1 > formats.length) {
+          msg.append("{").append(_ix).append("}");
+        } else {
+          msg.append(formats[_ix]);
+        }
+        ixb.delete(0, ixb.length());
+        fillMode = false;
+        continue;
+      }
+
+      if (!fillMode) {
+        if (c == '{') {
+          fillMode = true;
+          continue;
+        } else {
+          msg.append(c);
+          continue;
+        }
+      }
+
+      if (!NumberKit.isDigit(String.valueOf(c), false)) {
+        msg.append('{').append(c);
+        ixb.delete(0, ixb.length());
+        fillMode = false;
+        continue;
+//        throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.toolkit.text_format_cant_parse_arg", message));
+      }
+      ixb.append(c);
+    }
+    ixb.delete(0, ixb.length());
+    return msg.toString();
+  }
+
+  public static String removeRightChar(String text, char c) {
+    return removeChar(text, c, 0);
+  }
+
+  public static String removeLeftChar(String text, char c) {
+    return removeChar(text, c, 1);
+  }
+
+  private static String removeChar(String text, char c, int direct) {
+    StringBuilder _text = new StringBuilder(text);
+    int len = _text.length();
+    boolean has = Boolean.FALSE;
+    int leftOffset = 0;
+    for (int i = len; i-- > 0; ) {
+      int ix = direct == 1 ? leftOffset : i;
+      char _c = _text.charAt(ix);
+      if (has) {
+        if (_c == c) {
+          _text.deleteCharAt(ix);
+          continue;
+        }
+        break;
+      }
+      if ((c != ' ' && c != '\t' && c != '\n' && c != '\r') && (_c == ' ' || _c == '\t' || _c == '\n' || _c == '\r')) {
+        if (direct == 1)
+          leftOffset += 1;
+        continue;
+      }
+      if (_c != c)
+        break;
+      _text.deleteCharAt(ix);
+      has = Boolean.TRUE;
+    }
+    return _text.toString();
+  }
+
+  public static String safeBlank(String text) {
+    return safeBlank(text, null);
+  }
+
+  public static String safeBlank(String text, String def) {
+    return TextKit.isBlank(text) ? def : text;
   }
 
 }

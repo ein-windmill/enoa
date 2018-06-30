@@ -24,6 +24,6 @@ import io.enoa.json.EoJsonFactory;
 public class JacksonProvider implements EoJsonFactory {
   @Override
   public EnoaJson json() {
-    return new _Jackson();
+    return _Jackson.instance();
   }
 }

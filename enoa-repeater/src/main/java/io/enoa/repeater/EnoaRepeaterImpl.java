@@ -15,8 +15,8 @@
  */
 package io.enoa.repeater;
 
-import io.enoa.log.EnoaLogMgr;
 import io.enoa.log.EoLogFactory;
+import io.enoa.log.Log;
 import io.enoa.log.provider.jdk.JdkLogProvider;
 import io.enoa.repeater.factory.error.EoxErrorRenderFactory;
 import io.enoa.repeater.factory.name.EoxNameRuleFactory;
@@ -112,7 +112,7 @@ class EnoaRepeaterImpl implements Repeater {
     builder.context(context);
 
     this.config = builder.build();
-    EnoaLogMgr.instance().defLogFactory(this.log);
+    Log.epm().install(this.log);
     EoxConfig.current(this.config);
 
     this.server.server(this.accessor)

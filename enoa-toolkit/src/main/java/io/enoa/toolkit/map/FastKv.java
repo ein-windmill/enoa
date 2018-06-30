@@ -73,12 +73,12 @@ public interface FastKv<S extends Map> extends Map<String, Object> {
     return this.value(key).integer();
   }
 
-  default Long longx(String key, Long def) {
-    return this.value(key).longx(def);
+  default Long longer(String key, Long def) {
+    return this.value(key).longer(def);
   }
 
-  default Long longx(String key) {
-    return this.value(key).longx();
+  default Long longer(String key) {
+    return this.value(key).longer();
   }
 
   default Number number(String key, Number def) {

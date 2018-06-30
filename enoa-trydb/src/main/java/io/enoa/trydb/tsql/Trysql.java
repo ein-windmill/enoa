@@ -15,15 +15,23 @@
  */
 package io.enoa.trydb.tsql;
 
+import io.enoa.firetpl.FireBody;
+import io.enoa.firetpl.Firetpl;
+import io.enoa.stove.api.StoveException;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
+import io.enoa.trydb.Trydb;
+import io.enoa.trydb.TrydbConfig;
 import io.enoa.trydb.dialect.IDialect;
+import io.enoa.trydb.thr.TrydbException;
 import io.enoa.trydb.thr.TrysqlException;
 import io.enoa.trydb.tsql.generate.TSqlDelete;
 import io.enoa.trydb.tsql.generate.TSqlInsert;
 import io.enoa.trydb.tsql.generate.TSqlSelect;
 import io.enoa.trydb.tsql.generate.TSqlUpdate;
-import io.enoa.trydb.tsql.template.EnoaTSqlTemplateMgr;
-import io.enoa.trydb.tsql.template.TSqlTemplate;
+import io.enoa.trydb.tsql.template.SqlNotfoundException;
+import io.enoa.trydb.tsql.template.TSql;
+
+import java.util.Map;
 
 public interface Trysql<T extends Trysql> {
 
@@ -72,17 +80,38 @@ public interface Trysql<T extends Trysql> {
     return new TSqlInsert(table);
   }
 
-  static TSqlTemplate template() {
-    return template("main");
+  static TSql tsql(String key) {
+    return tsql("main", key);
   }
 
-  static TSqlTemplate template(String name) {
-    TSqlTemplate template = EnoaTSqlTemplateMgr.template(name);
-    if (template == null)
-      throw new TrysqlException(EnoaTipKit.message("eo.tip.trydb.tsql_template_null"));
-    return template;
+  static TSql tsql(String key, Map<String, ?> para) {
+    return tsql("main", key, para);
   }
 
+  static TSql tsql(String name, String key) {
+    return tsql(name, key, null);
+  }
+
+  static TSql tsql(String name, String key, Map<String, ?> para) {
+    TrydbConfig config = Trydb.config(name);
+    Firetpl template = config.template();
+//    TSql tsql;
+    FireBody body;
+    try {
+      if (para == null) {
+        body = template.render(key);
+      } else {
+        body = template.render(key, para);
+      }
+    } catch (Exception e) {
+      if (e instanceof StoveException)
+        throw new SqlNotfoundException(e.getMessage(), e);
+      throw new TrysqlException(e.getMessage(), e);
+    }
+    if (body == null)
+      throw new TrydbException(EnoaTipKit.message("eo.tip.trydb.sql_null"));
+    return TSql.create(body);
+  }
 
   /**
    * 數據庫方言

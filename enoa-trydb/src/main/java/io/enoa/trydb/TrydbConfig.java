@@ -15,6 +15,10 @@
  */
 package io.enoa.trydb;
 
+import io.enoa.firetpl.Firetpl;
+import io.enoa.toolkit.namecase.INameCase;
+import io.enoa.toolkit.namecase.NamecaseKit;
+import io.enoa.toolkit.namecase.NamecaseType;
 import io.enoa.trydb.dialect.IDialect;
 import io.enoa.trydb.tx.TxLevel;
 
@@ -28,6 +32,9 @@ public class TrydbConfig {
   private final DataSource ds;
   private final IDialect dialect;
   private final TxLevel level;
+  private final ISqlReporter reporter;
+  private final INameCase namecase;
+  private final Firetpl sqltemplate;
 
 
   private TrydbConfig(Builder builder) {
@@ -36,6 +43,9 @@ public class TrydbConfig {
     this.ds = builder.ds;
     this.dialect = builder.dialect;
     this.level = builder.level;
+    this.reporter = builder.report;
+    this.namecase = builder.namecase;
+    this.sqltemplate = builder.sqltemplate;
   }
 
   public String name() {
@@ -58,16 +68,33 @@ public class TrydbConfig {
     return level;
   }
 
+  public ISqlReporter reporter() {
+    return this.reporter;
+  }
+
+  public INameCase namecase() {
+    return namecase;
+  }
+
+  public Firetpl template() {
+    return this.sqltemplate;
+  }
+
   public static class Builder {
     private String name;
     private boolean debug;
     private DataSource ds;
     private IDialect dialect;
     private TxLevel level;
+    private ISqlReporter report;
+    private INameCase namecase;
+    private Firetpl sqltemplate;
 
     public Builder() {
       this.name = "main";
       this.level = TxLevel.REPEATABLE_READ;
+      this.debug = false;
+      this.namecase = NamecaseKit.namecase(NamecaseType.CASE_UNDERLINE);
     }
 
     public TrydbConfig build() {
@@ -100,6 +127,32 @@ public class TrydbConfig {
 
     public Builder txlevel(TxLevel level) {
       this.level = level;
+      return this;
+    }
+
+    public Builder showSql() {
+      return this.showSql(true);
+    }
+
+    public Builder showSql(boolean showSql) {
+      if (!showSql)
+        return this;
+      this.report = _TrydbSqlReporter.instance();
+      return this;
+    }
+
+    public Builder reporter(ISqlReporter reporter) {
+      this.report = reporter;
+      return this;
+    }
+
+    public Builder namecase(INameCase namecase) {
+      this.namecase = namecase;
+      return this;
+    }
+
+    public Builder template(Firetpl template) {
+      this.sqltemplate = template;
       return this;
     }
   }

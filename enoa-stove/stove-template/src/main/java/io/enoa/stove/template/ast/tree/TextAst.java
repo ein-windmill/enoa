@@ -46,6 +46,7 @@ public class TextAst implements Ast {
     return AstType.TEXT;
   }
 
+  @Override
   public String code() {
     return this.code;
   }

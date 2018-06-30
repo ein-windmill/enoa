@@ -6,7 +6,7 @@
 
   <groupId>io.enoa</groupId>
   <artifactId>enoa</artifactId>
-  <version>1.3-beta</version>
+  <version>1.6-beta.0</version>
   <packaging>pom</packaging>
 
   <description>
@@ -67,6 +67,8 @@
     <module>enoa-promise</module>
     <module>enoa-stove</module>
     <module>enoa-eson</module>
+    <module>enoa-rpc</module>
+    <module>enoa-index</module>
   </modules>
 
 
@@ -286,21 +288,17 @@
 
       <dependency>
         <groupId>io.enoa</groupId>
-        <artifactId>yosart-ext-router-anost</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>io.enoa</groupId>
         <artifactId>yosart-ext-render-template</artifactId>
         <version>${project.version}</version>
       </dependency>
 
-      <dependency>
-        <groupId>io.enoa</groupId>
-        <artifactId>yosart-ext-bea-beaction</artifactId>
-        <version>${project.version}</version>
-      </dependency>
+      <!--
+            <dependency>
+              <groupId>io.enoa</groupId>
+              <artifactId>yosart-ext-bea-beaction</artifactId>
+              <version>${project.version}</version>
+            </dependency>
+      -->
 
       <dependency>
         <groupId>io.enoa</groupId>
@@ -368,9 +366,23 @@
         <version>${project.version}</version>
       </dependency>
 
+<!--
       <dependency>
         <groupId>io.enoa</groupId>
-        <artifactId>enoa-firesh</artifactId>
+        <artifactId>trydb-ttsql-enjoy</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+-->
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>stove-firetpl</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>stove-firetpl-enjoy</artifactId>
         <version>${project.version}</version>
       </dependency>
 
@@ -490,7 +502,19 @@
 
       <dependency>
         <groupId>io.enoa</groupId>
+        <artifactId>enoa-db-trydb</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
         <artifactId>enoa-promise</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>index-solr</artifactId>
         <version>${project.version}</version>
       </dependency>
 

@@ -15,10 +15,10 @@
  */
 package io.enoa.repeater.provider.fastcgi.kernel;
 
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import io.enoa.repeater.http.Response;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.stream.StreamKit;
+import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thr.EoException;
 
 import java.io.IOException;
@@ -60,11 +60,11 @@ public final class FastCGIServer {
   public void listen(String hostname, int port) throws IOException {
     ServerSocket server = new ServerSocket();
     server.bind(TextKit.isBlank(hostname) ? new InetSocketAddress(port) : new InetSocketAddress(hostname, port));
-    LogKit.debug("FastCGI server started on {}:{}", TextKit.isBlank(hostname) ? "localhost" : hostname, port);
+    Log.debug("FastCGI server started on {}:{}", TextKit.isBlank(hostname) ? "localhost" : hostname, port);
     try {
       this.accept(server);
     } catch (Exception e) {
-      LogKit.error(e.getMessage(), e);
+      Log.error(e.getMessage(), e);
     } finally {
       server.close();
     }
@@ -79,14 +79,14 @@ public final class FastCGIServer {
         socket = server.accept();
         inputStream = socket.getInputStream();
         outputStream = socket.getOutputStream();
-        LogKit.debug("accepted socket {}", socket);
+        Log.debug("accepted socket {}", socket);
       }
 
       FastCGIRet ret = null;
       try {
         ret = PARSER.parseRequest(inputStream, outputStream);
       } catch (Exception e) {
-        LogKit.error(e.getMessage(), e);
+        Log.error(e.getMessage(), e);
       }
       Response response = this.handler.handle(ret == null ? null : ret.request());
 
@@ -98,11 +98,11 @@ public final class FastCGIServer {
       new FastCGIMessage(END_REQUEST, requestId, REQUEST_COMPLETE).write(outputStream);
 
       if (closeConnection) {
-        LogKit.debug("finished request id " + requestId);
+        Log.debug("finished request id " + requestId);
         StreamKit.close(outputStream, inputStream, socket);
         socket = null;
       } else {
-        LogKit.debug("finished request id " + requestId);
+        Log.debug("finished request id " + requestId);
         outputStream.flush();
       }
     }

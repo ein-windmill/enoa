@@ -20,11 +20,12 @@ package io.enoa.json;
  */
 public abstract class EnoaJson implements _Json {
 
-  protected String datePattern = null;
+//  protected String datePattern = null;
 
-  public String defaultDatePattern() {
-    return EnoaJsonMgr.defDatePattern;
-  }
+//  protected String defaultDatePattern() {
+////    return EMgrJson.defDatePattern;
+//    return Json.epm().defDatePattern();
+//  }
 
 
 }

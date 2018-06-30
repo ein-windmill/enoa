@@ -94,12 +94,12 @@ public class Prop {
     return this.value(key).integer(def);
   }
 
-  public Long longx(String key) {
-    return this.value(key).longx();
+  public Long longer(String key) {
+    return this.value(key).longer();
   }
 
-  public Long longx(String key, Long def) {
-    return this.value(key).longx(def);
+  public Long longer(String key, Long def) {
+    return this.value(key).longer(def);
   }
 
   public Boolean bool(String key) {

@@ -16,7 +16,6 @@
 package io.enoa.stove.template.command.result;
 
 import io.enoa.stove.template.command.StoveResult;
-import io.enoa.toolkit.value.EnoaValue;
 
 public final class VoidResult implements StoveResult {
 
@@ -29,12 +28,12 @@ public final class VoidResult implements StoveResult {
   }
 
   @Override
-  public String value() {
+  public Object value() {
     return null;
   }
 
-  @Override
-  public EnoaValue pipeval() {
-    return EnoaValue.NULL;
-  }
+//  @Override
+//  public EnoaValue pipeval() {
+//    return EnoaValue.NULL;
+//  }
 }

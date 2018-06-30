@@ -30,19 +30,15 @@ import io.enoa.example.yosart.control.DbControl;
 import io.enoa.example.yosart.control.PartyControl;
 import io.enoa.example.yosart.control.SessControl;
 import io.enoa.example.yosart.control.YosartControl;
-import io.enoa.example.yosart.handler.GlobalHandler;
-import io.enoa.example.yosart.handler.NoPartyHeaderHandler;
-import io.enoa.example.yosart.handler.PartyGoHandler;
+import io.enoa.example.yosart.hook.GlobalHook;
 import io.enoa.example.yosart.mapper.BaseMapper;
 import io.enoa.example.yosart.router.WorkRouter;
 import io.enoa.example.yosart.router.ZombieRouter;
-import io.enoa.example.yosart.valid.ActionAnnoValid;
-import io.enoa.ext.bea.beaction.BeaExt;
-import io.enoa.ext.bea.beaction.Before;
+import io.enoa.example.yosart.thr.AnostCatch;
 import io.enoa.ext.sess.SessExt;
 import io.enoa.ext.sess.impl.file.FileSession;
 import io.enoa.json.provider.enoa.EoJsonProvider;
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import io.enoa.log.provider.slf4j.Slf4JLogProvider;
 import io.enoa.provider.db.beetlsql.BeetlSQLConfig;
 import io.enoa.provider.db.beetlsql.BeetlSQLProvider;
@@ -60,9 +56,10 @@ import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.path.PathKit;
 import io.enoa.toolkit.sys.EnvKit;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.yosart.YoConfig;
 import io.enoa.yosart.Yosart;
+import io.enoa.yosart.ext.anost.AnostExt;
+import io.enoa.yosart.ext.anost.AnostHookMgr;
 import io.enoa.yosart.ext.render.template.TemplateRenderExt;
 import io.enoa.yosart.ext.yemgr.YemgrExt;
 import io.enoa.yosart.kernel.http.Session;
@@ -135,8 +132,8 @@ public class YosartBoot {
 
 
     public String basePath() {
-      Path tplPath = ISPKG ? PathKit.path().resolve("resources/tpl") : PathKit.bootPath().resolve("src/main/tpl/");
-      LogKit.debug("Template path: {}", tplPath);
+      Path tplPath = ISPKG ? PathKit.path().resolve("resources/tpl") : PathKit.debugPath().resolve("src/main/tpl/");
+      Log.debug("Template path: {}", tplPath);
       return tplPath.resolve(this.name().toLowerCase()).toString();
     }
   }
@@ -180,6 +177,13 @@ public class YosartBoot {
   // dance your self clean
 
 
+  private AnostExt anost() {
+    AnostExt ext = new AnostExt();
+    AnostHookMgr mgr = ext.hookMgr();
+    mgr.load(new GlobalHook());
+    return ext;
+  }
+
   private void start() {
     Yosart.createServer()
       .config(this.config())
@@ -195,10 +199,8 @@ public class YosartBoot {
 //      .plugin(new ConfPlugin("https://github.com/mstine/config-repo.git"))
       .ext(new JsonRenderExt())
       .ext(new TemplateRenderExt(TEMPLATE.BEETL.factory, TEMPLATE.BEETL.basePath(), TEMPLATE.BEETL.suffix, new HtmlCompressorProvider()))
-      .ext(new BeaExt()
-        .load(new GlobalHandler())
-        .load(new NoPartyHeaderHandler())
-        .unload("/party", NoPartyHeaderHandler.class, BeaExt.Mode.PREFIX))
+      .ext(this.anost())
+      .ext(new AnostCatch())
       .ext(new YemgrExt())
       .ext(new SessExt(new FileSession("YOSESS", this.tmp, new HessianProvider(), true)))
 //      .ext(new SessExt(new RedisSession("YOSESS", new RedisPlugin("SESS_REDIS","localhost", 6379, new FstProvider()), true)))
@@ -210,12 +212,11 @@ public class YosartBoot {
       .handle("/yosart", (req) -> null)
       .handle("/party", PartyControl.class)
       .handle("/corpse", new ZombieRouter())
-//      .handle("/download", (req) -> Resp.with(req).renderFile(Paths.get(String.format("%s/download/file.txt", PathKit.path()))).end())
-      .handle("/download", (req) -> Resp.with(req).renderFile(Paths.get(TextKit.union(PathKit.path().toString(), "/download/file.txt"))).end())
+      .handle("/download", req -> Resp.with(req).renderFile(PathKit.path().resolve("download/file.txt")).end())
       .handle("/db", DbControl.class)
       .handle("/sess", SessControl.class)
       .handle("/actionanno", new YoAction() {
-        @Before({ActionAnnoValid.class, PartyGoHandler.class})
+        //        @Before({ActionAnnoValid.class, PartyGoHandler.class})
         @Override
         public Response handle(YoRequest request) {
           return Resp.with(request).render("action anno").end();

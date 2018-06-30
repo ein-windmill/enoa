@@ -15,7 +15,7 @@
  */
 package io.enoa.repeater.provider.netty.server;
 
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import io.enoa.repeater.EoxAccessor;
 import io.enoa.repeater.EoxConfig;
 import io.enoa.repeater.factory.provider.EoxProviderFactory;
@@ -64,13 +64,13 @@ class _Netty implements RepeaterServer {
       });
       ChannelFuture f = bootstrap.bind(port).sync();
       if (f.isSuccess()) {
-        LogKit.debug("Boot netty server success.");
+        Log.debug("Boot netty server success.");
       }
       // 关闭连接
       f.channel().closeFuture().sync();
 
     } catch (Exception e) {
-      LogKit.error("Boot neety server fail: ", e.getMessage(), e);
+      Log.error("Boot neety server fail: ", e.getMessage(), e);
       throw new EoException(e.getMessage(), e);
     } finally {
       boss.shutdownGracefully();

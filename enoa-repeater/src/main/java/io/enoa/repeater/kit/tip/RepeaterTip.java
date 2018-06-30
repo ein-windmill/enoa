@@ -15,7 +15,7 @@
  */
 package io.enoa.repeater.kit.tip;
 
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import io.enoa.repeater.Repeater;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.text.TextKit;
@@ -42,7 +42,7 @@ public class RepeaterTip {
     if (!Repeater.config().info())
       return;
     if (Repeater.config().infoUseLog()) {
-      LogKit.debug(format(text, args));
+      Log.debug(format(text, args));
       return;
     }
     System.out.println(format(text, args));

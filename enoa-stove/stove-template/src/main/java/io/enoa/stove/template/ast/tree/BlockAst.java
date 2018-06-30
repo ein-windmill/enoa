@@ -46,6 +46,15 @@ public class BlockAst implements Ast {
     return AstType.BLOCK;
   }
 
+  @Override
+  public String code() {
+    StringBuilder sb = new StringBuilder();
+    for (Ast block : blocks) {
+      sb.append(block.code());
+    }
+    return sb.toString();
+  }
+
 
   public List<Ast> blocks() {
     return this.blocks;

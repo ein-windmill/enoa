@@ -27,6 +27,8 @@ public class OyResourceKit {
 
   public static OyResource choose(Method method, String action) {
     Map<String, OyResource[]> resources = Oysart.resources();
+    if (resources == null)
+      return null;
     OyResource[] res = resources.get(action);
     if (CollectionKit.isEmpty(res))
       return null;
