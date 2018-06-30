@@ -94,7 +94,13 @@ public class _HttpHelperConn {
     将请求头写入到连接中
      */
     headers.forEach(header -> conn.setRequestProperty(header.name(), header.value()));
-    headers.clear();
+
+    /*
+    此處不可進行 header.clear()  http 新增 handler 功能, 並且爲異步執行
+    若此處進行 clear() 將會有機率導致同時執行, 觸發 ConcurrentModificationException 異常
+    另外, header 目前宜不建議主動 clear, 應用程序可能在請求後還會對 header 進行更多操作.
+     */
+//    headers.clear();
     return conn;
   }
 
@@ -108,7 +114,7 @@ public class _HttpHelperConn {
 
       if (this.request.body() != null) {
         os = conn.getOutputStream();
-        os.write(this.request.body().content());
+        os.write(this.request.body().bytes());
         os.flush();
         os.close();
       }

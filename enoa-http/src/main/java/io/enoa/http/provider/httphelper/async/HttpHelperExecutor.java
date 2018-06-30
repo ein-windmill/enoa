@@ -25,10 +25,12 @@ import java.util.concurrent.ExecutorService;
 
 public class HttpHelperExecutor implements EoExecutor {
 
-  private static final HttpHelperExecutor instance = new HttpHelperExecutor();
+  private static class Holder {
+    private static final HttpHelperExecutor INSTANCE = new HttpHelperExecutor();
+  }
 
   public static HttpHelperExecutor instance() {
-    return instance;
+    return Holder.INSTANCE;
   }
 
   private ExecutorService executorService;

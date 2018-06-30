@@ -17,6 +17,7 @@ package io.enoa.trydb.tx;
 
 import java.sql.SQLException;
 
+@FunctionalInterface
 public interface IAtom {
 
   boolean execute() throws SQLException;

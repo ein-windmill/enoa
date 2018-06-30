@@ -66,12 +66,12 @@ public class EnvKit {
     return value(name).integer();
   }
 
-  public static Long longx(String name, Long def) {
-    return value(name).longx(def);
+  public static Long longer(String name, Long def) {
+    return value(name).longer(def);
   }
 
-  public static Long longx(String name) {
-    return value(name).longx();
+  public static Long longer(String name) {
+    return value(name).longer();
   }
 
   public static Boolean bool(String name, Boolean def) {

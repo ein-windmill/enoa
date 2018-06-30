@@ -24,6 +24,10 @@ public class HttpHelperProvider implements EoHttp {
     private static final HttpHelperProvider INSTANCE = new HttpHelperProvider();
   }
 
+  private HttpHelperProvider() {
+
+  }
+
   public static HttpHelperProvider instance() {
     return Holder.INSTANCE;
   }

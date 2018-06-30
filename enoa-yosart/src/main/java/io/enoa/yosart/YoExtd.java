@@ -15,13 +15,14 @@
  */
 package io.enoa.yosart;
 
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.yosart.kernel.ext.*;
 import io.enoa.yosart.thr.OyExtException;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 class YoExtd {
@@ -42,7 +43,7 @@ class YoExtd {
       if (!oldExt.type().onlyOne())
         continue;
       boolean same = oldExt.getClass().getName().equalsIgnoreCase(newExt.getClass().getName());
-      LogKit.warn(EnoaTipKit.message("eo.tip.yosart.ext_only_one",
+      Log.warn(EnoaTipKit.message("eo.tip.yosart.ext_only_one",
         same ? oldExt.toString() : oldExt.getClass().getName(),
         same ? newExt.toString() : newExt.getClass().getName()));
       this.exts.remove(i);
@@ -82,11 +83,11 @@ class YoExtd {
           return;
         superClazz = YmRouterExt.class.getName();
         break;
-      case BEFORE_ACTION:
-        if (ext instanceof YmBeforeActionExt)
-          return;
-        superClazz = YmBeforeActionExt.class.getName();
-        break;
+//      case BEFORE_ACTION:
+//        if (ext instanceof YmBeforeActionExt)
+//          return;
+//        superClazz = YmBeforeActionExt.class.getName();
+//        break;
       case SESSION:
         if (ext instanceof YmSessionExt)
           return;
@@ -121,10 +122,19 @@ class YoExtd {
     if (ext.type().onlyOne())
       this.unload(ext);
 
-    for (YoExt yet : this.exts) {
+    Iterator<YoExt> eiterator = this.exts.iterator();
+    while (eiterator.hasNext()) {
+      YoExt yet = eiterator.next();
       // renew same extension
       if (yet.getClass().getName().equals(ext.getClass().getName()))
-        this.exts.remove(yet);
+        eiterator.remove();
+
+      if (ext instanceof YmRenderExt) {
+        if (!(yet instanceof YmRenderExt))
+          continue;
+        if (((YmRenderExt) yet).renderType().equals(((YmRenderExt) ext).renderType()))
+          eiterator.remove();
+      }
     }
 
     this.exts.add(ext);

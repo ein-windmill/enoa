@@ -54,7 +54,7 @@ public final class SnowflakeKit {
     return new Snowflake(datacenterId, workerId).nextId();
   }
 
-  public static long longx() {
+  public static long longer() {
     return next();
   }
 

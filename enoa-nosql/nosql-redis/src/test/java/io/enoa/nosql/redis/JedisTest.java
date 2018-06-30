@@ -15,7 +15,7 @@
  */
 package io.enoa.nosql.redis;
 
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import org.junit.Before;
 import org.junit.Test;
 import redis.clients.jedis.Jedis;
@@ -35,7 +35,7 @@ public class JedisTest {
     try {
       this.jedis = new Jedis("localhost", 6379);
     } catch (Exception e) {
-      LogKit.error(e.getMessage(), e);
+      Log.error(e.getMessage(), e);
     }
   }
 
@@ -45,10 +45,10 @@ public class JedisTest {
 //    jedis.auth("xxxx");
       jedis.set("key", "jedis");
       String value = jedis.get("key");
-      LogKit.debug(value);
+      Log.debug(value);
       jedis.close();
     } catch (Exception e) {
-      LogKit.error(e.getMessage(), e);
+      Log.error(e.getMessage(), e);
     }
   }
 
@@ -62,11 +62,11 @@ public class JedisTest {
       Jedis jedis = pool.getResource();
       jedis.set("key", "pool");
       String value = jedis.get("key");
-      LogKit.debug(value);
+      Log.debug(value);
       jedis.close();
       pool.close();
     } catch (Exception e) {
-      LogKit.error(e.getMessage(), e);
+      Log.error(e.getMessage(), e);
     }
   }
 
@@ -83,11 +83,11 @@ public class JedisTest {
       Jedis jedis = pool.getResource();
       jedis.set("key", "sentinel");
       String value = jedis.get("key");
-      LogKit.debug(value);
+      Log.debug(value);
       jedis.close();
       pool.close();
     } catch (Exception e) {
-      LogKit.error(e.getMessage(), e);
+      Log.error(e.getMessage(), e);
     }
   }
 

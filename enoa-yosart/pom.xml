@@ -5,7 +5,7 @@
   <parent>
     <artifactId>enoa</artifactId>
     <groupId>io.enoa</groupId>
-    <version>1.4-beta</version>
+    <version>1.5-beta.7</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
@@ -20,15 +20,6 @@
       <scope>test</scope>
     </dependency>
 
-    <dependency>
-      <groupId>io.enoa</groupId>
-      <artifactId>enoa-log</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>io.enoa</groupId>
-      <artifactId>enoa-toolkit</artifactId>
-    </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-core</artifactId>
@@ -46,7 +37,6 @@
       <artifactId>logback-access</artifactId>
       <scope>provided</scope>
     </dependency>
-
 
     <dependency>
       <groupId>io.enoa</groupId>

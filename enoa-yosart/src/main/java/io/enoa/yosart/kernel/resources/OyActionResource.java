@@ -17,6 +17,7 @@ package io.enoa.yosart.kernel.resources;
 
 import io.enoa.repeater.http.Method;
 import io.enoa.toolkit.digest.DigestKit;
+import io.enoa.toolkit.http.UriKit;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.yosart.kernel.http.YoRequest;
 
@@ -72,7 +73,7 @@ public class OyActionResource implements OyResource {
     this.type = Type.ACTION;
     this.methods = methods;
     this.action = action;
-    this.route = route;
+    this.route = UriKit.correct(route);
     this.func = func;
     this.funcName = funcName;
     this.vars = vars;

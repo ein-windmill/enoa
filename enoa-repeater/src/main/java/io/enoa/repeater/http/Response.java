@@ -15,7 +15,7 @@
  */
 package io.enoa.repeater.http;
 
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.convert.ConvertKit;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
@@ -120,7 +120,7 @@ public class Response {
       if ("content-length".equals(TextKit.lower(header.name())))
         this.contentLength = ConvertKit.integer(header.value());
       if ("set-cookie".equals(TextKit.lower(header.name())))
-        LogKit.warn(EnoaTipKit.message("eo.tip.repeater.usecookie"));
+        Log.warn(EnoaTipKit.message("eo.tip.repeater.usecookie"));
       return this;
     }
 

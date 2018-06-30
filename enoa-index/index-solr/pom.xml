@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>enoa-index</artifactId>
+    <groupId>io.enoa</groupId>
+    <version>1.5-beta.7</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>index-solr</artifactId>
+
+
+  <dependencies>
+
+    <dependency>
+      <groupId>io.enoa</groupId>
+      <artifactId>enoa-http</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>io.enoa</groupId>
+      <artifactId>enoa-toolkit</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>io.enoa</groupId>
+      <artifactId>enoa-json</artifactId>
+    </dependency>
+
+  </dependencies>
+
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>${version-java}</source>
+          <target>${version-java}</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <includes>
+            <include>**/*.class</include>
+            <include>**/eocnf/*.eo.properties</include>
+          </includes>
+          <finalName>${project.artifactId}-${project.version}</finalName>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+
+</project>

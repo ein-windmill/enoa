@@ -33,7 +33,9 @@ public interface Yosart extends Yasart, Yesart, YoRepeater {
 
   Yosart assets(String uri, Path path, boolean showTree);
 
-  Yosart before(YoBefore before);
+  Yosart before(YoCut before);
+
+  Yosart after(YoCut after);
 
   void listen(String hostname, int port);
 

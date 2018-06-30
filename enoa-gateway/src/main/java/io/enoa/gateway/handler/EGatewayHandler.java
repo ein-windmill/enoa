@@ -25,7 +25,8 @@ import io.enoa.gateway.thr.RouteNotFoundException;
 import io.enoa.http.Http;
 import io.enoa.http.protocol.HttpMethod;
 import io.enoa.http.protocol.HttpResponse;
-import io.enoa.log.kit.LogKit;
+import io.enoa.http.protocol.enoa.IHttpHandler;
+import io.enoa.log.Log;
 import io.enoa.repeater.EoxConfig;
 import io.enoa.repeater.http.*;
 import io.enoa.toolkit.http.UriKit;
@@ -144,7 +145,7 @@ public class EGatewayHandler implements GatewayHandler {
     String sourceUri = originUri.replace(mapping.source(), "/");
     sourceUri = UriKit.correct(sourceUri);
     String callUrl = TextKit.union(mapping.dest(), sourceUri);
-    LogKit.info("{} -> [{}] => [{}]", request.method().name(), originUri, callUrl);
+    Log.info("{} -> [{}] => [{}]", request.method().name(), originUri, callUrl);
 
     Http http = Http.request(callUrl);
 
@@ -153,7 +154,7 @@ public class EGatewayHandler implements GatewayHandler {
       contentType = contentType.toLowerCase();
 
       // http body 請求
-      if (!contentType.toLowerCase().startsWith("application/x-www-form-urlencoded")) {
+      if (!contentType.startsWith("application/x-www-form-urlencoded")) {
         RequestBody rb = request.body();
         if (rb != null) {
           try {
@@ -194,6 +195,10 @@ public class EGatewayHandler implements GatewayHandler {
       http.header("x-origin", origin);
 
     http.method(HttpMethod.of(request.method().name()));
+
+    if (this.eoxconfig.debug())
+      http.handler(IHttpHandler.def());
+
     HttpResponse resp = http.emit();
     this.clearRequest(request);
 

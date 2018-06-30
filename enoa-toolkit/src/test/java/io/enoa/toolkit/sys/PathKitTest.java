@@ -31,7 +31,7 @@ public class PathKitTest {
 
   @Test
   public void testBootPath() {
-    System.out.println(PathKit.bootPath());
+    System.out.println(PathKit.debugPath());
   }
 
 }

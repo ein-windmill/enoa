@@ -15,17 +15,21 @@
  */
 package io.enoa.trydb.tsql;
 
+import io.enoa.firetpl.FireBody;
+import io.enoa.firetpl.Firetpl;
+import io.enoa.stove.api.StoveException;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.trydb.Trydb;
 import io.enoa.trydb.TrydbConfig;
 import io.enoa.trydb.dialect.IDialect;
 import io.enoa.trydb.thr.TrydbException;
+import io.enoa.trydb.thr.TrysqlException;
 import io.enoa.trydb.tsql.generate.TSqlDelete;
 import io.enoa.trydb.tsql.generate.TSqlInsert;
 import io.enoa.trydb.tsql.generate.TSqlSelect;
 import io.enoa.trydb.tsql.generate.TSqlUpdate;
+import io.enoa.trydb.tsql.template.SqlNotfoundException;
 import io.enoa.trydb.tsql.template.TSql;
-import io.enoa.trydb.tsql.template.TSqlTemplate;
 
 import java.util.Map;
 
@@ -90,16 +94,23 @@ public interface Trysql<T extends Trysql> {
 
   static TSql tsql(String name, String key, Map<String, ?> para) {
     TrydbConfig config = Trydb.config(name);
-    TSqlTemplate template = config.template();
-    TSql tsql;
-    if (para == null) {
-      tsql = template.render(key);
-    } else {
-      tsql = template.render(key, para);
+    Firetpl template = config.template();
+//    TSql tsql;
+    FireBody body;
+    try {
+      if (para == null) {
+        body = template.render(key);
+      } else {
+        body = template.render(key, para);
+      }
+    } catch (Exception e) {
+      if (e instanceof StoveException)
+        throw new SqlNotfoundException(e.getMessage(), e);
+      throw new TrysqlException(e.getMessage(), e);
     }
-    if (tsql == null)
+    if (body == null)
       throw new TrydbException(EnoaTipKit.message("eo.tip.trydb.sql_null"));
-    return tsql;
+    return TSql.create(body);
   }
 
   /**

@@ -15,7 +15,7 @@
  */
 package io.enoa.repeater.provider.netty.ts;
 
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import io.enoa.repeater.EoxConfig;
 import io.enoa.repeater.factory.name.EoxNameRuleFactory;
 import io.enoa.repeater.http.Cookie;
@@ -118,7 +118,7 @@ class NettyParser {
             break;
         }
       } catch (IOException e) {
-        LogKit.error(e.getMessage(), e);
+        Log.error(e.getMessage(), e);
       }
     }
     return new ParseRet.Builder()

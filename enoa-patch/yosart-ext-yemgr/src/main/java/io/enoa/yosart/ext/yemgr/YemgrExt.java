@@ -22,6 +22,7 @@ import io.enoa.template.compressor.provider.htmlcompressor.HtmlCompressorProvide
 import io.enoa.template.provider.enjoy.EnjoyConfig;
 import io.enoa.template.provider.enjoy.EnjoyProvider;
 import io.enoa.toolkit.EoConst;
+import io.enoa.toolkit.random.RandomKit;
 import io.enoa.yosart.Oysart;
 import io.enoa.yosart.Yesart;
 import io.enoa.yosart.kernel.ext.YmBootHookExt;
@@ -30,6 +31,8 @@ import io.enoa.yosart.thr.OyExtException;
 public class YemgrExt implements YmBootHookExt {
 
   private static EnoaEngine ENGINE;
+
+  private double wight = RandomKit.nextDouble(1, 9);
 
   @Override
   public void hook(Yesart yesart) throws OyExtException {
@@ -68,4 +71,8 @@ public class YemgrExt implements YmBootHookExt {
     return ENGINE;
   }
 
+  @Override
+  public double weight() {
+    return this.wight;
+  }
 }

@@ -65,12 +65,12 @@ public class ConfKit {
     return value(key).bool();
   }
 
-  public static Long longx(String key, Long def) {
-    return value(key).longx(def);
+  public static Long longer(String key, Long def) {
+    return value(key).longer(def);
   }
 
-  public static Long longx(String key) {
-    return value(key).longx();
+  public static Long longer(String key) {
+    return value(key).longer();
   }
 
 }

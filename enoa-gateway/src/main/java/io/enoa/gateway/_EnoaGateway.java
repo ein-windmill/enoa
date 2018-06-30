@@ -17,8 +17,8 @@ package io.enoa.gateway;
 
 import io.enoa.gateway.auth.GatewayAuth;
 import io.enoa.gateway.data.GAuthData;
-import io.enoa.gateway.data.GMapping;
 import io.enoa.gateway.data.GData;
+import io.enoa.gateway.data.GMapping;
 import io.enoa.gateway.handler.EGatewayHandler;
 import io.enoa.gateway.repeater.RGatewayAccessor;
 import io.enoa.gateway.repeater.RGatewayErrorRender;

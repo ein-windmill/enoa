@@ -34,8 +34,8 @@ public class DocTest {
    * @param args args
    */
   public static void main(String[] args) throws IOException {
-    System.out.println(PathKit.bootPath());
-    Path example = PathKit.bootPath();
+    System.out.println(PathKit.debugPath());
+    Path example = PathKit.debugPath();
     List<String> jfs = new ArrayList<>();
     listFile(jfs, example);
     Main.execute("", jfs.toArray(new String[jfs.size()]));

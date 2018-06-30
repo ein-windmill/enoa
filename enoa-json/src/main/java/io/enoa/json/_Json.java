@@ -23,7 +23,20 @@ import java.util.List;
  */
 interface _Json {
 
+//  /**
+//   * Origin json class
+//   * like
+//   * Gson -> Gson
+//   * jackson -> ObjectMapper
+//   * Note: Not all json providers will have corresponding original class, depending on the specific provider
+//   *
+//   * @return Object
+//   */
+//  Object origin();
+
   String toJson(Object object);
+
+  String toJson(Object object, String datePattern);
 
   <T> T parse(String json, Class<T> type);
 

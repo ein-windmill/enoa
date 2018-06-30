@@ -5,7 +5,7 @@
   <parent>
     <artifactId>enoa</artifactId>
     <groupId>io.enoa</groupId>
-    <version>1.4-beta</version>
+    <version>1.5-beta.7</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>enoa-example</artifactId>
@@ -19,12 +19,12 @@
     <module>example-template</module>
     <module>example-http</module>
     <module>example-redis</module>
-    <module>example-yosart-anost</module>
     <module>example-gateway</module>
     <module>example-trydb</module>
     <module>example-eml</module>
     <module>example-json</module>
     <module>example-stove</module>
+    <module>example-index</module>
   </modules>
 
 

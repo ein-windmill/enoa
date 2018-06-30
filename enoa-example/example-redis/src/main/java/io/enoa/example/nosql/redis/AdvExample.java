@@ -15,7 +15,10 @@
  */
 package io.enoa.example.nosql.redis;
 
-import io.enoa.nosql.redis.*;
+import io.enoa.nosql.redis.EnoaRedis;
+import io.enoa.nosql.redis.EoRedisRunner;
+import io.enoa.nosql.redis.Redis;
+import io.enoa.nosql.redis.RedisSentinelConfig;
 import io.enoa.serialization.EoSerializer;
 import io.enoa.serialization.provider.jdk.JdkSerializeProvider;
 import redis.clients.jedis.Jedis;
@@ -107,7 +110,8 @@ public class AdvExample {
         add("192.168.1.22:63793");
       }})
       .build();
-    EMgrRedis.start(config);
+//    EMgrRedis.start(config);
+    Redis.epm().install(config);
     EnoaRedis redis = Redis.use("sentinel");
     System.out.println(redis.set(this.key, "sentinel value"));
     String ret = redis.get(this.key);
@@ -117,9 +121,10 @@ public class AdvExample {
 
   public static void main(String[] args) {
     AdvExample example = new AdvExample();
-    EMgrRedis.start("localhost", 6379, new JdkSerializeProvider());
+//    EMgrRedis.start("localhost", 6379, new JdkSerializeProvider());
+    Redis.epm().install("localhost", 6379, new JdkSerializeProvider());
 //    EMgrRedis.start("main", "localhost", 6379, new JdkSerializeProvider()); // default name is main
-    EMgrRedis.start("other", "localhost", 6379);
+    Redis.epm().install("other", "localhost", 6379);
     example.run();
     example.jedis();
     example.use();

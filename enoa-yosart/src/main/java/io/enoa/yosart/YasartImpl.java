@@ -22,6 +22,7 @@ import io.enoa.repeater.factory.error.EoxErrorRenderFactory;
 import io.enoa.repeater.factory.name.EoxNameRuleFactory;
 import io.enoa.repeater.factory.server.RepeaterServerFactory;
 import io.enoa.repeater.name.OriginNameRule;
+import io.enoa.yosart.ext.anost.AnostExt;
 import io.enoa.yosart.ext.assets.EyAssetsExt;
 import io.enoa.yosart.ext.render.binary.BinaryRenderExt;
 import io.enoa.yosart.ext.render.common.CommonRenderExt;
@@ -30,7 +31,6 @@ import io.enoa.yosart.ext.render.file.FileRenderExt;
 import io.enoa.yosart.ext.render.html.HtmlRenderExt;
 import io.enoa.yosart.ext.render.redirect.RedirectRenderExt;
 import io.enoa.yosart.ext.render.text.TextRenderExt;
-import io.enoa.yosart.ext.router.EyRouterExt;
 import io.enoa.yosart.repeater.OysartAccessor;
 import io.enoa.yosart.repeater.OysartRepeaterErrorRender;
 
@@ -76,7 +76,8 @@ abstract class YasartImpl implements Yosart {
 
   private void initDefExt() {
     // register router ext
-    YoExtd.yo().reg(new EyRouterExt(), true);
+//    YoExtd.yo().reg(new EyRouterExt(), true);
+    YoExtd.yo().reg(new AnostExt(), true);
 
     // register render ext
     YoExtd.yo().reg(new CommonRenderExt(), true);

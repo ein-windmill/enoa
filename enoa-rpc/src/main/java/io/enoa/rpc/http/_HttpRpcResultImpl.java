@@ -16,7 +16,7 @@
 package io.enoa.rpc.http;
 
 import io.enoa.http.protocol.HttpResponse;
-import io.enoa.rpc.handler.IHandler;
+import io.enoa.rpc.parser.IRpcParser;
 import io.enoa.toolkit.text.TextKit;
 
 import java.lang.reflect.Type;
@@ -25,14 +25,14 @@ class _HttpRpcResultImpl<T> implements HttpRpcResult<T> {
 
   private HttpResponse response;
   private Type type;
-  private IHandler<T> handler;
+  private IRpcParser<T> handler;
 
   _HttpRpcResultImpl(HttpResponse response, Type type) {
     this.response = response;
     this.type = type;
   }
 
-  _HttpRpcResultImpl(HttpResponse response, Type type, IHandler<T> handler) {
+  _HttpRpcResultImpl(HttpResponse response, Type type, IRpcParser<T> handler) {
     this.response = response;
     this.type = type;
     this.handler = handler;
@@ -46,7 +46,7 @@ class _HttpRpcResultImpl<T> implements HttpRpcResult<T> {
   @Override
   public T result() {
     if (this.handler != null) {
-      return this.handler.handle(this.response.body(), this.type);
+      return this.handler.parse(this.response.body(), this.type);
     }
     return HttpRpcHandler.handle(this.response, this.type);
   }

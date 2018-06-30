@@ -41,13 +41,15 @@ public interface Oysart {
   }
 
   static YoExt[] exts() {
-    return Oysartd.yo().exts();
+    return Arrays.stream(Oysartd.yo().exts())
+      .sorted((o1, o2) -> (int) (o2.weight() * 100D - o1.weight() * 100D))
+      .toArray(YoExt[]::new);
   }
 
   static YoExt[] exts(YoExt.Type type) {
     return Arrays.stream(Oysartd.yo().exts())
       .filter(e -> e.type() == type)
-      .sorted((o1, o2) -> (int) (o1.weight() * 100D - o2.weight() * 100D))
+      .sorted((o1, o2) -> (int) (o2.weight() * 100D - o1.weight() * 100D))
       .toArray(YoExt[]::new);
   }
 

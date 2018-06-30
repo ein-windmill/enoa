@@ -15,29 +15,36 @@
  */
 package io.enoa.http.provider.httphelper.http.req;
 
-import java.nio.charset.Charset;
+import io.enoa.http.protocol.enoa.HttpRequestBody;
 
-public abstract class _HttpHelperRequestBody {
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
+
+public abstract class _HttpHelperRequestBody implements HttpRequestBody {
 
   private static final Charset DEF_CHARSET = Charset.forName("UTF-8");
 
   public abstract int contentLength();
 
+  @Override
   public abstract Charset charset();
 
-  public abstract byte[] content();
+  @Override
+  public abstract byte[] bytes();
 
 
-  public static _HttpHelperRequestBody create(final byte[] content, final Charset charset) {
-    return create(content, charset, content.length);
-  }
-
-  public static _HttpHelperRequestBody create(final String content, final Charset charset) {
-    byte[] bytes = content.getBytes(charset == null ? DEF_CHARSET : charset);
+  public static _HttpHelperRequestBody create(final byte[] bytes, final Charset charset) {
     return create(bytes, charset, bytes.length);
   }
 
-  public static _HttpHelperRequestBody create(final byte[] content, final Charset charset, final int contentLength) {
+  public static _HttpHelperRequestBody create(final String body, final Charset charset) {
+    byte[] bytes = body.getBytes(charset == null ? DEF_CHARSET : charset);
+    return create(bytes, charset, bytes.length);
+  }
+
+  public static _HttpHelperRequestBody create(final byte[] bytes, final Charset charset, final int contentLength) {
     return new _HttpHelperRequestBody() {
       @Override
       public int contentLength() {
@@ -50,14 +57,23 @@ public abstract class _HttpHelperRequestBody {
       }
 
       @Override
-      public byte[] content() {
-        return content;
+      public byte[] bytes() {
+        return bytes;
       }
     };
   }
 
   public String string() {
-    return new String(this.content(), this.charset() == null ? DEF_CHARSET : this.charset());
+//    return new String(this.content(), this.charset() == null ? DEF_CHARSET : this.charset());
+    CharsetDecoder decoder = (this.charset() == null ? DEF_CHARSET : this.charset()).newDecoder();
+    ByteBuffer byteBuffer = ByteBuffer.wrap(this.bytes());
+    CharBuffer charBuffer = CharBuffer.allocate(byteBuffer.limit());
+    decoder.decode(byteBuffer, charBuffer, true);
+    charBuffer.flip();
+    String ret = charBuffer.toString();
+    charBuffer.clear();
+    byteBuffer.clear();
+    return ret;
   }
 
   @Override

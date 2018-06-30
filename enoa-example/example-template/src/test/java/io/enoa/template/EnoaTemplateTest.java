@@ -71,7 +71,7 @@ public class EnoaTemplateTest {
   }
 
   private EoEngineConfig genConfig(ENGINE engine) {
-    String viewPath = String.format("%s/src/test/tpl", PathKit.bootPath());
+    String viewPath = String.format("%s/src/test/tpl", PathKit.debugPath());
     boolean compress = true;
     EoCompressorFactory compressor = new HtmlCompressorProvider();
     switch (engine) {

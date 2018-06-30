@@ -17,6 +17,8 @@ package io.enoa.http.provider.httphelper;
 
 import io.enoa.http.*;
 import io.enoa.http.protocol.*;
+import io.enoa.http.protocol.enoa.IHttpHandler;
+import io.enoa.http.protocol.enoa.IHttpReporter;
 import io.enoa.http.provider.httphelper.async.HttpHelperExecutor;
 import io.enoa.http.provider.httphelper.conn._HttpHelperConn;
 import io.enoa.http.provider.httphelper.http.req._HttpHelperRequest;
@@ -51,6 +53,9 @@ class _HttpHelper implements Http {
   private HttpHelperConfig config;
   private EoExecutor executor;
 
+  private List<IHttpHandler> handlers;
+  private List<IHttpReporter> reporters;
+
   _HttpHelper() {
     this.traditional = true;
     this.encode = false;
@@ -58,7 +63,7 @@ class _HttpHelper implements Http {
     this.method = HttpMethod.GET;
     this.charset = Charset.forName("UTF-8");
     this.headers = new HashSet<>();
-    this.headers.add(new HttpHeader("User-Agent", "Mozilla/5.0 Enoa/1.4-beta HttpHelper/4.0"));
+    this.headers.add(new HttpHeader("User-Agent", "Mozilla/5.0 Enoa/1.5-beta.7 HttpHelper/4.0"));
     this.executor = HttpHelperExecutor.instance();
   }
 
@@ -73,6 +78,10 @@ class _HttpHelper implements Http {
 
   @Override
   public HttpResponse emit() {
+    if (this.config == null)
+      this.config = new HttpHelperConfig.Builder().build();
+
+
     RequestBuilder builder = new RequestBuilder();
     builder.method = this.method;
     builder.charset = this.charset;
@@ -89,15 +98,27 @@ class _HttpHelper implements Http {
     builder.headers = this.headers;
     builder.formDatas = this.formDatas;
     builder.config = this.config;
+
     _HttpHelperRequest request = builder.build();
+
+    if (this.config.debug())
+      this.handler(IHttpHandler.def());
+
+    if (this.handlers != null)
+      HttpExtExecutor.instance().handle(this.handlers, request);
+
     _HttpHelperConn conn = new _HttpHelperConn(request);
-    return conn.execute();
+    HttpResponse response = conn.execute();
+    if (this.reporters != null)
+      HttpExtExecutor.instance().report(this.reporters, response);
+
+    return response;
   }
 
   @Override
   public Http executor(EoExecutor executor) {
     if (executor == null)
-      throw new IllegalArgumentException(" == null");
+      throw new IllegalArgumentException("executor == null");
     this.executor = executor;
     return this;
   }
@@ -105,6 +126,22 @@ class _HttpHelper implements Http {
   @Override
   public HttpPromise enqueue() {
     return this.executor.enqueue(this.url, this);
+  }
+
+  @Override
+  public Http handler(IHttpHandler handler) {
+    if (this.handlers == null)
+      this.handlers = new ArrayList<>();
+    this.handlers.add(handler);
+    return this;
+  }
+
+  @Override
+  public Http reporter(IHttpReporter reporter) {
+    if (this.reporters == null)
+      this.reporters = new ArrayList<>();
+    this.reporters.add(reporter);
+    return this;
   }
 
   @Override
@@ -188,7 +225,7 @@ class _HttpHelper implements Http {
     if (name == null)
       throw new IllegalArgumentException("name == null");
     if (value == null)
-      throw new IllegalArgumentException("value == null");
+      throw new IllegalArgumentException("value == null => name: " + name);
     if (value.getClass().isArray()) {
       return this.para(name, this.toArr(value));
     }
@@ -200,7 +237,7 @@ class _HttpHelper implements Http {
     if (name == null)
       throw new IllegalArgumentException("name == null");
     if (values == null)
-      throw new IllegalArgumentException("values == null");
+      throw new IllegalArgumentException("values == null => name: " + name);
     for (Object value : values) {
       this.para(name, value, false);
     }
@@ -319,4 +356,8 @@ class _HttpHelper implements Http {
     return this;
   }
 
+  @Override
+  public String toString() {
+    return super.toString();
+  }
 }

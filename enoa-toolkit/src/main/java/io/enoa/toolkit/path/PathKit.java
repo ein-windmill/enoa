@@ -140,9 +140,9 @@ public class PathKit {
    * 例如在 /tmp 啟動工程, 那麼獲取到的也是 /tmp
    * 開發模式中會用到此路徑, 譬如是模板的路徑配置, 配置此路徑可避免應用的重啟即可進行模板的熱加載
    *
-   * @return String
+   * @return Path
    */
-  public static Path bootPath() {
+  public static Path debugPath() {
 //    return BOOT_PATH;
 //    return Paths.get("").normalize();
     try {

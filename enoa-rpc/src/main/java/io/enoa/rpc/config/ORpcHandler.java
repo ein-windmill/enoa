@@ -15,8 +15,8 @@
  */
 package io.enoa.rpc.config;
 
-import io.enoa.rpc.handler.IHandler;
-import io.enoa.rpc.handler.ResponseType;
+import io.enoa.rpc.parser.IRpcParser;
+import io.enoa.rpc.parser.ResponseType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,14 +35,14 @@ public class ORpcHandler {
     return Holder.INSTANCE;
   }
 
-  private Map<ResponseType, IHandler> handler = new HashMap<>();
+  private Map<ResponseType, IRpcParser> handler = new HashMap<>();
 
-  public <T> ORpcHandler reg(ResponseType type, IHandler<T> handler) {
+  public <T> ORpcHandler reg(ResponseType type, IRpcParser<T> handler) {
     this.handler.put(type, handler);
     return this;
   }
 
-  public <T> IHandler<T> handler(ResponseType type) {
+  public <T> IRpcParser<T> handler(ResponseType type) {
     return this.handler.get(type);
   }
 

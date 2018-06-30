@@ -18,7 +18,6 @@ package io.enoa.stove.template.command;
 import io.enoa.stove.template.SPM;
 import io.enoa.stove.template.StoveConfig;
 import io.enoa.stove.template.ast.tree.Ast;
-import io.enoa.stove.template.ast.tree.BlockAst;
 import io.enoa.stove.template.command.helper.StoveHelper;
 import io.enoa.stove.template.thr.SyntaxException;
 import io.enoa.toolkit.text.TextKit;

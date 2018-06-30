@@ -15,7 +15,7 @@
  */
 package io.enoa.yosart.ext.render.template;
 
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import io.enoa.repeater.http.Request;
 import io.enoa.template.EnoaEngine;
 import io.enoa.template.EoEngineConfig;
@@ -24,6 +24,7 @@ import io.enoa.template.compressor.EoCompressorFactory;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.path.PathKit;
+import io.enoa.toolkit.random.RandomKit;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.yosart.Oysart;
 import io.enoa.yosart.kernel.ext.YmRenderExt;
@@ -43,6 +44,8 @@ public class TemplateRenderExt implements YmRenderExt {
 
   private EnoaEngine engine;
 
+  private double wight = RandomKit.nextDouble(1, 9);
+
   public TemplateRenderExt(EoTemplateFactory factory, String basePath) {
     this(factory, basePath, null);
   }
@@ -51,7 +54,7 @@ public class TemplateRenderExt implements YmRenderExt {
     if (factory == null)
       throw new OyExtException(EnoaTipKit.message("eo.tip.ext.render.template_factory_null"));
     if (TextKit.isBlank(basePath))
-      LogKit.warn(EnoaTipKit.message("eo.tip.ext.render.template_base_path_null"));
+      Log.warn(EnoaTipKit.message("eo.tip.ext.render.template_base_path_null"));
     this.basePath = TextKit.isBlank(basePath) ? PathKit.path().toString() : basePath;
     this.compress = false;
     this.factory = factory;
@@ -64,7 +67,7 @@ public class TemplateRenderExt implements YmRenderExt {
     if (compressorFactory == null)
       throw new OyExtException(EnoaTipKit.message("eo.tip.ext.render.template_compressor_null"));
     if (TextKit.isBlank(basePath))
-      LogKit.warn(EnoaTipKit.message("eo.tip.ext.render.template_base_path_null"));
+      Log.warn(EnoaTipKit.message("eo.tip.ext.render.template_base_path_null"));
     this.factory = factory;
     this.basePath = TextKit.isBlank(basePath) ? PathKit.path().toString() : basePath;
     this.compressorFactory = compressorFactory;
@@ -145,6 +148,11 @@ public class TemplateRenderExt implements YmRenderExt {
   @Override
   public String name() {
     return "TemplateRender";
+  }
+
+  @Override
+  public double weight() {
+    return this.wight;
   }
 
   @Override

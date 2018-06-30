@@ -15,7 +15,7 @@
  */
 package io.enoa.eml;
 
-import io.enoa.eml.api.SenderHandler;
+import io.enoa.eml.api.ISenderReporter;
 import io.enoa.eml.entity.Attachment;
 import io.enoa.eml.entity.MailPerson;
 import io.enoa.promise.DonePromise;
@@ -229,7 +229,7 @@ public interface EmlSender {
     return this;
   }
 
-  EmlSender handler(SenderHandler handler);
+  EmlSender reporter(ISenderReporter reporter);
 
   void emit();
 

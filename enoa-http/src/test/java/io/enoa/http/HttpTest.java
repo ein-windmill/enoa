@@ -20,8 +20,7 @@ import io.enoa.http.protocol.HttpHeader;
 import io.enoa.http.protocol.HttpMethod;
 import io.enoa.http.protocol.HttpResponse;
 import io.enoa.http.protocol.HttpResponseBody;
-import io.enoa.log.EMgrLog;
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import io.enoa.log.provider.slf4j.Slf4JLogProvider;
 import io.enoa.serialization.EoSerializer;
 import io.enoa.serialization.provider.jdk.JdkSerializeProvider;
@@ -44,7 +43,7 @@ public class HttpTest {
 
   @Before
   public void before() {
-    EMgrLog.defLogFactory(new Slf4JLogProvider());
+    Log.epm().install(new Slf4JLogProvider());
   }
 
   @Test
@@ -75,7 +74,7 @@ public class HttpTest {
 
   private Http http() {
 //    Path upload = Paths.get(PathKit.path().concat("/upload/file.txt"));
-    Path upload = PathKit.bootPath().resolve("/upload/file.txt");
+    Path upload = PathKit.debugPath().resolve("/upload/file.txt");
     String url;
     url = "http://localhost:9001/example";
     url = "http://localhost:9102/example/actionsess";
@@ -143,7 +142,7 @@ public class HttpTest {
       HttpResponse response = this.http().emit();
       System.out.println(response.body().string());
     } catch (Exception e) {
-      LogKit.error(e.getMessage(), e);
+      Log.error(e.getMessage(), e);
     }
   }
 
@@ -153,10 +152,10 @@ public class HttpTest {
 
 //      .<HttpResponse>then(resp -> resp.body().string())
 //      .<String>valid(TextKit::notBlank)
-//      .<String>execute(LogKit::debug)
-//      .<String>fail(data -> LogKit.error("REQUEST FAIL"))
-//      .capture(e -> LogKit.error(e.getMessage(), e))
-//      .always(() -> LogKit.debug("finally."));
+//      .<String>execute(Log::debug)
+//      .<String>fail(data -> Log.error("REQUEST FAIL"))
+//      .capture(e -> Log.error(e.getMessage(), e))
+//      .always(() -> Log.debug("finally."));
 
 
       .ok(System.out::println)

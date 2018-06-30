@@ -21,4 +21,6 @@ public interface EoHttpConfig {
 
   int soTimeout();
 
+  boolean debug();
+
 }
