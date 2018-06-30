@@ -17,6 +17,7 @@ package io.enoa.http;
 
 import io.enoa.http.provider.httphelper.HttpHelperProvider;
 
+@FunctionalInterface
 public interface EoHttp {
 
   static EoHttp def() {
