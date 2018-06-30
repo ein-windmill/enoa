@@ -30,6 +30,9 @@ public class Jo extends _Jo implements FastKv<Jo> {
     super(map);
   }
 
+  public static Jo create() {
+    return new Jo();
+  }
 
   @Override
   public String json() {

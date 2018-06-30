@@ -29,6 +29,10 @@ public class Ja<E> extends _Ja<E> {
     super(collection);
   }
 
+  public static <S> Ja<S> create() {
+    return new Ja<>();
+  }
+
   @Override
   public String json() {
     return Tryjson.json(this);
