@@ -13,33 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.tryjson.json;
+package io.enoa.tryjson.entity;
 
-import org.junit.Test;
+public class Bean90 {
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class JoaTest {
-
-  @Test
-  public void testJo() {
-//    Jo jo = Jo.create();
-//    jo.set("a", "b");
-//    System.out.println(jo);
-//    Map map = new HashMap();
-//    map.put("1", "2");
-//    map.put("a", "b");
-//    System.out.println(map);
-//
-//    Map m1 = new Jo();
-//    m1.put("b", "c");
-//    m1.put("h", "a");
-//    System.out.println(m1);
-    Map<String, String> m9 = new HashMap<>();
-    m9.put("a", "b");
-    m9.put("h", "i");
-    System.out.println(m9);
-  }
+  public String name;
+  public String country;
+  public int code;
 
 }

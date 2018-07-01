@@ -17,24 +17,24 @@ package io.enoa.tryjson.thr;
 
 import io.enoa.toolkit.thr.EoException;
 
-public class EoJsonException extends EoException {
-  public EoJsonException() {
+public class JsonException extends EoException {
+  public JsonException() {
     super();
   }
 
-  public EoJsonException(String message, Object... format) {
+  public JsonException(String message, Object... format) {
     super(message, format);
   }
 
-  public EoJsonException(String message, Throwable cause, Object... format) {
+  public JsonException(String message, Throwable cause, Object... format) {
     super(message, cause, format);
   }
 
-  public EoJsonException(Throwable cause) {
+  public JsonException(Throwable cause) {
     super(cause);
   }
 
-  public EoJsonException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, Object... format) {
+  public JsonException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, Object... format) {
     super(message, cause, enableSuppression, writableStackTrace, format);
   }
 }

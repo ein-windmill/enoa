@@ -13,33 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.tryjson.json;
+package io.enoa.tryjson.converter;
 
-import org.junit.Test;
+import io.enoa.toolkit.EoConst;
 
-import java.util.HashMap;
-import java.util.Map;
+public class ConvConf {
 
-public class JoaTest {
+  private final String dateFormat;
 
-  @Test
-  public void testJo() {
-//    Jo jo = Jo.create();
-//    jo.set("a", "b");
-//    System.out.println(jo);
-//    Map map = new HashMap();
-//    map.put("1", "2");
-//    map.put("a", "b");
-//    System.out.println(map);
-//
-//    Map m1 = new Jo();
-//    m1.put("b", "c");
-//    m1.put("h", "a");
-//    System.out.println(m1);
-    Map<String, String> m9 = new HashMap<>();
-    m9.put("a", "b");
-    m9.put("h", "i");
-    System.out.println(m9);
+  private ConvConf(Builder builder) {
+    this.dateFormat = builder.dateFormat;
+  }
+
+  public String dateFormat() {
+    return this.dateFormat;
+  }
+
+  public static class Builder {
+    private String dateFormat;
+
+    public Builder() {
+      this.dateFormat = EoConst.DEF_FORMAT_DATE;
+    }
+
+    public ConvConf build() {
+      return new ConvConf(this);
+    }
+
+    public Builder dateFormat(String dateFormat) {
+      this.dateFormat = dateFormat;
+      return this;
+    }
   }
 
 }

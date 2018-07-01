@@ -28,6 +28,7 @@
     <dependency>
       <groupId>io.enoa</groupId>
       <artifactId>enoa-typebuilder</artifactId>
+      <scope>provided</scope>
     </dependency>
 
   </dependencies>
