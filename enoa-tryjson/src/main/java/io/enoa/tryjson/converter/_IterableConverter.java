@@ -15,7 +15,8 @@
  */
 package io.enoa.tryjson.converter;
 
-import io.enoa.tryjson.Tryjson;
+import io.enoa.tryjson.Eson;
+import io.enoa.tryjson.Esonfig;
 
 class _IterableConverter implements EsonConverter<Iterable> {
   private static class Holder {
@@ -27,13 +28,13 @@ class _IterableConverter implements EsonConverter<Iterable> {
   }
 
   @Override
-  public String json(Iterable iterable, int depth, ConvConf conf) {
+  public String json(Iterable iterable, int depth, Esonfig conf) {
     if (iterable == null)
       return "[]";
     StringBuilder _json = new StringBuilder();
     _json.append('[');
     iterable.forEach(it -> {
-      _json.append(Tryjson.json(it, depth, conf));
+      _json.append(Eson.json(it, depth, conf));
       _json.append(',');
     });
     int lastIx = _json.length() - 1;

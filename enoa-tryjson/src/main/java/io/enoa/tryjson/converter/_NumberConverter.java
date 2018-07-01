@@ -15,6 +15,10 @@
  */
 package io.enoa.tryjson.converter;
 
+import io.enoa.toolkit.number.NumberKit;
+import io.enoa.toolkit.text.TextKit;
+import io.enoa.tryjson.Esonfig;
+
 class _NumberConverter implements EsonConverter<Number> {
 
   private static class Holder {
@@ -26,7 +30,7 @@ class _NumberConverter implements EsonConverter<Number> {
   }
 
   @Override
-  public String json(Number number, int depth, ConvConf conf) {
+  public String json(Number number, int depth, Esonfig conf) {
     if (number == null)
       return null;
 
@@ -38,6 +42,9 @@ class _NumberConverter implements EsonConverter<Number> {
       if (((Float) number).isInfinite() || ((Float) number).isNaN())
         return null;
     }
-    return number.toString();
+    String _ret = number.toString();
+    if (NumberKit.isNumber(_ret))
+      return _ret;
+    return TextKit.union("\"", _ret, "\"");
   }
 }

@@ -15,21 +15,16 @@
  */
 package io.enoa.tryjson.converter;
 
-import io.enoa.tryjson.Esonfig;
+/**
+ * 枚舉類型特殊格式化接口
+ */
+@FunctionalInterface
+public interface IEnumConverter {
 
-class _BoolConverter implements EsonConverter<Boolean> {
-  private static class Holder {
-    private static final _BoolConverter INSTANCE = new _BoolConverter();
+  static IEnumConverter def() {
+    return __EnumNameConverter.instance();
   }
 
-  static _BoolConverter instance() {
-    return Holder.INSTANCE;
-  }
+  Object convert(Enum em);
 
-  @Override
-  public String json(Boolean bool, int depth, Esonfig conf) {
-    if (bool == null)
-      return null;
-    return bool.toString();
-  }
 }

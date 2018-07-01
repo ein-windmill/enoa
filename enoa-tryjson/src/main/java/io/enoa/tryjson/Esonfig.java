@@ -16,18 +16,49 @@
 package io.enoa.tryjson;
 
 import io.enoa.toolkit.EoConst;
+import io.enoa.toolkit.namecase.INameCase;
+import io.enoa.tryjson.converter.IEnumConverter;
+import io.enoa.tryjson.format.IJsonFormat;
 import io.enoa.tryjson.mark.DateFormatStrategy;
 
 public class Esonfig {
 
+  /**
+   * 調試模式
+   */
   private final boolean debug;
+  /**
+   * 時間格式化策略
+   */
   private final DateFormatStrategy dateFormatStrategy;
+  /**
+   * 如果時間格式化策略爲字符串模式, 所選用的時間格式化格式
+   */
   private final String dateFormat;
+  /**
+   * json key 命名轉換規則, 默認不轉換
+   */
+  private final INameCase namecase;
+  /**
+   * 枚舉轉換規則, 默認使用枚舉字段名
+   */
+  private final IEnumConverter enumConverter;
+  /**
+   * 對象轉換 json 後, 對 json 字符串進行格式化
+   */
+  private final IJsonFormat jsonFormat;
 
   private Esonfig(Builder builder) {
     this.debug = builder.debug;
     this.dateFormat = builder.dateFormat;
     this.dateFormatStrategy = builder.dateFormatStrategy;
+    this.namecase = builder.namecase;
+    this.enumConverter = builder.enumConverter;
+    this.jsonFormat = builder.jsonFormat;
+  }
+
+  public static Esonfig def() {
+    return new Builder().build();
   }
 
   public boolean debug() {
@@ -42,6 +73,18 @@ public class Esonfig {
     return this.dateFormatStrategy;
   }
 
+  public INameCase namecase() {
+    return this.namecase;
+  }
+
+  public IEnumConverter enumConverter() {
+    return this.enumConverter;
+  }
+
+  public IJsonFormat jsonFormat() {
+    return this.jsonFormat;
+  }
+
   public Builder builder() {
     return new Builder(this);
   }
@@ -50,17 +93,26 @@ public class Esonfig {
     private boolean debug;
     private DateFormatStrategy dateFormatStrategy;
     private String dateFormat;
+    private INameCase namecase;
+    private IEnumConverter enumConverter;
+    private IJsonFormat jsonFormat;
 
     public Builder() {
       this.debug = Boolean.FALSE;
       this.dateFormat = EoConst.DEF_FORMAT_DATE;
       this.dateFormatStrategy = DateFormatStrategy.STRING;
+      this.namecase = INameCase.def();
+      this.enumConverter = IEnumConverter.def();
+      this.jsonFormat = IJsonFormat.def();
     }
 
-    public Builder(Esonfig esonfig) {
+    private Builder(Esonfig esonfig) {
       this.debug = esonfig.debug;
       this.dateFormat = esonfig.dateFormat;
       this.dateFormatStrategy = esonfig.dateFormatStrategy;
+      this.namecase = esonfig.namecase;
+      this.enumConverter = esonfig.enumConverter;
+      this.jsonFormat = esonfig.jsonFormat;
     }
 
     public Esonfig build() {
@@ -79,6 +131,21 @@ public class Esonfig {
 
     public Builder dateFormat(String dateFormat) {
       this.dateFormat = dateFormat;
+      return this;
+    }
+
+    public Builder namecase(INameCase namecase) {
+      this.namecase = namecase;
+      return this;
+    }
+
+    public Builder enumConverter(IEnumConverter enumConverter) {
+      this.enumConverter = enumConverter;
+      return this;
+    }
+
+    public Builder jsonFormat(IJsonFormat jsonFormat) {
+      this.jsonFormat = jsonFormat;
       return this;
     }
   }

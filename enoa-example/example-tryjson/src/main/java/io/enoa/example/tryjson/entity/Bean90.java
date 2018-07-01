@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.tryjson.entity;
+package io.enoa.example.tryjson.entity;
 
 public class Bean90 {
 

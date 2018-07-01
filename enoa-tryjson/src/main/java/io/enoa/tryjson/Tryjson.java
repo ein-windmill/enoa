@@ -16,7 +16,6 @@
 package io.enoa.tryjson;
 
 
-import io.enoa.tryjson.converter.ConvConf;
 import io.enoa.tryjson.json.Ja;
 import io.enoa.tryjson.json.Jo;
 
@@ -30,19 +29,20 @@ public interface Tryjson {
   }
 
   static String json(Object object) {
-    return Eson.json(object, 15);
+    return json(object, 15);
   }
 
-  static String json(Object object, ConvConf conf) {
-    return Eson.json(object, 15, conf);
+  static String json(Object object, Esonfig conf) {
+    return json(object, 15, conf);
   }
 
   static String json(Object object, int depth) {
-    return Eson.json(object, depth);
+    return json(object, depth, epm().config());
   }
 
-  static String json(Object object, int depth, ConvConf conf) {
-    return Eson.json(object, depth, conf);
+  static String json(Object object, int depth, Esonfig conf) {
+    String json = Eson.json(object, depth, conf);
+    return conf.jsonFormat().format(json);
   }
 
   static Ja array(String json) {

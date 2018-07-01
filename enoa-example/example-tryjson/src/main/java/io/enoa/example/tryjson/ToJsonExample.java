@@ -13,21 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.tryjson;
+package io.enoa.example.tryjson;
 
+import io.enoa.example.tryjson.entity.*;
 import io.enoa.toolkit.EoConst;
+import io.enoa.toolkit.digest.UUIDKit;
 import io.enoa.toolkit.map.Kv;
-import io.enoa.tryjson.converter.ConvConf;
-import io.enoa.tryjson.entity.Bean90;
+import io.enoa.toolkit.mark.IMarkIx;
+import io.enoa.toolkit.mark.IMarkMsg;
+import io.enoa.toolkit.mark.IMarkVal;
+import io.enoa.toolkit.namecase.NamecaseKit;
+import io.enoa.toolkit.namecase.NamecaseType;
+import io.enoa.tryjson.Esonfig;
+import io.enoa.tryjson.Tryjson;
 import io.enoa.tryjson.mark.DateFormatStrategy;
-import org.junit.Before;
-import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-public class TryjsonTest {
+public class ToJsonExample {
 
   private Kv kv0() {
     return Kv.by("name", "jack")
@@ -67,10 +74,10 @@ public class TryjsonTest {
           return 34567D;
         }
 
-        @Override
-        public String toString() {
-          return String.valueOf(34567);
-        }
+//        @Override
+//        public String toString() {
+//          return String.valueOf(34567);
+//        }
       })
       .set("bool", Boolean.TRUE)
       .set("bean0", this.bean0())
@@ -116,19 +123,83 @@ public class TryjsonTest {
     return bean91;
   }
 
-
-  @Before
-  public void before() {
-    Tryjson.epm().install(new Esonfig.Builder().dateFormatStrategy(DateFormatStrategy.TIMESTAMP).build());
+  private Bean92 bean92() {
+    Bean92 bean92 = new Bean92();
+    bean92.ctime = new Timestamp(System.currentTimeMillis());
+    bean92.appId("1")
+      .expire_time("90999")
+      .token(UUIDKit.next(false))
+      .websiteHost("example.com");
+    return bean92;
   }
 
-  @Test
-  public void toJson() {
-    System.out.println(Tryjson.json(this.kv0(), new ConvConf.Builder().dateFormat("yyyy/MM/dd HH:mm:ss").build()));
+  private Bean93 bean93() {
+    Bean93 bean93 = new Bean93(this.bean92());
+    bean93.address = "No 92.";
+    bean93.city("Town")
+      .province(1)
+      .typeIx(BTypeIx.TYPE_A)
+      .typeVal(BTypeVal.TYPE_B)
+      .typeOrigin(BTypeOrigin.TYPE_A);
+    return bean93;
+  }
+
+  private void testDateFormat() {
+    System.out.println(Tryjson.json(this.kv0(), new Esonfig.Builder().dateFormat("yyyy/MM/dd HH:mm:ss").build()));
+  }
+
+  private void testBean() {
     System.out.println(Tryjson.json(this.bean0()));
     System.out.println(Tryjson.json(this.bean90()));
     System.out.println(Tryjson.json(this.bean91()));
+    System.out.println(Tryjson.json(this.bean92()));
+  }
+
+  private void testMap() {
     System.out.println(Tryjson.json(this.kv1()));
+  }
+
+  private void testConf() {
+    System.out.println(Tryjson.json(this.bean93(), new Esonfig.Builder()
+      .namecase(NamecaseKit.namecase(NamecaseType.CASE_UNDERLINE))
+      .dateFormatStrategy(DateFormatStrategy.STRING)
+      .dateFormat(EoConst.DEF_FORMAT_DATE)
+      .enumConverter(em -> {
+        if (em instanceof IMarkIx)
+          return ((IMarkIx) em).ix();
+        if (em instanceof IMarkVal)
+          return ((IMarkVal) em).val();
+        if (em instanceof IMarkMsg)
+          return ((IMarkMsg) em).code();
+        return em.name();
+      })
+      .build()));
+  }
+
+  private void testArr() {
+    String[] arr = new String[]{
+      "a\"",
+      "'''\"\\\"",
+      "\\\\",
+      "\r\n\t\b\"",
+      "\\r\\n\\t\\b\\\"",
+      "\\\r\\\n\\\t\\\b\\\""
+    };
+    System.out.println(Tryjson.json(arr));
+  }
+
+  public static void main(String[] args) {
+
+    // default tryjson config
+    Tryjson.epm().install(new Esonfig.Builder().dateFormatStrategy(DateFormatStrategy.TIMESTAMP).build());
+
+    ToJsonExample example = new ToJsonExample();
+    example.testDateFormat();
+    example.testBean();
+    example.testMap();
+    example.testConf();
+    example.testArr();
+
   }
 
 

@@ -15,7 +15,8 @@
  */
 package io.enoa.tryjson.converter;
 
-import io.enoa.tryjson.Tryjson;
+import io.enoa.tryjson.Eson;
+import io.enoa.tryjson.Esonfig;
 
 import java.util.Map;
 
@@ -29,14 +30,18 @@ class _MapConverter implements EsonConverter<Map> {
   }
 
   @Override
-  public String json(Map map, int depth, ConvConf conf) {
+  public String json(Map map, int depth, Esonfig conf) {
     if (map == null)
       return null;
     StringBuilder _json = new StringBuilder();
     _json.append('{');
     map.forEach((key, value) -> {
-      _json.append('"').append(String.valueOf(key)).append('"').append(':');
-      _json.append(Tryjson.json(value, depth, conf));
+      String _key = null;
+      if (key != null)
+        _key = conf.namecase().convert(String.valueOf(key));
+
+      _json.append('"').append(_key).append('"').append(':');
+      _json.append(Eson.json(value, depth, conf));
       _json.append(',');
     });
     int lastIx = _json.length() - 1;

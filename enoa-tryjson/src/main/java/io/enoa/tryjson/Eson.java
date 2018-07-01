@@ -15,23 +15,18 @@
  */
 package io.enoa.tryjson;
 
-import io.enoa.tryjson.converter.ConvConf;
 import io.enoa.tryjson.converter.EsonConverter;
 
 import java.util.Date;
 import java.util.Map;
 
-class Eson {
+public class Eson {
 
   private Eson() {
 
   }
 
-  static String json(Object object, int depth) {
-    return json(object, depth, new ConvConf.Builder().build());
-  }
-
-  static String json(Object object, int depth, ConvConf conf) {
+  public static String json(Object object, int depth, Esonfig conf) {
     if (object == null)
       return null;
 
@@ -58,6 +53,9 @@ class Eson {
 
     if (object instanceof Map)
       return EsonConverter.map().json((Map) object, depth, conf);
+
+    if (object instanceof Enum)
+      return EsonConverter.enumx().json((Enum) object, depth, conf);
 
     String json = EsonConverter.object().json(object, depth, conf);
     if (json != null)

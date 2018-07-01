@@ -18,8 +18,12 @@ package io.enoa.toolkit.namecase;
 /**
  * 命名規則轉換
  */
+@FunctionalInterface
 public interface INameCase {
 
+  static INameCase def() {
+    return NamecaseKit.namecase(NamecaseType.CASE_NONE);
+  }
 
   /**
    * 規則轉換

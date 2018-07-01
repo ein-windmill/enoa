@@ -13,23 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.tryjson.converter;
+package io.enoa.tryjson.format;
 
-import io.enoa.tryjson.Esonfig;
+@FunctionalInterface
+public interface IJsonFormat {
 
-class _BoolConverter implements EsonConverter<Boolean> {
-  private static class Holder {
-    private static final _BoolConverter INSTANCE = new _BoolConverter();
+  static IJsonFormat def() {
+    return NoneJsonFormat.instance();
   }
 
-  static _BoolConverter instance() {
-    return Holder.INSTANCE;
-  }
+  String format(String json);
 
-  @Override
-  public String json(Boolean bool, int depth, Esonfig conf) {
-    if (bool == null)
-      return null;
-    return bool.toString();
-  }
 }

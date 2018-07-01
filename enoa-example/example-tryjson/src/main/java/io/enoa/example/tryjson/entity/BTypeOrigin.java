@@ -13,23 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.tryjson.converter;
+package io.enoa.example.tryjson.entity;
 
-import io.enoa.tryjson.Esonfig;
+public enum  BTypeOrigin {
 
-class _BoolConverter implements EsonConverter<Boolean> {
-  private static class Holder {
-    private static final _BoolConverter INSTANCE = new _BoolConverter();
-  }
+  TYPE_A,
 
-  static _BoolConverter instance() {
-    return Holder.INSTANCE;
-  }
+  TYPE_B
 
-  @Override
-  public String json(Boolean bool, int depth, Esonfig conf) {
-    if (bool == null)
-      return null;
-    return bool.toString();
-  }
 }

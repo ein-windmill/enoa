@@ -13,28 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.tryjson.thr;
+package io.enoa.example.tryjson.entity;
 
-import io.enoa.toolkit.thr.EoException;
+import io.enoa.toolkit.mark.IMarkVal;
 
-public class JsonException extends EoException {
-  public JsonException() {
-    super();
+public enum BTypeVal implements IMarkVal {
+  TYPE_A("type_a"),
+  TYPE_B("type_other"),
+  //
+  ;
+
+  private final String val;
+
+  BTypeVal(String val) {
+    this.val = val;
   }
 
-  public JsonException(String message, Object... format) {
-    super(message, format);
-  }
-
-  public JsonException(String message, Throwable cause, Object... format) {
-    super(message, cause, format);
-  }
-
-  public JsonException(Throwable cause) {
-    super(cause);
-  }
-
-  public JsonException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, Object... format) {
-    super(message, cause, enableSuppression, writableStackTrace, format);
+  @Override
+  public String val() {
+    return this.val;
   }
 }

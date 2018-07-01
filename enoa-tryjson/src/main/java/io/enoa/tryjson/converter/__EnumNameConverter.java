@@ -15,35 +15,19 @@
  */
 package io.enoa.tryjson.converter;
 
-import io.enoa.toolkit.EoConst;
-
-public class ConvConf {
-
-  private final String dateFormat;
-
-  private ConvConf(Builder builder) {
-    this.dateFormat = builder.dateFormat;
+class __EnumNameConverter implements IEnumConverter {
+  private static class Holder {
+    private static final __EnumNameConverter INSTANCE = new __EnumNameConverter();
   }
 
-  public String dateFormat() {
-    return this.dateFormat;
+  static __EnumNameConverter instance() {
+    return Holder.INSTANCE;
   }
 
-  public static class Builder {
-    private String dateFormat;
-
-    public Builder() {
-      this.dateFormat = EoConst.DEF_FORMAT_DATE;
-    }
-
-    public ConvConf build() {
-      return new ConvConf(this);
-    }
-
-    public Builder dateFormat(String dateFormat) {
-      this.dateFormat = dateFormat;
-      return this;
-    }
+  @Override
+  public String convert(Enum _enum) {
+    if (_enum == null)
+      return null;
+    return _enum.name();
   }
-
 }

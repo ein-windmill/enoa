@@ -13,23 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.tryjson.converter;
+package io.enoa.example.tryjson.entity;
 
-import io.enoa.tryjson.Esonfig;
+import io.enoa.toolkit.mark.IMarkIx;
 
-class _BoolConverter implements EsonConverter<Boolean> {
-  private static class Holder {
-    private static final _BoolConverter INSTANCE = new _BoolConverter();
-  }
+public enum BTypeIx implements IMarkIx {
+  TYPE_A(0),
+  TYPE_B(1),
+  //
+  ;
 
-  static _BoolConverter instance() {
-    return Holder.INSTANCE;
+  private final int ix;
+
+  BTypeIx(int ix) {
+    this.ix = ix;
   }
 
   @Override
-  public String json(Boolean bool, int depth, Esonfig conf) {
-    if (bool == null)
-      return null;
-    return bool.toString();
+  public int ix() {
+    return this.ix;
   }
 }

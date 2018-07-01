@@ -25,6 +25,7 @@
     <module>example-json</module>
     <module>example-stove</module>
     <module>example-index</module>
+    <module>example-tryjson</module>
   </modules>
 
 

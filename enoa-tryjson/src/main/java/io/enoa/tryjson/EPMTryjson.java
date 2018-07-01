@@ -16,6 +16,8 @@
 package io.enoa.tryjson;
 
 import io.enoa.toolkit.EoConst;
+import io.enoa.toolkit.namecase.NamecaseKit;
+import io.enoa.toolkit.namecase.NamecaseType;
 
 public class EPMTryjson {
 
@@ -33,6 +35,7 @@ public class EPMTryjson {
     this.config = new Esonfig.Builder()
       .debug(Boolean.FALSE)
       .dateFormat(EoConst.DEF_FORMAT_DATE)
+      .namecase(NamecaseKit.namecase(NamecaseType.CASE_NONE))
       .build();
   }
 

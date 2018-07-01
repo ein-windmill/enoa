@@ -15,6 +15,8 @@
  */
 package io.enoa.tryjson.converter;
 
+import io.enoa.tryjson.Esonfig;
+
 import java.util.Date;
 import java.util.Map;
 
@@ -48,6 +50,10 @@ public interface EsonConverter<T> {
     return _ObjectConverter.instance();
   }
 
-  String json(T object, int depth, ConvConf arg);
+  static EsonConverter<Enum> enumx() {
+    return _EnumConverter.instance();
+  }
+
+  String json(T object, int depth, Esonfig conf);
 
 }

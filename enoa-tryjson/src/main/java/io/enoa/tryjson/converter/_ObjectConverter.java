@@ -17,8 +17,9 @@ package io.enoa.tryjson.converter;
 
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.text.TextKit;
-import io.enoa.tryjson.Tryjson;
-import io.enoa.tryjson.thr.JsonException;
+import io.enoa.tryjson.Eson;
+import io.enoa.tryjson.Esonfig;
+import io.enoa.tryjson.thr.TryJsonException;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
@@ -37,7 +38,7 @@ class _ObjectConverter implements EsonConverter<Object> {
   }
 
   @Override
-  public String json(Object object, int depth, ConvConf conf) {
+  public String json(Object object, int depth, Esonfig conf) {
     if (object == null)
       return null;
 
@@ -49,43 +50,29 @@ class _ObjectConverter implements EsonConverter<Object> {
         _list.add(Array.get(object, i));
       }
       String _json;
-      _json = Tryjson.json(_list, depth, conf);
+      _json = Eson.json(_list, depth, conf);
       CollectionKit.clear(_list);
       return _json;
     }
 
     if (object instanceof Enumeration) {
       List<?> list = Collections.list((Enumeration<?>) object);
-      return Tryjson.json(list, depth, conf);
+      return Eson.json(list, depth, conf);
     }
-
-    if (object instanceof Enum)
-      return Tryjson.json(((Enum) object).name(), depth);
 
     return this.bean(object, depth, conf);
   }
 
-  private String bean(Object object, int depth, ConvConf conf) {
+  private String bean(Object object, int depth, Esonfig conf) {
     Map _map = new HashMap();
 
     Class<?> clazz = object.getClass();
-//    List<Field> fields = Stream.of(clazz.getDeclaredFields()).collect(Collectors.toList());
-//    List<String> fields = Stream.of(clazz.getDeclaredFields())
-//      .map(Field::getName)
-//      .collect(Collectors.toList());
-
-
-//    fields.forEach(field -> {
-//      field.isAccessible()
-//    });
 
     // 获取当前类以及父类的所有 public 字段
     List<Field> fields = Stream.of(clazz.getFields()).collect(Collectors.toList());
 
     // 获取当前类定义的所有字段以及父类的字段
-    List<String> allfields = new ArrayList<>();
-    allfields.addAll(Stream.of(clazz.getDeclaredFields()).map(Field::getName).collect(Collectors.toList()));
-    allfields.addAll(fields.stream().map(Field::getName).collect(Collectors.toList()));
+    Set<String> allfields = this.allFields(clazz);
 
 
     // public 字段 直接加入到序列化中
@@ -110,41 +97,63 @@ class _ObjectConverter implements EsonConverter<Object> {
       int gix = mname.indexOf("get");
       // 仅允许 getter 方式
       if (gix == 0 && mname.length() > 3) {
-        String _attr = mname.substring(3);
-        if (_attr.equalsIgnoreCase("class"))
+        String _key = mname.substring(3);
+        if (_key.equalsIgnoreCase("class"))
           continue;
 
-        this.filleMap(object, _attr, method, _map);
+        this.filleMap(object, TextKit.firstToLower(_key), method, _map, conf);
         continue;
       }
 
       // bool 字段
       gix = mname.indexOf("is");
       if (gix == 0 && mname.length() > 2) {
-        String _attr = mname.substring(2);
-        this.filleMap(object, _attr, method, _map);
+        String _key = mname.substring(2);
+        this.filleMap(object, TextKit.firstToLower(_key), method, _map, conf);
         continue;
       }
 
-      // 检查当前方式是否有与字段名相同, 相同则加入到序列化中
+      /*
+      检查当前方式是否有与字段名相同, 相同则加入到序列化中
+      同名方法策略, 必須該方法是此隊中的某個字段名稱相同才考慮
+       */
       if (allfields.stream().anyMatch(mname::equals)) {
-        this.filleMap(object, mname, method, _map);
+        this.filleMap(object, TextKit.firstToLower(mname), method, _map, conf);
         continue;
       }
     }
-    String json = Tryjson.json(_map, depth, conf);
+    String json = Eson.json(_map, depth, conf);
     CollectionKit.clear(_map);
     CollectionKit.clear(fields, allfields);
     return json;
   }
 
-  private void filleMap(Object object, String attr, Method method, Map map) {
+  private void filleMap(Object object, String key, Method method, Map map, Esonfig conf) {
     try {
+      key = conf.namecase().convert(key);
       Object _val = method.invoke(object);
-      map.put(TextKit.firstToLower(attr), _val);
+      map.put(key, _val);
     } catch (Exception e) {
-      throw new JsonException(e.getMessage(), e);
+      throw new TryJsonException(e.getMessage(), e);
     }
+  }
+
+  /**
+   * 獲取當前類以及父類的所有字段
+   *
+   * @param clazz 類
+   * @return Set<String>
+   */
+  private Set<String> allFields(Class clazz) {
+    Set<String> fileds = new HashSet<>();
+    while (true) {
+      fileds.addAll(Stream.of(clazz.getDeclaredFields()).map(Field::getName).collect(Collectors.toSet()));
+      Class _super = clazz.getSuperclass();
+      if (_super == null || _super.getName().equalsIgnoreCase("java.lang.Object"))
+        break;
+      clazz = clazz.getSuperclass();
+    }
+    return fileds;
   }
 
 }

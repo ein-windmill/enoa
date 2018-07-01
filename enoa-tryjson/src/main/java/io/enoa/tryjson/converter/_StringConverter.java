@@ -16,6 +16,7 @@
 package io.enoa.tryjson.converter;
 
 import io.enoa.toolkit.text.TextKit;
+import io.enoa.tryjson.Esonfig;
 
 class _StringConverter implements EsonConverter<String> {
 
@@ -28,7 +29,7 @@ class _StringConverter implements EsonConverter<String> {
   }
 
   @Override
-  public String json(String text, int depth, ConvConf conf) {
+  public String json(String text, int depth, Esonfig conf) {
     return text == null ? null :
       TextKit.union("\"", this.escape(text), "\"");
   }

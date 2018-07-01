@@ -17,7 +17,7 @@ package io.enoa.tryjson.converter;
 
 import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.text.TextKit;
-import io.enoa.tryjson.Tryjson;
+import io.enoa.tryjson.Esonfig;
 import io.enoa.tryjson.mark.DateFormatStrategy;
 
 import java.text.DateFormat;
@@ -34,19 +34,15 @@ class _DateConverter implements EsonConverter<Date> {
   }
 
   @Override
-  public String json(Date date, int depth, ConvConf conf) {
+  public String json(Date date, int depth, Esonfig conf) {
     if (date == null)
       return null;
 
-    DateFormatStrategy dateFormatStrategy = Tryjson.epm().config().dateFormatStrategy();
+    DateFormatStrategy dateFormatStrategy = conf.dateFormatStrategy();
     if (dateFormatStrategy == DateFormatStrategy.TIMESTAMP)
       return String.valueOf(date.getTime());
 
-    String dateFormat = conf.dateFormat() == null ?
-      Tryjson.epm().config().dateFormat() :
-      conf.dateFormat();
-    if (dateFormat == null)
-      dateFormat = EoConst.DEF_FORMAT_DATE;
+    String dateFormat = conf.dateFormat() == null ? EoConst.DEF_FORMAT_DATE : conf.dateFormat();
 
     DateFormat df = __ConverterCache.dateFormat(dateFormat);
     return TextKit.union("\"", df.format(date), "\"");

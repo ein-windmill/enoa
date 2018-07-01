@@ -13,17 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.tryjson;
+package io.enoa.tryjson.converter;
 
-public class Bean91 {
+import io.enoa.tryjson.Eson;
+import io.enoa.tryjson.Esonfig;
 
-  String name;
-  String country;
-  private int code;
+class _EnumConverter implements EsonConverter<Enum> {
 
-
-  public String name() {
-    return this.name;
+  private static class Holder {
+    private static final _EnumConverter INSTANCE = new _EnumConverter();
   }
 
+  static _EnumConverter instance() {
+    return Holder.INSTANCE;
+  }
+
+  @Override
+  public String json(Enum em, int depth, Esonfig conf) {
+    Object _ret = conf.enumConverter().convert(em);
+    return Eson.json(_ret, depth, conf);
+  }
 }
