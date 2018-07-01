@@ -134,6 +134,7 @@ class _ObjectConverter implements EsonConverter<Object> {
     }
     String json = Tryjson.json(_map, depth, conf);
     CollectionKit.clear(_map);
+    CollectionKit.clear(fields, allfields);
     return json;
   }
 
