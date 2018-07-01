@@ -23,8 +23,8 @@ import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.convert.ConvertKit;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.file.FileKit;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.stream.StreamKit;
+import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thr.EoException;
 
 import javax.servlet.ServletException;
@@ -216,7 +216,7 @@ class TomcatRequestWrapper implements Request {
     String val = this.cookie(name);
     if (TextKit.isBlank(val))
       return def;
-    return ConvertKit.longx(val);
+    return ConvertKit.longer(val);
   }
 
   @Override
@@ -250,7 +250,7 @@ class TomcatRequestWrapper implements Request {
 
   @Override
   public Long paraToLong(String name, Long def) {
-    return ConvertKit.longx(this.para(name), def);
+    return ConvertKit.longer(this.para(name), def);
   }
 
   @Override
@@ -260,7 +260,7 @@ class TomcatRequestWrapper implements Request {
 
   @Override
   public Double paraToDouble(String name, Double def) {
-    return ConvertKit.doublex(this.para(name), def);
+    return ConvertKit.doubler(this.para(name), def);
   }
 
   @Override
@@ -303,7 +303,7 @@ class TomcatRequestWrapper implements Request {
     String[] vals = this.paraValues(name);
     Long[] rets = new Long[vals.length];
     for (int i = 0; i < vals.length; i++) {
-      rets[i] = ConvertKit.longx(vals[i]);
+      rets[i] = ConvertKit.longer(vals[i]);
     }
     return rets;
   }

@@ -16,7 +16,6 @@
 package io.enoa.stove.template.command.result;
 
 import io.enoa.stove.template.command.StoveResult;
-import io.enoa.toolkit.value.EnoaValue;
 
 public final class VoidResult implements StoveResult {
 

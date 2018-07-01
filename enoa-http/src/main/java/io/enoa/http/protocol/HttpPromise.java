@@ -17,8 +17,8 @@ package io.enoa.http.protocol;
 
 import io.enoa.promise.EoPromise;
 import io.enoa.promise.arg.PromiseArg;
-import io.enoa.promise.arg.PromiseThen;
 import io.enoa.promise.arg.PromiseBool;
+import io.enoa.promise.arg.PromiseThen;
 
 public interface HttpPromise extends EoPromise<HttpPromise> {
 

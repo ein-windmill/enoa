@@ -53,36 +53,36 @@ public class ConvertKit {
     return TextKit.isBlank(text) ? def : NumberKit.integer(text);
   }
 
-  public static Long longx(String text) {
-    return longx(text, null);
+  public static Long longer(String text) {
+    return longer(text, null);
   }
 
-  public static Long longx(String text, Long def) {
-    return TextKit.isBlank(text) ? def : NumberKit.longx(text);
+  public static Long longer(String text, Long def) {
+    return TextKit.isBlank(text) ? def : NumberKit.longer(text);
   }
 
-  public static Double doublex(String text) {
-    return doublex(text, null);
+  public static Double doubler(String text) {
+    return doubler(text, null);
   }
 
-  public static Double doublex(String text, Double def) {
-    return TextKit.isBlank(text) ? def : NumberKit.doublex(text);
+  public static Double doubler(String text, Double def) {
+    return TextKit.isBlank(text) ? def : NumberKit.doubler(text);
   }
 
-  public static Float floatx(String text, Float def) {
-    return TextKit.isBlank(text) ? def : NumberKit.floatx(text);
+  public static Float floater(String text, Float def) {
+    return TextKit.isBlank(text) ? def : NumberKit.floater(text);
   }
 
-  public static Float floatx(String text) {
-    return floatx(text, null);
+  public static Float floater(String text) {
+    return floater(text, null);
   }
 
-  public static Short shortx(String text, Short def) {
-    return TextKit.isBlank(text) ? def : NumberKit.shortx(text);
+  public static Short shorter(String text, Short def) {
+    return TextKit.isBlank(text) ? def : NumberKit.shorter(text);
   }
 
-  public static Short shortx(String text) {
-    return shortx(text, null);
+  public static Short shorter(String text) {
+    return shorter(text, null);
   }
 
   public static Boolean bool(String text) {

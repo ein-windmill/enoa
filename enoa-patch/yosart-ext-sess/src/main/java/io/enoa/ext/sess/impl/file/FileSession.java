@@ -16,8 +16,7 @@
 package io.enoa.ext.sess.impl.file;
 
 import io.enoa.ext.sess.SessFactory;
-import io.enoa.log.kit.LogKit;
-import io.enoa.serialization.EnoaSerializationMgr;
+import io.enoa.log.Log;
 import io.enoa.serialization.EoSerializationFactory;
 import io.enoa.serialization.EoSerializer;
 import io.enoa.toolkit.file.FileKit;
@@ -36,7 +35,7 @@ public class FileSession implements SessFactory {
   public FileSession(String sessKey, Path savePath, EoSerializationFactory serialization, boolean reset) {
     this.savePath = savePath;
     this.sessKey = sessKey;
-    this.serializer = serialization == null ? EnoaSerializationMgr.me.defSerializationFactory().serializer() : serialization.serializer();
+    this.serializer = serialization == null ? EoSerializer.epm().serializer() : serialization.serializer();
     if (reset)
       this.reset(savePath);
   }
@@ -75,7 +74,7 @@ public class FileSession implements SessFactory {
     try {
       FileKit.delete(path.toString());
     } catch (Exception e) {
-      LogKit.error(e.getMessage(), e);
+      Log.error(e.getMessage(), e);
     }
   }
 }

@@ -15,7 +15,7 @@
  */
 package io.enoa.ext.sess.impl.file;
 
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import io.enoa.repeater.http.Cookie;
 import io.enoa.serialization.EoSerializer;
 import io.enoa.toolkit.binary.EnoaBinary;
@@ -24,8 +24,8 @@ import io.enoa.toolkit.digest.UUIDKit;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.file.FileKit;
 import io.enoa.toolkit.map.Kv;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.sys.ThrowableKit;
+import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thr.EoException;
 import io.enoa.yosart.kernel.http.Session;
 import io.enoa.yosart.kernel.http.YoRequest;
@@ -105,12 +105,12 @@ class FileSessionImpl implements Session {
   public String[] names() {
     String sessVal = this._value == null ? this.request.cookie(this.sessKey) : this._value;
     if (TextKit.isBlank(sessVal)) {
-      LogKit.warn(EnoaTipKit.message("eo.tip.ext.sess.session_404", this.sessKey));
+      Log.warn(EnoaTipKit.message("eo.tip.ext.sess.session_404", this.sessKey));
       return CollectionKit.emptyArray(String.class);
     }
     Path savePath = Paths.get(this.savePath.toString(), sessVal);
     if (!Files.exists(savePath)) {
-      LogKit.warn(EnoaTipKit.message("eo.tip.ext.sess.session_404", this.sessKey));
+      Log.warn(EnoaTipKit.message("eo.tip.ext.sess.session_404", this.sessKey));
       return CollectionKit.emptyArray(String.class);
     }
     Kv data = this.deserialize(savePath);
@@ -121,12 +121,12 @@ class FileSessionImpl implements Session {
   public <T> T get(String name) {
     String sessVal = this._value == null ? this.request.cookie(this.sessKey) : this._value;
     if (TextKit.isBlank(sessVal)) {
-      LogKit.warn(EnoaTipKit.message("eo.tip.ext.sess.session_404", this.sessKey));
+      Log.warn(EnoaTipKit.message("eo.tip.ext.sess.session_404", this.sessKey));
       return null;
     }
     Path savePath = Paths.get(this.savePath.toString(), sessVal);
     if (!Files.exists(savePath)) {
-      LogKit.warn(EnoaTipKit.message("eo.tip.ext.sess.session_404", this.sessKey));
+      Log.warn(EnoaTipKit.message("eo.tip.ext.sess.session_404", this.sessKey));
       return null;
     }
     Kv data = this.deserialize(savePath);

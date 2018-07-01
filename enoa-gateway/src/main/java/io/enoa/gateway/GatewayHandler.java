@@ -15,7 +15,7 @@
  */
 package io.enoa.gateway;
 
-import io.enoa.gateway.data.EnoaGatewayData;
+import io.enoa.gateway.data.GData;
 import io.enoa.gateway.thr.GatewayException;
 import io.enoa.repeater.http.Request;
 import io.enoa.repeater.http.Response;
@@ -30,6 +30,6 @@ public interface GatewayHandler {
    * @param gateway gateway data
    * @return Response
    */
-  Response handle(Request request, EnoaGatewayData gateway) throws GatewayException;
+  Response handle(Request request, GData gateway) throws GatewayException;
 
 }

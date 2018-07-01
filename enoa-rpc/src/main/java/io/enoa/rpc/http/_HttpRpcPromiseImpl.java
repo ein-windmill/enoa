@@ -20,7 +20,7 @@ import io.enoa.http.protocol.HttpResponse;
 import io.enoa.promise.arg.PromiseArg;
 import io.enoa.promise.arg.PromiseCapture;
 import io.enoa.promise.arg.PromiseVoid;
-import io.enoa.rpc.handler.IHandler;
+import io.enoa.rpc.parser.IRpcParser;
 
 import java.lang.reflect.Type;
 
@@ -28,14 +28,14 @@ class _HttpRpcPromiseImpl<P> implements HttpRpcPromise<P> {
 
   private HttpPromise promise;
   private Type type;
-  private IHandler<P> handler;
+  private IRpcParser<P> handler;
 
   _HttpRpcPromiseImpl(HttpPromise promise, Type type) {
     this.promise = promise;
     this.type = type;
   }
 
-  _HttpRpcPromiseImpl(HttpPromise promise, Type type, IHandler<P> handler) {
+  _HttpRpcPromiseImpl(HttpPromise promise, Type type, IRpcParser<P> handler) {
     this.promise = promise;
     this.type = type;
     this.handler = handler;

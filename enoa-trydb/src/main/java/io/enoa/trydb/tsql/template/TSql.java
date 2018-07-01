@@ -15,6 +15,7 @@
  */
 package io.enoa.trydb.tsql.template;
 
+import io.enoa.firetpl.FireBody;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.trydb.dialect.IDialect;
 import io.enoa.trydb.tsql.Trysql;
@@ -22,7 +23,7 @@ import io.enoa.trydb.tsql.Trysql;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public interface TSql extends Trysql<TSql> /*, StoveBody*/ {
+public interface TSql extends Trysql<TSql> {
 
   Object[] paras();
 
@@ -60,6 +61,10 @@ public interface TSql extends Trysql<TSql> /*, StoveBody*/ {
         return ret.toString();
       }
     };
+  }
+
+  static TSql create(FireBody body) {
+    return create(body.tpl(), body.paras());
   }
 
 }

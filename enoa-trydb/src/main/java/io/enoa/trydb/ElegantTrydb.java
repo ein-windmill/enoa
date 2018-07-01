@@ -15,6 +15,8 @@
  */
 package io.enoa.trydb;
 
+import io.enoa.trydb.async.ElegantEnqueueTrydb;
+import io.enoa.trydb.async.TAsyncSupport;
 import io.enoa.trydb.dialect.IDialect;
 import io.enoa.trydb.page.Page;
 import io.enoa.trydb.tsql.Trysql;
@@ -23,7 +25,7 @@ import io.enoa.trydb.tsql.psql.IPSql;
 import java.sql.Connection;
 import java.util.List;
 
-public class ElegantTrydb {
+public class ElegantTrydb implements TAsyncSupport<ElegantEnqueueTrydb> {
 
   private Class clazz;
   private EnoaTrydb trydb;
@@ -115,5 +117,9 @@ public class ElegantTrydb {
     return this.trydb.page(ipsql, pn, ps, sql, (Class<T>) this.clazz, paras);
   }
 
+  @Override
+  public ElegantEnqueueTrydb async() {
+    return new ElegantEnqueueTrydb(this);
+  }
 
 }

@@ -17,7 +17,6 @@ package io.enoa.toolkit.text;
 
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.digest.DigestKit;
-import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.number.NumberKit;
 
 /**
@@ -229,6 +228,7 @@ public class TextKit {
 
   /**
    * 字符串格式化, 格式化方式采用与 MessageFormat 格式相同, 兼容 MessageFormat
+   * MessageFormat 使用中如果 formats 中传递有 {} 格式文本, 会抛出异常, 这里的替换方案中不会有此现象
    * <p>
    * Example:
    * This is text from {0} and {1}.
@@ -318,6 +318,14 @@ public class TextKit {
       has = Boolean.TRUE;
     }
     return _text.toString();
+  }
+
+  public static String safeBlank(String text) {
+    return safeBlank(text, null);
+  }
+
+  public static String safeBlank(String text, String def) {
+    return TextKit.isBlank(text) ? def : text;
   }
 
 }

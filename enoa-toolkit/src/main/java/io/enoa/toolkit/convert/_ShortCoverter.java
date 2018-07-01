@@ -25,6 +25,6 @@ class _ShortCoverter implements IConverter<Short, String> {
 
   @Override
   public Short convert(String origin) {
-    return ConvertKit.shortx(origin, this.primitive ? (short) 0 : null);
+    return ConvertKit.shorter(origin, this.primitive ? (short) 0 : null);
   }
 }

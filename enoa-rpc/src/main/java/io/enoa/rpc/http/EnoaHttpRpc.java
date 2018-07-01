@@ -23,8 +23,10 @@ import io.enoa.http.protocol.HttpResponse;
 import io.enoa.http.provider.httphelper.HttpHelperProvider;
 import io.enoa.http.proxy.HttpProxy;
 import io.enoa.rpc.TcpRpc;
-import io.enoa.rpc.handler.IHandler;
+import io.enoa.rpc.parser.IRpcParser;
+import io.enoa.rpc.thr.RpcException;
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.eo.tip.EnoaTipKit;
 
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
@@ -42,6 +44,8 @@ public class EnoaHttpRpc implements TcpRpc {
 
   public EnoaHttpRpc(EoHttp http, String name, String api) {
     EoUrl url = _HttpRpcRegister.instance().url(name);
+    if (url == null)
+      throw new RpcException(RpcException.Type.HTTP, EnoaTipKit.message("eo.tip.rpc.http_rpc_name_404", name));
     this.http = Http.use(http)
       .url(EoUrl.with(url.end()).subpath(api));
     Set<HttpHeader> headers = _HttpRpcRegister.instance().headers(name);
@@ -63,21 +67,21 @@ public class EnoaHttpRpc implements TcpRpc {
   }
 
   @Override
-  public <T> HttpRpcPromise<T> enqueue(IHandler<T> handler) {
+  public <T> HttpRpcPromise<T> enqueue(IRpcParser<T> handler) {
     HttpPromise promise = this.http.enqueue();
     return new _HttpRpcPromiseImpl<>(promise, null, handler);
   }
 
   @Override
-  public <T> HttpRpcResult<T> emit(IHandler<T> handler) {
+  public <T> HttpRpcResult<T> emit(IRpcParser<T> handler) {
     HttpResponse response = this.http.emit();
-    return new _HttpRpcResultImpl<T>(response, null, handler);
+    return new _HttpRpcResultImpl<>(response, null, handler);
   }
 
   @Override
   public <T> HttpRpcResult<T> emit(Type type) {
     HttpResponse response = this.http.emit();
-    return new _HttpRpcResultImpl<T>(response, type);
+    return new _HttpRpcResultImpl<>(response, type);
   }
 
   @Override

@@ -66,7 +66,7 @@ public class OyResourced {
     OysartTip.message("END ROUTER REGISTER.");
     this.resources = new TreeMap<>(this.resources);
     final Map<String, OyResource[]> rets = new TreeMap<>();
-    this.resources.forEach((k, v) -> rets.put(k, v.toArray(new OyResource[v.size()])));
+    this.resources.forEach((k, v) -> rets.put(UriKit.correct(k), v.toArray(new OyResource[v.size()])));
     CollectionKit.clear(this.resources);
     return rets;
   }

@@ -16,12 +16,12 @@
 package io.enoa.reflect;
 
 import io.enoa.reflect.cache.ReflectCache;
-import io.enoa.reflect.singleton.EnoaSingletonMgr;
+import io.enoa.reflect.singleton.EnoaSingleton;
 
 public interface EoReflect {
 
-  static EnoaSingletonMgr singleton() {
-    return new EnoaSingletonMgr();
+  static EnoaSingleton singleton() {
+    return new EnoaSingleton();
   }
 
   static <T> T instance(Class<T> clazz) {

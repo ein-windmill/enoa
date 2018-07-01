@@ -17,6 +17,7 @@ package io.enoa.trydb;
 
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.map.Kv;
+import io.enoa.trydb.async.EnoaEnqueueTrydb;
 import io.enoa.trydb.page.Page;
 import io.enoa.trydb.thr.TrydbException;
 import io.enoa.trydb.tsql.Trysql;
@@ -28,8 +29,8 @@ import java.util.List;
 
 public interface Trydb {
 
-  static void reg(String name, EnoaTrydb trydb) {
-    TrydbHolder.reg(name, trydb);
+  static EPMTrydb epm() {
+    return EPMTrydb.instance();
   }
 
   static EnoaTrydb use() {
@@ -37,7 +38,7 @@ public interface Trydb {
   }
 
   static EnoaTrydb use(String name) {
-    EnoaTrydb trydb = TrydbHolder.trydb(name);
+    EnoaTrydb trydb = epm().trydb(name);
     if (trydb == null)
       throw new TrydbException(EnoaTipKit.message("eo.tip.trydb.trydb_null"));
     return trydb;
@@ -66,32 +67,20 @@ public interface Trydb {
   }
 
   static TemplateTrydb template(String name) {
-    TemplateTrydb ttsql = TrydbHolder.ttsql(name);
+    TemplateTrydb ttsql = epm().ttsql(name);
     if (ttsql != null)
       return ttsql;
     ttsql = TemplateTrydb.with(name, use(name));
-    TrydbHolder.reg(name, ttsql);
+    epm().install(name, ttsql);
     return ttsql;
   }
 
-  /**
-   * todo 异步数据库操作, 暂未完善, 不可使用
-   *
-   * @return EnqueueTrydb
-   */
-  @Deprecated
-  static EnqueueTrydb enqueue() {
-    return enqueue("main");
+  static EnoaEnqueueTrydb async() {
+    return use().async();
   }
 
-  @Deprecated
-  static EnqueueTrydb enqueue(String name) {
-    EnqueueTrydb qtdb = TrydbHolder.qtdb(name);
-    if (qtdb != null)
-      return qtdb;
-    qtdb = EnqueueTrydb.with(use(name));
-    TrydbHolder.reg(name, qtdb);
-    return qtdb;
+  static EnoaEnqueueTrydb async(String name) {
+    return use(name).async();
   }
 
   static TrydbConfig config() {
@@ -105,9 +94,9 @@ public interface Trydb {
     return trydb.config();
   }
 
-  static boolean exists(String name) {
-    return TrydbHolder.exists(name);
-  }
+//  static boolean exists(String name) {
+//    return TrydbHolder.exists(name);
+//  }
 
   static List<Kv> find(String sql) {
     return use().find(sql);

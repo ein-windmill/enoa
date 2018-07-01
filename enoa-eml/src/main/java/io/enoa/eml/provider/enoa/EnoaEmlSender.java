@@ -19,15 +19,15 @@ import io.enoa.eml.EmlConfig;
 import io.enoa.eml.EmlProtocol;
 import io.enoa.eml.EmlSender;
 import io.enoa.eml.EoEmlSession;
-import io.enoa.eml.api.SenderHandler;
+import io.enoa.eml.api.ISenderReporter;
 import io.enoa.eml.entity.Attachment;
 import io.enoa.eml.entity.MailPerson;
 import io.enoa.eml.thr.EoEmailException;
 import io.enoa.promise.DonePromise;
-import io.enoa.promise.builder.EEnodPromiseBuilder;
-import io.enoa.promise.builder.PromiseBuilder;
 import io.enoa.promise.arg.PromiseCapture;
 import io.enoa.promise.arg.PromiseVoid;
+import io.enoa.promise.builder.EEnodPromiseBuilder;
+import io.enoa.promise.builder.PromiseBuilder;
 import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.binary.EnoaBinary;
 import io.enoa.toolkit.collection.CollectionKit;
@@ -50,7 +50,7 @@ import java.util.concurrent.ExecutorService;
 class EnoaEmlSender implements EmlSender {
 
 
-  private static ExecutorService EXEC_HANDLER = PromiseBuilder.executor().enqueue("EnoaEmail Handler Dispatcher");
+  private static ExecutorService EXEC_REPORTS = PromiseBuilder.executor().enqueue("EnoaEmail Report Dispatcher");
   private static ExecutorService EXEC_ENQUEUE = PromiseBuilder.executor().enqueue("EnoaEmail Enqueue Dispatcher");
 
   private Charset charset;
@@ -62,7 +62,7 @@ class EnoaEmlSender implements EmlSender {
   private boolean richtext;
   private String body;
   private List<Attachment> attachments;
-  private List<SenderHandler> handlers;
+  private List<ISenderReporter> reporters;
 
   private EoEmlSession sess;
 
@@ -137,12 +137,12 @@ class EnoaEmlSender implements EmlSender {
   }
 
   @Override
-  public EmlSender handler(SenderHandler handler) {
-    if (handler == null)
+  public EmlSender reporter(ISenderReporter reporter) {
+    if (reporter == null)
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.email.send_handler_null"));
-    if (this.handlers == null)
-      this.handlers = new ArrayList<>();
-    this.handlers.add(handler);
+    if (this.reporters == null)
+      this.reporters = new ArrayList<>();
+    this.reporters.add(reporter);
     return this;
   }
 
@@ -279,10 +279,10 @@ class EnoaEmlSender implements EmlSender {
   }
 
   private void execHandler(MimeMessage message, EmlConfig config) {
-    if (this.handlers == null)
+    if (this.reporters == null)
       return;
 
-    EXEC_HANDLER.execute(() -> {
+    EXEC_REPORTS.execute(() -> {
       String oldName = Thread.currentThread().getName();
       Thread.currentThread().setName(TextKit.union("ENOA-EMAIL-SENDER-HANDLER-", oldName));
       try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
@@ -306,8 +306,8 @@ class EnoaEmlSender implements EmlSender {
           e.printStackTrace();
         }
 
-        for (SenderHandler handler : this.handlers) {
-          handler.handle(ss);
+        for (ISenderReporter reporter : this.reporters) {
+          reporter.report(ss);
         }
       } catch (Exception e) {
         e.printStackTrace();

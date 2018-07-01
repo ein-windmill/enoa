@@ -15,8 +15,8 @@
  */
 package io.enoa.example.repeater;
 
-import io.enoa.json.kit.JsonKit;
-import io.enoa.log.kit.LogKit;
+import io.enoa.json.Json;
+import io.enoa.log.Log;
 import io.enoa.repeater.EoxAccessor;
 import io.enoa.repeater.EoxConfig;
 import io.enoa.repeater.Repeater;
@@ -60,7 +60,7 @@ class ExampleRepeaterAccessorImpl implements EoxAccessor {
           break;
       }
     } catch (Exception e) {
-      LogKit.error(e.getMessage(), e);
+      Log.error(e.getMessage(), e);
       return new Response.Builder()
         .header("Content-Type", "")
         .contentType("text/html; charset=" + this.config.charset().displayName())
@@ -200,7 +200,7 @@ class ExampleRepeaterAccessorImpl implements EoxAccessor {
       data.set("files", ufs);
     }
 
-    return JsonKit.toJson(data);
+    return Json.toJson(data);
   }
 
   private Response respError(int code) {

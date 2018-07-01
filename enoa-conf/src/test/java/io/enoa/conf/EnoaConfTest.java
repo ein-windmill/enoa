@@ -15,8 +15,8 @@
  */
 package io.enoa.conf;
 
-import io.enoa.json.kit.JsonKit;
-import io.enoa.log.kit.LogKit;
+import io.enoa.json.Json;
+import io.enoa.log.Log;
 import io.enoa.toolkit.path.PathKit;
 import io.enoa.toolkit.thr.EoException;
 import org.junit.Test;
@@ -38,7 +38,7 @@ public class EnoaConfTest {
       "https://github.com/mstine/config-repo.git");
 
     List<EnoaConfDomain> confs = ConfKit.confs();
-    LogKit.debug(JsonKit.toJson(confs));
+    Log.debug(Json.toJson(confs));
   }
 
   @Test
@@ -59,7 +59,7 @@ public class EnoaConfTest {
   @Test
   public void testYml() throws FileNotFoundException {
     Yaml yaml = new Yaml();
-    Map conf = yaml.loadAs(new FileInputStream(PathKit.bootPath().resolve("src/test/resources/conf.yml").toFile()),
+    Map conf = yaml.loadAs(new FileInputStream(PathKit.debugPath().resolve("src/test/resources/conf.yml").toFile()),
       Map.class);
     System.out.println(conf);
   }

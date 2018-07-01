@@ -74,12 +74,12 @@ public abstract class YeControl<CTL> extends YaControl {
 
   protected Response renderTemplate(String viewPath) {
     this.transferAttr();
-    return super.resp().render(viewPath).end();
+    return super.resp().renderTemplate(viewPath).end();
   }
 
   protected Response renderTemplate(String viewPath, Charset charset) {
     this.transferAttr();
-    return super.resp().render(viewPath, charset).end();
+    return super.resp().renderTemplate(viewPath, charset).end();
   }
 
   protected Response renderText(String text) {

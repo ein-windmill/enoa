@@ -15,7 +15,7 @@
  */
 package io.enoa.yosart.resp;
 
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import io.enoa.repeater.http.Header;
 import io.enoa.repeater.http.HttpStatus;
 import io.enoa.repeater.http.Request;
@@ -87,7 +87,7 @@ class RespuseImpl implements Respuse {
       this.builder = builder;
       return this;
     } catch (Exception e) {
-      LogKit.error(e.getMessage(), e);
+      Log.error(e.getMessage(), e);
       return Renderer.with(this.req)
         .renderError(HttpStatus.INTERNAL_ERROR, e);
     }
@@ -102,7 +102,7 @@ class RespuseImpl implements Respuse {
       YoRender renderer = this.ext.renderer(this.req, this.attr, args);
       return this.render(renderer);
     } catch (FileNotFoundException e) {
-      LogKit.error(e.getMessage(), e);
+      Log.error(e.getMessage(), e);
       return Renderer.with(this.req)
         .renderError(HttpStatus.NOT_FOUND, e);
     } catch (Exception e) {

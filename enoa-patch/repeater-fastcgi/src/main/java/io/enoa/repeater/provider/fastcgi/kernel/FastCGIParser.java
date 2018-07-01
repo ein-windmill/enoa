@@ -15,7 +15,7 @@
  */
 package io.enoa.repeater.provider.fastcgi.kernel;
 
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import io.enoa.repeater.http.Cookie;
 import io.enoa.repeater.http.Header;
 import io.enoa.repeater.http.Response;
@@ -45,7 +45,7 @@ class FastCGIParser {
       switch (message.type) {
         case FastCGIServer.BEGIN_REQUEST:
           if (requestId != 0) {
-            LogKit.debug("reject extra request with id {}", message.requestId);
+            Log.debug("reject extra request with id {}", message.requestId);
             //server tries to send multiplexed connection, but we process it only one by one, reject request:
             new FastCGIMessage(FastCGIServer.END_REQUEST, message.requestId, FastCGIServer.NO_MULTIPLEX_CONNECTION).write(outputStream);
           } else {
@@ -55,12 +55,12 @@ class FastCGIParser {
             if (requestRole != FastCGIServer.FCGI_RESPONDER) {
               throw new IOException("Only responder role is supported");
             }
-            LogKit.debug("accept request id {}", requestId);
+            Log.debug("accept request id {}", requestId);
           }
           break;
 
         case FastCGIServer.STDIN:
-          LogKit.debug("STDIN {}", message.contentLength);
+          Log.debug("STDIN {}", message.contentLength);
           if (message.contentLength > 0) {
             if (data == null) {
               data = message.content;

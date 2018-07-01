@@ -16,7 +16,7 @@
 package io.enoa.ext.sess.impl.redis;
 
 import io.enoa.ext.sess.SessFactory;
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import io.enoa.nosql.redis.EnoaRedis;
 import io.enoa.nosql.redis.Redis;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
@@ -65,7 +65,7 @@ public class RedisSession implements SessFactory {
     try {
       this.redis.del(this.sessKey);
     } catch (Exception e) {
-      LogKit.error(e.getMessage(), e);
+      Log.error(e.getMessage(), e);
     }
   }
 }

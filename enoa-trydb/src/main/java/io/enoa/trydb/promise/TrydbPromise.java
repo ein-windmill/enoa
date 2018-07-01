@@ -15,7 +15,20 @@
  */
 package io.enoa.trydb.promise;
 
-import io.enoa.promise.EoPromise;
+import io.enoa.promise.DoneArgPromise;
+import io.enoa.promise.arg.PromiseArg;
+import io.enoa.promise.arg.PromiseCapture;
+import io.enoa.promise.arg.PromiseVoid;
 
-public interface TrydbPromise extends EoPromise<TrydbPromise> {
+public interface TrydbPromise<T> extends DoneArgPromise<T> {
+
+  @Override
+  DoneArgPromise<T> done(PromiseArg<T> done);
+
+  @Override
+  DoneArgPromise<T> capture(PromiseCapture capture);
+
+  @Override
+  void always(PromiseVoid always);
+
 }

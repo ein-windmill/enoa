@@ -38,7 +38,7 @@ public class FileKitTest {
 
   @Test
   public void readFile() {
-    EnoaBinary efile = FileKit.read(PathKit.bootPath().resolve("src/test/java/io/enoa/toolkit/file/FileKitTest.java"));
+    EnoaBinary efile = FileKit.read(PathKit.debugPath().resolve("src/test/java/io/enoa/toolkit/file/FileKitTest.java"));
     System.out.println(efile.string());
   }
 }

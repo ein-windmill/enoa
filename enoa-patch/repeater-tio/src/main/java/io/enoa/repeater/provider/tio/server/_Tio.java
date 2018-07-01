@@ -15,7 +15,7 @@
  */
 package io.enoa.repeater.provider.tio.server;
 
-import io.enoa.log.kit.LogKit;
+import io.enoa.log.Log;
 import io.enoa.repeater.EoxAccessor;
 import io.enoa.repeater.EoxConfig;
 import io.enoa.repeater.factory.provider.EoxProviderFactory;
@@ -42,7 +42,7 @@ class _Tio implements RepeaterServer {
     try {
       starter.start();
     } catch (IOException e) {
-      LogKit.error(e.getMessage(), e);
+      Log.error(e.getMessage(), e);
     }
   }
 }

@@ -23,9 +23,9 @@ import io.enoa.http.protocol.HttpMethod;
 import io.enoa.http.protocol.HttpPara;
 import io.enoa.http.proxy.HttpProxy;
 import io.enoa.http.proxy.TcpProxy;
-import io.enoa.rpc.handler.IHandler;
 import io.enoa.rpc.http.HttpRpcPromise;
 import io.enoa.rpc.http.HttpRpcResult;
+import io.enoa.rpc.parser.IRpcParser;
 
 import java.lang.reflect.Type;
 import java.nio.ByteBuffer;
@@ -43,9 +43,9 @@ public interface TcpRpc {
 
   <T> HttpRpcPromise<T> enqueue(Type type);
 
-  <T> HttpRpcPromise<T> enqueue(IHandler<T> handler);
+  <T> HttpRpcPromise<T> enqueue(IRpcParser<T> handler);
 
-  <T> HttpRpcResult<T> emit(IHandler<T> handler);
+  <T> HttpRpcResult<T> emit(IRpcParser<T> handler);
 
   default <T> HttpRpcResult<T> emit(Class<T> clazz) {
     return this.emit((Type) clazz);

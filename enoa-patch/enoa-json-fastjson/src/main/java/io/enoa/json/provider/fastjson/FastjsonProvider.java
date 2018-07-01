@@ -24,6 +24,6 @@ import io.enoa.json.EoJsonFactory;
 public class FastjsonProvider implements EoJsonFactory {
   @Override
   public EnoaJson json() {
-    return new _Fastjson();
+    return _Fastjson.instance();
   }
 }

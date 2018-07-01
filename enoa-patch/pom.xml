@@ -5,7 +5,7 @@
   <parent>
     <artifactId>enoa</artifactId>
     <groupId>io.enoa</groupId>
-    <version>1.3-beta</version>
+    <version>1.6-beta.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
@@ -28,9 +28,7 @@
     <module>yosart-plugin-ioc</module>
     <module>yosart-plugin-redis</module>
     <module>yosart-plugin-eml</module>
-    <module>yosart-ext-router-anost</module>
     <module>yosart-ext-render-template</module>
-    <module>yosart-ext-bea-beaction</module>
     <module>yosart-ext-yemgr</module>
     <module>yosart-ext-sess</module>
     <module>enoa-serialization-fst</module>
@@ -48,8 +46,8 @@
     <module>enoa-db-activerecord</module>
     <module>enoa-db-mybatis</module>
     <module>enoa-db-beetlsql</module>
-    <module>trydb-ttsql-enjoy</module>
     <module>enoa-db-trydb</module>
+    <module>stove-firetpl-enjoy</module>
   </modules>
 
 

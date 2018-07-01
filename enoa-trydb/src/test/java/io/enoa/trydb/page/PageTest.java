@@ -1,8 +1,7 @@
 package io.enoa.trydb.page;
 
 import ikidou.reflect.TypeBuilder;
-import io.enoa.json.EnoaJsonMgr;
-import io.enoa.json.kit.JsonKit;
+import io.enoa.json.Json;
 import io.enoa.json.provider.fastjson.FastjsonProvider;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +12,8 @@ public class PageTest {
 
   @Before
   public void before() {
-    EnoaJsonMgr.instance().defJsonFactory(new FastjsonProvider());
+//    EMgrJson.defJsonFactory(new FastjsonProvider());
+    Json.epm().install(new FastjsonProvider());
   }
 
 
@@ -32,10 +32,10 @@ public class PageTest {
       add(new E0().setId(9).setName("j"));
     }});
 
-    String data = JsonKit.toJson(page);
+    String data = Json.toJson(page);
     System.out.println(data);
 
-    Page<Integer> p1 = JsonKit.parse(data, TypeBuilder.newInstance(Page.class).addTypeParam(E0.class).build());
+    Page<Integer> p1 = Json.parse(data, TypeBuilder.newInstance(Page.class).addTypeParam(E0.class).build());
     System.out.println(p1);
 
   }

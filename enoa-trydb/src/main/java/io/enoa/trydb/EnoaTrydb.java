@@ -23,6 +23,8 @@ import io.enoa.toolkit.stream.StreamKit;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.trydb.build.RsBuilder;
 import io.enoa.trydb.dialect.IDialect;
+import io.enoa.trydb.async.EnoaEnqueueTrydb;
+import io.enoa.trydb.async.TAsyncSupport;
 import io.enoa.trydb.page.Page;
 import io.enoa.trydb.thr.NestedTransactionHelpException;
 import io.enoa.trydb.thr.TrydbException;
@@ -39,7 +41,7 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
-public class EnoaTrydb implements TrydbCommandBase<EnoaTrydb>, TrydbCommandTSql<EnoaTrydb> {
+public class EnoaTrydb implements _TrydbCommandBase<EnoaTrydb>, _TrydbCommandTSql<EnoaTrydb>, TAsyncSupport<EnoaEnqueueTrydb> {
 
 
   private final ThreadLocal<Connection> LOCAL_CONN;
@@ -85,11 +87,11 @@ public class EnoaTrydb implements TrydbCommandBase<EnoaTrydb>, TrydbCommandTSql<
   }
 
   private String reportMark() {
-    return this.config.report() == null ? String.valueOf(RandomKit.nextInt(100, 999)) : this.config.report().mark();
+    return this.config.reporter() == null ? String.valueOf(RandomKit.nextInt(100, 999)) : this.config.reporter().mark();
   }
 
   private void reportSql(String mark, String sql, Object... paras) {
-    ISqlReport report = this.config.report();
+    ISqlReporter report = this.config.reporter();
     if (report == null)
       return;
     report.report(mark, sql, paras);
@@ -366,7 +368,7 @@ public class EnoaTrydb implements TrydbCommandBase<EnoaTrydb>, TrydbCommandTSql<
     List relts = this.beans(mark, _psql.countSql(), null, paras);
     int size = relts.size();
 //      boolean groupby = size > 1;
-    _rows = size > 1 ? size : (size > 0 ? NumberKit.longx((Number) relts.get(0)) : 0);
+    _rows = size > 1 ? size : (size > 0 ? NumberKit.longer((Number) relts.get(0)) : 0);
 
     if (_rows == 0L)
       return new Page<>(pn, ps, 0, 0L, 0L, Collections.emptyList());
@@ -383,6 +385,11 @@ public class EnoaTrydb implements TrydbCommandBase<EnoaTrydb>, TrydbCommandTSql<
     String pageSql = this.config.dialect().pageSql(offset, ps, TextKit.removeRightChar(_psql.selectSql(), ';'));
     List<T> beans = this.beans(mark, pageSql, clazz, paras);
     return new Page<>(pn, ps, totalPage, offset, _rows, beans);
+  }
+
+  @Override
+  public EnoaEnqueueTrydb async() {
+    return new EnoaEnqueueTrydb(this);
   }
 
 }

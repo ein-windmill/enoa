@@ -37,8 +37,8 @@ public class PromiseBuilder {
    *
    * @return EGraenodPromiseBuilder
    */
-  public static EGraenodPromiseBuilder donearg() {
-    return new EGraenodPromiseBuilder();
+  public static <T> EGraenodPromiseBuilder<T> donearg() {
+    return new EGraenodPromiseBuilder<>();
   }
 
 }

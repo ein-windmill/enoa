@@ -15,7 +15,7 @@
  */
 package io.enoa.yosart.ext;
 
-import io.enoa.json.kit.JsonKit;
+import io.enoa.json.Json;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -35,7 +35,7 @@ public class ArrayTest {
 
     arr = this.genArr(1, 2, null, 'a', null);
     String o2 = (String) arr[2];
-    System.out.println(JsonKit.toJson(arr));
+    System.out.println(Json.toJson(arr));
   }
 
   private Object[] genArr(Object... arr) {

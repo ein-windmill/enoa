@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class EGraenodPromiseBuilder extends EOePromiseBuilder {
+public class EGraenodPromiseBuilder<PARA> extends EOePromiseBuilder {
 
   private EOePromiseBuilder oe;
 
@@ -18,10 +18,9 @@ public class EGraenodPromiseBuilder extends EOePromiseBuilder {
     this.oe = new EOePromiseBuilder();
   }
 
-  private List<PromiseArg> dones;
+  private List<PromiseArg<PARA>> dones;
 
-
-  public List<PromiseArg> dones() {
+  public List<PromiseArg<PARA>> dones() {
     return this.dones == null ? Collections.emptyList() : this.dones;
   }
 
@@ -36,14 +35,14 @@ public class EGraenodPromiseBuilder extends EOePromiseBuilder {
   }
 
   @Override
-  public DoneArgPromise build() {
-    EoPromise promise = oe.build();
-    return new DoneArgPromise() {
+  public DoneArgPromise<PARA> build() {
+    EoPromise promise = this.oe.build();
+    return new DoneArgPromise<PARA>() {
       @Override
-      public <T> DoneArgPromise done(PromiseArg<T> done0) {
-        if (dones == null)
-          dones = new ArrayList<>();
-        dones.add(done0);
+      public DoneArgPromise done(PromiseArg<PARA> done0) {
+        if (EGraenodPromiseBuilder.this.dones == null)
+          EGraenodPromiseBuilder.this.dones = new ArrayList<>();
+        EGraenodPromiseBuilder.this.dones.add(done0);
         return this;
       }
 

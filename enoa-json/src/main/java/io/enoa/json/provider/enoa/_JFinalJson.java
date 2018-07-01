@@ -42,12 +42,22 @@ class _JFinalJson extends EnoaJson {
   private static int defaultConvertDepth = 15;
 
   private int convertDepth = defaultConvertDepth;
-  private String timestampPattern = "yyyy-MM-dd HH:mm:ss";
-  private static final String DEF_DATE_PATTERN = "yyyy-MM-dd";
+  //  private String timestampPattern = "yyyy-MM-dd HH:mm:ss";
+  private static final String DEF_DATE_PATTERN = "yyyy-MM-dd HH:mm:ss";
+
+//  @Override
+//  public Object origin() {
+//    return null;
+//  }
 
   @Override
   public String toJson(Object object) {
-    return toJson(object, convertDepth);
+    return toJson(object, convertDepth, null);
+  }
+
+  @Override
+  public String toJson(Object object, String datePattern) {
+    return this.toJson(object, convertDepth, datePattern);
   }
 
   @Override
@@ -67,6 +77,10 @@ class _JFinalJson extends EnoaJson {
 
 
   private String toJson(Object value, int depth) {
+    return this.toJson(value, depth, null);
+  }
+
+  private String toJson(Object value, int depth, String datePattern) {
     if (value == null || (depth--) < 0)
       return "null";
 
@@ -94,18 +108,21 @@ class _JFinalJson extends EnoaJson {
       return value.toString();
 
     if (value instanceof java.util.Date) {
-      if (value instanceof java.sql.Timestamp) {
-        return "\"" + new SimpleDateFormat(timestampPattern).format(value) + "\"";
-      }
-      if (value instanceof java.sql.Time) {
-        return "\"" + value.toString() + "\"";
-      }
-      String dp = this.getDateFormat();
-      if (dp != null) {
-        return "\"" + new SimpleDateFormat(dp).format(value) + "\"";
-      } else {
-        return "" + ((java.util.Date) value).getTime();
-      }
+//      if (value instanceof java.sql.Timestamp) {
+//        return "\"" + new SimpleDateFormat(timestampPattern).format(value) + "\"";
+//      }
+//      if (value instanceof java.sql.Time) {
+//        return "\"" + value.toString() + "\"";
+//      }
+//      String dp = this.getDateFormat();
+//      if (dp != null) {
+//        return "\"" + new SimpleDateFormat(dp).format(value) + "\"";
+//      } else {
+//        return "" + ((java.util.Date) value).getTime();
+//      }
+      if (datePattern == null)
+        return String.valueOf(((Date) value).getTime());
+      return "\"" + new SimpleDateFormat(datePattern).format(value) + "\"";
     }
 
     if (value instanceof Collection) {
@@ -125,22 +142,22 @@ class _JFinalJson extends EnoaJson {
     return "\"" + escape(value.toString()) + "\"";
   }
 
-  private String getDateFormat() {
-    if (datePattern != null)
-      return datePattern;
-    if (defaultDatePattern() != null)
-      return defaultDatePattern();
-    return DEF_DATE_PATTERN;
-  }
-
-
-  public EnoaJson datePattern(String datePattern) {
-    if (datePattern == null || "".equals(datePattern))
-      throw new IllegalArgumentException("datePattern can not be blank.");
-
-    this.datePattern = datePattern;
-    return this;
-  }
+//  private String getDateFormat() {
+//    if (datePattern != null)
+//      return datePattern;
+//    if (defaultDatePattern() != null)
+//      return defaultDatePattern();
+//    return DEF_DATE_PATTERN;
+//  }
+//
+//
+//  public EnoaJson datePattern(String datePattern) {
+//    if (datePattern == null || "".equals(datePattern))
+//      throw new IllegalArgumentException("datePattern can not be blank.");
+//
+//    this.datePattern = datePattern;
+//    return this;
+//  }
 
   /**
    * Escape quotes, \, /, \r, \n, \b, \f, \t and other control characters (U+0000 through U+001F).

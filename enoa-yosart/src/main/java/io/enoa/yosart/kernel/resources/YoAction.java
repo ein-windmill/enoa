@@ -18,6 +18,7 @@ package io.enoa.yosart.kernel.resources;
 import io.enoa.repeater.http.Response;
 import io.enoa.yosart.kernel.http.YoRequest;
 
+@FunctionalInterface
 public interface YoAction extends YaResource {
 
   /**

@@ -15,11 +15,11 @@
  */
 package io.enoa.trydb;
 
+import io.enoa.firetpl.Firetpl;
 import io.enoa.toolkit.namecase.INameCase;
 import io.enoa.toolkit.namecase.NamecaseKit;
 import io.enoa.toolkit.namecase.NamecaseType;
 import io.enoa.trydb.dialect.IDialect;
-import io.enoa.trydb.tsql.template.TSqlTemplate;
 import io.enoa.trydb.tx.TxLevel;
 
 import javax.sql.DataSource;
@@ -32,9 +32,9 @@ public class TrydbConfig {
   private final DataSource ds;
   private final IDialect dialect;
   private final TxLevel level;
-  private final ISqlReport report;
+  private final ISqlReporter reporter;
   private final INameCase namecase;
-  private final TSqlTemplate sqltemplate;
+  private final Firetpl sqltemplate;
 
 
   private TrydbConfig(Builder builder) {
@@ -43,7 +43,7 @@ public class TrydbConfig {
     this.ds = builder.ds;
     this.dialect = builder.dialect;
     this.level = builder.level;
-    this.report = builder.report;
+    this.reporter = builder.report;
     this.namecase = builder.namecase;
     this.sqltemplate = builder.sqltemplate;
   }
@@ -68,15 +68,15 @@ public class TrydbConfig {
     return level;
   }
 
-  public ISqlReport report() {
-    return this.report;
+  public ISqlReporter reporter() {
+    return this.reporter;
   }
 
   public INameCase namecase() {
     return namecase;
   }
 
-  public TSqlTemplate template() {
+  public Firetpl template() {
     return this.sqltemplate;
   }
 
@@ -86,9 +86,9 @@ public class TrydbConfig {
     private DataSource ds;
     private IDialect dialect;
     private TxLevel level;
-    private ISqlReport report;
+    private ISqlReporter report;
     private INameCase namecase;
-    private TSqlTemplate sqltemplate;
+    private Firetpl sqltemplate;
 
     public Builder() {
       this.name = "main";
@@ -137,12 +137,12 @@ public class TrydbConfig {
     public Builder showSql(boolean showSql) {
       if (!showSql)
         return this;
-      this.report = _TrydbSqlReport.instance();
+      this.report = _TrydbSqlReporter.instance();
       return this;
     }
 
-    public Builder report(ISqlReport report) {
-      this.report = report;
+    public Builder reporter(ISqlReporter reporter) {
+      this.report = reporter;
       return this;
     }
 
@@ -151,7 +151,7 @@ public class TrydbConfig {
       return this;
     }
 
-    public Builder template(TSqlTemplate template) {
+    public Builder template(Firetpl template) {
       this.sqltemplate = template;
       return this;
     }

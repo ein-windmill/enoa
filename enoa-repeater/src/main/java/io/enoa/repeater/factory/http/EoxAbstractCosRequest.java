@@ -22,8 +22,8 @@ import io.enoa.repeater.http.UFile;
 import io.enoa.toolkit.alg.UnitConvKit;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.file.FileKit;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.stream.StreamKit;
+import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thr.EoException;
 
 import java.io.ByteArrayOutputStream;

@@ -24,8 +24,8 @@ public class ReadTest {
 //   * @param args args
 //   */
 //  public static void main(String[] args) throws IOException {
-//    System.out.println(PathKit.bootPath());
-//    Path example = PathKit.bootPath().resolve("../enoa-example/example-yosart").normalize();
+//    System.out.println(PathKit.debugPath());
+//    Path example = PathKit.debugPath().resolve("../enoa-example/example-yosart").normalize();
 //    List<String> jfs = new ArrayList<>();
 //    listFile(jfs, example);
 //    Main.execute("", Analyzer.class.getName(), jfs.toArray(new String[jfs.size()]));
