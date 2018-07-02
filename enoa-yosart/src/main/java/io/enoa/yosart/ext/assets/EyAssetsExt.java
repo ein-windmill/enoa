@@ -192,6 +192,7 @@ public class EyAssetsExt implements YmAssetsExt {
   }
 
   private String uri(String context, String action, String filename) {
-    return context.concat(Oysart.assets().uri()).concat(action).concat(filename);
+    String _cxt = "/".equals(context) ? "" : context;
+    return _cxt.concat(Oysart.assets().uri()).concat(action).concat(filename);
   }
 }
