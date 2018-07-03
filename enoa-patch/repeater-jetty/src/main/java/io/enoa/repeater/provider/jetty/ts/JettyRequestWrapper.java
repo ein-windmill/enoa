@@ -235,7 +235,7 @@ class JettyRequestWrapper implements Request {
   @Override
   public String para(String name, String def) {
     String val = this.para(name);
-    return ConvertKit.ruleString(val, def);
+    return ConvertKit.string(val, def);
   }
 
   @Override

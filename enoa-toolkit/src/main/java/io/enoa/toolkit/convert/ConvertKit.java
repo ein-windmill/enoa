@@ -15,11 +15,15 @@
  */
 package io.enoa.toolkit.convert;
 
+import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.number.NumberKit;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thr.EoException;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.Date;
 
@@ -28,21 +32,33 @@ public class ConvertKit {
   }
 
   public static String string(Object obj) {
-    return string(obj, null);
+    return string(obj, null, Boolean.TRUE);
+  }
+
+  public static String string(Object obj, boolean checkblank) {
+    return string(obj, null, checkblank);
   }
 
   public static String string(Object obj, String def) {
+    return string(obj, def, Boolean.TRUE);
+  }
+
+  public static String string(Object obj, String def, boolean checkblank) {
     if (obj == null)
       return def;
-    return obj.toString();
+
+    String _string = obj.toString();
+    return checkblank ?
+      TextKit.isBlank(_string) ? def : _string
+      : _string;
   }
 
-  public static String ruleString(String text) {
-    return ruleString(text, null);
+  public static Number number(String text, Number def) {
+    return TextKit.isBlank(text) ? def : NumberKit.to(text, Number.class);
   }
 
-  public static String ruleString(String text, String def) {
-    return TextKit.isBlank(text) ? def : text;
+  public static Number number(String text) {
+    return number(text, null);
   }
 
   public static Integer integer(String text) {
@@ -85,6 +101,22 @@ public class ConvertKit {
     return shorter(text, null);
   }
 
+  public static BigInteger bigint(String text, BigInteger def) {
+    return TextKit.isBlank(text) ? def : NumberKit.bigint(text);
+  }
+
+  public static BigInteger bigint(String text) {
+    return bigint(text, null);
+  }
+
+  public static BigDecimal bigdecimal(String text, BigDecimal def) {
+    return TextKit.isBlank(text) ? def : NumberKit.bigdecimal(text);
+  }
+
+  public static BigDecimal bigdecimal(String text) {
+    return bigdecimal(text, null);
+  }
+
   public static Boolean bool(String text) {
     return bool(text, null);
   }
@@ -101,7 +133,7 @@ public class ConvertKit {
   }
 
   public static Date date(String text) {
-    return date(text, "yyyy-MM-dd", null);
+    return date(text, EoConst.DEF_FORMAT_DATE, null);
   }
 
   public static Date date(String text, String format) {
@@ -116,6 +148,29 @@ public class ConvertKit {
     } catch (ParseException e) {
       throw new EoException(EnoaTipKit.message("eo.tip.toolkit.convert_cant_date", text));
     }
+  }
+
+  public static Timestamp timestamp(String text, String format, Timestamp def) {
+    Date date = date(text, format);
+    if (date == null)
+      return def;
+    return new Timestamp(date.getTime());
+  }
+
+  public static Timestamp timestamp(String text, String format) {
+    return timestamp(text, format, null);
+  }
+
+  public static Timestamp timestamp(String text) {
+    return timestamp(text, EoConst.DEF_FORMAT_DATE, null);
+  }
+
+  public static <R> R as(Object value) {
+    return as(value, null);
+  }
+
+  public static <R> R as(Object value, R def) {
+    return value == null ? def : (R) value;
   }
 
   public static <R, P> R to(P value, IConverter<R, P> converter) {

@@ -17,8 +17,6 @@ package io.enoa.toolkit.value;
 
 import io.enoa.toolkit.convert.ConvertKit;
 import io.enoa.toolkit.convert.IConverter;
-import io.enoa.toolkit.number.NumberKit;
-import io.enoa.toolkit.text.TextKit;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -44,93 +42,88 @@ public class EnoaValue implements Serializable {
     return value;
   }
 
+  public String string(String def, boolean checkblank) {
+    return ConvertKit.string(this.value, def, checkblank);
+  }
+
   public String string(String def) {
     return ConvertKit.string(this.value, def);
   }
 
   public String string() {
-    return this.string(null);
+    return ConvertKit.string(this.value);
   }
 
   public Number number(Number def) {
-    String string = this.string();
-    return TextKit.isBlank(string) ? def : NumberKit.to(string, Number.class);
+    return ConvertKit.number(this.string(), def);
   }
 
   public Number number() {
-    return this.number(null);
+    return ConvertKit.number(this.string());
   }
 
   public Integer integer(Integer def) {
-    String string = this.string();
-    return TextKit.isBlank(string) ? def : NumberKit.integer(string);
+    return ConvertKit.integer(this.string(), def);
   }
 
   public Integer integer() {
-    return this.integer(null);
+    return ConvertKit.integer(this.string());
   }
 
   public Long longer(Long def) {
-    String string = this.string();
-    return TextKit.isBlank(string) ? def : NumberKit.longer(string);
+    return ConvertKit.longer(this.string(), def);
   }
 
   public Long longer() {
-    return this.longer(null);
+    return ConvertKit.longer(this.string());
   }
 
   public Double doubler(Double def) {
-    String string = this.string();
-    return TextKit.isBlank(string) ? def : NumberKit.doubler(string);
+    return ConvertKit.doubler(this.string(), def);
   }
 
   public Double doubler() {
-    return this.doubler(null);
+    return ConvertKit.doubler(this.string());
   }
 
   public Float floater(Float def) {
-    String string = this.string();
-    return TextKit.isBlank(string) ? def : NumberKit.floater(string);
+    return ConvertKit.floater(this.string(), def);
   }
 
   public Float floater() {
-    return this.floater(null);
+    return ConvertKit.floater(this.string());
   }
 
   public Short shorter(Short def) {
-    String string = this.string();
-    return TextKit.isBlank(string) ? def : NumberKit.shorter(string);
+    return ConvertKit.shorter(this.string(), def);
   }
 
   public Short shorter() {
-    return this.shorter(null);
+    return ConvertKit.shorter(this.string());
   }
 
   public BigInteger bigint(BigInteger def) {
-    Number number = this.number();
-    return number == null ? def : NumberKit.bigint(this.number());
+    return ConvertKit.bigint(this.string(), def);
   }
 
   public BigInteger bigint() {
-    return this.bigint(null);
+    return ConvertKit.bigint(this.string());
   }
 
   public BigDecimal bigdecimal(BigDecimal def) {
-    String string = this.string();
-    return TextKit.isBlank(string) ? def : NumberKit.bigdecimal(string);
+    return ConvertKit.bigdecimal(this.string(), def);
   }
 
   public BigDecimal bigdecimal() {
-    return this.bigdecimal(null);
+    return ConvertKit.bigdecimal(this.string());
   }
 
   public Boolean bool(Boolean def) {
-    String string = this.string();
-    return TextKit.isBlank(string) ? def : ConvertKit.bool(string);
+    return ConvertKit.bool(this.string(), def);
   }
 
   public Boolean bool() {
-    return this.bool(null);
+    return ConvertKit.bool(this.string());
   }
 
   public Date date(String format, Date def) {
@@ -138,36 +131,39 @@ public class EnoaValue implements Serializable {
   }
 
   public Date date(String format) {
-    return ConvertKit.date(this.string(), format, null);
+    return ConvertKit.date(this.string(), format);
   }
 
   public Date date() {
-    return ConvertKit.date(this.string(), "yyyy-MM-dd", null);
+    return ConvertKit.date(this.string());
   }
 
   public Timestamp timestamp(String format, Timestamp def) {
-    Date date = this.date(format);
-    return date == null ? def : new Timestamp(date.getTime());
+    return ConvertKit.timestamp(this.string(), format, def);
   }
 
   public Timestamp timestamp(String format) {
-    return this.timestamp(format, null);
+    return ConvertKit.timestamp(this.string(), format);
   }
 
   public Timestamp timestamp() {
-    return this.timestamp("yyyy-MM-dd", null);
+    return ConvertKit.timestamp(this.string());
   }
 
   public <T> T as(T def) {
-    return this.value == null ? def : this.as();
+    return ConvertKit.as(this.origin(), def);
   }
 
   public <T> T as() {
-    return (T) this.value;
+    return ConvertKit.as(this.origin());
   }
 
-  public <R, P> R to(IConverter<R, P> converter) {
-    return converter.convert(this.as());
+  public <R> R to(IConverter<R, EnoaValue> converter) {
+    return ConvertKit.to(this, converter);
+  }
+
+  public <T> T to(Class<T> clazz) {
+    return ConvertKit.to(this.string(), clazz);
   }
 
   public boolean isNull() {
