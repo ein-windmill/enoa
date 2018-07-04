@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.tryjson.converter;
+package io.enoa.tryjson.eson.converter;
 
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.text.TextKit;
-import io.enoa.tryjson.Eson;
-import io.enoa.tryjson.Esonfig;
+import io.enoa.tryjson.eson.Eson;
+import io.enoa.tryjson.Tsonfig;
 import io.enoa.tryjson.thr.TryJsonException;
 
 import java.lang.reflect.Array;
@@ -38,7 +38,7 @@ class _ObjectConverter implements EsonConverter<Object> {
   }
 
   @Override
-  public String json(Object object, int depth, Esonfig conf) {
+  public String json(Object object, int depth, Tsonfig conf) {
     if (object == null)
       return null;
 
@@ -63,7 +63,7 @@ class _ObjectConverter implements EsonConverter<Object> {
     return this.bean(object, depth, conf);
   }
 
-  private String bean(Object object, int depth, Esonfig conf) {
+  private String bean(Object object, int depth, Tsonfig conf) {
     Map _map = new HashMap();
 
     Class<?> clazz = object.getClass();
@@ -128,7 +128,7 @@ class _ObjectConverter implements EsonConverter<Object> {
     return json;
   }
 
-  private void filleMap(Object object, String key, Method method, Map map, Esonfig conf) {
+  private void filleMap(Object object, String key, Method method, Map map, Tsonfig conf) {
     try {
       key = conf.namecase().convert(key);
       Object _val = method.invoke(object);

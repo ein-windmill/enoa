@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.tryjson.converter;
+package io.enoa.tryjson.eson.converter;
 
 import io.enoa.toolkit.number.NumberKit;
 import io.enoa.toolkit.text.TextKit;
-import io.enoa.tryjson.Esonfig;
+import io.enoa.tryjson.Tsonfig;
 
 class _NumberConverter implements EsonConverter<Number> {
 
@@ -30,7 +30,7 @@ class _NumberConverter implements EsonConverter<Number> {
   }
 
   @Override
-  public String json(Number number, int depth, Esonfig conf) {
+  public String json(Number number, int depth, Tsonfig conf) {
     if (number == null)
       return null;
 

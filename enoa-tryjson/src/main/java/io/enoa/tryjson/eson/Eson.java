@@ -13,9 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.tryjson;
+package io.enoa.tryjson.eson;
 
-import io.enoa.tryjson.converter.EsonConverter;
+import io.enoa.tryjson.Tsonfig;
+import io.enoa.tryjson.eson.converter.EsonConverter;
+import io.enoa.tryjson.eson.parser.EsonParser;
+import io.enoa.tryjson.json.Ja;
+import io.enoa.tryjson.json.Jo;
+import io.enoa.tryjson.thr.TryJsonException;
 
 import java.util.Date;
 import java.util.Map;
@@ -26,7 +31,7 @@ public class Eson {
 
   }
 
-  public static String json(Object object, int depth, Esonfig conf) {
+  public static String json(Object object, int depth, Tsonfig conf) {
     if (object == null)
       return null;
 
@@ -62,6 +67,14 @@ public class Eson {
       return json;
 
     return EsonConverter.string().json(object.toString(), depth, conf);
+  }
+
+  public static Jo object(String json, Tsonfig conf) throws TryJsonException {
+    return EsonParser.def().object(json);
+  }
+
+  public static Ja array(String json, Tsonfig conf) throws TryJsonException {
+    return EsonParser.def().array(json);
   }
 
 }

@@ -29,22 +29,22 @@ public class EPMTryjson {
     return Holder.INSTANCE;
   }
 
-  private Esonfig config;
+  private Tsonfig config;
 
   private EPMTryjson() {
-    this.config = new Esonfig.Builder()
+    this.config = new Tsonfig.Builder()
       .debug(Boolean.FALSE)
       .dateFormat(EoConst.DEF_FORMAT_DATE)
       .namecase(NamecaseKit.namecase(NamecaseType.CASE_NONE))
       .build();
   }
 
-  public EPMTryjson install(Esonfig config) {
+  public EPMTryjson install(Tsonfig config) {
     this.config = config;
     return this;
   }
 
-  public Esonfig config() {
+  public Tsonfig config() {
     return this.config;
   }
 }

@@ -13,29 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.tryjson.json;
+package io.enoa.tryjson.eson.parser.def;
 
+import io.enoa.toolkit.mark.IMark;
 
-import java.util.Collection;
+public enum ParseType implements IMark {
 
-public class Ja<E> extends _Ja<E> {
+  OBJECT,
 
-  public Ja() {
-  }
-
-  public Ja(Collection<E> collection) {
-    super(collection);
-  }
-
-  public static <S> Ja<S> create() {
-    return new Ja<>();
-  }
-
-  public static final Ja EMPTY_JA = create();
-
-  public static final <PARA> Ja<PARA> emptyJa() {
-    return EMPTY_JA;
-  }
-
+  ARRAY
 
 }

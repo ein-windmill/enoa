@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-abstract class _Ja<E> implements Collection<E>, _Json {
+abstract class _Ja<E> implements Collection<E>, Toa {
 
   Collection<E> coll;
 

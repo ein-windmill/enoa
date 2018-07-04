@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.tryjson.converter;
+package io.enoa.tryjson.eson.converter;
 
 import io.enoa.toolkit.text.TextKit;
-import io.enoa.tryjson.Esonfig;
+import io.enoa.tryjson.Tsonfig;
 
 class _StringConverter implements EsonConverter<String> {
 
@@ -29,7 +29,7 @@ class _StringConverter implements EsonConverter<String> {
   }
 
   @Override
-  public String json(String text, int depth, Esonfig conf) {
+  public String json(String text, int depth, Tsonfig conf) {
     return text == null ? null :
       TextKit.union("\"", this.escape(text), "\"");
   }

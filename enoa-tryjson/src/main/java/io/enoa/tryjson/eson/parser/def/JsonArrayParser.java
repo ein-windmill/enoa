@@ -13,21 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.tryjson.converter;
+package io.enoa.tryjson.eson.parser.def;
 
-class __EnumNameConverter implements IEnumConverter {
-  private static class Holder {
-    private static final __EnumNameConverter INSTANCE = new __EnumNameConverter();
-  }
+import io.enoa.tryjson.Tsonfig;
+import io.enoa.tryjson.json.Ja;
 
-  static __EnumNameConverter instance() {
-    return Holder.INSTANCE;
+class JsonArrayParser extends AbstractJsonParser<Ja> {
+
+  private Ja ja;
+  private StringBuilder json;
+  private Tsonfig config;
+
+  JsonArrayParser(StringBuilder json, Tsonfig config) {
+    this.json = json;
+    this.config = config;
   }
 
   @Override
-  public String convert(Enum _enum) {
-    if (_enum == null)
-      return null;
-    return _enum.name();
+  public Ja parse() {
+
+    return this.ja;
   }
 }

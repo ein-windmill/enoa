@@ -13,29 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.tryjson.json;
+package io.enoa.tryjson.eson.converter;
 
+import io.enoa.tryjson.Tsonfig;
 
-import java.util.Collection;
-
-public class Ja<E> extends _Ja<E> {
-
-  public Ja() {
+class _BoolConverter implements EsonConverter<Boolean> {
+  private static class Holder {
+    private static final _BoolConverter INSTANCE = new _BoolConverter();
   }
 
-  public Ja(Collection<E> collection) {
-    super(collection);
+  static _BoolConverter instance() {
+    return Holder.INSTANCE;
   }
 
-  public static <S> Ja<S> create() {
-    return new Ja<>();
+  @Override
+  public String json(Boolean bool, int depth, Tsonfig conf) {
+    if (bool == null)
+      return null;
+    return bool.toString();
   }
-
-  public static final Ja EMPTY_JA = create();
-
-  public static final <PARA> Ja<PARA> emptyJa() {
-    return EMPTY_JA;
-  }
-
-
 }

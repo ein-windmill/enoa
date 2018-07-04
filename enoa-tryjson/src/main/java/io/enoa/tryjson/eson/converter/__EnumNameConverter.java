@@ -13,10 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.tryjson.json;
+package io.enoa.tryjson.eson.converter;
 
-interface _Json {
+class __EnumNameConverter implements IEnumConverter {
+  private static class Holder {
+    private static final __EnumNameConverter INSTANCE = new __EnumNameConverter();
+  }
 
-  String json();
+  static __EnumNameConverter instance() {
+    return Holder.INSTANCE;
+  }
 
+  @Override
+  public String convert(Enum _enum) {
+    if (_enum == null)
+      return null;
+    return _enum.name();
+  }
 }

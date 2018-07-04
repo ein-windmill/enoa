@@ -13,29 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.tryjson.json;
+package io.enoa.tryjson.eson.converter;
 
+import io.enoa.tryjson.eson.Eson;
+import io.enoa.tryjson.Tsonfig;
 
-import java.util.Collection;
+class _EnumConverter implements EsonConverter<Enum> {
 
-public class Ja<E> extends _Ja<E> {
-
-  public Ja() {
+  private static class Holder {
+    private static final _EnumConverter INSTANCE = new _EnumConverter();
   }
 
-  public Ja(Collection<E> collection) {
-    super(collection);
+  static _EnumConverter instance() {
+    return Holder.INSTANCE;
   }
 
-  public static <S> Ja<S> create() {
-    return new Ja<>();
+  @Override
+  public String json(Enum em, int depth, Tsonfig conf) {
+    Object _ret = conf.enumConverter().convert(em);
+    return Eson.json(_ret, depth, conf);
   }
-
-  public static final Ja EMPTY_JA = create();
-
-  public static final <PARA> Ja<PARA> emptyJa() {
-    return EMPTY_JA;
-  }
-
-
 }

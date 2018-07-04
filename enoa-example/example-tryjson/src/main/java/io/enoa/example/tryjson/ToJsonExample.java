@@ -24,7 +24,7 @@ import io.enoa.toolkit.mark.IMarkMsg;
 import io.enoa.toolkit.mark.IMarkVal;
 import io.enoa.toolkit.namecase.NamecaseKit;
 import io.enoa.toolkit.namecase.NamecaseType;
-import io.enoa.tryjson.Esonfig;
+import io.enoa.tryjson.Tsonfig;
 import io.enoa.tryjson.Tryjson;
 import io.enoa.tryjson.mark.DateFormatStrategy;
 
@@ -32,7 +32,6 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class ToJsonExample {
 
@@ -100,8 +99,8 @@ public class ToJsonExample {
       .set("bean", this.bean0());
   }
 
-  private Esonfig bean0() {
-    return new Esonfig.Builder()
+  private Tsonfig bean0() {
+    return new Tsonfig.Builder()
       .debug(false)
       .dateFormat(EoConst.DEF_FORMAT_DATE)
       .dateFormatStrategy(DateFormatStrategy.STRING)
@@ -145,7 +144,7 @@ public class ToJsonExample {
   }
 
   private void testDateFormat() {
-    System.out.println(Tryjson.json(this.kv0(), new Esonfig.Builder().dateFormat("yyyy/MM/dd HH:mm:ss").build()));
+    System.out.println(Tryjson.json(this.kv0(), new Tsonfig.Builder().dateFormat("yyyy/MM/dd HH:mm:ss").build()));
   }
 
   private void testBean() {
@@ -160,7 +159,7 @@ public class ToJsonExample {
   }
 
   private void testConf() {
-    System.out.println(Tryjson.json(this.bean93(), new Esonfig.Builder()
+    System.out.println(Tryjson.json(this.bean93(), new Tsonfig.Builder()
       .namecase(NamecaseKit.namecase(NamecaseType.CASE_UNDERLINE))
       .dateFormatStrategy(DateFormatStrategy.STRING)
       .dateFormat(EoConst.DEF_FORMAT_DATE)
@@ -191,7 +190,7 @@ public class ToJsonExample {
   public static void main(String[] args) {
 
     // default tryjson config
-    Tryjson.epm().install(new Esonfig.Builder().dateFormatStrategy(DateFormatStrategy.TIMESTAMP).build());
+    Tryjson.epm().install(new Tsonfig.Builder().dateFormatStrategy(DateFormatStrategy.TIMESTAMP).build());
 
     ToJsonExample example = new ToJsonExample();
     example.testDateFormat();

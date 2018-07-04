@@ -13,18 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.tryjson.converter;
+package io.enoa.tryjson.json;
 
-/**
- * 枚舉類型特殊格式化接口
- */
-@FunctionalInterface
-public interface IEnumConverter {
+import io.enoa.tryjson.Tryjson;
 
-  static IEnumConverter def() {
-    return __EnumNameConverter.instance();
+public interface Toa {
+
+  default String json() {
+    return Tryjson.json(this);
   }
-
-  Object convert(Enum em);
 
 }

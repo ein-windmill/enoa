@@ -13,29 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.tryjson.json;
+package io.enoa.tryjson.eson.parser;
 
+import io.enoa.tryjson.Tsonfig;
+import io.enoa.tryjson.eson.parser.def._DefaultEsonParser;
+import io.enoa.tryjson.json.Ja;
+import io.enoa.tryjson.json.Jo;
+import io.enoa.tryjson.thr.TryJsonException;
 
-import java.util.Collection;
+public interface EsonParser {
 
-public class Ja<E> extends _Ja<E> {
-
-  public Ja() {
+  static EsonParser def() {
+    return new _DefaultEsonParser();
   }
 
-  public Ja(Collection<E> collection) {
-    super(collection);
-  }
+  Jo object(String json, Tsonfig conf) throws TryJsonException;
 
-  public static <S> Ja<S> create() {
-    return new Ja<>();
-  }
-
-  public static final Ja EMPTY_JA = create();
-
-  public static final <PARA> Ja<PARA> emptyJa() {
-    return EMPTY_JA;
-  }
-
+  Ja array(String json, Tsonfig conf) throws TryJsonException;
 
 }

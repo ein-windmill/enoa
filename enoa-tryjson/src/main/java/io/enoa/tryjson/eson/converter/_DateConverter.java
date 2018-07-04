@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.tryjson.converter;
+package io.enoa.tryjson.eson.converter;
 
 import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.text.TextKit;
-import io.enoa.tryjson.Esonfig;
+import io.enoa.tryjson.Tsonfig;
 import io.enoa.tryjson.mark.DateFormatStrategy;
 
 import java.text.DateFormat;
@@ -34,7 +34,7 @@ class _DateConverter implements EsonConverter<Date> {
   }
 
   @Override
-  public String json(Date date, int depth, Esonfig conf) {
+  public String json(Date date, int depth, Tsonfig conf) {
     if (date == null)
       return null;
 

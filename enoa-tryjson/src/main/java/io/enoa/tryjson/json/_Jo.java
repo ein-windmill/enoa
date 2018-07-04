@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-abstract class _Jo implements Map<String, Object>, _Json {
+abstract class _Jo implements Map<String, Object>, Toa {
 
   Map<String, Object> map;
 

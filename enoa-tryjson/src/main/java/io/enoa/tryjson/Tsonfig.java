@@ -17,11 +17,11 @@ package io.enoa.tryjson;
 
 import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.namecase.INameCase;
-import io.enoa.tryjson.converter.IEnumConverter;
+import io.enoa.tryjson.eson.converter.IEnumConverter;
 import io.enoa.tryjson.format.IJsonFormat;
 import io.enoa.tryjson.mark.DateFormatStrategy;
 
-public class Esonfig {
+public class Tsonfig {
 
   /**
    * 調試模式
@@ -48,7 +48,7 @@ public class Esonfig {
    */
   private final IJsonFormat jsonFormat;
 
-  private Esonfig(Builder builder) {
+  private Tsonfig(Builder builder) {
     this.debug = builder.debug;
     this.dateFormat = builder.dateFormat;
     this.dateFormatStrategy = builder.dateFormatStrategy;
@@ -57,7 +57,7 @@ public class Esonfig {
     this.jsonFormat = builder.jsonFormat;
   }
 
-  public static Esonfig def() {
+  public static Tsonfig def() {
     return new Builder().build();
   }
 
@@ -106,17 +106,17 @@ public class Esonfig {
       this.jsonFormat = IJsonFormat.def();
     }
 
-    private Builder(Esonfig esonfig) {
-      this.debug = esonfig.debug;
-      this.dateFormat = esonfig.dateFormat;
-      this.dateFormatStrategy = esonfig.dateFormatStrategy;
-      this.namecase = esonfig.namecase;
-      this.enumConverter = esonfig.enumConverter;
-      this.jsonFormat = esonfig.jsonFormat;
+    private Builder(Tsonfig tsonfig) {
+      this.debug = tsonfig.debug;
+      this.dateFormat = tsonfig.dateFormat;
+      this.dateFormatStrategy = tsonfig.dateFormatStrategy;
+      this.namecase = tsonfig.namecase;
+      this.enumConverter = tsonfig.enumConverter;
+      this.jsonFormat = tsonfig.jsonFormat;
     }
 
-    public Esonfig build() {
-      return new Esonfig(this);
+    public Tsonfig build() {
+      return new Tsonfig(this);
     }
 
     public Builder debug(boolean debug) {

@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.tryjson.converter;
+package io.enoa.tryjson.eson.converter;
 
-import io.enoa.tryjson.Esonfig;
+import io.enoa.tryjson.Tsonfig;
 
 import java.util.Date;
 import java.util.Map;
@@ -54,6 +54,6 @@ public interface EsonConverter<T> {
     return _EnumConverter.instance();
   }
 
-  String json(T object, int depth, Esonfig conf);
+  String json(T object, int depth, Tsonfig conf);
 
 }

@@ -16,8 +16,10 @@
 package io.enoa.tryjson;
 
 
+import io.enoa.tryjson.eson.Eson;
 import io.enoa.tryjson.json.Ja;
 import io.enoa.tryjson.json.Jo;
+import io.enoa.tryjson.thr.TryJsonException;
 
 import java.util.List;
 
@@ -32,7 +34,7 @@ public interface Tryjson {
     return json(object, 15);
   }
 
-  static String json(Object object, Esonfig conf) {
+  static String json(Object object, Tsonfig conf) {
     return json(object, 15, conf);
   }
 
@@ -40,24 +42,40 @@ public interface Tryjson {
     return json(object, depth, epm().config());
   }
 
-  static String json(Object object, int depth, Esonfig conf) {
+  static String json(Object object, int depth, Tsonfig conf) {
     String json = Eson.json(object, depth, conf);
     return conf.jsonFormat().format(json);
   }
 
-  static Ja array(String json) {
+  static Ja array(String json) throws TryJsonException {
+    return array(json, epm().config());
+  }
+
+  static <T> List<T> array(String json, Class<T> clazz) throws TryJsonException {
+    return array(json, clazz, epm().config());
+  }
+
+  static Ja array(String json, Tsonfig conf) throws TryJsonException {
+    return Eson.array(json, conf);
+  }
+
+  static <T> List<T> array(String json, Class<T> clazz, Tsonfig conf) throws TryJsonException {
     return null;
   }
 
-  static <T> List<T> array(String json, Class<T> clazz) {
+  static Jo object(String json) throws TryJsonException {
+    return object(json, epm().config());
+  }
+
+  static <T> T object(String json, Class<T> clazz) throws TryJsonException {
     return null;
   }
 
-  static Jo object(String json) {
-    return null;
+  static Jo object(String json, Tsonfig conf) throws TryJsonException {
+    return Eson.object(json, conf);
   }
 
-  static <T> T object(String json, Class<T> clazz) {
+  static <T> T object(String json, Class<T> clazz, Tsonfig conf) throws TryJsonException {
     return null;
   }
 

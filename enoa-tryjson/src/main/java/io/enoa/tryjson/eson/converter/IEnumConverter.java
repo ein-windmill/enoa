@@ -13,24 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.tryjson.converter;
+package io.enoa.tryjson.eson.converter;
 
-import io.enoa.tryjson.Eson;
-import io.enoa.tryjson.Esonfig;
+/**
+ * 枚舉類型特殊格式化接口
+ */
+@FunctionalInterface
+public interface IEnumConverter {
 
-class _EnumConverter implements EsonConverter<Enum> {
-
-  private static class Holder {
-    private static final _EnumConverter INSTANCE = new _EnumConverter();
+  static IEnumConverter def() {
+    return __EnumNameConverter.instance();
   }
 
-  static _EnumConverter instance() {
-    return Holder.INSTANCE;
-  }
+  Object convert(Enum em);
 
-  @Override
-  public String json(Enum em, int depth, Esonfig conf) {
-    Object _ret = conf.enumConverter().convert(em);
-    return Eson.json(_ret, depth, conf);
-  }
 }

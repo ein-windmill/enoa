@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.tryjson.converter;
+package io.enoa.tryjson.eson.converter;
 
-import io.enoa.tryjson.Eson;
-import io.enoa.tryjson.Esonfig;
+import io.enoa.tryjson.eson.Eson;
+import io.enoa.tryjson.Tsonfig;
 
 class _IterableConverter implements EsonConverter<Iterable> {
   private static class Holder {
@@ -28,7 +28,7 @@ class _IterableConverter implements EsonConverter<Iterable> {
   }
 
   @Override
-  public String json(Iterable iterable, int depth, Esonfig conf) {
+  public String json(Iterable iterable, int depth, Tsonfig conf) {
     if (iterable == null)
       return "[]";
     StringBuilder _json = new StringBuilder();
