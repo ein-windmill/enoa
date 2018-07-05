@@ -207,6 +207,12 @@ public class ToJsonExample {
     System.out.println(Tryjson.json(jo, config));
   }
 
+  private void testParseError() {
+    String json = "{\"key: {}";
+    Jo jo = Tryjson.object(json);
+    System.out.println(jo);
+  }
+
   public static void main(String[] args) {
 
     // default tryjson config
@@ -220,6 +226,12 @@ public class ToJsonExample {
 //    example.testArr();
 
     example.testParseObject();
+
+    try {
+      example.testParseError();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
 
 //    String MAX_LONG = String.valueOf(Long.MAX_VALUE);
 //    String MIN_LONG = String.valueOf(Long.MIN_VALUE);

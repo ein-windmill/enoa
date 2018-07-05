@@ -15,7 +15,6 @@
  */
 package io.enoa.tryjson.eson.parser.def;
 
-import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.mark.IMark;
 
 enum Symbol implements IMark {

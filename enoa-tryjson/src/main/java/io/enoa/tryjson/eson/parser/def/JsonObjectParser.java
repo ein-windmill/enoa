@@ -48,8 +48,9 @@ class JsonObjectParser extends AbstractJsonParser<Jo> {
     StringBuilder _value = new StringBuilder();
 
     boolean stringValue = false;
+    boolean objectValue = false;
     int ix = 0;
-    JSONFOREARCH:
+//    JSONFOREARCH:
     for (; ix < len; ix++) {
       char ch0 = json.charAt(ix);
 
@@ -63,7 +64,6 @@ class JsonObjectParser extends AbstractJsonParser<Jo> {
           if (super.skip(ch0))
             break;
           if (ch0 == '{') {
-            // todo json ast object open
             sblstack.add(Symbol.JO_OPEN);
             jo = Jo.create();
             break;
@@ -97,6 +97,9 @@ class JsonObjectParser extends AbstractJsonParser<Jo> {
           _key.append(ch0);
           break;
 
+          /*
+          字符串結束
+           */
         case SBL_STRING_END:
 
           // 从 " 后面的第一个字符开始
@@ -112,7 +115,8 @@ class JsonObjectParser extends AbstractJsonParser<Jo> {
             sblstack.remove(sblstack.size() - 1);
 
             sblstack.add(Symbol.JN_SYMMETRY);
-            continue JSONFOREARCH;
+//            continue JSONFOREARCH;
+            break;
           }
           break;
           /*
@@ -128,21 +132,14 @@ class JsonObjectParser extends AbstractJsonParser<Jo> {
             sblstack.remove(sblstack.size() - 1);
             if (ch0 == '}')
               sblstack.remove(sblstack.size() - 1);
-            this.fillValue(jo, _key, this.stringValue(stringValue, _value), config);
+            if (!objectValue)
+              this.fillValue(jo, _key, this.stringValue(stringValue, _value), config);
             _key.delete(0, _key.length());
             _value.delete(0, _value.length());
             stringValue = false;
+            objectValue = false;
             break;
           }
-//          if (ch0 == '}') {
-//            sblstack.remove(sblstack.size() - 1);
-//            sblstack.remove(sblstack.size() - 1);
-//            this.fillValue(jo, _key, this.stringValue(stringValue, _value), config);
-//            _key.delete(0, _key.length());
-//            _value.delete(0, _value.length());
-//            stringValue = false;
-//            break;
-//          }
           if (ch0 == '{') {
             Block block = super.extraBlock('{', ix, json);
             Jo _jo0 = parse(block.json(), config);
@@ -151,6 +148,7 @@ class JsonObjectParser extends AbstractJsonParser<Jo> {
             _key.delete(0, _key.length());
             _value.delete(0, _value.length());
             stringValue = false;
+            objectValue = true;
             break;
           }
           if (ch0 == '[') {
