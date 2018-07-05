@@ -37,5 +37,8 @@ public class Ja<E> extends _Ja<E> {
     return EMPTY_JA;
   }
 
-
+  @Override
+  public String toString() {
+    return super.json();
+  }
 }

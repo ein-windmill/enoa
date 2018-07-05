@@ -15,8 +15,8 @@
  */
 package io.enoa.tryjson.eson.converter;
 
-import io.enoa.tryjson.eson.Eson;
 import io.enoa.tryjson.Tsonfig;
+import io.enoa.tryjson.eson.Eson;
 
 import java.util.Map;
 
@@ -36,6 +36,10 @@ class _MapConverter implements EsonConverter<Map> {
     StringBuilder _json = new StringBuilder();
     _json.append('{');
     map.forEach((key, value) -> {
+      if (conf.skipNull()) {
+        if (value == null)
+          return;
+      }
       String _key = null;
       if (key != null)
         _key = conf.namecase().convert(String.valueOf(key));

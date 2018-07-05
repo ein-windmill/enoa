@@ -17,9 +17,9 @@ package io.enoa.tryjson.eson.converter;
 
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.text.TextKit;
-import io.enoa.tryjson.eson.Eson;
 import io.enoa.tryjson.Tsonfig;
-import io.enoa.tryjson.thr.TryJsonException;
+import io.enoa.tryjson.eson.Eson;
+import io.enoa.tryjson.thr.TryjsonException;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
@@ -78,7 +78,11 @@ class _ObjectConverter implements EsonConverter<Object> {
     // public 字段 直接加入到序列化中
     fields.forEach(field -> {
       try {
-        _map.put(field.getName(), field.get(object));
+        Object _val = field.get(object);
+        if (conf.skipNull() && _val == null)
+          return;
+
+        _map.put(field.getName(), _val);
       } catch (IllegalAccessException e) {
         // skip
       }
@@ -130,11 +134,14 @@ class _ObjectConverter implements EsonConverter<Object> {
 
   private void filleMap(Object object, String key, Method method, Map map, Tsonfig conf) {
     try {
-      key = conf.namecase().convert(key);
       Object _val = method.invoke(object);
+      if (conf.skipNull() && _val == null)
+        return;
+
+      key = conf.namecase().convert(key);
       map.put(key, _val);
     } catch (Exception e) {
-      throw new TryJsonException(e.getMessage(), e);
+      throw new TryjsonException(e.getMessage(), e);
     }
   }
 

@@ -17,8 +17,9 @@ package io.enoa.tryjson;
 
 import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.namecase.INameCase;
-import io.enoa.tryjson.eson.converter.IEnumConverter;
-import io.enoa.tryjson.format.IJsonFormat;
+import io.enoa.tryjson.ext.detect.ITypeDetector;
+import io.enoa.tryjson.ext.enumer.IEnumConverter;
+import io.enoa.tryjson.ext.format.IJsonFormat;
 import io.enoa.tryjson.mark.DateFormatStrategy;
 
 public class Tsonfig {
@@ -47,6 +48,14 @@ public class Tsonfig {
    * 對象轉換 json 後, 對 json 字符串進行格式化
    */
   private final IJsonFormat jsonFormat;
+  /**
+   * json 解析属性值类型侦测
+   */
+  private final ITypeDetector detector;
+  /**
+   * json 序列化时跳过 null 值
+   */
+  private final boolean skipNull;
 
   private Tsonfig(Builder builder) {
     this.debug = builder.debug;
@@ -55,6 +64,8 @@ public class Tsonfig {
     this.namecase = builder.namecase;
     this.enumConverter = builder.enumConverter;
     this.jsonFormat = builder.jsonFormat;
+    this.detector = builder.detector;
+    this.skipNull = builder.skipNull;
   }
 
   public static Tsonfig def() {
@@ -85,6 +96,14 @@ public class Tsonfig {
     return this.jsonFormat;
   }
 
+  public ITypeDetector detector() {
+    return this.detector;
+  }
+
+  public boolean skipNull() {
+    return this.skipNull;
+  }
+
   public Builder builder() {
     return new Builder(this);
   }
@@ -96,6 +115,8 @@ public class Tsonfig {
     private INameCase namecase;
     private IEnumConverter enumConverter;
     private IJsonFormat jsonFormat;
+    private ITypeDetector detector;
+    private boolean skipNull;
 
     public Builder() {
       this.debug = Boolean.FALSE;
@@ -104,6 +125,8 @@ public class Tsonfig {
       this.namecase = INameCase.def();
       this.enumConverter = IEnumConverter.def();
       this.jsonFormat = IJsonFormat.def();
+      this.detector = ITypeDetector.def();
+      this.skipNull = Boolean.TRUE;
     }
 
     private Builder(Tsonfig tsonfig) {
@@ -113,10 +136,16 @@ public class Tsonfig {
       this.namecase = tsonfig.namecase;
       this.enumConverter = tsonfig.enumConverter;
       this.jsonFormat = tsonfig.jsonFormat;
+      this.detector = tsonfig.detector;
+      this.skipNull = tsonfig.skipNull;
     }
 
     public Tsonfig build() {
       return new Tsonfig(this);
+    }
+
+    public Builder debug() {
+      return this.debug(Boolean.TRUE);
     }
 
     public Builder debug(boolean debug) {
@@ -146,6 +175,20 @@ public class Tsonfig {
 
     public Builder jsonFormat(IJsonFormat jsonFormat) {
       this.jsonFormat = jsonFormat;
+      return this;
+    }
+
+    public Builder decector(ITypeDetector detector) {
+      this.detector = detector;
+      return this;
+    }
+
+    public Builder skipNull() {
+      return this.skipNull(Boolean.TRUE);
+    }
+
+    public Builder skipNull(boolean skipNull) {
+      this.skipNull = skipNull;
       return this;
     }
   }

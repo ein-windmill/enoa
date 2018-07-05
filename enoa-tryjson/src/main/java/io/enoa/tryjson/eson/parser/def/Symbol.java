@@ -23,55 +23,43 @@ enum Symbol implements IMark {
   /**
    * 未被初始化的狀態
    */
-  NONE(null, null, CollectionKit.emptyArray(Character.class)),
+  NONE,
 
   /**
    * json object 進入
    */
-  JO_OPEN('{', '}', new Character[]{'"'}),
+  JO_OPEN,
 
   /**
    * json object 結束
    */
-  JO_CLOSE('}', null, new Character[]{','}),
+  JO_CLOSE,
 
   /**
    * json array 進入
    */
-  JA_OPEN('[', ']', new Character[]{'{', 'N', 'B'}),
+  JA_OPEN,
 
   /**
    * json array 結束
    */
-  JA_CLOSE(']', null, new Character[]{','}),
+  JA_CLOSE,
 
   /**
-   * 字符串
+   * 字符串开始
    */
-  SBL_STRING('"', '"', CollectionKit.emptyArray(Character.class)),
+  SBL_STRING_START,
 
+  /**
+   * 字符串结束
+   */
+  SBL_STRING_END,
+
+  /**
+   * json key value 对称符
+   */
+  JN_SYMMETRY,
   //
   ;
 
-  private final Character left;
-  private final Character right;
-  private final Character[] allows;
-
-  Symbol(Character left, Character right, Character[] allows) {
-    this.left = left;
-    this.right = right;
-    this.allows = allows;
-  }
-
-  public Character left() {
-    return this.left;
-  }
-
-  public Character right() {
-    return this.right;
-  }
-
-  public Character[] allows() {
-    return this.allows;
-  }
 }

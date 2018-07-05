@@ -13,28 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.tryjson.json;
+package io.enoa.tryjson.ext.enumer;
 
+/**
+ * 枚舉類型特殊格式化接口
+ */
+@FunctionalInterface
+public interface IEnumConverter {
 
-import io.enoa.toolkit.map.FastKv;
-
-import java.util.Map;
-
-public class Jo extends _Jo implements FastKv<Jo> {
-
-  public Jo() {
+  static IEnumConverter def() {
+    return EnumNameConverter.instance();
   }
 
-  public Jo(Map<String, Object> map) {
-    super(map);
-  }
+  Object convert(Enum em);
 
-  public static Jo create() {
-    return new Jo();
-  }
-
-  @Override
-  public String toString() {
-    return super.json();
-  }
 }

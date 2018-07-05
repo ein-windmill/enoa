@@ -41,9 +41,27 @@ class _StringConverter implements EsonConverter<String> {
       char ch = text.charAt(i);
       switch (ch) {
         case '"':
+          if (i == 0) {
+            break;
+          }
+          char left = text.charAt(i - 1);
+          if (left == '\\') {
+            sb.append("\\\"");
+            break;
+          }
           sb.append("\\\"");
           break;
         case '\\':
+          Character right = i + 1 >= len ? null : text.charAt(i + 1);
+          if (right == null) {
+            sb.append("\\\\");
+            break;
+          }
+          if (right == '"')
+            break;
+          if (right == '\\') {
+            break;
+          }
           sb.append("\\\\");
           break;
         case '\b':

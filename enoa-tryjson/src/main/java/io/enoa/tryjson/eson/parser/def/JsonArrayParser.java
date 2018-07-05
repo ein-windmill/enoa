@@ -17,21 +17,21 @@ package io.enoa.tryjson.eson.parser.def;
 
 import io.enoa.tryjson.Tsonfig;
 import io.enoa.tryjson.json.Ja;
+import io.enoa.tryjson.thr.TryjsonException;
 
 class JsonArrayParser extends AbstractJsonParser<Ja> {
 
-  private Ja ja;
-  private StringBuilder json;
-  private Tsonfig config;
+  private static class Holder {
+    private static final JsonArrayParser INSTANCE = new JsonArrayParser();
+  }
 
-  JsonArrayParser(StringBuilder json, Tsonfig config) {
-    this.json = json;
-    this.config = config;
+  static JsonArrayParser instance() {
+    return Holder.INSTANCE;
   }
 
   @Override
-  public Ja parse() {
+  public Ja parse(String json, Tsonfig config) throws TryjsonException {
 
-    return this.ja;
+    return Ja.emptyJa();
   }
 }

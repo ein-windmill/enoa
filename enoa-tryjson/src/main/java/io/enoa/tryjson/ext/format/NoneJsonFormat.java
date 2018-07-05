@@ -13,15 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.tryjson.format;
+package io.enoa.tryjson.ext.format;
 
-@FunctionalInterface
-public interface IJsonFormat {
+class NoneJsonFormat implements IJsonFormat {
 
-  static IJsonFormat def() {
-    return NoneJsonFormat.instance();
+  private static class Holder {
+    private static final NoneJsonFormat INSTANCE = new NoneJsonFormat();
   }
 
-  String format(String json);
+  static NoneJsonFormat instance() {
+    return Holder.INSTANCE;
+  }
 
+  @Override
+  public String format(String json) {
+    return json;
+  }
 }

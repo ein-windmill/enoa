@@ -15,10 +15,12 @@
  */
 package io.enoa.tryjson.eson.parser.def;
 
+import io.enoa.tryjson.Tsonfig;
 import io.enoa.tryjson.json.Toa;
+import io.enoa.tryjson.thr.TryjsonException;
 
 interface IJsonParser<T extends Toa> {
 
-  T parse();
+  T parse(String json, Tsonfig config) throws TryjsonException;
 
 }

@@ -13,20 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.tryjson.format;
+package io.enoa.tryjson.ext.detect;
 
-class NoneJsonFormat implements IJsonFormat {
+import io.enoa.tryjson.Tsonfig;
+import io.enoa.tryjson.thr.TryjsonException;
 
-  private static class Holder {
-    private static final NoneJsonFormat INSTANCE = new NoneJsonFormat();
+@FunctionalInterface
+public interface ITypeDetector {
+
+  static ITypeDetector def() {
+    return DefaultTypeDetector.instance();
   }
 
-  static NoneJsonFormat instance() {
-    return Holder.INSTANCE;
-  }
+  Object detect(String value, Tsonfig config) throws TryjsonException;
 
-  @Override
-  public String format(String json) {
-    return json;
-  }
 }

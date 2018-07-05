@@ -24,8 +24,9 @@ import io.enoa.toolkit.mark.IMarkMsg;
 import io.enoa.toolkit.mark.IMarkVal;
 import io.enoa.toolkit.namecase.NamecaseKit;
 import io.enoa.toolkit.namecase.NamecaseType;
-import io.enoa.tryjson.Tsonfig;
 import io.enoa.tryjson.Tryjson;
+import io.enoa.tryjson.Tsonfig;
+import io.enoa.tryjson.json.Jo;
 import io.enoa.tryjson.mark.DateFormatStrategy;
 
 import java.math.BigDecimal;
@@ -39,6 +40,9 @@ public class ToJsonExample {
     return Kv.by("name", "jack")
       .set("age", 0)
       .set("ctime", new Date())
+      .set("go", false)
+      .set("pro0", null)
+      .set("pro1", "null")
       .set("country", "UK");
   }
 
@@ -187,18 +191,40 @@ public class ToJsonExample {
     System.out.println(Tryjson.json(arr));
   }
 
+  private Kv kv2() {
+    return this.kv0()
+      .set("spa ce", "\\sp\"ace\\")
+      .set("obj0", Kv.by("obk0", "obv0"))
+      //
+      ;
+  }
+
+  private void testParseObject() {
+    Tsonfig config = new Tsonfig.Builder().skipNull(false).build();
+    String json = Tryjson.json(this.kv2(), config);
+    System.out.println(json);
+    Jo jo = Tryjson.object(json, config);
+    System.out.println(Tryjson.json(jo, config));
+  }
+
   public static void main(String[] args) {
 
     // default tryjson config
-    Tryjson.epm().install(new Tsonfig.Builder().dateFormatStrategy(DateFormatStrategy.TIMESTAMP).build());
+    Tryjson.epm().install(new Tsonfig.Builder().debug().dateFormatStrategy(DateFormatStrategy.TIMESTAMP).build());
 
     ToJsonExample example = new ToJsonExample();
-    example.testDateFormat();
-    example.testBean();
-    example.testMap();
-    example.testConf();
-    example.testArr();
+//    example.testDateFormat();
+//    example.testBean();
+//    example.testMap();
+//    example.testConf();
+//    example.testArr();
 
+    example.testParseObject();
+
+//    String MAX_LONG = String.valueOf(Long.MAX_VALUE);
+//    String MIN_LONG = String.valueOf(Long.MIN_VALUE);
+//    System.out.println(MAX_LONG);
+//    System.out.println(MIN_LONG);
   }
 
 

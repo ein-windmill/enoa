@@ -20,7 +20,7 @@ import io.enoa.tryjson.eson.converter.EsonConverter;
 import io.enoa.tryjson.eson.parser.EsonParser;
 import io.enoa.tryjson.json.Ja;
 import io.enoa.tryjson.json.Jo;
-import io.enoa.tryjson.thr.TryJsonException;
+import io.enoa.tryjson.thr.TryjsonException;
 
 import java.util.Date;
 import java.util.Map;
@@ -69,12 +69,12 @@ public class Eson {
     return EsonConverter.string().json(object.toString(), depth, conf);
   }
 
-  public static Jo object(String json, Tsonfig conf) throws TryJsonException {
-    return EsonParser.def().object(json);
+  public static Jo object(String json, Tsonfig conf) throws TryjsonException {
+    return EsonParser.def().object(json, conf);
   }
 
-  public static Ja array(String json, Tsonfig conf) throws TryJsonException {
-    return EsonParser.def().array(json);
+  public static Ja array(String json, Tsonfig conf) throws TryjsonException {
+    return EsonParser.def().array(json, conf);
   }
 
 }

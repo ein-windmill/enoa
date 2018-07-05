@@ -13,18 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.tryjson.eson.converter;
+package io.enoa.tryjson.ext.enumer;
 
-/**
- * 枚舉類型特殊格式化接口
- */
-@FunctionalInterface
-public interface IEnumConverter {
+class EnumNameConverter implements IEnumConverter {
 
-  static IEnumConverter def() {
-    return __EnumNameConverter.instance();
+  private static class Holder {
+    private static final EnumNameConverter INSTANCE = new EnumNameConverter();
   }
 
-  Object convert(Enum em);
+  static EnumNameConverter instance() {
+    return Holder.INSTANCE;
+  }
 
+  @Override
+  public String convert(Enum _enum) {
+    if (_enum == null)
+      return null;
+    return _enum.name();
+  }
 }

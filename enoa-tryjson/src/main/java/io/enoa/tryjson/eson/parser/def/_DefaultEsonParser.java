@@ -20,7 +20,7 @@ import io.enoa.tryjson.Tsonfig;
 import io.enoa.tryjson.eson.parser.EsonParser;
 import io.enoa.tryjson.json.Ja;
 import io.enoa.tryjson.json.Jo;
-import io.enoa.tryjson.thr.TryJsonException;
+import io.enoa.tryjson.thr.TryjsonException;
 
 public class _DefaultEsonParser implements EsonParser {
 
@@ -33,17 +33,17 @@ public class _DefaultEsonParser implements EsonParser {
   }
 
   @Override
-  public Jo object(String json, Tsonfig conf) throws TryJsonException {
+  public Jo object(String json, Tsonfig conf) throws TryjsonException {
     if (TextKit.isBlank(json))
       return null;
-    return JsonParser.with(ParseType.OBJECT, json).config(conf).jo();
+    return JsonObjectParser.instance().parse(json, conf);
   }
 
   @Override
-  public Ja array(String json, Tsonfig conf) throws TryJsonException {
+  public Ja array(String json, Tsonfig conf) throws TryjsonException {
     if (TextKit.isBlank(json))
       return Ja.emptyJa();
-    return JsonParser.with(ParseType.ARRAY, json).config(conf).ja();
+    return JsonArrayParser.instance().parse(json, conf);
   }
 
 }

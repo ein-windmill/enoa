@@ -23,10 +23,10 @@ import io.enoa.promise.arg.PromiseVoid;
 public interface TrydbPromise<T> extends DoneArgPromise<T> {
 
   @Override
-  DoneArgPromise<T> done(PromiseArg<T> done);
+  TrydbPromise<T> done(PromiseArg<T> done);
 
   @Override
-  DoneArgPromise<T> capture(PromiseCapture capture);
+  TrydbPromise<T> capture(PromiseCapture capture);
 
   @Override
   void always(PromiseVoid always);

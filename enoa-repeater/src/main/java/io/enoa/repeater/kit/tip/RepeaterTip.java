@@ -20,7 +20,6 @@ import io.enoa.repeater.Repeater;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.text.TextKit;
 
-import java.text.MessageFormat;
 import java.util.stream.Stream;
 
 public class RepeaterTip {
@@ -35,7 +34,8 @@ public class RepeaterTip {
     if (CollectionKit.isEmpty(args))
       return text;
     Object[] fags = Stream.of(args).map(o -> o == null ? null : o.toString()).toArray(Object[]::new);
-    return MessageFormat.format(text, fags);
+//    return MessageFormat.format(text, fags);
+    return TextKit.format(text, fags);
   }
 
   public static void message(String text, Object... args) {

@@ -19,7 +19,7 @@ import io.enoa.tryjson.Tsonfig;
 import io.enoa.tryjson.eson.parser.def._DefaultEsonParser;
 import io.enoa.tryjson.json.Ja;
 import io.enoa.tryjson.json.Jo;
-import io.enoa.tryjson.thr.TryJsonException;
+import io.enoa.tryjson.thr.TryjsonException;
 
 public interface EsonParser {
 
@@ -27,8 +27,8 @@ public interface EsonParser {
     return new _DefaultEsonParser();
   }
 
-  Jo object(String json, Tsonfig conf) throws TryJsonException;
+  Jo object(String json, Tsonfig conf) throws TryjsonException;
 
-  Ja array(String json, Tsonfig conf) throws TryJsonException;
+  Ja array(String json, Tsonfig conf) throws TryjsonException;
 
 }

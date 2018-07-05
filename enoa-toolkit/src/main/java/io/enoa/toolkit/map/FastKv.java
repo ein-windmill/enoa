@@ -15,8 +15,13 @@
  */
 package io.enoa.toolkit.map;
 
+import io.enoa.toolkit.convert.IConverter;
 import io.enoa.toolkit.value.EnoaValue;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Map;
 
 public interface FastKv<S extends Map> extends Map<String, Object> {
@@ -57,6 +62,14 @@ public interface FastKv<S extends Map> extends Map<String, Object> {
     return this.value(key).as();
   }
 
+  default <T> T to(String key, IConverter<T, EnoaValue> converter) {
+    return this.value(key).to(converter);
+  }
+
+  default <T> T to(String key, Class<T> clazz) {
+    return this.value(key).to(clazz);
+  }
+
   default String string(String key, String def) {
     return this.value(key).string(def);
   }
@@ -89,12 +102,76 @@ public interface FastKv<S extends Map> extends Map<String, Object> {
     return this.value(key).number();
   }
 
+  default Short shorter(String key) {
+    return this.value(key).shorter();
+  }
+
+  default Short shorter(String key, Short def) {
+    return this.value(key).shorter(def);
+  }
+
+  default BigInteger bigint(String key) {
+    return this.value(key).bigint();
+  }
+
+  default BigInteger bigint(String key, BigInteger def) {
+    return this.value(key).bigint(def);
+  }
+
+  default BigDecimal bigdecimal(String key) {
+    return this.value(key).bigdecimal();
+  }
+
+  default BigDecimal bigdecimal(String key, BigDecimal def) {
+    return this.value(key).bigdecimal(def);
+  }
+
+  default Double doubler(String key) {
+    return this.value(key).doubler();
+  }
+
+  default Double doubler(String key, Double def) {
+    return this.value(key).doubler(def);
+  }
+
+  default Float floater(String key) {
+    return this.value(key).floater();
+  }
+
+  default Float floater(String key, Float def) {
+    return this.value(key).floater(def);
+  }
+
   default Boolean bool(String key, Boolean def) {
     return this.value(key).bool(def);
   }
 
   default Boolean bool(String key) {
     return this.value(key).bool();
+  }
+
+  default Date date(String key, String format, Date def) {
+    return this.value(key).date(format, def);
+  }
+
+  default Date date(String key, String format) {
+    return this.value(key).date(format);
+  }
+
+  default Date date(String key) {
+    return this.value(key).date();
+  }
+
+  default Timestamp timestamp(String key, String format, Timestamp def) {
+    return this.value(key).timestamp(format, def);
+  }
+
+  default Timestamp timestamp(String key, String format) {
+    return this.value(key).timestamp(format);
+  }
+
+  default Timestamp timestamp(String key) {
+    return this.value(key).timestamp();
   }
 
   /**
