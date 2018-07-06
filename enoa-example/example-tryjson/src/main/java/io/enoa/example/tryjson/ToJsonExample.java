@@ -227,16 +227,12 @@ public class ToJsonExample {
 
     example.testParseObject();
 
-    try {
-      example.testParseError();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+//    try {
+//      example.testParseError();
+//    } catch (Exception e) {
+//      e.printStackTrace();
+//    }
 
-//    String MAX_LONG = String.valueOf(Long.MAX_VALUE);
-//    String MIN_LONG = String.valueOf(Long.MIN_VALUE);
-//    System.out.println(MAX_LONG);
-//    System.out.println(MIN_LONG);
   }
 
 

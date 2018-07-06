@@ -15,24 +15,43 @@
  */
 package io.enoa.tryjson.eson.parser.def;
 
-import io.enoa.tryjson.Tsonfig;
-import io.enoa.tryjson.json.Ja;
-import io.enoa.tryjson.thr.TryjsonException;
+import io.enoa.toolkit.mark.IMarkIx;
 
-class JsonArrayParser extends AbstractJsonParser<Ja> {
+public enum TokenType implements IMarkIx {
 
-  private static class Holder {
-    private static final JsonArrayParser INSTANCE = new JsonArrayParser();
-  }
+  BEGIN_OBJECT(1),
+  END_OBJECT(2),
+  BEGIN_ARRAY(4),
+  END_ARRAY(8),
+  NULL(16),
+  NUMBER(32),
+  STRING(64),
+  BOOLEAN(128),
+  SEP_COLON(256),
+  SEP_COMMA(512),
+  END_DOCUMENT(1024)
 
-  static JsonArrayParser instance() {
-    return Holder.INSTANCE;
+  //
+  ;
+
+  private final int ix;
+
+  TokenType(int ix) {
+    this.ix = ix;
   }
 
   @Override
-  public Ja parse(String json, Tsonfig config) throws TryjsonException {
-
-    return Ja.emptyJa();
+  public int ix() {
+    return ix;
   }
 
+  public static TokenType of(Integer ix) {
+    if (ix == null)
+      return null;
+    for (TokenType type : TokenType.values()) {
+      if (type.ix == ix)
+        return type;
+    }
+    return null;
+  }
 }
