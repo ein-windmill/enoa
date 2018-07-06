@@ -13,24 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.toolkit;
+package io.enoa.tryjson.eson.parser.tef;
 
-import java.nio.charset.Charset;
+import io.enoa.toolkit.file.FileKit;
+import io.enoa.toolkit.path.PathKit;
+import io.enoa.toolkit.text.TextKit;
+import org.junit.Test;
 
-/**
- * enoa - io.enoa.toolkit
- */
-public interface EoConst {
+public class TokenizerTest {
 
-  Charset CHARSET = Charset.forName("UTF-8");
 
-  String DEF_FORMAT_DATE = "yyyy-MM-dd HH:mm:ss.SSS";
-
-  /**
-   * restful uri 识别符号
-   */
-  String RESTFUL_RECOGNIZE = ":";
-
-  int BUFFER_SIZE = 1024;
+  @Test
+  public void testTokenize() {
+    int ix = 1;
+    String json = FileKit.read(PathKit.debugPath().resolve(TextKit.union("src/test/resources/", ix, ".json"))).string();
+    JsonReader reader = new JsonReader(json);
+    TokenList tl = Tokenizer.instance().tokenize(reader);
+    System.out.println(tl);
+  }
 
 }

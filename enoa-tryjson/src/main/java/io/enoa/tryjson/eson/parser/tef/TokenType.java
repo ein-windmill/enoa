@@ -13,26 +13,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.tryjson.json;
+package io.enoa.tryjson.eson.parser.tef;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import io.enoa.toolkit.mark.IMarkIx;
 
-abstract class _Ja<E> implements Iterable<E>, Toa {
+public enum TokenType implements IMarkIx {
 
-  Iterable<E> it;
+  BEGIN_OBJECT(1),
+  END_OBJECT(2),
+  BEGIN_ARRAY(4),
+  END_ARRAY(8),
+  NULL(16),
+  NUMBER(32),
+  STRING(64),
+  BOOLEAN(128),
+  SEP_COLON(256),
+  SEP_COMMA(512),
+  END_DOCUMENT(1024)
 
-  _Ja() {
-    this(new ArrayList<>());
-  }
+  //
+  ;
 
-  _Ja(Iterable<E> collection) {
-    this.it = collection;
+  private final int ix;
+
+  TokenType(int ix) {
+    this.ix = ix;
   }
 
   @Override
-  public Iterator<E> iterator() {
-    return this.it.iterator();
+  public int ix() {
+    return ix;
   }
 
+  public static TokenType of(Integer ix) {
+    if (ix == null)
+      return null;
+    for (TokenType type : TokenType.values()) {
+      if (type.ix == ix)
+        return type;
+    }
+    return null;
+  }
 }

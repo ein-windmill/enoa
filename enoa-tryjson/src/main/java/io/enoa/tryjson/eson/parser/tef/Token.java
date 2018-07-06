@@ -13,26 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.tryjson.json;
+package io.enoa.tryjson.eson.parser.tef;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import io.enoa.toolkit.sys.ObjectKit;
 
-abstract class _Ja<E> implements Iterable<E>, Toa {
+public class Token {
 
-  Iterable<E> it;
+  private TokenType type;
+  private String value;
 
-  _Ja() {
-    this(new ArrayList<>());
+  private Token(TokenType type, String value) {
+    this.type = type;
+    this.value = value;
   }
 
-  _Ja(Iterable<E> collection) {
-    this.it = collection;
+  public static Token create(TokenType type, char ch) {
+    return create(type, String.valueOf(ch));
+  }
+
+  public static Token create(TokenType type, String value) {
+    return new Token(type, value);
+  }
+
+  public TokenType type() {
+    return this.type;
+  }
+
+  public String value() {
+    return this.value;
   }
 
   @Override
-  public Iterator<E> iterator() {
-    return this.it.iterator();
+  public String toString() {
+    return ObjectKit.buildToString(this);
   }
 
 }

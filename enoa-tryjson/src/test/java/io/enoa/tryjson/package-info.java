@@ -13,24 +13,4 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.toolkit;
-
-import java.nio.charset.Charset;
-
-/**
- * enoa - io.enoa.toolkit
- */
-public interface EoConst {
-
-  Charset CHARSET = Charset.forName("UTF-8");
-
-  String DEF_FORMAT_DATE = "yyyy-MM-dd HH:mm:ss.SSS";
-
-  /**
-   * restful uri 识别符号
-   */
-  String RESTFUL_RECOGNIZE = ":";
-
-  int BUFFER_SIZE = 1024;
-
-}
+package io.enoa.tryjson;

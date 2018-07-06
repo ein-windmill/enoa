@@ -13,45 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.tryjson.eson.parser.def;
+package io.enoa.tryjson.eson.parser.tef;
 
-import io.enoa.toolkit.mark.IMarkIx;
+import org.junit.Test;
 
-public enum TokenType implements IMarkIx {
+public class JsonReaderTest {
 
-  BEGIN_OBJECT(1),
-  END_OBJECT(2),
-  BEGIN_ARRAY(4),
-  END_ARRAY(8),
-  NULL(16),
-  NUMBER(32),
-  STRING(64),
-  BOOLEAN(128),
-  SEP_COLON(256),
-  SEP_COMMA(512),
-  END_DOCUMENT(1024)
-
-  //
-  ;
-
-  private final int ix;
-
-  TokenType(int ix) {
-    this.ix = ix;
-  }
-
-  @Override
-  public int ix() {
-    return ix;
-  }
-
-  public static TokenType of(Integer ix) {
-    if (ix == null)
-      return null;
-    for (TokenType type : TokenType.values()) {
-      if (type.ix == ix)
-        return type;
+  @Test
+  public void testReader() {
+    String json = "1234567890";
+    JsonReader reader = new JsonReader(json);
+    while (reader.hasNext()) {
+      System.out.println(reader.next());
     }
-    return null;
   }
+
 }
