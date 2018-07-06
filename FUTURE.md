@@ -3,7 +3,7 @@
 
 This article will document some plans/changes in future releases.
 
-## [1.7-beta]
+## [1.8-beta]
 
 ### Added
 
@@ -13,11 +13,21 @@ This article will document some plans/changes in future releases.
 
 ### Removed
 
+## [1.7-beta]
+
+### Added
+
+### Changed
+
+- Add elasticsearch support
+
+### Removed
+
 ## [1.6-beta]
 
 ### Added
 
-- Add elasticsearch support
+- Add json (tryjson) support
 
 ### Changed
 
