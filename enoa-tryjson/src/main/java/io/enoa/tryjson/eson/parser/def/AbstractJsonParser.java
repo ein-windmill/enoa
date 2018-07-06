@@ -31,8 +31,19 @@ abstract class AbstractJsonParser<T extends Toa> implements IJsonParser<T> {
     _block.append(symbol);
 
     int len = json.length();
+    boolean stringBlock = false;
     for (; ix < len; ix++) {
       char ch = json.charAt(ix);
+      if (ch == '"') {
+        if (ix > 0) {
+          char prev = json.charAt(ix - 1);
+          if (prev == '\\')
+            continue;
+        }
+        stringBlock = !stringBlock;
+        if (stringBlock)
+          continue;
+      }
       if (ch == symbol)
         leftNum += 1;
       if (ch == end)

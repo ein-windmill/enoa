@@ -178,6 +178,9 @@ class JsonObjectParser extends AbstractJsonParser<Jo> {
 
     _key.delete(0, _key.length());
     _value.delete(0, _value.length());
+    if (sblstack.size() > 1) {
+      // todo throw new tryjsonexception
+    }
     return jo;
   }
 
