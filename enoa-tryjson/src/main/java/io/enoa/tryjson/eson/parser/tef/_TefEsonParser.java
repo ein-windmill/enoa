@@ -39,6 +39,11 @@ public class _TefEsonParser implements EsonParser {
   }
 
   @Override
+  public <T> T parse(String json, Tsonfig config) throws TryjsonException {
+    return null;
+  }
+
+  @Override
   public Jo object(String json, Tsonfig config) throws TryjsonException {
     TokenList tl = Tokenizer.instance().tokenize(this.reader(json));
     return this.object(tl, config);

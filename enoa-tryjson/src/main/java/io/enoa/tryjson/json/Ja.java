@@ -18,7 +18,7 @@ package io.enoa.tryjson.json;
 
 import java.util.Collection;
 
-public class Ja<E> extends _Ja<E, Ja> {
+public class Ja<E> extends _Ja<E> {
 
   public Ja() {
     super();
@@ -36,13 +36,6 @@ public class Ja<E> extends _Ja<E, Ja> {
 
   public static final <PARA> Ja<PARA> emptyJa() {
     return EMPTY_JA;
-  }
-
-
-  @Override
-  public Ja add(E item) {
-    super.collection.add(item);
-    return this;
   }
 
   @Override

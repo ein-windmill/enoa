@@ -33,7 +33,7 @@ public class _HttpHelperSSL {
   private static SSLSocketFactory init() {
     try {
       TrustManager[] e = new TrustManager[]{new TrustAnyTrustManager()};
-      SSLContext sslContext = SSLContext.getInstance("TLSv1.1", "SunJSSE");
+      SSLContext sslContext = SSLContext.getInstance("TLSv1.2", "SunJSSE");
       sslContext.init(null, e, new SecureRandom());
       return sslContext.getSocketFactory();
     } catch (Exception e) {

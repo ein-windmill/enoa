@@ -16,11 +16,9 @@
 package io.enoa.tryjson.json;
 
 
-import io.enoa.toolkit.map.FastKv;
-
 import java.util.Map;
 
-public class Jo extends _Jo implements FastKv<Jo> {
+public class Jo extends _Jo {
 
   public Jo() {
   }

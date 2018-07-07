@@ -15,12 +15,14 @@
  */
 package io.enoa.tryjson.json;
 
+import io.enoa.toolkit.map.FastKv;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-abstract class _Jo implements Map<String, Object>, Toa {
+abstract class _Jo implements Map<String, Object>, Toa, FastKv<Jo> {
 
   Map<String, Object> map;
 

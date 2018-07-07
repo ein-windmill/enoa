@@ -16,6 +16,11 @@
 package io.enoa.example.tryjson;
 
 import io.enoa.example.tryjson.entity.*;
+import io.enoa.http.EoUrl;
+import io.enoa.http.Http;
+import io.enoa.http.protocol.HttpResponse;
+import io.enoa.http.protocol.enoa.IHttpHandler;
+import io.enoa.http.protocol.enoa.IHttpReporter;
 import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.digest.UUIDKit;
 import io.enoa.toolkit.file.FileKit;
@@ -34,6 +39,8 @@ import io.enoa.tryjson.json.Jo;
 import io.enoa.tryjson.mark.DateFormatStrategy;
 
 import java.math.BigDecimal;
+import java.nio.ByteBuffer;
+import java.nio.file.Path;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -228,6 +235,27 @@ public class ToJsonExample {
     System.out.println(_j1);
   }
 
+  private void parseJson0() {
+    Path path = PathKit.debugPath().resolve("enoa-example/example-tryjson/_tmp/enoa.json");
+    String json = null;
+    if (!FileKit.exists(path)) {
+      HttpResponse response = Http.request(EoUrl.with("https://api.github.com/repos/ein-windmill/enoa/commits?per_page=5"))
+        .reporter(IHttpReporter.def())
+        .handler(IHttpHandler.def())
+        .emit();
+      String body = response.body().string();
+      json = body;
+      FileKit.write(path, ByteBuffer.wrap(body.getBytes(EoConst.CHARSET)));
+    }
+    if (json == null)
+      json = FileKit.read(path).string();
+    Ja ja = Tryjson.array(json);
+    Jo j1 = ja.value(1).as();
+
+    String tj = Tryjson.json(ja);
+    System.out.println(tj);
+  }
+
   public static void main(String[] args) {
 
     // default tryjson config
@@ -245,9 +273,9 @@ public class ToJsonExample {
 //    example.testParseObject(2);
 //    example.testParseObject(3);
 
-    example.testParseArray(4);
-    example.testParseArray(5);
-
+//    example.testParseArray(4);
+//    example.testParseArray(5);
+    example.parseJson0();
 
   }
 

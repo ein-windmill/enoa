@@ -24,6 +24,11 @@
       <artifactId>enoa-tryjson</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>io.enoa</groupId>
+      <artifactId>enoa-http</artifactId>
+    </dependency>
+
   </dependencies>
 
   <build>

@@ -27,6 +27,8 @@ public interface EsonParser {
     return new _TefEsonParser();
   }
 
+  <T> T parse(String json, Tsonfig config) throws TryjsonException;
+
   Jo object(String json, Tsonfig config) throws TryjsonException;
 
   Ja array(String json, Tsonfig config) throws TryjsonException;

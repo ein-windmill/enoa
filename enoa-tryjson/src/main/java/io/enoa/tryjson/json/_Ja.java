@@ -15,11 +15,14 @@
  */
 package io.enoa.tryjson.json;
 
+import io.enoa.toolkit.collection.FastIt;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
-abstract class _Ja<E, RET> implements Iterable<E>, Toa {
+abstract class _Ja<E> implements Iterable<E>, Toa, FastIt<E, Ja> {
 
   Collection<E> collection;
 
@@ -31,11 +34,72 @@ abstract class _Ja<E, RET> implements Iterable<E>, Toa {
     this.collection = collection;
   }
 
+  public Collection<E> origin() {
+    return this.collection;
+  }
+
   @Override
   public Iterator<E> iterator() {
     return this.collection.iterator();
   }
 
-  public abstract RET add(E item);
+  @Override
+  public Ja add(E item) {
+    this.collection.add(item);
+    return (Ja) this;
+  }
+
+  @Override
+  public Ja addAll(Collection<? extends E> other) {
+    this.collection.addAll(other);
+    return (Ja) this;
+  }
+
+  @Override
+  public E get(int ix) {
+    if (this.collection instanceof List)
+      return (E) ((List) this.collection).get(ix);
+    if (ix < 0)
+      throw new IndexOutOfBoundsException("Index cannot be less than 0. => " + ix);
+    int i = 0;
+    for (E next : this.collection) {
+      if (i == ix)
+        return next;
+    }
+    throw new IndexOutOfBoundsException("Index " + ix + " out-of-bounds for length " + this.collection.size());
+  }
+
+  @Override
+  public Ja remove(int ix) {
+    if (ix < 0)
+      throw new IndexOutOfBoundsException("Index cannot be less than 0. => " + ix);
+
+    Iterator<E> iterator = this.collection.iterator();
+    int i = 0;
+    while (iterator.hasNext()) {
+      if (i != ix)
+        continue;
+      iterator.remove();
+      return (Ja) this;
+    }
+    throw new IndexOutOfBoundsException("Index " + ix + " out-of-bounds for length " + this.collection.size());
+  }
+
+  @Override
+  public Ja remove(E object) {
+    Iterator<E> iterator = this.collection.iterator();
+    while (iterator.hasNext()) {
+      E next = iterator.next();
+      if (next == object)
+        iterator.remove();
+    }
+    return (Ja) this;
+  }
+
+  @Override
+  public int size() {
+    return this.collection.size();
+  }
+
 
 }
