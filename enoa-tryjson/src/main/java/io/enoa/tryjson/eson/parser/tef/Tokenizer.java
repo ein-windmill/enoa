@@ -15,46 +15,41 @@
  */
 package io.enoa.tryjson.eson.parser.tef;
 
+import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.tryjson.thr.TryjsonException;
 
-public class Tokenizer {
+class Tokenizer {
 
   private static class Holder {
     private static final Tokenizer INSTANCE = new Tokenizer();
   }
 
-  public static Tokenizer instance() {
+  static Tokenizer instance() {
     return Holder.INSTANCE;
   }
 
+  private Tokenizer() {
 
-  private boolean blank(JsonReader reader, TokenList tl, char ch) {
-    return ch == ' ' ||
-      ch == '\r' ||
-      ch == '\n' ||
-      ch == '\t' ||
-      ch == '\b';
   }
-
 
   public TokenList tokenize(JsonReader reader) throws TryjsonException {
     TokenList tl = new TokenList();
     Token token;
     do {
-      token = this.parse(reader, tl);
+      token = this.parse(reader);
       tl.add(token);
     } while (token.type() != TokenType.END_DOCUMENT);
     return tl;
   }
 
-  private Token parse(JsonReader reader, TokenList tl) throws TryjsonException {
+  private Token parse(JsonReader reader) throws TryjsonException {
     char ch;
     while (true) {
       if (!reader.hasNext())
         return Token.create(TokenType.END_DOCUMENT, null);
 
       ch = reader.next();
-      if (this.blank(reader, tl, ch))
+      if (this.blank(ch))
         continue;
       break;
     }
@@ -73,32 +68,32 @@ public class Tokenizer {
       case ':':
         return Token.create(TokenType.SEP_COLON, ch);
       case 'n':
-        return this.parseNull(reader, tl);
+        return this.parseNull(reader);
       case 't':
       case 'f':
-        return this.parseBool(reader, tl);
+        return this.parseBool(reader);
       case '"':
-        return this.parseString(reader, tl);
+        return this.parseString(reader);
       case '-':
-        return this.parseNumber(reader, tl);
+        return this.parseNumber(reader);
     }
 
-    if (ch >= '0' && ch <= '9')
-      return this.parseNumber(reader, tl);
+    if (Character.isDigit(ch))
+      return this.parseNumber(reader);
 
 
-    throw new TryjsonException(""); // Illegal character
+    throw new TryjsonException(EnoaTipKit.message("eo.tip.tryjson.illegal_char_parse", reader.line(), reader.cursor(), ch)); // Illegal character
   }
 
-  private Token parseNull(JsonReader reader, TokenList tl) {
+  private Token parseNull(JsonReader reader) {
     if (reader.next() == 'u' &&
       reader.next() == 'l' &&
       reader.next() == 'l')
       return Token.create(TokenType.NULL, null);
-    throw new TryjsonException(""); // Invalid json string
+    throw new TryjsonException(EnoaTipKit.message("eo.tip.tryjson.parse_char_null", reader.line(), reader.cursor(), reader.peek())); // Invalid json string
   }
 
-  private Token parseBool(JsonReader reader, TokenList tl) {
+  private Token parseBool(JsonReader reader) {
     char peek = reader.peek();
     switch (peek) {
       case 't':
@@ -115,23 +110,25 @@ public class Tokenizer {
           return Token.create(TokenType.BOOLEAN, "false");
         break;
     }
-    throw new TryjsonException(""); // Invalid json string
+    throw new TryjsonException(EnoaTipKit.message("eo.tip.tryjson.parse_char_bool", reader.line(), reader.cursor(), reader.peek())); // Invalid json string
   }
 
-  private Token parseString(JsonReader reader, TokenList tl) {
+  private Token parseString(JsonReader reader) {
     StringBuilder text = new StringBuilder();
     while (true) {
       char ch = reader.next();
+      if (ch == (char) -1)
+        throw new TryjsonException(EnoaTipKit.message("eo.tip.tryjson.json_an_early_closure", reader.line(), reader.cursor(), ch)); // Invalid character
       if (ch == '"')
         return Token.create(TokenType.STRING, text.toString());
 
       if (ch == '\r' || ch == '\n')
-        throw new TryjsonException(""); // Invalid character
+        throw new TryjsonException(EnoaTipKit.message("eo.tip.tryjson.parse_char_string_newline", reader.line(), reader.cursor(), ch)); // Invalid character
 
       if (ch == '\\') {
         ch = reader.next();
         if (!this.escape(ch))
-          throw new TryjsonException(""); // Invalid escape character
+          throw new TryjsonException(EnoaTipKit.message("eo.tip.tryjson.parse_char_string_escape", reader.line(), reader.cursor(), ch)); // Invalid escape character
 
         text.append('\\');
         text.append(ch);
@@ -139,7 +136,7 @@ public class Tokenizer {
           for (int i = 0; i < 4; i++) {
             ch = reader.next();
             if (!this.hex(ch))
-              throw new TryjsonException(""); // Invalid character
+              throw new TryjsonException(EnoaTipKit.message("eo.tip.tryjson.parse_char_string_unicode", reader.line(), reader.cursor(), ch)); // Invalid character
             text.append(ch);
           }
         }
@@ -149,16 +146,112 @@ public class Tokenizer {
     }
   }
 
-  private Token parseNumber(JsonReader reader, TokenList tl) {
+  private Token parseNumber(JsonReader reader) {
+    StringBuilder text = new StringBuilder();
     char ch = reader.peek();
+    boolean negative = ch == '-';
+    if (negative) {
+      text.append(ch);
+      ch = reader.next();
+    }
 
-    return null;
+    // 小數 0-1 區間小數
+    if (ch == '0') {
+      text.append(ch);
+      text.append(this.parseNumc(reader));
+      return Token.create(TokenType.NUMBER, text.toString());
+    }
+
+    // 大於 1 的小數或整數
+    if (Character.isDigit(ch)) {
+      do {
+        text.append(ch);
+        ch = reader.next();
+      } while (Character.isDigit(ch));
+      if (ch != (char) -1) {
+        reader.back();
+        text.append(this.parseNumc(reader));
+      }
+      return Token.create(TokenType.NUMBER, text.toString());
+    }
+    throw new TryjsonException(EnoaTipKit.message("eo.tip.tryjson.parse_char_number_fail", reader.line(), reader.cursor(), ch)); // invalid number
   }
 
+
+  private String parseNumc(JsonReader reader) {
+    StringBuilder text = new StringBuilder();
+    char ch = reader.next();
+    if (ch == '.') {
+      text.append(ch);
+      ch = reader.next();
+      // 校驗是否數字
+      if (!Character.isDigit(ch))
+        throw new TryjsonException(EnoaTipKit.message("eo.tip.tryjson.parse_char_number_float", reader.line(), reader.cursor(), ch)); // invalid float
+      do {
+        text.append(ch);
+        ch = reader.next();
+      } while (Character.isDigit(ch));
+    }
+
+    // 校驗是否科學計數法
+    if (this.scn(ch)) {
+      ch = reader.peek();
+      text.append(ch);
+      text.append(this.parseScn(reader));
+    } else {
+      reader.back();
+    }
+    return text.toString();
+  }
+
+  /**
+   * 科學計數法數字讀取
+   *
+   * @param reader JsonReader
+   * @return String
+   */
+  private String parseScn(JsonReader reader) {
+    StringBuilder text = new StringBuilder();
+    char ch = reader.next();
+    // 鑑定 e 之後首個字符是否 + 或 -
+    if (ch == '+' || ch == '-') {
+      text.append(ch);
+      ch = reader.next();
+    }
+    // 無論是否有 + 或 - 判斷 後面字符是否數字
+    if (!Character.isDigit(ch))
+      throw new TryjsonException(EnoaTipKit.message("eo.tip.tryjson.parse_char_number_scientific_notation", reader.line(), reader.cursor(), ch)); // invalid scn number
+
+    text.append(ch);
+    ch = reader.next();
+    // 如果是數字, 加入到字符中
+    do {
+      text.append(ch);
+      ch = reader.next();
+    } while (Character.isDigit(ch));
+    // 如果 char 並非數字, 表明數字讀取完畢, 則回退一位, 若 json 字符讀取完畢則不回退
+    if (ch != (char) -1)
+      reader.back();
+
+    return text.toString();
+  }
+
+  private boolean scn(char ch) {
+    return ch == 'e' || ch == 'E';
+  }
+
+  private boolean blank(char ch) {
+    return ch == ' ' ||
+      ch == '\r' ||
+      ch == '\n' ||
+      ch == '\t' ||
+      ch == '\b';
+  }
 
   private boolean escape(char ch) {
     return ch == '"' ||
       ch == '\\' ||
+      ch == '/' ||
       ch == 'u' ||
       ch == 'r' ||
       ch == 'n' ||

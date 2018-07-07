@@ -25,7 +25,7 @@ public class TokenizerTest {
 
   @Test
   public void testTokenize() {
-    int ix = 1;
+    int ix = 3;
     String json = FileKit.read(PathKit.debugPath().resolve(TextKit.union("src/test/resources/", ix, ".json"))).string();
     JsonReader reader = new JsonReader(json);
     TokenList tl = Tokenizer.instance().tokenize(reader);

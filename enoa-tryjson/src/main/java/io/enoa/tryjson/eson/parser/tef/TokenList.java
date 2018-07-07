@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class TokenList implements Iterable<Token> {
+class TokenList implements Iterable<Token> {
 
   private List<Token> tokens = new ArrayList<>();
 
@@ -45,7 +45,7 @@ public class TokenList implements Iterable<Token> {
   }
 
   public boolean hasNext() {
-    return this.position >= this.tokens.size();
+    return this.position < this.tokens.size();
   }
 
 

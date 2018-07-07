@@ -67,30 +67,82 @@ public final class NumberKit {
 
 
   /**
-   * 字符串是否數字, 支持最高 10 進制
-   * 同時支持負數浮點數校驗
+   * 字符串是否數字, 支持 10 進制 16 進制 以及 科學計數法
    *
    * @param text text
    * @return boolean
    */
   public static boolean isNumber(String text) {
-    boolean hasDot = false;
-    for (int i = text.length(); i-- > 0; ) {
-      char at = text.charAt(i);
-      if (at == '-' && i == 0)
-        continue;
-      if (at == '.') {
-        if (hasDot)
+    if (TextKit.isBlank(text))
+      return false;
+    int len = text.length();
+    char ch = text.charAt(0);
+
+    int position = 0;
+    boolean negative = ch == '-';
+    if (negative)
+      position += 1;
+
+    ch = text.charAt(position);
+    boolean zero0 = ch == '0';
+    boolean dot0 = ch == '.';
+    if (position + 1 == len) {
+      if (dot0)
+        return false;
+    }
+    if (zero0 || dot0)
+      position += 1;
+
+    boolean hexmode = false;
+    while (true) {
+      if (position == len)
+        return true;
+      ch = text.charAt(position);
+      if (hexmode) {
+        if (!HexKit.isHex(ch))
           return false;
-        hasDot = true;
+        position += 1;
         continue;
       }
-      if (Character.isDigit(at))
+
+      if (Character.isDigit(ch)) {
+        position += 1;
         continue;
+      }
+
+      // 1.
+      if (ch == '.') {
+        // 0..
+        if (dot0)
+          return false;
+        position += 1;
+        continue;
+      }
+      // 0x0af
+      if (ch == 'x') {
+        if (!zero0)
+          return false;
+        hexmode = true;
+        position += 1;
+        continue;
+      }
+
+      // 0.e1 0.e+1 0.e-1
+      if (ch == 'e' || ch == 'E') {
+        if (position + 1 == len)
+          return false;
+        char next = text.charAt(position + 1);
+        if (next == '-' || next == '+' || Character.isDigit(next)) {
+          position += 2;
+          continue;
+        }
+        return false;
+      }
       return false;
     }
-    return true;
+
   }
+
 
   /**
    * 字符串是否純數字

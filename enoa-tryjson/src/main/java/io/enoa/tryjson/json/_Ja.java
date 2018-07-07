@@ -16,23 +16,26 @@
 package io.enoa.tryjson.json;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 
-abstract class _Ja<E> implements Iterable<E>, Toa {
+abstract class _Ja<E, RET> implements Iterable<E>, Toa {
 
-  Iterable<E> it;
+  Collection<E> collection;
 
   _Ja() {
     this(new ArrayList<>());
   }
 
-  _Ja(Iterable<E> collection) {
-    this.it = collection;
+  _Ja(Collection<E> collection) {
+    this.collection = collection;
   }
 
   @Override
   public Iterator<E> iterator() {
-    return this.it.iterator();
+    return this.collection.iterator();
   }
+
+  public abstract RET add(E item);
 
 }

@@ -15,9 +15,11 @@
  */
 package io.enoa.tryjson.eson.parser.tef;
 
+import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.mark.IMarkIx;
+import io.enoa.tryjson.thr.TryjsonException;
 
-public enum TokenType implements IMarkIx {
+enum TokenType implements IMarkIx {
 
   BEGIN_OBJECT(1),
   END_OBJECT(2),
@@ -53,5 +55,31 @@ public enum TokenType implements IMarkIx {
         return type;
     }
     return null;
+  }
+
+  /**
+   * 期望 token
+   *
+   * @param type   token
+   * @param others other tokens
+   * @return int
+   */
+  public static int expect(TokenType type, TokenType... others) {
+    int expect = type.ix;
+    for (TokenType other : others) {
+      expect = expect | other.ix;
+    }
+    return expect;
+  }
+
+  /**
+   * 檢查是否滿足期望類型
+   *
+   * @param type   type
+   * @param expect expect 期望值
+   */
+  public static void check(TokenType type, int expect) throws TryjsonException {
+    if ((type.ix & expect) == 0)
+      throw new TryjsonException(EnoaTipKit.message("eo.tip.tryjson.expect_token")); // Parse error, invalid Token.
   }
 }

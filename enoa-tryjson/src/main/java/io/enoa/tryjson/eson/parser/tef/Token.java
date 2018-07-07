@@ -15,9 +15,9 @@
  */
 package io.enoa.tryjson.eson.parser.tef;
 
-import io.enoa.toolkit.sys.ObjectKit;
+import io.enoa.toolkit.text.TextKit;
 
-public class Token {
+class Token {
 
   private TokenType type;
   private String value;
@@ -27,11 +27,11 @@ public class Token {
     this.value = value;
   }
 
-  public static Token create(TokenType type, char ch) {
+  static Token create(TokenType type, char ch) {
     return create(type, String.valueOf(ch));
   }
 
-  public static Token create(TokenType type, String value) {
+  static Token create(TokenType type, String value) {
     return new Token(type, value);
   }
 
@@ -45,7 +45,7 @@ public class Token {
 
   @Override
   public String toString() {
-    return ObjectKit.buildToString(this);
+    return TextKit.union(this.type.name(), '(', this.type.ix(), ") => ", this.value);
   }
 
 }

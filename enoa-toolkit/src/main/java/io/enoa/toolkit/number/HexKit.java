@@ -21,6 +21,11 @@ public class HexKit {
     return (text.startsWith("0x", index) || text.startsWith("0X", index) || text.startsWith("#", index));
   }
 
+  public static boolean isHex(char ch) {
+    return ((ch >= '0' && ch <= '9') || ('a' <= ch && ch <= 'f')
+      || ('A' <= ch && ch <= 'F'));
+  }
+
   /**
    * 二进制转字符串
    *

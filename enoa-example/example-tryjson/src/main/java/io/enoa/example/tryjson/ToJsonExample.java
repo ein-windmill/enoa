@@ -18,14 +18,18 @@ package io.enoa.example.tryjson;
 import io.enoa.example.tryjson.entity.*;
 import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.digest.UUIDKit;
+import io.enoa.toolkit.file.FileKit;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.mark.IMarkIx;
 import io.enoa.toolkit.mark.IMarkMsg;
 import io.enoa.toolkit.mark.IMarkVal;
 import io.enoa.toolkit.namecase.NamecaseKit;
 import io.enoa.toolkit.namecase.NamecaseType;
+import io.enoa.toolkit.path.PathKit;
+import io.enoa.toolkit.text.TextKit;
 import io.enoa.tryjson.Tryjson;
 import io.enoa.tryjson.Tsonfig;
+import io.enoa.tryjson.json.Ja;
 import io.enoa.tryjson.json.Jo;
 import io.enoa.tryjson.mark.DateFormatStrategy;
 
@@ -194,23 +198,34 @@ public class ToJsonExample {
   private Kv kv2() {
     return this.kv0()
       .set("spa ce", "\\sp\"ace\\")
+      .set("esc", "\\/\\t\\a")
       .set("obj0", Kv.by("obk0", "obv0"))
       //
       ;
   }
 
-  private void testParseObject() {
-    Tsonfig config = new Tsonfig.Builder().skipNull(false).build();
-    String json = Tryjson.json(this.kv2(), config);
-    System.out.println(json);
+  private void testParseObject(int ix) {
+    String json = FileKit.read(PathKit.debugPath().resolve(TextKit.union("enoa-example/example-tryjson/src/main/resources/", ix, ".json"))).string();
+    Tsonfig config = Tryjson.epm()
+      .config()
+      .builder()
+      .skipNull(false)
+      .build();
     Jo jo = Tryjson.object(json, config);
-    System.out.println(Tryjson.json(jo, config));
+    String _j1 = Tryjson.json(jo, config);
+    System.out.println(_j1);
   }
 
-  private void testParseError() {
-    String json = "{\"key: {}";
-    Jo jo = Tryjson.object(json);
-    System.out.println(jo);
+  private void testParseArray(int ix) {
+    String json = FileKit.read(PathKit.debugPath().resolve(TextKit.union("enoa-example/example-tryjson/src/main/resources/", ix, ".json"))).string();
+    Tsonfig config = Tryjson.epm()
+      .config()
+      .builder()
+      .skipNull(false)
+      .build();
+    Ja ja = Tryjson.array(json, config);
+    String _j1 = Tryjson.json(ja, config);
+    System.out.println(_j1);
   }
 
   public static void main(String[] args) {
@@ -225,13 +240,14 @@ public class ToJsonExample {
 //    example.testConf();
 //    example.testArr();
 
-    example.testParseObject();
+//    example.testParseObject(0);
+//    example.testParseObject(1);
+//    example.testParseObject(2);
+//    example.testParseObject(3);
 
-//    try {
-//      example.testParseError();
-//    } catch (Exception e) {
-//      e.printStackTrace();
-//    }
+    example.testParseArray(4);
+    example.testParseArray(5);
+
 
   }
 

@@ -39,9 +39,23 @@ public class NumberKitTest {
 
   @Test
   public void isNumber() {
-    String text = "-4.3";
-    boolean ret = NumberKit.isNumber(text);
-    System.out.println(ret);
+    String[] texts = new String[]{
+      "+.9e-012",
+      "-.9e-012",
+      ".1",
+      ".",
+      ".0",
+      ".0e1",
+    };
+    for (String text : texts) {
+      boolean ret = NumberKit.isNumber(text);
+      if (ret) {
+        Number num = NumberKit.bigdecimal(text);
+        System.out.println(ret + "  => " + NumberKit.bigdecimal(num));
+      } else {
+        System.out.println(ret + " => " + text);
+      }
+    }
   }
 
 }

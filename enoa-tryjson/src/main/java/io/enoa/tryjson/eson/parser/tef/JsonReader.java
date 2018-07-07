@@ -15,21 +15,24 @@
  */
 package io.enoa.tryjson.eson.parser.tef;
 
-public class JsonReader {
+class JsonReader {
 
   private String json;
   private int len;
-  private int position;
+  private int position; // 總字符串遊標位置
+  private int line; // 當前行
+  private int cursor; // 行遊標位置
 
-  public JsonReader(String json) {
+  JsonReader(String json) {
     this.json = json;
     this.len = json.length();
+    this.line = 1;
   }
 
   public char peek() {
     if (this.position - 1 >= this.len)
       return (char) -1;
-    return this.json.charAt(this.position);
+    return this.json.charAt(this.position - 1);
   }
 
   public char next() {
@@ -37,7 +40,24 @@ public class JsonReader {
       return (char) -1;
     char ch = this.json.charAt(this.position);
     this.position += 1;
+    this.cursor += 1;
+    if (ch == '\n') {
+      this.line += 1;
+      this.cursor = 0;
+    }
     return ch;
+  }
+
+  public int position() {
+    return this.position;
+  }
+
+  public int line() {
+    return this.line;
+  }
+
+  public int cursor() {
+    return this.cursor;
   }
 
   public JsonReader back() {
