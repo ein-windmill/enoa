@@ -22,7 +22,7 @@ import io.enoa.repeater.http.Method;
 import io.enoa.repeater.http.Response;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
-import io.enoa.toolkit.sys.ReflectKit;
+import io.enoa.toolkit.reflect.ReflectKit;
 import io.enoa.toolkit.thr.EoException;
 import io.enoa.yosart.YoConfig;
 import io.enoa.yosart.ext.anost.hook.HookException;
@@ -64,7 +64,7 @@ class AnostControlHandler extends AbstractAnostHandler {
      */
     YaControl ctl;
     try {
-      ctl = ReflectKit.newInstance(control);
+      ctl = ReflectKit.newInstance(control).build();
     } catch (Exception e) {
       Log.error(e.getMessage(), e);
       Renderer renderer = Renderer.with(request);

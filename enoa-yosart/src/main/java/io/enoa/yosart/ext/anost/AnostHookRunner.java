@@ -18,7 +18,7 @@ package io.enoa.yosart.ext.anost;
 import io.enoa.repeater.http.Method;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.http.UriKit;
-import io.enoa.toolkit.sys.ReflectKit;
+import io.enoa.toolkit.reflect.ReflectKit;
 import io.enoa.yosart.ext.anost.hook.Hook;
 import io.enoa.yosart.ext.anost.hook.HookException;
 import io.enoa.yosart.ext.anost.hook.IHook;
@@ -117,7 +117,7 @@ class AnostHookRunner {
       Class<? extends IHook>[] ihookClazz = hook.value();
       if (CollectionKit.notEmpty(ihookClazz)) {
         for (Class<? extends IHook> clazz : ihookClazz) {
-          IHook annohook = ReflectKit.newInstance(clazz);
+          IHook annohook = ReflectKit.newInstance(clazz).build();
           ihooks.add(annohook);
         }
       }

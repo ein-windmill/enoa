@@ -21,16 +21,27 @@ import io.enoa.tryjson.thr.TryjsonException;
 
 enum TokenType implements IMarkIx {
 
+  // {
   BEGIN_OBJECT(1),
+  // }
   END_OBJECT(2),
+  // [
   BEGIN_ARRAY(4),
+  // ]
   END_ARRAY(8),
+  // null
   NULL(16),
+  // number
   NUMBER(32),
+  // string
   STRING(64),
+  // boolean
   BOOLEAN(128),
+  // :
   SEP_COLON(256),
+  // ;
   SEP_COMMA(512),
+
   END_DOCUMENT(1024)
 
   //

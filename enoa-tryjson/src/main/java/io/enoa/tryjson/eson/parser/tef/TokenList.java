@@ -22,6 +22,7 @@ import java.util.List;
 
 class TokenList implements Iterable<Token> {
 
+  private String json;// todo need this field?
   private List<Token> tokens = new ArrayList<>();
 
   private int position;
@@ -36,18 +37,23 @@ class TokenList implements Iterable<Token> {
   }
 
   public Token previous() {
-    return this.position - 1 < 0 ? null : this.tokens.get(this.position - 1);
+    return this.position - 1 < 0 ? null : this.tokens.get(this.position - 2);
   }
 
   public Token next() {
+    Token token = this.position >= this.tokens.size() ? null : this.tokens.get(this.position);
     this.position += 1;
-    return this.position >= this.tokens.size() ? null : this.tokens.get(this.position);
+    return token;
   }
 
   public boolean hasNext() {
     return this.position < this.tokens.size();
   }
 
+  public TokenList json(String json) {
+    this.json = json;
+    return this;
+  }
 
   @Override
   public Iterator<Token> iterator() {

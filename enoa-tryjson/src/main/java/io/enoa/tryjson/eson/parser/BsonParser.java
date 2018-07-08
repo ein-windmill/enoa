@@ -13,24 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.toolkit.sys;
+package io.enoa.tryjson.eson.parser;
 
-import org.junit.Test;
+import io.enoa.tryjson.Tsonfig;
+import io.enoa.tryjson.eson.parser.tef._TefBeanParser;
 
-import java.lang.reflect.Method;
+import java.lang.reflect.Type;
+import java.util.List;
 
-public class ReflectKitTest {
+public interface BsonParser {
 
-  public String test(String arg0) {
-    return null;
+  static BsonParser def() {
+    return _TefBeanParser.instance();
   }
 
-  @Test
-  public void methodString() {
-    Class<ReflectKitTest> clazz = ReflectKitTest.class;
-    for (Method method : clazz.getMethods()) {
-      System.out.println(ReflectKit.methodString(clazz, method));
-    }
-  }
+  <T> T object(String json, Type type, Tsonfig config);
+
+  <T> List<T> array(String json, Type type, Tsonfig config);
 
 }

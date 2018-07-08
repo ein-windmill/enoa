@@ -23,7 +23,7 @@ import io.enoa.toolkit.namecase.INameCase;
 import io.enoa.toolkit.namecase.NamecaseKit;
 import io.enoa.toolkit.namecase.NamecaseType;
 import io.enoa.toolkit.number.NumberKit;
-import io.enoa.toolkit.sys.ReflectKit;
+import io.enoa.toolkit.reflect.ReflectKit;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thr.EoException;
 
@@ -179,7 +179,7 @@ public class BeanKit {
     if (clazz == null)
       return null;
 
-    R ret = ReflectKit.newInstance(clazz);
+    R ret = ReflectKit.newInstance(clazz).build();
     Method[] methods = clazz.getMethods();
     for (Method method : methods) {
       String name = method.getName();

@@ -20,6 +20,12 @@
     </dependency>
 
     <dependency>
+      <groupId>io.enoa</groupId>
+      <artifactId>enoa-typebuilder</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
       <groupId>xyz.downgoon</groupId>
       <artifactId>snowflake</artifactId>
       <scope>provided</scope>
@@ -52,12 +58,6 @@
     <dependency>
       <groupId>com.alibaba</groupId>
       <artifactId>fastjson</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>com.github.ikidou</groupId>
-      <artifactId>TypeBuilder</artifactId>
       <scope>test</scope>
     </dependency>
 

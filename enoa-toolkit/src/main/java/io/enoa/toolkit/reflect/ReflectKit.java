@@ -13,27 +13,43 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.toolkit.sys;
+package io.enoa.toolkit.reflect;
 
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.text.TextKit;
-import io.enoa.toolkit.thr.EoReflectException;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.lang.reflect.Type;
 
 /**
  * 反射工具类
  */
 public class ReflectKit {
 
-  public static <T> T newInstance(Class<T> clazz) {
-    try {
-      return clazz.newInstance();
-    } catch (Exception e) {
-      throw new EoReflectException(e.getMessage(), e);
-    }
+  public static NewClassStringInstanceBuilder newInstance(String clazz) {
+    return new NewClassStringInstanceBuilder(clazz);
   }
+
+  public static <T> NewClassInstanceBuilder<T> newInstance(Class<T> clazz) {
+    return new NewClassInstanceBuilder<>(clazz);
+  }
+
+  public static NewClassStringInstanceBuilder newInstance(Type type) {
+    String czn = type.getTypeName();
+    int ix = czn.indexOf("<");
+    return ix == -1 ?
+      newInstance(czn) :
+      newInstance(czn.substring(0, ix));
+  }
+
+//  public static <T> T newInstance(Class<T> clazz) {
+//    try {
+//      return clazz.getConstructor().newInstance();
+//    } catch (Exception e) {
+//      throw new EoReflectException(e.getMessage(), e);
+//    }
+//  }
 
   public static boolean hasClazz(String className) {
     try {

@@ -15,60 +15,16 @@
  */
 package io.enoa.tryjson.eson.parser.tef;
 
-class JsonReader {
+import io.enoa.toolkit.text.TextReader;
 
-  private String json;
-  private int len;
-  private int position; // 總字符串遊標位置
-  private int line; // 當前行
-  private int cursor; // 行遊標位置
+class JsonReader extends TextReader<JsonReader> {
 
   JsonReader(String json) {
-    this.json = json;
-    this.len = json.length();
-    this.line = 1;
+    super(json);
   }
 
-  public char peek() {
-    if (this.position - 1 >= this.len)
-      return (char) -1;
-    return this.json.charAt(this.position - 1);
-  }
-
-  public char next() {
-    if (!this.hasNext())
-      return (char) -1;
-    char ch = this.json.charAt(this.position);
-    this.position += 1;
-    this.cursor += 1;
-    if (ch == '\n') {
-      this.line += 1;
-      this.cursor = 0;
-    }
-    return ch;
-  }
-
-  public int position() {
-    return this.position;
-  }
-
-  public int line() {
-    return this.line;
-  }
-
-  public int cursor() {
-    return this.cursor;
-  }
-
-  public JsonReader back() {
-    if (this.position == 0)
-      return this;
-    this.position -= 1;
-    return this;
-  }
-
-  public boolean hasNext() {
-    return this.position < this.len;
+  public String json() {
+    return super.text();
   }
 
 }

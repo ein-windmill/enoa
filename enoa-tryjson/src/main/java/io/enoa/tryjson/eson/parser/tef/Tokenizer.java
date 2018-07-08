@@ -39,6 +39,7 @@ class Tokenizer {
       token = this.parse(reader);
       tl.add(token);
     } while (token.type() != TokenType.END_DOCUMENT);
+    tl.json(reader.json());
     return tl;
   }
 

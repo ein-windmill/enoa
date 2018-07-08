@@ -18,7 +18,7 @@ package io.enoa.trydb.build;
 import io.enoa.toolkit.convert.ConvertKit;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.namecase.INameCase;
-import io.enoa.toolkit.sys.ReflectKit;
+import io.enoa.toolkit.reflect.ReflectKit;
 import io.enoa.trydb.convert._BlobConverter;
 import io.enoa.trydb.convert._ClobConverter;
 import io.enoa.trydb.convert._NClobConverter;
@@ -50,7 +50,7 @@ class MapBuilder implements IRsBuilder<Map> {
 //    if (clazz.isInterface())
     if (Map.class.getName().equals(clazz.getName()))
       return Kv.create();
-    return ReflectKit.newInstance(clazz);
+    return ReflectKit.newInstance(clazz).build();
   }
 
   @Override

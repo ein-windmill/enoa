@@ -37,6 +37,7 @@ import io.enoa.tryjson.Tsonfig;
 import io.enoa.tryjson.json.Ja;
 import io.enoa.tryjson.json.Jo;
 import io.enoa.tryjson.mark.DateFormatStrategy;
+import io.enoa.typebuilder.TypeBuilder;
 
 import java.math.BigDecimal;
 import java.nio.ByteBuffer;
@@ -44,6 +45,7 @@ import java.nio.file.Path;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class ToJsonExample {
 
@@ -256,6 +258,16 @@ public class ToJsonExample {
     System.out.println(tj);
   }
 
+  private void parseBean93() {
+    List<Bean93> bl = new ArrayList<>();
+//    Bean93 bean93 = this.bean93();
+    bl.add(this.bean93());
+    bl.add(this.bean93());
+    String json = Tryjson.json(bl);
+    List<Bean93> _b0 = Tryjson.object(json, TypeBuilder.with(List.class).type(Bean93.class).build());
+    System.out.println(_b0);
+  }
+
   public static void main(String[] args) {
 
     // default tryjson config
@@ -275,8 +287,9 @@ public class ToJsonExample {
 
 //    example.testParseArray(4);
 //    example.testParseArray(5);
-    example.parseJson0();
+//    example.parseJson0();
 
+    example.parseBean93();
   }
 
 

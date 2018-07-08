@@ -18,7 +18,7 @@ package io.enoa.yosart.kit.inject;
 
 import io.enoa.repeater.http.Request;
 import io.enoa.toolkit.convert.ConvertKit;
-import io.enoa.toolkit.sys.ReflectKit;
+import io.enoa.toolkit.reflect.ReflectKit;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thr.EoException;
 
@@ -35,7 +35,7 @@ public class EoxInjector {
 
   @SuppressWarnings("unchecked")
   public static final <T> T injectBean(Class<T> clazz, String beanName, Request request, boolean skipConvertError) {
-    Object bean = ReflectKit.newInstance(clazz);
+    Object bean = ReflectKit.newInstance(clazz).build();
     Method[] methods = clazz.getMethods();
     for (Method method : methods) {
       String methodName = method.getName();

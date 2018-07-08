@@ -17,8 +17,7 @@ package io.enoa.tryjson.eson.parser;
 
 import io.enoa.tryjson.Tsonfig;
 import io.enoa.tryjson.eson.parser.tef._TefEsonParser;
-import io.enoa.tryjson.json.Ja;
-import io.enoa.tryjson.json.Jo;
+import io.enoa.tryjson.json.Toa;
 import io.enoa.tryjson.thr.TryjsonException;
 
 public interface EsonParser {
@@ -27,10 +26,5 @@ public interface EsonParser {
     return new _TefEsonParser();
   }
 
-  <T> T parse(String json, Tsonfig config) throws TryjsonException;
-
-  Jo object(String json, Tsonfig config) throws TryjsonException;
-
-  Ja array(String json, Tsonfig config) throws TryjsonException;
-
+  Toa parse(String json, Tsonfig config) throws TryjsonException;
 }

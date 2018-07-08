@@ -22,6 +22,7 @@ import io.enoa.tryjson.Tsonfig;
 import io.enoa.tryjson.eson.parser.EsonParser;
 import io.enoa.tryjson.json.Ja;
 import io.enoa.tryjson.json.Jo;
+import io.enoa.tryjson.json.Toa;
 import io.enoa.tryjson.thr.TryjsonException;
 
 public class _TefEsonParser implements EsonParser {
@@ -34,25 +35,33 @@ public class _TefEsonParser implements EsonParser {
     return Holder.INSTANCE;
   }
 
-  private JsonReader reader(String json) {
-    return new JsonReader(json);
-  }
+//  @Override
+//  public Jo object(String json, Tsonfig config) throws TryjsonException {
+//    TokenList tl = Tokenizer.instance().tokenize(this.reader(json));
+//    return this.object(tl, config);
+//  }
+//
+//  @Override
+//  public Ja array(String json, Tsonfig config) throws TryjsonException {
+//    TokenList tl = Tokenizer.instance().tokenize(this.reader(json));
+//    return this.array(tl, config);
+//  }
+
 
   @Override
-  public <T> T parse(String json, Tsonfig config) throws TryjsonException {
-    return null;
-  }
-
-  @Override
-  public Jo object(String json, Tsonfig config) throws TryjsonException {
-    TokenList tl = Tokenizer.instance().tokenize(this.reader(json));
-    return this.object(tl, config);
-  }
-
-  @Override
-  public Ja array(String json, Tsonfig config) throws TryjsonException {
-    TokenList tl = Tokenizer.instance().tokenize(this.reader(json));
-    return this.array(tl, config);
+  public Toa parse(String json, Tsonfig config) throws TryjsonException {
+    TokenList tl = Tokenizer.instance().tokenize(new JsonReader(json));
+    if (tl == null)
+      return null;
+    Token token = tl.next();
+    switch (token.type()) {
+      case BEGIN_ARRAY:
+        return this.array(tl, config);
+      case BEGIN_OBJECT:
+        return this.object(tl, config);
+      default:
+        throw new TryjsonException(EnoaTipKit.message("eo.tip.tryjson.invalid_token"));
+    }
   }
 
 
