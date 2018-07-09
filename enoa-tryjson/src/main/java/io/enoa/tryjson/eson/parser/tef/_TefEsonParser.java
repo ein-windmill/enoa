@@ -35,19 +35,6 @@ public class _TefEsonParser implements EsonParser {
     return Holder.INSTANCE;
   }
 
-//  @Override
-//  public Jo object(String json, Tsonfig config) throws TryjsonException {
-//    TokenList tl = Tokenizer.instance().tokenize(this.reader(json));
-//    return this.object(tl, config);
-//  }
-//
-//  @Override
-//  public Ja array(String json, Tsonfig config) throws TryjsonException {
-//    TokenList tl = Tokenizer.instance().tokenize(this.reader(json));
-//    return this.array(tl, config);
-//  }
-
-
   @Override
   public Toa parse(String json, Tsonfig config) throws TryjsonException {
     TokenList tl = Tokenizer.instance().tokenize(new JsonReader(json));
@@ -63,7 +50,6 @@ public class _TefEsonParser implements EsonParser {
         throw new TryjsonException(EnoaTipKit.message("eo.tip.tryjson.invalid_token"));
     }
   }
-
 
   private Jo object(TokenList tl, Tsonfig config) throws TryjsonException {
     Jo jo = Jo.create();
@@ -124,7 +110,7 @@ public class _TefEsonParser implements EsonParser {
             }
             expect = TokenType.expect(TokenType.SEP_COMMA, TokenType.END_OBJECT);
           } else {
-            key = token.value();
+            key = config.namecase().convert(token.value());
             expect = TokenType.expect(TokenType.SEP_COLON);
           }
           break;

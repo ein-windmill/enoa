@@ -57,6 +57,7 @@ class TypeConverter {
     install(java.math.BigInteger.class, new _BigIntegerConverter());
     install(byte[].class, new _ByteArrayConverter());
     install(Object.class, new _ObjectConverter());
+    install(Character.class, new _CharacterConverter());
   }
 
   static <T> TypeConverter install(Class<T> type, IConverter<T, String> converter) {

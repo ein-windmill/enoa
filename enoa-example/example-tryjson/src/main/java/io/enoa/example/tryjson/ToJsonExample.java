@@ -39,13 +39,12 @@ import io.enoa.tryjson.json.Jo;
 import io.enoa.tryjson.mark.DateFormatStrategy;
 import io.enoa.typebuilder.TypeBuilder;
 
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.nio.file.Path;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class ToJsonExample {
 
@@ -214,11 +213,13 @@ public class ToJsonExample {
   }
 
   private void testParseObject(int ix) {
-    String json = FileKit.read(PathKit.debugPath().resolve(TextKit.union("enoa-example/example-tryjson/src/main/resources/", ix, ".json"))).string();
+//    String json = FileKit.read(PathKit.debugPath().resolve(TextKit.union("enoa-example/example-tryjson/src/main/resources/", ix, ".json"))).string();
+    String json = FileKit.read(PathKit.debugPath().resolve(TextKit.union("src/main/resources/", ix, ".json"))).string();
     Tsonfig config = Tryjson.epm()
       .config()
       .builder()
       .skipNull(false)
+      .namecase(NamecaseKit.namecase(NamecaseType.CASE_UNDERLINE))
       .build();
     Jo jo = Tryjson.object(json, config);
     String _j1 = Tryjson.json(jo, config);
@@ -226,7 +227,8 @@ public class ToJsonExample {
   }
 
   private void testParseArray(int ix) {
-    String json = FileKit.read(PathKit.debugPath().resolve(TextKit.union("enoa-example/example-tryjson/src/main/resources/", ix, ".json"))).string();
+//    String json = FileKit.read(PathKit.debugPath().resolve(TextKit.union("enoa-example/example-tryjson/src/main/resources/", ix, ".json"))).string();
+    String json = FileKit.read(PathKit.debugPath().resolve(TextKit.union("src/main/resources/", ix, ".json"))).string();
     Tsonfig config = Tryjson.epm()
       .config()
       .builder()
@@ -268,6 +270,83 @@ public class ToJsonExample {
     System.out.println(_b0);
   }
 
+  private void parseBean0() {
+    Bean90 bean90_0 = new Bean90();
+    bean90_0.code = 1;
+    bean90_0.name = "UK";
+    bean90_0.country = "UK";
+    Bean90 bean90_1 = new Bean90();
+    bean90_1.code = 1;
+    bean90_1.name = "US";
+    bean90_1.country = "US";
+
+
+    List<Kv> kvs = new ArrayList<Kv>() {{
+      add(Kv.by("item", Kv.by("name", "jack"))
+        .set("com", " com0")
+        .set("stat", 1)
+        .set("type", 2)
+        .set("open", true)
+        .set("marks", new ArrayList<Bean96>() {{
+          add(new Bean96().id(UUIDKit.next()).mark("mark0").country(bean90_0));
+        }})
+        .set("unknown", new Bean97().text("text0"))
+      );
+      add(Kv.by("item", Kv.by("name", "tom"))
+        .set("com", "com1")
+        .set("stat", 1)
+        .set("type", 3)
+        .set("marks", new ArrayList<Bean96>() {{
+          add(new Bean96().id(UUIDKit.next()).mark("mark1").country(bean90_1));
+        }})
+        .set("unknown", new Bean97().text("text1"))
+      );
+    }};
+    String json = Tryjson.json(kvs);
+    List<Bean94<Bean97>> ret0 = Tryjson.object(json,
+      TypeBuilder.with(List.class)
+        .beginSubType(Bean94.class)
+        .type(Bean97.class)
+        .endSubType()
+        .build(),
+      Tryjson.epm().config()
+        .builder()
+        .namecase(NamecaseKit.namecase(NamecaseType.CASE_UNDERLINE))
+        .build()
+    );
+    System.out.println(Tryjson.json(ret0));
+  }
+
+  private void parseBean1() {
+    List<Kv> data = new ArrayList<>();
+    Kv kv0 = Kv.create()
+      .set("k0", new HashSet<Integer>() {{
+        add(1);
+        add(2);
+        add(3);
+      }});
+    Kv kv1 = Kv.create()
+      .set("k1", new HashSet<Integer>() {{
+        add(4);
+        add(5);
+        add(6);
+      }});
+    data.add(kv0);
+    data.add(kv1);
+    String json = Tryjson.json(data);
+
+    Type type = TypeBuilder.with(List.class)
+      .beginSubType(Map.class)
+      .type(String.class)
+      .beginSubType(Set.class)
+      .type(Integer.class)
+      .endSubType()
+      .endSubType()
+      .build();
+    List<Map<String, Set<Integer>>> ret = Tryjson.object(json, type);
+    System.out.println(ret);
+  }
+
   public static void main(String[] args) {
 
     // default tryjson config
@@ -284,12 +363,16 @@ public class ToJsonExample {
 //    example.testParseObject(1);
 //    example.testParseObject(2);
 //    example.testParseObject(3);
+//    example.testParseObject(6);
 
 //    example.testParseArray(4);
 //    example.testParseArray(5);
 //    example.parseJson0();
 
-    example.parseBean93();
+//    example.parseBean93();
+
+    example.parseBean0();
+//    example.parseBean1();
   }
 
 

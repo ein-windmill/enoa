@@ -27,12 +27,24 @@ public class RefType {
     this.generics = builder.generics;
   }
 
+  public static RefType with(String type, RefType... generics) {
+    return new Builder().type(type).generics(generics).build();
+  }
+
   public String type() {
     return this.type;
   }
 
   public RefType[] generics() {
     return this.generics;
+  }
+
+  public RefType safeGeneric(int ix) {
+    if (CollectionKit.isEmpty(this.generics))
+      return null;
+    if (ix > this.generics.length - 1)
+      return null;
+    return this.generics[ix];
   }
 
   public String string() {

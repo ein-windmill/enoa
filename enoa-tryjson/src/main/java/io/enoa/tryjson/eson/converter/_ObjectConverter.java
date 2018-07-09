@@ -16,6 +16,7 @@
 package io.enoa.tryjson.eson.converter;
 
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.reflect.ReflectKit;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.tryjson.Tsonfig;
 import io.enoa.tryjson.eson.Eson;
@@ -69,10 +70,10 @@ class _ObjectConverter implements EsonConverter<Object> {
     Class<?> clazz = object.getClass();
 
     // 获取当前类以及父类的所有 public 字段
-    List<Field> fields = Stream.of(clazz.getFields()).collect(Collectors.toList());
+    List<Field> fields = ReflectKit.fields(clazz);
 
     // 获取当前类定义的所有字段以及父类的字段
-    Set<String> allfields = this.allFields(clazz);
+    Set<String> allfields = ReflectKit.allfieldNames(clazz);
 
 
     // public 字段 直接加入到序列化中
@@ -145,22 +146,22 @@ class _ObjectConverter implements EsonConverter<Object> {
     }
   }
 
-  /**
-   * 獲取當前類以及父類的所有字段
-   *
-   * @param clazz 類
-   * @return Set<String>
-   */
-  private Set<String> allFields(Class clazz) {
-    Set<String> fileds = new HashSet<>();
-    while (true) {
-      fileds.addAll(Stream.of(clazz.getDeclaredFields()).map(Field::getName).collect(Collectors.toSet()));
-      Class _super = clazz.getSuperclass();
-      if (_super == null || _super.getName().equalsIgnoreCase("java.lang.Object"))
-        break;
-      clazz = clazz.getSuperclass();
-    }
-    return fileds;
-  }
+//  /**
+//   * 獲取當前類以及父類的所有字段
+//   *
+//   * @param clazz 類
+//   * @return Set<String>
+//   */
+//  private Set<String> allFields(Class clazz) {
+//    Set<String> fileds = new HashSet<>();
+//    while (true) {
+//      fileds.addAll(Stream.of(clazz.getDeclaredFields()).map(Field::getName).collect(Collectors.toSet()));
+//      Class _super = clazz.getSuperclass();
+//      if (_super == null || _super.getName().equalsIgnoreCase("java.lang.Object"))
+//        break;
+//      clazz = clazz.getSuperclass();
+//    }
+//    return fileds;
+//  }
 
 }

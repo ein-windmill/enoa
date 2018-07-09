@@ -87,12 +87,7 @@ abstract class _Ja<E> implements Iterable<E>, Toa, FastIt<E, Ja> {
 
   @Override
   public Ja remove(E object) {
-    Iterator<E> iterator = this.collection.iterator();
-    while (iterator.hasNext()) {
-      E next = iterator.next();
-      if (next == object)
-        iterator.remove();
-    }
+    this.collection.removeIf(next -> next == object);
     return (Ja) this;
   }
 

@@ -18,9 +18,15 @@ package io.enoa.toolkit.reflect;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.text.TextKit;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.lang.reflect.Type;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * 反射工具类
@@ -117,6 +123,35 @@ public class ReflectKit {
       }
     }
   }
+
+  /**
+   * 获取当前类以及父类的所有 public 字段
+   *
+   * @param clazz class
+   * @return List
+   */
+  public static List<Field> fields(Class<?> clazz) {
+    return Stream.of(clazz.getFields()).collect(Collectors.toList());
+  }
+
+  /**
+   * 获取当前类定义的所有字段以及父类的字段
+   *
+   * @param clazz class
+   * @return Set
+   */
+  public static Set<String> allfieldNames(Class<?> clazz) {
+    Set<String> fileds = new HashSet<>();
+    while (true) {
+      fileds.addAll(Stream.of(clazz.getDeclaredFields()).map(Field::getName).collect(Collectors.toSet()));
+      Class _super = clazz.getSuperclass();
+      if (_super == null || _super.getName().equalsIgnoreCase("java.lang.Object"))
+        break;
+      clazz = clazz.getSuperclass();
+    }
+    return fileds;
+  }
+
 }
 
 

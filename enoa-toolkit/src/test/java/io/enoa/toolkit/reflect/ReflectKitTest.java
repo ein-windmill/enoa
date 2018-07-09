@@ -98,6 +98,7 @@ public class ReflectKitTest {
 //      .type(Integer.class)
 //      .endSubType()
 //      .build();
+//    RefType reftype = TypeKit.reftype(new ParameterizedTypeImpl(new Type[]{String.class}, List.class, List.class));
     RefType reftype = TypeKit.reftype(type);
     System.out.println(reftype);
 
