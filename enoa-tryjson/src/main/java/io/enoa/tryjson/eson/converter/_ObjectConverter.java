@@ -27,7 +27,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 class _ObjectConverter implements EsonConverter<Object> {
   private static class Holder {
@@ -73,7 +72,7 @@ class _ObjectConverter implements EsonConverter<Object> {
     List<Field> fields = ReflectKit.fields(clazz);
 
     // 获取当前类定义的所有字段以及父类的字段
-    Set<String> allfields = ReflectKit.allfieldNames(clazz);
+    Set<String> allfields = ReflectKit.declaredFields(clazz).stream().map(Field::getName).collect(Collectors.toSet());
 
 
     // public 字段 直接加入到序列化中

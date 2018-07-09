@@ -22,9 +22,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.lang.reflect.Type;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -140,10 +139,10 @@ public class ReflectKit {
    * @param clazz class
    * @return Set
    */
-  public static Set<String> allfieldNames(Class<?> clazz) {
-    Set<String> fileds = new HashSet<>();
+  public static List<Field> declaredFields(Class<?> clazz) {
+    List<Field> fileds = new ArrayList<>();
     while (true) {
-      fileds.addAll(Stream.of(clazz.getDeclaredFields()).map(Field::getName).collect(Collectors.toSet()));
+      fileds.addAll(Stream.of(clazz.getDeclaredFields()).collect(Collectors.toSet()));
       Class _super = clazz.getSuperclass();
       if (_super == null || _super.getName().equalsIgnoreCase("java.lang.Object"))
         break;

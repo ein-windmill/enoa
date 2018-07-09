@@ -13,20 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.toolkit.convert;
+package io.enoa.toolkit.bean;
 
-/**
- * 數據轉換接口
- */
-@FunctionalInterface
-public interface IConverter<R, P> {
+import java.util.List;
 
-  /**
-   * 轉換源數據到目標數據
-   *
-   * @param origin 源數據
-   * @return R
-   */
-  R convert(P origin);
+public class Bean0 {
 
+  private String name;
+  private List<Bean1> things;
+
+  public String name() {
+    return this.name;
+  }
+
+  public Bean0 name(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public List<Bean1> things() {
+    return this.things;
+  }
+
+  public Bean0 things(List<Bean1> things) {
+    this.things = things;
+    return this;
+  }
 }

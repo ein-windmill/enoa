@@ -182,6 +182,10 @@ public class ConvertKit {
     return (T) ret;
   }
 
+  public static boolean supportConvert(Class clazz) {
+    return TypeConverter.support(clazz);
+  }
+
   public static <T> void install(Class<T> type, IConverter<T, String> converter) {
     TypeConverter.install(type, converter);
   }

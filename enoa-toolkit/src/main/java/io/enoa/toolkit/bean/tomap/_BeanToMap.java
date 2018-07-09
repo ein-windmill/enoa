@@ -13,20 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.toolkit.convert;
+package io.enoa.toolkit.bean.tomap;
 
-/**
- * 數據轉換接口
- */
-@FunctionalInterface
-public interface IConverter<R, P> {
+import io.enoa.toolkit.bean.Bonfig;
 
-  /**
-   * 轉換源數據到目標數據
-   *
-   * @param origin 源數據
-   * @return R
-   */
-  R convert(P origin);
+import java.util.Map;
+
+public class _BeanToMap {
+
+
+  public static Map<String, Object> map(Object bean, int depth, Bonfig config) {
+    if (bean == null)
+      return null;
+
+    if (depth-- < 0)
+      return null;
+
+    if (bean instanceof Map) {
+      return MapConvert.instance().convert((Map) bean, depth, config);
+    }
+
+    return BeanConvert.instance().convert(bean, depth, config);
+  }
 
 }

@@ -109,7 +109,7 @@ public class _TefBeanParser implements BsonParser {
     // 获取当前类以及父类的所有 public 字段
     List<Field> fields = ReflectKit.fields(clazz);
     // 获取当前类定义的所有字段以及父类的字段
-    Set<String> allfields = ReflectKit.allfieldNames(clazz);
+    Set<String> allfields = ReflectKit.declaredFields(clazz).stream().map(Field::getName).collect(Collectors.toSet());
 
     // public 字段名称
 //    Set<String> pubfields = fields.stream().map(Field::getName).collect(Collectors.toSet());

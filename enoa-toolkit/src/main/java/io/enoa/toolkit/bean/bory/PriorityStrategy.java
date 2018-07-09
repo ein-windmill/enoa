@@ -13,20 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.toolkit.convert;
+package io.enoa.toolkit.bean.bory;
+
+import io.enoa.toolkit.mark.IMarkIx;
 
 /**
- * 數據轉換接口
+ * 當一個實體類同時存在 public field 以及該 field 的 public getter 方法時
+ * 優先考慮何種方式的策略
  */
-@FunctionalInterface
-public interface IConverter<R, P> {
+public enum PriorityStrategy implements IMarkIx {
 
-  /**
-   * 轉換源數據到目標數據
-   *
-   * @param origin 源數據
-   * @return R
-   */
-  R convert(P origin);
+  FIELD(0),
 
+  METHOD(1),
+
+  //
+  ;
+
+  private final int ix;
+
+  PriorityStrategy(int ix) {
+    this.ix = ix;
+  }
+
+  @Override
+  public int ix() {
+    return this.ix;
+  }
 }

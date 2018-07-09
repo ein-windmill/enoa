@@ -16,8 +16,17 @@
 package io.enoa.toolkit.bean;
 
 import io.enoa.toolkit.map.Kv;
+import io.enoa.toolkit.namecase.NamecaseKit;
+import io.enoa.toolkit.namecase.NamecaseType;
 import io.enoa.toolkit.sys.ObjectKit;
+import io.enoa.toolkit.value.EnoaValue;
+import io.enoa.typebuilder.TypeBuilder;
 import org.junit.Test;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class BeanKitTest {
 
@@ -28,6 +37,22 @@ public class BeanKitTest {
     Kv kv = Kv.by("field", f0);
     TestEntity te = BeanKit.reductionMap(kv, TestEntity.class, false);
     System.out.println(te);
+  }
+
+  @Test
+  public void testMap() {
+    Bean0 b0 = new Bean0();
+    b0.name("jack")
+      .things(new ArrayList<Bean1>() {{
+        add(new Bean1().thing("thing0"));
+        add(new Bean1().thing("thing2"));
+      }});
+    Map<String, Object> map = BeanKit.map(b0);
+    List<Map> things = (List) map.get("things");
+    System.out.println(things.get(0).keySet());
+//    List<Map> m = EnoaValue.with().as();
+    System.out.println(map);
+    // todo
   }
 
   public static class TestEntity {

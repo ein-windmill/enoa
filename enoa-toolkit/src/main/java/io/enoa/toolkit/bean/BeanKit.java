@@ -15,6 +15,7 @@
  */
 package io.enoa.toolkit.bean;
 
+import io.enoa.toolkit.bean.tomap._BeanToMap;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.map.Kv;
@@ -36,6 +37,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class BeanKit {
+
+  private static final Bonfig DEF_CONFIG = new Bonfig.Builder().build();
 
   public static Kv kv(Object bean) {
     return Kv.by(map(bean, true));
@@ -69,9 +72,9 @@ public class BeanKit {
     return OKv.by(map(bean, namecase, skipError));
   }
 
-  public static Map<String, Object> map(Object bean) {
-    return map(bean, true);
-  }
+//  public static Map<String, Object> map(Object bean) {
+//    return map(bean, true);
+//  }
 
   public static Map<String, Object> map(Object bean, boolean skipError) {
     return map(bean, NamecaseKit.namecase(NamecaseType.CASE_NONE), skipError);
@@ -105,6 +108,18 @@ public class BeanKit {
         return null;
       throw new RuntimeException(e.getMessage(), e);
     }
+  }
+
+  public static Map<String, Object> map(Object bean) {
+    return _BeanToMap.map(bean, 15, DEF_CONFIG);
+  }
+
+  public static Map<String, Object> map(Object bean, Bonfig config) {
+    return _BeanToMap.map(bean, 15, config);
+  }
+
+  public static Map<String, Object> map(Object bean, int depth, Bonfig config) {
+    return _BeanToMap.map(bean, depth, config);
   }
 
 
