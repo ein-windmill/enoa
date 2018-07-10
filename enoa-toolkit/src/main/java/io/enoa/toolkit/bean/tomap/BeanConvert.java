@@ -52,10 +52,10 @@ class BeanConvert {
       return _BeanToMap.map(bean, depth, config);
     }
 
-    return this.converBean(bean, depth, config, bclazz);
+    return this.convertBean(bean, depth, config, bclazz);
   }
 
-  private Map<String, Object> converBean(Object bean, int depth, Bonfig config, Class<?> bclazz) {
+  private Map<String, Object> convertBean(Object bean, int depth, Bonfig config, Class<?> bclazz) {
     Map<String, Object> ret = config.bmap().create();
     List<Field> pubfields = ReflectKit.fields(bclazz);
     List<Field> declareds = ReflectKit.declaredFields(bclazz);
@@ -66,7 +66,7 @@ class BeanConvert {
       String fname = config.namecase().convert(field.getName());
       try {
         Object _val = field.get(bean);
-        _val = this.depthValue(_val, depth, config);
+        _val = this.depthValue(fname, _val, depth, config);
         ret.put(fname, _val);
       } catch (IllegalAccessException e) {
         if (!config.skipError())
@@ -105,6 +105,7 @@ class BeanConvert {
         this.fillMap(bean, mname, method, ret, depth, config);
       }
     }
+    CollectionKit.clear(pubfields, declareds);
     return ret;
   }
 
@@ -116,7 +117,11 @@ class BeanConvert {
     }
     try {
       Object _val = method.invoke(bean);
-      _val = this.depthValue(_val, depth, config);
+      if (_val == null) {
+        ret.put(mname, null);
+        return;
+      }
+      _val = this.depthValue(mname, _val, depth, config);
       ret.put(mname, _val);
     } catch (Exception e) {
       if (!config.skipError())
@@ -125,7 +130,7 @@ class BeanConvert {
     }
   }
 
-  private Object depthValue(Object value, int depth, Bonfig config) {
+  private Object depthValue(String key, Object value, int depth, Bonfig config) {
     Class<?> vclazz = value.getClass();
     if (ConvertKit.supportConvert(vclazz)) {
       return value;
@@ -137,10 +142,14 @@ class BeanConvert {
           collection.add(_itv);
           continue;
         }
-        collection.add(_BeanToMap.map(value, depth, config));
+        collection.add(_BeanToMap.map(_itv, depth, config));
       }
       return collection;
     }
+    if (value instanceof Enum) {
+      return config.enumer().convert((Enum) value);
+    }
+
     return _BeanToMap.map(value, depth, config);
   }
 

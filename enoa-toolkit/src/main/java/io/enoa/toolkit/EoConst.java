@@ -33,4 +33,9 @@ public interface EoConst {
 
   int BUFFER_SIZE = 1024;
 
+  /**
+   * 递归最大深度
+   */
+  int DEPTH = 15;
+
 }

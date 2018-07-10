@@ -13,17 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.toolkit.bean.bory;
+package io.enoa.toolkit.bean;
 
-import java.util.HashMap;
-import java.util.Map;
+import io.enoa.toolkit.convert.IConverter;
 
-public interface IBmap {
+class $Bonfig$EnumOriginConverter implements IConverter<Object, Enum> {
 
-  static IBmap def() {
-    return HashMap::new;
+  private static class Holder {
+    private static final $Bonfig$EnumOriginConverter INSTANCE = new $Bonfig$EnumOriginConverter();
   }
 
-  Map<String, Object> create();
+  static $Bonfig$EnumOriginConverter instance() {
+    return Holder.INSTANCE;
+  }
 
+  @Override
+  public Object convert(Enum origin) {
+    return origin;
+  }
 }

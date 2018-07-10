@@ -15,21 +15,47 @@
  */
 package io.enoa.toolkit.bean;
 
-import io.enoa.toolkit.bean.bory.IBcollection;
-import io.enoa.toolkit.bean.bory.IBmap;
+import io.enoa.toolkit.bean.bory.IBmaco;
 import io.enoa.toolkit.bean.bory.PriorityStrategy;
+import io.enoa.toolkit.convert.IConverter;
 import io.enoa.toolkit.namecase.INameCase;
 import io.enoa.toolkit.namecase.NamecaseKit;
 import io.enoa.toolkit.namecase.NamecaseType;
 
+import java.util.Collection;
+import java.util.Map;
+
 public class Bonfig {
 
+  /**
+   * map key 命名规则转换 默认不转换
+   */
   private final INameCase namecase;
-  private final IBmap bmap;
-  private final IBcollection bcollection;
+  /**
+   * bean 转换 map 创建的 map 实例来源 默认 HashMap
+   */
+  private final IBmaco<Map<String, Object>> bmap;
+  /**
+   * collection 实例 默认 ArrayList
+   */
+  private final IBmaco<Collection<Object>> bcollection;
+  /**
+   * 是否跳过转换错误 默认不跳过
+   */
   private final boolean skipError;
+  /**
+   * null 键所使用的键名 默认 null 字符串
+   */
   private final String nullKey;
+  /**
+   * bean 转换 map 会考虑该类的 public 字段以及 public 方法, 如果当字段于方法重复时, 使用何种方式.
+   * 默认 方法优先
+   */
   private final PriorityStrategy priority;
+  /**
+   * 枚举字段值转换方式, 默认返回枚举原始类
+   */
+  private final IConverter<Object, Enum> enumer;
 
   private Bonfig(Builder builder) {
     this.bmap = builder.bmap;
@@ -38,13 +64,14 @@ public class Bonfig {
     this.nullKey = builder.nullKey;
     this.priority = builder.priority;
     this.bcollection = builder.bcollection;
+    this.enumer = builder.enumer;
   }
 
   public INameCase namecase() {
     return this.namecase;
   }
 
-  public IBmap bmap() {
+  public IBmaco<Map<String, Object>> bmap() {
     return this.bmap;
   }
 
@@ -60,25 +87,46 @@ public class Bonfig {
     return this.priority;
   }
 
-  public IBcollection bcollection() {
+  public IBmaco<Collection<Object>> bcollection() {
     return this.bcollection;
+  }
+
+  public IConverter<Object, Enum> enumer() {
+    return enumer;
+  }
+
+  public Builder builder() {
+    return new Builder(this);
   }
 
   public static class Builder {
     private INameCase namecase;
-    private IBmap bmap;
     private boolean skipError;
     private String nullKey;
     private PriorityStrategy priority;
-    private IBcollection bcollection;
+    private IBmaco<Map<String, Object>> bmap;
+    private IBmaco<Collection<Object>> bcollection;
+    private IConverter<Object, Enum> enumer;
 
     public Builder() {
-      this.bmap = IBmap.def();
-      this.bcollection = IBcollection.def();
+      this.bmap = IBmaco.map();
+      this.bcollection = IBmaco.collection();
       this.skipError = Boolean.FALSE;
       this.namecase = NamecaseKit.namecase(NamecaseType.CASE_NONE);
       this.nullKey = "null";
       this.priority = PriorityStrategy.METHOD;
+      this.enumer = $Bonfig$EnumOriginConverter.instance();
+    }
+
+    public Builder(Bonfig config) {
+      this();
+      this.bmap = config.bmap;
+      this.namecase = config.namecase;
+      this.skipError = config.skipError;
+      this.nullKey = config.nullKey;
+      this.priority = config.priority;
+      this.bcollection = config.bcollection;
+      this.enumer = config.enumer;
     }
 
     public Bonfig build() {
@@ -100,7 +148,7 @@ public class Bonfig {
       return this;
     }
 
-    public Builder bmap(IBmap bmap) {
+    public Builder bmap(IBmaco<Map<String, Object>> bmap) {
       this.bmap = bmap;
       return this;
     }
@@ -110,8 +158,13 @@ public class Bonfig {
       return this;
     }
 
-    public Builder bcollection(IBcollection bcollection) {
+    public Builder bcollection(IBmaco<Collection<Object>> bcollection) {
       this.bcollection = bcollection;
+      return this;
+    }
+
+    public Builder enumer(IConverter<Object, Enum> enumer) {
+      this.enumer = enumer;
       return this;
     }
   }

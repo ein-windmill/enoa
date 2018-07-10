@@ -16,9 +16,9 @@
 package io.enoa.tryjson;
 
 import io.enoa.toolkit.EoConst;
+import io.enoa.toolkit.convert.IConverter;
 import io.enoa.toolkit.namecase.INameCase;
 import io.enoa.tryjson.ext.detect.ITypeDetector;
-import io.enoa.tryjson.ext.enumer.IEnumConverter;
 import io.enoa.tryjson.ext.format.IJsonFormat;
 import io.enoa.tryjson.mark.DateFormatStrategy;
 
@@ -43,7 +43,7 @@ public class Tsonfig {
   /**
    * 枚舉轉換規則, 默認使用枚舉字段名
    */
-  private final IEnumConverter enumConverter;
+  private final IConverter<Object, Enum> enumConverter;
   /**
    * 對象轉換 json 後, 對 json 字符串進行格式化
    */
@@ -88,7 +88,7 @@ public class Tsonfig {
     return this.namecase;
   }
 
-  public IEnumConverter enumConverter() {
+  public IConverter<Object, Enum> enumConverter() {
     return this.enumConverter;
   }
 
@@ -113,7 +113,7 @@ public class Tsonfig {
     private DateFormatStrategy dateFormatStrategy;
     private String dateFormat;
     private INameCase namecase;
-    private IEnumConverter enumConverter;
+    private IConverter<Object, Enum> enumConverter;
     private IJsonFormat jsonFormat;
     private ITypeDetector detector;
     private boolean skipNull;
@@ -123,7 +123,7 @@ public class Tsonfig {
       this.dateFormat = EoConst.DEF_FORMAT_DATE;
       this.dateFormatStrategy = DateFormatStrategy.STRING;
       this.namecase = INameCase.def();
-      this.enumConverter = IEnumConverter.def();
+      this.enumConverter = $Tsonfig$EnumConverter.instance();
       this.jsonFormat = IJsonFormat.def();
       this.detector = ITypeDetector.def();
       this.skipNull = Boolean.TRUE;
@@ -168,7 +168,7 @@ public class Tsonfig {
       return this;
     }
 
-    public Builder enumConverter(IEnumConverter enumConverter) {
+    public Builder enumConverter(IConverter<Object, Enum> enumConverter) {
       this.enumConverter = enumConverter;
       return this;
     }
@@ -192,4 +192,6 @@ public class Tsonfig {
       return this;
     }
   }
+
+
 }

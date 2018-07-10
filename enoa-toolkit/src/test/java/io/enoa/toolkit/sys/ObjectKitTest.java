@@ -83,12 +83,12 @@ public class ObjectKitTest {
     e.setName("Jack");
     e.setDescription(null);
 
-    Map<String, Object> map = BeanKit.map(e, NamecaseKit.namecase(NamecaseType.CASE_UNDERLINE));
+    Map<String, Object> map = BeanKit.convert().map(e, BeanKit.config().builder().namecase(NamecaseKit.namecase(NamecaseType.CASE_UNDERLINE)).build());
     map.put("test_z", "1");
     map.put("age", null);
     System.out.println(map);
 
-    Entity e1 = BeanKit.reductionMap(map, Entity.class, NamecaseKit.namecase(NamecaseType.CASE_CAMEL_UPPER));
+    Entity e1 = BeanKit.reduction().map(map, Entity.class, NamecaseKit.namecase(NamecaseType.CASE_CAMEL_UPPER));
     System.out.println(e1);
 
 

@@ -95,7 +95,6 @@ public class ToJsonExample {
 //        }
       })
       .set("bool", Boolean.TRUE)
-      .set("bean0", this.bean0())
       .set("bean90", this.bean90())
       .set("bean91", this.bean91())
       .set("bytes", new byte[]{1, 2, 3, 4})
@@ -111,16 +110,7 @@ public class ToJsonExample {
       .set("collection1", new ArrayList<Bean90>() {{
         add(bean90());
       }})
-      .set("map", this.kv0().set("kv0", this.kv0().set("kv0", this.kv0())))
-      .set("bean", this.bean0());
-  }
-
-  private Tsonfig bean0() {
-    return new Tsonfig.Builder()
-      .debug(false)
-      .dateFormat(EoConst.DEF_FORMAT_DATE)
-      .dateFormatStrategy(DateFormatStrategy.STRING)
-      .build();
+      .set("map", this.kv0().set("kv0", this.kv0().set("kv0", this.kv0())));
   }
 
   private Bean90 bean90() {
@@ -164,7 +154,6 @@ public class ToJsonExample {
   }
 
   private void testBean() {
-    System.out.println(Tryjson.json(this.bean0()));
     System.out.println(Tryjson.json(this.bean90()));
     System.out.println(Tryjson.json(this.bean91()));
     System.out.println(Tryjson.json(this.bean92()));
@@ -175,7 +164,7 @@ public class ToJsonExample {
   }
 
   private void testConf() {
-    System.out.println(Tryjson.json(this.bean93(), new Tsonfig.Builder()
+    Tsonfig config = new Tsonfig.Builder()
       .namecase(NamecaseKit.namecase(NamecaseType.CASE_UNDERLINE))
       .dateFormatStrategy(DateFormatStrategy.STRING)
       .dateFormat(EoConst.DEF_FORMAT_DATE)
@@ -188,7 +177,9 @@ public class ToJsonExample {
           return ((IMarkMsg) em).code();
         return em.name();
       })
-      .build()));
+      .build();
+    String json = Tryjson.json(this.bean93(), config);
+    System.out.println(json);
   }
 
   private void testArr() {
@@ -353,11 +344,11 @@ public class ToJsonExample {
     Tryjson.epm().install(new Tsonfig.Builder().debug().dateFormatStrategy(DateFormatStrategy.TIMESTAMP).build());
 
     ToJsonExample example = new ToJsonExample();
-//    example.testDateFormat();
-//    example.testBean();
-//    example.testMap();
-//    example.testConf();
-//    example.testArr();
+    example.testDateFormat();
+    example.testBean();
+    example.testMap();
+    example.testConf();
+    example.testArr();
 
 //    example.testParseObject(0);
 //    example.testParseObject(1);
@@ -371,7 +362,7 @@ public class ToJsonExample {
 
 //    example.parseBean93();
 
-    example.parseBean0();
+//    example.parseBean0();
 //    example.parseBean1();
   }
 

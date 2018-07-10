@@ -28,7 +28,7 @@ class BeanBuilder<T> implements IRsBuilder<T> {
   @Override
   public List<T> build(ResultSet rs, Class<T> clazz, INameCase namecase) throws SQLException {
     List<Map> data = RsBuilder.build(rs, Map.class, namecase);
-    List<T> rets = BeanKit.reductionMaps(data, clazz, namecase, false);
+    List<T> rets = BeanKit.reduction().maps(data, clazz, namecase, false);
     CollectionKit.clear(data);
     return rets;
   }

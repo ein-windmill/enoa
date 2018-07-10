@@ -13,17 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.toolkit.bean.bory;
+package io.enoa.tryjson;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import io.enoa.toolkit.convert.IConverter;
 
-public interface IBcollection {
-
-  static IBcollection def() {
-    return ArrayList::new;
+/**
+ * tryjson 枚举类转换方式
+ */
+class $Tsonfig$EnumConverter implements IConverter<Object, Enum> {
+  private static class Holder {
+    private static final $Tsonfig$EnumConverter INSTANCE = new $Tsonfig$EnumConverter();
   }
 
-  Collection<Object> create();
+  static $Tsonfig$EnumConverter instance() {
+    return Holder.INSTANCE;
+  }
 
+  @Override
+  public Object convert(Enum em) {
+    if (em == null)
+      return null;
+    return em.name();
+  }
 }

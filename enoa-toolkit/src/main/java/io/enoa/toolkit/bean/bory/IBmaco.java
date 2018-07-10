@@ -13,22 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.tryjson.ext.enumer;
+package io.enoa.toolkit.bean.bory;
 
-class EnumNameConverter implements IEnumConverter {
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
-  private static class Holder {
-    private static final EnumNameConverter INSTANCE = new EnumNameConverter();
+@FunctionalInterface
+public interface IBmaco<T> {
+
+  static IBmaco<Map<String, Object>> map() {
+    return HashMap::new;
   }
 
-  static EnumNameConverter instance() {
-    return Holder.INSTANCE;
+  static IBmaco<Collection<Object>> collection() {
+    return ArrayList::new;
   }
 
-  @Override
-  public String convert(Enum _enum) {
-    if (_enum == null)
-      return null;
-    return _enum.name();
-  }
+  T create();
+
 }
