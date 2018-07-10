@@ -26,6 +26,7 @@ import io.enoa.toolkit.thr.EoReflectException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
 import java.util.*;
 
 class BeanReduction {
@@ -143,6 +144,8 @@ class BeanReduction {
 
     if (Map.class.isAssignableFrom(expect)) {
 
+//      _MapToBean.instance().object((Map)value, )
+      System.out.println(1);
     }
 
     return value;
