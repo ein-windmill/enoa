@@ -15,39 +15,26 @@
  */
 package io.enoa.toolkit.bean;
 
-import java.util.List;
-import java.util.Map;
+public class Bean2<T> {
 
-public class Bean0<T, K> {
+  private String extId;
+  private T resp;
 
-  private String name;
-  private List<T> things;
-  private Map<String, Bean2<K>> rpn;
-
-  public String name() {
-    return name;
+  public String extId() {
+    return extId;
   }
 
-  public Bean0<T, K> name(String name) {
-    this.name = name;
+  public Bean2<T> extId(String extId) {
+    this.extId = extId;
     return this;
   }
 
-  public List<T> things() {
-    return things;
+  public T resp() {
+    return resp;
   }
 
-  public Bean0<T, K> things(List<T> things) {
-    this.things = things;
-    return this;
-  }
-
-  public Map<String, Bean2<K>> rpn() {
-    return rpn;
-  }
-
-  public Bean0<T, K> rpn(Map<String, Bean2<K>> rpn) {
-    this.rpn = rpn;
+  public Bean2<T> resp(T resp) {
+    this.resp = resp;
     return this;
   }
 }

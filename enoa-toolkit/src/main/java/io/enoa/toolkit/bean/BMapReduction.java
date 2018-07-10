@@ -15,6 +15,8 @@
  */
 package io.enoa.toolkit.bean;
 
+import io.enoa.toolkit.EoConst;
+import io.enoa.toolkit.bean.reduction._MapToBean;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.namecase.INameCase;
@@ -27,6 +29,7 @@ import io.enoa.toolkit.thr.EoException;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -44,6 +47,18 @@ public class BMapReduction {
 
   private BMapReduction() {
 
+  }
+
+  public <R> R objet(Map<String, Object> map, Type type) {
+    return objet(map, type, BeanKit.config());
+  }
+
+  public <R> R objet(Map<String, Object> map, Type type, Bonfig config) {
+    return objet(map, type, EoConst.DEPTH, config);
+  }
+
+  public <R> R objet(Map<String, Object> map, Type type, int depth, Bonfig config) {
+    return _MapToBean.instance().object(map, type, depth, config);
   }
 
 

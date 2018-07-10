@@ -344,11 +344,12 @@ public class ToJsonExample {
     Tryjson.epm().install(new Tsonfig.Builder().debug().dateFormatStrategy(DateFormatStrategy.TIMESTAMP).build());
 
     ToJsonExample example = new ToJsonExample();
-    example.testDateFormat();
-    example.testBean();
-    example.testMap();
-    example.testConf();
-    example.testArr();
+
+//    example.testDateFormat();
+//    example.testBean();
+//    example.testMap();
+//    example.testConf();
+//    example.testArr();
 
 //    example.testParseObject(0);
 //    example.testParseObject(1);

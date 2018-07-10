@@ -18,9 +18,9 @@ package io.enoa.toolkit.bean;
 import java.util.List;
 import java.util.Map;
 
-public class Bean0<T, K> {
+public class Bean3<T, K, S> extends Bean4<S> {
 
-  private String name;
+  public String name;
   private List<T> things;
   private Map<String, Bean2<K>> rpn;
 
@@ -28,7 +28,7 @@ public class Bean0<T, K> {
     return name;
   }
 
-  public Bean0<T, K> name(String name) {
+  public Bean3<T, K, S> name(String name) {
     this.name = name;
     return this;
   }
@@ -37,7 +37,7 @@ public class Bean0<T, K> {
     return things;
   }
 
-  public Bean0<T, K> things(List<T> things) {
+  public Bean3<T, K, S> things(List<T> things) {
     this.things = things;
     return this;
   }
@@ -46,7 +46,8 @@ public class Bean0<T, K> {
     return rpn;
   }
 
-  public Bean0<T, K> rpn(Map<String, Bean2<K>> rpn) {
+//  public Bean3<T, K, S> rpn(Map rpn) {
+  public Bean3<T, K, S> rpn(Map<String, Bean2<K>> rpn) {
     this.rpn = rpn;
     return this;
   }

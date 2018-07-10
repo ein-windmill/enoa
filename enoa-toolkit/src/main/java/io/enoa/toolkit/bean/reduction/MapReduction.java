@@ -13,41 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.toolkit.bean;
+package io.enoa.toolkit.bean.reduction;
 
-import java.util.List;
+import io.enoa.toolkit.bean.Bonfig;
+
+import java.lang.reflect.Type;
 import java.util.Map;
 
-public class Bean0<T, K> {
+class MapReduction {
 
-  private String name;
-  private List<T> things;
-  private Map<String, Bean2<K>> rpn;
-
-  public String name() {
-    return name;
+  private static class Holder {
+    private static final MapReduction INSTANCE = new MapReduction();
   }
 
-  public Bean0<T, K> name(String name) {
-    this.name = name;
-    return this;
+  static MapReduction instance() {
+    return Holder.INSTANCE;
   }
 
-  public List<T> things() {
-    return things;
+  <T> T object(Map<String, Object> map, Type type, int depth, Bonfig config) {
+    return null;
   }
 
-  public Bean0<T, K> things(List<T> things) {
-    this.things = things;
-    return this;
-  }
-
-  public Map<String, Bean2<K>> rpn() {
-    return rpn;
-  }
-
-  public Bean0<T, K> rpn(Map<String, Bean2<K>> rpn) {
-    this.rpn = rpn;
-    return this;
-  }
 }

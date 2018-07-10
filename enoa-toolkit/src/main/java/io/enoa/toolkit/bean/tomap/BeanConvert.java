@@ -66,7 +66,7 @@ class BeanConvert {
       String fname = config.namecase().convert(field.getName());
       try {
         Object _val = field.get(bean);
-        _val = this.depthValue(fname, _val, depth, config);
+        _val = this.depthValue(_val, depth, config);
         ret.put(fname, _val);
       } catch (IllegalAccessException e) {
         if (!config.skipError())
@@ -121,7 +121,7 @@ class BeanConvert {
         ret.put(mname, null);
         return;
       }
-      _val = this.depthValue(mname, _val, depth, config);
+      _val = this.depthValue(_val, depth, config);
       ret.put(mname, _val);
     } catch (Exception e) {
       if (!config.skipError())
@@ -130,7 +130,7 @@ class BeanConvert {
     }
   }
 
-  private Object depthValue(String key, Object value, int depth, Bonfig config) {
+  private Object depthValue(Object value, int depth, Bonfig config) {
     Class<?> vclazz = value.getClass();
     if (ConvertKit.supportConvert(vclazz)) {
       return value;

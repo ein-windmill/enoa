@@ -15,12 +15,14 @@
  */
 package io.enoa.toolkit.bean;
 
+import io.enoa.toolkit.digest.UUIDKit;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.sys.ObjectKit;
+import io.enoa.typebuilder.TypeBuilder;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Map;
+import java.lang.reflect.Type;
+import java.util.*;
 
 public class BeanKitTest {
 
@@ -33,16 +35,57 @@ public class BeanKitTest {
     System.out.println(te);
   }
 
-  @Test
-  public void testMap() {
-    Bean0 b0 = new Bean0();
+  private Map<String, Object> map0() {
+    Bean0<Bean1, Integer> b0 = new Bean0<>();
     b0.name("jack")
       .things(new ArrayList<Bean1>() {{
         add(new Bean1().thing("thing0"));
         add(new Bean1().thing("thing2"));
+      }})
+      .rpn(new HashMap<String, Bean2<Integer>>() {{
+        put("rp0", new Bean2<Integer>().extId(UUIDKit.next()).resp(0));
+        put("rp1", new Bean2<Integer>().extId(UUIDKit.next()).resp(1));
       }});
-    Map<String, Object> map = BeanKit.convert().map(b0);
+    return BeanKit.convert().map(b0);
+  }
+
+  private Map<String, Object> map3() {
+    Bean3<Bean1, Set<Integer>, String> b0 = new Bean3<>();
+    b0.name("jack")
+      .things(new ArrayList<Bean1>() {{
+        add(new Bean1().thing("thing0"));
+        add(new Bean1().thing("thing2"));
+      }})
+      .rpn(new HashMap<String, Bean2<Set<Integer>>>() {{
+        put("rp0", new Bean2<Set<Integer>>().extId(UUIDKit.next()).resp(new HashSet<Integer>() {{
+          add(0);
+        }}));
+        put("rp1", new Bean2<Set<Integer>>().extId(UUIDKit.next()).resp(new HashSet<Integer>() {{
+          add(1);
+        }}));
+      }})
+      .day("Day 1");
+    return BeanKit.convert().map(b0);
+  }
+
+  @Test
+  public void testMap() {
+    Map<String, Object> map = this.map0();
     System.out.println(map);
+  }
+
+  @Test
+  public void testReduction() {
+    Map<String, Object> map = this.map3();
+    Type type = TypeBuilder.with(Bean3.class)
+      .type(Bean1.class)
+      .beginSubType(Set.class)
+      .type(Integer.class)
+      .endSubType()
+      .type(String.class)
+      .build();
+    Object objet = BeanKit.reduction().objet(map, type);
+    System.out.println(objet);
   }
 
   public static class TestEntity {
