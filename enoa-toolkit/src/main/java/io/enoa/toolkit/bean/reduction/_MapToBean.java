@@ -47,8 +47,8 @@ public class _MapToBean {
       return MapReduction.instance().object(map, type, depth, config);
     }
 
-    Map<String, RefType> generic = ReflectKit.mapFieldGeneric(clazz, type);
-    return BeanReduction.instance().object(map, type, depth, config, clazz, generic);
+//    Map<String, GenericMapping> generic = ReflectKit.mapFieldGeneric(clazz, type);
+    return BeanReduction.instance().object(map, type, depth, config, clazz, null);
   }
 
 }
