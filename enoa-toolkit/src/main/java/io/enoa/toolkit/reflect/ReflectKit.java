@@ -176,7 +176,7 @@ public class ReflectKit {
   public static int indexOfGenericType(Class<?> clazz, String genericType) {
     String[] generics = genericTypes(clazz);
     for (int i = 0; i < generics.length; i++) {
-      if (genericType.equals(generics[i]))
+      if (genericType.contains(TextKit.union("<", generics[i], ">")))
         return i;
     }
     return -1;
@@ -195,97 +195,106 @@ public class ReflectKit {
     List<Field> fields = ReflectKit.declaredFields(clazz);
     Map<String, RefType> fieldGeneric = new HashMap<>();
 
-    int ix = 0;
-    for (Field field : fields) {
-      Type _generic = field.getGenericType();
-      String gtype = _generic.getTypeName();
+//    int ix = 0;
+//    for (Field field : fields) {
+//      Type _generic = field.getGenericType();
+//      String gtype = _generic.getTypeName();
+//
+//      if (!gtype.contains("<")) {
+//        if (ReflectKit.hasClazz(gtype)) {
+//          continue;
+//        }
+//      }
+//
+//      String fname = field.getName();
+////      RefType[] generics = reftype.generics();
+//      // 只有一个泛型或没有其他类嵌套泛型
+//      if (!gtype.contains("<")) {
+//        int tix = ReflectKit.indexOfGenericType(clazz, gtype);
+//        if (tix == -1)
+//          continue;
+//        fieldGeneric.put(fname, reftype.safeGeneric(ix));
+//        ix += 1;
+//        continue;
+//      }
+//      /*
+//      解析出当前字段有多少个泛型, 不一定都是可用的泛型
+//      e.g. List<Map<String, T>>  => [Map<String, T>, String, T]
+//       */
+////      List<String> fgts = parseGenericTypes(gtype);
+////      for (String gt : fgts) {
+////        int tix = ReflectKit.indexOfGenericType(clazz, gt);
+////        if (tix == -1)
+////          continue;
+////        fieldGeneric.put(fname, reftype.safeGeneric(ix));
+////        ix += 1;
+////      }
+////      CollectionKit.clear(fgts);
+//
+//      int tix = ReflectKit.indexOfGenericType(clazz, gtype);
+//      if (tix != -1) {
+//        fieldGeneric.put(fname, reftype.safeGeneric(ix));
+//        ix += 1;
+//      }
+//    }
+//    return fieldGeneric;
 
-      if (!gtype.contains("<")) {
-        if (ReflectKit.hasClazz(gtype)) {
-          continue;
-        }
-      }
-
-      String fname = field.getName();
-//      RefType[] generics = reftype.generics();
-      // 只有一个泛型或没有其他类嵌套泛型
-      if (!gtype.contains("<")) {
-        int tix = ReflectKit.indexOfGenericType(clazz, gtype);
-        if (tix == -1)
-          continue;
-        fieldGeneric.put(fname, reftype.safeGeneric(ix));
-        ix += 1;
-        continue;
-      }
-      /*
-      解析出当前字段有多少个泛型, 不一定都是可用的泛型
-      e.g. List<Map<String, T>>  => [Map<String, T>, String, T]
-       */
-      List<String> fgts = parseGenericTypes(gtype);
-      for (String gt : fgts) {
-        int tix = ReflectKit.indexOfGenericType(clazz, gt);
-        if (tix == -1)
-          continue;
-        fieldGeneric.put(fname, reftype.safeGeneric(ix));
-        ix += 1;
-      }
-      CollectionKit.clear(fgts);
-    }
-    return fieldGeneric;
+    // todo fix it
+    return null;
   }
 
 
-  /**
-   * 解析类的所有存在泛型
-   *
-   * @param gtype 泛型字符串
-   * @return List<String>
-   */
-  private static List<String> parseGenericTypes(String gtype) {
-    // 截取第一个 < 开始后面的内容
-    String _gtype0 = gtype.substring(gtype.indexOf('<') + 1);
-    // 删除最后一个 >
-    _gtype0 = _gtype0.substring(0, _gtype0.length() - 1);
-
-    List<String> rets = new ArrayList<>();
-    StringBuilder _gtp = new StringBuilder();
-    int len = _gtype0.length();
-    int ix = 0;
-    while (true) {
-      if (ix == len) {
-        if (_gtp.length() == 0)
-          break;
-        rets.add(_gtp.toString());
-        _gtp.delete(0, _gtp.length());
-        break;
-      }
-
-      char ch = _gtype0.charAt(ix);
-
-      ix += 1;
-
-      if (ch == ' ') {
-        continue;
-      }
-
-      if (ch == ',') {
-        rets.add(_gtp.toString());
-        _gtp.delete(0, _gtp.length());
-        continue;
-      }
-      _gtp.append(ch);
-    }
-
-    List<List<String>> others = new ArrayList<>();
-    for (String item : rets) {
-      if (item.contains("<"))
-        others.add(parseGenericTypes(item));
-    }
-    others.forEach(rets::addAll);
-    CollectionKit.clear(others);
-
-    return rets;
-  }
+//  /**
+//   * 解析类的所有存在泛型
+//   *
+//   * @param gtype 泛型字符串
+//   * @return List<String>
+//   */
+//  private static List<String> parseGenericTypes(String gtype) {
+//    // 截取第一个 < 开始后面的内容
+//    String _gtype0 = gtype.substring(gtype.indexOf('<') + 1);
+//    // 删除最后一个 >
+//    _gtype0 = _gtype0.substring(0, _gtype0.length() - 1);
+//
+//    List<String> rets = new ArrayList<>();
+//    StringBuilder _gtp = new StringBuilder();
+//    int len = _gtype0.length();
+//    int ix = 0;
+//    while (true) {
+//      if (ix == len) {
+//        if (_gtp.length() == 0)
+//          break;
+//        rets.add(_gtp.toString());
+//        _gtp.delete(0, _gtp.length());
+//        break;
+//      }
+//
+//      char ch = _gtype0.charAt(ix);
+//
+//      ix += 1;
+//
+//      if (ch == ' ') {
+//        continue;
+//      }
+//
+//      if (ch == ',') {
+//        rets.add(_gtp.toString());
+//        _gtp.delete(0, _gtp.length());
+//        continue;
+//      }
+//      _gtp.append(ch);
+//    }
+//
+//    List<List<String>> others = new ArrayList<>();
+//    for (String item : rets) {
+//      if (item.contains("<"))
+//        others.add(parseGenericTypes(item));
+//    }
+//    others.forEach(rets::addAll);
+//    CollectionKit.clear(others);
+//
+//    return rets;
+//  }
 
 
 }
