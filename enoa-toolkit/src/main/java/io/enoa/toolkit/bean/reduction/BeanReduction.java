@@ -149,15 +149,16 @@ class BeanReduction {
   }
 
   private Object newInstance(Class<?> clazz, Bonfig config, RefType fieldType) {
+    if (!clazz.isInterface()) {
+      return ReflectKit.newInstance(clazz).build();
+    }
     if (Map.class.isAssignableFrom(clazz)) {
       return config.bmap().create();
     }
     if (Iterable.class.isAssignableFrom(clazz)) {
       return config.bcollection().create();
     }
-    if (clazz.isInterface())
-      throw new EoReflectException(""); // todo can not support interface new instance
-    return ReflectKit.newInstance(clazz).build();
+    throw new EoReflectException(""); // todo can not support interface new instance
   }
 
 }
