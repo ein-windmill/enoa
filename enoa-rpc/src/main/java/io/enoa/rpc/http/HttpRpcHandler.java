@@ -29,10 +29,10 @@ import java.lang.reflect.Type;
 
 class HttpRpcHandler {
 
-  private static EnoaLog log = Rpc.config().factory().log("rpc_handler");
+  private static EnoaLog log = Rpc.epm().log("rpc_handler");
 
   private static <T> IRpcParser<T> handler(ResponseType type) {
-    IRpcParser<T> handler = Rpc.config().handler().handler(type);
+    IRpcParser<T> handler = Rpc.epm().handler(type);
     if (handler == null)
       throw new EoException(EnoaTipKit.message("eo.tip.rpc.handler_null", type.name()));
     return handler;

@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.rpc.config;
+package io.enoa.rpc.epm;
 
 import io.enoa.http.protocol.HttpResponseBody;
 import io.enoa.rpc.parser.IRpcParser;
 
 import java.lang.reflect.Type;
 
-class _DefaultBinaryRpcParser implements IRpcParser<byte[]> {
+class _DefaultXmlRpcParser<T> implements IRpcParser<T> {
   @Override
-  public byte[] parse(HttpResponseBody body, Type type) {
-    return body.bytes();
+  public T parse(HttpResponseBody body, Type type) {
+    return null;
   }
 }

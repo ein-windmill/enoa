@@ -16,14 +16,18 @@
 package io.enoa.rpc;
 
 import io.enoa.http.EoHttp;
-import io.enoa.rpc.config.RpcConfig;
+import io.enoa.rpc.epm.EPMRpc;
 import io.enoa.rpc.http.EnoaHttpRpc;
 
 public interface Rpc {
 
-  static RpcConfig config() {
-    return RpcConfig.instance();
+  static EPMRpc epm() {
+    return EPMRpc.instance();
   }
+
+//  static RpcConfig config() {
+//    return RpcConfig.instance();
+//  }
 
   static TcpRpc http(String name, String api) {
     return new EnoaHttpRpc(name, api);
