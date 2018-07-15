@@ -13,37 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.rpc.config;
+package io.enoa.rpc.epm;
 
+import io.enoa.http.protocol.HttpResponseBody;
 import io.enoa.rpc.parser.IRpcParser;
-import io.enoa.rpc.parser.ResponseType;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.lang.reflect.Type;
 
-public class ORpcHandler {
-
-  private static class Holder {
-    private static final ORpcHandler INSTANCE = new ORpcHandler();
+class _DefaultBinaryRpcParser implements IRpcParser<byte[]> {
+  @Override
+  public byte[] parse(HttpResponseBody body, Type type) {
+    return body.bytes();
   }
-
-  private ORpcHandler() {
-
-  }
-
-  static ORpcHandler instance() {
-    return Holder.INSTANCE;
-  }
-
-  private Map<ResponseType, IRpcParser> handler = new HashMap<>();
-
-  public <T> ORpcHandler reg(ResponseType type, IRpcParser<T> handler) {
-    this.handler.put(type, handler);
-    return this;
-  }
-
-  public <T> IRpcParser<T> handler(ResponseType type) {
-    return this.handler.get(type);
-  }
-
 }

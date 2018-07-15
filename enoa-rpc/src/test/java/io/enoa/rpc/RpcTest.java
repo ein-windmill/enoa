@@ -39,11 +39,11 @@ public class RpcTest {
 
   @Before
   public void before() {
-    Rpc.config().factory()
+    Rpc.epm()
       .json(new FastjsonProvider())
       .log(new Slf4JLogProvider());
 
-    Rpc.config().register()
+    Rpc.epm().register()
       .http("passport", EoUrl.with("http://localhost:20003/"))
       .http("publib", EoUrl.with("http://localhost:20005"));
   }
