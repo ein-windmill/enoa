@@ -13,16 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.rpc.config;
+package io.enoa.rpc.epm;
 
 import io.enoa.http.protocol.HttpResponseBody;
+import io.enoa.rpc.Rpc;
 import io.enoa.rpc.parser.IRpcParser;
 
 import java.lang.reflect.Type;
 
-class _DefaultXmlRpcParser<T> implements IRpcParser<T> {
+class _DefaultJsonRpcParser<T> implements IRpcParser<T> {
   @Override
   public T parse(HttpResponseBody body, Type type) {
-    return null;
+    return Rpc.epm().json().parse(body.string(), type);
   }
 }
