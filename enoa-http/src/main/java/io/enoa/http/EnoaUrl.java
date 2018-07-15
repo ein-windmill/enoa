@@ -191,6 +191,9 @@ public class EnoaUrl implements EoUrl {
 //    if (!this.change)
 //      return this.url;
 
+    if (this.paras == null || this.paras.isEmpty())
+      return this.url;
+    
     String paras = String.join("&", this.paras.stream()
       .map(para -> this.encode ? this.endWithEncode(para) : this.endNoEncode(para))
       .collect(Collectors.toSet()));
