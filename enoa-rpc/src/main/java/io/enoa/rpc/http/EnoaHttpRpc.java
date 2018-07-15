@@ -20,7 +20,6 @@ import io.enoa.http.protocol.HttpHeader;
 import io.enoa.http.protocol.HttpMethod;
 import io.enoa.http.protocol.HttpPromise;
 import io.enoa.http.protocol.HttpResponse;
-import io.enoa.http.provider.httphelper.HttpHelperProvider;
 import io.enoa.http.proxy.HttpProxy;
 import io.enoa.rpc.TcpRpc;
 import io.enoa.rpc.parser.IRpcParser;
@@ -39,10 +38,10 @@ public class EnoaHttpRpc implements TcpRpc {
   private Http http;
 
   public EnoaHttpRpc(String name, String api) {
-    this(HttpHelperProvider.instance(), name, api);
+    this(name, api, EoHttp.def());
   }
 
-  public EnoaHttpRpc(EoHttp http, String name, String api) {
+  public EnoaHttpRpc(String name, String api, EoHttp http) {
     EoUrl url = _HttpRpcRegister.instance().url(name);
     if (url == null)
       throw new RpcException(RpcException.Type.HTTP, EnoaTipKit.message("eo.tip.rpc.http_rpc_name_404", name));
