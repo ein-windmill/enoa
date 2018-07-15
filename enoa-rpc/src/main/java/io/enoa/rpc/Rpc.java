@@ -33,8 +33,8 @@ public interface Rpc {
     return new EnoaHttpRpc(name, api);
   }
 
-  static TcpRpc http(EoHttp http, String name, String api) {
-    return new EnoaHttpRpc(http, name, api);
+  static TcpRpc http(String name, String api, EoHttp http) {
+    return new EnoaHttpRpc(name, api, http);
   }
 
 }
