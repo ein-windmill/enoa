@@ -58,6 +58,11 @@ public class ERetBuilder {
     public boolean fail() {
       return !this.bool("stat");
     }
+
+    @Override
+    public EoResp resp() {
+      return EoResp.build(this.ok() ? EoResp.Stat.OK : EoResp.Stat.FAIL);
+    }
   }
 
 }

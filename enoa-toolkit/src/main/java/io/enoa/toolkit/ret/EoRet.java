@@ -27,4 +27,6 @@ public interface EoRet extends Ret, FastKv<EoRet> {
 
   boolean fail();
 
+  EoResp resp();
+
 }
