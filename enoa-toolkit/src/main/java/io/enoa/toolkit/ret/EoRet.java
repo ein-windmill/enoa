@@ -23,6 +23,10 @@ public interface EoRet extends Ret, FastKv<EoRet> {
     return new ERetBuilder();
   }
 
+  static ERetBuilder builder(boolean stat) {
+    return builder().stat(stat);
+  }
+
   boolean ok();
 
   boolean fail();
