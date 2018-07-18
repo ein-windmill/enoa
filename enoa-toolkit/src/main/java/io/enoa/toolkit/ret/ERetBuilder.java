@@ -48,6 +48,12 @@ public class ERetBuilder {
     return this;
   }
 
+  public ERetBuilder setIf(String key, Object value) {
+    if (this.ret.fail())
+      return this;
+    return this.set(key, value);
+  }
+
   private static class EoRetImpl extends HashMap<String, Object> implements EoRet {
     @Override
     public boolean ok() {
@@ -57,6 +63,11 @@ public class ERetBuilder {
     @Override
     public boolean fail() {
       return !this.bool("stat");
+    }
+
+    @Override
+    public EoResp resp() {
+      return EoResp.build(this.ok() ? EoResp.Stat.OK : EoResp.Stat.FAIL);
     }
   }
 
