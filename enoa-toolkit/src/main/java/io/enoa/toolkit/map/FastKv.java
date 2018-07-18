@@ -94,46 +94,6 @@ public interface FastKv<S extends Map> extends Map<String, Object> {
     return this.value(key).longer();
   }
 
-  default Double doubler(String key, Double def) {
-    return this.value(key).doubler(def);
-  }
-
-  default Double doubler(String key) {
-    return this.value(key).doubler();
-  }
-
-  default Float floater(String key, Float def) {
-    return this.value(key).floater(def);
-  }
-
-  default Float floater(String key) {
-    return this.value(key).floater();
-  }
-
-  default Short shorter(String key, Short def) {
-    return this.value(key).shorter(def);
-  }
-
-  default Short shorter(String key) {
-    return this.value(key).shorter();
-  }
-
-  default BigDecimal bigdecimal(String key, BigDecimal def) {
-    return this.value(key).bigdecimal(def);
-  }
-
-  default BigDecimal bigdecimal(String key) {
-    return this.value(key).bigdecimal();
-  }
-
-  default BigInteger bigint(String key, BigInteger def) {
-    return this.value(key).bigint(def);
-  }
-
-  default BigInteger bigint(String key) {
-    return this.value(key).bigint();
-  }
-
   default Number number(String key, Number def) {
     return this.value(key).number(def);
   }
