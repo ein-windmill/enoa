@@ -30,8 +30,7 @@ class _Hessian implements EoSerializer {
       throw new IllegalArgumentException("Serialize data can not be null.");
 
     HessianOutput output = null;
-    try {
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
       output = new HessianOutput(baos);
 //      output.startMessage();
       output.writeObject(object);

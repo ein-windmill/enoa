@@ -21,7 +21,6 @@ import org.nustaq.serialization.FSTObjectOutput;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 
 class _FstSerializer implements EoSerializer {
   @Override
@@ -29,22 +28,13 @@ class _FstSerializer implements EoSerializer {
     if (object == null)
       throw new IllegalArgumentException("Serialize data can not be null.");
 
-    FSTObjectOutput output = null;
-    try {
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      output = new FSTObjectOutput(baos);
+    try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
+         FSTObjectOutput output = new FSTObjectOutput(baos)) {
       output.writeObject(object);
       output.flush();
       return baos.toByteArray();
     } catch (Exception e) {
       throw new RuntimeException(e.getMessage(), e);
-    } finally {
-      if (output != null)
-        try {
-          output.close();
-        } catch (IOException e) {
-          // skip
-        }
     }
   }
 
