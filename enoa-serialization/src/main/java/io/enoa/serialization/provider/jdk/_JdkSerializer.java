@@ -20,6 +20,15 @@ import io.enoa.serialization.EoSerializer;
 import java.io.*;
 
 class _JdkSerializer implements EoSerializer {
+
+  private static class Holder {
+    private static final _JdkSerializer INSTANCE = new _JdkSerializer();
+  }
+
+  static _JdkSerializer instance() {
+    return Holder.INSTANCE;
+  }
+
   @Override
   public <T> byte[] serialize(T object) {
     if (object == null)

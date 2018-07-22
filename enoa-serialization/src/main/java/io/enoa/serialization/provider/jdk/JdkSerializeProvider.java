@@ -21,6 +21,6 @@ import io.enoa.serialization.EoSerializer;
 public class JdkSerializeProvider implements EoSerializationFactory {
   @Override
   public EoSerializer serializer() {
-    return new _JdkSerializer();
+    return _JdkSerializer.instance();
   }
 }
