@@ -17,13 +17,13 @@ package io.enoa.serialization.provider.hessian;
 
 import com.caucho.hessian.io.HessianInput;
 import com.caucho.hessian.io.HessianOutput;
-import io.enoa.serialization.EoSerializer;
+import io.enoa.serialization.Serializer;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-class _Hessian implements EoSerializer {
+class _Hessian implements Serializer {
   @Override
   public <T> byte[] serialize(T object) {
     if (object == null)

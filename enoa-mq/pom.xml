@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>enoa</artifactId>
+    <groupId>io.enoa</groupId>
+    <version>1.6-beta.0</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>enoa-mq</artifactId>
+  <packaging>pom</packaging>
+  <modules>
+    <module>enoa-rabbitmq</module>
+  </modules>
+
+
+</project>

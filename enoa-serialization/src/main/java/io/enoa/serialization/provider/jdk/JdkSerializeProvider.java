@@ -16,11 +16,11 @@
 package io.enoa.serialization.provider.jdk;
 
 import io.enoa.serialization.EoSerializationFactory;
-import io.enoa.serialization.EoSerializer;
+import io.enoa.serialization.Serializer;
 
 public class JdkSerializeProvider implements EoSerializationFactory {
   @Override
-  public EoSerializer serializer() {
+  public Serializer serializer() {
     return new _JdkSerializer();
   }
 }
