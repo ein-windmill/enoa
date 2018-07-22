@@ -17,7 +17,7 @@ package io.enoa.ext.sess.impl.file;
 
 import io.enoa.log.Log;
 import io.enoa.repeater.http.Cookie;
-import io.enoa.serialization.EoSerializer;
+import io.enoa.serialization.Serializer;
 import io.enoa.toolkit.binary.EnoaBinary;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.digest.UUIDKit;
@@ -54,9 +54,9 @@ class FileSessionImpl implements Session {
   private String _value;
 
   private Cookie newCookie;
-  private EoSerializer serializer;
+  private Serializer serializer;
 
-  FileSessionImpl(YoRequest request, String sessKey, Path savePath, EoSerializer serializer) {
+  FileSessionImpl(YoRequest request, String sessKey, Path savePath, Serializer serializer) {
     this.request = request;
     this.sessKey = sessKey;
     this.savePath = savePath;

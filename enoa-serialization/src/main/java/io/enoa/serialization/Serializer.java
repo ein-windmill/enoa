@@ -15,7 +15,7 @@
  */
 package io.enoa.serialization;
 
-public interface EoSerializer {
+public interface Serializer {
 
   static EPMSerialization epm() {
     return EPMSerialization.instance();

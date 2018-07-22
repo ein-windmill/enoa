@@ -16,11 +16,11 @@
 package io.enoa.serialization.provider.hessian;
 
 import io.enoa.serialization.EoSerializationFactory;
-import io.enoa.serialization.EoSerializer;
+import io.enoa.serialization.Serializer;
 
 public class HessianProvider implements EoSerializationFactory {
   @Override
-  public EoSerializer serializer() {
+  public Serializer serializer() {
     return new _Hessian();
   }
 }

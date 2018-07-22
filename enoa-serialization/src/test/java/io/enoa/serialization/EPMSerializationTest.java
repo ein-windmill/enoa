@@ -47,10 +47,10 @@ public class EPMSerializationTest {
   @Test
   public void testSerialize() throws Exception {
 //    EMgrSerialization.defSerializationFactory(new JdkSerializeProvider());
-//    EoSerializer serializer = EMgrSerialization.serialization().serializer();
+//    Serializer serializer = EMgrSerialization.serialization().serializer();
 
-    EoSerializer.epm().install(new JdkSerializeProvider());
-    EoSerializer serializer = EoSerializer.epm().serializer();
+    Serializer.epm().install(new JdkSerializeProvider());
+    Serializer serializer = Serializer.epm().serializer();
 
     byte[] serialize = serializer.serialize(this.data());
 
