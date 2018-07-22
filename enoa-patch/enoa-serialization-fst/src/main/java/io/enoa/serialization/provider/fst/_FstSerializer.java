@@ -23,6 +23,15 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
 class _FstSerializer implements EoSerializer {
+
+  private static class Holder {
+    private static final _FstSerializer INSTANCE = new _FstSerializer();
+  }
+
+  static _FstSerializer instance() {
+    return Holder.INSTANCE;
+  }
+
   @Override
   public <T> byte[] serialize(T object) {
     if (object == null)

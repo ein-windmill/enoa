@@ -21,6 +21,6 @@ import io.enoa.serialization.EoSerializer;
 public class HessianProvider implements EoSerializationFactory {
   @Override
   public EoSerializer serializer() {
-    return new _Hessian();
+    return _Hessian.instance();
   }
 }
