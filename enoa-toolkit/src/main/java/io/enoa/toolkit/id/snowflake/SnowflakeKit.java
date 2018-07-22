@@ -25,9 +25,9 @@ public final class SnowflakeKit {
 
   }
 
-  private static boolean inited = false;
   private static Long datacenterId;
   private static Long workerId;
+  private static Snowflake snowflake;
 
   public static void init(long workerId) {
     init(1L, workerId);
@@ -36,10 +36,9 @@ public final class SnowflakeKit {
   public static void init(long datacenterId, long workerId) {
     try {
       // 不允许初始化第二次
-      if (inited)
+      if (snowflake != null)
         throw new EoException(EnoaTipKit.message("eo.tip.toolkit.snowflake_init_once"));
-      new Snowflake(datacenterId, workerId);
-      inited = true;
+      snowflake = new Snowflake(datacenterId, workerId);
     } catch (Exception e) {
       throw new EoException(e);
     }
@@ -49,9 +48,11 @@ public final class SnowflakeKit {
   }
 
   public static long next() {
+    if (snowflake == null)
+      throw new EoException(EnoaTipKit.message("eo.tip.toolkit.snowkit_do_init"));
     if (datacenterId == null || workerId == null)
       throw new EoException(EnoaTipKit.message("eo.tip.toolkit.snowkit_do_init"));
-    return new Snowflake(datacenterId, workerId).nextId();
+    return snowflake.nextId();
   }
 
   public static long longer() {

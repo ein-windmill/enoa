@@ -17,6 +17,6 @@ package io.enoa.serialization;
 
 public interface EoSerializationFactory {
 
-  EoSerializer serializer();
+  Serializer serializer();
 
 }

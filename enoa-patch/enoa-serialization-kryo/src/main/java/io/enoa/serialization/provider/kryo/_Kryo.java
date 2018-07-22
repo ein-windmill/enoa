@@ -19,13 +19,13 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.KryoException;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
-import io.enoa.serialization.EoSerializer;
+import io.enoa.serialization.Serializer;
 import org.objenesis.strategy.StdInstantiatorStrategy;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
-class _Kryo implements EoSerializer {
+class _Kryo implements Serializer {
   private static final Kryo kryo = new Kryo();
 
   static {

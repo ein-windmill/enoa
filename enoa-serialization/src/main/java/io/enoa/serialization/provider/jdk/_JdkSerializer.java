@@ -15,11 +15,11 @@
  */
 package io.enoa.serialization.provider.jdk;
 
-import io.enoa.serialization.EoSerializer;
+import io.enoa.serialization.Serializer;
 
 import java.io.*;
 
-class _JdkSerializer implements EoSerializer {
+class _JdkSerializer implements Serializer {
   @Override
   public <T> byte[] serialize(T object) {
     if (object == null)

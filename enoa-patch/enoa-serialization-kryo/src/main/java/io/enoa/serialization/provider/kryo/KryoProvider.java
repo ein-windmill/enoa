@@ -16,11 +16,11 @@
 package io.enoa.serialization.provider.kryo;
 
 import io.enoa.serialization.EoSerializationFactory;
-import io.enoa.serialization.EoSerializer;
+import io.enoa.serialization.Serializer;
 
 public class KryoProvider implements EoSerializationFactory {
   @Override
-  public EoSerializer serializer() {
+  public Serializer serializer() {
     return new _Kryo();
   }
 }

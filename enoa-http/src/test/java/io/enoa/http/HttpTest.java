@@ -22,7 +22,7 @@ import io.enoa.http.protocol.HttpResponse;
 import io.enoa.http.protocol.HttpResponseBody;
 import io.enoa.log.Log;
 import io.enoa.log.provider.slf4j.Slf4JLogProvider;
-import io.enoa.serialization.EoSerializer;
+import io.enoa.serialization.Serializer;
 import io.enoa.serialization.provider.jdk.JdkSerializeProvider;
 import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.binary.EnoaBinary;
@@ -39,7 +39,7 @@ import java.util.concurrent.TimeUnit;
 
 public class HttpTest {
 
-  private EoSerializer serializer = new JdkSerializeProvider().serializer();
+  private Serializer serializer = new JdkSerializeProvider().serializer();
 
   @Before
   public void before() {

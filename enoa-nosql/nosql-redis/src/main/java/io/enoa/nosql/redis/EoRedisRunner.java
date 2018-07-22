@@ -15,11 +15,11 @@
  */
 package io.enoa.nosql.redis;
 
-import io.enoa.serialization.EoSerializer;
+import io.enoa.serialization.Serializer;
 import redis.clients.jedis.Jedis;
 
 public interface EoRedisRunner<T> {
 
-  T run(Jedis jedis, EoSerializer serializer);
+  T run(Jedis jedis, Serializer serializer);
 
 }
