@@ -13,14 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.serialization.provider.jdk;
+package io.enoa.serialization;
 
-import io.enoa.serialization.EoSerializationFactory;
-import io.enoa.serialization.EoSerializer;
+public interface EoSerializer {
 
-public class JdkSerializeProvider implements EoSerializationFactory {
-  @Override
-  public EoSerializer serializer() {
-    return new _JdkSerializer();
-  }
+  <T> byte[] serialize(T object);
+
+  <T> T reduction(byte[] bytes);
+
 }

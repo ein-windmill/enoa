@@ -16,11 +16,11 @@
 package io.enoa.serialization.provider.fst;
 
 import io.enoa.serialization.EoSerializationFactory;
-import io.enoa.serialization.Serializer;
+import io.enoa.serialization.EoSerializer;
 
 public class FstProvider implements EoSerializationFactory {
   @Override
-  public Serializer serializer() {
+  public EoSerializer serializer() {
     return new _FstSerializer();
   }
 }

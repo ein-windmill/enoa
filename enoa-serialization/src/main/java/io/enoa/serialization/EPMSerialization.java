@@ -39,7 +39,7 @@ public class EPMSerialization {
     this.factory = factory;
   }
 
-  public Serializer serializer() {
+  public EoSerializer serializer() {
     return this.factory.serializer();
   }
 

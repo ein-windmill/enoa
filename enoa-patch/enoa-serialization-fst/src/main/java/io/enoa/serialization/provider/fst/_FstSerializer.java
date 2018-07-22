@@ -15,7 +15,7 @@
  */
 package io.enoa.serialization.provider.fst;
 
-import io.enoa.serialization.Serializer;
+import io.enoa.serialization.EoSerializer;
 import org.nustaq.serialization.FSTObjectInput;
 import org.nustaq.serialization.FSTObjectOutput;
 
@@ -23,7 +23,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-class _FstSerializer implements Serializer {
+class _FstSerializer implements EoSerializer {
   @Override
   public <T> byte[] serialize(T object) {
     if (object == null)
