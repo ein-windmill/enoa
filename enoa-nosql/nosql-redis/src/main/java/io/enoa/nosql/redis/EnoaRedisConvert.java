@@ -15,7 +15,7 @@
  */
 package io.enoa.nosql.redis;
 
-import io.enoa.serialization.Serializer;
+import io.enoa.serialization.EoSerializer;
 import redis.clients.jedis.ScanResult;
 import redis.clients.util.JedisByteHashMap;
 import redis.clients.util.SafeEncoder;
@@ -28,11 +28,11 @@ import java.util.stream.Collectors;
 
 public class EnoaRedisConvert {
 
-  private static Map<Serializer, EnoaRedisConvert> CACHE = new HashMap<>();
+  private static Map<EoSerializer, EnoaRedisConvert> CACHE = new HashMap<>();
 
-  private Serializer serializer;
+  private EoSerializer serializer;
 
-  public static EnoaRedisConvert with(Serializer serializer) {
+  public static EnoaRedisConvert with(EoSerializer serializer) {
     EnoaRedisConvert convert = CACHE.get(serializer);
     if (convert != null)
       return convert;

@@ -15,14 +15,18 @@
  */
 package io.enoa.serialization;
 
-public interface Serializer {
+public class Serializer {
 
-  static EPMSerialization epm() {
+  public static EPMSerialization epm() {
     return EPMSerialization.instance();
   }
 
-  <T> byte[] serialize(T object);
+  public static <T> byte[] serialize(T object) {
+    return epm().serializer().serialize(object);
+  }
 
-  <T> T reduction(byte[] bytes);
+  public static <T> T reduction(byte[] bytes) {
+    return epm().serializer().reduction(bytes);
+  }
 
 }

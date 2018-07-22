@@ -19,7 +19,7 @@ import io.enoa.nosql.redis.EnoaRedis;
 import io.enoa.nosql.redis.EoRedisRunner;
 import io.enoa.nosql.redis.Redis;
 import io.enoa.nosql.redis.RedisSentinelConfig;
-import io.enoa.serialization.Serializer;
+import io.enoa.serialization.EoSerializer;
 import io.enoa.serialization.provider.jdk.JdkSerializeProvider;
 import redis.clients.jedis.Jedis;
 import redis.clients.util.SafeEncoder;
@@ -37,13 +37,13 @@ public class AdvExample {
 
     Redis.run(new EoRedisRunner() {
       @Override
-      public Object run(Jedis jedis, Serializer serializer) {
+      public Object run(Jedis jedis, EoSerializer serializer) {
         return jedis.set(key, "new interface");
       }
     });
     String ret = Redis.run(new EoRedisRunner() {
       @Override
-      public Object run(Jedis jedis, Serializer serializer) {
+      public Object run(Jedis jedis, EoSerializer serializer) {
         return jedis.get(key);
       }
     });

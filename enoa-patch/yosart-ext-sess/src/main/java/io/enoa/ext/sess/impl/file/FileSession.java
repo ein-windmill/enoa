@@ -18,6 +18,7 @@ package io.enoa.ext.sess.impl.file;
 import io.enoa.ext.sess.SessFactory;
 import io.enoa.log.Log;
 import io.enoa.serialization.EoSerializationFactory;
+import io.enoa.serialization.EoSerializer;
 import io.enoa.serialization.Serializer;
 import io.enoa.toolkit.file.FileKit;
 import io.enoa.yosart.kernel.http.Session;
@@ -28,7 +29,7 @@ import java.nio.file.Path;
 public class FileSession implements SessFactory {
 
   private Path savePath;
-  private Serializer serializer;
+  private EoSerializer serializer;
   private String sessKey;
 
 
