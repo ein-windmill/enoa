@@ -18,8 +18,6 @@ package io.enoa.mq.rabbitmq;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
-import io.enoa.toolkit.eo.tip.EnoaTipKit;
-import io.enoa.toolkit.thr.EoException;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -42,7 +40,8 @@ public class EPMRabbit {
 
   public void install(RabbitConfig config) {
     if (this.existsName(config.name()))
-      throw new EoException(EnoaTipKit.message("eo.tip.rabbitmq.name_exists", config.name()));
+//      throw new EoException(EnoaTipKit.message("eo.tip.rabbitmq.name_exists", config.name()));
+      throw new ERabbitMQException("This RabbitMQ name is exists. => " + config.name());
     ConnectionFactory factory = new ConnectionFactory();
     try {
       Connection connection = factory.newConnection(config.executor(), config.addresses(), config.name());
@@ -51,7 +50,8 @@ public class EPMRabbit {
         connection.createChannel();
       this.rabbitMap.put(config.name(), new EnoaRabbit(channel));
     } catch (Exception e) {
-      throw new EoException(EnoaTipKit.message("eo.tip.rabbitmq.open_fail", e.getMessage()), e);
+//      throw new EoException(EnoaTipKit.message("eo.tip.rabbitmq.open_fail", e.getMessage()), e);
+      throw new ERabbitMQException(e.getMessage(), e);
     }
   }
 
@@ -72,7 +72,8 @@ public class EPMRabbit {
     try {
       rabbit.getConnection().close();
     } catch (Exception e) {
-      throw new EoException(EnoaTipKit.message("eo.tip.rabbitmq.close_fail"));
+//      throw new EoException(EnoaTipKit.message("eo.tip.rabbitmq.close_fail"));
+      throw new ERabbitMQException(e.getMessage(), e);
     }
     this.rabbitMap.remove(name);
   }

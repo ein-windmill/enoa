@@ -16,8 +16,6 @@
 package io.enoa.mq.rabbitmq;
 
 import com.rabbitmq.client.*;
-import io.enoa.toolkit.eo.tip.EnoaTipKit;
-import io.enoa.toolkit.thr.EoException;
 
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -53,7 +51,8 @@ public class EnoaRabbit implements Channel {
     try {
       return runner.run();
     } catch (Exception e) {
-      throw new EoException(e.getMessage(), e);
+//      throw new EoException(e.getMessage(), e);
+      throw new ERabbitMQException(e.getMessage(), e);
     }
   }
 
@@ -61,7 +60,8 @@ public class EnoaRabbit implements Channel {
     try {
       runner.run();
     } catch (Exception e) {
-      throw new EoException(e.getMessage(), e);
+//      throw new EoException(e.getMessage(), e);
+      throw new ERabbitMQException(e.getMessage(), e);
     }
   }
 
@@ -77,20 +77,22 @@ public class EnoaRabbit implements Channel {
 
   @Override
   public void close() {
-    try {
-      this.channel.close();
-    } catch (Exception e) {
-      throw new EoException(EnoaTipKit.message("eo.tip.rabbitmq.close_fail"), e);
-    }
+//    try {
+//      this.channel.close();
+//    } catch (Exception e) {
+//      throw new EoException(EnoaTipKit.message("eo.tip.rabbitmq.close_fail"), e);
+//    }
+    this.runV(this.channel::close);
   }
 
   @Override
   public void close(int closeCode, String closeMessage) {
-    try {
-      this.channel.close(closeCode, closeMessage);
-    } catch (Exception e) {
-      throw new EoException(EnoaTipKit.message("eo.tip.rabbitmq.close_fail"), e);
-    }
+//    try {
+//      this.channel.close(closeCode, closeMessage);
+//    } catch (Exception e) {
+//      throw new EoException(EnoaTipKit.message("eo.tip.rabbitmq.close_fail"), e);
+//    }
+    this.runV(() -> this.channel.close(closeCode, closeMessage));
   }
 
   @Override

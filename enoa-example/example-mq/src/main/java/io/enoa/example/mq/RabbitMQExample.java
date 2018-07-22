@@ -1,23 +1,27 @@
-package io.enoa.mq.rabbitmq;
+package io.enoa.example.mq;
 
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
+import com.rabbitmq.client.MessageProperties;
+import io.enoa.mq.rabbitmq.Rabbit;
+import io.enoa.mq.rabbitmq.RabbitConfig;
 import io.enoa.toolkit.text.TextKit;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
 
 import java.nio.charset.Charset;
-import java.util.concurrent.TimeUnit;
 
-@Ignore
-public class RabbitTest {
+public class RabbitMQExample {
 
-  private String queue = "test";
+  public void start() {
+    this.before();
+    this.declare();
 
-  @Before
-  public void before() {
+    this.push();
+    this.consume();
+  }
+
+
+  private void before() {
     Rabbit.epm().install(new RabbitConfig.Builder()
       .address("localhost", 5672)
       .name("main")
@@ -25,22 +29,23 @@ public class RabbitTest {
       .passwd("passwd")
       .virtualHost("/")
       .build());
-
-    Rabbit.queueDeclare(this.queue, false, false, false, null);
-
   }
 
-  @Test
-  public void testSend() {
+  private void declare() {
+    Rabbit.queueDelete("test");
+    Rabbit.queueDeclare("test", true, false, false, null);
+  }
+
+
+  private void push() {
     String message = "Hello World!";
-    Rabbit.basicPublish("", this.queue, null, message.getBytes(Charset.forName("UTF-8")));
+    Rabbit.basicPublish("", "test", MessageProperties.PERSISTENT_TEXT_PLAIN, message.getBytes(Charset.forName("UTF-8")));
     System.out.println(TextKit.format("Sent '{0}'", message));
-    Rabbit.close();
+//    Rabbit.close();
   }
 
-  @Test
-  public void testConsume() {
-    Rabbit.basicConsume(this.queue, true,
+  private void consume() {
+    Rabbit.basicConsume("test", true,
       new DefaultConsumer(Rabbit.channel()) {
         @Override
         public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) {
@@ -48,11 +53,6 @@ public class RabbitTest {
           System.out.println(TextKit.format("Received '{0}'", message));
         }
       });
-    try {
-      TimeUnit.DAYS.sleep(1L);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
   }
 
 }

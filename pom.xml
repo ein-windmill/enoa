@@ -369,13 +369,13 @@
         <version>${project.version}</version>
       </dependency>
 
-<!--
-      <dependency>
-        <groupId>io.enoa</groupId>
-        <artifactId>trydb-ttsql-enjoy</artifactId>
-        <version>${project.version}</version>
-      </dependency>
--->
+      <!--
+            <dependency>
+              <groupId>io.enoa</groupId>
+              <artifactId>trydb-ttsql-enjoy</artifactId>
+              <version>${project.version}</version>
+            </dependency>
+      -->
 
       <dependency>
         <groupId>io.enoa</groupId>
@@ -518,6 +518,12 @@
       <dependency>
         <groupId>io.enoa</groupId>
         <artifactId>index-solr</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-rabbitmq</artifactId>
         <version>${project.version}</version>
       </dependency>
 
