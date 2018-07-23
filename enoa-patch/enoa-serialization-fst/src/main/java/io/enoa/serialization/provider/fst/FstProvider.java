@@ -21,6 +21,6 @@ import io.enoa.serialization.EoSerializer;
 public class FstProvider implements EoSerializationFactory {
   @Override
   public EoSerializer serializer() {
-    return new _FstSerializer();
+    return _FstSerializer.instance();
   }
 }

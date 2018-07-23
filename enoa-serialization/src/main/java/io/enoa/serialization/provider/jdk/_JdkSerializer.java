@@ -20,27 +20,27 @@ import io.enoa.serialization.EoSerializer;
 import java.io.*;
 
 class _JdkSerializer implements EoSerializer {
+
+  private static class Holder {
+    private static final _JdkSerializer INSTANCE = new _JdkSerializer();
+  }
+
+  static _JdkSerializer instance() {
+    return Holder.INSTANCE;
+  }
+
   @Override
   public <T> byte[] serialize(T object) {
     if (object == null)
       throw new IllegalArgumentException("Serialize data can not be null.");
 
-    ObjectOutputStream output = null;
-    try {
-      ByteArrayOutputStream bos = new ByteArrayOutputStream();
-      output = new ObjectOutputStream(bos);
+    try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
+         ObjectOutputStream output = new ObjectOutputStream(bos)) {
       output.writeObject(object);
       output.flush();
       return bos.toByteArray();
     } catch (IOException e) {
       throw new RuntimeException(e.getMessage(), e);
-    } finally {
-      if (output != null)
-        try {
-          output.close();
-        } catch (Exception e) {
-          // skip
-        }
     }
   }
 

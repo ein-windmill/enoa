@@ -21,6 +21,6 @@ import io.enoa.serialization.EoSerializer;
 public class KryoProvider implements EoSerializationFactory {
   @Override
   public EoSerializer serializer() {
-    return new _Kryo();
+    return _Kryo.instance();
   }
 }

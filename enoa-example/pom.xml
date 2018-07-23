@@ -26,6 +26,7 @@
     <module>example-stove</module>
     <module>example-index</module>
     <module>example-tryjson</module>
+    <module>example-mq</module>
   </modules>
 
 

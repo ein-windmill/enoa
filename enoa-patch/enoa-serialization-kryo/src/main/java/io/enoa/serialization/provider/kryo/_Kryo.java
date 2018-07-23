@@ -26,11 +26,20 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
 class _Kryo implements EoSerializer {
-  private static final Kryo kryo = new Kryo();
 
-  static {
-    kryo.setReferences(true);
-    kryo.setRegistrationRequired(false);
+  private static class Holder {
+    private static final _Kryo INSTANCE = new _Kryo();
+  }
+
+  static _Kryo instance() {
+    return Holder.INSTANCE;
+  }
+
+  private final Kryo kryo = new Kryo();
+
+  private _Kryo() {
+    this.kryo.setReferences(true);
+    this.kryo.setRegistrationRequired(false);
     ((Kryo.DefaultInstantiatorStrategy) kryo.getInstantiatorStrategy())
       .setFallbackInstantiatorStrategy(new StdInstantiatorStrategy());
   }

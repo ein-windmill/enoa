@@ -17,10 +17,6 @@ package io.enoa.serialization;
 
 public interface EoSerializer {
 
-  static EPMSerialization epm() {
-    return EPMSerialization.instance();
-  }
-
   <T> byte[] serialize(T object);
 
   <T> T reduction(byte[] bytes);

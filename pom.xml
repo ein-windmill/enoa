@@ -70,6 +70,7 @@
     <module>enoa-index</module>
     <module>enoa-tryjson</module>
     <module>enoa-typebuilder</module>
+    <module>enoa-mq</module>
   </modules>
 
 
@@ -149,6 +150,9 @@
     <version-java-scan>v2.1.0</version-java-scan>
     <version-fastclasspathscanner>2.18.1</version-fastclasspathscanner>
     <version-email>1.4.7</version-email>
+
+
+    <version-amqp>5.3.0</version-amqp>
   </properties>
 
 
@@ -531,6 +535,13 @@
         <version>${project.version}</version>
       </dependency>
 
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-rabbitmq</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
       <dependency>
         <groupId>ch.qos.logback</groupId>
         <artifactId>logback-core</artifactId>
@@ -826,6 +837,13 @@
         <artifactId>mail</artifactId>
         <version>${version-email}</version>
       </dependency>
+
+      <dependency>
+        <groupId>com.rabbitmq</groupId>
+        <artifactId>amqp-client</artifactId>
+        <version>${version-amqp}</version>
+      </dependency>
+
 
     </dependencies>
   </dependencyManagement>

@@ -49,8 +49,8 @@ public class EPMSerializationTest {
 //    EMgrSerialization.defSerializationFactory(new JdkSerializeProvider());
 //    EoSerializer serializer = EMgrSerialization.serialization().serializer();
 
-    EoSerializer.epm().install(new JdkSerializeProvider());
-    EoSerializer serializer = EoSerializer.epm().serializer();
+    Serializer.epm().install(new JdkSerializeProvider());
+    EoSerializer serializer = Serializer.epm().serializer();
 
     byte[] serialize = serializer.serialize(this.data());
 
