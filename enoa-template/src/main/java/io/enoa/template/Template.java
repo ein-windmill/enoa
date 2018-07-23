@@ -15,9 +15,18 @@
  */
 package io.enoa.template;
 
-/**
- * vtom - io.enoa.template
- */
-public abstract class EnoaEngine implements _Engine {
+public class Template {
+
+  public static EPMTemplate epm() {
+    return EPMTemplate.instance();
+  }
+
+  public static EnoaEngine use(String name) {
+    return epm().engine(name);
+  }
+
+  public static EnoaEngine use() {
+    return epm().engine();
+  }
 
 }
