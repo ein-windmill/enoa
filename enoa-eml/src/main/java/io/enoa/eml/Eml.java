@@ -19,12 +19,24 @@ import io.enoa.eml.provider.enoa.EnoaEmlProvider;
 
 public interface Eml {
 
-  static Eml use(Eml provider) {
+  static EPMEml epm() {
+    return EPMEml.instance();
+  }
+
+  static Eml provider(Eml provider) {
     return provider;
   }
 
   static Eml with(EoEmlSession sess) {
     return new EnoaEmlProvider(sess);
+  }
+
+  static Eml use(String name) {
+    return epm().eml(name);
+  }
+
+  static Eml use() {
+    return epm().eml();
   }
 
   EmlSender sender();
