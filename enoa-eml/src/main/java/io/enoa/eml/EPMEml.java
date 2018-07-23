@@ -15,6 +15,7 @@
  */
 package io.enoa.eml;
 
+import io.enoa.eml.provider.enoa.EnoaEmlSession;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 
 import java.util.Map;
@@ -36,14 +37,14 @@ public class EPMEml {
 
   private Map<String, Eml> emlMap = new ConcurrentHashMap<>();
 
-  public void install(EoEmlSession sess) {
-    this.install("main", sess);
+  public void install(EmlConfig config) {
+    this.install("main", config);
   }
 
-  public void install(String name, EoEmlSession sess) {
+  public void install(String name, EmlConfig config) {
     if (this.emlMap.containsKey(name))
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.email.name_exists", name));
-    this.emlMap.put(name, Eml.with(sess));
+    this.emlMap.put(name, Eml.with(new EnoaEmlSession(config)));
   }
 
   public Eml eml() {
