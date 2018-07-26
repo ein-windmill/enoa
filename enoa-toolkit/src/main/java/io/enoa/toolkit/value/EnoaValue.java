@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,7 +54,7 @@ public class EnoaValue implements Serializable {
 
   public Number number(Number def) {
     String string = this.string();
-    return TextKit.isBlank(string) ? def : NumberKit.to(string, Number.class);
+    return TextKit.blanky(string) ? def : NumberKit.to(string, Number.class);
   }
 
   public Number number() {
@@ -63,7 +63,7 @@ public class EnoaValue implements Serializable {
 
   public Integer integer(Integer def) {
     String string = this.string();
-    return TextKit.isBlank(string) ? def : NumberKit.integer(string);
+    return TextKit.blanky(string) ? def : NumberKit.integer(string);
   }
 
   public Integer integer() {
@@ -72,7 +72,7 @@ public class EnoaValue implements Serializable {
 
   public Long longer(Long def) {
     String string = this.string();
-    return TextKit.isBlank(string) ? def : NumberKit.longer(string);
+    return TextKit.blanky(string) ? def : NumberKit.longer(string);
   }
 
   public Long longer() {
@@ -81,7 +81,7 @@ public class EnoaValue implements Serializable {
 
   public Double doubler(Double def) {
     String string = this.string();
-    return TextKit.isBlank(string) ? def : NumberKit.doubler(string);
+    return TextKit.blanky(string) ? def : NumberKit.doubler(string);
   }
 
   public Double doubler() {
@@ -90,7 +90,7 @@ public class EnoaValue implements Serializable {
 
   public Float floater(Float def) {
     String string = this.string();
-    return TextKit.isBlank(string) ? def : NumberKit.floater(string);
+    return TextKit.blanky(string) ? def : NumberKit.floater(string);
   }
 
   public Float floater() {
@@ -99,7 +99,7 @@ public class EnoaValue implements Serializable {
 
   public Short shorter(Short def) {
     String string = this.string();
-    return TextKit.isBlank(string) ? def : NumberKit.shorter(string);
+    return TextKit.blanky(string) ? def : NumberKit.shorter(string);
   }
 
   public Short shorter() {
@@ -117,7 +117,7 @@ public class EnoaValue implements Serializable {
 
   public BigDecimal bigdecimal(BigDecimal def) {
     String string = this.string();
-    return TextKit.isBlank(string) ? def : NumberKit.bigdecimal(string);
+    return TextKit.blanky(string) ? def : NumberKit.bigdecimal(string);
   }
 
   public BigDecimal bigdecimal() {
@@ -126,7 +126,7 @@ public class EnoaValue implements Serializable {
 
   public Boolean bool(Boolean def) {
     String string = this.string();
-    return TextKit.isBlank(string) ? def : ConvertKit.bool(string);
+    return TextKit.blanky(string) ? def : ConvertKit.bool(string);
   }
 
   public Boolean bool() {

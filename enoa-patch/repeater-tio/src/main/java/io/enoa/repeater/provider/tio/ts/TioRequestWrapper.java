@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,7 +50,7 @@ class TioRequestWrapper extends EoxAbstractRequest {
     this.config = config;
     this.rule = rule;
     String contentType = this.header("content-type");
-    if (TextKit.notBlank(contentType) && contentType.startsWith("multipart/form-data"))
+    if (TextKit.blankn(contentType) && contentType.startsWith("multipart/form-data"))
       this.handleUpload();
   }
 
@@ -252,10 +252,10 @@ class TioRequestWrapper extends EoxAbstractRequest {
 
     Map<String, Object[]> paras = this.request.getParams();
     String contentType = this.header("content-type");
-    if (TextKit.notBlank(contentType))
+    if (TextKit.blankn(contentType))
       contentType = contentType.toLowerCase();
 
-    if (paras == null && TextKit.notBlank(contentType) && !contentType.startsWith("multipart/form-data"))
+    if (paras == null && TextKit.blankn(contentType) && !contentType.startsWith("multipart/form-data"))
       return null;
 
     Map<String, String[]> rets = new HashMap<>();
@@ -263,7 +263,7 @@ class TioRequestWrapper extends EoxAbstractRequest {
     // tio 在 文件上传或请求体提交时无法解析 url 参数, 此处进行分析进行合并
     Map<String, List<String>> urlPara = EnoaHttpKit.parsePara(this.url());
 
-    if (paras != null && TextKit.notBlank(contentType) && contentType.startsWith("multipart/form-data")) {
+    if (paras != null && TextKit.blankn(contentType) && contentType.startsWith("multipart/form-data")) {
       for (String k : paras.keySet()) {
         Object[] vos = paras.get(k);
         String[] vals = Stream.of(vos)
@@ -289,7 +289,7 @@ class TioRequestWrapper extends EoxAbstractRequest {
         if (CollectionKit.notEmpty(vals))
           rets.put(k, vals);
       }
-      if (TextKit.notBlank(contentType) && !contentType.startsWith("application/x-www-form-urlencoded")) {
+      if (TextKit.blankn(contentType) && !contentType.startsWith("application/x-www-form-urlencoded")) {
         rets = super.paraMap(super.mapArrayToList(rets), urlPara);
         CollectionKit.clear(urlPara);
         this.paraMap = rets;
@@ -396,7 +396,7 @@ class TioRequestWrapper extends EoxAbstractRequest {
   @Override
   public UFile[] files() {
     String contentType = this.header("content-type");
-    if (TextKit.isBlank(contentType) || !contentType.startsWith("multipart/form-data"))
+    if (TextKit.blanky(contentType) || !contentType.startsWith("multipart/form-data"))
       return CollectionKit.emptyArray(UFile.class);
     return this.ufiles.toArray(new UFile[this.ufiles.size()]);
   }

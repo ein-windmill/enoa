@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -59,9 +59,9 @@ class NettyCosRequestWrapper extends EoxAbstractCosRequest {
     this.inputStream = new ByteBufInputStream(request.content());
 
     String contentType = this.header("content-type");
-    if (TextKit.notBlank(contentType))
+    if (TextKit.blankn(contentType))
       contentType = contentType.toLowerCase();
-    if (TextKit.notBlank(contentType) && contentType.startsWith("multipart/form-data"))
+    if (TextKit.blankn(contentType) && contentType.startsWith("multipart/form-data"))
       super.handleUpload(this.inputStream, config, rule);
   }
 
@@ -103,9 +103,9 @@ class NettyCosRequestWrapper extends EoxAbstractCosRequest {
       return this.body;
 
     String contentType = this.header("content-type");
-    if (TextKit.notBlank(contentType))
+    if (TextKit.blankn(contentType))
       contentType = contentType.toLowerCase();
-    if (TextKit.notBlank(contentType) && contentType.startsWith("multipart/form-data"))
+    if (TextKit.blankn(contentType) && contentType.startsWith("multipart/form-data"))
       return null;
     try {
       byte[] binary = StreamKit.bytes(this.inputStream);
@@ -212,7 +212,7 @@ class NettyCosRequestWrapper extends EoxAbstractCosRequest {
       return super.mapListToArray(ret);
     }
     String contentType = this.header("content-type");
-    if (TextKit.isBlank(contentType))
+    if (TextKit.blanky(contentType))
       return super.mapListToArray(ret);
 
     contentType = contentType.toLowerCase();
@@ -228,7 +228,7 @@ class NettyCosRequestWrapper extends EoxAbstractCosRequest {
       RequestBody rb = this.body();
       if (rb != null)
         body = rb.string();
-      if (TextKit.notBlank(body)) {
+      if (TextKit.blankn(body)) {
         Map<String, List<String>> bodyParas;
         try {
           bodyParas = EnoaHttpKit.parsePara(URLDecoder.decode(body, this.config.charset().name()));

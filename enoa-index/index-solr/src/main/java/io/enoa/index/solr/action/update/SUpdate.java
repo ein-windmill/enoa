@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -90,7 +90,7 @@ public class SUpdate implements _SolrAction {
   @Override
   public <T> T emit(SParser<T> parser) {
 
-    if (TextKit.isBlank(this.body))
+    if (TextKit.blanky(this.body))
       return null;
 
     this.http.method(HttpMethod.POST)

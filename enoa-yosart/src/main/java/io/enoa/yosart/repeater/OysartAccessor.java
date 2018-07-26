@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,9 @@ import io.enoa.repeater.http.Request;
 import io.enoa.repeater.http.RequestBody;
 import io.enoa.repeater.http.Response;
 import io.enoa.repeater.http.UFile;
+import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.date.DateKit;
 import io.enoa.toolkit.http.UriKit;
 import io.enoa.toolkit.sys.ThrowableKit;
 import io.enoa.toolkit.text.TextKit;
@@ -31,6 +33,7 @@ import io.enoa.yosart.kernel.ext.YmAssetsExt;
 import io.enoa.yosart.kernel.ext.YmRouterExt;
 import io.enoa.yosart.kit.tip.OysartTip;
 
+import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 
@@ -58,6 +61,8 @@ public class OysartAccessor implements EoxAccessor {
     OysartTip.message("\n{0} {1}", 70, new Object[]{request.method().name(), request.uri()});
 
 //    StringBuilder sb = new StringBuilder();
+    long now = System.currentTimeMillis();
+    OysartTip.message("TS:      {0} <=> {1}", DateKit.format(new Date(now), EoConst.DEF_FORMAT_DATE), now);
     OysartTip.message("Method:  {0}", request.method());
 
     OysartTip.message("Context: {0}", request.context());
@@ -88,7 +93,7 @@ public class OysartAccessor implements EoxAccessor {
     if (body != null) {
       try {
         String data = body.string();
-        if (TextKit.notBlank(data)) {
+        if (TextKit.blankn(data)) {
           OysartTip.message("Body:    {0}", data);
         }
       } catch (Exception e) {

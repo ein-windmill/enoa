@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ public class RepeaterTip {
 
 
   private static String format(String text, Object... args) {
-    if (TextKit.isBlank(text))
+    if (TextKit.blanky(text))
       return text;
     if (CollectionKit.isEmpty(args))
       return text;

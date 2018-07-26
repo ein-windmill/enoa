@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,7 +63,7 @@ public class ObjectKit {
             if (mnames.stream().anyMatch(fname::equals)) {
               method = clazz.getMethod(fname);
             } else {
-              String nfname = TextKit.union("get", TextKit.firstToUpper(fname));
+              String nfname = TextKit.union("get", TextKit.upperFirst(fname));
               if (mnames.stream().anyMatch(nfname::equals)) {
                 method = clazz.getMethod(nfname);
               }

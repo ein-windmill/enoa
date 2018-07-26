@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,7 +37,7 @@ public abstract class EnoaTemplate implements _Template {
   }
 
   protected String fillView(String view, String suffix) {
-    if (TextKit.isBlank(suffix))
+    if (TextKit.blanky(suffix))
       return this.patchView(view);
 //    if (view.endsWith(String.format(".%s", suffix)))
     if (view.endsWith(TextKit.union(".", suffix)))

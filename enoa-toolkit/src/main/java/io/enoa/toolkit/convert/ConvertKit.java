@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@ public class ConvertKit {
   }
 
   public static String ruleString(String text, String def) {
-    return TextKit.isBlank(text) ? def : text;
+    return TextKit.blanky(text) ? def : text;
   }
 
   public static Integer integer(String text) {
@@ -50,7 +50,7 @@ public class ConvertKit {
   }
 
   public static Integer integer(String text, Integer def) {
-    return TextKit.isBlank(text) ? def : NumberKit.integer(text);
+    return TextKit.blanky(text) ? def : NumberKit.integer(text);
   }
 
   public static Long longer(String text) {
@@ -58,7 +58,7 @@ public class ConvertKit {
   }
 
   public static Long longer(String text, Long def) {
-    return TextKit.isBlank(text) ? def : NumberKit.longer(text);
+    return TextKit.blanky(text) ? def : NumberKit.longer(text);
   }
 
   public static Double doubler(String text) {
@@ -66,11 +66,11 @@ public class ConvertKit {
   }
 
   public static Double doubler(String text, Double def) {
-    return TextKit.isBlank(text) ? def : NumberKit.doubler(text);
+    return TextKit.blanky(text) ? def : NumberKit.doubler(text);
   }
 
   public static Float floater(String text, Float def) {
-    return TextKit.isBlank(text) ? def : NumberKit.floater(text);
+    return TextKit.blanky(text) ? def : NumberKit.floater(text);
   }
 
   public static Float floater(String text) {
@@ -78,7 +78,7 @@ public class ConvertKit {
   }
 
   public static Short shorter(String text, Short def) {
-    return TextKit.isBlank(text) ? def : NumberKit.shorter(text);
+    return TextKit.blanky(text) ? def : NumberKit.shorter(text);
   }
 
   public static Short shorter(String text) {
@@ -90,7 +90,7 @@ public class ConvertKit {
   }
 
   public static Boolean bool(String text, Boolean def) {
-    if (TextKit.isBlank(text))
+    if (TextKit.blanky(text))
       return def;
     text = text.trim().toLowerCase();
     if ("1".equals(text) || "true".equals(text))
@@ -110,7 +110,7 @@ public class ConvertKit {
 
   public static Date date(String text, String format, Date def) {
     try {
-      if (TextKit.isBlank(text))
+      if (TextKit.blanky(text))
         return def;
       return new java.text.SimpleDateFormat(format).parse(text.trim());
     } catch (ParseException e) {

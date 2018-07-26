@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,7 +66,7 @@ public class RGatewayAccessor implements EoxAccessor {
       Response.Builder builder = resp.newBuilder();
       this.crosHeaders().forEach(builder::header);
       String origin = request.header("origin");
-      if (TextKit.notBlank(origin))
+      if (TextKit.blankn(origin))
         builder.header(new Header("Access-Control-Allow-Origin", origin));
       return builder.build();
     }

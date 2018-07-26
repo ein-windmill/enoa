@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,9 +47,9 @@ class TomcatCosRequestWrapper extends EoxAbstractCosRequest {
 
     // 鉴定是文件上传才进行解析, 不阻挡 post data 解析
     String contentType = this.header("content-type");
-    if (TextKit.notBlank(contentType))
+    if (TextKit.blankn(contentType))
       contentType = contentType.toLowerCase();
-    if (TextKit.notBlank(contentType) && contentType.startsWith("multipart/form-data"))
+    if (TextKit.blankn(contentType) && contentType.startsWith("multipart/form-data"))
       super.handleUpload(request.getInputStream(), config, rule);
   }
 
@@ -77,7 +77,7 @@ class TomcatCosRequestWrapper extends EoxAbstractCosRequest {
   @Override
   public String url() {
     String qs = this.request.getQueryString();
-    if (TextKit.isBlank(qs))
+    if (TextKit.blanky(qs))
       return this.request.getRequestURL().toString();
 //    return String.format("%s?%s", this.request.getRequestURL().toString(), qs);
     return TextKit.union(this.request.getRequestURL().toString(), "?", qs);
@@ -90,9 +90,9 @@ class TomcatCosRequestWrapper extends EoxAbstractCosRequest {
         return this.body;
 
       String contentType = this.header("content-type");
-      if (TextKit.notBlank(contentType))
+      if (TextKit.blankn(contentType))
         contentType = contentType.toLowerCase();
-      if (TextKit.notBlank(contentType) && contentType.startsWith("multipart/form-data"))
+      if (TextKit.blankn(contentType) && contentType.startsWith("multipart/form-data"))
         return null;
 
       byte[] binary = StreamKit.bytes(this.request.getInputStream());
@@ -145,7 +145,7 @@ class TomcatCosRequestWrapper extends EoxAbstractCosRequest {
   @Override
   public Integer cookieToInt(String name, Integer def) {
     String val = this.cookie(name);
-    if (TextKit.isBlank(val))
+    if (TextKit.blanky(val))
       return def;
     return ConvertKit.integer(val);
   }
@@ -153,7 +153,7 @@ class TomcatCosRequestWrapper extends EoxAbstractCosRequest {
   @Override
   public Long cookieToLong(String name, Long def) {
     String val = this.cookie(name);
-    if (TextKit.isBlank(val))
+    if (TextKit.blanky(val))
       return def;
     return ConvertKit.longer(val);
   }

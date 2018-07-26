@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,18 +19,27 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.KryoException;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
-import io.enoa.serialization.Serializer;
+import io.enoa.serialization.EoSerializer;
 import org.objenesis.strategy.StdInstantiatorStrategy;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
-class _Kryo implements Serializer {
-  private static final Kryo kryo = new Kryo();
+class _Kryo implements EoSerializer {
 
-  static {
-    kryo.setReferences(true);
-    kryo.setRegistrationRequired(false);
+  private static class Holder {
+    private static final _Kryo INSTANCE = new _Kryo();
+  }
+
+  static _Kryo instance() {
+    return Holder.INSTANCE;
+  }
+
+  private final Kryo kryo = new Kryo();
+
+  private _Kryo() {
+    this.kryo.setReferences(true);
+    this.kryo.setRegistrationRequired(false);
     ((Kryo.DefaultInstantiatorStrategy) kryo.getInstantiatorStrategy())
       .setFallbackInstantiatorStrategy(new StdInstantiatorStrategy());
   }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import io.enoa.http.protocol.HttpResponse;
 import io.enoa.http.protocol.HttpResponseBody;
 import io.enoa.log.Log;
 import io.enoa.log.provider.slf4j.Slf4JLogProvider;
-import io.enoa.serialization.Serializer;
+import io.enoa.serialization.EoSerializer;
 import io.enoa.serialization.provider.jdk.JdkSerializeProvider;
 import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.binary.EnoaBinary;
@@ -39,7 +39,7 @@ import java.util.concurrent.TimeUnit;
 
 public class HttpTest {
 
-  private Serializer serializer = new JdkSerializeProvider().serializer();
+  private EoSerializer serializer = new JdkSerializeProvider().serializer();
 
   @Before
   public void before() {
@@ -151,7 +151,7 @@ public class HttpTest {
     this.http().enqueue()
 
 //      .<HttpResponse>then(resp -> resp.body().string())
-//      .<String>valid(TextKit::notBlank)
+//      .<String>valid(TextKit::blankn)
 //      .<String>execute(Log::debug)
 //      .<String>fail(data -> Log.error("REQUEST FAIL"))
 //      .capture(e -> Log.error(e.getMessage(), e))
@@ -163,7 +163,7 @@ public class HttpTest {
       .then(HttpResponse::body)
       .then(HttpResponseBody::bytes)
       .<byte[]>then(body -> EnoaBinary.create(body, EoConst.CHARSET).string())
-      .<String>valid(TextKit::notBlank)
+      .<String>valid(TextKit::blankn)
       .<String>valid(data -> data.length() > 30)
       .<String>execute(System.out::println)
       .<String>fail(System.err::println)

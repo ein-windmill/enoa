@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -75,7 +75,7 @@ class AnostParasBuilder {
    */
   private String parseValue(YoRequest request, ParaVal pval) {
     String val = request.para(pval.name);
-    if (TextKit.notBlank(val))
+    if (TextKit.blankn(val))
       return val;
     val = request.variable(pval.name);
     return val == null ? pval.def : val;
@@ -277,9 +277,9 @@ class AnostParasBuilder {
       .map(p ->
         new ParaVal(
           p.index() == -1 ? null : p.index(),
-          TextKit.isBlank(p.value()) ? null : p.value(),
-          TextKit.isBlank(p.def()) ? null : p.def(),
-          TextKit.isBlank(p.format()) ? null : p.format())
+          TextKit.blanky(p.value()) ? null : p.value(),
+          TextKit.blanky(p.def()) ? null : p.def(),
+          TextKit.blanky(p.format()) ? null : p.format())
       ).collect(Collectors.toList());
 
     PVALS.put(resource.hashName(), pvals);
@@ -300,7 +300,7 @@ class AnostParasBuilder {
     }
 
     private ParaVal(Integer ix, String name, String def, String format) {
-      if (TextKit.isNull(name))
+      if (TextKit.nully(name))
         throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.yosart.ext.anost.paras_val_name_null"));
       this.ix = ix;
       this.name = name;
@@ -309,7 +309,7 @@ class AnostParasBuilder {
     }
 
 //    private static ParaVal of(String text) {
-//      if (TextKit.isNull(text))
+//      if (TextKit.nully(text))
 //        return null;
 //      int sym0Ix = text.indexOf(":");
 //      Integer ix = null;

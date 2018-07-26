@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,14 +17,14 @@ package io.enoa.nosql.redis;
 
 import io.enoa.nosql.redis.command._RedisCommand;
 import io.enoa.serialization.EoSerializationFactory;
-import io.enoa.serialization.Serializer;
+import io.enoa.serialization.EoSerializer;
 import redis.clients.jedis.Jedis;
 import redis.clients.util.Pool;
 
 public class EnoaRedis implements _RedisCommand {
 
   private Pool<Jedis> pool;
-  private Serializer serializer;
+  private EoSerializer serializer;
 
   public EnoaRedis(Pool<Jedis> pool, EoSerializationFactory serialization) {
     this.pool = pool;

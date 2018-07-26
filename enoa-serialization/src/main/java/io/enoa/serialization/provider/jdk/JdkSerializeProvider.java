@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,11 +16,11 @@
 package io.enoa.serialization.provider.jdk;
 
 import io.enoa.serialization.EoSerializationFactory;
-import io.enoa.serialization.Serializer;
+import io.enoa.serialization.EoSerializer;
 
 public class JdkSerializeProvider implements EoSerializationFactory {
   @Override
-  public Serializer serializer() {
-    return new _JdkSerializer();
+  public EoSerializer serializer() {
+    return _JdkSerializer.instance();
   }
 }

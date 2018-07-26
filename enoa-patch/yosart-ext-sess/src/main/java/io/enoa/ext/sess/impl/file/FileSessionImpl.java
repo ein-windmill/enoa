@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ package io.enoa.ext.sess.impl.file;
 
 import io.enoa.log.Log;
 import io.enoa.repeater.http.Cookie;
-import io.enoa.serialization.Serializer;
+import io.enoa.serialization.EoSerializer;
 import io.enoa.toolkit.binary.EnoaBinary;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.digest.UUIDKit;
@@ -54,9 +54,9 @@ class FileSessionImpl implements Session {
   private String _value;
 
   private Cookie newCookie;
-  private Serializer serializer;
+  private EoSerializer serializer;
 
-  FileSessionImpl(YoRequest request, String sessKey, Path savePath, Serializer serializer) {
+  FileSessionImpl(YoRequest request, String sessKey, Path savePath, EoSerializer serializer) {
     this.request = request;
     this.sessKey = sessKey;
     this.savePath = savePath;
@@ -92,7 +92,7 @@ class FileSessionImpl implements Session {
       builder.secure();
     if (this.httpOnly)
       builder.httpOnly();
-    if (TextKit.notBlank(this.domain))
+    if (TextKit.blankn(this.domain))
       builder.domain(this.domain);
     if (this.hostOnly)
       builder.hostOnlyDomain(this.domain);
@@ -104,7 +104,7 @@ class FileSessionImpl implements Session {
   @Override
   public String[] names() {
     String sessVal = this._value == null ? this.request.cookie(this.sessKey) : this._value;
-    if (TextKit.isBlank(sessVal)) {
+    if (TextKit.blanky(sessVal)) {
       Log.warn(EnoaTipKit.message("eo.tip.ext.sess.session_404", this.sessKey));
       return CollectionKit.emptyArray(String.class);
     }
@@ -120,7 +120,7 @@ class FileSessionImpl implements Session {
   @Override
   public <T> T get(String name) {
     String sessVal = this._value == null ? this.request.cookie(this.sessKey) : this._value;
-    if (TextKit.isBlank(sessVal)) {
+    if (TextKit.blanky(sessVal)) {
       Log.warn(EnoaTipKit.message("eo.tip.ext.sess.session_404", this.sessKey));
       return null;
     }
@@ -136,7 +136,7 @@ class FileSessionImpl implements Session {
   @Override
   public Session rm(String name) {
     String sessVal = this._value == null ? this.request.cookie(this.sessKey) : this._value;
-    if (TextKit.isBlank(sessVal))
+    if (TextKit.blanky(sessVal))
       throw new EoException(EnoaTipKit.message("eo.tip.ext.sess.session_404", this.sessKey));
     Kv data = this.deserialize(Paths.get(this.savePath.toString(), sessVal));
     data.remove(name);
@@ -149,7 +149,7 @@ class FileSessionImpl implements Session {
     if (this._value == null)
       this._value = this.request.cookie(this.sessKey);
 
-    if (TextKit.isBlank(this._value)) {
+    if (TextKit.blanky(this._value)) {
       this._value = UUIDKit.next(false);
     }
     Path saveFile = Paths.get(this.savePath.toString(), this._value);

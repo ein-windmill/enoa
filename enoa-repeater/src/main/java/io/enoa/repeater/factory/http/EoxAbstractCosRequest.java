@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,7 +48,7 @@ public abstract class EoxAbstractCosRequest extends EoxAbstractRequest {
    */
   protected void handleUpload(InputStream stream, EoxConfig config, EoxNameRuleFactory rule) {
     String contentType = this.header("content-type");
-    if (TextKit.isBlank(contentType) || !contentType.startsWith("multipart/form-data"))
+    if (TextKit.blanky(contentType) || !contentType.startsWith("multipart/form-data"))
       return;
 
     try {
@@ -147,7 +147,7 @@ public abstract class EoxAbstractCosRequest extends EoxAbstractRequest {
   @Override
   public UFile[] files() {
     String contentType = this.header("content-type");
-    if (TextKit.isBlank(contentType) || !contentType.startsWith("multipart/form-data"))
+    if (TextKit.blanky(contentType) || !contentType.startsWith("multipart/form-data"))
       return CollectionKit.emptyArray(UFile.class);
     return this.ufiles.toArray(new UFile[this.ufiles.size()]);
   }

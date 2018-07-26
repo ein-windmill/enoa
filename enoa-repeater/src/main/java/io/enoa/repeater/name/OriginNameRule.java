@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ public class OriginNameRule implements EoxNameRuleFactory {
     while (i < 99999) {
 //      String newName = String.format("%s-%d", leftName, i);
       String newName = TextKit.union(leftName, "-", i);
-      if (TextKit.notBlank(suffix)) {
+      if (TextKit.blankn(suffix)) {
 //        newName = newName.concat(".").concat(suffix);
         newName = TextKit.union(newName, ".", suffix);
       }

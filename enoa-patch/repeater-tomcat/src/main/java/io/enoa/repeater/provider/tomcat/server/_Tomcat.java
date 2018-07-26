@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,18 +39,18 @@ class _Tomcat implements RepeaterServer {
   @Override
   public void listen(String hostname, int port, boolean ssl, EoxConfig config, EoxProviderFactory factory) {
     Tomcat tomcat = new Tomcat();
-    if (TextKit.notBlank(hostname))
+    if (TextKit.blankn(hostname))
       tomcat.setHostname(hostname);
     tomcat.setPort(port);
 
     String docBase = null;
-    if (TextKit.notBlank(config.other().string("doc_base")) ||
-      TextKit.notBlank(config.other().string("docBase"))) {
+    if (TextKit.blankn(config.other().string("doc_base")) ||
+      TextKit.blankn(config.other().string("docBase"))) {
       docBase = config.other().string("doc_base");
-      if (TextKit.isBlank(docBase))
+      if (TextKit.blanky(docBase))
         config.other().string("docBase");
     }
-    if (TextKit.isBlank(docBase))
+    if (TextKit.blanky(docBase))
       docBase = config.tmp().toString();
     if (docBase == null)
       docBase = EnvKit.string("java.io.tmpdir");

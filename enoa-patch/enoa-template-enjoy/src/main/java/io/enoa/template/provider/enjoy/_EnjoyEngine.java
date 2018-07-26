@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@ class _EnjoyEngine extends EnoaEngine {
 
     this.engine.setBaseTemplatePath(cfg.viewPath());
     this.engine.setDevMode(cfg.debug());
-    if (TextKit.notBlank(cfg.datePattern()))
+    if (TextKit.blankn(cfg.datePattern()))
       this.engine.setDatePattern(cfg.datePattern());
 
     this.engine.setEncoding(cfg.charset().name());

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -193,7 +193,7 @@ public class EnoaUrl implements EoUrl {
 
     if (this.paras == null || this.paras.isEmpty())
       return this.url;
-    
+
     String paras = String.join("&", this.paras.stream()
       .map(para -> this.encode ? this.endWithEncode(para) : this.endNoEncode(para))
       .collect(Collectors.toSet()));

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ public class Sort implements Serializable {
   private OrderBy order;
 
   public Sort(String field, OrderBy order) {
-    if (TextKit.isBlank(field))
+    if (TextKit.blanky(field))
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.solr.cqp_sort_field_null"));
     if (order == null)
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.solr.cqp_sort_order_null"));

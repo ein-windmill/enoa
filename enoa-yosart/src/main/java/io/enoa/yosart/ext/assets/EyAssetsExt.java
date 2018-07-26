@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -188,7 +188,7 @@ public class EyAssetsExt implements YmAssetsExt {
 
   private String chooseContentType(Path path) {
     String contentType = FileKit.probeContentType(path);
-    return TextKit.isBlank(contentType) ? "application/octet-stream" : contentType;
+    return TextKit.blanky(contentType) ? "application/octet-stream" : contentType;
   }
 
   private String uri(String context, String action, String filename) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -187,7 +187,7 @@ public class BeanKit {
       if (val == null) {
         if (!name.startsWith("set"))
           continue;
-        name = TextKit.firstToLower(name.substring(3));
+        name = TextKit.lowerFirst(name.substring(3));
         val = map.get(name);
         if (val == null) {
           val = map.get(namecase.convert(name));
