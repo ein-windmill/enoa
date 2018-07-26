@@ -86,7 +86,7 @@ class BeanConvert {
       int gix = mname.indexOf("get");
       if (gix == 0 && mname.length() > 3) {
         String _mn0 = mname.substring(3);
-        if (declareds.stream().noneMatch(field -> field.getName().equals(TextKit.firstToLower(_mn0))))
+        if (declareds.stream().noneMatch(field -> field.getName().equals(TextKit.lowerFirst(_mn0))))
           continue;
         this.fillMap(bean, _mn0, method, ret, depth, config);
         continue;
@@ -95,7 +95,7 @@ class BeanConvert {
       gix = mname.indexOf("is");
       if (gix == 0 && mname.length() > 2) {
         String _mn0 = mname.substring(2);
-        if (declareds.stream().noneMatch(field -> field.getName().equals(TextKit.firstToLower(_mn0))))
+        if (declareds.stream().noneMatch(field -> field.getName().equals(TextKit.lowerFirst(_mn0))))
           continue;
         this.fillMap(bean, _mn0, method, ret, depth, config);
         continue;

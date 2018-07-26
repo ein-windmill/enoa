@@ -49,12 +49,12 @@ public class ConvertKit {
 
     String _string = obj.toString();
     return checkblank ?
-      TextKit.isBlank(_string) ? def : _string
+      TextKit.blanky(_string) ? def : _string
       : _string;
   }
 
   public static Number number(String text, Number def) {
-    return TextKit.isBlank(text) ? def : NumberKit.to(text, Number.class);
+    return TextKit.blanky(text) ? def : NumberKit.to(text, Number.class);
   }
 
   public static Number number(String text) {
@@ -66,7 +66,7 @@ public class ConvertKit {
   }
 
   public static Integer integer(String text, Integer def) {
-    return TextKit.isBlank(text) ? def : NumberKit.integer(text);
+    return TextKit.blanky(text) ? def : NumberKit.integer(text);
   }
 
   public static Long longer(String text) {
@@ -74,7 +74,7 @@ public class ConvertKit {
   }
 
   public static Long longer(String text, Long def) {
-    return TextKit.isBlank(text) ? def : NumberKit.longer(text);
+    return TextKit.blanky(text) ? def : NumberKit.longer(text);
   }
 
   public static Double doubler(String text) {
@@ -82,11 +82,11 @@ public class ConvertKit {
   }
 
   public static Double doubler(String text, Double def) {
-    return TextKit.isBlank(text) ? def : NumberKit.doubler(text);
+    return TextKit.blanky(text) ? def : NumberKit.doubler(text);
   }
 
   public static Float floater(String text, Float def) {
-    return TextKit.isBlank(text) ? def : NumberKit.floater(text);
+    return TextKit.blanky(text) ? def : NumberKit.floater(text);
   }
 
   public static Float floater(String text) {
@@ -94,7 +94,7 @@ public class ConvertKit {
   }
 
   public static Short shorter(String text, Short def) {
-    return TextKit.isBlank(text) ? def : NumberKit.shorter(text);
+    return TextKit.blanky(text) ? def : NumberKit.shorter(text);
   }
 
   public static Short shorter(String text) {
@@ -102,7 +102,7 @@ public class ConvertKit {
   }
 
   public static BigInteger bigint(String text, BigInteger def) {
-    return TextKit.isBlank(text) ? def : NumberKit.bigint(text);
+    return TextKit.blanky(text) ? def : NumberKit.bigint(text);
   }
 
   public static BigInteger bigint(String text) {
@@ -110,7 +110,7 @@ public class ConvertKit {
   }
 
   public static BigDecimal bigdecimal(String text, BigDecimal def) {
-    return TextKit.isBlank(text) ? def : NumberKit.bigdecimal(text);
+    return TextKit.blanky(text) ? def : NumberKit.bigdecimal(text);
   }
 
   public static BigDecimal bigdecimal(String text) {
@@ -122,7 +122,7 @@ public class ConvertKit {
   }
 
   public static Boolean bool(String text, Boolean def) {
-    if (TextKit.isBlank(text))
+    if (TextKit.blanky(text))
       return def;
     text = text.trim().toLowerCase();
     if ("1".equals(text) || "true".equals(text))
@@ -142,7 +142,7 @@ public class ConvertKit {
 
   public static Date date(String text, String format, Date def) {
     try {
-      if (TextKit.isBlank(text))
+      if (TextKit.blanky(text))
         return def;
       return new java.text.SimpleDateFormat(format).parse(text.trim());
     } catch (ParseException e) {

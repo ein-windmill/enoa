@@ -73,7 +73,7 @@ public final class NumberKit {
    * @return boolean
    */
   public static boolean isNumber(String text) {
-    if (TextKit.isBlank(text))
+    if (TextKit.blanky(text))
       return false;
     int len = text.length();
     char ch = text.charAt(0);
