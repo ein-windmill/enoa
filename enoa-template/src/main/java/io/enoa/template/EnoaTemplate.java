@@ -37,7 +37,7 @@ public abstract class EnoaTemplate implements _Template {
   }
 
   protected String fillView(String view, String suffix) {
-    if (TextKit.isBlank(suffix))
+    if (TextKit.blanky(suffix))
       return this.patchView(view);
 //    if (view.endsWith(String.format(".%s", suffix)))
     if (view.endsWith(TextKit.union(".", suffix)))

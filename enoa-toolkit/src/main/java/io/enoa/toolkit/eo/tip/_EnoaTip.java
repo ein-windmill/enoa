@@ -57,7 +57,7 @@ class _EnoaTip implements Serializable {
   }
 
   private String format(String text, Object... args) {
-    if (TextKit.isBlank(text))
+    if (TextKit.blanky(text))
       return text;
     if (CollectionKit.isEmpty(args))
       return text;
@@ -66,16 +66,16 @@ class _EnoaTip implements Serializable {
   }
 
   String message(String key, Object... args) {
-    if (TextKit.isBlank(key))
+    if (TextKit.blanky(key))
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.toolkit.tip_key_not_null"));
 
 //    String tip = this.prop.get(String.format("%s.%s", key, OSKit.language()));
     String tip = this.prop.get(TextKit.union(key, ".", OSKit.language()));
-    if (TextKit.notBlank(tip))
+    if (TextKit.blankn(tip))
       return format(tip, args);
 
     tip = this.prop.get(key.concat(".default"));
-    if (TextKit.notBlank(tip))
+    if (TextKit.blankn(tip))
       return format(tip, args);
 
     return String.format("Not found message key: `%s`", key);

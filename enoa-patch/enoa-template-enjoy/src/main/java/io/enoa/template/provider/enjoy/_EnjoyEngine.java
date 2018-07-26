@@ -41,7 +41,7 @@ class _EnjoyEngine extends EnoaEngine {
 
     this.engine.setBaseTemplatePath(cfg.viewPath());
     this.engine.setDevMode(cfg.debug());
-    if (TextKit.notBlank(cfg.datePattern()))
+    if (TextKit.blankn(cfg.datePattern()))
       this.engine.setDatePattern(cfg.datePattern());
 
     this.engine.setEncoding(cfg.charset().name());

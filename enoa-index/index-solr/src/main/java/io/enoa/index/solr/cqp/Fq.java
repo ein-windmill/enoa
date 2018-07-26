@@ -27,7 +27,7 @@ public class Fq implements Serializable {
   private Object value;
 
   public Fq(String field, Object value) {
-    if (TextKit.isBlank(field))
+    if (TextKit.blanky(field))
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.solr.cqp_fq_field_null"));
     if (value == null)
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.solr.cqp_fq_value_null"));

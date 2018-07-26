@@ -63,7 +63,7 @@ public class ObjectKit {
             if (mnames.stream().anyMatch(fname::equals)) {
               method = clazz.getMethod(fname);
             } else {
-              String nfname = TextKit.union("get", TextKit.firstToUpper(fname));
+              String nfname = TextKit.union("get", TextKit.upperFirst(fname));
               if (mnames.stream().anyMatch(nfname::equals)) {
                 method = clazz.getMethod(nfname);
               }

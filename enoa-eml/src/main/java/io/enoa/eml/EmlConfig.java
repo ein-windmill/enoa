@@ -150,7 +150,7 @@ public class EmlConfig {
     }
 
     public Builder other(String name, String value) {
-      if (TextKit.isBlank(name))
+      if (TextKit.blanky(name))
         throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.email.conf_other_name_null"));
 
       if (this.other == null)

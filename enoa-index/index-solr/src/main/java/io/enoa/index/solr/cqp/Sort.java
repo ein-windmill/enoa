@@ -26,7 +26,7 @@ public class Sort implements Serializable {
   private OrderBy order;
 
   public Sort(String field, OrderBy order) {
-    if (TextKit.isBlank(field))
+    if (TextKit.blanky(field))
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.solr.cqp_sort_field_null"));
     if (order == null)
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.solr.cqp_sort_order_null"));

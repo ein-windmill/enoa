@@ -29,7 +29,7 @@ public class RepeaterTip {
 
 
   private static String format(String text, Object... args) {
-    if (TextKit.isBlank(text))
+    if (TextKit.blanky(text))
       return text;
     if (CollectionKit.isEmpty(args))
       return text;

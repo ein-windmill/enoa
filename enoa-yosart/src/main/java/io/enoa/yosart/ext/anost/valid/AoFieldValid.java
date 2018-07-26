@@ -63,7 +63,7 @@ public class AoFieldValid extends AoObjectValid<AoFieldValid> {
     if (this.greenlight)
       return this;
     String val = super.value(this.name, this.valueMode);
-    boolean selfNull = TextKit.isBlank(val);
+    boolean selfNull = TextKit.blanky(val);
     if (otherNames == null && selfNull)
       throw new ValidException(mark, message);
     boolean needs[] = new boolean[otherNames == null ? 1 : otherNames.length + 1];
@@ -72,7 +72,7 @@ public class AoFieldValid extends AoObjectValid<AoFieldValid> {
       int i = 0;
       for (String otherName : otherNames) {
         String oval = super.value(otherName, false);
-        needs[i + 1] = TextKit.isBlank(oval);
+        needs[i + 1] = TextKit.blanky(oval);
       }
     }
     for (boolean need : needs)
@@ -121,10 +121,10 @@ public class AoFieldValid extends AoObjectValid<AoFieldValid> {
   public AoFieldValid together(String[] otherNames, IMark mark, String message) throws ValidException {
     if (this.greenlight)
       return this;
-    if (TextKit.isBlank(super.value(this.name, this.valueMode)))
+    if (TextKit.blanky(super.value(this.name, this.valueMode)))
       throw new ValidException(mark, message);
     for (String otherName : otherNames)
-      if (TextKit.isBlank(super.value(otherName, false)))
+      if (TextKit.blanky(super.value(otherName, false)))
         throw new ValidException(mark, message);
     return this;
   }

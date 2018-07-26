@@ -40,7 +40,7 @@ class HttpRpcHandler {
 
   static <T> T handle(HttpResponse response, Type type) {
     String contentType = response.header("content-type");
-    if (TextKit.isBlank(contentType))
+    if (TextKit.blanky(contentType))
       return null;
     if (contentType.contains("application/json")) {
       HttpResponseBody body = response.body();

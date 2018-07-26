@@ -50,7 +50,7 @@ class AstVarBuilder {
 
         // 變量/轉義 前的文字字符
         String pretext = line.substring(fromIx, isEscape ? varIx0 - 1 : varIx0);
-        if (TextKit.notBlank(pretext)) {
+        if (TextKit.blankn(pretext)) {
           _AstBuilder.instance().textBuilder().build(path, asts, pretext, ix, false);
         }
 
