@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -205,7 +205,7 @@ public class AoArrayValid extends AoObjectValid<AoArrayValid> {
     if (!super.verified)
       super.blank(mark, message);
 
-    return this.row(TextKit::isBlank, mark, message);
+    return this.row(TextKit::notBlank, mark, message);
   }
 
   public AoArrayValid blankMember(int mark, String message) throws ValidException {

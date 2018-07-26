@@ -14,7 +14,7 @@
   </description>
 
   <issueManagement>
-    <url>https://github.com/ein-windmill/enoa/issues</url>
+    <url>https://github.com/fewensa/enoa/issues</url>
   </issueManagement>
 
   <licenses>
@@ -27,10 +27,10 @@
 
   <developers>
     <developer>
-      <name>ein.windmill</name>
-      <email>ein.windmill@outlook.com</email>
+      <name>fewensa</name>
+      <email>fewensa@enoa.io</email>
       <organization>--</organization>
-      <organizationUrl>https://github.com/ein-windmill</organizationUrl>
+      <organizationUrl>https://github.com/fewensa</organizationUrl>
     </developer>
   </developers>
 
