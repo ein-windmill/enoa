@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,30 +21,29 @@ import org.nustaq.serialization.FSTObjectOutput;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 
 class _FstSerializer implements EoSerializer {
+
+  private static class Holder {
+    private static final _FstSerializer INSTANCE = new _FstSerializer();
+  }
+
+  static _FstSerializer instance() {
+    return Holder.INSTANCE;
+  }
+
   @Override
   public <T> byte[] serialize(T object) {
     if (object == null)
       throw new IllegalArgumentException("Serialize data can not be null.");
 
-    FSTObjectOutput output = null;
-    try {
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      output = new FSTObjectOutput(baos);
+    try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
+         FSTObjectOutput output = new FSTObjectOutput(baos)) {
       output.writeObject(object);
       output.flush();
       return baos.toByteArray();
     } catch (Exception e) {
       throw new RuntimeException(e.getMessage(), e);
-    } finally {
-      if (output != null)
-        try {
-          output.close();
-        } catch (IOException e) {
-          // skip
-        }
     }
   }
 

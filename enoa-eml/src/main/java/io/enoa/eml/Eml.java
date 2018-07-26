@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,12 +19,24 @@ import io.enoa.eml.provider.enoa.EnoaEmlProvider;
 
 public interface Eml {
 
-  static Eml use(Eml provider) {
+  static EPMEml epm() {
+    return EPMEml.instance();
+  }
+
+  static Eml provider(Eml provider) {
     return provider;
   }
 
   static Eml with(EoEmlSession sess) {
     return new EnoaEmlProvider(sess);
+  }
+
+  static Eml use(String name) {
+    return epm().eml(name);
+  }
+
+  static Eml use() {
+    return epm().eml();
   }
 
   EmlSender sender();

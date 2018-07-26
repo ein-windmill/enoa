@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,6 @@ import io.enoa.serialization.EoSerializer;
 public class HessianProvider implements EoSerializationFactory {
   @Override
   public EoSerializer serializer() {
-    return new _Hessian();
+    return _Hessian.instance();
   }
 }
