@@ -36,7 +36,7 @@ class ValidImpl implements Valid {
   public AoExistsValid exists(String name) {
     ValidImpl valid = new ValidImpl(this.request);
     String val = this.valueMode ? name : valid.object(name).value(name, false);
-    valid.greenlight = TextKit.isBlank(val);
+    valid.greenlight = TextKit.blanky(val);
     valid.valueMode = this.valueMode;
     return new AoExistsValid(valid, name);
   }

@@ -36,7 +36,7 @@ class NettyParser {
   private static ServerCookieDecoder cookieDecoder = ServerCookieDecoder.LAX;
 
   static Cookie[] parseCookies(String cookie) {
-    if (TextKit.isBlank(cookie))
+    if (TextKit.blanky(cookie))
       return CollectionKit.emptyArray(Cookie.class);
     Set<io.netty.handler.codec.http.cookie.Cookie> cookies = cookieDecoder.decode(cookie);
     if (cookies == null)

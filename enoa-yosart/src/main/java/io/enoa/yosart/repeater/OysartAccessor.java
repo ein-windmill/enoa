@@ -93,7 +93,7 @@ public class OysartAccessor implements EoxAccessor {
     if (body != null) {
       try {
         String data = body.string();
-        if (TextKit.notBlank(data)) {
+        if (TextKit.blankn(data)) {
           OysartTip.message("Body:    {0}", data);
         }
       } catch (Exception e) {

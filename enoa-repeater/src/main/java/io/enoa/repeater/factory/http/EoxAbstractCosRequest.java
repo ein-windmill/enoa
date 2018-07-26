@@ -48,7 +48,7 @@ public abstract class EoxAbstractCosRequest extends EoxAbstractRequest {
    */
   protected void handleUpload(InputStream stream, EoxConfig config, EoxNameRuleFactory rule) {
     String contentType = this.header("content-type");
-    if (TextKit.isBlank(contentType) || !contentType.startsWith("multipart/form-data"))
+    if (TextKit.blanky(contentType) || !contentType.startsWith("multipart/form-data"))
       return;
 
     try {
@@ -147,7 +147,7 @@ public abstract class EoxAbstractCosRequest extends EoxAbstractRequest {
   @Override
   public UFile[] files() {
     String contentType = this.header("content-type");
-    if (TextKit.isBlank(contentType) || !contentType.startsWith("multipart/form-data"))
+    if (TextKit.blanky(contentType) || !contentType.startsWith("multipart/form-data"))
       return CollectionKit.emptyArray(UFile.class);
     return this.ufiles.toArray(new UFile[this.ufiles.size()]);
   }

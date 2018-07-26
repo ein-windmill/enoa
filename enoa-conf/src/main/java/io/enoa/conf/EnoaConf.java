@@ -191,7 +191,7 @@ public class EnoaConf {
 
   private static void verifyPath(String... paths) {
     for (String path : paths) {
-      if (TextKit.isBlank(path))
+      if (TextKit.blanky(path))
         continue; // skip
       // git repo
       if (Stream.of(GIT_PROTOCOLS).anyMatch(path.toLowerCase()::startsWith))

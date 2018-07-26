@@ -90,7 +90,7 @@ public class SUpdate implements _SolrAction {
   @Override
   public <T> T emit(SParser<T> parser) {
 
-    if (TextKit.isBlank(this.body))
+    if (TextKit.blanky(this.body))
       return null;
 
     this.http.method(HttpMethod.POST)

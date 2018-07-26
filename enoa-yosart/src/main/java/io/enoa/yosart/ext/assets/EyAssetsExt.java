@@ -188,7 +188,7 @@ public class EyAssetsExt implements YmAssetsExt {
 
   private String chooseContentType(Path path) {
     String contentType = FileKit.probeContentType(path);
-    return TextKit.isBlank(contentType) ? "application/octet-stream" : contentType;
+    return TextKit.blanky(contentType) ? "application/octet-stream" : contentType;
   }
 
   private String uri(String context, String action, String filename) {

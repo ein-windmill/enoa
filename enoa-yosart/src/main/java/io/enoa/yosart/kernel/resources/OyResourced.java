@@ -210,14 +210,14 @@ public class OyResourced {
   }
 
   private String mergeUri(String uri0, String uri1) {
-    if (TextKit.isBlank(uri0) || "/".equals(uri0))
+    if (TextKit.blanky(uri0) || "/".equals(uri0))
       return uri1;
-    if (TextKit.isBlank(uri1) || "/".equals(uri1))
+    if (TextKit.blanky(uri1) || "/".equals(uri1))
       return uri0;
 
     uri0 = UriKit.correct(uri0);
     uri1 = UriKit.correct(uri1);
-    if (TextKit.isBlank(uri1))
+    if (TextKit.blanky(uri1))
       return uri0;
     return uri0.concat(uri1);
   }
@@ -269,12 +269,12 @@ public class OyResourced {
       } else {
         if (CollectionKit.notEmpty(action.method()))
           httpMethods = Arrays.stream(action.method()).collect(Collectors.toList());
-        methodUri = TextKit.isBlank(action.uri()) && TextKit.isBlank(action.value()) ? null :
-          (TextKit.isBlank(action.uri()) ? action.value() : action.uri());
+        methodUri = TextKit.blanky(action.uri()) && TextKit.blanky(action.value()) ? null :
+          (TextKit.blanky(action.uri()) ? action.value() : action.uri());
         if (methodUri == null)
           methodUri = methodName;
       }
-      if (TextKit.notBlank(methodUri)) {
+      if (TextKit.blankn(methodUri)) {
         methodUri = UriKit.correct(methodUri);
         methodUri = methodUri.endsWith("/index") ? methodUri.substring(0, methodUri.lastIndexOf("/index")) : methodUri;
         newUri.append(methodUri);

@@ -139,7 +139,7 @@ class EnoaRepeaterImpl implements Repeater {
       this.ssl ? "https" : "http",
       hostname == null ? "localhost" : hostname,
       port,
-      TextKit.isBlank(this.config.context()) ?
+      TextKit.blanky(this.config.context()) ?
         ("/".equals(this.config.context()) ? "" : this.config.context()) :
         (this.config.context().startsWith("/") ? this.config.context().substring(1, this.config.context().length()) :
           this.config.context())

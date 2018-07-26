@@ -187,7 +187,7 @@ public class BeanKit {
       if (val == null) {
         if (!name.startsWith("set"))
           continue;
-        name = TextKit.firstToLower(name.substring(3));
+        name = TextKit.lowerFirst(name.substring(3));
         val = map.get(name);
         if (val == null) {
           val = map.get(namecase.convert(name));

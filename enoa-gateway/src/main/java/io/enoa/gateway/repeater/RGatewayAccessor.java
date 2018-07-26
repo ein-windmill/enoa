@@ -66,7 +66,7 @@ public class RGatewayAccessor implements EoxAccessor {
       Response.Builder builder = resp.newBuilder();
       this.crosHeaders().forEach(builder::header);
       String origin = request.header("origin");
-      if (TextKit.notBlank(origin))
+      if (TextKit.blankn(origin))
         builder.header(new Header("Access-Control-Allow-Origin", origin));
       return builder.build();
     }
