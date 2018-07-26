@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -234,7 +234,7 @@ public class ToJsonExample {
     Path path = PathKit.debugPath().resolve("enoa-example/example-tryjson/_tmp/enoa.json");
     String json = null;
     if (!FileKit.exists(path)) {
-      HttpResponse response = Http.request(EoUrl.with("https://api.github.com/repos/ein-windmill/enoa/commits?per_page=5"))
+      HttpResponse response = Http.request(EoUrl.with("https://api.github.com/repos/fewensa/enoa/commits?per_page=5"))
         .reporter(IHttpReporter.def())
         .handler(IHttpHandler.def())
         .emit();
