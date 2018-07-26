@@ -105,7 +105,7 @@ public class JavaKeyword {
   }
 
   public JavaKeyword add(String keyword) {
-    if (TextKit.notBlank(keyword)) {
+    if (TextKit.blankn(keyword)) {
       set.add(keyword);
     }
     return this;

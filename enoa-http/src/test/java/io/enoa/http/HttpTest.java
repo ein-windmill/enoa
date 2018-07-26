@@ -151,7 +151,7 @@ public class HttpTest {
     this.http().enqueue()
 
 //      .<HttpResponse>then(resp -> resp.body().string())
-//      .<String>valid(TextKit::notBlank)
+//      .<String>valid(TextKit::blankn)
 //      .<String>execute(Log::debug)
 //      .<String>fail(data -> Log.error("REQUEST FAIL"))
 //      .capture(e -> Log.error(e.getMessage(), e))
@@ -163,7 +163,7 @@ public class HttpTest {
       .then(HttpResponse::body)
       .then(HttpResponseBody::bytes)
       .<byte[]>then(body -> EnoaBinary.create(body, EoConst.CHARSET).string())
-      .<String>valid(TextKit::notBlank)
+      .<String>valid(TextKit::blankn)
       .<String>valid(data -> data.length() > 30)
       .<String>execute(System.out::println)
       .<String>fail(System.err::println)

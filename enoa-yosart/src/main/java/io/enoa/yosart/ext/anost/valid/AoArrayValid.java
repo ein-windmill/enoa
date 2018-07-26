@@ -205,7 +205,7 @@ public class AoArrayValid extends AoObjectValid<AoArrayValid> {
     if (!super.verified)
       super.blank(mark, message);
 
-    return this.row(TextKit::notBlank, mark, message);
+    return this.row(TextKit::blankn, mark, message);
   }
 
   public AoArrayValid blankMember(int mark, String message) throws ValidException {

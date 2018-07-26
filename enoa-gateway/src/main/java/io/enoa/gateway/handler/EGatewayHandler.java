@@ -150,7 +150,7 @@ public class EGatewayHandler implements GatewayHandler {
     Http http = Http.request(callUrl);
 
     String contentType = request.header("content-type");
-    if (TextKit.notBlank(contentType)) {
+    if (TextKit.blankn(contentType)) {
       contentType = contentType.toLowerCase();
 
       // http body 請求
@@ -191,7 +191,7 @@ public class EGatewayHandler implements GatewayHandler {
       }
     }
     String origin = request.header("origin");
-    if (TextKit.notBlank(origin))
+    if (TextKit.blankn(origin))
       http.header("x-origin", origin);
 
     http.method(HttpMethod.of(request.method().name()));

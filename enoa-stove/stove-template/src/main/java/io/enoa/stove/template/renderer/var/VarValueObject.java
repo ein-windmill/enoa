@@ -66,7 +66,7 @@ class VarValueObject {
         return this.callMethod(invm, source, vags, attr);
       }
 
-      funcName = TextKit.union("get", TextKit.firstToUpper(funcName));
+      funcName = TextKit.union("get", TextKit.upperFirst(funcName));
       for (Method method : methods) {
         if (!method.getName().equals(funcName))
           continue;
@@ -87,7 +87,7 @@ class VarValueObject {
     Class<?>[] ptypes = method.getParameterTypes();
     List<Object> args = new ArrayList<>();
     if (CollectionKit.notEmpty(ptypes)) {
-      if (TextKit.isBlank(senArg))
+      if (TextKit.blanky(senArg))
         throw new IllegalArgumentException("调用方法参数错误 => " + Arrays.toString(ptypes));
       String[] targs = senArg.split(",");
       if (ptypes.length != targs.length)

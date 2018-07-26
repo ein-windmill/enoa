@@ -51,7 +51,7 @@ class RespuseImpl implements Respuse {
 
   @Override
   public Respuse attr(String name, Object value) {
-    if (TextKit.isBlank(name))
+    if (TextKit.blanky(name))
       return this;
     this.attr.set(name, value);
     return this;

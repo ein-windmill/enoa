@@ -70,7 +70,7 @@ class ErrorRender implements YoRender {
 
   @Override
   public String contentType() {
-    return TextKit.isBlank(this.contentType) ? this.defContentType : this.contentType;
+    return TextKit.blanky(this.contentType) ? this.defContentType : this.contentType;
   }
 
   @Override
@@ -122,11 +122,11 @@ class ErrorRender implements YoRender {
         "</html>",
       this.charset.name(),
       this.stat == null ? HttpStatus.INTERNAL_ERROR.code() : this.stat.code(),
-      TextKit.isBlank(title) ? "" : "-> ".concat(title),
+      TextKit.blanky(title) ? "" : "-> ".concat(title),
       this.stat == null ? HttpStatus.INTERNAL_ERROR.code() : this.stat.code(),
       Oysart.version(),
-      TextKit.isBlank(title) ? "" : "<br><br><article>-> ".concat(title).concat("</article>"),
-      TextKit.isBlank(body.toString()) ? "" : "<hr/><div class=\"body\">".concat(body.toString()).concat("</div>")
+      TextKit.blanky(title) ? "" : "<br><br><article>-> ".concat(title).concat("</article>"),
+      TextKit.blanky(body.toString()) ? "" : "<hr/><div class=\"body\">".concat(body.toString()).concat("</div>")
     );
   }
 

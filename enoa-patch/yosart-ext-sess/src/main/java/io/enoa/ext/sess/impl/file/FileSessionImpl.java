@@ -92,7 +92,7 @@ class FileSessionImpl implements Session {
       builder.secure();
     if (this.httpOnly)
       builder.httpOnly();
-    if (TextKit.notBlank(this.domain))
+    if (TextKit.blankn(this.domain))
       builder.domain(this.domain);
     if (this.hostOnly)
       builder.hostOnlyDomain(this.domain);
@@ -104,7 +104,7 @@ class FileSessionImpl implements Session {
   @Override
   public String[] names() {
     String sessVal = this._value == null ? this.request.cookie(this.sessKey) : this._value;
-    if (TextKit.isBlank(sessVal)) {
+    if (TextKit.blanky(sessVal)) {
       Log.warn(EnoaTipKit.message("eo.tip.ext.sess.session_404", this.sessKey));
       return CollectionKit.emptyArray(String.class);
     }
@@ -120,7 +120,7 @@ class FileSessionImpl implements Session {
   @Override
   public <T> T get(String name) {
     String sessVal = this._value == null ? this.request.cookie(this.sessKey) : this._value;
-    if (TextKit.isBlank(sessVal)) {
+    if (TextKit.blanky(sessVal)) {
       Log.warn(EnoaTipKit.message("eo.tip.ext.sess.session_404", this.sessKey));
       return null;
     }
@@ -136,7 +136,7 @@ class FileSessionImpl implements Session {
   @Override
   public Session rm(String name) {
     String sessVal = this._value == null ? this.request.cookie(this.sessKey) : this._value;
-    if (TextKit.isBlank(sessVal))
+    if (TextKit.blanky(sessVal))
       throw new EoException(EnoaTipKit.message("eo.tip.ext.sess.session_404", this.sessKey));
     Kv data = this.deserialize(Paths.get(this.savePath.toString(), sessVal));
     data.remove(name);
@@ -149,7 +149,7 @@ class FileSessionImpl implements Session {
     if (this._value == null)
       this._value = this.request.cookie(this.sessKey);
 
-    if (TextKit.isBlank(this._value)) {
+    if (TextKit.blanky(this._value)) {
       this._value = UUIDKit.next(false);
     }
     Path saveFile = Paths.get(this.savePath.toString(), this._value);

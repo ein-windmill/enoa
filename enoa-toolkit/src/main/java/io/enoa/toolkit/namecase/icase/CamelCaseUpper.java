@@ -29,6 +29,6 @@ public class CamelCaseUpper extends CamelCaseLower {
   }
 
   private String uppercase(String text) {
-    return TextKit.firstToUpper(text);
+    return TextKit.upperFirst(text);
   }
 }

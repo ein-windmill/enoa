@@ -28,7 +28,7 @@ class _ByteConverter implements IConverter<Byte, String> {
 
   @Override
   public Byte convert(String origin) {
-    if (TextKit.isBlank(origin) && this.primitive)
+    if (TextKit.blanky(origin) && this.primitive)
       return (byte) 0;
     return NumberKit.to(origin, Byte.class);
   }

@@ -273,7 +273,7 @@ class EnoaEmlSender implements EmlSender {
   }
 
   private InternetAddress addr(MailPerson personal, Charset charset) throws AddressException, UnsupportedEncodingException {
-    if (TextKit.isBlank(personal.name()))
+    if (TextKit.blanky(personal.name()))
       return new InternetAddress(personal.email());
     return new InternetAddress(personal.email(), personal.name(), charset.name());
   }

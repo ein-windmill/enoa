@@ -29,7 +29,7 @@ public class OysartTip {
   private static final String MARK = "#";
 
   private static String format(String text, Object... args) {
-    if (TextKit.isBlank(text))
+    if (TextKit.blanky(text))
       return text;
 
     Object[] fags = Stream.of(args).map(o -> o == null ? null : o.toString()).toArray(Object[]::new);
