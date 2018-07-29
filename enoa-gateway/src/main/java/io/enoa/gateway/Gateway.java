@@ -54,7 +54,11 @@ public interface Gateway {
 
   Gateway auth(GatewayAuth auth);
 
-  Gateway auth(String uri, GatewayAuth auth);
+  default Gateway auth(GatewayAuth auth, String uri) {
+    return this.auth(auth, new String[]{uri});
+  }
+
+  Gateway auth(GatewayAuth auth, String... uris);
 
   Gateway noauth(String uri);
 

@@ -130,16 +130,20 @@ class _EnoaGateway implements Gateway {
 
   @Override
   public Gateway auth(GatewayAuth auth) {
-    return this.auth(null, auth);
+    return this.auth(auth, CollectionKit.emptyArray(String.class));
   }
 
   @Override
-  public Gateway auth(String uri, GatewayAuth auth) {
+  public Gateway auth(GatewayAuth auth, String... uris) {
     if (auth == null)
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.gateway.auth_null"));
+    if (CollectionKit.isEmpty(uris))
+      return this;
+
     if (this.auths == null)
       this.auths = new ArrayList<>();
-    this.auths.add(new GAuthData(uri, auth));
+    for (String uri : uris)
+      this.auths.add(new GAuthData(uri, auth));
     return this;
   }
 
