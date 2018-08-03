@@ -15,6 +15,8 @@
  */
 package io.enoa.toolkit.ret;
 
+import io.enoa.toolkit.map.Kv;
+
 import java.util.HashMap;
 
 public class ERetBuilder {
@@ -67,7 +69,15 @@ public class ERetBuilder {
 
     @Override
     public EoResp resp() {
-      return EoResp.build(this.ok() ? EoResp.Stat.OK : EoResp.Stat.FAIL);
+      EoResp resp = EoResp.build(this.ok() ? EoResp.Stat.OK : EoResp.Stat.FAIL);
+      Kv kv = Kv.create();
+      this.forEach((key, value) -> {
+        if ("stat".equals(key))
+          return;
+        kv.set(key, value);
+      });
+      resp.data(kv);
+      return resp;
     }
   }
 
