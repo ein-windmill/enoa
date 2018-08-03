@@ -68,14 +68,18 @@ public class ERetBuilder {
     }
 
     @Override
-    public EoResp resp() {
+    public EoResp resp(boolean fill) {
       EoResp resp = EoResp.build(this.ok() ? EoResp.Stat.OK : EoResp.Stat.FAIL);
+      if (!fill)
+        return resp;
       Kv kv = Kv.create();
       this.forEach((key, value) -> {
         if ("stat".equals(key))
           return;
         kv.set(key, value);
       });
+      if (kv.isEmpty())
+        return resp;
       resp.data(kv);
       return resp;
     }

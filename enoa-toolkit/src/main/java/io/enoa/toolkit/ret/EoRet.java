@@ -31,6 +31,10 @@ public interface EoRet extends Ret, FastKv<EoRet> {
 
   boolean fail();
 
-  EoResp resp();
+  EoResp resp(boolean fill);
+
+  default EoResp resp() {
+    return this.resp(Boolean.TRUE);
+  }
 
 }
