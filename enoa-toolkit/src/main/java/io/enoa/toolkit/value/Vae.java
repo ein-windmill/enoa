@@ -13,20 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.toolkit.convert;
+package io.enoa.toolkit.value;
 
-/**
- * 數據轉換接口
- */
-@FunctionalInterface
-public interface IConverter<R, P> {
+public class Vae {
 
-  /**
-   * 轉換源數據到目標數據
-   *
-   * @param origin 源數據
-   * @return R
-   */
-  R convert(P origin);
+  public static <T> T nulldef(T origin, T def) {
+    return origin == null ? def : origin;
+  }
 
 }

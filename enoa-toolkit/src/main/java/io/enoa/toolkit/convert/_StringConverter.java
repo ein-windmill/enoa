@@ -15,18 +15,9 @@
  */
 package io.enoa.toolkit.convert;
 
-/**
- * 數據轉換接口
- */
-@FunctionalInterface
-public interface IConverter<R, P> {
-
-  /**
-   * 轉換源數據到目標數據
-   *
-   * @param origin 源數據
-   * @return R
-   */
-  R convert(P origin);
-
+public class _StringConverter implements IConverter<String, String> {
+  @Override
+  public String convert(String origin) {
+    return origin;
+  }
 }
