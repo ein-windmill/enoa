@@ -50,7 +50,6 @@ class YosartImpl extends YasartImpl {
   YosartImpl() {
     this.name = "Yosart";
     this.context = "/";
-    this.assets = new YdAssets.Builder().build();
     this.config = YoConfig.def();
     this.routerRegisters = new ArrayList<>();
   }
@@ -75,9 +74,10 @@ class YosartImpl extends YasartImpl {
     // start oysartd data
     Oysartd.Builder builder = new Oysartd.Builder()
       .name(this.name)
-      .assets(this.assets)
       .version(EnoaTipKit.message("yosart.version"))
       .config(this.config);
+    if (this.assets != null)
+      builder.assets(this.assets);
 
     // init ext to oysartd
     builder.exts(YoExtd.yo().exts());
