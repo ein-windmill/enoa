@@ -69,6 +69,7 @@
     <module>enoa-rpc</module>
     <module>enoa-index</module>
     <module>enoa-mq</module>
+    <module>enoa-typebuilder</module>
   </modules>
 
 
