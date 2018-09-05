@@ -1,5 +1,7 @@
 package io.enoa.toolkit.number;
 
+import io.enoa.toolkit.binary.EnoaBinary;
+
 public class HexKit {
 
   private HexKit() {
@@ -42,23 +44,23 @@ public class HexKit {
   /**
    * 字符串转二进制
    *
-   * @param str
-   * @return
+   * @param text hex string
+   * @return EnoaBinary
    */
-  public static byte[] bytes(String str) {
-    if (str == null)
+  public static EnoaBinary binary(String text) {
+    if (text == null)
       return null;
-    str = str.trim();
-    int len = str.length();
+    text = text.trim();
+    int len = text.length();
     if (len == 0 || len % 2 == 1)
       return null;
 
     byte[] b = new byte[len / 2];
     try {
-      for (int i = 0; i < str.length(); i += 2) {
-        b[i / 2] = (byte) Integer.decode("0x" + str.substring(i, i + 2)).intValue();
+      for (int i = 0; i < text.length(); i += 2) {
+        b[i / 2] = (byte) Integer.decode("0x" + text.substring(i, i + 2)).intValue();
       }
-      return b;
+      return EnoaBinary.create(b);
     } catch (Exception e) {
       return null;
     }

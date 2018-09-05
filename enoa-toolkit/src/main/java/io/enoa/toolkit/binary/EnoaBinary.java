@@ -16,13 +16,13 @@
 package io.enoa.toolkit.binary;
 
 import io.enoa.toolkit.EoConst;
-import io.enoa.toolkit.text.TextKit;
 
 import java.io.Serializable;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
+import java.util.Arrays;
 
 public abstract class EnoaBinary implements Serializable {
 
@@ -30,8 +30,8 @@ public abstract class EnoaBinary implements Serializable {
 
   public abstract byte[] bytes();
 
-  public String string() {
-    CharsetDecoder decoder = this.charset().newDecoder();
+  public String string(Charset charset) {
+    CharsetDecoder decoder = charset.newDecoder();
     ByteBuffer byteBuffer = ByteBuffer.wrap(this.bytes());
     CharBuffer charBuffer = CharBuffer.allocate(byteBuffer.limit());
     decoder.decode(byteBuffer, charBuffer, true);
@@ -40,6 +40,14 @@ public abstract class EnoaBinary implements Serializable {
     charBuffer.clear();
     byteBuffer.clear();
     return ret;
+  }
+
+  public String string() {
+    return this.string(this.charset());
+  }
+
+  public ByteBuffer bytebuffer() {
+    return ByteBuffer.wrap(this.bytes());
   }
 
   public static EnoaBinary create(byte[] buffer) {
@@ -62,6 +70,6 @@ public abstract class EnoaBinary implements Serializable {
 
   @Override
   public String toString() {
-    return TextKit.union("EnoaBinary{charset=", this.charset().name(), ", body=", TextKit.ellipsis(string(), 1000), "}");
+    return Arrays.toString(this.bytes());
   }
 }
