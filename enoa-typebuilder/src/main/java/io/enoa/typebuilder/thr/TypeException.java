@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (fewensa@enoa.io)
+ * Copyright 2016 ikidou
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,20 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.toolkit.convert;
 
-/**
- * 數據轉換接口
- */
-@FunctionalInterface
-public interface IConverter<R, P> {
+package io.enoa.typebuilder.thr;
 
-  /**
-   * 轉換源數據到目標數據
-   *
-   * @param origin 源數據
-   * @return R
-   */
-  R convert(P origin);
+public class TypeException extends RuntimeException {
+  public TypeException() {
+  }
 
+  public TypeException(String message) {
+    super(message);
+  }
+
+  public TypeException(String message, Throwable cause) {
+    super(message, cause);
+  }
+
+  public TypeException(Throwable cause) {
+    super(cause);
+  }
+
+  public TypeException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    super(message, cause, enableSuppression, writableStackTrace);
+  }
 }

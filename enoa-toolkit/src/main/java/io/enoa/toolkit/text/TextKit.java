@@ -50,19 +50,35 @@ public class TextKit {
     return str;
   }
 
+  public static boolean isBlank(String text) {
+    return blanky(text);
+  }
+
+  public static boolean isBlank(String... text) {
+    return blanky(text);
+  }
+
+  public static boolean notBlank(String text) {
+    return blankn(text);
+  }
+
+  public static boolean notBlank(String... text) {
+    return blankn(text);
+  }
+
   /**
    * 字符串为 null 或者内部字符全部为 ' ' '\t' '\n' '\r' 这四类字符时返回 true
    */
-  public static boolean blanky(String str) {
-    if (str == null) {
+  public static boolean blanky(String text) {
+    if (text == null) {
       return true;
     }
-    int len = str.length();
+    int len = text.length();
     if (len == 0) {
       return true;
     }
     for (int i = 0; i < len; i++) {
-      switch (str.charAt(i)) {
+      switch (text.charAt(i)) {
         case ' ':
         case '\t':
         case '\n':
