@@ -16,6 +16,7 @@
 package io.enoa.toolkit.binary;
 
 import io.enoa.toolkit.EoConst;
+import io.enoa.toolkit.digest.DigestKit;
 
 import java.io.Serializable;
 import java.nio.ByteBuffer;
@@ -66,6 +67,20 @@ public abstract class EnoaBinary implements Serializable {
         return buffer;
       }
     };
+  }
+
+  @Override
+  public int hashCode() {
+    return Arrays.hashCode(this.bytes());
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (obj == null || getClass() != obj.getClass()) return false;
+
+    EnoaBinary that = (EnoaBinary) obj;
+    return DigestKit.slowEquals(this.bytes(), that.bytes());
   }
 
   @Override
