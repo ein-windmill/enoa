@@ -29,6 +29,7 @@ import io.enoa.toolkit.text.TextKit;
 import io.enoa.yosart.Oysart;
 import io.enoa.yosart.YoConfig;
 import io.enoa.yosart.YoExt;
+import io.enoa.yosart.kernel.data.YdAssets;
 import io.enoa.yosart.kernel.ext.YmAssetsExt;
 import io.enoa.yosart.kernel.ext.YmRouterExt;
 import io.enoa.yosart.kit.tip.OysartTip;
@@ -127,10 +128,14 @@ public class OysartAccessor implements EoxAccessor {
   }
 
   private String assetsUri() {
+    YdAssets assets = Oysart.assets();
+    if (assets == null)
+      return null;
+
     if (this.assetsUri != null)
       return this.assetsUri;
 
-    String uri = Oysart.assets().uri();
+    String uri = assets.uri();
     if (!uri.endsWith("/")) {
       uri = uri.concat("/");
     }
@@ -143,9 +148,12 @@ public class OysartAccessor implements EoxAccessor {
     this.init();
     this.printLog(request);
     String action = UriKit.rmcontext(request.context(), request.uri());
-    if (action.concat("/").startsWith(this.assetsUri())) {
-      action = action.concat("/").replace(this.assetsUri(), "/");
-      return this.assetsExt.handle(action, request);
+    String assets = this.assetsUri();
+    if (assets != null) {
+      if (action.concat("/").startsWith(assets)) {
+        action = action.concat("/").replace(assets, "/");
+        return this.assetsExt.handle(action, request);
+      }
     }
     request.attr("_uri", action);
 
