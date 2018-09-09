@@ -171,7 +171,7 @@ class NettyCosRequestWrapper extends EoxAbstractCosRequest {
     String[] paras = this.paraValues(name);
     if (CollectionKit.isEmpty(paras))
       return def;
-    return ConvertKit.ruleString(paras[0], def);
+    return ConvertKit.string(paras[0], def, Boolean.TRUE);
   }
 
   @Override
