@@ -47,6 +47,9 @@ class AnostActionHandler extends AbstractAnostHandler {
     try {
       this.hookRunner.call(request, resp, this.hookMgr, resource);
     } catch (HookException e) {
+      if (request.method() == Method.OPTIONS) {
+        return resp.render("").end();
+      }
       return super.handleException(e, request, resource, resp);
     }
 
