@@ -6,11 +6,11 @@
 
   <groupId>io.enoa</groupId>
   <artifactId>enoa</artifactId>
-  <version>1.6-beta.2</version>
+  <version>1.7-snapshot</version>
   <packaging>pom</packaging>
 
   <description>
-    Enoa
+    Mostly Available
   </description>
 
   <parent>
