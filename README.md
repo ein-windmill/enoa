@@ -3,7 +3,7 @@
 ENOA
 ===============
 
-![ENOA](./enoa.svg =200x200)
+![ENOA](./enoa.svg | width=100)
 
  
 ## Mostly Available
