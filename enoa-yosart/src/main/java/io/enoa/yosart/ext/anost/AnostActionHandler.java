@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,6 +47,9 @@ class AnostActionHandler extends AbstractAnostHandler {
     try {
       this.hookRunner.call(request, resp, this.hookMgr, resource);
     } catch (HookException e) {
+      if (request.method() == Method.OPTIONS) {
+        return resp.render("").end();
+      }
       return super.handleException(e, request, resource, resp);
     }
 

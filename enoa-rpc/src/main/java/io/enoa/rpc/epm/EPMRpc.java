@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.rpc.config;
+package io.enoa.rpc.epm;
 
 import io.enoa.json.EnoaJson;
 import io.enoa.json.EoJsonFactory;
@@ -21,29 +21,42 @@ import io.enoa.json.Json;
 import io.enoa.log.EnoaLog;
 import io.enoa.log.EoLogFactory;
 import io.enoa.log.Log;
+import io.enoa.rpc.parser.IRpcParser;
+import io.enoa.rpc.parser.ResponseType;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.thr.EoException;
 
-public class ORpcFactory {
+import java.util.HashMap;
+import java.util.Map;
+
+public class EPMRpc {
 
   private static class Holder {
-    private static final ORpcFactory INSTANCE = new ORpcFactory();
+    private static final EPMRpc INSTANCE = new EPMRpc();
   }
 
-  private ORpcFactory() {
-    this.json = Json.epm().factory();
-    this.log = Log.epm().factory();
-  }
-
-  static ORpcFactory instance() {
+  public static EPMRpc instance() {
     return Holder.INSTANCE;
   }
 
+
   private EoJsonFactory json;
   private EoLogFactory log;
+  private Map<ResponseType, IRpcParser> handler;
 
+  private EPMRpc() {
+    this.json = Json.epm().factory();
+    this.log = Log.epm().factory();
+    this.handler = new HashMap<>();
+    this.handler(ResponseType.JSON, new _DefaultJsonRpcParser<>());
+    this.handler(ResponseType.BINARY, new _DefaultBinaryRpcParser());
+  }
 
-  public ORpcFactory json(EoJsonFactory json) {
+  public EPMRegister register() {
+    return EPMRegister.instance();
+  }
+
+  public EPMRpc json(EoJsonFactory json) {
     this.json = json;
     return this;
   }
@@ -54,7 +67,7 @@ public class ORpcFactory {
     return this.json.json();
   }
 
-  public ORpcFactory log(EoLogFactory log) {
+  public EPMRpc log(EoLogFactory log) {
     this.log = log;
     return this;
   }
@@ -65,6 +78,16 @@ public class ORpcFactory {
 
   public EnoaLog log(Class<?> clazz) {
     return this.log.logger(clazz);
+  }
+
+
+  public <T> EPMRpc handler(ResponseType type, IRpcParser<T> handler) {
+    this.handler.put(type, handler);
+    return this;
+  }
+
+  public <T> IRpcParser<T> handler(ResponseType type) {
+    return this.handler.get(type);
   }
 
 }

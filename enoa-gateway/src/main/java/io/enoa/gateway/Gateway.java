@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,7 +54,11 @@ public interface Gateway {
 
   Gateway auth(GatewayAuth auth);
 
-  Gateway auth(String uri, GatewayAuth auth);
+  default Gateway auth(GatewayAuth auth, String uri) {
+    return this.auth(auth, new String[]{uri});
+  }
+
+  Gateway auth(GatewayAuth auth, String... uris);
 
   Gateway noauth(String uri);
 

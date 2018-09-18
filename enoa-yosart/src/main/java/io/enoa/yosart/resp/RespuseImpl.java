@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,7 +51,7 @@ class RespuseImpl implements Respuse {
 
   @Override
   public Respuse attr(String name, Object value) {
-    if (TextKit.isBlank(name))
+    if (TextKit.blanky(name))
       return this;
     this.attr.set(name, value);
     return this;

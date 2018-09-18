@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ import io.enoa.ext.sess.SessFactory;
 import io.enoa.log.Log;
 import io.enoa.serialization.EoSerializationFactory;
 import io.enoa.serialization.EoSerializer;
+import io.enoa.serialization.Serializer;
 import io.enoa.toolkit.file.FileKit;
 import io.enoa.yosart.kernel.http.Session;
 import io.enoa.yosart.kernel.http.YoRequest;
@@ -35,7 +36,7 @@ public class FileSession implements SessFactory {
   public FileSession(String sessKey, Path savePath, EoSerializationFactory serialization, boolean reset) {
     this.savePath = savePath;
     this.sessKey = sessKey;
-    this.serializer = serialization == null ? EoSerializer.epm().serializer() : serialization.serializer();
+    this.serializer = serialization == null ? Serializer.epm().serializer() : serialization.serializer();
     if (reset)
       this.reset(savePath);
   }

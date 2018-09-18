@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,12 +34,12 @@ public class EnoaHttpKit {
    * @return Map
    */
   public static Map<String, List<String>> parsePara(String text) {
-    if (TextKit.isBlank(text))
+    if (TextKit.blanky(text))
       return null;
     String urlPara = text;
     if (text.contains("?")) {
       urlPara = urlPara.substring(text.indexOf("?") + 1);
-      if (TextKit.isBlank(urlPara))
+      if (TextKit.blanky(urlPara))
         return null;
     }
     String[] paraItems = urlPara.split("&");
@@ -51,7 +51,7 @@ public class EnoaHttpKit {
         continue;
       String name = paraItem.substring(0, eqIx),
         value = paraItem.substring(eqIx + 1);
-      if (TextKit.isBlank(name) || TextKit.isBlank(value))
+      if (TextKit.blanky(name) || TextKit.blanky(value))
         continue;
       List<String> pval = urlp.get(name);
       if (CollectionKit.notEmpty(pval)) {
@@ -66,7 +66,7 @@ public class EnoaHttpKit {
   }
 
   public static Cookie[] parseCookie(String cookieStr) {
-    if (TextKit.isBlank(cookieStr))
+    if (TextKit.blanky(cookieStr))
       return CollectionKit.emptyArray(Cookie.class);
     List<Cookie> cookies = new ArrayList<>();
     String[] cks = cookieStr.split(";");
@@ -77,9 +77,9 @@ public class EnoaHttpKit {
       if (cnvs.length != 2)
         continue;
       String name = cnvs[0], value = cnvs[1];
-      if (TextKit.isBlank(name))
+      if (TextKit.blanky(name))
         continue;
-      if (TextKit.isBlank(value))
+      if (TextKit.blanky(value))
         continue;
       cookies.add(new Cookie.Builder().name(TextKit.nospace(name)).value(TextKit.nospace(value)).build());
     }
@@ -88,13 +88,13 @@ public class EnoaHttpKit {
 
   public static String parseIp(Request request) {
     String ip = request.header("x-forwarded-for");
-    if (TextKit.notBlank(ip) && !"unknown".equalsIgnoreCase(ip))
+    if (TextKit.blankn(ip) && !"unknown".equalsIgnoreCase(ip))
       return ip;
     ip = request.header("Proxy-Client-IP");
-    if (TextKit.notBlank(ip) && !"unknown".equalsIgnoreCase(ip))
+    if (TextKit.blankn(ip) && !"unknown".equalsIgnoreCase(ip))
       return ip;
     ip = request.header("WL-Proxy-Client-IP");
-    if (TextKit.notBlank(ip) && !"unknown".equalsIgnoreCase(ip))
+    if (TextKit.blankn(ip) && !"unknown".equalsIgnoreCase(ip))
       return ip;
     return null;
   }

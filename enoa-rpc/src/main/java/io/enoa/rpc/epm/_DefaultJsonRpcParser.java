@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.rpc.config;
+package io.enoa.rpc.epm;
 
 import io.enoa.http.protocol.HttpResponseBody;
 import io.enoa.rpc.Rpc;
@@ -24,6 +24,6 @@ import java.lang.reflect.Type;
 class _DefaultJsonRpcParser<T> implements IRpcParser<T> {
   @Override
   public T parse(HttpResponseBody body, Type type) {
-    return Rpc.config().factory().json().parse(body.string(), type);
+    return Rpc.epm().json().parse(body.string(), type);
   }
 }

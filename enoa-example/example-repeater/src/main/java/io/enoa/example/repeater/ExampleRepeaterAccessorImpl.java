@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ class ExampleRepeaterAccessorImpl implements EoxAccessor {
   @Override
   public Response access(Request request) {
     String error = request.para("error");
-    if (TextKit.notBlank(error)) {
+    if (TextKit.blankn(error)) {
       return this.respError(request.paraToInt("error"));
     }
     String body = "It works!";
@@ -48,7 +48,7 @@ class ExampleRepeaterAccessorImpl implements EoxAccessor {
       switch (request.method()) {
         case GET:
           String type = request.para("type");
-          boolean showJson = TextKit.notBlank(type) && type.equalsIgnoreCase("json");
+          boolean showJson = TextKit.blankn(type) && type.equalsIgnoreCase("json");
           contentType = showJson ?
             "application/json; charset=" + this.config.charset().displayName() :
             "text/html; charset=" + this.config.charset().displayName();
@@ -102,7 +102,7 @@ class ExampleRepeaterAccessorImpl implements EoxAccessor {
     sb.append(String.format(kvh, "Method", req.method()));
     sb.append(String.format(kvh, "Context", req.context()));
     sb.append(String.format(kvh, "URI", req.uri()));
-    sb.append(String.format(kvh, "URL", TextKit.isBlank(req.url()) ? req.url() : req.url().replace("&", "&amp;")));
+    sb.append(String.format(kvh, "URL", TextKit.blanky(req.url()) ? req.url() : req.url().replace("&", "&amp;")));
     sb.append("<p><span class=\"name\">Cookies<span><ul>");
     for (Cookie cookie : req.cookies()) {
       sb.append("<li><span class=\"name\">").append(cookie.name()).append("</span>")
@@ -146,7 +146,7 @@ class ExampleRepeaterAccessorImpl implements EoxAccessor {
   }
 
   private String filterJsonVal(String str) {
-    if (TextKit.isBlank(str))
+    if (TextKit.blanky(str))
       return str;
     return str.replaceAll("\\\\", "\\\\\\\\")
       .replaceAll("\"", "\\\\\"")

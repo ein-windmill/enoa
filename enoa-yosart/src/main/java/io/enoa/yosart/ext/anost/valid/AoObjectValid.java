@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@ public class AoObjectValid<T extends AoObjectValid> {
       return target;
 
     String value = this.request.para(target);
-    if (TextKit.notBlank(value))
+    if (TextKit.blankn(value))
       return value;
     value = this.request.variable(target);
     return value;
@@ -54,7 +54,7 @@ public class AoObjectValid<T extends AoObjectValid> {
       return (T) this;
     if (this.name == null)
       throw new ValidException(mark, message);
-    if (TextKit.isBlank(this.value(this.name, this.valueMode)))
+    if (TextKit.blanky(this.value(this.name, this.valueMode)))
       throw new ValidException(mark, message);
     this.verified = true;
     return (T) this;

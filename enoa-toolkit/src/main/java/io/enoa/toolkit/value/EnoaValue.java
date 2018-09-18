@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +17,7 @@ package io.enoa.toolkit.value;
 
 import io.enoa.toolkit.convert.ConvertKit;
 import io.enoa.toolkit.convert.IConverter;
-import io.enoa.toolkit.number.NumberKit;
-import io.enoa.toolkit.text.TextKit;
+import io.enoa.toolkit.date.EnoaDate;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -53,8 +52,9 @@ public class EnoaValue implements Serializable {
   }
 
   public Number number(Number def) {
-    String string = this.string();
-    return TextKit.isBlank(string) ? def : NumberKit.to(string, Number.class);
+    return this.value instanceof Number ?
+      ConvertKit.number((Number) this.value, def) :
+      ConvertKit.number(this.string(), def);
   }
 
   public Number number() {
@@ -62,8 +62,9 @@ public class EnoaValue implements Serializable {
   }
 
   public Integer integer(Integer def) {
-    String string = this.string();
-    return TextKit.isBlank(string) ? def : NumberKit.integer(string);
+    return this.value instanceof Number ?
+      ConvertKit.integer((Number) this.value, def) :
+      ConvertKit.integer(this.string(), def);
   }
 
   public Integer integer() {
@@ -71,8 +72,9 @@ public class EnoaValue implements Serializable {
   }
 
   public Long longer(Long def) {
-    String string = this.string();
-    return TextKit.isBlank(string) ? def : NumberKit.longer(string);
+    return this.value instanceof Number ?
+      ConvertKit.longer((Number) this.value, def) :
+      ConvertKit.longer(this.string(), def);
   }
 
   public Long longer() {
@@ -80,8 +82,9 @@ public class EnoaValue implements Serializable {
   }
 
   public Double doubler(Double def) {
-    String string = this.string();
-    return TextKit.isBlank(string) ? def : NumberKit.doubler(string);
+    return this.value instanceof Number ?
+      ConvertKit.doubler((Number) this.value, def) :
+      ConvertKit.doubler(this.string(), def);
   }
 
   public Double doubler() {
@@ -89,8 +92,9 @@ public class EnoaValue implements Serializable {
   }
 
   public Float floater(Float def) {
-    String string = this.string();
-    return TextKit.isBlank(string) ? def : NumberKit.floater(string);
+    return this.value instanceof Number ?
+      ConvertKit.floater((Number) this.value, def) :
+      ConvertKit.floater(this.string(), def);
   }
 
   public Float floater() {
@@ -98,8 +102,9 @@ public class EnoaValue implements Serializable {
   }
 
   public Short shorter(Short def) {
-    String string = this.string();
-    return TextKit.isBlank(string) ? def : NumberKit.shorter(string);
+    return this.value instanceof Number ?
+      ConvertKit.shorter((Number) this.value) :
+      ConvertKit.shorter(this.string(), def);
   }
 
   public Short shorter() {
@@ -107,8 +112,9 @@ public class EnoaValue implements Serializable {
   }
 
   public BigInteger bigint(BigInteger def) {
-    Number number = this.number();
-    return number == null ? def : NumberKit.bigint(this.number());
+    return this.value instanceof Number ?
+      ConvertKit.bigint((Number) this.value, def) :
+      ConvertKit.bigint(this.string(), def);
   }
 
   public BigInteger bigint() {
@@ -116,8 +122,9 @@ public class EnoaValue implements Serializable {
   }
 
   public BigDecimal bigdecimal(BigDecimal def) {
-    String string = this.string();
-    return TextKit.isBlank(string) ? def : NumberKit.bigdecimal(string);
+    return this.value instanceof Number ?
+      ConvertKit.bigdecimal((Number) this.value, def) :
+      ConvertKit.bigdecimal(this.string(), def);
   }
 
   public BigDecimal bigdecimal() {
@@ -125,8 +132,9 @@ public class EnoaValue implements Serializable {
   }
 
   public Boolean bool(Boolean def) {
-    String string = this.string();
-    return TextKit.isBlank(string) ? def : ConvertKit.bool(string);
+    return this.value instanceof Number ?
+      ConvertKit.bool((Number) this.value, def) :
+      ConvertKit.bool(this.string(), def);
   }
 
   public Boolean bool() {
@@ -134,20 +142,27 @@ public class EnoaValue implements Serializable {
   }
 
   public Date date(String format, Date def) {
+    if (this.value instanceof Date)
+      return EnoaDate.with((Date) this.value).date(def);
+    if (this.value instanceof Long)
+      return EnoaDate.with((Long) this.value).date(def);
     return ConvertKit.date(this.string(), format, def);
   }
 
   public Date date(String format) {
-    return ConvertKit.date(this.string(), format, null);
+    return this.date(format, null);
   }
 
   public Date date() {
-    return ConvertKit.date(this.string(), "yyyy-MM-dd", null);
+    return this.date("yyyy-MM-dd", null);
   }
 
   public Timestamp timestamp(String format, Timestamp def) {
-    Date date = this.date(format);
-    return date == null ? def : new Timestamp(date.getTime());
+    if (this.value instanceof Date)
+      return EnoaDate.with((Date) this.value).timestamp(def);
+    if (this.value instanceof Long)
+      return EnoaDate.with((Long) this.value).timestamp(def);
+    return ConvertKit.timestamp(this.string(), format, def);
   }
 
   public Timestamp timestamp(String format) {

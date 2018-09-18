@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,8 +49,8 @@ public class EPMSerializationTest {
 //    EMgrSerialization.defSerializationFactory(new JdkSerializeProvider());
 //    EoSerializer serializer = EMgrSerialization.serialization().serializer();
 
-    EoSerializer.epm().install(new JdkSerializeProvider());
-    EoSerializer serializer = EoSerializer.epm().serializer();
+    Serializer.epm().install(new JdkSerializeProvider());
+    EoSerializer serializer = Serializer.epm().serializer();
 
     byte[] serialize = serializer.serialize(this.data());
 

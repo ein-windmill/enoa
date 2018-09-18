@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.rpc.config;
+package io.enoa.rpc.epm;
 
 import io.enoa.http.EoUrl;
 import io.enoa.http.protocol.HttpHeader;
@@ -22,33 +22,29 @@ import io.enoa.rpc.http._HttpRpcRegister;
 import java.util.Collections;
 import java.util.Set;
 
-public class ORpcRegister {
+public class EPMRegister {
 
   private static class Holder {
-    private static final ORpcRegister INSTANCE = new ORpcRegister();
+    private static final EPMRegister INSTANCE = new EPMRegister();
   }
 
-  private ORpcRegister() {
-
-  }
-
-  static ORpcRegister instance() {
+  public static EPMRegister instance() {
     return Holder.INSTANCE;
   }
 
-  public ORpcRegister http(String name, String host) {
+  public EPMRegister http(String name, String host) {
     return this.http(name, EoUrl.with(host));
   }
 
-  public ORpcRegister http(String name, EoUrl host) {
+  public EPMRegister http(String name, EoUrl host) {
     return this.http(name, host, Collections.emptySet());
   }
 
-  public ORpcRegister http(String name, String host, Set<HttpHeader> headers) {
+  public EPMRegister http(String name, String host, Set<HttpHeader> headers) {
     return this.http(name, EoUrl.with(host), headers);
   }
 
-  public ORpcRegister http(String name, EoUrl host, Set<HttpHeader> headers) {
+  public EPMRegister http(String name, EoUrl host, Set<HttpHeader> headers) {
     _HttpRpcRegister.instance().reg(name, host, headers);
     return this;
   }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ class _ByteConverter implements IConverter<Byte, String> {
 
   @Override
   public Byte convert(String origin) {
-    if (TextKit.isBlank(origin) && this.primitive)
+    if (TextKit.blanky(origin) && this.primitive)
       return (byte) 0;
     return NumberKit.to(origin, Byte.class);
   }

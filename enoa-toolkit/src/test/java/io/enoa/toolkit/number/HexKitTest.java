@@ -1,6 +1,10 @@
 package io.enoa.toolkit.number;
 
+import io.enoa.toolkit.binary.EnoaBinary;
+import io.enoa.toolkit.file.FileKit;
 import org.junit.Test;
+
+import java.nio.file.Paths;
 
 public class HexKitTest {
 
@@ -9,9 +13,17 @@ public class HexKitTest {
     String text = "11";
 //    String hex = HexKit.hex(text.getBytes());
 //    System.out.println(hex);
-    byte[] bytes = HexKit.bytes(text);
-    System.out.println(new String(bytes));
+    EnoaBinary binary = HexKit.binary(text);
+    System.out.println(binary.string());
 
+  }
+
+  @Test
+  public void thex0() {
+    String hex = "9D6F8AA482D182F182E4CFEBCF9A41A19218BDC5490A154D15E0AFE1723723272DBC6BE5D615A02308E18D65C9A777A19140EFF6F9C2BE8853BB505B620011099938C5AA6FCDE4965BFD1A718389E97D5745ED866112C70EF074EF0140867F4283A8CC6F6D18ED00B39A1D7B3E5D0814EE7D7D187C1C2928A50951BAF7F94BEF2AAF39D0826FB3FCC610838756500BC146FC18E93C36B39E71741108D57451B429E1E7353D44A13E71A4E1849BC01CF28A20786CAB46FE3D4E035EA273F1A2993B21AAFEE9B035F052D15F7693F4B685A4F97ACCC03AB839D06BB70D23AC5028C249F60454EED45AEA09D9A1E9A784D472B545862F636C55B4B9FBED48B9862992E51ED54CEA7EFD76B0FFE995AD1A047A6A39A47DC221ED2A8183A482";
+    EnoaBinary binary = HexKit.binary(hex);
+    String text = binary.string();
+    System.out.println(text);
   }
 
 

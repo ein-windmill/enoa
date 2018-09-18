@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -59,8 +59,8 @@ public final class FastCGIServer {
 
   public void listen(String hostname, int port) throws IOException {
     ServerSocket server = new ServerSocket();
-    server.bind(TextKit.isBlank(hostname) ? new InetSocketAddress(port) : new InetSocketAddress(hostname, port));
-    Log.debug("FastCGI server started on {}:{}", TextKit.isBlank(hostname) ? "localhost" : hostname, port);
+    server.bind(TextKit.blanky(hostname) ? new InetSocketAddress(port) : new InetSocketAddress(hostname, port));
+    Log.debug("FastCGI server started on {}:{}", TextKit.blanky(hostname) ? "localhost" : hostname, port);
     try {
       this.accept(server);
     } catch (Exception e) {

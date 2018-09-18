@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -139,7 +139,7 @@ class EnoaRepeaterImpl implements Repeater {
       this.ssl ? "https" : "http",
       hostname == null ? "localhost" : hostname,
       port,
-      TextKit.isBlank(this.config.context()) ?
+      TextKit.blanky(this.config.context()) ?
         ("/".equals(this.config.context()) ? "" : this.config.context()) :
         (this.config.context().startsWith("/") ? this.config.context().substring(1, this.config.context().length()) :
           this.config.context())

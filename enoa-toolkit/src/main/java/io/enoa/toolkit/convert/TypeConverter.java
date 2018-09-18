@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ package io.enoa.toolkit.convert;
 
 
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
-import io.enoa.toolkit.thr.EoException;
+import io.enoa.toolkit.thr.EoExpectException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,6 +35,7 @@ class TypeConverter {
   private static final TypeConverter me = new TypeConverter();
 
   private TypeConverter() {
+    install(String.class, new _StringConverter());
     install(Integer.class, new _IntegerConverter(false));
     install(int.class, new _IntegerConverter(true));
     install(Long.class, new _LongConverter(false));
@@ -57,6 +58,7 @@ class TypeConverter {
     install(java.math.BigInteger.class, new _BigIntegerConverter());
     install(byte[].class, new _ByteArrayConverter());
     install(Object.class, new _ObjectConverter());
+    install(Character.class, new _CharacterConverter());
   }
 
   static <T> TypeConverter install(Class<T> type, IConverter<T, String> converter) {
@@ -87,7 +89,17 @@ class TypeConverter {
     if (converter != null)
       return converter.convert(text);
 
-    throw new EoException(EnoaTipKit.message("eo.tip.toolkit.type_convert_unsupport", type.getName()));
+    throw new EoExpectException(EnoaTipKit.message("eo.tip.toolkit.type_convert_unsupport", type.getName()));
+  }
+
+  /**
+   * 是否支持當前類型轉換
+   *
+   * @param clazz class
+   * @return boolean
+   */
+  static boolean support(Class clazz) {
+    return converterMap.keySet().stream().anyMatch(cz -> cz == clazz);
   }
 
 }

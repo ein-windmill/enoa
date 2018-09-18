@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,14 +24,22 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 class _Hessian implements EoSerializer {
+
+  private static class Holder {
+    private static final _Hessian INSTANCE = new _Hessian();
+  }
+
+  static _Hessian instance() {
+    return Holder.INSTANCE;
+  }
+
   @Override
   public <T> byte[] serialize(T object) {
     if (object == null)
       throw new IllegalArgumentException("Serialize data can not be null.");
 
     HessianOutput output = null;
-    try {
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
       output = new HessianOutput(baos);
 //      output.startMessage();
       output.writeObject(object);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,21 +16,25 @@
 package io.enoa.rpc;
 
 import io.enoa.http.EoHttp;
-import io.enoa.rpc.config.RpcConfig;
+import io.enoa.rpc.epm.EPMRpc;
 import io.enoa.rpc.http.EnoaHttpRpc;
 
 public interface Rpc {
 
-  static RpcConfig config() {
-    return RpcConfig.instance();
+  static EPMRpc epm() {
+    return EPMRpc.instance();
   }
+
+//  static RpcConfig config() {
+//    return RpcConfig.instance();
+//  }
 
   static TcpRpc http(String name, String api) {
     return new EnoaHttpRpc(name, api);
   }
 
-  static TcpRpc http(EoHttp http, String name, String api) {
-    return new EnoaHttpRpc(http, name, api);
+  static TcpRpc http(String name, String api, EoHttp http) {
+    return new EnoaHttpRpc(name, api, http);
   }
 
 }

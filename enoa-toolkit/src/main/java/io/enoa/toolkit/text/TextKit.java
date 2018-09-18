@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ public class TextKit {
   /**
    * 首字母变小写
    */
-  public static String firstToLower(String str) {
+  public static String lowerFirst(String str) {
     char firstChar = str.charAt(0);
     if (firstChar >= 'A' && firstChar <= 'Z') {
       char[] arr = str.toCharArray();
@@ -40,7 +40,7 @@ public class TextKit {
   /**
    * 首字母变大写
    */
-  public static String firstToUpper(String str) {
+  public static String upperFirst(String str) {
     char firstChar = str.charAt(0);
     if (firstChar >= 'a' && firstChar <= 'z') {
       char[] arr = str.toCharArray();
@@ -50,19 +50,35 @@ public class TextKit {
     return str;
   }
 
+  public static boolean isBlank(String text) {
+    return blanky(text);
+  }
+
+  public static boolean isBlank(String... text) {
+    return blanky(text);
+  }
+
+  public static boolean notBlank(String text) {
+    return blankn(text);
+  }
+
+  public static boolean notBlank(String... text) {
+    return blankn(text);
+  }
+
   /**
    * 字符串为 null 或者内部字符全部为 ' ' '\t' '\n' '\r' 这四类字符时返回 true
    */
-  public static boolean isBlank(String str) {
-    if (str == null) {
+  public static boolean blanky(String text) {
+    if (text == null) {
       return true;
     }
-    int len = str.length();
+    int len = text.length();
     if (len == 0) {
       return true;
     }
     for (int i = 0; i < len; i++) {
-      switch (str.charAt(i)) {
+      switch (text.charAt(i)) {
         case ' ':
         case '\t':
         case '\n':
@@ -77,12 +93,12 @@ public class TextKit {
     return true;
   }
 
-  public static boolean isBlank(String... strings) {
+  public static boolean blanky(String... strings) {
     if (CollectionKit.isEmpty(strings))
       return true;
     boolean pass = true;
     for (String string : strings) {
-      if (isBlank(string))
+      if (blanky(string))
         continue;
       pass = false;
       break;
@@ -90,16 +106,16 @@ public class TextKit {
     return pass;
   }
 
-  public static boolean notBlank(String str) {
-    return !isBlank(str);
+  public static boolean blankn(String str) {
+    return !blanky(str);
   }
 
-  public static boolean notBlank(String... strings) {
+  public static boolean blankn(String... strings) {
     if (CollectionKit.isEmpty(strings)) {
       return false;
     }
     for (String str : strings) {
-      if (isBlank(str)) {
+      if (blanky(str)) {
         return false;
       }
     }
@@ -112,7 +128,7 @@ public class TextKit {
    * @param paras paras
    * @return boolean
    */
-  public static boolean isNull(Object... paras) {
+  public static boolean nully(Object... paras) {
     if (paras == null)
       return true;
     for (Object para : paras) {
@@ -122,8 +138,8 @@ public class TextKit {
     return false;
   }
 
-  public static boolean notNull(Object... paras) {
-    return !isNull(paras);
+  public static boolean nulln(Object... paras) {
+    return !nully(paras);
   }
 
 //  public static String join(String[] strings) {
@@ -142,11 +158,11 @@ public class TextKit {
     return str == null ? null : str.toUpperCase();
   }
 
-  public static boolean slowEquals(String a, String b) {
-    byte[] aBytes = (a != null ? a.getBytes() : null);
-    byte[] bBytes = (b != null ? b.getBytes() : null);
-    return DigestKit.slowEquals(aBytes, bBytes);
-  }
+//  public static boolean slowEquals(String a, String b) {
+//    byte[] aBytes = (a != null ? a.getBytes() : null);
+//    byte[] bBytes = (b != null ? b.getBytes() : null);
+//    return DigestKit.slowEquals(aBytes, bBytes);
+//  }
 
   /**
    * 刪除空白字符
@@ -157,7 +173,7 @@ public class TextKit {
    * @return String
    */
   public static String nospace(String text, boolean extreme) {
-    if (isBlank(text))
+    if (blanky(text))
       return text;
     if (!extreme)
       return text.trim();
@@ -325,7 +341,7 @@ public class TextKit {
   }
 
   public static String safeBlank(String text, String def) {
-    return TextKit.isBlank(text) ? def : text;
+    return TextKit.blanky(text) ? def : text;
   }
 
 }

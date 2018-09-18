@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,7 +50,7 @@ class AstVarBuilder {
 
         // 變量/轉義 前的文字字符
         String pretext = line.substring(fromIx, isEscape ? varIx0 - 1 : varIx0);
-        if (TextKit.notBlank(pretext)) {
+        if (TextKit.blankn(pretext)) {
           _AstBuilder.instance().textBuilder().build(path, asts, pretext, ix, false);
         }
 

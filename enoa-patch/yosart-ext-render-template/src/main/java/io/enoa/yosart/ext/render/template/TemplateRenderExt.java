@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,9 +53,9 @@ public class TemplateRenderExt implements YmRenderExt {
   public TemplateRenderExt(EoTemplateFactory factory, String basePath, String suffix) {
     if (factory == null)
       throw new OyExtException(EnoaTipKit.message("eo.tip.ext.render.template_factory_null"));
-    if (TextKit.isBlank(basePath))
+    if (TextKit.blanky(basePath))
       Log.warn(EnoaTipKit.message("eo.tip.ext.render.template_base_path_null"));
-    this.basePath = TextKit.isBlank(basePath) ? PathKit.path().toString() : basePath;
+    this.basePath = TextKit.blanky(basePath) ? PathKit.path().toString() : basePath;
     this.compress = false;
     this.factory = factory;
     this.suffix = suffix;
@@ -66,10 +66,10 @@ public class TemplateRenderExt implements YmRenderExt {
       throw new OyExtException(EnoaTipKit.message("eo.tip.ext.render.template_factory_null"));
     if (compressorFactory == null)
       throw new OyExtException(EnoaTipKit.message("eo.tip.ext.render.template_compressor_null"));
-    if (TextKit.isBlank(basePath))
+    if (TextKit.blanky(basePath))
       Log.warn(EnoaTipKit.message("eo.tip.ext.render.template_base_path_null"));
     this.factory = factory;
-    this.basePath = TextKit.isBlank(basePath) ? PathKit.path().toString() : basePath;
+    this.basePath = TextKit.blanky(basePath) ? PathKit.path().toString() : basePath;
     this.compressorFactory = compressorFactory;
     this.compress = true;
     this.suffix = suffix;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,10 +29,10 @@ import java.lang.reflect.Type;
 
 class HttpRpcHandler {
 
-  private static EnoaLog log = Rpc.config().factory().log("rpc_handler");
+  private static EnoaLog log = Rpc.epm().log("rpc_handler");
 
   private static <T> IRpcParser<T> handler(ResponseType type) {
-    IRpcParser<T> handler = Rpc.config().handler().handler(type);
+    IRpcParser<T> handler = Rpc.epm().handler(type);
     if (handler == null)
       throw new EoException(EnoaTipKit.message("eo.tip.rpc.handler_null", type.name()));
     return handler;
@@ -40,7 +40,7 @@ class HttpRpcHandler {
 
   static <T> T handle(HttpResponse response, Type type) {
     String contentType = response.header("content-type");
-    if (TextKit.isBlank(contentType))
+    if (TextKit.blanky(contentType))
       return null;
     if (contentType.contains("application/json")) {
       HttpResponseBody body = response.body();

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ class ValidImpl implements Valid {
   public AoExistsValid exists(String name) {
     ValidImpl valid = new ValidImpl(this.request);
     String val = this.valueMode ? name : valid.object(name).value(name, false);
-    valid.greenlight = TextKit.isBlank(val);
+    valid.greenlight = TextKit.blanky(val);
     valid.valueMode = this.valueMode;
     return new AoExistsValid(valid, name);
   }

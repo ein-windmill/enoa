@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ class NettyParser {
   private static ServerCookieDecoder cookieDecoder = ServerCookieDecoder.LAX;
 
   static Cookie[] parseCookies(String cookie) {
-    if (TextKit.isBlank(cookie))
+    if (TextKit.blanky(cookie))
       return CollectionKit.emptyArray(Cookie.class);
     Set<io.netty.handler.codec.http.cookie.Cookie> cookies = cookieDecoder.decode(cookie);
     if (cookies == null)

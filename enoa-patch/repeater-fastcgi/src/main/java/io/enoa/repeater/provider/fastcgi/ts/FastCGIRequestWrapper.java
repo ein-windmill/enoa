@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,16 +47,16 @@ class FastCGIRequestWrapper extends EoxAbstractCosRequest {
     this.initBody();
 
     String contentType = this.header("content-type");
-    if (TextKit.notBlank(contentType))
+    if (TextKit.blankn(contentType))
       contentType = contentType.toLowerCase();
 
-    if (TextKit.notBlank(contentType) && contentType.startsWith("multipart/form-data"))
+    if (TextKit.blankn(contentType) && contentType.startsWith("multipart/form-data"))
       super.handleUpload(new ByteArrayInputStream(this.request.data()), config, rule);
   }
 
   private void initBody() {
     String contentType = this.header("content-type");
-    if (TextKit.isBlank(contentType))
+    if (TextKit.blanky(contentType))
       return;
     if (contentType.startsWith("multipart/form-data"))
       return;
@@ -93,7 +93,7 @@ class FastCGIRequestWrapper extends EoxAbstractCosRequest {
   @Override
   public String url() {
     String uri = this.uri();
-    if (TextKit.isBlank(this.prop.get("QUERY_STRING")))
+    if (TextKit.blanky(this.prop.get("QUERY_STRING")))
       return uri;
 //    return String.format("%s?%s", uri, this.prop.get("QUERY_STRING"));
     return TextKit.union(uri, "?", this.prop.get("QUERY_STRING"));
@@ -107,7 +107,7 @@ class FastCGIRequestWrapper extends EoxAbstractCosRequest {
   @Override
   public Cookie[] cookies() {
     String cookie = this.header("cookie");
-    if (TextKit.isBlank(cookie))
+    if (TextKit.blanky(cookie))
       return CollectionKit.emptyArray(Cookie.class);
     return EnoaHttpKit.parseCookie(cookie);
   }
@@ -131,7 +131,7 @@ class FastCGIRequestWrapper extends EoxAbstractCosRequest {
   @Override
   public Integer cookieToInt(String name, Integer def) {
     String val = this.cookie(name);
-    if (TextKit.isBlank(val))
+    if (TextKit.blanky(val))
       return def;
     return ConvertKit.integer(val);
   }
@@ -139,7 +139,7 @@ class FastCGIRequestWrapper extends EoxAbstractCosRequest {
   @Override
   public Long cookieToLong(String name, Long def) {
     String val = this.cookie(name);
-    if (TextKit.isBlank(val))
+    if (TextKit.blanky(val))
       return def;
     return ConvertKit.longer(val);
   }
@@ -148,7 +148,7 @@ class FastCGIRequestWrapper extends EoxAbstractCosRequest {
   public String[] headerNames() {
     return this.prop.keySet()
       .stream()
-      .filter(name -> name.startsWith("HTTP_") && TextKit.notBlank(this.prop.get(name)))
+      .filter(name -> name.startsWith("HTTP_") && TextKit.blankn(this.prop.get(name)))
       .map(name -> name.replace("HTTP_", "").replace("_", "-"))
       .toArray(String[]::new);
   }
@@ -165,7 +165,7 @@ class FastCGIRequestWrapper extends EoxAbstractCosRequest {
     String[] paras = this.paraValues(name);
     if (CollectionKit.isEmpty(paras))
       return def;
-    return ConvertKit.ruleString(paras[0], def);
+    return ConvertKit.string(paras[0], def, Boolean.TRUE);
   }
 
   @Override
@@ -200,17 +200,17 @@ class FastCGIRequestWrapper extends EoxAbstractCosRequest {
       return this.paraMap;
 
     String contentType = this.header("content-type");
-    if (TextKit.notBlank(contentType))
+    if (TextKit.blankn(contentType))
       contentType = contentType.toLowerCase();
 
     Map<String, List<String>> ret = EnoaHttpKit.parsePara(this.prop.get("QUERY_STRING"));
-    if (TextKit.notBlank(contentType) && contentType.startsWith("multipart/form-data")) {
+    if (TextKit.blankn(contentType) && contentType.startsWith("multipart/form-data")) {
       return super.paraMap(ret);
     }
     if (CollectionKit.isEmpty(ret))
       ret = new HashMap<>();
 
-    if (TextKit.notBlank(contentType) && contentType.startsWith("application/x-www-form-urlencoded")) {
+    if (TextKit.blankn(contentType) && contentType.startsWith("application/x-www-form-urlencoded")) {
       String body = StreamKit.string(this.request.data(), this.config.charset());
       Map<String, List<String>> dataPara = EnoaHttpKit.parsePara(body);
       if (CollectionKit.notEmpty(dataPara)) {

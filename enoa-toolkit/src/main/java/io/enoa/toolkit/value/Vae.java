@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,16 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.rpc.config;
+package io.enoa.toolkit.value;
 
-import io.enoa.http.protocol.HttpResponseBody;
-import io.enoa.rpc.parser.IRpcParser;
+public class Vae {
 
-import java.lang.reflect.Type;
-
-class _DefaultBinaryRpcParser implements IRpcParser<byte[]> {
-  @Override
-  public byte[] parse(HttpResponseBody body, Type type) {
-    return body.bytes();
+  public static <T> T nulldef(T origin, T def) {
+    return origin == null ? def : origin;
   }
+
 }

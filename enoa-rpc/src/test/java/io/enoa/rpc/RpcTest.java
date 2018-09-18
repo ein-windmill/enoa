@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,11 +39,11 @@ public class RpcTest {
 
   @Before
   public void before() {
-    Rpc.config().factory()
+    Rpc.epm()
       .json(new FastjsonProvider())
       .log(new Slf4JLogProvider());
 
-    Rpc.config().register()
+    Rpc.epm().register()
       .http("passport", EoUrl.with("http://localhost:20003/"))
       .http("publib", EoUrl.with("http://localhost:20005"));
   }

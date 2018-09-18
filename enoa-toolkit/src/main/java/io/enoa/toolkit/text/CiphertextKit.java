@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,7 +49,7 @@ public class CiphertextKit {
   }
 
   public static String left(String text, int len, String placeholder) {
-    if (TextKit.isNull(placeholder))
+    if (TextKit.nully(placeholder))
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.toolkit.str_ciphertext_placeholder_null"));
     return encrypt(Direction.LEFT, text, len, placeholder.charAt(0));
   }
@@ -63,7 +63,7 @@ public class CiphertextKit {
   }
 
   public static String right(String text, int len, String placeholder) {
-    if (TextKit.isNull(placeholder))
+    if (TextKit.nully(placeholder))
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.toolkit.str_ciphertext_placeholder_null"));
     return encrypt(Direction.RIGHT, text, len, placeholder.charAt(0));
   }
@@ -77,7 +77,7 @@ public class CiphertextKit {
   }
 
   public static String middle(String text, int len, String placeholder) {
-    if (TextKit.isNull(placeholder))
+    if (TextKit.nully(placeholder))
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.toolkit.str_ciphertext_placeholder_null"));
     return encrypt(Direction.MIDDLE, text, len, placeholder.charAt(0));
   }

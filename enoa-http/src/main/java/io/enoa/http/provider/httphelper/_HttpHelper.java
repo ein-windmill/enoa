@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,7 +63,7 @@ class _HttpHelper implements Http {
     this.method = HttpMethod.GET;
     this.charset = Charset.forName("UTF-8");
     this.headers = new HashSet<>();
-    this.headers.add(new HttpHeader("User-Agent", "Mozilla/5.0 Enoa/1.5-beta.8 HttpHelper/4.0"));
+    this.headers.add(new HttpHeader("User-Agent", "Mozilla/5.0 Enoa/1.6-beta.2 HttpHelper/4.0"));
     this.executor = HttpHelperExecutor.instance();
   }
 

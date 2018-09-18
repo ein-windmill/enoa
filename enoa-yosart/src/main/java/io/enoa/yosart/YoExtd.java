@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -106,12 +106,12 @@ class YoExtd {
       throw new OyExtException(EnoaTipKit.message("eo.tip.yosart.ext_type_cant_null"));
     this.verifyReg(ext);
     if (ext instanceof YmRenderExt) {
-      if (TextKit.isBlank(((YmRenderExt) ext).renderType()))
+      if (TextKit.blanky(((YmRenderExt) ext).renderType()))
         throw new OyExtException(EnoaTipKit.message("eo.tip.yosart.ext_render_type_cant_null", ext.getClass().getName()));
     }
-    if (TextKit.isBlank(ext.name()))
+    if (TextKit.blanky(ext.name()))
       throw new OyExtException(EnoaTipKit.message("eo.tip.yosart.ext_name_cant_null", ext.getClass().getName()));
-    if (TextKit.isBlank(ext.version()))
+    if (TextKit.blanky(ext.version()))
       throw new OyExtException(EnoaTipKit.message("eo.tip.yosart.ext_version_cant_null", ext.getClass().getName()));
     if (ext.weight() < 0 && ext.weight() > 10)
       throw new OyExtException(EnoaTipKit.message("eo.tip.yosart.ext_weight_range", ext.weight(), ext.getClass().getName()));

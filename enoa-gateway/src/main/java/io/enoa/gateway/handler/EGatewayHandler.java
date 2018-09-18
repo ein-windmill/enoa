@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -150,7 +150,7 @@ public class EGatewayHandler implements GatewayHandler {
     Http http = Http.request(callUrl);
 
     String contentType = request.header("content-type");
-    if (TextKit.notBlank(contentType)) {
+    if (TextKit.blankn(contentType)) {
       contentType = contentType.toLowerCase();
 
       // http body 請求
@@ -191,7 +191,7 @@ public class EGatewayHandler implements GatewayHandler {
       }
     }
     String origin = request.header("origin");
-    if (TextKit.notBlank(origin))
+    if (TextKit.blankn(origin))
       http.header("x-origin", origin);
 
     http.method(HttpMethod.of(request.method().name()));

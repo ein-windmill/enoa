@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,6 +37,10 @@ public class EPMSerialization {
     if (factory == null)
       throw new IllegalArgumentException("Factory can not be null.");
     this.factory = factory;
+  }
+
+  public EoSerializationFactory factory() {
+    return this.factory;
   }
 
   public EoSerializer serializer() {

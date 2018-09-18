@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,8 +48,8 @@ public class EoxInjector {
       if (types.length != 1)
         continue;
 
-      String attrName = TextKit.firstToLower(methodName.substring(3));
-      String paraName = TextKit.isBlank(beanName) ? attrName : TextKit.union(beanName, ".", attrName);
+      String attrName = TextKit.lowerFirst(methodName.substring(3));
+      String paraName = TextKit.blanky(beanName) ? attrName : TextKit.union(beanName, ".", attrName);
 
       String paraValue = request.para(paraName, null);
       if (paraValue == null)

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,9 +50,9 @@ class TomcatRequestWrapper implements Request {
     this.config = config;
 
     String contentType = this.header("content-type");
-    if (TextKit.notBlank(contentType))
+    if (TextKit.blankn(contentType))
       contentType = contentType.toLowerCase();
-    if (TextKit.notBlank(contentType) && contentType.startsWith("multipart/form-data")) {
+    if (TextKit.blankn(contentType) && contentType.startsWith("multipart/form-data")) {
       try {
         String clength = this.header("content-length");
         Long contentLength = Long.parseLong(clength);
@@ -143,7 +143,7 @@ class TomcatRequestWrapper implements Request {
   @Override
   public String url() {
     String qs = this.request.getQueryString();
-    if (TextKit.isBlank(qs))
+    if (TextKit.blanky(qs))
       return this.request.getRequestURL().toString();
 //    return String.format("%s?%s", this.request.getRequestURL().toString(), qs);
     return TextKit.union(this.request.getRequestURL().toString(), "?", qs);
@@ -206,7 +206,7 @@ class TomcatRequestWrapper implements Request {
   @Override
   public Integer cookieToInt(String name, Integer def) {
     String val = this.cookie(name);
-    if (TextKit.isBlank(val))
+    if (TextKit.blanky(val))
       return def;
     return ConvertKit.integer(val);
   }
@@ -214,7 +214,7 @@ class TomcatRequestWrapper implements Request {
   @Override
   public Long cookieToLong(String name, Long def) {
     String val = this.cookie(name);
-    if (TextKit.isBlank(val))
+    if (TextKit.blanky(val))
       return def;
     return ConvertKit.longer(val);
   }
@@ -240,7 +240,7 @@ class TomcatRequestWrapper implements Request {
   @Override
   public String para(String name, String def) {
     String val = this.para(name);
-    return ConvertKit.ruleString(val, def);
+    return ConvertKit.string(val, def, Boolean.TRUE);
   }
 
   @Override
@@ -358,7 +358,7 @@ class TomcatRequestWrapper implements Request {
   @Override
   public UFile[] files() {
     String contentType = this.header("content-type");
-    if (TextKit.isBlank(contentType) || !contentType.startsWith("multipart/form-data"))
+    if (TextKit.blanky(contentType) || !contentType.startsWith("multipart/form-data"))
       return CollectionKit.emptyArray(UFile.class);
     return this.ufiles.toArray(new UFile[this.ufiles.size()]);
   }

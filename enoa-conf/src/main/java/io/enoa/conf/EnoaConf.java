@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, enoa (ein.windmill@outlook.com)
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -191,7 +191,7 @@ public class EnoaConf {
 
   private static void verifyPath(String... paths) {
     for (String path : paths) {
-      if (TextKit.isBlank(path))
+      if (TextKit.blanky(path))
         continue; // skip
       // git repo
       if (Stream.of(GIT_PROTOCOLS).anyMatch(path.toLowerCase()::startsWith))
