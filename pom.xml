@@ -13,6 +13,12 @@
     Enoa
   </description>
 
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
+  </parent>
+
   <issueManagement>
     <url>https://github.com/fewensa/enoa/issues</url>
   </issueManagement>
@@ -34,6 +40,12 @@
     </developer>
   </developers>
 
+  <scm>
+    <tag>master</tag>
+    <url>git@github.com:fewensa/enoa.git</url>
+    <connection>scm:git:git@github.com:fewensa/enoa.git</connection>
+    <developerConnection>scm:git:git@github.com:fewensa/enoa.git</developerConnection>
+  </scm>
 
   <repositories>
     <repository>
