@@ -1,15 +1,16 @@
 
-  
+
 ENOA
 ===============
 
-![ENOA](./enoa.svg | width=100)
+![ENOA](./enoa.svg)
 
- 
+
 ## Mostly Available
- 
-~~Guarantee that most of the available~~
- 
+
+~~Guarantee that most of the available.~~
+
+
 If you have any question, you can create an issue.
 
 
