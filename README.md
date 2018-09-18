@@ -51,6 +51,9 @@ a generic template for groupId `io.enoa`.
 Home page: [https://enoa.io](https://enoa.io)
 
 Document: [https://doc.enoa.io](https://doc.enoa.io)
- 
- 
 
+# License
+
+Enoa use Apache-2.0 license.
+
+see more [CHANGESUMMARY](./CHANGESUMMARY.md)
