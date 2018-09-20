@@ -24,6 +24,7 @@
       <artifactId>enoa-toolkit</artifactId>
     </dependency>
 
+<!--
     <dependency>
       <groupId>com.sun</groupId>
       <artifactId>tools</artifactId>
@@ -31,6 +32,7 @@
       <scope>system</scope>
       <systemPath>${java.home}/../lib/tools.jar</systemPath>
     </dependency>
+-->
 
   </dependencies>
 
@@ -80,6 +82,33 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <phase>install</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+            <configuration>
+              <encoding>UTF-8</encoding>
+            </configuration>
+          </execution>
+        </executions>
+        <configuration>
+          <encoding>UTF-8</encoding>
+          <skip>true</skip>
+        </configuration>
       </plugin>
 
     </plugins>
