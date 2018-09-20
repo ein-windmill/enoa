@@ -25,20 +25,20 @@ e.g.
 **toolkit**
 
 ```xml
-<dependency>  
- <groupId>io.enoa</groupId>  
- <artifactId>enoa-toolkit</artifactId>  
- <version>VERSION-ENOA</version>  
+<dependency>
+ <groupId>io.enoa</groupId>
+ <artifactId>enoa-toolkit</artifactId>
+ <version>VERSION-ENOA</version>
 </dependency>
 ```
 
 **yosart**
 
 ```xml
-<dependency>  
- <groupId>io.enoa</groupId>  
- <artifactId>enoa-yosart</artifactId>  
- <version>VERSION-ENOA</version>  
+<dependency>
+ <groupId>io.enoa</groupId>
+ <artifactId>enoa-yosart</artifactId>
+ <version>VERSION-ENOA</version>
 </dependency>
 ```
 
