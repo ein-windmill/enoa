@@ -13,11 +13,13 @@
   <description>Enoa</description>
   <url>https://enoa.io</url>
 
+<!--
   <parent>
     <groupId>org.sonatype.oss</groupId>
     <artifactId>oss-parent</artifactId>
     <version>7</version>
   </parent>
+-->
 
   <issueManagement>
     <url>https://github.com/fewensa/enoa/issues</url>
