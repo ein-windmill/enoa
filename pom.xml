@@ -910,4 +910,50 @@
     </pluginManagement>
   </build>
 
+  <!-- profiles -->
+  <profiles>
+    <profile>
+      <id>sonatype</id>
+      <activation>
+        <!--<activeByDefault>true</activeByDefault>-->
+        <jdk>[1.8,)</jdk>
+      </activation>
+      <!--<properties>-->
+      <!--<additionalparam>-Xdoclint:none</additionalparam>-->
+      <!--</properties>-->
+      <build>
+        <!--<finalName>${project.artifactId}-${project.version}-SNAPSHOT</finalName>-->
+        <finalName>${project.artifactId}-${project.version}</finalName>
+        <plugins>
+          <!-- GPG -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>${version-plugin-gpg}</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>oss</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+    </snapshotRepository>
+    <repository>
+      <id>oss</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
+
 </project>
