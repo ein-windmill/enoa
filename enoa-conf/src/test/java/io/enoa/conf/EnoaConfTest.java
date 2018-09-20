@@ -19,6 +19,7 @@ import io.enoa.json.Json;
 import io.enoa.log.Log;
 import io.enoa.toolkit.path.PathKit;
 import io.enoa.toolkit.thr.EoException;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.yaml.snakeyaml.Yaml;
 
@@ -30,6 +31,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 
+@Ignore
 public class EnoaConfTest {
 
   @Test

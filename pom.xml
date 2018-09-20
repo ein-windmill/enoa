@@ -6,12 +6,12 @@
 
   <groupId>io.enoa</groupId>
   <artifactId>enoa</artifactId>
-  <version>1.7-snapshot</version>
+  <version>1.6-beta.2</version>
   <packaging>pom</packaging>
 
-  <description>
-    Mostly Available
-  </description>
+  <name>Enoa</name>
+  <description>Enoa</description>
+  <url>https://enoa.io</url>
 
   <parent>
     <groupId>org.sonatype.oss</groupId>
@@ -101,6 +101,8 @@
     <version-plugin-assembly>2.4.1</version-plugin-assembly>
     <version-plugin-dependency>2.10</version-plugin-dependency>
     <version-plugin-deploy>2.8.2</version-plugin-deploy>
+    <version-plugin-javadoc>3.0.1</version-plugin-javadoc>
+    <version-plugin-gpg>1.6</version-plugin-gpg>
 
 
     <version-logback>1.1.2</version-logback>
@@ -894,9 +896,86 @@
           <artifactId>maven-deploy-plugin</artifactId>
           <version>${version-plugin-deploy}</version>
         </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>${version-plugin-javadoc}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-gpg-plugin</artifactId>
+          <version>${version-plugin-gpg}</version>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
 
+  <profiles>
+    <profile>
+      <id>oss</id>
+      <!--
+      <properties>
+        <gpg.executable>gpg2</gpg.executable>
+        <gpg.useagent>true</gpg.useagent>
+      </properties>
+      -->
+      <build>
+        <plugins>
+          <!-- Source -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>${version-plugin-source}</version>
+            <executions>
+              <execution>
+                <phase>package</phase>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <!-- Javadoc -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>${version-plugin-javadoc}</version>
+            <executions>
+              <execution>
+                <phase>package</phase>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <!-- GPG -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>${version-plugin-gpg}</version>
+            <executions>
+              <execution>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+      <distributionManagement>
+        <snapshotRepository>
+          <id>oss</id>
+          <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+          <id>oss</id>
+          <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+      </distributionManagement>
+    </profile>
+  </profiles>
 
 </project>
