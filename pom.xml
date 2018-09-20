@@ -909,6 +909,11 @@
           <artifactId>maven-gpg-plugin</artifactId>
           <version>${version-plugin-gpg}</version>
         </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>${version-plugin-javadoc}</version>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
