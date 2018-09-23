@@ -5,7 +5,7 @@
 //import io.enoa.promise.arg.PromiseArg;
 //import io.enoa.promise.arg.PromiseCapture;
 //import io.enoa.promise.arg.PromiseVoid;
-//import io.enoa.promise.builder.EGraenodPromiseBuilder;
+//import io.enoa.promise.builder.EPDoneArgPromiseBuilder;
 //import io.enoa.promise.builder.PromiseBuilder;
 //
 //import java.util.ArrayList;
@@ -15,7 +15,7 @@
 //@Deprecated
 //public class EReportGraenodPromiseBuilder<T> {
 //
-//  private EGraenodPromiseBuilder<T> egp;
+//  private EPDoneArgPromiseBuilder<T> egp;
 //
 //  public EReportGraenodPromiseBuilder() {
 //    this.egp = PromiseBuilder.donearg();

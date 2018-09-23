@@ -21,9 +21,10 @@ import io.enoa.promise.arg.PromiseVoid;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
-public class EOePromiseBuilder {
+public class EPEoPromiseBuilder {
 
 
   private List<PromiseCapture> captures;
@@ -42,7 +43,7 @@ public class EOePromiseBuilder {
       @Override
       public EoPromise capture(PromiseCapture capture) {
         if (captures == null)
-          captures = new ArrayList<>();
+          captures = new LinkedList<>();
         captures.add(capture);
         return this;
       }

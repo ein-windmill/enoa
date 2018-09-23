@@ -8,14 +8,15 @@ import io.enoa.promise.arg.PromiseVoid;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
-public class EGraenodPromiseBuilder<PARA> extends EOePromiseBuilder {
+public class EPDoneArgPromiseBuilder<PARA> extends EPEoPromiseBuilder {
 
-  private EOePromiseBuilder oe;
+  private EPEoPromiseBuilder oe;
 
-  public EGraenodPromiseBuilder() {
-    this.oe = new EOePromiseBuilder();
+  EPDoneArgPromiseBuilder() {
+    this.oe = new EPEoPromiseBuilder();
   }
 
   private List<PromiseArg<PARA>> dones;
@@ -39,15 +40,15 @@ public class EGraenodPromiseBuilder<PARA> extends EOePromiseBuilder {
     EoPromise promise = this.oe.build();
     return new DoneArgPromise<PARA>() {
       @Override
-      public DoneArgPromise done(PromiseArg<PARA> done0) {
-        if (EGraenodPromiseBuilder.this.dones == null)
-          EGraenodPromiseBuilder.this.dones = new ArrayList<>();
-        EGraenodPromiseBuilder.this.dones.add(done0);
+      public DoneArgPromise<PARA> done(PromiseArg<PARA> done0) {
+        if (EPDoneArgPromiseBuilder.this.dones == null)
+          EPDoneArgPromiseBuilder.this.dones = new LinkedList<>();
+        EPDoneArgPromiseBuilder.this.dones.add(done0);
         return this;
       }
 
       @Override
-      public DoneArgPromise capture(PromiseCapture capture0) {
+      public DoneArgPromise<PARA> capture(PromiseCapture capture0) {
         promise.capture(capture0);
         return this;
       }

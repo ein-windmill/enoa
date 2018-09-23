@@ -78,6 +78,7 @@ public class TextReader<S extends TextReader> {
     if (this.position == 0)
       return (S) this;
     this.position -= 1;
+    this.cursor -= 1;
     return (S) this;
   }
 

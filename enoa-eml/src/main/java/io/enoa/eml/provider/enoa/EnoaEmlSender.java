@@ -26,7 +26,7 @@ import io.enoa.eml.thr.EoEmailException;
 import io.enoa.promise.DonePromise;
 import io.enoa.promise.arg.PromiseCapture;
 import io.enoa.promise.arg.PromiseVoid;
-import io.enoa.promise.builder.EEnodPromiseBuilder;
+import io.enoa.promise.builder.EPDonePromiseBuilder;
 import io.enoa.promise.builder.PromiseBuilder;
 import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.binary.EnoaBinary;
@@ -244,7 +244,7 @@ class EnoaEmlSender implements EmlSender {
 
   @Override
   public DonePromise enqueue() {
-    EEnodPromiseBuilder builder = PromiseBuilder.done();
+    EPDonePromiseBuilder builder = PromiseBuilder.done();
     EXEC_ENQUEUE.execute(() -> {
       String oldName = Thread.currentThread().getName();
       Thread.currentThread().setName(TextKit.union("ENOA-EMAIL-SENDER-ENQUEUE-", oldName));

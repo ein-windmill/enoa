@@ -22,14 +22,15 @@ import io.enoa.promise.arg.PromiseVoid;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
-public class EEnodPromiseBuilder extends EOePromiseBuilder {
+public class EPDonePromiseBuilder extends EPEoPromiseBuilder {
 
-  private EOePromiseBuilder oe;
+  private EPEoPromiseBuilder oe;
 
-  public EEnodPromiseBuilder() {
-    this.oe = new EOePromiseBuilder();
+  EPDonePromiseBuilder() {
+    this.oe = new EPEoPromiseBuilder();
   }
 
   private List<PromiseVoid> dones;
@@ -56,7 +57,7 @@ public class EEnodPromiseBuilder extends EOePromiseBuilder {
       @Override
       public DonePromise done(PromiseVoid done0) {
         if (dones == null)
-          dones = new ArrayList<>();
+          dones = new LinkedList<>();
         dones.add(done0);
         return this;
       }

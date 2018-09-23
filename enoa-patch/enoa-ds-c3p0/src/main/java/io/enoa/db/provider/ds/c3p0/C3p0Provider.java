@@ -21,7 +21,7 @@ import io.enoa.db.EoDsFactory;
 
 public class C3p0Provider implements EoDsFactory {
   @Override
-  public EnoaDs dataSource(EoDsConfig config) {
+  public EnoaDs datasource(EoDsConfig config) {
     C3p0Config conf = config instanceof C3p0Config ? (C3p0Config) config : new C3p0Config(config);
     return new _C3p0(conf);
   }

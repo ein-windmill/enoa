@@ -20,16 +20,16 @@ import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-public class AonePromiseExecutorBuilder {
+public class EPXEnoaPromiseExecutorBuilder {
 
   private static class Holder {
-    private static final AonePromiseExecutorBuilder INSTANCE = new AonePromiseExecutorBuilder();
+    private static final EPXEnoaPromiseExecutorBuilder INSTANCE = new EPXEnoaPromiseExecutorBuilder();
   }
 
-  private AonePromiseExecutorBuilder() {
+  private EPXEnoaPromiseExecutorBuilder() {
   }
 
-  static AonePromiseExecutorBuilder instance() {
+  static EPXEnoaPromiseExecutorBuilder instance() {
     return Holder.INSTANCE;
   }
 

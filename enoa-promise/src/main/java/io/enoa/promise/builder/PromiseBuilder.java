@@ -20,25 +20,43 @@ public class PromiseBuilder {
   private PromiseBuilder() {
   }
 
-  public static AonePromiseExecutorBuilder executor() {
-    return AonePromiseExecutorBuilder.instance();
+  public static EPXEnoaPromiseExecutorBuilder executor() {
+    return EPXEnoaPromiseExecutorBuilder.instance();
   }
 
-  public static EOePromiseBuilder eo() {
-    return new EOePromiseBuilder();
+  /**
+   * Default promise builder
+   * @deprecated use def()
+   * @return EPEoPromiseBuilder
+   */
+  @Deprecated
+  public static EPEoPromiseBuilder eo() {
+    return def();
   }
 
-  public static EEnodPromiseBuilder done() {
-    return new EEnodPromiseBuilder();
+  public static EPEoPromiseBuilder def() {
+    return new EPEoPromiseBuilder();
+  }
+
+  public static EPDonePromiseBuilder done() {
+    return new EPDonePromiseBuilder();
   }
 
   /**
    * 带参数 dong promise
    *
-   * @return EGraenodPromiseBuilder
+   * @return EPDoneArgPromiseBuilder
    */
-  public static <T> EGraenodPromiseBuilder<T> donearg() {
-    return new EGraenodPromiseBuilder<>();
+  public static <T> EPDoneArgPromiseBuilder<T> donearg() {
+    return new EPDoneArgPromiseBuilder<>();
+  }
+
+  /**
+   * then promise builder
+   * @return EPThenPromiseBuilder
+   */
+  public static EPThenPromiseBuilder then() {
+    return new EPThenPromiseBuilder();
   }
 
 }

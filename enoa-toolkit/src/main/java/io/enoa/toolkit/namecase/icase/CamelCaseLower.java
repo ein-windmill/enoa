@@ -16,6 +16,7 @@
 package io.enoa.toolkit.namecase.icase;
 
 import io.enoa.toolkit.namecase.INameCase;
+import io.enoa.toolkit.text.TextKit;
 
 /**
  * 下劃線轉為駝峰風格
@@ -23,7 +24,8 @@ import io.enoa.toolkit.namecase.INameCase;
 public class CamelCaseLower implements INameCase {
   @Override
   public String convert(String text) {
-    return this.camelCase(text);
+    String _ret = this.camelCase(text);
+    return TextKit.lowerFirst(_ret);
   }
 
 

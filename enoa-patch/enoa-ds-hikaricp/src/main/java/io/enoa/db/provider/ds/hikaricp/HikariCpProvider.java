@@ -21,7 +21,7 @@ import io.enoa.db.EoDsFactory;
 
 public class HikariCpProvider implements EoDsFactory {
   @Override
-  public EnoaDs dataSource(EoDsConfig config) {
+  public EnoaDs datasource(EoDsConfig config) {
     HikariCpConfig conf = config instanceof HikariCpConfig ? (HikariCpConfig) config : new HikariCpConfig(config);
     return new _HikariCp(conf);
   }

@@ -29,7 +29,7 @@ public class DsTest {
   @Test
   public void tstDs0() {
     try {
-      EnoaDs ds = new C3p0Provider().dataSource(
+      EnoaDs ds = new C3p0Provider().datasource(
         new C3p0Config.Builder().driver("com.mysql.jdbc.Driver").url("jdbc://xxx").user("root").passwd("pwd").build()
       );
       DataSource dataSource = ds.open();
@@ -41,7 +41,7 @@ public class DsTest {
   @Test
   public void testDs1() {
     try {
-      EnoaDs ds = new C3p0Provider().dataSource(new EoDsConfig() {
+      EnoaDs ds = new C3p0Provider().datasource(new EoDsConfig() {
         @Override
         public String driver() {
           return "com.mysql.jdbc.Driver";

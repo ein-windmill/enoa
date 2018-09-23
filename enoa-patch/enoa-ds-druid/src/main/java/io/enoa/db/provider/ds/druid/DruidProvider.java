@@ -21,7 +21,7 @@ import io.enoa.db.EoDsFactory;
 
 public class DruidProvider implements EoDsFactory {
   @Override
-  public EnoaDs dataSource(EoDsConfig config) {
+  public EnoaDs datasource(EoDsConfig config) {
     DruidConfig conf = config instanceof DruidConfig ? (DruidConfig) config : new DruidConfig(config);
     return new _Druid(conf);
   }

@@ -19,14 +19,14 @@ import io.enoa.http.protocol.HttpPromise;
 import io.enoa.http.protocol.HttpResponse;
 import io.enoa.promise.EoPromise;
 import io.enoa.promise.arg.*;
-import io.enoa.promise.builder.EOePromiseBuilder;
+import io.enoa.promise.builder.EPEoPromiseBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-class HttpHelperPromiseBuilder extends EOePromiseBuilder {
+class HttpHelperPromiseBuilder extends EPEoPromiseBuilder {
 
-  private EOePromiseBuilder oe;
+  private EPEoPromiseBuilder oe;
 
 
   private List<PromiseArg> oks;
@@ -37,7 +37,7 @@ class HttpHelperPromiseBuilder extends EOePromiseBuilder {
   private List<PromiseArg> fails;
 
   public HttpHelperPromiseBuilder() {
-    this.oe = new EOePromiseBuilder();
+    this.oe = new EPEoPromiseBuilder();
   }
 
   @Override
