@@ -43,12 +43,12 @@ public interface SParser<T> {
     return JsonParser.create(type);
   }
 
-  static JsonParser<Void> json(EoJsonFactory ejf) {
-    return JsonParser.create(ejf);
+  static JsonParser<Void> none(EoJsonFactory ejf) {
+    return JsonParser.none(ejf);
   }
 
-  static JsonParser<Void> json() {
-    return JsonParser.create();
+  static JsonParser<Void> none() {
+    return JsonParser.none();
   }
 
   T result(HttpResponse resp);

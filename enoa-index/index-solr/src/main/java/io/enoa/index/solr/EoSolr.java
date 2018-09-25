@@ -16,17 +16,11 @@
 package io.enoa.index.solr;
 
 import io.enoa.http.EoHttp;
-import io.enoa.index.solr.action.select.SSelect;
-import io.enoa.index.solr.action.update.SUpdate;
 
 public interface EoSolr {
 
   EoSolr http(EoHttp http);
 
-  EoSolr core(String core);
-
-  SSelect select();
-
-  SUpdate update();
+  EoSolrOperate core(String core);
 
 }

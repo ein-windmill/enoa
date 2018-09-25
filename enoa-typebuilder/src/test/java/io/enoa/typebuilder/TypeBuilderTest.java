@@ -30,9 +30,9 @@ public class TypeBuilderTest {
     Type type = TypeBuilder
       .with(HashMap.class)
       .type(String.class)
-      .beginSubType(List.class)
+      .subtype(List.class)
       .type(CharSequence.class)
-      .endSubType()
+      .end()
       .build();
     System.out.println(type.toString());
 

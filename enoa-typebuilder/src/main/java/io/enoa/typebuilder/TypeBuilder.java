@@ -43,17 +43,34 @@ public class TypeBuilder {
     return new TypeBuilder(raw, parent);
   }
 
+  /**
+   * @param raw class
+   * @return TypeBuilder
+   * @deprecated use {@link #subtype(Class)}
+   */
+  @Deprecated
   public TypeBuilder beginSubType(Class raw) {
+    return this.subtype(raw);
+  }
+
+  /**
+   * @return TypeBuilder
+   * @deprecated use {@link #end()}
+   */
+  @Deprecated
+  public TypeBuilder endSubtype() {
+    return this.end();
+  }
+
+  public TypeBuilder subtype(Class raw) {
     return with(raw, this);
   }
 
-  public TypeBuilder endSubType() {
+  public TypeBuilder end() {
     if (parent == null) {
-      throw new TypeException("expect beginSubType() before endSubType()");
+      throw new TypeException("expect subtype() before end()");
     }
-
     parent.type(getType());
-
     return parent;
   }
 
@@ -93,7 +110,7 @@ public class TypeBuilder {
 
   public Type build() {
     if (parent != null) {
-      throw new TypeException("expect endSubType() before build()");
+      throw new TypeException("expect end() before build()");
     }
 
     return getType();

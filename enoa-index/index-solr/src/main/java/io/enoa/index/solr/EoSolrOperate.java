@@ -15,30 +15,14 @@
  */
 package io.enoa.index.solr;
 
-import io.enoa.http.EoHttp;
+import io.enoa.index.solr.action.select.SSelect;
+import io.enoa.index.solr.action.update.SUpdate;
 
-public class Solr {
+public interface EoSolrOperate {
 
-  public static EPMSolr epm() {
-    return EPMSolr.instance();
-  }
 
-  public static EoSolr use(String name) {
-    SolrConfig config = epm().config(name);
-    return new EnoaSolrImpl(config);
-  }
+  SSelect select();
 
-  public static EoSolr use() {
-    return use("main");
-  }
-
-  public static EoSolr http(EoHttp http) {
-    return use().http(http);
-  }
-
-  public static EoSolrOperate core(String core) {
-    return use().core(core);
-  }
-
+  SUpdate update();
 
 }
