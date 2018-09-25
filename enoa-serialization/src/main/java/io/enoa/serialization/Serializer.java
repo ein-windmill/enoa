@@ -21,12 +21,20 @@ public class Serializer {
     return EPMSerialization.instance();
   }
 
+  public static EoSerializer use() {
+    return epm().serializer();
+  }
+
+  public static EoSerializer use(String name) {
+    return epm().serializer(name);
+  }
+
   public static <T> byte[] serialize(T object) {
-    return epm().serializer().serialize(object);
+    return use().serialize(object);
   }
 
   public static <T> T reduction(byte[] bytes) {
-    return epm().serializer().reduction(bytes);
+    return use().reduction(bytes);
   }
 
 }

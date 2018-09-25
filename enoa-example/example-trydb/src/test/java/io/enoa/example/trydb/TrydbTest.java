@@ -107,6 +107,7 @@ public class TrydbTest {
 
   private boolean updateBin(int times) {
     byte[] bytes = {1, 3, 4, 5, 6, 3, 4, 5, 6, 3, 4, 5, 6, (byte) times};
+    Trydb.update("insert into t_binary (id, bin) values (?, ?)", 1, bytes);
     return Trydb.update("update t_binary set bin=? where id=1", new Object[]{bytes}) != 0;
   }
 
@@ -159,6 +160,13 @@ public class TrydbTest {
       .capture(System.out::println)
       .always(() -> System.out.println("always"));
 
+    Trydb.async()
+      .bean("select * from t_binary", EBinary.class)
+      .enqueue()
+      .done(System.out::println)
+      .capture(System.out::println)
+      .always(() -> System.out.println("always"));
+
     Trydb.use()
       .async()
       .find("select * from t_binary")
@@ -169,6 +177,7 @@ public class TrydbTest {
 
     Trydb.elegant()
       .async()
+      .target(EBinary.class)
       .bean("select * from t_binary")
       .enqueue()
       .done(System.out::println)

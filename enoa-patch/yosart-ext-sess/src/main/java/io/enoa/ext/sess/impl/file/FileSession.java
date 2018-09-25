@@ -36,7 +36,7 @@ public class FileSession implements SessFactory {
   public FileSession(String sessKey, Path savePath, EoSerializationFactory serialization, boolean reset) {
     this.savePath = savePath;
     this.sessKey = sessKey;
-    this.serializer = serialization == null ? Serializer.epm().serializer() : serialization.serializer();
+    this.serializer = serialization == null ? Serializer.use() : serialization.serializer();
     if (reset)
       this.reset(savePath);
   }
