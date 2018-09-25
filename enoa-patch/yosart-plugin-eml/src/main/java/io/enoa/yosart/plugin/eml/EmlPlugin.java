@@ -15,8 +15,8 @@
  */
 package io.enoa.yosart.plugin.eml;
 
+import io.enoa.eml.Eml;
 import io.enoa.eml.EmlConfig;
-import io.enoa.eml.provider.enoa.EnoaEmlSession;
 import io.enoa.yosart.YoPlugin;
 import io.enoa.yosart.thr.OyPluginException;
 
@@ -111,13 +111,13 @@ public class EmlPlugin implements YoPlugin {
 
   @Override
   public boolean start() throws OyPluginException {
-    EmlKit.add(this.name, new EnoaEmlSession(this.config));
+    Eml.epm().install(this.name, this.config);
     return true;
   }
 
   @Override
   public boolean stop() throws OyPluginException {
-    EmlKit.clear();
+    Eml.epm().clear();
     return true;
   }
 }

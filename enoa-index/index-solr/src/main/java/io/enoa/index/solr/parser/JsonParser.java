@@ -24,7 +24,7 @@ import io.enoa.json.Json;
 
 import java.lang.reflect.Type;
 
-public class JsonParser<T> implements SParser<SRet<T>> {
+class JsonParser<T> implements SParser<SRet<T>> {
 
   private EnoaJson json;
   private Type type;
@@ -54,14 +54,13 @@ public class JsonParser<T> implements SParser<SRet<T>> {
     return new JsonParser<>(type);
   }
 
-  public static JsonParser<Void> create(EoJsonFactory ejf) {
+  public static JsonParser<Void> none(EoJsonFactory ejf) {
     return new JsonParser<>(ejf.json(), Void.TYPE);
   }
 
-  public static JsonParser<Void> create() {
+  public static JsonParser<Void> none() {
     return new JsonParser<>(Void.TYPE);
   }
-
 
   @Override
   public SRet<T> result(HttpResponse resp) {

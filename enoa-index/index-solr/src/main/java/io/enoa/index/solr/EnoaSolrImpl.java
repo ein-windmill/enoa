@@ -44,23 +44,37 @@ class EnoaSolrImpl implements EoSolr {
   }
 
   @Override
-  public EoSolr core(String core) {
+  public EoSolrOperate core(String core) {
     this.core = core;
-    return this;
+    return new EoSolrOperate() {
+      @Override
+      public SSelect select() {
+        if (core == null)
+          throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.solr.core_null"));
+        return new SSelect(http(), config, core);
+      }
+
+      @Override
+      public SUpdate update() {
+        if (core == null)
+          throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.solr.core_null"));
+        return new SUpdate(http(), config, core);
+      }
+    };
   }
 
-  @Override
-  public SSelect select() {
-    if (this.core == null)
-      throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.solr.core_null"));
-    return new SSelect(this.http(), this.config, this.core);
-  }
-
-  @Override
-  public SUpdate update() {
-    if (this.core == null)
-      throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.solr.core_null"));
-    return new SUpdate(this.http(), this.config, this.core);
-  }
+//  @Override
+//  public SSelect select() {
+//    if (this.core == null)
+//      throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.solr.core_null"));
+//    return new SSelect(this.http(), this.config, this.core);
+//  }
+//
+//  @Override
+//  public SUpdate update() {
+//    if (this.core == null)
+//      throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.solr.core_null"));
+//    return new SUpdate(this.http(), this.config, this.core);
+//  }
 
 }

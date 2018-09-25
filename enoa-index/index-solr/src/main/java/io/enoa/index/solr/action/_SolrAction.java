@@ -15,7 +15,7 @@
  */
 package io.enoa.index.solr.action;
 
-import io.enoa.index.solr.parser.OriginParser;
+import io.enoa.http.protocol.HttpResponse;
 import io.enoa.index.solr.parser.SParser;
 import io.enoa.promise.DoneArgPromise;
 import io.enoa.promise.builder.EPDoneArgPromiseBuilder;
@@ -24,12 +24,12 @@ import io.enoa.toolkit.collection.CollectionKit;
 
 public interface _SolrAction {
 
-  default String emit() {
-    return this.emit(OriginParser.create());
+  default HttpResponse emit() {
+    return this.emit(resp -> resp);
   }
 
-  default DoneArgPromise<String> enqueue() {
-    return this.enqueue(OriginParser.create());
+  default DoneArgPromise<HttpResponse> enqueue() {
+    return this.enqueue(resp -> resp);
   }
 
   <T> T emit(SParser<T> parser);

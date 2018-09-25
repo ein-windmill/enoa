@@ -37,13 +37,13 @@ public class AdvExample {
 
     Redis.run(new EoRedisRunner() {
       @Override
-      public Object run(Jedis jedis, EoSerializer serializer) {
+      public String run(Jedis jedis, EoSerializer serializer) {
         return jedis.set(key, "new interface");
       }
     });
     String ret = Redis.run(new EoRedisRunner() {
       @Override
-      public Object run(Jedis jedis, EoSerializer serializer) {
+      public String run(Jedis jedis, EoSerializer serializer) {
         return jedis.get(key);
       }
     });
@@ -111,7 +111,7 @@ public class AdvExample {
       }})
       .build();
 //    EMgrRedis.start(config);
-    Redis.epm().install(config);
+    Redis.epm().install(config, new JdkSerializeProvider());
     EnoaRedis redis = Redis.use("sentinel");
     System.out.println(redis.set(this.key, "sentinel value"));
     String ret = redis.get(this.key);

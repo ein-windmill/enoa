@@ -40,14 +40,13 @@ public class RabbitTest {
 
   @Test
   public void testConsume() {
-    Rabbit.basicConsume(this.queue, true,
-      new DefaultConsumer(Rabbit.channel()) {
-        @Override
-        public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) {
-          String message = new String(body, Charset.forName("UTF-8"));
-          System.out.println(TextKit.format("Received '{0}'", message));
-        }
-      });
+    Rabbit.basicConsume(this.queue, true, new DefaultConsumer(Rabbit.channel()) {
+      @Override
+      public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) {
+        String message = new String(body, Charset.forName("UTF-8"));
+        System.out.println(TextKit.format("Received '{0}'", message));
+      }
+    });
     try {
       TimeUnit.DAYS.sleep(1L);
     } catch (InterruptedException e) {

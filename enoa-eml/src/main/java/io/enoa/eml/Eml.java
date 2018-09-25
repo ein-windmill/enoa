@@ -15,8 +15,6 @@
  */
 package io.enoa.eml;
 
-import io.enoa.eml.provider.enoa.EnoaEmlProvider;
-
 public interface Eml {
 
   static EPMEml epm() {
@@ -27,9 +25,15 @@ public interface Eml {
     return provider;
   }
 
-  static Eml with(EoEmlSession sess) {
-    return new EnoaEmlProvider(sess);
-  }
+//  /**
+//   * @param sess sess
+//   * @return Eml
+//   * @deprecated will remove next version 1.7
+//   */
+//  @Deprecated
+//  static Eml with(EoEmlSession sess) {
+//    return new EnoaEmlProvider(sess);
+//  }
 
   static Eml use(String name) {
     return epm().eml(name);

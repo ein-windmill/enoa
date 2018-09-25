@@ -28,7 +28,7 @@ public class EmlConfig {
   private final boolean debug;
   private final boolean ssl;
   private final boolean auth;
-  private final Kv other;
+  private final Kv prop;
   private final boolean skipError;
 
   private EmlConfig(Builder builder) {
@@ -39,7 +39,7 @@ public class EmlConfig {
     this.debug = builder.debug;
     this.ssl = builder.ssl;
     this.auth = builder.auth;
-    this.other = builder.other;
+    this.prop = builder.prop;
     this.skipError = builder.skipError;
   }
 
@@ -71,8 +71,8 @@ public class EmlConfig {
     return this.auth;
   }
 
-  public Kv other() {
-    return this.other;
+  public Kv prop() {
+    return this.prop;
   }
 
   public boolean skipError() {
@@ -88,7 +88,7 @@ public class EmlConfig {
     private boolean debug;
     private boolean ssl;
     private boolean auth;
-    private Kv other;
+    private Kv prop;
     private boolean skipError;
 
     public Builder() {
@@ -149,13 +149,24 @@ public class EmlConfig {
       return this;
     }
 
+    /**
+     * @param name  properties name
+     * @param value properties value
+     * @return Builder
+     * @deprecated will remove 1.8 use #prop
+     */
+    @Deprecated
     public Builder other(String name, String value) {
+      return this.prop(name, value);
+    }
+
+    public Builder prop(String name, String value) {
       if (TextKit.blanky(name))
         throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.email.conf_other_name_null"));
 
-      if (this.other == null)
-        this.other = Kv.create();
-      this.other.set(name.toLowerCase(), value);
+      if (this.prop == null)
+        this.prop = Kv.create();
+      this.prop.set(name.toLowerCase(), value);
       return this;
     }
 

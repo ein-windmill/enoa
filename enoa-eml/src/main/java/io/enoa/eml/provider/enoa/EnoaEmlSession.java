@@ -75,10 +75,10 @@ public class EnoaEmlSession implements EoEmlSession {
   }
 
   private void fillOther(EmlProtocol protocol, Properties prop) {
-    if (this.config.other() == null)
+    if (this.config.prop() == null)
       return;
-    this.config.other().forEach(prop::put);
-//    this.config.other().forEach((k, v) -> {
+    this.config.prop().forEach(prop::put);
+//    this.config.prop().forEach((k, v) -> {
 //      if (TextKit.blanky(k))
 //        return;
 //      if (!k.startsWith(TextKit.union("mail.", protocol.val())))
