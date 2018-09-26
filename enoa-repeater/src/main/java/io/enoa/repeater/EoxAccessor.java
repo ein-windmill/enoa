@@ -21,6 +21,7 @@ import io.enoa.repeater.http.Response;
 /**
  * Repeater 访问器, 所有第三方服务器请求最终进入到 Repeater 进行处理
  */
+@FunctionalInterface
 public interface EoxAccessor {
 
   /**

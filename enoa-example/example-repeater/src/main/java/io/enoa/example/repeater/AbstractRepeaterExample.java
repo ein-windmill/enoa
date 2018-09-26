@@ -35,8 +35,8 @@ abstract class AbstractRepeaterExample {
 
   EoxConfig config() {
     return new EoxConfig.Builder()
-      .debug(true)
-      .info(true)
+      .debug()
+      .info()
       .infoUseLog(false)
       .context("/example")
 //      .tmp(Paths.get(PathKit.path(), "tmp"))
