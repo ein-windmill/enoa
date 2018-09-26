@@ -359,12 +359,6 @@
 
       <dependency>
         <groupId>io.enoa</groupId>
-        <artifactId>yosart-plugin-eml</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>io.enoa</groupId>
         <artifactId>nosql-redis</artifactId>
         <version>${project.version}</version>
       </dependency>
