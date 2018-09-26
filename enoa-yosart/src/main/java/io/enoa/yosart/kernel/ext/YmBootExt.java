@@ -17,6 +17,7 @@ package io.enoa.yosart.kernel.ext;
 
 import io.enoa.yosart.YoExt;
 
+@Deprecated
 public interface YmBootExt extends YoExt {
   @Override
   default Type type() {

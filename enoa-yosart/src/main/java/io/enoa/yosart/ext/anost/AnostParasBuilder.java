@@ -273,14 +273,16 @@ class AnostParasBuilder {
     if (CollectionKit.isEmpty(pas))
       return Collections.emptyList();
 
-    pvals = pas.stream()
-      .map(p ->
-        new ParaVal(
-          p.index() == -1 ? null : p.index(),
-          TextKit.blanky(p.value()) ? null : p.value(),
-          TextKit.blanky(p.def()) ? null : p.def(),
-          TextKit.blanky(p.format()) ? null : p.format())
-      ).collect(Collectors.toList());
+    if (pas != null) {
+      pvals = pas.stream()
+        .map(p ->
+          new ParaVal(
+            p.index() == -1 ? null : p.index(),
+            TextKit.blanky(p.value()) ? null : p.value(),
+            TextKit.blanky(p.def()) ? null : p.def(),
+            TextKit.blanky(p.format()) ? null : p.format())
+        ).collect(Collectors.toList());
+    }
 
     PVALS.put(resource.hashName(), pvals);
     return pvals;
