@@ -18,6 +18,7 @@ package io.enoa.gateway.auth;
 import io.enoa.gateway.thr.GatewayAuthException;
 import io.enoa.repeater.http.Request;
 
+@FunctionalInterface
 public interface GatewayAuth {
 
   /**

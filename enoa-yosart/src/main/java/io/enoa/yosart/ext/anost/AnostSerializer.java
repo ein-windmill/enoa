@@ -18,6 +18,7 @@ package io.enoa.yosart.ext.anost;
 import io.enoa.repeater.http.Response;
 import io.enoa.yosart.kernel.http.YoRequest;
 
+@FunctionalInterface
 public interface AnostSerializer {
 
   Response serialize(YoRequest request, Object data);
