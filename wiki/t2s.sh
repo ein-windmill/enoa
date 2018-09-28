@@ -36,11 +36,9 @@ _gcpath(){
       local OUT=/data/target${FILE_TARGET}
 #      echo "$IN -> $OUT";
 
-#      ${OPENCC} -c tw2sp -i ${IN} -o ${OUT}
-#      echo opencc -c tw2sp -i ${path} -o `echo ${path} | sed "s/${_TARGET}/${ORIGIN}/g"`
+      ${OPENCC} -c tw2sp -i ${IN} -o ${OUT}
+      echo opencc -c tw2sp -i ${path} -o `echo ${path} | sed "s/${_TARGET}/${ORIGIN}/g"`
 
-      echo opencc -c s2twp -i ${path} -o ${_TARGET}
-      ${OPENCC} -c s2twp -i ${IN} -o ${OUT}
     fi
   done
 }
