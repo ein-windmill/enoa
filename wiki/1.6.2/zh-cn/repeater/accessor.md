@@ -56,14 +56,23 @@ Request 是 EoxAccessor 接口中获取到的请求信息, 内部方法相对较
 请求信息的方法包括
 
 - method
+
   请求类型 GET POST PATCH DELET 等等
+
 - context
+
   上下文链接
+
 - uri
+
   URI
+
 - url
+
   URL
+
 - body
+
   请求体, 当请求以 post 形式发起是, 请求数据可以通过 body 方法获取.
 
 ### 请求参数
@@ -73,16 +82,27 @@ Request 是 EoxAccessor 接口中获取到的请求信息, 内部方法相对较
 下面列出一些比较不同的方法
 
 - para
+
   获取参数值
+
 - paraMap
+
   获取所有参数
+
 - paraNames
+
   获取所有参数名
+
 - paraValues
+
   获取某个参数名下的所有值, 返回数组
+
 - files
+
   上传的所有文件列表, 同名方法有个带参数, 区别是, 不带参数获取的所有文件, 带参数获取该名称下的所有文件
+
 - file
+
   获取单个文件
 
 ```java
@@ -103,14 +123,23 @@ UFile uf = request.file("file");
 Header 参数方法相对较少, 但是要注意的是, Request 中也提供获取 Cookie 的相关方法, 此类方法也归档于 Header 参数中
 
 - header
+
   获取单个 Header 值
+
 - headerNames
+
   获取所有 Header 名称
+
 - cookie
+
   获取单个 Cookie 值
+
 - cookieObject
+
   获取单个 Cookie 对象
+
 - cookies
+
   获取所有 Cookie
 
 
@@ -132,11 +161,17 @@ header 方法参数名不区分大小写.
 attr 是一个特别的存在, attr 并不属于原始请求所携带的数据, 而是当请求到达时创建的一个对象, 生命周期仅在当次请求中. 并且 Request 提供设置 attr 的方法.
 
 - attrNames
+
   所有属性名
+
 - attr
+
   获取或者设置属性
+
 - rmAttr
+
   删除属性
+
 
 ```java
 String[] names = request.attrNames();
@@ -151,19 +186,34 @@ request.rmAttr("id");
 Response 对象用于表述, 当次请求需要返回数据给请求者. 相对于 Request, Response 就简单很多
 
 - status
+
   响应状态码
+
 - contentType
+
   响应数据类型
+
 - contentLength
+
   响应体长度
+
 - cookie
+
   响应 Cookie
+
 - header
+
   响应 Header
+
 - body
+
   响应体
+
 - charset
+
   字符编码
+
+
 
 首先, 状态码可以参考 [HttpStatus](https://github.com/fewensa/enoa/blob/master/enoa-repeater/src/main/java/io/enoa/repeater/http/HttpStatus.java "HttpStatus.java"), 提供响应的状态码即可; 通常 200(OK) 表示成功, 30x 表示授权失败, 40x 表示资源不存在, 50x 表示服务器错误.
 

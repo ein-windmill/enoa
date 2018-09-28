@@ -8,15 +8,25 @@ Yosart 扩展用于进行高级功能扩展, Yosart 整个框架是完全基于�
 Yosart 支持以下类型扩展
 
 - BOOT_HOOK
+
   启动钩子, 将会在 Yosart 调用 Repeater 之前调用; 允许多个扩展
+
 - ROUTER
+
   路由扩展, Yosart 所接收到的请求会全部分发到注册的路由扩展上; 只允许一个扩展.
+
 - ASSETS
+
   静态资源文件扩展; 只允许一个
+
 - RENDER
+
   渲染扩展; 允许多个
+
 - SESSION
+
   Session 扩展; 只允许一个
+
 
 在 Yosart 中, 如果是只允许一个的扩展, 多次添加以最后一个为标准. 例如:
 
@@ -57,14 +67,23 @@ public EoResp go(YoRequest request, String where, int zone, Timestamp ts) {
 先不着急看代码, 来看看一下 Para 注解提供的方法
 
 - index
+
   描述参数对应索引位置
+
 - value
+
   参数名
+
 - def
+
   默认值
+
 - format
+
   时间格式化
+
 - summary
+
   字段描述
 
 `value` 以及 `def` 很容易理解, `value` 是请求参数名, `def` 如果不存在该参数填充的默认值(空字符串也算不存在).
@@ -152,10 +171,15 @@ mgr.load("/manager/pre_*", new PreHook(), AnostHookMgr.Mode.REGEX);
 限定 Api 的 Hook 仅会作用于匹配到的接口, 匹配模式有三种
 
 - FULL
+
   Api 全匹配
+
 - PREFIX
+
   前缀匹配
+
 - REGEX
+
   正则匹配
 
 默认全匹配模式
@@ -205,9 +229,9 @@ public class IndexHook implements IHook {
 
 在 hook 方法中即可以在进入到 Control 之前进行部分操作.
 
-:::info
-hook 方法中会传递一个 Resp 对象, 该对象是 Anost 收到请求后就会创建的一个响应对象, 因此在这里使用 resp 添加的数据最终都会写入到 Response 中.
-:::
+### 声明
+
+> hook 方法中会传递一个 Resp 对象, 该对象是 Anost 收到请求后就会创建的一个响应对象, 因此在这里使用 resp 添加的数据最终都会写入到 Response 中.
 
 IHook 接口, 允许抛出 `HookException`, Anost 并不会对 HookException 进行任何处理, 只会冒泡的上游, 因此建议搭配 [exception-extension](#exception-extension) 扩展一同使用, 效果更加.
 
@@ -453,9 +477,8 @@ Yosart.createServer()
 </dependency>
 ```
 
-:::warning
-这个 POM 只是引入扩展, 具体选用什么模板需要单独引入. [Template](#Template)
-:::
+### 声明
+> 这个 POM 只是引入扩展, 具体选用什么模板需要单独引入. [Template](#Template)
 
 #### 使用
 

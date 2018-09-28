@@ -50,13 +50,13 @@ MybatisConfig config = new MybatisConfig.Builder()
 .plugin(new JsonPlugin(new GsonProvider()))
 ```
 
-:::success
-json 插件注意, 插件中附带 JsonRenderExt 扩展, 可通过 .ext 加入 Yosart, ext 见后文描述
+### 声明
 
-```java
-.ext(new JsonRenderExt())
-```
-:::
+> json 插件注意, 插件中附带 JsonRenderExt 扩展, 可通过 .ext 加入 Yosart, ext 见后文描述
+>
+> ```java
+> .ext(new JsonRenderExt())
+> ```
 
 ## plugin-redis
 

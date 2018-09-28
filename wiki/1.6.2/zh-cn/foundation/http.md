@@ -296,21 +296,37 @@ Http.request("http://httpbin.org/get")
 Http 中存在 HttpRequest 接口, 仅限于 Http 内部使用, 使用者通常不需要自己创建也无法直接维护 HttpRequest; 但是仍然有机会获得 HttpRequest, 通过 [handler](#handler-ampamp-reporter) 即可. 不过无法对其进行修改, 只能够查阅.
 
 - version
+
   Http request version
+
 - url
+
   请求链接
+
 - method
+
   Http request method
+
 - headers
+
   请求头
+
 - body
+
   请求体
+
 - config
+
   请求相关配置, 包括超时时间等.
+
 - charset
+
   字符编码
+
 - proxy
+
   代理信息
+
 
 
 ## HttpResponse
@@ -318,41 +334,77 @@ Http 中存在 HttpRequest 接口, 仅限于 Http 内部使用, 使用者通常�
 HttpResponse 的方法相对较多.
 
 - code
+
   Http response code
+
 - version
+
   Http version
+
 - ok
+
   Response code 在 20x 区间返回 true, 否则 false
+
 - uri
+
   Request uri
+
 - url
+
   Request url
+
 - protocol
+
   HTTP or HTTPS
+
 - host
+
   Request host
+
 - charset
+
   字符编码
+
 - message
+
   Response message
+
 - isRedirect
+
   响应是否重定向
+
 - cookieNames
+
   所有 Cookie 名称
+
 - cookieObject
+
   获取单个 Cookie Object
+
 - cookie
+
   获取单个 Cookie String 值
+
 - headerNames
+
   所有 Response Header 名称
+
 - header
+
   获取单个 Header 值
+
 - headers
+
   获取数组 Header 值
+
 - body
+
   响应体
+
 - clear
+
   清除 Response
+
 
 着重说明 body, body 方法, 返回的是 HttpResponseBody 对象, 该对象可以直接获取响应体的 byte\[], 或者直接转换为 string.
 

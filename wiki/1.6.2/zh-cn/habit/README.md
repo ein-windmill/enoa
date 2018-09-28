@@ -54,13 +54,8 @@ public class User {
 }
 ```
 
-:::warning
-使用这种方式的弊处是, 大多数的序列化框架, 例如 Json 的序列化框架, 有可能会无法进行反序列化, 因为没有 Getter Setter 方法. 这个时候需要考验你的判断力进行取舍. (常用框架中 Gson 支持这种方式, Gson 是通过字段进行反序列化的)
-:::
 
-:::danger
-事实上, Enoa 有在开发一款 Json 解析器 (Tryjson). [尚未完成](https://github.com/fewensa/enoa/tree/tryjson "Tryjson tree").
-:::
+> 使用这种方式的弊处是, 大多数的序列化框架, 例如 Json 的序列化框架, 有可能会无法进行反序列化, 因为没有 Getter Setter 方法. 这个时候需要考验你的判断力进行取舍. (常用框架中 Gson 支持这种方式, Gson 是通过字段进行反序列化的)
 
 
 # Builder

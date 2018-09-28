@@ -105,12 +105,12 @@ EBinary bean = Trydb.bean("select * from t_binary limit 1", EBinary.class);
 update 方法, 用于执行 Sql 中的 `update`, `delete`, `insert` 语句, 没有单独添加 delete, insert 是因为, delete 以及 insert 实际也是修改操作, 因此可通用 update 方法.
 update 调用后会返回执行 Sql 后的数据影响行数.
 
-:::warning
-特别说明: update 方法用于执行 `insert` 语句时, 不支持获取表的自增 ID 值. 为什么?
-[Why Auto Increment Is A Terrible Idea](https://www.clever-cloud.com/blog/engineering/2015/05/20/why-auto-increment-is-a-terrible-idea/)
+### 声明
 
-可以替换的方案其实很多, 比如 [SnowflakeKit](#SnowflakeKit)
-:::
+> 特别说明: update 方法用于执行 `insert` 语句时, 不支持获取表的自增 ID 值. 为什么?
+> [Why Auto Increment Is A Terrible Idea](https://www.clever-cloud.com/blog/engineering/2015/05/20/why-auto-increment-is-a-terrible-idea/)
+>
+> 可以替换的方案其实很多, 比如 [SnowflakeKit](#SnowflakeKit)
 
 ```java
 byte[] bytes = {0, 1, 3, 4, 5, 6, 3, 4, 5, 6, 3, 4, 5, 6};
@@ -124,12 +124,19 @@ Trydb.update("delete from t_binary where id=?", 1);
 pagekv 用于数据分页查询, 并返回 Page\<Kv> 对象; pagekv 有四个参数:
 
 1. pn
+
    当前页码
+
 2. ps
+
    每页数据量
+
 3. sql
+
    sql
+
 4. paras/map
+
    可选项, sql 占位符处理, 支持数组或 map 型, map 型只有用于模板时才可使用.
 
 ```java
@@ -139,21 +146,32 @@ Page<Kv> pkv0 = Trydb.pagekv(3, 1, "select * from t_binary");
 来看一下 Page 对象. Page 中包含如下字段
 
 - pageNumber
+
   当前页码
+
 - pageSize
+
   一页数据大小
+
 - totalPage
+
   总共多少页
+
 - offset
+
   分页游标偏移值
+
 - totalRow
+
   总共多少数据
+
 - rows
+
   当前页数据
 
-:::info
-Page 对象是一个存在 Getter Setter 方法的对象, 上述的所有字段均可通过 get set 方法进行设定; 是的, 这并不符合 Enoa 的习惯, 但这是一个妥协的结果, 因为 Page 对象将会有很高的机率用于和外部交互, 那么如果不这么做就有可能会导致无法解析的问题.
-:::
+### 声明
+
+> Page 对象是一个存在 Getter Setter 方法的对象, 上述的所有字段均可通过 get set 方法进行设定; 是的, 这并不符合 Enoa 的习惯, 但这是一个妥协的结果, 因为 Page 对象将会有很高的机率用于和外部交互, 那么如果不这么做就有可能会导致无法解析的问题.
 
 ## page
 
@@ -275,9 +293,9 @@ Trydb 选用的 Promise 是 DoneArgPromise, 因此受支持的 Promise 方法有
 - always
 
 
-:::warning
-elegant 模式异步需要了解, 因为创建 Promise 后, 使用 target 方法传入的类型无法带入到 Promise 泛型中, 导致 async 之后无法识别 target 的类型, 因此 elegant 异步操作后无法正确识别泛型.
-:::
+### 声明
+
+> elegant 模式异步需要了解, 因为创建 Promise 后, 使用 target 方法传入的类型无法带入到 Promise 泛型中, 导致 async 之后无法识别 target 的类型, 因此 elegant 异步操作后无法正确识别泛型.
 
 
 
