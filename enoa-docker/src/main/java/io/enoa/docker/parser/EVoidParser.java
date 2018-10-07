@@ -13,4 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.dret;
+package io.enoa.docker.parser;
+
+import io.enoa.docker.DockerConfig;
+import io.enoa.docker.dret.DRet;
+
+public class EVoidParser implements DIParser<Void> {
+  @Override
+  public DRet<Void> parse(DockerConfig config, String origin) {
+    return null;
+  }
+}

@@ -19,6 +19,7 @@ import io.enoa.docker.DockerConfig;
 import io.enoa.docker.command.origin.OriginDocker;
 import io.enoa.docker.dqp.container.DQPListContainer;
 import io.enoa.docker.dret.DRet;
+import io.enoa.docker.dret.container.EContainerCreated;
 import io.enoa.docker.parser.DIParser;
 
 import java.util.List;
@@ -41,5 +42,11 @@ public class EGeneicDockerContainer {
     String json = this.docker.container().ps(dqp);
     return parser.parse(this.config, json);
   }
+
+  public DRet<EContainerCreated> create(String name, String body) {
+    String json = this.docker.container().create(name, body);
+    return DIParser.created().parse(this.docker._config(), json);
+  }
+
 
 }

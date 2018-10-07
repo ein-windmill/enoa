@@ -15,6 +15,7 @@
  */
 package io.enoa.docker;
 
+import io.enoa.docker.command.eo.EnoaDockerContainer;
 import io.enoa.docker.command.eo.EoDocker;
 import io.enoa.docker.command.geneic.GeneicDocker;
 import io.enoa.docker.command.origin.OriginDocker;
@@ -58,6 +59,10 @@ public class Docker {
 
   public static DRet<EDockerInfo> info(DIParser<EDockerInfo> parser) {
     return use().info(parser);
+  }
+
+  public static EnoaDockerContainer container() {
+    return use().container();
   }
 
 }

@@ -25,13 +25,13 @@ import io.enoa.toolkit.value.EnoaValue;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class DockerPsParser extends AbstractParser<List<EContainer>> {
+public class EDockerPsParser extends AbstractParser<List<EContainer>> {
 
   private static class Holder {
-    private static final DockerPsParser INSTANCE = new DockerPsParser();
+    private static final EDockerPsParser INSTANCE = new EDockerPsParser();
   }
 
-  static DockerPsParser instance() {
+  static EDockerPsParser instance() {
     return Holder.INSTANCE;
   }
 
@@ -117,6 +117,21 @@ public class DockerPsParser extends AbstractParser<List<EContainer>> {
       return null;
     ENetworkSetting.Builder nsb = new ENetworkSetting.Builder();
     Map mssm = (Map) networksettings;
+    nsb.bridge(EnoaValue.with(mssm.get("Bridge")).string())
+      .sandboxid(EnoaValue.with(mssm.get("SandboxID")).string())
+      .hairpinmode(EnoaValue.with(mssm.get("HairpinMode")).bool())
+      .linklocalipv6address(EnoaValue.with(mssm.get("LinkLocalIPv6Address")).string())
+      .linklocalipv6prefixlen(EnoaValue.with(mssm.get("LinkLocalIPv6PrefixLen")).integer())
+      .sandboxkey(EnoaValue.with("SandboxKey").string())
+      .endpointid(EnoaValue.with("EndpointID").string())
+      .gateway(EnoaValue.with("Gateway").string())
+      .globalipv6address(EnoaValue.with("GlobalIPv6Address").string())
+      .globalipv6prefixlen(EnoaValue.with("GlobalIPv6PrefixLen").integer())
+      .ipaddress(EnoaValue.with("IPAddress").string())
+      .ipprefixlen(EnoaValue.with("IPPrefixLen").integer())
+      .ipv6gateway(EnoaValue.with("IPv6Gateway").string())
+      .macaddress(EnoaValue.with("MacAddress").string());
+
     Object networks = mssm.get("Networks");
     if (networks instanceof Map) {
       ENetwork.Builder nkb = new ENetwork.Builder();

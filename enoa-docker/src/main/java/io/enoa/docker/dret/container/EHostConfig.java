@@ -19,8 +19,54 @@ import io.enoa.docker.dret.AbstractDRet;
 
 public class EHostConfig extends AbstractDRet {
 
-
-  private final String networkmode;
+  //  private Object BlkioWeightDevice;
+//  private Object BlkioDeviceReadBps;
+//  private Object BlkioDeviceWriteBps;
+//  private Object BlkioDeviceReadIOps;
+//  private Object BlkioDeviceWriteIOps;
+  private String containeridfile;
+  private Integer maximumiops;
+  private Integer maximumiobps;
+  private Integer blkioweight;
+  private String cpusetcpus;
+  private String cpusetmems;
+  private Integer cpupercent;
+  private Integer cpushares;
+  private Integer cpuperiod;
+  private Integer cpurealtimeperiod;
+  private Integer cpurealtimeruntime;
+  private Object devices;
+  private String ipcmode;
+  private Object lxcconf;
+  private Integer memory;
+  private Integer memoryswap;
+  private Integer memoryreservation;
+  private Integer kernelmemory;
+  private Boolean oomkilldisable;
+  private Integer oomscoreadj;
+  private String networkmode;
+  private String pidmode;
+  private Object portbindings;
+  private Boolean privileged;
+  private Boolean readonlyrootfs;
+  private Boolean publishallports;
+  private String volumedriver;
+  private Integer shmsize;
+  /*
+    "RestartPolicy": {
+      "MaximumRetryCount": 2,
+      "Name": "on-failure"
+    },
+    "LogConfig": {
+      "Type": "json-file"
+    },
+    "Sysctls": {
+      "net.ipv4.ip_forward": "1"
+    },
+    "Ulimits": [
+      {}
+    ],
+   */
 
   public EHostConfig(Builder builder) {
     this.networkmode = builder.networkmode;

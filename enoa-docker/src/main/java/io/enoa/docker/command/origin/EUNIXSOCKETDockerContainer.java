@@ -29,4 +29,14 @@ public class EUNIXSOCKETDockerContainer implements EOriginDockerContainer {
   public String ps(DQPListContainer dqp) {
     return null;
   }
+
+  @Override
+  public String create(String name, String body) {
+    return null;
+  }
+
+  @Override
+  public String inspect(String id, Boolean size) {
+    return null;
+  }
 }

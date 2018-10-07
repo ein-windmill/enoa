@@ -13,14 +13,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.parser;
+package io.enoa.docker.mark;
 
-import io.enoa.docker.DockerConfig;
-import io.enoa.docker.dret.DRet;
+import io.enoa.toolkit.mark.IMarkVal;
 
-public class VoidParser implements DIParser<Void> {
+public enum State implements IMarkVal {
+
+  CREATED("created"),
+  RUNNING("running"),
+  PAUSED("paused"),
+  RESTARTING("restarting"),
+  REMOVING("removing"),
+  EXITED("exited"),
+  DEAD("dead"),
+
+  //
+  ;
+
+  private final String val;
+
+  State(String val) {
+    this.val = val;
+  }
+
   @Override
-  public DRet<Void> parse(DockerConfig config, String origin) {
+  public String val() {
+    return this.val;
+  }
+
+  public static State of(String val) {
+    if (val == null)
+      return null;
+    for (State state : State.values()) {
+      if (state.val == val)
+        return state;
+    }
     return null;
   }
 }

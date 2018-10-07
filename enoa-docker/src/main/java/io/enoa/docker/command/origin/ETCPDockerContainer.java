@@ -16,6 +16,7 @@
 package io.enoa.docker.command.origin;
 
 import io.enoa.docker.dqp.container.DQPListContainer;
+import io.enoa.http.protocol.HttpMethod;
 import io.enoa.http.protocol.HttpResponse;
 
 public class ETCPDockerContainer implements EOriginDockerContainer {
@@ -33,6 +34,21 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
       .para(dqp.dqr().httpparas())
       .emit();
     return response.body().string();
+  }
+
+  @Override
+  public String create(String name, String body) {
+    HttpResponse response = this.docker.http("/containers/create")
+      .method(HttpMethod.POST)
+      .para("name", name)
+      .raw(body, "application/json")
+      .emit();
+    return response.body().string();
+  }
+
+  @Override
+  public String inspect(String id, Boolean size) {
+    return null;
   }
 
 }

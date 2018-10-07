@@ -19,6 +19,7 @@ import io.enoa.docker.command.geneic.GeneicDocker;
 import io.enoa.docker.dqp.container.DQPListContainer;
 import io.enoa.docker.dret.DRet;
 import io.enoa.docker.dret.container.EContainer;
+import io.enoa.docker.dret.container.EContainerCreated;
 import io.enoa.docker.parser.DIParser;
 
 import java.util.List;
@@ -38,4 +39,9 @@ public class EnoaDockerContainer {
   public DRet<List<EContainer>> ps(DQPListContainer dqp) {
     return this.docker.container().ps(DIParser.ps(), dqp);
   }
+
+  public DRet<EContainerCreated> create(String name, String body) {
+    return this.docker.container().create(name, body);
+  }
+
 }

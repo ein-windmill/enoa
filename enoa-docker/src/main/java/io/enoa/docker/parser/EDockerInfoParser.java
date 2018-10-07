@@ -29,13 +29,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-class DockerInfoParser extends AbstractParser<EDockerInfo> {
+class EDockerInfoParser extends AbstractParser<EDockerInfo> {
 
   private static class Holder {
-    private static final DockerInfoParser INSTANCE = new DockerInfoParser();
+    private static final EDockerInfoParser INSTANCE = new EDockerInfoParser();
   }
 
-  static DockerInfoParser instance() {
+  static EDockerInfoParser instance() {
     return Holder.INSTANCE;
   }
 
