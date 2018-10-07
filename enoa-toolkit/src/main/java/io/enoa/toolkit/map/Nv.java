@@ -19,6 +19,10 @@ import io.enoa.toolkit.value.EnoaValue;
 
 import java.util.HashMap;
 
+/**
+ * 將會對 Nv 進行優化, 不建議使用
+ */
+@Deprecated
 public class Nv extends HashMap<String, Object> {
 
 //  private String name;
