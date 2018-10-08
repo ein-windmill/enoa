@@ -19,21 +19,21 @@ import io.enoa.docker.dret.AbstractDRet;
 
 public class ENetworkSetting extends AbstractDRet {
 
-  private String bridge;
-  private String sandboxid;
-  private Boolean hairpinmode;
-  private String linklocalipv6address;
-  private Integer linklocalipv6prefixlen;
-  private String sandboxkey;
-  private String endpointid;
-  private String gateway;
-  private String globalipv6address;
-  private Integer globalipv6prefixlen;
-  private String ipaddress;
-  private Integer ipprefixlen;
-  private String ipv6gateway;
-  private String macaddress;
-  private ENetwork network;
+  private final String bridge;
+  private final String sandboxid;
+  private final Boolean hairpinmode;
+  private final String linklocalipv6address;
+  private final Integer linklocalipv6prefixlen;
+  private final String sandboxkey;
+  private final String endpointid;
+  private final String gateway;
+  private final String globalipv6address;
+  private final Integer globalipv6prefixlen;
+  private final String ipaddress;
+  private final Integer ipprefixlen;
+  private final String ipv6gateway;
+  private final String macaddress;
+  private final ENetwork network;
 
   public ENetworkSetting(Builder builder) {
     this.bridge = builder.bridge;

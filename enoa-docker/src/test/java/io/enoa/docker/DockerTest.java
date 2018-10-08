@@ -15,9 +15,9 @@
  */
 package io.enoa.docker;
 
+import io.enoa.docker.dqp.container.DQPLogs;
 import io.enoa.docker.dret.DRet;
-import io.enoa.docker.dret.container.EContainer;
-import io.enoa.docker.dret.container.EContainerCreated;
+import io.enoa.docker.dret.container.*;
 import io.enoa.docker.dret.dockerinfo.EDockerInfo;
 import io.enoa.json.Json;
 import io.enoa.json.provider.gson.GsonProvider;
@@ -52,8 +52,40 @@ public class DockerTest {
   }
 
   @Test
-  public void testPs() {
-    DRet<List<EContainer>> ret = Docker.container().ps();
+  public void testList() {
+    DRet<List<EContainer>> ret = Docker.container().list();
+    assert ret.ok();
+    String json = Json.toJson(ret.data());
+    System.out.println(json);
+  }
+
+  @Test
+  public void testInspect() {
+    DRet<EInspect> ret = Docker.container().inspect("gitbook");
+    assert ret.ok();
+    String json = Json.toJson(ret.data());
+    System.out.println(json);
+  }
+
+  @Test
+  public void testTop() {
+    DRet<EProcesses> ret = Docker.container().top("gitbook");
+    assert ret.ok();
+    String json = Json.toJson(ret.data());
+    System.out.println(json);
+  }
+
+  @Test
+  public void testLogs() {
+    DRet<String> ret = Docker.container().logs("nginx", DQPLogs.create().stdout());
+    assert ret.ok();
+    String logs = ret.data();
+    System.out.println(logs);
+  }
+
+  @Test
+  public void testChanges() {
+    DRet<List<EChange>> ret = Docker.container().changes("nginx");
     assert ret.ok();
     String json = Json.toJson(ret.data());
     System.out.println(json);
@@ -218,7 +250,6 @@ public class DockerTest {
     assert ret.ok();
     System.out.println(ret);
   }
-
 
 
 }

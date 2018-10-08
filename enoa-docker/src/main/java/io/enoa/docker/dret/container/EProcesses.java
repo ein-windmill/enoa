@@ -19,41 +19,46 @@ import io.enoa.docker.dret.AbstractDRet;
 
 import java.util.List;
 
-public class EContainerCreated extends AbstractDRet {
+public class EProcesses extends AbstractDRet {
 
-  private final String id;
-  private final List<String> warnings;
 
-  public EContainerCreated(Builder builder) {
-    this.id = builder.id;
-    this.warnings = builder.warnings;
+  private final String[] titles;
+  private final List<String[]> processes;
+
+  public EProcesses(Builder builder) {
+    this.titles = builder.titles;
+    this.processes = builder.processes;
   }
 
-  public String id() {
-    return this.id;
+
+  public String[] titles() {
+    return titles;
   }
 
-  public List<String> warnings() {
-    return this.warnings;
+  public List<String[]> processes() {
+    return processes;
   }
 
   public static class Builder {
 
-    private String id;
-    private List<String> warnings;
+    private String[] titles;
+    private List<String[]> processes;
 
-    public EContainerCreated build() {
-      return new EContainerCreated(this);
+
+    public EProcesses build() {
+      return new EProcesses(this);
     }
 
-    public Builder id(String id) {
-      this.id = id;
+    public Builder titles(String[] titles) {
+      this.titles = titles;
       return this;
     }
 
-    public Builder warnings(List<String> warnings) {
-      this.warnings = warnings;
+    public Builder processes(List<String[]> processes) {
+      this.processes = processes;
       return this;
     }
   }
+
+
 }

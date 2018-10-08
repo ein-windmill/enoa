@@ -19,19 +19,19 @@ import io.enoa.docker.dret.AbstractDRet;
 
 public class EBridge extends AbstractDRet {
 
-  private Object ipamconfig;
-  private Object links;
-  private Object aliases;
-  private String networkid;
-  private String endpointid;
-  private String gateway;
-  private String ipaddress;
-  private Integer ipprefixlen;
-  private String ipv6gateway;
-  private String globalipv6address;
-  private Integer globalipv6prefixlen;
-  private String macaddress;
-  private Object driveropts;
+  private final Object ipamconfig;
+  private final Object links;
+  private final Object aliases;
+  private final String networkid;
+  private final String endpointid;
+  private final String gateway;
+  private final String ipaddress;
+  private final Integer ipprefixlen;
+  private final String ipv6gateway;
+  private final String globalipv6address;
+  private final Integer globalipv6prefixlen;
+  private final String macaddress;
+  private final Object driveropts;
 
   public EBridge(Builder builder) {
     this.ipamconfig = builder.ipamconfig;

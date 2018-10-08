@@ -22,63 +22,63 @@ import java.util.List;
 
 public class EDockerInfo extends AbstractDRet {
 
-  private String id;
-  private Integer containers;
-  private Integer containersrunning;
-  private Integer containerspaused;
-  private Integer containersstopped;
-  private Integer images;
-  private String driver;
-  private List<String[]> driverstatus;
-  private Object systemstatus;
-  private EPlugin plugins;
-  private Boolean memorylimit;
-  private Boolean swaplimit;
-  private Boolean kernelmemory;
-  private Boolean cpucfsperiod;
-  private Boolean cpucfsquota;
-  private Boolean cpushares;
-  private Boolean cpuset;
-  private Boolean ipv4forwarding;
-  private Boolean bridgenfiptables;
-  private Boolean bridgenfip6tables;
-  private Boolean debug;
-  private Integer nfd;
-  private Boolean oomkilldisable;
-  private Integer ngoroutines;
-  private Date systemtime;
-  private String loggingdriver;
-  private String cgroupdriver;
-  private Integer neventslistener;
-  private String kernelversion;
-  private String operatingsystem;
-  private String ostype;
-  private String architecture;
-  private String indexserveraddress;
-  private ERegistryConfig registryconfig;
-  private Integer ncpu;
-  private Integer memtotal;
-  private Object genericresources;
-  private String dockerrootdir;
-  private String httpproxy;
-  private String httpsproxy;
-  private String noproxy;
-  private String name;
-  private String[] labels;
-  private Boolean experimentalbuild;
-  private String serverversion;
-  private String clusterstore;
-  private String clusteradvertise;
-  private ERuntimes runtimes;
-  private String defaultruntime;
-  private ESwarm swarm;
-  private Boolean liverestoreenabled;
-  private String isolation;
-  private String initbinary;
-  private ECommit containerdcommit;
-  private ECommit runccommit;
-  private ECommit initcommit;
-  private String[] securityoptions;
+  private final String id;
+  private final Integer containers;
+  private final Integer containersrunning;
+  private final Integer containerspaused;
+  private final Integer containersstopped;
+  private final Integer images;
+  private final String driver;
+  private final List<String[]> driverstatus;
+  private final Object systemstatus;
+  private final EPlugin plugins;
+  private final Boolean memorylimit;
+  private final Boolean swaplimit;
+  private final Boolean kernelmemory;
+  private final Boolean cpucfsperiod;
+  private final Boolean cpucfsquota;
+  private final Boolean cpushares;
+  private final Boolean cpuset;
+  private final Boolean ipv4forwarding;
+  private final Boolean bridgenfiptables;
+  private final Boolean bridgenfip6tables;
+  private final Boolean debug;
+  private final Integer nfd;
+  private final Boolean oomkilldisable;
+  private final Integer ngoroutines;
+  private final Date systemtime;
+  private final String loggingdriver;
+  private final String cgroupdriver;
+  private final Integer neventslistener;
+  private final String kernelversion;
+  private final String operatingsystem;
+  private final String ostype;
+  private final String architecture;
+  private final String indexserveraddress;
+  private final ERegistryConfig registryconfig;
+  private final Integer ncpu;
+  private final Double memtotal;
+  private final Object genericresources;
+  private final String dockerrootdir;
+  private final String httpproxy;
+  private final String httpsproxy;
+  private final String noproxy;
+  private final String name;
+  private final String[] labels;
+  private final Boolean experimentalbuild;
+  private final String serverversion;
+  private final String clusterstore;
+  private final String clusteradvertise;
+  private final ERuntimes runtimes;
+  private final String defaultruntime;
+  private final ESwarm swarm;
+  private final Boolean liverestoreenabled;
+  private final String isolation;
+  private final String initbinary;
+  private final ECommit containerdcommit;
+  private final ECommit runccommit;
+  private final ECommit initcommit;
+  private final String[] securityoptions;
 
 
   private EDockerInfo(Builder builder) {
@@ -282,7 +282,7 @@ public class EDockerInfo extends AbstractDRet {
     return this.ncpu;
   }
 
-  public Integer memtotal() {
+  public Double memtotal() {
     return this.memtotal;
   }
 
@@ -407,7 +407,7 @@ public class EDockerInfo extends AbstractDRet {
     private String indexserveraddress;
     private ERegistryConfig registryconfig;
     private Integer ncpu;
-    private Integer memtotal;
+    private Double memtotal;
     private Object genericresources;
     private String dockerrootdir;
     private String httpproxy;
@@ -612,7 +612,7 @@ public class EDockerInfo extends AbstractDRet {
       return this;
     }
 
-    public Builder memtotal(Integer memtotal) {
+    public Builder memtotal(Double memtotal) {
       this.memtotal = memtotal;
       return this;
     }

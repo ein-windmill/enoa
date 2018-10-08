@@ -17,43 +17,43 @@ package io.enoa.docker.dret.container;
 
 import io.enoa.docker.dret.AbstractDRet;
 
-import java.util.List;
+public class EGraphDriver extends AbstractDRet {
 
-public class EContainerCreated extends AbstractDRet {
 
-  private final String id;
-  private final List<String> warnings;
+  private final String name;
+  private final EGDData data;
 
-  public EContainerCreated(Builder builder) {
-    this.id = builder.id;
-    this.warnings = builder.warnings;
+  public EGraphDriver(Builder builder) {
+    this.name = builder.name;
+    this.data = builder.data;
   }
 
-  public String id() {
-    return this.id;
+  public String name() {
+    return name;
   }
 
-  public List<String> warnings() {
-    return this.warnings;
+  public EGDData data() {
+    return data;
   }
 
   public static class Builder {
+    private String name;
+    private EGDData data;
 
-    private String id;
-    private List<String> warnings;
 
-    public EContainerCreated build() {
-      return new EContainerCreated(this);
+    public EGraphDriver build() {
+      return new EGraphDriver(this);
     }
 
-    public Builder id(String id) {
-      this.id = id;
+    public Builder name(String name) {
+      this.name = name;
       return this;
     }
 
-    public Builder warnings(List<String> warnings) {
-      this.warnings = warnings;
+    public Builder data(EGDData data) {
+      this.data = data;
       return this;
     }
   }
+
 }

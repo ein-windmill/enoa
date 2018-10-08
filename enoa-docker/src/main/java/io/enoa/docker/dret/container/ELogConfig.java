@@ -17,43 +17,41 @@ package io.enoa.docker.dret.container;
 
 import io.enoa.docker.dret.AbstractDRet;
 
-import java.util.List;
+public class ELogConfig extends AbstractDRet {
 
-public class EContainerCreated extends AbstractDRet {
+  private final String type;
+  private final Object config;
 
-  private final String id;
-  private final List<String> warnings;
-
-  public EContainerCreated(Builder builder) {
-    this.id = builder.id;
-    this.warnings = builder.warnings;
+  public ELogConfig(Builder builder) {
+    this.type = builder.type;
+    this.config = builder.config;
   }
 
-  public String id() {
-    return this.id;
+  public String type() {
+    return type;
   }
 
-  public List<String> warnings() {
-    return this.warnings;
+  public Object config() {
+    return config;
   }
 
   public static class Builder {
+    private String type;
+    private Object config;
 
-    private String id;
-    private List<String> warnings;
-
-    public EContainerCreated build() {
-      return new EContainerCreated(this);
+    public ELogConfig build() {
+      return new ELogConfig(this);
     }
 
-    public Builder id(String id) {
-      this.id = id;
+    public Builder type(String type) {
+      this.type = type;
       return this;
     }
 
-    public Builder warnings(List<String> warnings) {
-      this.warnings = warnings;
+    public Builder config(Object config) {
+      this.config = config;
       return this;
     }
   }
+
 }

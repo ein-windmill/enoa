@@ -17,42 +17,40 @@ package io.enoa.docker.dret.container;
 
 import io.enoa.docker.dret.AbstractDRet;
 
-import java.util.List;
+public class ERestartPolicy extends AbstractDRet {
 
-public class EContainerCreated extends AbstractDRet {
+  private final Integer maximumretrycount;
+  private final String name;
 
-  private final String id;
-  private final List<String> warnings;
-
-  public EContainerCreated(Builder builder) {
-    this.id = builder.id;
-    this.warnings = builder.warnings;
+  public ERestartPolicy(Builder builder) {
+    this.maximumretrycount = builder.maximumretrycount;
+    this.name = builder.name;
   }
 
-  public String id() {
-    return this.id;
+  public Integer maximumretrycount() {
+    return maximumretrycount;
   }
 
-  public List<String> warnings() {
-    return this.warnings;
+  public String name() {
+    return name;
   }
 
   public static class Builder {
 
-    private String id;
-    private List<String> warnings;
+    private Integer maximumretrycount;
+    private String name;
 
-    public EContainerCreated build() {
-      return new EContainerCreated(this);
+    public ERestartPolicy build() {
+      return new ERestartPolicy(this);
     }
 
-    public Builder id(String id) {
-      this.id = id;
+    public Builder maximumretrycount(Integer maximumretrycount) {
+      this.maximumretrycount = maximumretrycount;
       return this;
     }
 
-    public Builder warnings(List<String> warnings) {
-      this.warnings = warnings;
+    public Builder name(String name) {
+      this.name = name;
       return this;
     }
   }

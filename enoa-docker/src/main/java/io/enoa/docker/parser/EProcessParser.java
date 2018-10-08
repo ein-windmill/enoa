@@ -16,40 +16,45 @@
 package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
-import io.enoa.docker.dret.container.EContainerCreated;
+import io.enoa.docker.dret.container.EProcesses;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.map.Kv;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
-class EContainerCreatedParser extends AbstractParser<EContainerCreated> {
+class EProcessParser extends AbstractParser<EProcesses> {
 
   private static class Holder {
-    private static final EContainerCreatedParser INSTANCE = new EContainerCreatedParser();
+    private static final EProcessParser INSTANCE = new EProcessParser();
   }
 
-  static EContainerCreatedParser instance() {
+  static EProcessParser instance() {
     return Holder.INSTANCE;
   }
 
   @Override
-  public EContainerCreated ok(DockerConfig config, String origin) {
+  public EProcesses ok(DockerConfig config, String origin) {
     Kv kv = config.json().parse(origin, Kv.class);
-    EContainerCreated.Builder builder = new EContainerCreated.Builder();
-    builder.id(kv.string("Id"))
-      .warnings(this.warnings(kv));
+    if (CollectionKit.isEmpty(kv))
+      return null;
+    EProcesses.Builder builder = new EProcesses.Builder();
+    Collection<String> titles = kv.as("Titles");
+    builder.titles(titles.toArray(new String[titles.size()]));
+    Collection processes = kv.as("Processes");
+    if (CollectionKit.isEmpty(processes))
+      return builder.build();
+
+    List<String[]> pcs = new ArrayList<>(processes.size());
+    processes.forEach(proc -> {
+      if (!(proc instanceof Collection))
+        return;
+      Collection item = (Collection) proc;
+      pcs.add((String[]) item.toArray(new String[item.size()]));
+    });
+    builder.processes(pcs);
     CollectionKit.clear(kv);
     return builder.build();
-  }
-
-  private List<String> warnings(Kv kv) {
-    Object warnings = kv.get("Warnings");
-    if (!(warnings instanceof Collection))
-      return Collections.emptyList();
-    Collection _wars = (Collection) warnings;
-    return (List<String>) _wars.stream().collect(Collectors.toList());
   }
 }

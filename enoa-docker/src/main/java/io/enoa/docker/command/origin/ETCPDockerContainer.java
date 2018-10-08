@@ -16,8 +16,11 @@
 package io.enoa.docker.command.origin;
 
 import io.enoa.docker.dqp.container.DQPListContainer;
+import io.enoa.docker.dqp.container.DQPLogs;
+import io.enoa.http.Http;
 import io.enoa.http.protocol.HttpMethod;
 import io.enoa.http.protocol.HttpResponse;
+import io.enoa.toolkit.text.TextKit;
 
 public class ETCPDockerContainer implements EOriginDockerContainer {
 
@@ -29,10 +32,11 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
 
 
   @Override
-  public String ps(DQPListContainer dqp) {
-    HttpResponse response = this.docker.http("/containers/json")
-      .para(dqp.dqr().httpparas())
-      .emit();
+  public String list(DQPListContainer dqp) {
+    Http http = this.docker.http("/containers/json");
+    if (dqp != null)
+      http.para(dqp.dqr().httpparas());
+    HttpResponse response = http.emit();
     return response.body().string();
   }
 
@@ -48,7 +52,36 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
 
   @Override
   public String inspect(String id, Boolean size) {
-    return null;
+    HttpResponse response = this.docker.http("containers", id, "json")
+      .para("size", size)
+      .emit();
+    return response.body().string();
   }
+
+  @Override
+  public String top(String id, String para) {
+    Http http = this.docker.http("containers", id, "top");
+    if (TextKit.blankn(para))
+      http.para("ps_args", para);
+    HttpResponse response = http.emit();
+    return response.body().string();
+  }
+
+  @Override
+  public String logs(String id, DQPLogs dqp) {
+    Http http = this.docker.http("containers", id, "logs");
+    if (dqp != null)
+      http.para(dqp.dqr().httpparas());
+    HttpResponse response = http.emit();
+    return response.body().string();
+  }
+
+  @Override
+  public String changes(String id) {
+    HttpResponse response = this.docker.http("containers", id, "changes")
+      .emit();
+    return response.body().string();
+  }
+
 
 }

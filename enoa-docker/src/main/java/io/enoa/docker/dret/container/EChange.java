@@ -17,43 +17,42 @@ package io.enoa.docker.dret.container;
 
 import io.enoa.docker.dret.AbstractDRet;
 
-import java.util.List;
+public class EChange extends AbstractDRet {
 
-public class EContainerCreated extends AbstractDRet {
+  private String path;
+  private Integer kind;
 
-  private final String id;
-  private final List<String> warnings;
-
-  public EContainerCreated(Builder builder) {
-    this.id = builder.id;
-    this.warnings = builder.warnings;
+  public EChange(Builder builder) {
+    this.path = builder.path;
+    this.kind = builder.kind;
   }
 
-  public String id() {
-    return this.id;
+  public String path() {
+    return path;
   }
 
-  public List<String> warnings() {
-    return this.warnings;
+  public Integer kind() {
+    return kind;
   }
 
   public static class Builder {
 
-    private String id;
-    private List<String> warnings;
+    private String path;
+    private Integer kind;
 
-    public EContainerCreated build() {
-      return new EContainerCreated(this);
+    public EChange build() {
+      return new EChange(this);
     }
 
-    public Builder id(String id) {
-      this.id = id;
+    public Builder path(String path) {
+      this.path = path;
       return this;
     }
 
-    public Builder warnings(List<String> warnings) {
-      this.warnings = warnings;
+    public Builder kind(Integer kind) {
+      this.kind = kind;
       return this;
     }
   }
+
 }

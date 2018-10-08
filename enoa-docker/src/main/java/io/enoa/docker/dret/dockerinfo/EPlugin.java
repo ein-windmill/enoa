@@ -19,10 +19,10 @@ import io.enoa.docker.dret.AbstractDRet;
 
 public class EPlugin extends AbstractDRet {
 
-  private String[] volume;
-  private String[] network;
-  private Object authorization;
-  private String[] log;
+  private final String[] volume;
+  private final String[] network;
+  private final Object authorization;
+  private final String[] log;
 
   private EPlugin(Builder builder) {
     this.volume = builder.volume;

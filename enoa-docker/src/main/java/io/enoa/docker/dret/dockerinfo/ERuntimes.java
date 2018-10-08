@@ -21,7 +21,7 @@ import java.util.Map;
 
 public class ERuntimes extends AbstractDRet {
 
-  private Map<String, String> runc;
+  private final Map<String, String> runc;
 
   private ERuntimes(Builder builder) {
     this.runc = builder.runc;

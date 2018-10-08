@@ -16,6 +16,7 @@
 package io.enoa.docker.command.origin;
 
 import io.enoa.docker.dqp.container.DQPListContainer;
+import io.enoa.docker.dqp.container.DQPLogs;
 
 public class EUNIXSOCKETDockerContainer implements EOriginDockerContainer {
 
@@ -26,7 +27,7 @@ public class EUNIXSOCKETDockerContainer implements EOriginDockerContainer {
   }
 
   @Override
-  public String ps(DQPListContainer dqp) {
+  public String list(DQPListContainer dqp) {
     return null;
   }
 
@@ -37,6 +38,21 @@ public class EUNIXSOCKETDockerContainer implements EOriginDockerContainer {
 
   @Override
   public String inspect(String id, Boolean size) {
+    return null;
+  }
+
+  @Override
+  public String top(String id, String para) {
+    return null;
+  }
+
+  @Override
+  public String logs(String id, DQPLogs dqp) {
+    return null;
+  }
+
+  @Override
+  public String changes(String id) {
     return null;
   }
 }

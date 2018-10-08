@@ -17,8 +17,7 @@ package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dret.DRet;
-import io.enoa.docker.dret.container.EContainer;
-import io.enoa.docker.dret.container.EContainerCreated;
+import io.enoa.docker.dret.container.*;
 import io.enoa.docker.dret.dockerinfo.EDockerInfo;
 
 import java.util.List;
@@ -30,12 +29,28 @@ public interface DIParser<T> {
     return EDockerInfoParser.instance();
   }
 
-  static DIParser<List<EContainer>> ps() {
-    return EDockerPsParser.instance();
+  static DIParser<List<EContainer>> listcontainer() {
+    return EListContainerParser.instance();
   }
 
   static DIParser<EContainerCreated> created() {
     return EContainerCreatedParser.instance();
+  }
+
+  static DIParser<EInspect> inspect() {
+    return EContainerInspectParser.instance();
+  }
+
+  static DIParser<EProcesses> top() {
+    return EProcessParser.instance();
+  }
+
+  static DIParser<String> logs() {
+    return ELogsParser.instance();
+  }
+
+  static DIParser<List<EChange>> changes() {
+    return EChangesParser.instance();
   }
 
   DRet<T> parse(DockerConfig config, String origin);

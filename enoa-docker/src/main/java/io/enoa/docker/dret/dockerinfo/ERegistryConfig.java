@@ -21,11 +21,11 @@ import java.util.Map;
 
 public class ERegistryConfig extends AbstractDRet {
 
-  private String[] allownondistributableartifactscidrs;
-  private String[] allownondistributableartifactshostnames;
-  private String[] insecureregistrycidrs;
-  private String[] mirrors;
-  private Map<String, EIndex> indexconfigs;
+  private final String[] allownondistributableartifactscidrs;
+  private final String[] allownondistributableartifactshostnames;
+  private final String[] insecureregistrycidrs;
+  private final String[] mirrors;
+  private final Map<String, EIndex> indexconfigs;
 
   private ERegistryConfig(Builder builder) {
     this.allownondistributableartifactscidrs = builder.allownondistributableartifactscidrs;

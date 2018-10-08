@@ -16,11 +16,15 @@
 package io.enoa.docker.command.origin;
 
 import io.enoa.docker.dqp.container.DQPListContainer;
+import io.enoa.docker.dqp.container.DQPLogs;
 
 public interface EOriginDockerContainer {
 
-  default String ps() {
-    return this.ps(DQPListContainer.create());
+  /**
+   * @see #list(DQPListContainer)
+   */
+  default String list() {
+    return this.list(null);
   }
 
   /**
@@ -69,7 +73,7 @@ public interface EOriginDockerContainer {
    *            volume=(<volume name> or <mount point destination>)
    * @return String
    */
-  String ps(DQPListContainer dqp);
+  String list(DQPListContainer dqp);
 
   /**
    * Create a container
@@ -233,6 +237,9 @@ public interface EOriginDockerContainer {
    */
   String create(String name, String body);
 
+  /**
+   * @see #inspect(String, Boolean)
+   */
   default String inspect(String id) {
     return this.inspect(id, Boolean.FALSE);
   }
@@ -246,4 +253,92 @@ public interface EOriginDockerContainer {
    */
   String inspect(String id, Boolean size);
 
+  /**
+   * @see #top(String, String)
+   */
+  default String top(String id) {
+    return this.top(id, null);
+  }
+
+  /**
+   * List processes running inside a container
+   * On Unix systems, this is done by running the ps command. This endpoint is not supported on Windows.
+   *
+   * @param id   id
+   * @param para string
+   *             default "-ef"
+   *             <p>
+   *             The arguments to pass to ps. For example, aux
+   * @return String
+   * {
+   * "Titles": [
+   * "UID",
+   * "PID",
+   * "PPID",
+   * "C",
+   * "STIME",
+   * "TTY",
+   * "TIME",
+   * "CMD"
+   * ],
+   * "Processes": [
+   * [
+   * "root",
+   * "13642",
+   * "882",
+   * "0",
+   * "17:03",
+   * "pts/0",
+   * "00:00:00",
+   * "/bin/bash"
+   * ],
+   * [
+   * "root",
+   * "13735",
+   * "13642",
+   * "0",
+   * "17:06",
+   * "pts/0",
+   * "00:00:00",
+   * "sleep 10"
+   * ]
+   * ]
+   * }
+   */
+  String top(String id, String para);
+
+  /**
+   * @see #logs(String, DQPLogs)
+   */
+  default String logs(String id) {
+    return this.logs(id, DQPLogs.create().stdout());
+  }
+
+  /**
+   * Get container logs
+   * Get stdout and stderr logs from a container.
+   * <p>
+   * Note: This endpoint works only for containers with the json-file or journald logging driver.
+   *
+   * @param id string Required
+   *           <p>
+   *           ID or name of the container
+   * @return String
+   */
+  String logs(String id, DQPLogs dqp);
+
+  /**
+   * Get changes on a container’s filesystem
+   * Returns which files in a container's filesystem have been added, deleted, or modified. The Kind of modification can be one of:
+   * <p>
+   * 0: Modified
+   * 1: Added
+   * 2: Deleted
+   *
+   * @param id string Required
+   *           <p>
+   *           ID or name of the container
+   * @return String
+   */
+  String changes(String id);
 }

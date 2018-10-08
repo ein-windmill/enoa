@@ -18,8 +18,8 @@ package io.enoa.docker.command.geneic;
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.command.origin.OriginDocker;
 import io.enoa.docker.dqp.container.DQPListContainer;
+import io.enoa.docker.dqp.container.DQPLogs;
 import io.enoa.docker.dret.DRet;
-import io.enoa.docker.dret.container.EContainerCreated;
 import io.enoa.docker.parser.DIParser;
 
 import java.util.List;
@@ -34,19 +34,50 @@ public class EGeneicDockerContainer {
     this.config = docker._config();
   }
 
-  public <T> DRet<List<T>> ps(DIParser<List<T>> parser) {
-    return this.ps(parser, DQPListContainer.create());
+  public <T> DRet<List<T>> list(DIParser<List<T>> parser) {
+    return this.list(parser, null);
   }
 
-  public <T> DRet<List<T>> ps(DIParser<List<T>> parser, DQPListContainer dqp) {
-    String json = this.docker.container().ps(dqp);
-    return parser.parse(this.config, json);
+  public <T> DRet<List<T>> list(DIParser<List<T>> parser, DQPListContainer dqp) {
+    String origin = this.docker.container().list(dqp);
+    return parser.parse(this.config, origin);
   }
 
-  public DRet<EContainerCreated> create(String name, String body) {
-    String json = this.docker.container().create(name, body);
-    return DIParser.created().parse(this.docker._config(), json);
+  public <T> DRet<T> create(DIParser<T> parser, String name, String body) {
+    String origin = this.docker.container().create(name, body);
+    return parser.parse(this.config, origin);
   }
 
+  public <T> DRet<T> inspect(DIParser<T> parser, String id) {
+    return this.inspect(parser, id, Boolean.FALSE);
+  }
+
+  public <T> DRet<T> inspect(DIParser<T> parser, String id, Boolean size) {
+    String origin = this.docker.container().inspect(id, size);
+    return parser.parse(this.config, origin);
+  }
+
+  public <T> DRet<T> top(DIParser<T> parser, String id) {
+    return this.top(parser, id, null);
+  }
+
+  public <T> DRet<T> top(DIParser<T> parser, String id, String para) {
+    String origin = this.docker.container().top(id, para);
+    return parser.parse(this.config, origin);
+  }
+
+  public <T> DRet<T> logs(DIParser<T> parser, String id) {
+    return this.logs(parser, id, null);
+  }
+
+  public <T> DRet<T> logs(DIParser<T> parser, String id, DQPLogs dqp) {
+    String origin = this.docker.container().logs(id, dqp);
+    return parser.parse(this.config, origin);
+  }
+
+  public <T> DRet<List<T>> changes(DIParser<List<T>> parser, String id) {
+    String origin = this.docker.container().changes(id);
+    return parser.parse(this.config, origin);
+  }
 
 }

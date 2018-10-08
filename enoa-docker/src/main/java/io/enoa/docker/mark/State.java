@@ -45,7 +45,7 @@ public enum State implements IMarkVal {
     if (val == null)
       return null;
     for (State state : State.values()) {
-      if (state.val == val)
+      if (state.val.toLowerCase().equals(val.toLowerCase()))
         return state;
     }
     return null;

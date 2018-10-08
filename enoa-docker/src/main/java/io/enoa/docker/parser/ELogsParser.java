@@ -16,24 +16,18 @@
 package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
-import io.enoa.docker.dret.DRet;
-import io.enoa.toolkit.map.Kv;
 
-abstract class AbstractParser<T> implements DIParser<T> {
-
-  @Override
-  public DRet<T> parse(DockerConfig config, String origin) {
-    if (origin == null)
-      return DRet.fail(null, null);
-    if (origin.charAt(0) != '{') {
-      return DRet.ok(origin, this.ok(config, origin));
-    }
-    Kv kv = config.json().parse(origin, Kv.class);
-    if (kv.notNullValue("message"))
-      return DRet.fail(origin, kv.string("message"));
-    return DRet.ok(origin, this.ok(config, origin));
+class ELogsParser extends AbstractParser<String> {
+  private static class Holder {
+    private static final ELogsParser INSTANCE = new ELogsParser();
   }
 
-  public abstract T ok(DockerConfig config, String origin);
+  static ELogsParser instance() {
+    return Holder.INSTANCE;
+  }
 
+  @Override
+  public String ok(DockerConfig config, String origin) {
+    return origin;
+  }
 }

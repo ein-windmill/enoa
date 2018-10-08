@@ -16,7 +16,6 @@
 package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
-import io.enoa.docker.dret.DRet;
 import io.enoa.docker.dret.dockerinfo.*;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.date.DateKit;
@@ -40,7 +39,7 @@ class EDockerInfoParser extends AbstractParser<EDockerInfo> {
   }
 
   @Override
-  public DRet<EDockerInfo> ok(DockerConfig config, String origin) {
+  public EDockerInfo ok(DockerConfig config, String origin) {
     Kv kv = config.json().parse(origin, Kv.class);
     EDockerInfo edi = new EDockerInfo.Builder()
       .id(kv.string("ID"))
@@ -78,7 +77,7 @@ class EDockerInfoParser extends AbstractParser<EDockerInfo> {
       .indexserveraddress(kv.string("IndexServerAddress"))
       .registryconfig(this.registryconfig(kv))
       .ncpu(kv.integer("NCPU"))
-      .memtotal(kv.integer("MemTotal"))
+      .memtotal(kv.doubler("MemTotal"))
       .genericresources(kv.get("GenericResources"))
       .dockerrootdir(kv.string("DockerRootDir"))
       .httpproxy(kv.string("HttpProxy"))
@@ -100,7 +99,8 @@ class EDockerInfoParser extends AbstractParser<EDockerInfo> {
       .runccommit(this.comment(kv, "RuncCommit"))
       .initcommit(this.comment(kv, "InitCommit"))
       .build();
-    return DRet.ok(origin, edi);
+    CollectionKit.clear(kv);
+    return edi;
   }
 
   private List<String[]> driverstatus(Kv kv) {

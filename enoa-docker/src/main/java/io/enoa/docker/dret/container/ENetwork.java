@@ -20,7 +20,7 @@ import io.enoa.docker.dret.AbstractDRet;
 public class ENetwork extends AbstractDRet {
 
 
-  private EBridge bridge;
+  private final EBridge bridge;
 
   public ENetwork(Builder builder) {
     this.bridge = builder.bridge;

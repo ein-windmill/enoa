@@ -18,7 +18,7 @@ package io.enoa.docker.parser;
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dret.DRet;
 
-public class EVoidParser implements DIParser<Void> {
+class EVoidParser implements DIParser<Void> {
   @Override
   public DRet<Void> parse(DockerConfig config, String origin) {
     return null;

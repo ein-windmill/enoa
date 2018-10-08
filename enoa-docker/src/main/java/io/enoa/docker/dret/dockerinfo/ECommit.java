@@ -19,8 +19,8 @@ import io.enoa.docker.dret.AbstractDRet;
 
 public class ECommit extends AbstractDRet {
 
-  private String id;
-  private String expected;
+  private final String id;
+  private final String expected;
 
   private ECommit(Builder builder) {
     this.id = builder.id;
