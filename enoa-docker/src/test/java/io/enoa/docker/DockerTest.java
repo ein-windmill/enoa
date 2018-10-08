@@ -21,6 +21,7 @@ import io.enoa.docker.dret.container.*;
 import io.enoa.docker.dret.dockerinfo.EDockerInfo;
 import io.enoa.json.Json;
 import io.enoa.json.provider.gson.GsonProvider;
+import io.enoa.toolkit.value.Void;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -85,10 +86,18 @@ public class DockerTest {
 
   @Test
   public void testChanges() {
-    DRet<List<EChange>> ret = Docker.container().changes("nginx");
+    DRet<List<EChange>> ret = Docker.container().changes("redis");
     assert ret.ok();
     String json = Json.toJson(ret.data());
     System.out.println(json);
+  }
+
+  @Test
+  public void testExport() {
+    DRet<Void> ret = Docker.container().export("nginx");
+    assert ret.ok();
+    Void data = ret.data();
+    System.out.println(data);
   }
 
   @Test

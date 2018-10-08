@@ -83,5 +83,12 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
     return response.body().string();
   }
 
+  @Override
+  public String export(String id) {
+    HttpResponse response = this.docker.http("containers", id, "export")
+      .emit();
+    return response.body().string();
+  }
+
 
 }

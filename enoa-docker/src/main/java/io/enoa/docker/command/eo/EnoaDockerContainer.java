@@ -21,6 +21,7 @@ import io.enoa.docker.dqp.container.DQPLogs;
 import io.enoa.docker.dret.DRet;
 import io.enoa.docker.dret.container.*;
 import io.enoa.docker.parser.DIParser;
+import io.enoa.toolkit.value.Void;
 
 import java.util.List;
 
@@ -70,6 +71,10 @@ public class EnoaDockerContainer {
 
   public DRet<List<EChange>> changes(String id) {
     return this.docker.container().changes(DIParser.changes(), id);
+  }
+
+  public DRet<Void> export(String id) {
+    return this.docker.container().export(id);
   }
 
 }

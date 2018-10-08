@@ -341,4 +341,16 @@ public interface EOriginDockerContainer {
    * @return String
    */
   String changes(String id);
+
+  /**
+   * Export a container
+   * Export the contents of a container as a tarball.
+   *
+   * @param id string Required
+   *           <p>
+   *           ID or name of the container
+   * @return String
+   */
+  String export(String id);
+
 }

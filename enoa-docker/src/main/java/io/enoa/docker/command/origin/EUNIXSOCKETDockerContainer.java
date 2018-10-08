@@ -55,4 +55,9 @@ public class EUNIXSOCKETDockerContainer implements EOriginDockerContainer {
   public String changes(String id) {
     return null;
   }
+
+  @Override
+  public String export(String id) {
+    return null;
+  }
 }

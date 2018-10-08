@@ -21,6 +21,7 @@ import io.enoa.docker.dqp.container.DQPListContainer;
 import io.enoa.docker.dqp.container.DQPLogs;
 import io.enoa.docker.dret.DRet;
 import io.enoa.docker.parser.DIParser;
+import io.enoa.toolkit.value.Void;
 
 import java.util.List;
 
@@ -78,6 +79,11 @@ public class EGeneicDockerContainer {
   public <T> DRet<List<T>> changes(DIParser<List<T>> parser, String id) {
     String origin = this.docker.container().changes(id);
     return parser.parse(this.config, origin);
+  }
+
+  public DRet<Void> export(String id) {
+    String origin = this.docker.container().export(id);
+    return DIParser.voidx().parse(this.config, origin);
   }
 
 }

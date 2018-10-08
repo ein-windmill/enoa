@@ -19,11 +19,16 @@ import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dret.DRet;
 import io.enoa.docker.dret.container.*;
 import io.enoa.docker.dret.dockerinfo.EDockerInfo;
+import io.enoa.toolkit.value.Void;
 
 import java.util.List;
 
 @FunctionalInterface
 public interface DIParser<T> {
+
+  static DIParser<Void> voidx() {
+    return EVoidParser.instance();
+  }
 
   static DIParser<EDockerInfo> dockerinfo() {
     return EDockerInfoParser.instance();

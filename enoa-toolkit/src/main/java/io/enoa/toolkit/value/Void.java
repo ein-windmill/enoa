@@ -13,24 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.parser;
+package io.enoa.toolkit.value;
 
-import io.enoa.docker.DockerConfig;
-import io.enoa.docker.dret.DRet;
-import io.enoa.toolkit.value.Void;
+public final class Void {
 
-class EVoidParser implements DIParser<Void> {
+  public static final Class<Void> TYPE = Void.class;
+  public static final Void INSTANCE = new Void();
 
-  private static class Holder {
-    private static final EVoidParser INSTANCE = new EVoidParser();
+  private Void() {
   }
 
-  public static EVoidParser instance() {
-    return Holder.INSTANCE;
+  public static Void create() {
+    return INSTANCE;
   }
 
-  @Override
-  public DRet<Void> parse(DockerConfig config, String origin) {
-    return DRet.ok(origin, Void.create());
-  }
 }
