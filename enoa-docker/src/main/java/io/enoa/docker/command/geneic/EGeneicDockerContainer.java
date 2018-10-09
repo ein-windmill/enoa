@@ -35,7 +35,7 @@ public class EGeneicDockerContainer {
 
   EGeneicDockerContainer(OriginDocker docker) {
     this.docker = docker;
-    this.config = docker._config();
+    this.config = docker._dockerconfig();
     this.container = docker.container();
     this.container = docker.container();
   }

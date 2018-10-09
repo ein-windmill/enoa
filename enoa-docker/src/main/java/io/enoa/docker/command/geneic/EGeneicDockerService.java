@@ -16,18 +16,19 @@
 package io.enoa.docker.command.geneic;
 
 import io.enoa.docker.DockerConfig;
-import io.enoa.docker.command.origin.EOriginSwarm;
+import io.enoa.docker.command.origin.EOriginService;
 import io.enoa.docker.command.origin.OriginDocker;
 
-public class EGeneicDockerSwarm {
+public class EGeneicDockerService {
 
   private OriginDocker docker;
   private DockerConfig config;
-  private EOriginSwarm swarm;
+  private EOriginService services;
 
-  EGeneicDockerSwarm(OriginDocker docker) {
+
+  EGeneicDockerService(OriginDocker docker) {
     this.docker = docker;
     this.config = docker._dockerconfig();
-    this.swarm = docker.swarm();
+    this.services = docker.service();
   }
 }

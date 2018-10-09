@@ -27,7 +27,7 @@ public class EGeneicDockerDistribution {
 
   EGeneicDockerDistribution(OriginDocker docker) {
     this.docker = docker;
-    this.config = docker._config();
+    this.config = docker._dockerconfig();
     this.distribution = docker.distribution();
   }
 }

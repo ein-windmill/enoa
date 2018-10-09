@@ -23,7 +23,7 @@ import io.enoa.docker.parser.DIParser;
 public interface EoDocker {
 
 
-  DockerConfig _config();
+  DockerConfig _dockerconfig();
 
   default DRet<EDockerInfo> info() {
     return this.info(DIParser.dockerinfo());
@@ -35,25 +35,25 @@ public interface EoDocker {
 
   EnoaDockerImage image();
 
-  EnoaDockerNetworks networks();
+  EnoaDockerNetwork network();
 
-  EnoaDockerVolumes volumes();
+  EnoaDockerVolume volume();
 
   EnoaDockerExec exec();
 
   EnoaDockerSwarm swarm();
 
-  EnoaDockerNodes nodes();
+  EnoaDockerNode node();
 
-  EnoaDockerServices services();
+  EnoaDockerService service();
 
-  EnoaDockerTasks tasks();
+  EnoaDockerTask task();
 
-  EnoaDockerSecrets secrets();
+  EnoaDockerSecret secret();
 
-  EnoaDockerConfigs configs();
+  EnoaDockerConfig config();
 
-  EnoaDockerPlugins plugins();
+  EnoaDockerPlugin plugin();
 
   EnoaDockerSystem system();
 

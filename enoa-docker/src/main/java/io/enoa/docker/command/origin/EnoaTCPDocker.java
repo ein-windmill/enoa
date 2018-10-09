@@ -53,7 +53,7 @@ public class EnoaTCPDocker implements OriginDocker {
   }
 
   @Override
-  public DockerConfig _config() {
+  public DockerConfig _dockerconfig() {
     return this.config;
   }
 
@@ -76,13 +76,13 @@ public class EnoaTCPDocker implements OriginDocker {
   }
 
   @Override
-  public EOriginDockerNetworks networks() {
-    return new ETCPDockerNetworks(this);
+  public EOriginDockerNetwork network() {
+    return new ETCPDockerNetwork(this);
   }
 
   @Override
-  public EOriginDockerVolumes volumes() {
-    return new ETCPDockerVolumes(this);
+  public EOriginDockerVolume volume() {
+    return new ETCPDockerVolume(this);
   }
 
   @Override
@@ -92,37 +92,37 @@ public class EnoaTCPDocker implements OriginDocker {
 
   @Override
   public EOriginSwarm swarm() {
-    return new ETCPSwarm(this);
+    return new ETCPDockerSwarm(this);
   }
 
   @Override
-  public EOriginNodes nodes() {
-    return new ETCPDockerNodes(this);
+  public EOriginNode node() {
+    return new ETCPDockerNode(this);
   }
 
   @Override
-  public EOriginServices services() {
-    return new ETCDockerServices(this);
+  public EOriginService service() {
+    return new ETCDockerService(this);
   }
 
   @Override
-  public EOriginTasks tasks() {
-    return new ETCPDockerTasks(this);
+  public EOriginTask task() {
+    return new ETCPDockerTask(this);
   }
 
   @Override
-  public EOriginSecrets secrets() {
-    return new ETCPDockerSecrets(this);
+  public EOriginSecret secret() {
+    return new ETCPDockerSecret(this);
   }
 
   @Override
-  public EOriginConfigs configs() {
-    return new ETCPDockerConfigs(this);
+  public EOriginConfig config() {
+    return new ETCPDockerConfig(this);
   }
 
   @Override
-  public EOriginPlugins plugins() {
-    return new ETCPDockerPlugins(this);
+  public EOriginPlugin plugin() {
+    return new ETCPDockerPlugin(this);
   }
 
   @Override

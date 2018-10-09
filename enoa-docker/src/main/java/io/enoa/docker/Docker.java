@@ -15,8 +15,7 @@
  */
 package io.enoa.docker;
 
-import io.enoa.docker.command.eo.EnoaDockerContainer;
-import io.enoa.docker.command.eo.EoDocker;
+import io.enoa.docker.command.eo.*;
 import io.enoa.docker.command.geneic.GeneicDocker;
 import io.enoa.docker.command.origin.OriginDocker;
 import io.enoa.docker.dret.DRet;
@@ -63,6 +62,58 @@ public class Docker {
 
   public static EnoaDockerContainer container() {
     return use().container();
+  }
+
+  public static EnoaDockerImage image() {
+    return use().image();
+  }
+
+  public static EnoaDockerNetwork network() {
+    return use().network();
+  }
+
+  public static EnoaDockerVolume volume() {
+    return use().volume();
+  }
+
+  public static EnoaDockerExec exec() {
+    return use().exec();
+  }
+
+  public static EnoaDockerSwarm swarm() {
+    return use().swarm();
+  }
+
+  public static EnoaDockerNode node() {
+    return use().node();
+  }
+
+  public static EnoaDockerService service() {
+    return use().service();
+  }
+
+  public static EnoaDockerTask task() {
+    return use().task();
+  }
+
+  public static EnoaDockerSecret secret() {
+    return use().secret();
+  }
+
+  public static EnoaDockerConfig config() {
+    return use().config();
+  }
+
+  public static EnoaDockerPlugin plugin() {
+    return use().plugin();
+  }
+
+  public static EnoaDockerSystem system() {
+    return use().system();
+  }
+
+  public static EnoaDockerDistribution distribution() {
+    return use().distribution();
   }
 
 }

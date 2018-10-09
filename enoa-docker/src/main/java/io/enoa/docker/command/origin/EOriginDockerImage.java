@@ -15,8 +15,14 @@
  */
 package io.enoa.docker.command.origin;
 
+import io.enoa.docker.dqp.image.DQPListImage;
+
 public interface EOriginDockerImage {
 
-  String list();
+  default String list() {
+    return this.list(null);
+  }
+
+  String list(DQPListImage dqp);
 
 }

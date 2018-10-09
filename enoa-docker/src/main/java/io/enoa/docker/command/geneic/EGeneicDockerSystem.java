@@ -27,7 +27,7 @@ public class EGeneicDockerSystem {
 
   EGeneicDockerSystem(OriginDocker docker) {
     this.docker = docker;
-    this.config = docker._config();
+    this.config = docker._dockerconfig();
     this.system = docker.system();
   }
 }

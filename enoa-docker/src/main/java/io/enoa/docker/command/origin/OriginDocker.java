@@ -19,7 +19,7 @@ import io.enoa.docker.DockerConfig;
 
 public interface OriginDocker {
 
-  DockerConfig _config();
+  DockerConfig _dockerconfig();
 
   String info();
 
@@ -27,25 +27,25 @@ public interface OriginDocker {
 
   EOriginDockerImage image();
 
-  EOriginDockerNetworks networks();
+  EOriginDockerNetwork network();
 
-  EOriginDockerVolumes volumes();
+  EOriginDockerVolume volume();
 
   EOriginDockerExec exec();
 
   EOriginSwarm swarm();
 
-  EOriginNodes nodes();
+  EOriginNode node();
 
-  EOriginServices services();
+  EOriginService service();
 
-  EOriginTasks tasks();
+  EOriginTask task();
 
-  EOriginSecrets secrets();
+  EOriginSecret secret();
 
-  EOriginConfigs configs();
+  EOriginConfig config();
 
-  EOriginPlugins plugins();
+  EOriginPlugin plugin();
 
   EOriginSystem system();
 

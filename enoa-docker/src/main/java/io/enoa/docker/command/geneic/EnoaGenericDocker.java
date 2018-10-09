@@ -27,12 +27,12 @@ public class EnoaGenericDocker implements GeneicDocker {
 
   public EnoaGenericDocker(OriginDocker docker) {
     this.docker = docker;
-    this.config = docker._config();
+    this.config = docker._dockerconfig();
   }
 
   @Override
-  public DockerConfig _config() {
-    return this.docker._config();
+  public DockerConfig _dockerconfig() {
+    return this.docker._dockerconfig();
   }
 
   @Override
@@ -52,13 +52,13 @@ public class EnoaGenericDocker implements GeneicDocker {
   }
 
   @Override
-  public EGeneicDockerNetworks networks() {
-    return new EGeneicDockerNetworks(this.docker);
+  public EGeneicDockerNetwork network() {
+    return new EGeneicDockerNetwork(this.docker);
   }
 
   @Override
-  public EGeneicDockerVolumes volumes() {
-    return new EGeneicDockerVolumes(this.docker);
+  public EGeneicDockerVolume volume() {
+    return new EGeneicDockerVolume(this.docker);
   }
 
   @Override
@@ -72,33 +72,33 @@ public class EnoaGenericDocker implements GeneicDocker {
   }
 
   @Override
-  public EGeneicDockerNodes nodes() {
-    return new EGeneicDockerNodes(this.docker);
+  public EGeneicDockerNode node() {
+    return new EGeneicDockerNode(this.docker);
   }
 
   @Override
-  public EGeneicDockerServices services() {
-    return new EGeneicDockerServices(this.docker);
+  public EGeneicDockerService service() {
+    return new EGeneicDockerService(this.docker);
   }
 
   @Override
-  public EGeneicDockerTasks tasks() {
-    return new EGeneicDockerTasks(this.docker);
+  public EGeneicDockerTask task() {
+    return new EGeneicDockerTask(this.docker);
   }
 
   @Override
-  public EGeneicDockerSecrets secrets() {
-    return new EGeneicDockerSecrets(this.docker);
+  public EGeneicDockerSecret secret() {
+    return new EGeneicDockerSecret(this.docker);
   }
 
   @Override
-  public EGeneicDockerConfigs configs() {
-    return new EGeneicDockerConfigs(this.docker);
+  public EGeneicDockerConfig config() {
+    return new EGeneicDockerConfig(this.docker);
   }
 
   @Override
-  public EGeneicDockerPlugins plugins() {
-    return new EGeneicDockerPlugins(this.docker);
+  public EGeneicDockerPlugin plugin() {
+    return new EGeneicDockerPlugin(this.docker);
   }
 
   @Override

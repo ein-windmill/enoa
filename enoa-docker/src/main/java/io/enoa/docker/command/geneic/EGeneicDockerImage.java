@@ -27,7 +27,7 @@ public class EGeneicDockerImage {
 
   public EGeneicDockerImage(OriginDocker docker) {
     this.docker = docker;
-    this.config = docker._config();
+    this.config = docker._dockerconfig();
     this.image = docker.image();
   }
 

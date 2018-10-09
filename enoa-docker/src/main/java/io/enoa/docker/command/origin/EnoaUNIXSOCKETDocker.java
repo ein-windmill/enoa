@@ -26,7 +26,7 @@ public class EnoaUNIXSOCKETDocker implements OriginDocker {
   }
 
   @Override
-  public DockerConfig _config() {
+  public DockerConfig _dockerconfig() {
     return this.config;
   }
 
@@ -46,13 +46,13 @@ public class EnoaUNIXSOCKETDocker implements OriginDocker {
   }
 
   @Override
-  public EOriginDockerNetworks networks() {
-    return new EUNIXSOCKETDockerNetworks(this);
+  public EOriginDockerNetwork network() {
+    return new EUNIXSOCKETDockerNetwork(this);
   }
 
   @Override
-  public EOriginDockerVolumes volumes() {
-    return new EUNIXSOCKETDockerVolumes(this);
+  public EOriginDockerVolume volume() {
+    return new EUNIXSOCKETDockerVolume(this);
   }
 
   @Override
@@ -66,33 +66,33 @@ public class EnoaUNIXSOCKETDocker implements OriginDocker {
   }
 
   @Override
-  public EOriginNodes nodes() {
-    return new EUNIXSOCKETDockerNodes(this);
+  public EOriginNode node() {
+    return new EUNIXSOCKETDockerNode(this);
   }
 
   @Override
-  public EOriginServices services() {
-    return new EUNIXSOCKETDockerServices(this);
+  public EOriginService service() {
+    return new EUNIXSOCKETDockerService(this);
   }
 
   @Override
-  public EOriginTasks tasks() {
-    return new EUNIXSOCKETDockerTasks(this);
+  public EOriginTask task() {
+    return new EUNIXSOCKETDockerTask(this);
   }
 
   @Override
-  public EOriginSecrets secrets() {
-    return new EUNIXSOCKETDockerSecrets(this);
+  public EOriginSecret secret() {
+    return new EUNIXSOCKETDockerSecret(this);
   }
 
   @Override
-  public EOriginConfigs configs() {
-    return new EUNIXSOCKETDockerConfigs(this);
+  public EOriginConfig config() {
+    return new EUNIXSOCKETDockerConfig(this);
   }
 
   @Override
-  public EOriginPlugins plugins() {
-    return new EUNIXSOCKETDockerPlugins(this);
+  public EOriginPlugin plugin() {
+    return new EUNIXSOCKETDockerPlugin(this);
   }
 
   @Override

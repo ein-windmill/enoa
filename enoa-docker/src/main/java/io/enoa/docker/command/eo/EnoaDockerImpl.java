@@ -30,8 +30,8 @@ public class EnoaDockerImpl implements EoDocker {
   }
 
   @Override
-  public DockerConfig _config() {
-    return this.docker._config();
+  public DockerConfig _dockerconfig() {
+    return this.docker._dockerconfig();
   }
 
   @Override
@@ -50,13 +50,13 @@ public class EnoaDockerImpl implements EoDocker {
   }
 
   @Override
-  public EnoaDockerNetworks networks() {
-    return new EnoaDockerNetworks(this.docker);
+  public EnoaDockerNetwork network() {
+    return new EnoaDockerNetwork(this.docker);
   }
 
   @Override
-  public EnoaDockerVolumes volumes() {
-    return new EnoaDockerVolumes(this.docker);
+  public EnoaDockerVolume volume() {
+    return new EnoaDockerVolume(this.docker);
   }
 
   @Override
@@ -70,33 +70,33 @@ public class EnoaDockerImpl implements EoDocker {
   }
 
   @Override
-  public EnoaDockerNodes nodes() {
-    return new EnoaDockerNodes(this.docker);
+  public EnoaDockerNode node() {
+    return new EnoaDockerNode(this.docker);
   }
 
   @Override
-  public EnoaDockerServices services() {
-    return new EnoaDockerServices(this.docker);
+  public EnoaDockerService service() {
+    return new EnoaDockerService(this.docker);
   }
 
   @Override
-  public EnoaDockerTasks tasks() {
-    return new EnoaDockerTasks(this.docker);
+  public EnoaDockerTask task() {
+    return new EnoaDockerTask(this.docker);
   }
 
   @Override
-  public EnoaDockerSecrets secrets() {
-    return new EnoaDockerSecrets(this.docker);
+  public EnoaDockerSecret secret() {
+    return new EnoaDockerSecret(this.docker);
   }
 
   @Override
-  public EnoaDockerConfigs configs() {
-    return new EnoaDockerConfigs(this.docker);
+  public EnoaDockerConfig config() {
+    return new EnoaDockerConfig(this.docker);
   }
 
   @Override
-  public EnoaDockerPlugins plugins() {
-    return new EnoaDockerPlugins(this.docker);
+  public EnoaDockerPlugin plugin() {
+    return new EnoaDockerPlugin(this.docker);
   }
 
   @Override

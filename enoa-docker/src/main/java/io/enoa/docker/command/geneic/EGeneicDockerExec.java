@@ -27,7 +27,7 @@ public class EGeneicDockerExec {
 
   EGeneicDockerExec(OriginDocker docker) {
     this.docker = docker;
-    this.config = docker._config();
+    this.config = docker._dockerconfig();
     this.exec = docker.exec();
   }
 }

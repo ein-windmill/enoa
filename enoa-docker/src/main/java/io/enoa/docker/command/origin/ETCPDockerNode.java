@@ -13,21 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.command.geneic;
+package io.enoa.docker.command.origin;
 
-import io.enoa.docker.DockerConfig;
-import io.enoa.docker.command.origin.EOriginSwarm;
-import io.enoa.docker.command.origin.OriginDocker;
+public class ETCPDockerNode implements EOriginNode {
 
-public class EGeneicDockerSwarm {
+  private EnoaTCPDocker docker;
 
-  private OriginDocker docker;
-  private DockerConfig config;
-  private EOriginSwarm swarm;
-
-  EGeneicDockerSwarm(OriginDocker docker) {
+  ETCPDockerNode(EnoaTCPDocker docker) {
     this.docker = docker;
-    this.config = docker._dockerconfig();
-    this.swarm = docker.swarm();
   }
 }

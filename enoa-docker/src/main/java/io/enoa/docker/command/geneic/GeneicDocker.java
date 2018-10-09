@@ -21,7 +21,7 @@ import io.enoa.docker.parser.DIParser;
 
 public interface GeneicDocker {
 
-  DockerConfig _config();
+  DockerConfig _dockerconfig();
 
   <T> DRet<T> info(DIParser<T> parser);
 
@@ -29,25 +29,25 @@ public interface GeneicDocker {
 
   EGeneicDockerImage image();
 
-  EGeneicDockerNetworks networks();
+  EGeneicDockerNetwork network();
 
-  EGeneicDockerVolumes volumes();
+  EGeneicDockerVolume volume();
 
   EGeneicDockerExec exec();
 
   EGeneicDockerSwarm swarm();
 
-  EGeneicDockerNodes nodes();
+  EGeneicDockerNode node();
 
-  EGeneicDockerServices services();
+  EGeneicDockerService service();
 
-  EGeneicDockerTasks tasks();
+  EGeneicDockerTask task();
 
-  EGeneicDockerSecrets secrets();
+  EGeneicDockerSecret secret();
 
-  EGeneicDockerConfigs configs();
+  EGeneicDockerConfig config();
 
-  EGeneicDockerPlugins plugins();
+  EGeneicDockerPlugin plugin();
 
   EGeneicDockerSystem system();
 

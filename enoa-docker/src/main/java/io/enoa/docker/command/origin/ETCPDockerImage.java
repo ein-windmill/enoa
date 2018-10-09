@@ -15,16 +15,27 @@
  */
 package io.enoa.docker.command.origin;
 
+import io.enoa.docker.dqp.image.DQPListImage;
+import io.enoa.http.Http;
+import io.enoa.http.protocol.HttpMethod;
+import io.enoa.http.protocol.HttpResponse;
+
 public class ETCPDockerImage implements EOriginDockerImage {
 
   private EnoaTCPDocker docker;
 
-  public ETCPDockerImage(EnoaTCPDocker docker) {
+  ETCPDockerImage(EnoaTCPDocker docker) {
     this.docker = docker;
   }
 
   @Override
-  public String list() {
-    return null;
+  public String list(DQPListImage dqp) {
+    Http http = this.docker.http("images/json")
+      .method(HttpMethod.GET);
+    if (dqp != null)
+      http.para(dqp.dqr().httpparas());
+    HttpResponse response = http.emit();
+    return response.body().string();
   }
+
 }

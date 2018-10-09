@@ -23,6 +23,7 @@ import io.enoa.toolkit.map.Kv;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Filters to process on the container list, encoded as JSON (a map[string][]string).
@@ -284,22 +285,37 @@ public class FilterListContainer implements DBack<DQPListContainer> {
   }
 
   DQR dqr() {
-    Kv kv = Kv.create()
-      .set("ancestor", this.ancestor)
-      .set("before", this.before)
-      .set("expose", this.exited)
-      .set("exited", this.exited)
-      .set("health", this.health)
-      .set("id", this.id)
-      .set("isolation", this.isolation)
-      .set("is-task", this.istask)
-      .set("label", this.label)
-      .set("name", this.name)
-      .set("network", this.network)
-      .set("publish", this.publish)
-      .set("since", this.since)
-      .set("status", this.status)
-      .set("volume", this.volume);
+    Kv kv = Kv.create();
+    if (CollectionKit.notEmpty(this.ancestor))
+      kv.set("ancestor", this.ancestor);
+    if (CollectionKit.notEmpty(this.before))
+      kv.set("before", this.before);
+    if (CollectionKit.notEmpty(this.expose))
+      kv.set("expose", this.expose);
+    if (CollectionKit.notEmpty(this.exited))
+      kv.set("exited", this.exited.stream().map(Object::toString).collect(Collectors.toList()));
+    if (CollectionKit.notEmpty(this.health))
+      kv.set("health", this.health);
+    if (CollectionKit.notEmpty(this.id))
+      kv.set("id", this.id);
+    if (CollectionKit.notEmpty(this.isolation))
+      kv.set("isolation", this.isolation);
+    if (CollectionKit.notEmpty(this.istask))
+      kv.set("is-task", this.istask.stream().map(Object::toString).collect(Collectors.toList()));
+    if (CollectionKit.notEmpty(this.label))
+      kv.set("label", this.label);
+    if (CollectionKit.notEmpty(this.name))
+      kv.set("name", this.name);
+    if (CollectionKit.notEmpty(this.network))
+      kv.set("network", this.network);
+    if (CollectionKit.notEmpty(this.publish))
+      kv.set("publish", this.publish);
+    if (CollectionKit.notEmpty(this.since))
+      kv.set("since", this.since);
+    if (CollectionKit.notEmpty(this.status))
+      kv.set("status", this.status);
+    if (CollectionKit.notEmpty(this.volume))
+      kv.set("volume", this.volume);
     String json = Json.toJson(kv);
     kv.clear();
     return DQR.create()
