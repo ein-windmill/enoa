@@ -15,11 +15,9 @@
  */
 package io.enoa.docker.command.origin;
 
-import io.enoa.docker.DockerConfig;
+import io.enoa.docker.command._DockerConfigSupport;
 
-public interface OriginDocker {
-
-  DockerConfig _dockerconfig();
+public interface OriginDocker extends _DockerConfigSupport {
 
   String info();
 

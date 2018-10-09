@@ -17,6 +17,12 @@ package io.enoa.docker.command.eo;
 
 import io.enoa.docker.command.geneic.EGeneicDockerImage;
 import io.enoa.docker.command.geneic.GeneicDocker;
+import io.enoa.docker.dqp.image.DQPListImage;
+import io.enoa.docker.dret.DRet;
+import io.enoa.docker.dret.image.EImage;
+import io.enoa.docker.parser.DIParser;
+
+import java.util.List;
 
 public class EnoaDockerImage {
 
@@ -24,10 +30,17 @@ public class EnoaDockerImage {
   private GeneicDocker docker;
   private EGeneicDockerImage image;
 
-  public EnoaDockerImage(GeneicDocker docker) {
+  EnoaDockerImage(GeneicDocker docker) {
     this.docker = docker;
     this.image = docker.image();
   }
 
+  public DRet<List<EImage>> list() {
+    return this.image.list(DIParser.image());
+  }
+
+  public DRet<List<EImage>> list(DQPListImage dqp) {
+    return this.image.list(DIParser.image(), dqp);
+  }
 
 }

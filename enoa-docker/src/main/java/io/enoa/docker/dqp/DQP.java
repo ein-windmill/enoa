@@ -33,6 +33,6 @@ public interface DQP extends Serializable {
    *
    * @return String
    */
-  DQR dqr();
+  DPara para();
 
 }

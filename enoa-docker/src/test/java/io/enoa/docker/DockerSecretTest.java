@@ -15,5 +15,5 @@
  */
 package io.enoa.docker;
 
-public class DockerSecretsTest extends AbstractDockerTest {
+public class DockerSecretTest extends AbstractDockerTest {
 }

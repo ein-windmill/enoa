@@ -15,9 +15,39 @@
  */
 package io.enoa.docker;
 
-import io.enoa.docker.AbstractDockerTest;
+import io.enoa.docker.dqp.image.DQPBuild;
+import io.enoa.docker.dqp.image.DQPListImage;
+import io.enoa.docker.dret.DRet;
+import io.enoa.docker.dret.image.EImage;
+import io.enoa.json.Json;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
+import java.util.List;
+
+@Ignore
 public class DockerImageTest extends AbstractDockerTest {
 
+
+  @Test
+  public void testList() {
+    DRet<List<EImage>> ret = Docker.image().list(DQPListImage.create().all());
+    Assert.assertTrue(ret.ok());
+    String json = Json.toJson(ret.data());
+    System.out.println(json);
+  }
+
+  @Test
+  public void testBuild() {
+    DQPBuild dqp = DQPBuild.create()
+      .forcerm();
+    String dockerfile = "FROM ubuntu:14.04\n" +
+      "RUN mkdir demo\n" +
+      "RUN apt-get update\n" +
+      "RUN apt-get -y install vim";
+    String ret = Docker.origin().image().build(dqp, dockerfile);
+//    System.out.println(ret);
+  }
 
 }

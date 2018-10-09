@@ -16,7 +16,7 @@
 package io.enoa.docker.dqp.container;
 
 import io.enoa.docker.dqp.DQP;
-import io.enoa.docker.dqp.DQR;
+import io.enoa.docker.dqp.DPara;
 import io.enoa.toolkit.text.TextKit;
 
 public class DQPKill implements DQP {
@@ -43,8 +43,8 @@ public class DQPKill implements DQP {
   }
 
   @Override
-  public DQR dqr() {
-    DQR dqr = DQR.create();
+  public DPara para() {
+    DPara dqr = DPara.create();
     if (TextKit.blankn(this.signal))
       dqr.put("signal", this.signal);
     return dqr;

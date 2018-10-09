@@ -146,7 +146,7 @@ public class EGeneicDockerContainer {
   }
 
   public <T> DRet<T> update(DIParser<T> parser, String id, DQPUpdate dqp) {
-    return this.update(parser, id, dqp.dqr().json());
+    return this.update(parser, id, dqp.para().json());
   }
 
   public <T> DRet<T> update(DIParser<T> parser, String id, String body) {

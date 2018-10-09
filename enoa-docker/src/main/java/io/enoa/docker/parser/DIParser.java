@@ -19,6 +19,7 @@ import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dret.DRet;
 import io.enoa.docker.dret.container.*;
 import io.enoa.docker.dret.dockerinfo.EDockerInfo;
+import io.enoa.docker.dret.image.EImage;
 import io.enoa.toolkit.value.Void;
 
 import java.util.List;
@@ -72,6 +73,10 @@ public interface DIParser<T> {
 
   static DIParser<EPrune> prune() {
     return EPruneParser.instance();
+  }
+
+  static DIParser<List<EImage>> image() {
+    return EImageParser.instance();
   }
 
   DRet<T> parse(DockerConfig config, String origin);

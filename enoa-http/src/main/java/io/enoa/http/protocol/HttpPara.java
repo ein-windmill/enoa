@@ -37,7 +37,7 @@ public class HttpPara {
     if (name == null)
       throw new IllegalArgumentException("Http para name can not be null.");
     if (value == null)
-      throw new IllegalArgumentException("Http para value can not be null.");
+      throw new IllegalArgumentException("Http para value can not be null. => " + name);
     this.name = name;
     this.value = value;
 //    this.value = value.replace("&", "&amp;");

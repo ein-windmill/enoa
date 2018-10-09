@@ -13,7 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker;
+package io.enoa.docker.command;
 
-public class DockerTasksTest extends AbstractDockerTest {
+import io.enoa.docker.DockerConfig;
+
+public interface _DockerConfigSupport {
+
+  DockerConfig _dockerconfig();
+
 }

@@ -19,8 +19,8 @@ public interface DBack<T extends DQP> {
 
   T back();
 
-  default DQR backdqr() {
-    return this.back().dqr();
+  default DPara backdqr() {
+    return this.back().para();
   }
 
 }

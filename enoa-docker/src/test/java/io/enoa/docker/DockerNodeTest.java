@@ -13,19 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.command.origin;
+package io.enoa.docker;
 
-import io.enoa.docker.dqp.image.DQPBuild;
-import io.enoa.docker.dqp.image.DQPListImage;
-
-public interface EOriginDockerImage {
-
-  default String list() {
-    return this.list(null);
-  }
-
-  String list(DQPListImage dqp);
-
-  String build(DQPBuild dqp, String dockerfile);
-
+public class DockerNodeTest extends AbstractDockerTest {
 }

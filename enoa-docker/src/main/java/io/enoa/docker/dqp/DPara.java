@@ -24,25 +24,25 @@ import io.enoa.toolkit.value.EnoaValue;
 import java.io.Serializable;
 import java.util.*;
 
-public class DQR implements Serializable {
+public class DPara implements Serializable {
 
   private Kv kv;
 
-  private DQR() {
+  private DPara() {
     this.kv = Kv.create();
   }
 
-  private static final DQR EMPTY = new DQR();
+  private static final DPara EMPTY = new DPara();
 
-  public static DQR empty() {
+  public static DPara empty() {
     return EMPTY;
   }
 
-  public static DQR create() {
-    return new DQR();
+  public static DPara create() {
+    return new DPara();
   }
 
-  public DQR put(String name, Object value) {
+  public DPara put(String name, Object value) {
     if (name == null)
       return this;
     if (value == null)
@@ -66,14 +66,14 @@ public class DQR implements Serializable {
     return this;
   }
 
-  public DQR put(String name, Collection collection) {
+  public DPara put(String name, Collection collection) {
     if (collection == null)
       return this;
     collection.forEach(col -> this.put(name, col));
     return this;
   }
 
-  public DQR put(DQR dqr) {
+  public DPara put(DPara dqr) {
     if (dqr == null)
       return this;
     if (CollectionKit.isEmpty(dqr.kv))
@@ -82,7 +82,7 @@ public class DQR implements Serializable {
     return this;
   }
 
-  public Set<HttpPara> httpparas() {
+  public Set<HttpPara> http() {
     if (CollectionKit.isEmpty(this.kv))
       return Collections.emptySet();
     Set<HttpPara> paras = new HashSet<>();
@@ -96,7 +96,7 @@ public class DQR implements Serializable {
     return paras;
   }
 
-  public String para() {
+  public String string() {
     StringBuilder text = new StringBuilder();
     this.kv.forEach((key, val) -> {
       if (val instanceof Collection) {

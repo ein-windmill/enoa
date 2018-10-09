@@ -15,16 +15,24 @@
  */
 package io.enoa.docker.command.origin;
 
+import io.enoa.docker.dqp.image.DQPBuild;
+import io.enoa.docker.dqp.image.DQPListImage;
+
 public class EUNIXSOCKETDockerImage implements EOriginDockerImage {
 
   private EnoaUNIXSOCKETDocker docker;
 
-  public EUNIXSOCKETDockerImage(EnoaUNIXSOCKETDocker docker) {
+  EUNIXSOCKETDockerImage(EnoaUNIXSOCKETDocker docker) {
     this.docker = docker;
   }
 
   @Override
-  public String list() {
+  public String list(DQPListImage dqp) {
+    return null;
+  }
+
+  @Override
+  public String build(DQPBuild dqp, String dockerfile) {
     return null;
   }
 }

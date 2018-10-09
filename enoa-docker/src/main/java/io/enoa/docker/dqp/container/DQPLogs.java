@@ -16,7 +16,7 @@
 package io.enoa.docker.dqp.container;
 
 import io.enoa.docker.dqp.DQP;
-import io.enoa.docker.dqp.DQR;
+import io.enoa.docker.dqp.DPara;
 
 public class DQPLogs implements DQP {
 
@@ -142,8 +142,8 @@ public class DQPLogs implements DQP {
   }
 
   @Override
-  public DQR dqr() {
-    DQR dqr = DQR.create();
+  public DPara para() {
+    DPara dqr = DPara.create();
     if (this.follow)
       dqr.put("follow", this.follow);
     if (this.stdout)

@@ -15,5 +15,5 @@
  */
 package io.enoa.docker;
 
-public class DockerConfigsTest extends AbstractDockerTest {
+public class DockerTaskTest extends AbstractDockerTest {
 }

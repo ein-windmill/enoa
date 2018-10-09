@@ -16,7 +16,7 @@
 package io.enoa.docker.dqp.image;
 
 import io.enoa.docker.dqp.DQP;
-import io.enoa.docker.dqp.DQR;
+import io.enoa.docker.dqp.DPara;
 
 public class DQPListImage implements DQP {
 
@@ -55,9 +55,17 @@ public class DQPListImage implements DQP {
   public DQPListImage() {
   }
 
+  public DQPListImage all() {
+    return this.all(Boolean.TRUE);
+  }
+
   public DQPListImage all(boolean all) {
     this.all = all;
     return this;
+  }
+
+  public DQPListImage digests() {
+    return this.digests(Boolean.TRUE);
   }
 
   public DQPListImage digests(boolean digests) {
@@ -72,8 +80,8 @@ public class DQPListImage implements DQP {
   }
 
   @Override
-  public DQR dqr() {
-    DQR dqr = DQR.create();
+  public DPara para() {
+    DPara dqr = DPara.create();
     if (this.all)
       dqr.put("all", this.all);
     if (this.digests)

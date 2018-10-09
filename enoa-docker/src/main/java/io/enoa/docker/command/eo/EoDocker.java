@@ -15,15 +15,12 @@
  */
 package io.enoa.docker.command.eo;
 
-import io.enoa.docker.DockerConfig;
+import io.enoa.docker.command._DockerConfigSupport;
 import io.enoa.docker.dret.DRet;
 import io.enoa.docker.dret.dockerinfo.EDockerInfo;
 import io.enoa.docker.parser.DIParser;
 
-public interface EoDocker {
-
-
-  DockerConfig _dockerconfig();
+public interface EoDocker extends _DockerConfigSupport {
 
   default DRet<EDockerInfo> info() {
     return this.info(DIParser.dockerinfo());

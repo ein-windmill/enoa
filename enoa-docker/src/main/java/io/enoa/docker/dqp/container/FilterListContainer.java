@@ -16,7 +16,7 @@
 package io.enoa.docker.dqp.container;
 
 import io.enoa.docker.dqp.DBack;
-import io.enoa.docker.dqp.DQR;
+import io.enoa.docker.dqp.DPara;
 import io.enoa.json.Json;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.map.Kv;
@@ -284,7 +284,7 @@ public class FilterListContainer implements DBack<DQPListContainer> {
     return this.lc;
   }
 
-  DQR dqr() {
+  DPara dqr() {
     Kv kv = Kv.create();
     if (CollectionKit.notEmpty(this.ancestor))
       kv.set("ancestor", this.ancestor);
@@ -318,7 +318,7 @@ public class FilterListContainer implements DBack<DQPListContainer> {
       kv.set("volume", this.volume);
     String json = Json.toJson(kv);
     kv.clear();
-    return DQR.create()
+    return DPara.create()
       .put("filters", json);
   }
 

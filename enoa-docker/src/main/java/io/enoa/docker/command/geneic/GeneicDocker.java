@@ -15,13 +15,11 @@
  */
 package io.enoa.docker.command.geneic;
 
-import io.enoa.docker.DockerConfig;
+import io.enoa.docker.command._DockerConfigSupport;
 import io.enoa.docker.dret.DRet;
 import io.enoa.docker.parser.DIParser;
 
-public interface GeneicDocker {
-
-  DockerConfig _dockerconfig();
+public interface GeneicDocker extends _DockerConfigSupport {
 
   <T> DRet<T> info(DIParser<T> parser);
 

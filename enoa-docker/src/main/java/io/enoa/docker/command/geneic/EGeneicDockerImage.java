@@ -18,6 +18,11 @@ package io.enoa.docker.command.geneic;
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.command.origin.EOriginDockerImage;
 import io.enoa.docker.command.origin.OriginDocker;
+import io.enoa.docker.dqp.image.DQPListImage;
+import io.enoa.docker.dret.DRet;
+import io.enoa.docker.parser.DIParser;
+
+import java.util.List;
 
 public class EGeneicDockerImage {
 
@@ -25,11 +30,19 @@ public class EGeneicDockerImage {
   private DockerConfig config;
   private EOriginDockerImage image;
 
-  public EGeneicDockerImage(OriginDocker docker) {
+  EGeneicDockerImage(OriginDocker docker) {
     this.docker = docker;
     this.config = docker._dockerconfig();
     this.image = docker.image();
   }
 
+  public <T> DRet<List<T>> list(DIParser<List<T>> parser) {
+    return this.list(parser, null);
+  }
+
+  public <T> DRet<List<T>> list(DIParser<List<T>> parser, DQPListImage dqp) {
+    String origin = this.image.list(dqp);
+    return parser.parse(this.config, origin);
+  }
 
 }
