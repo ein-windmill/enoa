@@ -39,6 +39,10 @@ public class EnoaValue implements Serializable {
     return new EnoaValue(value);
   }
 
+  public Object get() {
+    return this.origin();
+  }
+
   public Object origin() {
     return value;
   }
