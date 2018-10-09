@@ -16,7 +16,7 @@
 package io.enoa.docker.dqp.container;
 
 import io.enoa.docker.dqp.DQP;
-import io.enoa.docker.dqp.DPara;
+import io.enoa.docker.dqp.DQR;
 import io.enoa.json.Json;
 import io.enoa.toolkit.collection.CollectionKit;
 
@@ -57,8 +57,8 @@ public class DQPPrune implements DQP {
   }
 
   @Override
-  public DPara para() {
-    DPara dqr = DPara.create();
+  public DQR dqr() {
+    DQR dqr = DQR.create();
     if (CollectionKit.notEmpty(this.filters)) {
       dqr.put("filters", Json.toJson(this.filters));
     }

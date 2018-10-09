@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.dqp.image;
 
+import io.enoa.docker.dqp.DQH;
 import io.enoa.docker.dqp.DQP;
-import io.enoa.docker.dqp.DPara;
-import io.enoa.toolkit.text.TextKit;
+import io.enoa.docker.dqp.DQR;
 
 public class DQPBuild implements DQP {
 
@@ -176,6 +176,38 @@ public class DQPBuild implements DQP {
    */
   private String platform;
 
+
+  /**
+   * string
+   * default "application/x-tar"
+   */
+  private String contenttype;
+
+  /**
+   * X-Registry-Config
+   * string
+   * <p>
+   * This is a base64-encoded JSON object with auth configurations for multiple registries that a build may refer to.
+   * <p>
+   * The key is a registry URL, and the value is an auth configuration object, as described in the authentication section. For example:
+   * <p>
+   * {
+   * "docker.example.com": {
+   * "username": "janedoe",
+   * "password": "hunter2"
+   * },
+   * "https://index.docker.io/v1/": {
+   * "username": "mobydock",
+   * "password": "conta1n3rize14"
+   * }
+   * }
+   * <p>
+   * Only the registry domain name (and port if not the default 443) are required.
+   * However, for legacy reasons, the Docker Hub registry must be specified
+   * with both a https:// prefix and a /v1/ suffix even though Docker will prefer to use the v2 registry API.
+   */
+  private String registryconfig;
+
   public static DQPBuild create() {
     return new DQPBuild();
   }
@@ -187,6 +219,7 @@ public class DQPBuild implements DQP {
     this.rm = Boolean.TRUE;
     this.forcerm = Boolean.FALSE;
     this.platform = "";
+    this.contenttype = "application/x-tar";
   }
 
   public DQPBuild dockerfile(String dockerfile) {
@@ -319,48 +352,57 @@ public class DQPBuild implements DQP {
     return this;
   }
 
+  public DQPBuild contenttype(String contenttype) {
+    this.contenttype = contenttype;
+    return this;
+  }
+
+  public DQPBuild registryconfig(String registryconfig) {
+    this.registryconfig = registryconfig;
+    return this;
+  }
+
   @Override
-  public DPara para() {
-    DPara dqr = DPara.create()
+  public DQR dqr() {
+    DQR dqr = DQR.create()
       .put("dockerfile", this.dockerfile)
       .put("q", this.q)
       .put("nocache", this.nocache)
       .put("rm", this.rm)
-      .put("forcerm", this.forcerm);
-    if (TextKit.blankn(this.t))
-      dqr.put("t", this.t);
-    if (TextKit.blankn(this.extrahosts))
-      dqr.put("extrahosts", this.extrahosts);
-    if (TextKit.blankn(this.remote))
-      dqr.put("remote", this.remote);
-    if (TextKit.blankn(this.cachefrom))
-      dqr.put("cachefrom", this.cachefrom);
-    if (TextKit.blankn(this.pull))
-      dqr.put("pull", this.pull);
+      .put("forcerm", this.forcerm)
+      .putIf("t", this.t)
+      .putIf("extrahosts", this.extrahosts)
+      .putIf("remote", this.remote)
+      .putIf("cachefrom", this.cachefrom)
+      .putIf("pull", this.pull)
+      .putIf("labels", this.labels)
+      .putIf("networkmode", this.networkmode)
+      .putIf("platform", this.platform)
+      .putIf("cpusetcpus", this.cpusetcpus)
+      .putIf("buildargs", this.buildargs);
+
     if (this.memory != null)
       dqr.put("memory", this.memory);
     if (this.memswap != null)
       dqr.put("memswap", this.memswap);
     if (this.cpushares != null)
       dqr.put("cpushares", this.cpushares);
-    if (TextKit.blankn(this.cpusetcpus))
-      dqr.put("cpusetcpus", this.cpusetcpus);
     if (this.cpuperiod != null)
       dqr.put("cpuperiod", this.cpuperiod);
     if (this.cpuquota != null)
       dqr.put("cpuquota", this.cpuquota);
-    if (TextKit.blankn(this.buildargs))
-      dqr.put("buildargs", this.buildargs);
     if (this.shmsize != null)
       dqr.put("shmsize", this.shmsize);
     if (this.squash != null)
       dqr.put("squash", this.squash);
-    if (TextKit.blankn("labels"))
-      dqr.put("labels", this.labels);
-    if (TextKit.blankn("networkmode"))
-      dqr.put("networkmode", this.networkmode);
-    if (TextKit.blankn(this.platform))
-      dqr.put("platform", this.platform);
     return dqr;
+  }
+
+  @Override
+  public DQH dqh() {
+    DQH dqh = DQH.create()
+      .add("Content-type", this.contenttype)
+      .addIf("X-Registry-Config", this.registryconfig);
+    return dqh;
   }
 }

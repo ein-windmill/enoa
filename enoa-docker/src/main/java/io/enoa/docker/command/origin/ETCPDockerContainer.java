@@ -37,7 +37,7 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
   public String list(DQPListContainer dqp) {
     Http http = this.docker.http("/containers/json");
     if (dqp != null)
-      http.para(dqp.para().http());
+      http.para(dqp.dqr().http());
     HttpResponse response = http.emit();
     return response.body().string();
   }
@@ -73,7 +73,7 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
   public String logs(String id, DQPLogs dqp) {
     Http http = this.docker.http("containers", id, "logs");
     if (dqp != null)
-      http.para(dqp.para().http());
+      http.para(dqp.dqr().http());
     HttpResponse response = http.emit();
     return response.body().string();
   }
@@ -107,7 +107,7 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
     Http http = this.docker.http("container", id, "resize")
       .method(HttpMethod.POST);
     if (dqp != null) {
-      http.para(dqp.para().http());
+      http.para(dqp.dqr().http());
     }
     HttpResponse response = http.emit();
     return response.body().string();
@@ -118,7 +118,7 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
     Http http = this.docker.http("containers", id, "start")
       .method(HttpMethod.POST);
     if (dqp != null)
-      http.para(dqp.para().http());
+      http.para(dqp.dqr().http());
     HttpResponse response = http.emit();
     return response.body().string();
   }
@@ -128,7 +128,7 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
     Http http = this.docker.http("containers", id, "stop")
       .method(HttpMethod.POST);
     if (dqp != null)
-      http.para(dqp.para().http());
+      http.para(dqp.dqr().http());
     HttpResponse response = http.emit();
     return response.body().string();
   }
@@ -138,7 +138,7 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
     Http http = this.docker.http("containers", id, "restart")
       .method(HttpMethod.POST);
     if (dqp != null)
-      http.para(dqp.para().http());
+      http.para(dqp.dqr().http());
     HttpResponse response = http.emit();
     return response.body().string();
   }
@@ -148,7 +148,7 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
     Http http = this.docker.http("containers", id, "kill")
       .method(HttpMethod.POST);
     if (dqp != null)
-      http.para(dqp.para().http());
+      http.para(dqp.dqr().http());
     HttpResponse response = http.emit();
     return response.body().string();
   }
@@ -192,7 +192,7 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
     Http http = this.docker.http("containers", id, "attach")
       .method(HttpMethod.POST);
     if (dqp != null)
-      http.para(dqp.para().http());
+      http.para(dqp.dqr().http());
     HttpResponse response = http.emit();
     return response.body().string();
   }
@@ -211,7 +211,7 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
     Http http = this.docker.http("containers", id)
       .method(HttpMethod.DELETE);
     if (dqp != null)
-      http.para(dqp.para().http());
+      http.para(dqp.dqr().http());
     HttpResponse response = http.emit();
     return response.body().string();
   }
@@ -230,7 +230,7 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
     Http http = this.docker.http("containers/prune")
       .method(HttpMethod.POST);
     if (dqp != null)
-      http.para(dqp.para().http());
+      http.para(dqp.dqr().http());
     HttpResponse response = http.emit();
     return response.body().string();
   }

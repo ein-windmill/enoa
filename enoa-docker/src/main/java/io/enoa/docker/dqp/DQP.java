@@ -31,8 +31,17 @@ public interface DQP extends Serializable {
   /**
    * Generate docker query param string.
    *
-   * @return String
+   * @return DQR
    */
-  DPara para();
+  DQR dqr();
+
+  /**
+   * Generate docker query header.
+   *
+   * @return DQH
+   */
+  default DQH dqh() {
+    return DQH.empty();
+  }
 
 }

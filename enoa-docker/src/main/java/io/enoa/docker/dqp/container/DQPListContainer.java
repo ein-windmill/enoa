@@ -16,7 +16,7 @@
 package io.enoa.docker.dqp.container;
 
 import io.enoa.docker.dqp.DQP;
-import io.enoa.docker.dqp.DPara;
+import io.enoa.docker.dqp.DQR;
 
 public class DQPListContainer implements DQP {
 
@@ -74,8 +74,8 @@ public class DQPListContainer implements DQP {
   }
 
   @Override
-  public DPara para() {
-    DPara dqr = DPara.create()
+  public DQR dqr() {
+    DQR dqr = DQR.create()
       .put("all", this.all)
       .put("limit", this.limit)
       .put("size", this.size);

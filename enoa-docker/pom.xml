@@ -24,18 +24,22 @@
       <artifactId>enoa-http</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>io.enoa</groupId>
+      <artifactId>enoa-json</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-compress</artifactId>
+    </dependency>
+
     <!--
         <dependency>
           <groupId>com.github.jnr</groupId>
           <artifactId>jnr-unixsocket</artifactId>
         </dependency>
     -->
-
-    <dependency>
-      <groupId>io.enoa</groupId>
-      <artifactId>enoa-json</artifactId>
-    </dependency>
-
 
     <dependency>
       <groupId>io.enoa</groupId>
@@ -48,7 +52,6 @@
       <artifactId>enoa-json-gson</artifactId>
       <scope>test</scope>
     </dependency>
-
 
     <dependency>
       <groupId>junit</groupId>

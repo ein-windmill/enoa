@@ -16,7 +16,7 @@
 package io.enoa.docker.dqp.container;
 
 import io.enoa.docker.dqp.DQP;
-import io.enoa.docker.dqp.DPara;
+import io.enoa.docker.dqp.DQR;
 import io.enoa.toolkit.map.Kv;
 
 import java.util.ArrayList;
@@ -270,8 +270,8 @@ public class DQPUpdate implements DQP {
   }
 
   @Override
-  public DPara para() {
-    DPara dqr = DPara.create();
+  public DQR dqr() {
+    DQR dqr = DQR.create();
     if (this.cpushares != null)
       dqr.put("CpuShares", this.cpushares);
     if (this.memory != null)

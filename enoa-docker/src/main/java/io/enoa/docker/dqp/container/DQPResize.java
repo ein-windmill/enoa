@@ -16,7 +16,7 @@
 package io.enoa.docker.dqp.container;
 
 import io.enoa.docker.dqp.DQP;
-import io.enoa.docker.dqp.DPara;
+import io.enoa.docker.dqp.DQR;
 
 public class DQPResize implements DQP {
 
@@ -53,8 +53,8 @@ public class DQPResize implements DQP {
   }
 
   @Override
-  public DPara para() {
-    DPara dqr = DPara.create();
+  public DQR dqr() {
+    DQR dqr = DQR.create();
     if (this.height != null)
       dqr.put("h", this.height);
     if (this.width != null)

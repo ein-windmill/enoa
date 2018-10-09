@@ -41,11 +41,10 @@ public class DockerImageTest extends AbstractDockerTest {
   @Test
   public void testBuild() {
     DQPBuild dqp = DQPBuild.create()
+      .t("enoa-alpine:0.1")
       .forcerm();
-    String dockerfile = "FROM ubuntu:14.04\n" +
-      "RUN mkdir demo\n" +
-      "RUN apt-get update\n" +
-      "RUN apt-get -y install vim";
+    String dockerfile = "FROM alpine:3.8\n" +
+      "RUN mkdir demo";
     String ret = Docker.origin().image().build(dqp, dockerfile);
 //    System.out.println(ret);
   }

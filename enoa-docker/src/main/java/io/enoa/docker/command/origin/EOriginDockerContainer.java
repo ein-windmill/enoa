@@ -475,7 +475,7 @@ public interface EOriginDockerContainer {
    * @see #update(String, String)
    */
   default String update(String id, DQPUpdate dqp) {
-    return this.update(id, dqp.para().json());
+    return this.update(id, dqp.dqr().json());
   }
 
   /**

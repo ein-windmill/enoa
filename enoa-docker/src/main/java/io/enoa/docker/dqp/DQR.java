@@ -19,30 +19,31 @@ import io.enoa.http.protocol.HttpPara;
 import io.enoa.json.Json;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.map.Kv;
+import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.value.EnoaValue;
 
 import java.io.Serializable;
 import java.util.*;
 
-public class DPara implements Serializable {
+public class DQR implements Serializable {
 
   private Kv kv;
 
-  private DPara() {
+  private DQR() {
     this.kv = Kv.create();
   }
 
-  private static final DPara EMPTY = new DPara();
+  private static final DQR EMPTY = new DQR();
 
-  public static DPara empty() {
+  public static DQR empty() {
     return EMPTY;
   }
 
-  public static DPara create() {
-    return new DPara();
+  public static DQR create() {
+    return new DQR();
   }
 
-  public DPara put(String name, Object value) {
+  public DQR put(String name, Object value) {
     if (name == null)
       return this;
     if (value == null)
@@ -66,20 +67,40 @@ public class DPara implements Serializable {
     return this;
   }
 
-  public DPara put(String name, Collection collection) {
+  public DQR putIf(String name, Object value) {
+    if (value == null)
+      return this;
+    if (value instanceof String)
+      if (TextKit.blanky((String) value))
+        return this;
+
+    return this.put(name, value);
+  }
+
+  public DQR put(String name, Collection collection) {
     if (collection == null)
       return this;
     collection.forEach(col -> this.put(name, col));
     return this;
   }
 
-  public DPara put(DPara dqr) {
+  public DQR putIf(String name, Collection collection) {
+    if (CollectionKit.isEmpty(collection))
+      return this;
+    return this.put(name, collection);
+  }
+
+  public DQR put(DQR dqr) {
     if (dqr == null)
       return this;
     if (CollectionKit.isEmpty(dqr.kv))
       return this;
     dqr.kv.forEach(this::put);
     return this;
+  }
+
+  public DQR putIf(DQR dqr) {
+    return this.put(dqr);
   }
 
   public Set<HttpPara> http() {
@@ -113,6 +134,15 @@ public class DPara implements Serializable {
 
   public String json() {
     return Json.toJson(this.kv);
+  }
+
+  public EnoaValue value(String name) {
+    return this.kv.value(name);
+  }
+
+  public DQR clear() {
+    CollectionKit.clear(this.kv);
+    return this;
   }
 
   @Override

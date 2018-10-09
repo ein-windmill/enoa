@@ -15,8 +15,10 @@
  */
 package io.enoa.docker.command.origin;
 
+import io.enoa.docker.dqp.DQR;
 import io.enoa.docker.dqp.image.DQPBuild;
 import io.enoa.docker.dqp.image.DQPListImage;
+import io.enoa.docker.tar.DTar;
 import io.enoa.docker.thr.DockerException;
 import io.enoa.http.Http;
 import io.enoa.http.protocol.HttpMethod;
@@ -36,7 +38,7 @@ public class ETCPDockerImage implements EOriginDockerImage {
     Http http = this.docker.http("images/json")
       .method(HttpMethod.GET);
     if (dqp != null)
-      http.para(dqp.para().http());
+      http.para(dqp.dqr().http());
     HttpResponse response = http.emit();
     return response.body().string();
   }
@@ -45,10 +47,12 @@ public class ETCPDockerImage implements EOriginDockerImage {
   public String build(DQPBuild dqp, String dockerfile) {
     if (dqp == null)
       throw new DockerException(EnoaTipKit.message("eo.tip.docker.lost_dqp"));
+    DQR dqr = dqp.dqr();
     HttpResponse response = this.docker.http("build")
       .method(HttpMethod.POST)
-      .para(dqp.para().http())
-      .raw(dockerfile)
+      .para(dqr.http())
+      .header(dqp.dqh().headers())
+      .binary(DTar.cvf(dqr.value("dockerfile").string(), dockerfile).bytebuffer())
       .emit();
     return response.body().string();
   }
