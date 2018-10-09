@@ -18,6 +18,7 @@ package io.enoa.docker.parser;
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dret.DRet;
 import io.enoa.toolkit.map.Kv;
+import io.enoa.toolkit.text.TextKit;
 
 abstract class AbstractParser<T> implements DIParser<T> {
 
@@ -25,9 +26,11 @@ abstract class AbstractParser<T> implements DIParser<T> {
   public DRet<T> parse(DockerConfig config, String origin) {
     if (origin == null)
       return DRet.fail(null, null);
-    if (origin.charAt(0) != '{') {
+    if (TextKit.blanky(origin))
       return DRet.ok(origin, this.ok(config, origin));
-    }
+    if (origin.charAt(0) != '{')
+      return DRet.ok(origin, this.ok(config, origin));
+    
     Kv kv = config.json().parse(origin, Kv.class);
     if (kv.notNullValue("message"))
       return DRet.fail(origin, kv.string("message"));

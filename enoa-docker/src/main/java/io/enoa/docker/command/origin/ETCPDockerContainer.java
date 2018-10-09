@@ -15,11 +15,13 @@
  */
 package io.enoa.docker.command.origin;
 
-import io.enoa.docker.dqp.container.DQPListContainer;
-import io.enoa.docker.dqp.container.DQPLogs;
+import io.enoa.docker.dqp.container.*;
+import io.enoa.docker.thr.DockerException;
 import io.enoa.http.Http;
 import io.enoa.http.protocol.HttpMethod;
 import io.enoa.http.protocol.HttpResponse;
+import io.enoa.toolkit.binary.EnoaBinary;
+import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.text.TextKit;
 
 public class ETCPDockerContainer implements EOriginDockerContainer {
@@ -90,5 +92,146 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
     return response.body().string();
   }
 
+  @Override
+  public String statistics(String id, Boolean stream) {
+    if (stream)
+      throw new DockerException(EnoaTipKit.message("eo.tip.docker.notsupport_stream"));
+    HttpResponse response = this.docker.http("containers", id, "stats")
+      .para("stream", stream)
+      .emit();
+    return response.body().string();
+  }
 
+  @Override
+  public String resize(String id, DQPResize dqp) {
+    Http http = this.docker.http("container", id, "resize")
+      .method(HttpMethod.POST);
+    if (dqp != null) {
+      http.para(dqp.dqr().httpparas());
+    }
+    HttpResponse response = http.emit();
+    return response.body().string();
+  }
+
+  @Override
+  public String start(String id, DQPStart dqp) {
+    Http http = this.docker.http("containers", id, "start")
+      .method(HttpMethod.POST);
+    if (dqp != null)
+      http.para(dqp.dqr().httpparas());
+    HttpResponse response = http.emit();
+    return response.body().string();
+  }
+
+  @Override
+  public String stop(String id, DQPTime dqp) {
+    Http http = this.docker.http("containers", id, "stop")
+      .method(HttpMethod.POST);
+    if (dqp != null)
+      http.para(dqp.dqr().httpparas());
+    HttpResponse response = http.emit();
+    return response.body().string();
+  }
+
+  @Override
+  public String restart(String id, DQPTime dqp) {
+    Http http = this.docker.http("containers", id, "restart")
+      .method(HttpMethod.POST);
+    if (dqp != null)
+      http.para(dqp.dqr().httpparas());
+    HttpResponse response = http.emit();
+    return response.body().string();
+  }
+
+  @Override
+  public String kill(String id, DQPKill dqp) {
+    Http http = this.docker.http("containers", id, "kill")
+      .method(HttpMethod.POST);
+    if (dqp != null)
+      http.para(dqp.dqr().httpparas());
+    HttpResponse response = http.emit();
+    return response.body().string();
+  }
+
+  @Override
+  public String update(String id, String body) {
+    HttpResponse response = this.docker.http("containers", id, "update")
+      .method(HttpMethod.POST)
+      .raw(body, "application/json")
+      .emit();
+    return response.body().string();
+  }
+
+  @Override
+  public String rename(String id, String name) {
+    HttpResponse response = this.docker.http("containers", id, "rename")
+      .method(HttpMethod.POST)
+      .para("name", name)
+      .emit();
+    return response.body().string();
+  }
+
+  @Override
+  public String pause(String id) {
+    HttpResponse response = this.docker.http("containers", id, "pause")
+      .method(HttpMethod.POST)
+      .emit();
+    return response.body().string();
+  }
+
+  @Override
+  public String unpause(String id) {
+    HttpResponse response = this.docker.http("containers", id, "unpause")
+      .method(HttpMethod.POST)
+      .emit();
+    return response.body().string();
+  }
+
+  @Override
+  public String attach(String id, DQPAttch dqp) {
+    Http http = this.docker.http("containers", id, "attach")
+      .method(HttpMethod.POST);
+    if (dqp != null)
+      http.para(dqp.dqr().httpparas());
+    HttpResponse response = http.emit();
+    return response.body().string();
+  }
+
+  @Override
+  public String wait(String id, String condition) {
+    HttpResponse response = this.docker.http("containers", id, "wait")
+      .method(HttpMethod.POST)
+      .para("condition", condition)
+      .emit();
+    return response.body().string();
+  }
+
+  @Override
+  public String remove(String id, DQPRemove dqp) {
+    Http http = this.docker.http("containers", id)
+      .method(HttpMethod.DELETE);
+    if (dqp != null)
+      http.para(dqp.dqr().httpparas());
+    HttpResponse response = http.emit();
+    return response.body().string();
+  }
+
+  @Override
+  public EnoaBinary archive(String id, String path) {
+    HttpResponse response = this.docker.http("containers", id, "archive")
+      .method(HttpMethod.GET)
+      .para("path", path)
+      .emit();
+    return EnoaBinary.create(response.body().bytes());
+  }
+
+  @Override
+  public String prune(DQPPrune dqp) {
+    Http http = this.docker.http("containers/prune")
+      .method(HttpMethod.POST);
+    if (dqp != null)
+      http.para(dqp.dqr().httpparas());
+    HttpResponse response = http.emit();
+    return response.body().string();
+  }
 }

@@ -20,7 +20,6 @@ import io.enoa.docker.dret.container.EContainer;
 import io.enoa.docker.dret.container.EPort;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.map.Kv;
-import io.enoa.toolkit.value.EnoaValue;
 
 import java.util.*;
 
@@ -75,12 +74,12 @@ class EListContainerParser extends AbstractParser<List<EContainer>> {
       _pots.forEach(p -> {
         if (!(p instanceof Map))
           return;
-        Map mp = (Map) p;
+        Kv mp = Kv.by((Map) p);
         EPort.Builder epb = new EPort.Builder()
-          .ip(EnoaValue.with(mp.get("IP")).string())
-          .privateport(EnoaValue.with(mp.get("PrivatePort")).integer())
-          .publicport(EnoaValue.with(mp.get("PublicPort")).integer())
-          .type(EnoaValue.with(mp.get("Type")).string());
+          .ip(mp.string("IP"))
+          .privateport(mp.integer("PrivatePort"))
+          .publicport(mp.integer("PublicPort"))
+          .type(mp.string("Type"));
         pots.add(epb.build());
       });
       return pots;

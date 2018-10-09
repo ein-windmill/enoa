@@ -15,8 +15,10 @@
  */
 package io.enoa.docker.command.origin;
 
-import io.enoa.docker.dqp.container.DQPListContainer;
-import io.enoa.docker.dqp.container.DQPLogs;
+import io.enoa.docker.dqp.container.*;
+import io.enoa.docker.thr.DockerException;
+import io.enoa.toolkit.binary.EnoaBinary;
+import io.enoa.toolkit.eo.tip.EnoaTipKit;
 
 public interface EOriginDockerContainer {
 
@@ -352,5 +354,353 @@ public interface EOriginDockerContainer {
    * @return String
    */
   String export(String id);
+
+  default String statistics(String id) {
+    return this.statistics(id, Boolean.FALSE);
+  }
+
+  /**
+   * Get container stats based on resource usage
+   * This endpoint returns a live stream of a container’s resource usage statistics.
+   * <p>
+   * The precpu_stats is the CPU statistic of last read, which is used for calculating the CPU usage percentage. It is not the same as the cpu_stats field.
+   * <p>
+   * If either precpu_stats.online_cpus or cpu_stats.online_cpus is nil then for compatibility with older daemons the length of the corresponding cpu_usage.percpu_usage array should be used.
+   *
+   * @param id     string Required
+   *               <p>
+   *               ID or name of the container
+   * @param stream boolean
+   *               default false
+   *               <p>
+   *               Stream the output. If false, the stats will be output once and then it will disconnect.
+   * @return String
+   */
+  String statistics(String id, Boolean stream);
+
+  /**
+   * @see #resize(String, DQPResize)
+   */
+  default String resize(String id) {
+    return this.resize(id, null);
+  }
+
+  /**
+   * Resize a container TTY
+   * Resize the TTY for a container. You must restart the container for the resize to take effect.
+   *
+   * @param id  string Required
+   *            <p>
+   *            ID or name of the container
+   * @param dqp dqp
+   * @return String
+   */
+  String resize(String id, DQPResize dqp);
+
+  /**
+   * @see #start(String, DQPStart)
+   */
+  default String start(String id) {
+    return this.start(id, null);
+  }
+
+  /**
+   * Start a container
+   *
+   * @param id  string Required
+   *            <p>
+   *            ID or name of the container
+   * @param dqp dqp
+   * @return String
+   */
+  String start(String id, DQPStart dqp);
+
+  /**
+   * @see #stop(String, DQPTime)
+   */
+  default String stop(String id) {
+    return this.stop(id, null);
+  }
+
+  /**
+   * Stop a container
+   *
+   * @param id  string Required
+   *            <p>
+   *            ID or name of the container
+   * @param dqp dqp
+   * @return String
+   */
+  String stop(String id, DQPTime dqp);
+
+  /**
+   * @see #restart(String, DQPTime)
+   */
+  default String restart(String id) {
+    return this.restart(id, null);
+  }
+
+  /**
+   * Restart a container
+   *
+   * @param id  id
+   *            string Required
+   *            <p>
+   *            ID or name of the container
+   * @param dqp dqp
+   * @return String
+   */
+  String restart(String id, DQPTime dqp);
+
+  /**
+   * @see #kill(String, DQPKill)
+   */
+  default String kill(String id) {
+    return this.kill(id, null);
+  }
+
+  /**
+   * Kill a container
+   * Send a POSIX signal to a container, defaulting to killing to the container.
+   *
+   * @param id  string Required
+   *            <p>
+   *            ID or name of the container
+   * @param dqp dqp
+   * @return String
+   */
+  String kill(String id, DQPKill dqp);
+
+  /**
+   * @see #update(String, String)
+   */
+  default String update(String id, DQPUpdate dqp) {
+    return this.update(id, dqp.dqr().json());
+  }
+
+  /**
+   * Update a container
+   * Change various configuration options of a container without having to recreate it.
+   *
+   * @param id   string Required
+   *             <p>
+   *             ID or name of the container
+   * @param body request body
+   *             {
+   *             "BlkioWeight": 300,
+   *             "CpuShares": 512,
+   *             "CpuPeriod": 100000,
+   *             "CpuQuota": 50000,
+   *             "CpuRealtimePeriod": 1000000,
+   *             "CpuRealtimeRuntime": 10000,
+   *             "CpusetCpus": "0,1",
+   *             "CpusetMems": "0",
+   *             "Memory": 314572800,
+   *             "MemorySwap": 514288000,
+   *             "MemoryReservation": 209715200,
+   *             "KernelMemory": 52428800,
+   *             "RestartPolicy": {
+   *             "MaximumRetryCount": 4,
+   *             "Name": "on-failure"
+   *             }
+   *             }
+   * @return string
+   */
+  String update(String id, String body);
+
+  /**
+   * Rename a container
+   *
+   * @param id   id
+   *             string Required
+   *             <p>
+   *             ID or name of the container
+   * @param name name
+   *             string Required
+   *             <p>
+   *             New name for the container
+   * @return String
+   */
+  String rename(String id, String name);
+
+  /**
+   * Pause a container
+   * Use the cgroups freezer to suspend all processes in a container.
+   * <p>
+   * Traditionally, when suspending a process the SIGSTOP signal is used,
+   * which is observable by the process being suspended. With the cgroups freezer the process is unaware,
+   * and unable to capture, that it is being suspended, and subsequently resumed.
+   *
+   * @param id string Required
+   *           <p>
+   *           ID or name of the container
+   * @return String
+   */
+  String pause(String id);
+
+  /**
+   * Unpause a container
+   * Resume a container which has been paused.
+   *
+   * @param id string Required
+   *           <p>
+   *           ID or name of the container
+   * @return String
+   */
+  String unpause(String id);
+
+  /**
+   * @see #attach(String, DQPAttch)
+   */
+  default String attach(String id) {
+    return this.attach(id, null);
+  }
+
+  /**
+   * Attach to a container
+   * Attach to a container to read its output or send it input. You can attach to the same container multiple times and you can reattach to containers that have been detached.
+   * <p>
+   * Either the stream or logs parameter must be true for this endpoint to do anything.
+   * <p>
+   * See the documentation for the docker attach command for more details.
+   * Hijacking
+   * <p>
+   * This endpoint hijacks the HTTP connection to transport stdin, stdout, and stderr on the same socket.
+   * <p>
+   * This is the response from the daemon for an attach request:
+   * <p>
+   * HTTP/1.1 200 OK
+   * Content-Type: application/vnd.docker.raw-stream
+   * <p>
+   * [STREAM]
+   * <p>
+   * After the headers and two new lines, the TCP connection can now be used for raw, bidirectional communication between the client and server.
+   * <p>
+   * To hint potential proxies about connection hijacking, the Docker client can also optionally send connection upgrade headers.
+   * <p>
+   * For example, the client sends this request to upgrade the connection:
+   * <p>
+   * POST /containers/16253994b7c4/attach?stream=1&stdout=1 HTTP/1.1
+   * Upgrade: tcp
+   * Connection: Upgrade
+   * <p>
+   * The Docker daemon will respond with a 101 UPGRADED response, and will similarly follow with the raw stream:
+   * <p>
+   * HTTP/1.1 101 UPGRADED
+   * Content-Type: application/vnd.docker.raw-stream
+   * Connection: Upgrade
+   * Upgrade: tcp
+   * <p>
+   * [STREAM]
+   * <p>
+   * Stream format
+   * <p>
+   * When the TTY setting is disabled in POST /containers/create, the stream over the hijacked connected is multiplexed to separate out stdout and stderr. The stream consists of a series of frames, each containing a header and a payload.
+   * <p>
+   * The header contains the information which the stream writes (stdout or stderr). It also contains the size of the associated frame encoded in the last four bytes (uint32).
+   * <p>
+   * It is encoded on the first eight bytes like this:
+   * <p>
+   * header := [8]byte{STREAM_TYPE, 0, 0, 0, SIZE1, SIZE2, SIZE3, SIZE4}
+   * <p>
+   * STREAM_TYPE can be:
+   * <p>
+   * 0: stdin (is written on stdout)
+   * 1: stdout
+   * 2: stderr
+   * <p>
+   * SIZE1, SIZE2, SIZE3, SIZE4 are the four bytes of the uint32 size encoded as big endian.
+   * <p>
+   * Following the header is the payload, which is the specified number of bytes of STREAM_TYPE.
+   * <p>
+   * The simplest way to implement this protocol is the following:
+   * <p>
+   * 1. Read 8 bytes.
+   * 2. Choose stdout or stderr depending on the first byte.
+   * 3. Extract the frame size from the last four bytes.
+   * 4. Read the extracted size and output it on the correct output.
+   * 5. Goto 1.
+   * <p>
+   * Stream format when using a TTY
+   * <p>
+   * When the TTY setting is enabled in POST /containers/create, the stream is not multiplexed. The data exchanged over the hijacked connection is simply the raw data from the process PTY and client's stdin.
+   *
+   * @param id  string Required
+   *            <p>
+   *            ID or name of the container
+   * @param dqp dqp
+   * @return String
+   */
+  String attach(String id, DQPAttch dqp);
+
+  @Deprecated
+  default Void ws(String id) {
+    throw new DockerException(EnoaTipKit.message("eo.tip.docker.notsupport"));
+  }
+
+  /**
+   * @see #wait(String, String)
+   */
+  default String wait(String id) {
+    return this.wait(id, "not-running");
+  }
+
+  /**
+   * Wait for a container
+   * Block until a container stops, then returns the exit code.
+   *
+   * @param id        string Required
+   *                  <p>
+   *                  ID or name of the container
+   * @param condition string
+   *                  default "not-running"
+   *                  <p>
+   *                  Wait until a container state reaches the given condition, either 'not-running' (default), 'next-exit', or 'removed'.
+   * @return String
+   */
+  String wait(String id, String condition);
+
+
+  default String remove(String id) {
+    return this.remove(id, null);
+  }
+
+  /**
+   * Remove a container
+   *
+   * @param id  string Required
+   *            <p>
+   *            ID or name of the container
+   * @param dqp dqp
+   * @return String
+   */
+  String remove(String id, DQPRemove dqp);
+
+  /**
+   * Get an archive of a filesystem resource in a container
+   * Get a tar archive of a resource in the filesystem of container id.
+   *
+   * @param id   string Required
+   *             <p>
+   *             ID or name of the container
+   * @param path string Required
+   *             <p>
+   *             Resource in the container’s filesystem to archive.
+   * @return
+   */
+  EnoaBinary archive(String id, String path);
+
+  default String prune() {
+    return this.prune(null);
+  }
+
+  /**
+   * Delete stopped containers
+   *
+   * @param dqp dqp
+   * @return String
+   */
+  String prune(DQPPrune dqp);
+
 
 }

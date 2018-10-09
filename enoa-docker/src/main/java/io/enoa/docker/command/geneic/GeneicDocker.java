@@ -27,4 +27,30 @@ public interface GeneicDocker {
 
   EGeneicDockerContainer container();
 
+  EGeneicDockerImage image();
+
+  EGeneicDockerNetworks networks();
+
+  EGeneicDockerVolumes volumes();
+
+  EGeneicDockerExec exec();
+
+  EGeneicDockerSwarm swarm();
+
+  EGeneicDockerNodes nodes();
+
+  EGeneicDockerServices services();
+
+  EGeneicDockerTasks tasks();
+
+  EGeneicDockerSecrets secrets();
+
+  EGeneicDockerConfigs configs();
+
+  EGeneicDockerPlugins plugins();
+
+  EGeneicDockerSystem system();
+
+  EGeneicDockerDistribution distribution();
+
 }

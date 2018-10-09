@@ -80,7 +80,7 @@ public class EPMDocker {
 
     GeneicDocker generic = this.generic(name);
     if (generic == null)
-      throw new DockerException(EnoaTipKit.message("eo.tip.docker.docker_404"));
+      throw new DockerException(EnoaTipKit.message("eo.tip.docker.docker_404", name));
     EoDocker docker = new EnoaDockerImpl(generic);
     this.dockermap.put(name, docker);
     return docker;
@@ -96,7 +96,7 @@ public class EPMDocker {
 
     OriginDocker docker = this.origin(name);
     if (docker == null)
-      throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.docker.docker_404"));
+      throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.docker.docker_404", name));
     GeneicDocker gdker = new EnoaGenericDocker(docker);
     this.geneicmap.put(name, gdker);
     return gdker;

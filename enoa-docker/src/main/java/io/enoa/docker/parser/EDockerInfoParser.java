@@ -18,9 +18,9 @@ package io.enoa.docker.parser;
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dret.dockerinfo.*;
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.convert.ConvertKit;
 import io.enoa.toolkit.date.DateKit;
 import io.enoa.toolkit.map.Kv;
-import io.enoa.toolkit.value.EnoaValue;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -163,19 +163,19 @@ class EDockerInfoParser extends AbstractParser<EDockerInfo> {
         if (!(v instanceof Map)) {
           return;
         }
-        Map mv = (Map) v;
+        Kv mv = Kv.by((Map) v);
         List mrs = Collections.emptyList();
         Object mr1 = mv.get("Mirrors");
         if (mr1 instanceof List) {
           mrs = (List) mr1;
         }
         EIndex ei = new EIndex.Builder()
-          .name(EnoaValue.with(mv.get("Name")).string())
-          .secure(EnoaValue.with(mv.get("Secure")).bool())
-          .official(EnoaValue.with(mv.get("Official")).bool())
+          .name(mv.string("Name"))
+          .secure(mv.bool("Secure"))
+          .official(mv.bool("Official"))
           .mirrors((String[]) mrs.toArray(new String[mrs.size()]))
           .build();
-        eix.put(EnoaValue.with(k).string(), ei);
+        eix.put(ConvertKit.string(k), ei);
       });
       builder.indexconfigs(eix);
     }
@@ -209,13 +209,13 @@ class EDockerInfoParser extends AbstractParser<EDockerInfo> {
     Object swarm = kv.get("Swarm");
     if (!(swarm instanceof Map))
       return null;
-    Map swm = (Map) swarm;
+    Kv swm = Kv.by((Map) swarm);
     ESwarm.Builder builder = new ESwarm.Builder();
-    builder.nodeid(EnoaValue.with(swm.get("NodeID")).string())
-      .nodeaddr(EnoaValue.with(swm.get("NodeAddr")).string())
-      .localnodestate(EnoaValue.with(swm.get("LocalNodeState")).string())
-      .controlavailable(EnoaValue.with(swm.get("ControlAvailable")).bool())
-      .error(EnoaValue.with(swm.get("Error")).string())
+    builder.nodeid(swm.string("NodeID"))
+      .nodeaddr(swm.string("NodeAddr"))
+      .localnodestate(swm.string("LocalNodeState"))
+      .controlavailable(swm.bool("ControlAvailable"))
+      .error(swm.string("Error"))
       .remotemanagers(swm.get("RemoteManagers"));
     return builder.build();
   }
@@ -224,10 +224,10 @@ class EDockerInfoParser extends AbstractParser<EDockerInfo> {
     Object ky = kv.get(key);
     if (!(ky instanceof Map))
       return null;
-    Map _c = (Map) ky;
+    Kv _c = Kv.by((Map) ky);
     ECommit.Builder builder = new ECommit.Builder();
-    builder.id(EnoaValue.with(_c.get("ID")).string())
-      .expected(EnoaValue.with(_c.get("Expected")).string());
+    builder.id(_c.string("ID"))
+      .expected(_c.string("Expected"));
     return builder.build();
   }
 

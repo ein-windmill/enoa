@@ -15,14 +15,14 @@
  */
 package io.enoa.docker.command.origin;
 
-import io.enoa.docker.dqp.container.DQPListContainer;
-import io.enoa.docker.dqp.container.DQPLogs;
+import io.enoa.docker.dqp.container.*;
+import io.enoa.toolkit.binary.EnoaBinary;
 
 public class EUNIXSOCKETDockerContainer implements EOriginDockerContainer {
 
-  private OriginDocker docker;
+  private EnoaUNIXSOCKETDocker docker;
 
-  EUNIXSOCKETDockerContainer(OriginDocker docker) {
+  EUNIXSOCKETDockerContainer(EnoaUNIXSOCKETDocker docker) {
     this.docker = docker;
   }
 
@@ -58,6 +58,81 @@ public class EUNIXSOCKETDockerContainer implements EOriginDockerContainer {
 
   @Override
   public String export(String id) {
+    return null;
+  }
+
+  @Override
+  public String statistics(String id, Boolean stream) {
+    return null;
+  }
+
+  @Override
+  public String resize(String id, DQPResize dqp) {
+    return null;
+  }
+
+  @Override
+  public String start(String id, DQPStart dqp) {
+    return null;
+  }
+
+  @Override
+  public String stop(String id, DQPTime dqp) {
+    return null;
+  }
+
+  @Override
+  public String restart(String id, DQPTime dqp) {
+    return null;
+  }
+
+  @Override
+  public String kill(String id, DQPKill dqp) {
+    return null;
+  }
+
+  @Override
+  public String update(String id, String body) {
+    return null;
+  }
+
+  @Override
+  public String rename(String id, String name) {
+    return null;
+  }
+
+  @Override
+  public String pause(String id) {
+    return null;
+  }
+
+  @Override
+  public String unpause(String id) {
+    return null;
+  }
+
+  @Override
+  public String attach(String id, DQPAttch dqp) {
+    return null;
+  }
+
+  @Override
+  public String wait(String id, String condition) {
+    return null;
+  }
+
+  @Override
+  public String remove(String id, DQPRemove dqp) {
+    return null;
+  }
+
+  @Override
+  public EnoaBinary archive(String id, String path) {
+    return null;
+  }
+
+  @Override
+  public String prune(DQPPrune dqp) {
     return null;
   }
 }

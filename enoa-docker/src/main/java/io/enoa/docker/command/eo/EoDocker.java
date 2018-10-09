@@ -33,4 +33,31 @@ public interface EoDocker {
 
   EnoaDockerContainer container();
 
+  EnoaDockerImage image();
+
+  EnoaDockerNetworks networks();
+
+  EnoaDockerVolumes volumes();
+
+  EnoaDockerExec exec();
+
+  EnoaDockerSwarm swarm();
+
+  EnoaDockerNodes nodes();
+
+  EnoaDockerServices services();
+
+  EnoaDockerTasks tasks();
+
+  EnoaDockerSecrets secrets();
+
+  EnoaDockerConfigs configs();
+
+  EnoaDockerPlugins plugins();
+
+  EnoaDockerSystem system();
+
+  EnoaDockerDistribution distribution();
+
+
 }

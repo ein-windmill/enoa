@@ -19,7 +19,6 @@ import io.enoa.docker.dret.container.*;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.date.DateKit;
 import io.enoa.toolkit.map.Kv;
-import io.enoa.toolkit.value.EnoaValue;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -38,22 +37,21 @@ class AEExtra {
     Object state = map.get("State");
     if (!(state instanceof Map))
       return null;
-    Map stm = (Map) state;
+    Kv stm = Kv.by((Map) state);
     ECState.Builder builder = new ECState.Builder()
-      .status(EnoaValue.with(stm.get("Status")).string())
-      .running(EnoaValue.with(stm.get("Running")).bool())
-      .paused(EnoaValue.with(stm.get("Paused")).bool())
-      .restarting(EnoaValue.with(stm.get("Restarting")).bool())
-      .oomkilled(EnoaValue.with(stm.get("OOMKilled")).bool())
-      .dead(EnoaValue.with(stm.get("Dead")).bool())
-      .pid(EnoaValue.with(stm.get("Pid")).integer())
-      .exitcode(EnoaValue.with(stm.get("ExitCode")).integer())
-      .error(EnoaValue.with(stm.get("Error")).string())
-      .startedat(DateKit.parse(EnoaValue.with(stm.get("StartedAt")).string(), "yyyy-MM-dd'T'HH:mm:ss.SSS"))
-      .finishedat(DateKit.parse(EnoaValue.with(stm.get("FinishedAt")).string(), "yyyy-MM-dd'T'HH:mm:ss"));
+      .status(stm.string("Status"))
+      .running(stm.bool("Running"))
+      .paused(stm.bool("Paused"))
+      .restarting(stm.bool("Restarting"))
+      .oomkilled(stm.bool("OOMKilled"))
+      .dead(stm.bool("Dead"))
+      .pid(stm.integer("Pid"))
+      .exitcode(stm.integer("ExitCode"))
+      .error(stm.string("Error"))
+      .startedat(DateKit.parse(stm.string("StartedAt"), "yyyy-MM-dd'T'HH:mm:ss.SSS"))
+      .finishedat(DateKit.parse(stm.string("FinishedAt"), "yyyy-MM-dd'T'HH:mm:ss"));
     return builder.build();
   }
-
 
   static EHostConfig hostconfig(Map map) {
     return hostconfig(map, "HostConfig");
@@ -63,53 +61,53 @@ class AEExtra {
     Object hostconfig = map.get(key);
     if (!(hostconfig instanceof Map))
       return null;
-    Map hgm = (Map) hostconfig;
+    Kv hgm = Kv.by((Map) hostconfig);
     if (CollectionKit.isEmpty(hgm))
       return null;
     EHostConfig.Builder hcgb = new EHostConfig.Builder()
-      .maximumiops(EnoaValue.with(hgm.get("MaximumIOps")).integer())
-      .maximumiobps(EnoaValue.with(hgm.get("MaximumIOBps")).integer())
-      .blkioweight(EnoaValue.with(hgm.get("BlkioWeight")).integer())
-      .containeridfile(EnoaValue.with(hgm.get("ContainerIDFile")).string())
-      .cpusetcpus(EnoaValue.with(hgm.get("CpusetCpus")).string())
-      .cpusetmems(EnoaValue.with(hgm.get("CpusetMems")).string())
-      .cpupercent(EnoaValue.with(hgm.get("CpuPercent")).integer())
-      .cpushares(EnoaValue.with(hgm.get("CpuShares")).integer())
-      .cpuperiod(EnoaValue.with(hgm.get("CpuPeriod")).integer())
-      .cpurealtimeperiod(EnoaValue.with(hgm.get("CpuRealtimePeriod")).integer())
-      .cpurealtimeruntime(EnoaValue.with(hgm.get("CpuRealtimeRuntime")).integer())
+      .maximumiops(hgm.integer("MaximumIOps"))
+      .maximumiobps(hgm.integer("MaximumIOBps"))
+      .blkioweight(hgm.integer("BlkioWeight"))
+      .containeridfile(hgm.string("ContainerIDFile"))
+      .cpusetcpus(hgm.string("CpusetCpus"))
+      .cpusetmems(hgm.string("CpusetMems"))
+      .cpupercent(hgm.integer("CpuPercent"))
+      .cpushares(hgm.integer("CpuShares"))
+      .cpuperiod(hgm.integer("CpuPeriod"))
+      .cpurealtimeperiod(hgm.integer("CpuRealtimePeriod"))
+      .cpurealtimeruntime(hgm.integer("CpuRealtimeRuntime"))
       .devices(hgm.get("Devices"))
-      .ipcmode(EnoaValue.with(hgm.get("IpcMode")).string())
+      .ipcmode(hgm.string("IpcMode"))
       .lxcconf(hgm.get("LxcConf"))
-      .memory(EnoaValue.with(hgm.get("Memory")).integer())
-      .memoryswap(EnoaValue.with(hgm.get("MemorySwap")).integer())
-      .memoryreservation(EnoaValue.with(hgm.get("MemoryReservation")).integer())
-      .kernelmemory(EnoaValue.with(hgm.get("KernelMemory")).integer())
-      .oomkilldisable(EnoaValue.with(hgm.get("OomKillDisable")).bool())
-      .oomscoreadj(EnoaValue.with(hgm.get("OomScoreAdj")).integer())
-      .networkmode(EnoaValue.with(hgm.get("NetworkMode")).string())
-      .pidmode(EnoaValue.with(hgm.get("PidMode")).string())
+      .memory(hgm.integer("Memory"))
+      .memoryswap(hgm.integer("MemorySwap"))
+      .memoryreservation(hgm.integer("MemoryReservation"))
+      .kernelmemory(hgm.integer("KernelMemory"))
+      .oomkilldisable(hgm.bool("OomKillDisable"))
+      .oomscoreadj(hgm.integer("OomScoreAdj"))
+      .networkmode(hgm.string("NetworkMode"))
+      .pidmode(hgm.string("PidMode"))
       .portbindings(hgm.get("PortBindings"))
-      .privileged(EnoaValue.with(hgm.get("Privileged")).bool())
-      .readonlyrootfs(EnoaValue.with(hgm.get("ReadonlyRootfs")).bool())
-      .publishallports(EnoaValue.with(hgm.get("PublishAllPorts")).bool())
-      .volumedriver(EnoaValue.with(hgm.get("VolumeDriver")).string())
-      .shmsize(EnoaValue.with(hgm.get("ShmSize")).integer());
+      .privileged(hgm.bool("Privileged"))
+      .readonlyrootfs(hgm.bool("ReadonlyRootfs"))
+      .publishallports(hgm.bool("PublishAllPorts"))
+      .volumedriver(hgm.string("VolumeDriver"))
+      .shmsize(hgm.integer("ShmSize"));
 
     Object policy = hgm.get("RestartPolicy");
     if (policy instanceof Map) {
       ERestartPolicy.Builder erpb = new ERestartPolicy.Builder();
-      Map pym = (Map) policy;
-      erpb.maximumretrycount(EnoaValue.with(pym.get("MaximumRetryCount")).integer())
-        .name(EnoaValue.with(pym.get("Name")).string());
+      Kv pym = Kv.by((Map) policy);
+      erpb.maximumretrycount(pym.integer("MaximumRetryCount"))
+        .name(pym.string("Name"));
       hcgb.restartpolicy(erpb.build());
     }
 
     Object logconfig = hgm.get("LogConfig");
     if (logconfig instanceof Map) {
       ELogConfig.Builder lcb = new ELogConfig.Builder();
-      Map lcm = (Map) logconfig;
-      lcb.type(EnoaValue.with(lcm.get("Type")).string());
+      Kv lcm = Kv.by((Map) logconfig);
+      lcb.type(lcm.string("Type"));
       lcb.config(lcm.get("Config"));
       hcgb.logconfig(lcb.build());
     }
@@ -137,22 +135,21 @@ class AEExtra {
     Object gdr = map.get(key);
     if (!(gdr instanceof Map))
       return null;
-    Map graphdriver = (Map) gdr;
+    Kv graphdriver = Kv.by((Map) gdr);
     EGraphDriver.Builder builder = new EGraphDriver.Builder();
-    builder.name(EnoaValue.with(graphdriver.get("Name")).string());
+    builder.name(graphdriver.string("Name"));
     Object data = graphdriver.get("Data");
     if (data instanceof Map) {
-      Map mda = (Map) data;
+      Kv mda = Kv.by((Map) data);
       EGDData.Builder gdb = new EGDData.Builder();
-      gdb.lowerdir(EnoaValue.with(mda.get("LowerDir")).string())
-        .mergeddir(EnoaValue.with(mda.get("MergedDir")).string())
-        .upperdir(EnoaValue.with(mda.get("UpperDir")).string())
-        .workdir(EnoaValue.with(mda.get("WorkDir")).string());
+      gdb.lowerdir(mda.string("LowerDir"))
+        .mergeddir(mda.string("MergedDir"))
+        .upperdir(mda.string("UpperDir"))
+        .workdir(mda.string("WorkDir"));
       builder.data(gdb.build());
     }
     return builder.build();
   }
-
 
   static List<EMount> mounts(Map map) {
     return mounts(map, "Mounts");
@@ -167,21 +164,20 @@ class AEExtra {
     mts.forEach(mt -> {
       if (!(mt instanceof Map))
         return;
-      Map mtm = (Map) mt;
+      Kv mtm = Kv.by((Map) mt);
       EMount.Builder builder = new EMount.Builder()
-        .type(EnoaValue.with(mtm.get("Type")).string())
-        .name(EnoaValue.with(mtm.get("Name")).string())
-        .source(EnoaValue.with(mtm.get("Source")).string())
-        .destination(EnoaValue.with(mtm.get("Destination")).string())
-        .driver(EnoaValue.with(mtm.get("Driver")).string())
-        .mode(EnoaValue.with(mtm.get("Mode")).string())
-        .rw(EnoaValue.with(mtm.get("RW")).bool())
-        .propagation(EnoaValue.with(mtm.get("Propagation")).string());
+        .type(mtm.string("Type"))
+        .name(mtm.string("Name"))
+        .source(mtm.string("Source"))
+        .destination(mtm.string("Destination"))
+        .driver(mtm.string("Driver"))
+        .mode(mtm.string("Mode"))
+        .rw(mtm.bool("RW"))
+        .propagation(mtm.string("Propagation"));
       rets.add(builder.build());
     });
     return rets;
   }
-
 
   static ENetworkSetting networksetting(Map map) {
     return networksetting(map, "NetworkSettings");
@@ -192,21 +188,21 @@ class AEExtra {
     if (!(networksettings instanceof Map))
       return null;
     ENetworkSetting.Builder nsb = new ENetworkSetting.Builder();
-    Map mssm = (Map) networksettings;
-    nsb.bridge(EnoaValue.with(mssm.get("Bridge")).string())
-      .sandboxid(EnoaValue.with(mssm.get("SandboxID")).string())
-      .hairpinmode(EnoaValue.with(mssm.get("HairpinMode")).bool())
-      .linklocalipv6address(EnoaValue.with(mssm.get("LinkLocalIPv6Address")).string())
-      .linklocalipv6prefixlen(EnoaValue.with(mssm.get("LinkLocalIPv6PrefixLen")).integer())
-      .sandboxkey(EnoaValue.with(mssm.get("SandboxKey")).string())
-      .endpointid(EnoaValue.with(mssm.get("EndpointID")).string())
-      .gateway(EnoaValue.with(mssm.get("Gateway")).string())
-      .globalipv6address(EnoaValue.with(mssm.get("GlobalIPv6Address")).string())
-      .globalipv6prefixlen(EnoaValue.with(mssm.get("GlobalIPv6PrefixLen")).integer())
-      .ipaddress(EnoaValue.with(mssm.get("IPAddress")).string())
-      .ipprefixlen(EnoaValue.with(mssm.get("IPPrefixLen")).integer())
-      .ipv6gateway(EnoaValue.with(mssm.get("IPv6Gateway")).string())
-      .macaddress(EnoaValue.with(mssm.get("MacAddress")).string());
+    Kv mssm = Kv.by((Map) networksettings);
+    nsb.bridge(mssm.string("Bridge"))
+      .sandboxid(mssm.string("SandboxID"))
+      .hairpinmode(mssm.bool("HairpinMode"))
+      .linklocalipv6address(mssm.string("LinkLocalIPv6Address"))
+      .linklocalipv6prefixlen(mssm.integer("LinkLocalIPv6PrefixLen"))
+      .sandboxkey(mssm.string("SandboxKey"))
+      .endpointid(mssm.string("EndpointID"))
+      .gateway(mssm.string("Gateway"))
+      .globalipv6address(mssm.string("GlobalIPv6Address"))
+      .globalipv6prefixlen(mssm.integer("GlobalIPv6PrefixLen"))
+      .ipaddress(mssm.string("IPAddress"))
+      .ipprefixlen(mssm.integer("IPPrefixLen"))
+      .ipv6gateway(mssm.string("IPv6Gateway"))
+      .macaddress(mssm.string("MacAddress"));
 
     Object networks = mssm.get("Networks");
     if (networks instanceof Map) {
@@ -214,21 +210,21 @@ class AEExtra {
       Map nksm = (Map) networks;
       Object bridge = nksm.get("bridge");
       if (bridge instanceof Map) {
-        Map bgm = (Map) bridge;
+        Kv bgm = Kv.by((Map) bridge);
         EBridge.Builder ebb = new EBridge.Builder();
         // fixme IPAMConfig Links Aliases DriverOpts
         ebb.ipamconfig(bgm.get("IPAMConfig"))
           .links(bgm.get("Links"))
           .aliases(bgm.get("Aliases"))
-          .networkid(EnoaValue.with(bgm.get("NetworkID")).string())
-          .endpointid(EnoaValue.with(bgm.get("EndpointID")).string())
-          .gateway(EnoaValue.with(bgm.get("Gateway")).string())
-          .ipaddress(EnoaValue.with(bgm.get("IPAddress")).string())
-          .ipprefixlen(EnoaValue.with(bgm.get("IPPrefixLen")).integer())
-          .ipv6gateway(EnoaValue.with(bgm.get("IPv6Gateway")).string())
-          .globalipv6address(EnoaValue.with(bgm.get("GlobalIPv6Address")).string())
-          .globalipv6prefixlen(EnoaValue.with(bgm.get("GlobalIPv6PrefixLen")).integer())
-          .macaddress(EnoaValue.with(bgm.get("MacAddress")).string())
+          .networkid(bgm.string("NetworkID"))
+          .endpointid(bgm.string("EndpointID"))
+          .gateway(bgm.string("Gateway"))
+          .ipaddress(bgm.string("IPAddress"))
+          .ipprefixlen(bgm.integer("IPPrefixLen"))
+          .ipv6gateway(bgm.string("IPv6Gateway"))
+          .globalipv6address(bgm.string("GlobalIPv6Address"))
+          .globalipv6prefixlen(bgm.integer("GlobalIPv6PrefixLen"))
+          .macaddress(bgm.string("MacAddress"))
           .driveropts(bgm.get("DriverOpts"));
         nkb.bridge(ebb.build());
       }

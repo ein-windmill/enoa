@@ -21,7 +21,6 @@ import io.enoa.docker.dret.container.EInspect;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.date.DateKit;
 import io.enoa.toolkit.map.Kv;
-import io.enoa.toolkit.value.EnoaValue;
 
 import java.util.Map;
 
@@ -71,17 +70,17 @@ class EContainerInspectParser extends AbstractParser<EInspect> {
     Object config = kv.get("Config");
     if (!(config instanceof Map))
       return null;
-    Map cgm = (Map) config;
+    Kv cgm = Kv.by((Map) config);
     ECConfig.Builder builder = new ECConfig.Builder();
-    builder.hostname(EnoaValue.with(cgm.get("Hostname")).string())
-      .domainname(EnoaValue.with(cgm.get("Domainname")).string())
-      .user(EnoaValue.with(cgm.get("User")).string())
-      .attachstdin(EnoaValue.with(cgm.get("AttachStdin")).bool())
-      .attachstdout(EnoaValue.with(cgm.get("AttachStdout")).bool())
-      .attachstderr(EnoaValue.with(cgm.get("AttachStderr")).bool())
-      .tty(EnoaValue.with(cgm.get("Tty")).bool())
-      .openstdin(EnoaValue.with(cgm.get("OpenStdin")).bool())
-      .stdinonce(EnoaValue.with(cgm.get("StdinOnce")).bool())
+    builder.hostname(cgm.string("Hostname"))
+      .domainname(cgm.string("Domainname"))
+      .user(cgm.string("User"))
+      .attachstdin(cgm.bool("AttachStdin"))
+      .attachstdout(cgm.bool("AttachStdout"))
+      .attachstderr(cgm.bool("AttachStderr"))
+      .tty(cgm.bool("Tty"))
+      .openstdin(cgm.bool("OpenStdin"))
+      .stdinonce(cgm.bool("StdinOnce"))
       .image(kv.string("Image"))
       .workingdir(kv.string("WorkingDir"))
       .entrypoint(kv.get("Entrypoint"))

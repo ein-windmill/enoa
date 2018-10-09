@@ -16,6 +16,7 @@
 package io.enoa.docker.dqp;
 
 import io.enoa.http.protocol.HttpPara;
+import io.enoa.json.Json;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.value.EnoaValue;
@@ -29,6 +30,12 @@ public class DQR implements Serializable {
 
   private DQR() {
     this.kv = Kv.create();
+  }
+
+  private static final DQR EMPTY = new DQR();
+
+  public static DQR empty() {
+    return EMPTY;
   }
 
   public static DQR create() {
@@ -76,6 +83,8 @@ public class DQR implements Serializable {
   }
 
   public Set<HttpPara> httpparas() {
+    if (CollectionKit.isEmpty(this.kv))
+      return Collections.emptySet();
     Set<HttpPara> paras = new HashSet<>();
     this.kv.forEach((key, val) -> {
       if (val instanceof Collection) {
@@ -102,8 +111,12 @@ public class DQR implements Serializable {
     return text.deleteCharAt(text.length() - 1).toString();
   }
 
+  public String json() {
+    return Json.toJson(this.kv);
+  }
+
   @Override
   public String toString() {
-    return this.kv.toString();
+    return this.json();
   }
 }

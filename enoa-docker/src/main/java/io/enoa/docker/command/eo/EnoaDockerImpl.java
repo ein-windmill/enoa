@@ -44,5 +44,70 @@ public class EnoaDockerImpl implements EoDocker {
     return new EnoaDockerContainer(this.docker);
   }
 
+  @Override
+  public EnoaDockerImage image() {
+    return new EnoaDockerImage(this.docker);
+  }
+
+  @Override
+  public EnoaDockerNetworks networks() {
+    return new EnoaDockerNetworks(this.docker);
+  }
+
+  @Override
+  public EnoaDockerVolumes volumes() {
+    return new EnoaDockerVolumes(this.docker);
+  }
+
+  @Override
+  public EnoaDockerExec exec() {
+    return new EnoaDockerExec(this.docker);
+  }
+
+  @Override
+  public EnoaDockerSwarm swarm() {
+    return new EnoaDockerSwarm(this.docker);
+  }
+
+  @Override
+  public EnoaDockerNodes nodes() {
+    return new EnoaDockerNodes(this.docker);
+  }
+
+  @Override
+  public EnoaDockerServices services() {
+    return new EnoaDockerServices(this.docker);
+  }
+
+  @Override
+  public EnoaDockerTasks tasks() {
+    return new EnoaDockerTasks(this.docker);
+  }
+
+  @Override
+  public EnoaDockerSecrets secrets() {
+    return new EnoaDockerSecrets(this.docker);
+  }
+
+  @Override
+  public EnoaDockerConfigs configs() {
+    return new EnoaDockerConfigs(this.docker);
+  }
+
+  @Override
+  public EnoaDockerPlugins plugins() {
+    return new EnoaDockerPlugins(this.docker);
+  }
+
+  @Override
+  public EnoaDockerSystem system() {
+    return new EnoaDockerSystem(this.docker);
+  }
+
+  @Override
+  public EnoaDockerDistribution distribution() {
+    return new EnoaDockerDistribution(this.docker);
+  }
+
 
 }

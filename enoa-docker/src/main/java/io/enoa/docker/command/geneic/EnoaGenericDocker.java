@@ -46,5 +46,70 @@ public class EnoaGenericDocker implements GeneicDocker {
     return new EGeneicDockerContainer(this.docker);
   }
 
+  @Override
+  public EGeneicDockerImage image() {
+    return new EGeneicDockerImage(this.docker);
+  }
+
+  @Override
+  public EGeneicDockerNetworks networks() {
+    return new EGeneicDockerNetworks(this.docker);
+  }
+
+  @Override
+  public EGeneicDockerVolumes volumes() {
+    return new EGeneicDockerVolumes(this.docker);
+  }
+
+  @Override
+  public EGeneicDockerExec exec() {
+    return new EGeneicDockerExec(this.docker);
+  }
+
+  @Override
+  public EGeneicDockerSwarm swarm() {
+    return new EGeneicDockerSwarm(this.docker);
+  }
+
+  @Override
+  public EGeneicDockerNodes nodes() {
+    return new EGeneicDockerNodes(this.docker);
+  }
+
+  @Override
+  public EGeneicDockerServices services() {
+    return new EGeneicDockerServices(this.docker);
+  }
+
+  @Override
+  public EGeneicDockerTasks tasks() {
+    return new EGeneicDockerTasks(this.docker);
+  }
+
+  @Override
+  public EGeneicDockerSecrets secrets() {
+    return new EGeneicDockerSecrets(this.docker);
+  }
+
+  @Override
+  public EGeneicDockerConfigs configs() {
+    return new EGeneicDockerConfigs(this.docker);
+  }
+
+  @Override
+  public EGeneicDockerPlugins plugins() {
+    return new EGeneicDockerPlugins(this.docker);
+  }
+
+  @Override
+  public EGeneicDockerSystem system() {
+    return new EGeneicDockerSystem(this.docker);
+  }
+
+  @Override
+  public EGeneicDockerDistribution distribution() {
+    return new EGeneicDockerDistribution(this.docker);
+  }
+
 
 }

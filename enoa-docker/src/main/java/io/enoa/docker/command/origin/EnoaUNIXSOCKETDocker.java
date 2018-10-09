@@ -39,4 +39,69 @@ public class EnoaUNIXSOCKETDocker implements OriginDocker {
   public EOriginDockerContainer container() {
     return new EUNIXSOCKETDockerContainer(this);
   }
+
+  @Override
+  public EOriginDockerImage image() {
+    return new EUNIXSOCKETDockerImage(this);
+  }
+
+  @Override
+  public EOriginDockerNetworks networks() {
+    return new EUNIXSOCKETDockerNetworks(this);
+  }
+
+  @Override
+  public EOriginDockerVolumes volumes() {
+    return new EUNIXSOCKETDockerVolumes(this);
+  }
+
+  @Override
+  public EOriginDockerExec exec() {
+    return new EUNIXSOCKETDockerExec(this);
+  }
+
+  @Override
+  public EOriginSwarm swarm() {
+    return new EUNIXSOCKETDockerSwarm(this);
+  }
+
+  @Override
+  public EOriginNodes nodes() {
+    return new EUNIXSOCKETDockerNodes(this);
+  }
+
+  @Override
+  public EOriginServices services() {
+    return new EUNIXSOCKETDockerServices(this);
+  }
+
+  @Override
+  public EOriginTasks tasks() {
+    return new EUNIXSOCKETDockerTasks(this);
+  }
+
+  @Override
+  public EOriginSecrets secrets() {
+    return new EUNIXSOCKETDockerSecrets(this);
+  }
+
+  @Override
+  public EOriginConfigs configs() {
+    return new EUNIXSOCKETDockerConfigs(this);
+  }
+
+  @Override
+  public EOriginPlugins plugins() {
+    return new EUNIXSOCKETDockerPlugins(this);
+  }
+
+  @Override
+  public EOriginSystem system() {
+    return new EUNIXSOCKETDockerSystem(this);
+  }
+
+  @Override
+  public EOriginDistribution distribution() {
+    return new EUNIXSOCKETDockerDistribution(this);
+  }
 }

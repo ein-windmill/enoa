@@ -15,12 +15,14 @@
  */
 package io.enoa.docker.command.eo;
 
+import io.enoa.docker.command.geneic.EGeneicDockerContainer;
 import io.enoa.docker.command.geneic.GeneicDocker;
-import io.enoa.docker.dqp.container.DQPListContainer;
-import io.enoa.docker.dqp.container.DQPLogs;
+import io.enoa.docker.dqp.container.*;
 import io.enoa.docker.dret.DRet;
 import io.enoa.docker.dret.container.*;
 import io.enoa.docker.parser.DIParser;
+import io.enoa.docker.thr.DockerException;
+import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.value.Void;
 
 import java.util.List;
@@ -28,9 +30,11 @@ import java.util.List;
 public class EnoaDockerContainer {
 
   private GeneicDocker docker;
+  private EGeneicDockerContainer container;
 
   EnoaDockerContainer(GeneicDocker docker) {
     this.docker = docker;
+    this.container = this.docker.container();
   }
 
   public DRet<List<EContainer>> list() {
@@ -38,11 +42,11 @@ public class EnoaDockerContainer {
   }
 
   public DRet<List<EContainer>> list(DQPListContainer dqp) {
-    return this.docker.container().list(DIParser.listcontainer(), dqp);
+    return this.container.list(DIParser.listcontainer(), dqp);
   }
 
   public DRet<EContainerCreated> create(String name, String body) {
-    return this.docker.container().create(DIParser.created(), name, body);
+    return this.container.create(DIParser.created(), name, body);
   }
 
   public DRet<EInspect> inspect(String id) {
@@ -50,7 +54,7 @@ public class EnoaDockerContainer {
   }
 
   public DRet<EInspect> inspect(String id, Boolean size) {
-    return this.docker.container().inspect(DIParser.inspect(), id, size);
+    return this.container.inspect(DIParser.inspect(), id, size);
   }
 
   public DRet<EProcesses> top(String id) {
@@ -58,7 +62,7 @@ public class EnoaDockerContainer {
   }
 
   public DRet<EProcesses> top(String id, String para) {
-    return this.docker.container().top(DIParser.top(), id, para);
+    return this.container.top(DIParser.top(), id, para);
   }
 
   public DRet<String> logs(String id) {
@@ -66,15 +70,124 @@ public class EnoaDockerContainer {
   }
 
   public DRet<String> logs(String id, DQPLogs dqp) {
-    return this.docker.container().logs(DIParser.logs(), id, dqp);
+    return this.container.logs(DIParser.logs(), id, dqp);
   }
 
   public DRet<List<EChange>> changes(String id) {
-    return this.docker.container().changes(DIParser.changes(), id);
+    return this.container.changes(DIParser.changes(), id);
   }
 
   public DRet<Void> export(String id) {
-    return this.docker.container().export(id);
+    return this.container.export(id);
+  }
+
+  public DRet<EStatistics> statistics(String id) {
+    return this.statistics(id, Boolean.FALSE);
+  }
+
+  public DRet<EStatistics> statistics(String id, Boolean stream) {
+    return this.container.statistics(DIParser.statistics(), id, stream);
+  }
+
+  public DRet<Void> resize(String id) {
+    return this.resize(id, null);
+  }
+
+  public DRet<Void> resize(String id, DQPResize dqp) {
+    return this.container.resize(id, dqp);
+  }
+
+  public DRet<Void> start(String id) {
+    return this.container.start(id);
+  }
+
+  public DRet<Void> start(String id, DQPStart dqp) {
+    return this.container.start(id, dqp);
+  }
+
+  public DRet<Void> stop(String id) {
+    return this.container.stop(id);
+  }
+
+  public DRet<Void> stop(String id, DQPTime dqp) {
+    return this.container.stop(id, dqp);
+  }
+
+  public DRet<Void> restart(String id) {
+    return this.container.restart(id);
+  }
+
+  public DRet<Void> restart(String id, DQPTime dqp) {
+    return this.container.restart(id, dqp);
+  }
+
+  public DRet<Void> kill(String id) {
+    return this.container.kill(id);
+  }
+
+  public DRet<Void> kill(String id, DQPKill dqp) {
+    return this.container.kill(id, dqp);
+  }
+
+  public DRet<EUpdate> update(String id, DQPUpdate dqp) {
+    return this.container.update(DIParser.update(), id, dqp);
+  }
+
+  public DRet<EUpdate> update(String id, String body) {
+    return this.container.update(DIParser.update(), id, body);
+  }
+
+  public DRet<Void> rename(String id, String name) {
+    return this.container.rename(id, name);
+  }
+
+  public DRet<Void> pause(String id) {
+    return this.container.pause(id);
+  }
+
+  public DRet<Void> unpause(String id) {
+    return this.container.unpause(id);
+  }
+
+  public DRet<Void> attach(String id) {
+    return this.container.attach(id);
+  }
+
+  public DRet<Void> attach(String id, DQPAttch dqp) {
+    return this.container.attach(id, dqp);
+  }
+
+  @Deprecated
+  public Void ws(String id) {
+    throw new DockerException(EnoaTipKit.message("eo.tip.docker.notsupport"));
+  }
+
+  public DRet<ECWait> wait(String id) {
+    return this.container.wait(DIParser.waitx(), id);
+  }
+
+  public DRet<ECWait> wait(String id, String condition) {
+    return this.container.wait(DIParser.waitx(), id, condition);
+  }
+
+  public DRet<Void> remove(String id) {
+    return this.container.remove(id);
+  }
+
+  public DRet<Void> remove(String id, DQPRemove dqp) {
+    return this.container.remove(id, dqp);
+  }
+
+//  public DRet<Void> archive(String id, String path) {
+//    return this.container.archive(id, path);
+//  }
+
+  public DRet<EPrune> prune() {
+    return this.prune(null);
+  }
+
+  public DRet<EPrune> prune(DQPPrune dqp) {
+    return this.container.prune(DIParser.prune(), dqp);
   }
 
 }

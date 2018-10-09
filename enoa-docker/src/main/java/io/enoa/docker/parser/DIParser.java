@@ -58,6 +58,22 @@ public interface DIParser<T> {
     return EChangesParser.instance();
   }
 
+  static DIParser<EStatistics> statistics() {
+    return EStatisticsParser.instance();
+  }
+
+  static DIParser<EUpdate> update() {
+    return EUpdateParser.instance();
+  }
+
+  static DIParser<ECWait> waitx() {
+    return EWaitParser.instance();
+  }
+
+  static DIParser<EPrune> prune() {
+    return EPruneParser.instance();
+  }
+
   DRet<T> parse(DockerConfig config, String origin);
 
 }

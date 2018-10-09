@@ -16,21 +16,21 @@
 package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
-import io.enoa.docker.dret.DRet;
 import io.enoa.toolkit.value.Void;
 
-class EVoidParser implements DIParser<Void> {
+class EVoidParser extends AbstractParser<Void> {
 
   private static class Holder {
     private static final EVoidParser INSTANCE = new EVoidParser();
   }
 
-  public static EVoidParser instance() {
+  static EVoidParser instance() {
     return Holder.INSTANCE;
   }
 
   @Override
-  public DRet<Void> parse(DockerConfig config, String origin) {
-    return DRet.ok(origin, Void.create());
+  public Void ok(DockerConfig config, String origin) {
+    return Void.create();
   }
+
 }

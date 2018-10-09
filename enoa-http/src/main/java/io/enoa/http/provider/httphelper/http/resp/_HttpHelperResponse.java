@@ -66,9 +66,17 @@ public class _HttpHelperResponse implements HttpResponse {
 
       byte[] buff = new byte[1024];
       int rc = 0;
+      if (inputStream == null) {
+        this.body = HttpResponseBody.empty();
+        return;
+      }
+      
       while ((rc = inputStream.read(buff, 0, 100)) > 0) {
         swapStream.write(buff, 0, rc);
       }
+      byte[] bytes = swapStream.toByteArray();
+      this.body = HttpResponseBody.create(bytes, this.charset);
+
     } catch (IOException e) {
       throw new RuntimeException(e.getMessage(), e);
     } finally {
@@ -80,8 +88,6 @@ public class _HttpHelperResponse implements HttpResponse {
         }
     }
 
-    byte[] bytes = swapStream.toByteArray();
-    this.body = HttpResponseBody.create(bytes, this.charset);
   }
 
 //  private void swapHeader() {

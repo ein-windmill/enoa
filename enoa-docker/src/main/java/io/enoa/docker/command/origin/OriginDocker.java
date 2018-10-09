@@ -25,4 +25,30 @@ public interface OriginDocker {
 
   EOriginDockerContainer container();
 
+  EOriginDockerImage image();
+
+  EOriginDockerNetworks networks();
+
+  EOriginDockerVolumes volumes();
+
+  EOriginDockerExec exec();
+
+  EOriginSwarm swarm();
+
+  EOriginNodes nodes();
+
+  EOriginServices services();
+
+  EOriginTasks tasks();
+
+  EOriginSecrets secrets();
+
+  EOriginConfigs configs();
+
+  EOriginPlugins plugins();
+
+  EOriginSystem system();
+
+  EOriginDistribution distribution();
+
 }

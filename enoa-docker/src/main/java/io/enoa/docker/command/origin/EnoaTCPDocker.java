@@ -69,4 +69,69 @@ public class EnoaTCPDocker implements OriginDocker {
   public EOriginDockerContainer container() {
     return new ETCPDockerContainer(this);
   }
+
+  @Override
+  public EOriginDockerImage image() {
+    return new ETCPDockerImage(this);
+  }
+
+  @Override
+  public EOriginDockerNetworks networks() {
+    return new ETCPDockerNetworks(this);
+  }
+
+  @Override
+  public EOriginDockerVolumes volumes() {
+    return new ETCPDockerVolumes(this);
+  }
+
+  @Override
+  public EOriginDockerExec exec() {
+    return new ETCPDockerExec(this);
+  }
+
+  @Override
+  public EOriginSwarm swarm() {
+    return new ETCPSwarm(this);
+  }
+
+  @Override
+  public EOriginNodes nodes() {
+    return new ETCPDockerNodes(this);
+  }
+
+  @Override
+  public EOriginServices services() {
+    return new ETCDockerServices(this);
+  }
+
+  @Override
+  public EOriginTasks tasks() {
+    return new ETCPDockerTasks(this);
+  }
+
+  @Override
+  public EOriginSecrets secrets() {
+    return new ETCPDockerSecrets(this);
+  }
+
+  @Override
+  public EOriginConfigs configs() {
+    return new ETCPDockerConfigs(this);
+  }
+
+  @Override
+  public EOriginPlugins plugins() {
+    return new ETCPDockerPlugins(this);
+  }
+
+  @Override
+  public EOriginSystem system() {
+    return new ETCPDockerSystem(this);
+  }
+
+  @Override
+  public EOriginDistribution distribution() {
+    return new ETCPDockerDistribution(this);
+  }
 }
