@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.7-beta]
+
+### Added
+
+### Changed
+
+- Update Nv
+
+### Removed
+
+
+## [Released]
+
 ## [1.5-beta] - 
 
 ### Added
@@ -28,8 +41,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Remove yosart-ext-beaction
 - Remove yosart-ext-anost
 - Remove EMgr* manager class
-
-## [Released]
 
 ## [1.4-beta] - 05/18/2018
 
