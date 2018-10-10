@@ -17,8 +17,10 @@ package io.enoa.http.provider.httphelper.conn;
 
 import io.enoa.http.protocol.HttpHeader;
 import io.enoa.http.protocol.HttpResponse;
+import io.enoa.http.protocol.chunk.Chunk;
 import io.enoa.http.provider.httphelper.conn.ssl._HttpHelperSSL;
 import io.enoa.http.provider.httphelper.http.req._HttpHelperRequest;
+import io.enoa.http.provider.httphelper.http.resp._HttpHelperChunkedResponse;
 import io.enoa.http.provider.httphelper.http.resp._HttpHelperResponse;
 import io.enoa.http.proxy.HttpProxy;
 
@@ -41,7 +43,6 @@ public class _HttpHelperConn {
   public _HttpHelperConn(_HttpHelperRequest request) {
     this.request = request;
   }
-
 
   private HttpURLConnection connection() throws IOException {
     /*
@@ -104,12 +105,10 @@ public class _HttpHelperConn {
     return conn;
   }
 
-  public HttpResponse execute() {
-    HttpURLConnection conn = null;
+  private InputStream inputstream(HttpURLConnection conn) {
     OutputStream os = null;
     InputStream inputStream = null;
     try {
-      conn = this.connection();
       conn.connect();
 
       if (this.request.body() != null) {
@@ -119,10 +118,11 @@ public class _HttpHelperConn {
         os.close();
       }
 
-      Integer responseCode = conn.getResponseCode();
+      int responseCode = conn.getResponseCode();
       inputStream = responseCode >= 400 ? conn.getErrorStream() : conn.getInputStream();
 
-      return new _HttpHelperResponse(conn, inputStream, this.request.charset());
+
+      return inputStream;
     } catch (Exception e) {
       if (e instanceof RuntimeException)
         throw (RuntimeException) e;
@@ -143,14 +143,39 @@ public class _HttpHelperConn {
         } catch (IOException e) {
           // skip
         }
-      if (inputStream != null)
-        try {
-          inputStream.close();
-        } catch (IOException e) {
-          // skip
-        }
-//      if (conn != null)
-//        conn.disconnect();
+
+    }
+  }
+
+  public HttpResponse execute() {
+    HttpURLConnection conn;
+    try {
+      conn = this.connection();
+    } catch (IOException e) {
+      throw new RuntimeException(e.getMessage(), e);
+    }
+    try (InputStream inputstream = this.inputstream(conn)) {
+      return new _HttpHelperResponse(conn, inputstream, this.request.charset());
+    } catch (IOException e) {
+      throw new RuntimeException(e.getMessage(), e);
+    } finally {
+//      conn.disconnect();
+    }
+  }
+
+  public HttpResponse chunked(Chunk chunk) {
+    HttpURLConnection conn;
+    try {
+      conn = this.connection();
+    } catch (IOException e) {
+      throw new RuntimeException(e.getMessage(), e);
+    }
+    try (InputStream inputstream = this.inputstream(conn)) {
+      return new _HttpHelperChunkedResponse(conn, inputstream, this.request.charset(), chunk);
+    } catch (IOException e) {
+      throw new RuntimeException(e.getMessage(), e);
+    } finally {
+//      conn.disconnect();
     }
   }
 

@@ -13,17 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.http;
+package io.enoa.http.protocol.chunk;
 
-import io.enoa.http.protocol.HttpPromise;
-import io.enoa.http.protocol.chunk.Chunk;
+@FunctionalInterface
+public interface IChunkRunner {
 
-public interface EoExecutor {
-
-  default HttpPromise enqueue(EoUrl url, EoEmit emit) {
-    return this.enqueue(url, emit, null);
-  }
-
-  HttpPromise enqueue(EoUrl url, EoEmit emit, Chunk chunk);
+  void run(byte[] bytes);
 
 }
