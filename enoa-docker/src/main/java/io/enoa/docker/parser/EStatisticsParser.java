@@ -107,11 +107,11 @@ class EStatisticsParser extends AbstractParser<EStatistics> {
       .maxusage(msk.integer("max_usage"))
       .usage(msk.integer("usage"))
       .failcnt(msk.integer("failcnt"))
-      .limit(msk.integer("limit"));
+      .limit(msk.doubler("limit"));
 
     Object xsta = msk.get("stats");
     if (xsta instanceof Map) {
-      Kv stats = (Kv) xsta;
+      Kv stats = Kv.by((Map) xsta);
       EMStats.Builder msb = new EMStats.Builder()
         .totalpgmajfault(stats.integer("total_pgmajfault"))
         .cache(stats.integer("cache"))
@@ -130,7 +130,7 @@ class EStatisticsParser extends AbstractParser<EStatistics> {
         .totalwriteback(stats.integer("total_writeback"))
         .totalinactiveanon(stats.integer("total_inactive_anon"))
         .rsshuge(stats.integer("rss_huge"))
-        .hierarchicalmemorylimit(stats.integer("hierarchical_memory_limit"))
+        .hierarchicalmemorylimit(stats.doubler("hierarchical_memory_limit"))
         .totalpgfault(stats.integer("total_pgfault"))
         .totalactivefile(stats.integer("total_active_file"))
         .activeanon(stats.integer("active_anon"))

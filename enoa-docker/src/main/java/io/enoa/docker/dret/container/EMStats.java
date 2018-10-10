@@ -37,7 +37,7 @@ public class EMStats extends AbstractDRet {
   private final Integer totalwriteback;
   private final Integer totalinactiveanon;
   private final Integer rsshuge;
-  private final Integer hierarchicalmemorylimit;
+  private final Double hierarchicalmemorylimit;
   private final Integer totalpgfault;
   private final Integer totalactivefile;
   private final Integer activeanon;
@@ -152,7 +152,7 @@ public class EMStats extends AbstractDRet {
     return rsshuge;
   }
 
-  public Integer hierarchicalmemorylimit() {
+  public Double hierarchicalmemorylimit() {
     return hierarchicalmemorylimit;
   }
 
@@ -219,7 +219,7 @@ public class EMStats extends AbstractDRet {
     private Integer totalwriteback;
     private Integer totalinactiveanon;
     private Integer rsshuge;
-    private Integer hierarchicalmemorylimit;
+    private Double hierarchicalmemorylimit;
     private Integer totalpgfault;
     private Integer totalactivefile;
     private Integer activeanon;
@@ -321,7 +321,7 @@ public class EMStats extends AbstractDRet {
       return this;
     }
 
-    public Builder hierarchicalmemorylimit(Integer hierarchicalmemorylimit) {
+    public Builder hierarchicalmemorylimit(Double hierarchicalmemorylimit) {
       this.hierarchicalmemorylimit = hierarchicalmemorylimit;
       return this;
     }

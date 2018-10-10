@@ -19,11 +19,11 @@ import io.enoa.docker.dret.AbstractDRet;
 
 public class EMemoryStats extends AbstractDRet {
 
-  private Integer maxusage;
-  private Integer usage;
-  private Integer failcnt;
-  private Integer limit;
-  private EMStats stats;
+  private final Integer maxusage;
+  private final Integer usage;
+  private final Integer failcnt;
+  private final Double limit;
+  private final EMStats stats;
 
   public EMemoryStats(Builder builder) {
     this.maxusage = builder.maxusage;
@@ -45,7 +45,7 @@ public class EMemoryStats extends AbstractDRet {
     return failcnt;
   }
 
-  public Integer limit() {
+  public Double limit() {
     return limit;
   }
 
@@ -58,7 +58,7 @@ public class EMemoryStats extends AbstractDRet {
     private Integer maxusage;
     private Integer usage;
     private Integer failcnt;
-    private Integer limit;
+    private Double limit;
     private EMStats stats;
 
     public EMemoryStats build() {
@@ -80,7 +80,7 @@ public class EMemoryStats extends AbstractDRet {
       return this;
     }
 
-    public Builder limit(Integer limit) {
+    public Builder limit(Double limit) {
       this.limit = limit;
       return this;
     }
