@@ -20,7 +20,7 @@ import io.enoa.docker.dret.AbstractDRet;
 import java.util.Date;
 import java.util.List;
 
-public class EInspect extends AbstractDRet {
+public class ECInspect extends AbstractDRet {
 
   private final String id;
   private final Date created;
@@ -48,7 +48,7 @@ public class EInspect extends AbstractDRet {
   private final List<EMount> mounts;
   private final ENetworkSetting networksetting;
 
-  public EInspect(Builder builder) {
+  public ECInspect(Builder builder) {
     this.id = builder.id;
     this.created = builder.created;
     this.path = builder.path;
@@ -204,8 +204,8 @@ public class EInspect extends AbstractDRet {
     private List<EMount> mounts;
     private ENetworkSetting networksetting;
 
-    public EInspect build() {
-      return new EInspect(this);
+    public ECInspect build() {
+      return new ECInspect(this);
     }
 
     public Builder sizerw(Integer sizerw) {

@@ -19,7 +19,7 @@ import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dret.DRet;
 import io.enoa.docker.dret.container.*;
 import io.enoa.docker.dret.dockerinfo.EDockerInfo;
-import io.enoa.docker.dret.image.EImage;
+import io.enoa.docker.dret.image.*;
 import io.enoa.toolkit.value.Void;
 
 import java.util.List;
@@ -43,7 +43,7 @@ public interface DIParser<T> {
     return EContainerCreatedParser.instance();
   }
 
-  static DIParser<EInspect> inspect() {
+  static DIParser<ECInspect> containerinspect() {
     return EContainerInspectParser.instance();
   }
 
@@ -71,12 +71,36 @@ public interface DIParser<T> {
     return EWaitParser.instance();
   }
 
-  static DIParser<EPrune> prune() {
-    return EPruneParser.instance();
+  static DIParser<ECPrune> containerprune() {
+    return ECPruneParser.instance();
   }
 
   static DIParser<List<EImage>> image() {
     return EImageParser.instance();
+  }
+
+  static DIParser<EIPrune> buildprune() {
+    return EIPruneParser.instance();
+  }
+
+  static DIParser<EIInspect> imageinspect() {
+    return EImageInspectParser.instance();
+  }
+
+  static DIParser<List<EHistory>> imagehistory() {
+    return EImageHistoryParser.instance();
+  }
+
+  static DIParser<List<EIRemove>> imageremove() {
+    return EImageRemoveParser.instance();
+  }
+
+  static DIParser<List<EISearch>> imagesearch() {
+    return EImageSearchParser.instance();
+  }
+
+  static DIParser<EImagePrune> imageprune() {
+    return EImagePruneParser.instance();
   }
 
   DRet<T> parse(DockerConfig config, String origin);

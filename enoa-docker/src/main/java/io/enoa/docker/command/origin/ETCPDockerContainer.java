@@ -236,7 +236,7 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
   }
 
   @Override
-  public String prune(DQPPrune dqp) {
+  public String prune(DQPPruneContainer dqp) {
     Http http = this.docker.http("containers/prune")
       .method(HttpMethod.POST);
     if (dqp != null)

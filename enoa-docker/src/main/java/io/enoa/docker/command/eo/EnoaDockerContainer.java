@@ -50,12 +50,12 @@ public class EnoaDockerContainer {
     return this.container.create(DIParser.created(), name, body);
   }
 
-  public DRet<EInspect> inspect(String id) {
+  public DRet<ECInspect> inspect(String id) {
     return this.inspect(id, Boolean.FALSE);
   }
 
-  public DRet<EInspect> inspect(String id, Boolean size) {
-    return this.container.inspect(DIParser.inspect(), id, size);
+  public DRet<ECInspect> inspect(String id, Boolean size) {
+    return this.container.inspect(DIParser.containerinspect(), id, size);
   }
 
   public DRet<EProcesses> top(String id) {
@@ -183,12 +183,12 @@ public class EnoaDockerContainer {
 //    return this.container.archive(id, path);
 //  }
 
-  public DRet<EPrune> prune() {
+  public DRet<ECPrune> prune() {
     return this.prune(null);
   }
 
-  public DRet<EPrune> prune(DQPPrune dqp) {
-    return this.container.prune(DIParser.prune(), dqp);
+  public DRet<ECPrune> prune(DQPPruneContainer dqp) {
+    return this.container.prune(DIParser.containerprune(), dqp);
   }
 
 }

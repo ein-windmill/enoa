@@ -16,25 +16,26 @@
 package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
-import io.enoa.docker.dret.container.EPrune;
+import io.enoa.docker.dret.image.EIPrune;
+import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.map.Kv;
 
-class EPruneParser extends AbstractParser<EPrune> {
+class EIPruneParser extends AbstractParser<EIPrune> {
 
   private static class Holder {
-    private static final EPruneParser INSTANCE = new EPruneParser();
+    private static final EIPruneParser INSTANCE = new EIPruneParser();
   }
 
-  static EPruneParser instance() {
+  static EIPruneParser instance() {
     return Holder.INSTANCE;
   }
 
   @Override
-  public EPrune ok(DockerConfig config, String origin) {
+  public EIPrune ok(DockerConfig config, String origin) {
     Kv kv = config.json().parse(origin, Kv.class);
-    EPrune.Builder builder = new EPrune.Builder()
-      .containersdeleted(AEExtra.stringarray(kv, "ContainersDeleted"))
+    EIPrune.Builder builder = new EIPrune.Builder()
       .spacereclaimed(kv.integer("SpaceReclaimed"));
+    CollectionKit.clear(kv);
     return builder.build();
   }
 }

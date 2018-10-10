@@ -219,7 +219,7 @@ public class EGeneicDockerContainer {
     return this.prune(parser, null);
   }
 
-  public <T> DRet<T> prune(DIParser<T> parser, DQPPrune dqp) {
+  public <T> DRet<T> prune(DIParser<T> parser, DQPPruneContainer dqp) {
     String origin = this.container.prune(dqp);
     return parser.parse(this.config, origin);
   }

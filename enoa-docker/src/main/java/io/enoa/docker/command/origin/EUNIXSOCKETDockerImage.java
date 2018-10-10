@@ -15,8 +15,7 @@
  */
 package io.enoa.docker.command.origin;
 
-import io.enoa.docker.dqp.image.DQPBuild;
-import io.enoa.docker.dqp.image.DQPListImage;
+import io.enoa.docker.dqp.image.*;
 import io.enoa.docker.stream.DStream;
 
 public class EUNIXSOCKETDockerImage implements EOriginDockerImage {
@@ -34,6 +33,56 @@ public class EUNIXSOCKETDockerImage implements EOriginDockerImage {
 
   @Override
   public String build(DQPBuild dqp, String dockerfile, DStream<String> dstream) {
+    return null;
+  }
+
+  @Override
+  public String prunebuild() {
+    return null;
+  }
+
+  @Override
+  public String create(DQPImageCreate dqp, String body) {
+    return null;
+  }
+
+  @Override
+  public String inspect(String id) {
+    return null;
+  }
+
+  @Override
+  public String history(String id) {
+    return null;
+  }
+
+  @Override
+  public String push(String id, DQPPush dqp, DStream<String> dstream) {
+    return null;
+  }
+
+  @Override
+  public String tag(String id, DQPTag dqp) {
+    return null;
+  }
+
+  @Override
+  public String remove(String id, DQPRmi dqp) {
+    return null;
+  }
+
+  @Override
+  public String search(DQPSearch dqp) {
+    return null;
+  }
+
+  @Override
+  public String pruneimage(DQPPruneImage dqp) {
+    return null;
+  }
+
+  @Override
+  public String commit(String body, DQPCommit dqp) {
     return null;
   }
 }

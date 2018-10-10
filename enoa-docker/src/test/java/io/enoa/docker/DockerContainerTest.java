@@ -44,7 +44,7 @@ public class DockerContainerTest extends AbstractDockerTest {
 
   @Test
   public void testInspect() {
-    DRet<EInspect> ret = Docker.container().inspect("gitbook");
+    DRet<ECInspect> ret = Docker.container().inspect("gitbook");
     Assert.assertTrue(ret.ok());
     String json = Json.toJson(ret.data());
     System.out.println(json);
@@ -184,7 +184,7 @@ public class DockerContainerTest extends AbstractDockerTest {
 
   @Test
   public void testPrune() {
-    DRet<EPrune> ret = Docker.container().prune();
+    DRet<ECPrune> ret = Docker.container().prune();
     Assert.assertTrue(ret.ok());
     String json = Json.toJson(ret.data());
     System.out.println(json);

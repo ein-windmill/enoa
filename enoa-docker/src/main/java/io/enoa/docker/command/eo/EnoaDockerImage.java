@@ -17,13 +17,13 @@ package io.enoa.docker.command.eo;
 
 import io.enoa.docker.command.geneic.EGeneicDockerImage;
 import io.enoa.docker.command.geneic.GeneicDocker;
-import io.enoa.docker.dqp.image.DQPBuild;
-import io.enoa.docker.dqp.image.DQPListImage;
+import io.enoa.docker.dqp.image.*;
 import io.enoa.docker.dret.DRet;
-import io.enoa.docker.dret.image.EImage;
+import io.enoa.docker.dret.image.*;
 import io.enoa.docker.parser.DIParser;
 import io.enoa.docker.stream.DStream;
 import io.enoa.toolkit.map.Kv;
+import io.enoa.toolkit.value.Void;
 
 import java.util.List;
 
@@ -54,4 +54,59 @@ public class EnoaDockerImage {
     return this.image.build(dqp, dockerfile, dstream);
   }
 
+  public DRet<EIPrune> prunebuild() {
+    return this.image.prunebuild(DIParser.buildprune());
+  }
+
+  public DRet<Void> create(DQPImageCreate dqp, String body) {
+    return this.image.create(dqp, body);
+  }
+
+  public DRet<EIInspect> inspect(String id) {
+    return this.image.inspect(DIParser.imageinspect(), id);
+  }
+
+  public DRet<List<EHistory>> history(String id) {
+    return this.image.history(DIParser.imagehistory(), id);
+  }
+
+  public DRet<Void> push(String id) {
+    return this.image.push(id);
+  }
+
+  public DRet<Void> push(String id, DQPPush dqp) {
+    return this.image.push(id, dqp);
+  }
+
+  public DRet<Void> push(String id, DStream<Kv> dstream) {
+    return this.image.push(id, dstream);
+  }
+
+  public DRet<Void> push(String id, DQPPush dqp, DStream<Kv> dstream) {
+    return this.image.push(id, dqp, dstream);
+  }
+
+  public DRet<Void> tag(String id, DQPTag dqp) {
+    return this.image.tag(id, dqp);
+  }
+
+  public DRet<List<EIRemove>> remove(String id) {
+    return this.remove(id, null);
+  }
+
+  public DRet<List<EIRemove>> remove(String id, DQPRmi dqp) {
+    return this.image.remove(DIParser.imageremove(), id, dqp);
+  }
+
+  public DRet<List<EISearch>> search(DQPSearch dqp) {
+    return this.image.search(DIParser.imagesearch(), dqp);
+  }
+
+  public DRet<EImagePrune> pruneimage() {
+    return this.pruneimage(null);
+  }
+
+  public DRet<EImagePrune> pruneimage(DQPPruneImage dqp) {
+    return this.image.pruneimage(DIParser.imageprune(), dqp);
+  }
 }

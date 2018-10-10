@@ -17,14 +17,14 @@ package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dret.container.ECConfig;
-import io.enoa.docker.dret.container.EInspect;
+import io.enoa.docker.dret.container.ECInspect;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.date.DateKit;
 import io.enoa.toolkit.map.Kv;
 
 import java.util.Map;
 
-class EContainerInspectParser extends AbstractParser<EInspect> {
+class EContainerInspectParser extends AbstractParser<ECInspect> {
 
   private static class Holder {
     private static final EContainerInspectParser INSTANCE = new EContainerInspectParser();
@@ -35,9 +35,9 @@ class EContainerInspectParser extends AbstractParser<EInspect> {
   }
 
   @Override
-  public EInspect ok(DockerConfig config, String origin) {
+  public ECInspect ok(DockerConfig config, String origin) {
     Kv kv = config.json().parse(origin, Kv.class);
-    EInspect.Builder builder = new EInspect.Builder();
+    ECInspect.Builder builder = new ECInspect.Builder();
     builder.id(kv.string("Id"))
       .created(DateKit.parse(kv.string("Created"), "yyyy-MM-dd'T'HH:mm:ss.SSS"))
       .path(kv.string("Path"))

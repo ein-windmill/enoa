@@ -696,7 +696,7 @@ public interface EOriginDockerContainer {
    * @param dqp dqp
    * @return String
    */
-  String prune(DQPPrune dqp);
+  String prune(DQPPruneContainer dqp);
 
 
 }

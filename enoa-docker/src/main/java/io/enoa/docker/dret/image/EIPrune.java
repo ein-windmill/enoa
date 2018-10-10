@@ -13,42 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.dret.container;
+package io.enoa.docker.dret.image;
 
 import io.enoa.docker.dret.AbstractDRet;
 
-import java.util.List;
+public class EIPrune extends AbstractDRet {
 
-public class EPrune extends AbstractDRet {
-
-  private List<String> containersdeleted;
   private Integer spacereclaimed;
 
-  public EPrune(Builder builder) {
-    this.containersdeleted = builder.containersdeleted;
+  public EIPrune(Builder builder) {
     this.spacereclaimed = builder.spacereclaimed;
   }
 
-  public List<String> containersdeleted() {
-    return containersdeleted;
-  }
-
   public Integer spacereclaimed() {
-    return spacereclaimed;
+    return this.spacereclaimed;
   }
 
   public static class Builder {
-
-    private List<String> containersdeleted;
     private Integer spacereclaimed;
 
-    public EPrune build() {
-      return new EPrune(this);
-    }
-
-    public Builder containersdeleted(List<String> containersdeleted) {
-      this.containersdeleted = containersdeleted;
-      return this;
+    public EIPrune build() {
+      return new EIPrune(this);
     }
 
     public Builder spacereclaimed(Integer spacereclaimed) {
@@ -56,5 +41,4 @@ public class EPrune extends AbstractDRet {
       return this;
     }
   }
-
 }

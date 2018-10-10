@@ -138,7 +138,7 @@ public class EUNIXSOCKETDockerContainer implements EOriginDockerContainer {
   }
 
   @Override
-  public String prune(DQPPrune dqp) {
+  public String prune(DQPPruneContainer dqp) {
     return null;
   }
 }
