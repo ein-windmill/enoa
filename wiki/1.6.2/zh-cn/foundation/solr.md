@@ -14,9 +14,8 @@
 
 Solr 组件提供一个基于 Http api 的 Solr 客户端, 于官方提供的 SolrJ 相比, 使用更简单, 也完全符合 Solr Web 段完全相同的接口.
 
-:::warning
-部分接口注意: Solr 的没个接口都要求提供一个 Core name, 1.6 中的 EoSolr 接口, 将 core 的设置于 select update 放置于一起, 因此在使用的过程中可能会造成不良的使用习惯, 因此在下一个版本中, EoSolr 中剔除了 select 以及 update, 只有设置了 core 之后才可进行 select, update, 使用代码不会有太大的更改; 如果你使用了 http 方法来自定义设置一个 http 提供者, 那么就需要注意, 不要在 1.6 中调用了 core 之后再调用 http, 这在下一个版本中将不会受到支持, 因此需要先调用 http 在设置 core 即可在下次升级是不用作出改动.
-:::
+### 警告
+> Solr 的每个接口都要求提供一个 Core name, 1.6 中的 EoSolr 接口, 将 core 的设置于 select update 放置于一起, 因此在使用的过程中可能会造成不良的使用习惯, 因此在下一个版本中, EoSolr 中剔除了 select 以及 update, 只有设置了 core 之后才可进行 select, update, 使用代码不会有太大的更改; 如果你使用了 http 方法来自定义设置一个 http 提供者, 那么就需要注意, 不要在 1.6 中调用了 core 之后再调用 http, 这在下一个版本中将不会受到支持, 因此需要先调用 http 在设置 core 即可在下次升级是不用作出改动.
 
 ## EPM
 
@@ -34,7 +33,7 @@ Solr.epm().install("other", new SolrConfig.Builder()
   .build());
 ```
 
-使用
+## USE
 
 ```java
 Solr.use(); // get solr instance with name 'main'

@@ -193,12 +193,11 @@ DigestKit.hash("SHA-256", "Hello world");
 - encrypt
 - checkpwd
 
-:::warning
-特别注意:
-toolkit 包坚持无第三方依赖, `PasswdKit` 进行密码加密需要依赖 `BCrypt`, 因此如果需要使用, 请单独引入.
+## 注意
 
-maven 座标: [jbcrypt](https://mvnrepository.com/artifact/org.mindrot/jbcrypt)
-:::
+> toolkit 包坚持无第三方依赖, `PasswdKit` 进行密码加密需要依赖 `BCrypt`, 因此如果需要使用, 请单独引入.
+> 
+> maven 座标: [jbcrypt](https://mvnrepository.com/artifact/org.mindrot/jbcrypt)
 
 # [ChecksumKit](https://github.com/fewensa/enoa/blob/master/enoa-toolkit/src/main/java/io/enoa/toolkit/file/ChecksumKit.java "ChecksumKit")
 
@@ -225,9 +224,9 @@ String checksum = ChecksumKit.md5(Paths.get("/tmp/hello.txt"));
 - move
 - probeContentType
 
-:::danger
-特别注意: 文件处理工具类提供的 `write` 以及 `read` 不具备大文件处理能力, 如果有大文件, 不建议使用此方法.
-:::
+## 注意
+
+> 特别注意: 文件处理工具类提供的 `write` 以及 `read` 不具备大文件处理能力, 如果有大文件, 不建议使用此方法.
 
 # [UrlKit](https://github.com/fewensa/enoa/blob/master/enoa-toolkit/src/main/java/io/enoa/toolkit/http/UrlKit.java "UrlKit.java")
 
@@ -235,10 +234,13 @@ String checksum = ChecksumKit.md5(Paths.get("/tmp/hello.txt"));
 
 
 - encode
+
   Url 编码, 修复 java 连带参数编码问题
+
 - decode
 - correct
 - analysis
+
   分析 URL, 返回 String[], 第一个是 host 第二个是剩余的部分
 
 
@@ -253,12 +255,10 @@ String checksum = ChecksumKit.md5(Paths.get("/tmp/hello.txt"));
 
 使用前, 需要调用 init 方法进行初始化, ID 生成算法通过 snowflake 算法实现.
 
-:::warning
-特别注意:
-toolkit 包坚持无第三方依赖, `SnowflakeKit` 进行密码加密需要依赖 `snowflake`, 因此如果需要使用, 请单独引入.
-
-maven 座标: [snowflake](https://mvnrepository.com/artifact/xyz.downgoon/snowflake)
-:::
+## 注意
+> toolkit 包坚持无第三方依赖, `SnowflakeKit` 进行密码加密需要依赖 `snowflake`, 因此如果需要使用, 请单独引入.
+>
+> maven 座标: [snowflake](https://mvnrepository.com/artifact/xyz.downgoon/snowflake)
 
 # [FastKv](https://github.com/fewensa/enoa/blob/master/enoa-toolkit/src/main/java/io/enoa/toolkit/map/FastKv.java "FastKv.java")
 
@@ -288,16 +288,15 @@ e.g.
 Kv kv = Kv.create()
   .set("name", "Jack")
   .set("age", 20);
-  
+
 // another version
 Kv kv = Kv.by("name", "Jack")
   .set("age", 20);
-  
+
 // get value
 Integer age = kv.integer("age");
 // default value
 String job = kv.string("job", "Engineer");
-
 ```
 
 更多用法参见源码.
@@ -313,14 +312,23 @@ String job = kv.string("job", "Engineer");
 > 命名风格工具
 
 - convert
+
   自定义风格
+
 - nonecase
+
   不进行转换
+
 - underline
+
   转换为下划线风格
+
 - camelcaseupper
+
   大驼峰风格
+
 - camelcaselower
+
   小驼峰风格
   
 e.g.
@@ -355,12 +363,19 @@ BigDecimal c4 = NumberKit.bigdecimal(310.19304);
 > 路径工具
 
 - debugPath
+
   调试路径
+
 - userHome
+
   当前系统账户路径
+
 - resources
+
   工程环境变量路径
+
 - path
+
   依据环境变量路径计算的路径
 
 获取的路径均是 `java.nio.file.Path`
@@ -368,9 +383,9 @@ BigDecimal c4 = NumberKit.bigdecimal(310.19304);
 
 path 可用于生成环境, 依据于项目启动时提供的环境变量, 从环境变量中提取路径, 例如启动时 `-cp "/tmp:/tmp/conf:/tmp/resources"`, `PathKit.path("test")` 将会查找 `/tmp/test`, `/tmp/conf/test`, `/tmp/resources/test` 以第一个查找到的为准.
 
-:::warning
-debugPath 仅仅用于调试, 且需要符合 maven 工程的目录约定, 不要用于生产环境
-:::
+## 警告
+
+> debugPath 仅仅用于调试, 且需要符合 maven 工程的目录约定, 不要用于生产环境
 
 # [PropKit](https://github.com/fewensa/enoa/blob/master/enoa-toolkit/src/main/java/io/enoa/toolkit/prop/PropKit.java "PropKit.java")
 
@@ -379,12 +394,19 @@ debugPath 仅仅用于调试, 且需要符合 maven 工程的目录约定, 不�
 `PropKit` 会在启动的时候自动读取环境变量中目录的所有的 `properties` 文件, 因此无需手动设定读取文件的位置, 直接使用即可; 当然也是可以通过 `add` 方法进行手动设定配置文件路径. 
 
 - add
+
   追加配置文件
+
 - reload
+
   重新加载所有配置文件
+
 - value
+
   获取配置值, 返回 [EnoaValue](#EnoaValue)
+
 - string
+
   读取 String 值
 
 更多方法参见源码.
@@ -449,10 +471,15 @@ EoResp.build(EoResp.Stat.OK, object);
 > IO 流工具
 
 - binary
+
   读取 InputStream 为 EnoaBinary
+
 - bytes
+
   读取 InputStream 为 byte\[]
+
 - close
+
   关闭流
 
 
@@ -490,9 +517,7 @@ EnoaValue.with(null).integer(1);
 
 # 其他
 
-:::success
 文档中并没有列出所有的工具类, 以及释放方法, 可以通过参见源码进行了解.
-:::
 
 
 

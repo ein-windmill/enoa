@@ -104,23 +104,21 @@ DataSource dataSource = ds.open();
 
 > 不同的数据库操作框架, 并非在同一个项目中, 而是单独拆开使用的.
 
-:::warning
-因各数据操作框架不同, 无法使用统一的特性, db 项目中没有提供 epm() 方法进行初始化, 而是使用 EPMDb 类进行初始化.
-:::
+### 声明
 
-:::info
-下方有关数据库操作的代码, 篇幅原因, 数据库连接池部分变量此处定义. 代码中不再体现
-```java
-EoDsFactory DS = new C3p0Provider();
-
-EoDsConfig DSCONFIG = new C3p0Config.Builder()
-  .driver("com.mysql.jdbc.Driver")
-  .url("jdbc:mysql://localhost:3306/test")
-  .user("root")
-  .passwd("pwd")
-  .build()
-```
-:::
+> 因各数据操作框架不同, 无法使用统一的特性, db 项目中没有提供 epm() 方法进行初始化, 而是使用 EPMDb 类进行初始化.
+>
+> 下方有关数据库操作的代码, 篇幅原因, 数据库连接池部分变量此处定义. 代码中不再体现
+> ```java
+> EoDsFactory DS = new C3p0Provider();
+>
+> EoDsConfig DSCONFIG = new C3p0Config.Builder()
+>   .driver("com.mysql.jdbc.Driver")
+>   .url("jdbc:mysql://localhost:3306/test")
+>   .user("root")
+>   .passwd("pwd")
+>   .build()
+> ```
 
 ## ActiveRecord
 

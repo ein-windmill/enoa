@@ -17,11 +17,11 @@ package io.enoa.serialization;
 
 import io.enoa.serialization.provider.jdk.JdkSerializeProvider;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 public class EPMSerialization {
 
-  private EPMSerialization() {
-
-  }
 
   private static class Holder {
     private static final EPMSerialization INSTANCE = new EPMSerialization();
@@ -31,20 +31,46 @@ public class EPMSerialization {
     return Holder.INSTANCE;
   }
 
-  private EoSerializationFactory factory = new JdkSerializeProvider();
+  private EPMSerialization() {
+    this.MAP.put("-main", new JdkSerializeProvider());
+  }
+
+  private Map<String, EoSerializationFactory> MAP = new ConcurrentHashMap<>();
+
+  private Boolean exists(String name) {
+    return this.MAP.containsKey(name);
+  }
 
   public void install(EoSerializationFactory factory) {
+    this.install("main", factory);
+  }
+
+  public void install(String name, EoSerializationFactory factory) {
     if (factory == null)
       throw new IllegalArgumentException("Factory can not be null.");
-    this.factory = factory;
+    if (this.exists(name))
+      throw new IllegalArgumentException("Serialization exists this name => " + name);
+    this.MAP.put(name, factory);
+    if (name.equals("main"))
+      this.MAP.remove("-main");
   }
 
   public EoSerializationFactory factory() {
-    return this.factory;
+    EoSerializationFactory factory = this.factory("main");
+    return factory == null ? this.factory("-main") : factory;
+  }
+
+  public EoSerializationFactory factory(String name) {
+    return this.MAP.get(name);
   }
 
   public EoSerializer serializer() {
-    return this.factory.serializer();
+    EoSerializer serializer = this.serializer("main");
+    return serializer == null ? this.serializer("-main") : serializer;
+  }
+
+  public EoSerializer serializer(String name) {
+    return this.factory(name).serializer();
   }
 
 }

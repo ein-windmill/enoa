@@ -72,7 +72,9 @@ GET /my/mems
 handle 注册 Control 不提供 Method 选项, 而是由 Control 中的方法自己决定; Control 中需要注意的有两点
 
 1. Yosart 不限定 Control 方法是否必须要有返回值, 如果有返回值也不限定任何类型; 不限定方法是否有参数; 完全由路由扩展自行决定.
+
 2. Action 注解是 Yosart 提供的注解 [io.enoa.yosart.kernel.anno.Action](https://github.com/fewensa/enoa/blob/master/enoa-yosart/src/main/java/io/enoa/yosart/kernel/anno/Action.java), 也是 Yosart 中唯一提供的注解, 用于描述路由信息.
+
    Action 注解需要理解的是, method 用于表述该接口支持的请求类型, 如果请求的类型不正确应该回馈 404 错误, method 支持多个, 写做: method = \{Method.GET, Method.POST}; value 用于描述接口的名称, 如果不指定将会使用方法名, 区分大小写; uri 于 value 是相同的作用.
 
 
@@ -147,7 +149,7 @@ DELETE /animal/:animal
 POST /animal/:animal/:action
 ```
 
-:::warning
-虽然 Yosart 要求使用 `:` 来定义, 并且在 Yosart 启动时检查路由表时, 会对 RESTful 风格进行检查, 但是仍然有机会使用其他风格, 当然这得由路由扩展支持.
-:::
+### 声明
 
+> 虽然 Yosart 要求使用 `:` 来定义, 并且在 Yosart 启动时检查路由表时, 会对 RESTful 风格进行检查, 但是仍然有机会使用其他风格, 当然这得由路由扩展支持.
+:::

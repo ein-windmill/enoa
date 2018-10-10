@@ -24,7 +24,7 @@ Json 项目用来整合 Json 框架. 统一处理接口. 受支持的框架包�
 
 Json 可以使用 epm 进行安装实现者, Json epm 不支持多实例, 多次安装只有最后一次有效.
 
-```
+```java
 Json.epm().install(new GsonProvider());
 ```
 

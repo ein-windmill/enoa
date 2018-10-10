@@ -209,6 +209,10 @@ public class EoxConfig {
       return this;
     }
 
+    public Builder info() {
+      return this.info(true);
+    }
+
     public Builder info(boolean info) {
       this.info = info;
       return this;

@@ -21,9 +21,9 @@ Template 项目用于整合现有的很多模板框架, 受支持的包括
 
 > 与其他组件相同, 需要使用哪个框架单独引入, Enoa 并没有将所有的框架打包在一起; Template 中有个例外, 考虑到 freemarker 以及 velocity 相对应用的较广泛, Template 中已内建其 Provider, 但是使用仍然需要引入 freemarker 以及 velocity 包.
 
-:::warning
-当前文档提供的代码不一定能运行, 具体参考 [example-template](https://github.com/fewensa/enoa/tree/master/enoa-example/example-template)
-:::
+### 声明
+
+> 当前文档提供的代码不一定能运行, 具体参考 [example-template](https://github.com/fewensa/enoa/tree/master/enoa-example/example-template)
 
 
 ## EPM
@@ -69,6 +69,7 @@ EnoaEngine engine = new FreemarkerProvider()
   .build());
 String tpl = engine.template("/freemarker/tpl.html").render();
 ```
+
 ## velocity
 
 ```xml

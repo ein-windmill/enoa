@@ -64,9 +64,8 @@ Eml.use("receiver"); // get eml instance with name receiver
 Eml.with(new EnoaEmlSession(config))
 ```
 
-:::danger
-但是, 请知道, 这个方法将会在下一个版本中直接移除, 因此请不要使用. 请通过 `epm` 方法进行管理, 获取直接使用 `EoEmlSession` 在你的项目中.
-:::
+### 声明
+> 请知道, 这个方法将会在下一个版本中直接移除, 因此请不要使用. 请通过 `epm` 方法进行管理, 获取直接使用 `EoEmlSession` 在你的项目中.
 
 ## EmlConfig
 
@@ -128,34 +127,53 @@ EmlSender sender = Eml.use("sender")
 
 
 - sender
+
   发送邮件模式
+
 - richtext
+
   是否开启富文本
+
 - from
+
   邮件发送人, 如果不提供, 则会选取 config 中的 user 字段, 多次调用将会选取最后一次传送的值
+
 - to
+
   邮件接收人, 可以多个
+
 - cc
+
   邮件抄送人, 可以多个
+
 - bcc
+
   邮件密送, 可以多个
+
 - subject
+
   邮件标题
+
 - body
+
   邮件正文, 多次调用将会选取最后一次传送的值
+
 - attachment
+
   附件, 可以多个
+
 - reporter
+
   邮件汇报, 邮件发送前将会调用的方法, 将会把发送的邮件请求信息传送过来, 此方法会异步调用, 不影响邮件发送
+
 
 
 ## 收取邮件
 
-:::warning
-收取邮件尚未完成.
-:::
+> 收取邮件尚未完成.
 
-## 异步收取
+
+## 异步操作
 
 Eml 组件也支持异步操作, 同样基于 [Promise](#Promise), 使用 `DonePromise`. 因此受支持的 Promise 方法包括
 
@@ -163,7 +181,7 @@ Eml 组件也支持异步操作, 同样基于 [Promise](#Promise), 使用 `DoneP
 - capture
 - always
 
-e.g.
+### 异步发送
 
 ```java
 EmlSender sender = Eml.use("sender")
@@ -188,3 +206,6 @@ EmlSender sender = Eml.use("sender")
   .always(() -> System.out.println("Always echo.."));
 ```
 
+### 异步收取
+
+> 收取邮件尚未完成.

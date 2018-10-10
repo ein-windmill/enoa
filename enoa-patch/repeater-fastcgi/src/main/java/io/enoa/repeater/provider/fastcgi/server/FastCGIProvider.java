@@ -21,7 +21,7 @@ import io.enoa.repeater.factory.server.RepeaterServerFactory;
 import io.enoa.repeater.factory.ts.RepeaterTranslateFactory;
 import io.enoa.repeater.provider.fastcgi.ts.FastCGITranslateProvider;
 
-public class FastCGIPrivoder implements RepeaterServerFactory {
+public class FastCGIProvider implements RepeaterServerFactory {
   @Override
   public String name() {
     return "FastCGI";
