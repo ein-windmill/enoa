@@ -13,17 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.http;
+package io.enoa.http.provider.httphelper.http.resp;
 
-import io.enoa.http.protocol.HttpPromise;
-import io.enoa.http.protocol.chunk.Chunk;
+import java.io.IOException;
+import java.io.InputStream;
 
-public interface EoExecutor {
+public class _HttpHelperInputStream extends InputStream {
 
-  default HttpPromise enqueue(EoUrl url, EoEmit emit) {
-    return this.enqueue(url, emit, null);
+  private InputStream inputstream;
+
+  public _HttpHelperInputStream(InputStream inputstream) {
+    this.inputstream = inputstream;
   }
 
-  HttpPromise enqueue(EoUrl url, EoEmit emit, Chunk chunk);
+
+  @Override
+  public int read() throws IOException {
+    return this.inputstream.read();
+  }
 
 }

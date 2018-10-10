@@ -15,15 +15,30 @@
  */
 package io.enoa.http;
 
-import io.enoa.http.protocol.HttpPromise;
+import io.enoa.http.protocol.HttpResponse;
 import io.enoa.http.protocol.chunk.Chunk;
+import io.enoa.toolkit.binary.EnoaBinary;
+import org.junit.Test;
 
-public interface EoExecutor {
+import java.util.concurrent.atomic.AtomicInteger;
 
-  default HttpPromise enqueue(EoUrl url, EoEmit emit) {
-    return this.enqueue(url, emit, null);
+public class ChunkedTest {
+
+  @Test
+  public void testChunked() {
+    AtomicInteger ix = new AtomicInteger();
+
+    Chunk chunk = Chunk.builder(bytes -> {
+      System.out.print(EnoaBinary.create(bytes).string());
+      ix.addAndGet(1);
+    })
+      .stopper(() -> ix.get() == 10)
+      .build();
+
+    HttpResponse response = Http.request(EoUrl.with("http://localhost:2375/containers/nginx/stats"))
+      .chunk(chunk);
+    System.out.println();
+    System.out.println(response.body().string());
   }
-
-  HttpPromise enqueue(EoUrl url, EoEmit emit, Chunk chunk);
 
 }
