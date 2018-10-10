@@ -19,6 +19,7 @@ import io.enoa.docker.dqp.container.DQPLogs;
 import io.enoa.docker.dqp.container.DQPUpdate;
 import io.enoa.docker.dret.DRet;
 import io.enoa.docker.dret.container.*;
+import io.enoa.docker.stream.DStream;
 import io.enoa.json.Json;
 import io.enoa.toolkit.binary.EnoaBinary;
 import io.enoa.toolkit.value.Void;
@@ -83,10 +84,14 @@ public class DockerContainerTest extends AbstractDockerTest {
 
   @Test
   public void testStatistics() {
-    DRet<EStatistics> ret = Docker.container().statistics("nginx");
-    Assert.assertTrue(ret.ok());
-    String json = Json.toJson(ret.data());
-    System.out.println(json);
+    DRet<EStatistics> ret = Docker.container().statistics("nginx", DStream.<DRet<EStatistics>>builder(stats -> {
+      Assert.assertTrue(stats.ok());
+      String json = Json.toJson(stats.data());
+      System.out.println(json);
+    }).build());
+//    Assert.assertTrue(ret.ok());
+//    String json = Json.toJson(ret.data());
+//    System.out.println(json);
   }
 
   @Test

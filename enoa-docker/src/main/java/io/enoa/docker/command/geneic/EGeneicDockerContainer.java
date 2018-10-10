@@ -21,6 +21,8 @@ import io.enoa.docker.command.origin.OriginDocker;
 import io.enoa.docker.dqp.container.*;
 import io.enoa.docker.dret.DRet;
 import io.enoa.docker.parser.DIParser;
+import io.enoa.docker.stream.DStream;
+import io.enoa.docker.stream.IDStreamRunner;
 import io.enoa.docker.thr.DockerException;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.value.Void;
@@ -92,11 +94,15 @@ public class EGeneicDockerContainer {
   }
 
   public <T> DRet<T> statistics(DIParser<T> parser, String id) {
-    return this.statistics(parser, id, Boolean.FALSE);
+    String origin = this.container.statistics(id);
+    return parser.parse(this.config, origin);
   }
 
-  public <T> DRet<T> statistics(DIParser<T> parser, String id, Boolean stream) {
-    String origin = this.container.statistics(id, stream);
+  public <T> DRet<T> statistics(DIParser<T> parser, String id, DStream<DRet<T>> dstream) {
+    DStream<String> dst0 = DStream.builder((IDStreamRunner<String>) data -> dstream.runner().run(parser.parse(this.config, data)))
+      .stopper(dstream.stopper())
+      .build();
+    String origin = this.container.statistics(id, dst0);
     return parser.parse(this.config, origin);
   }
 

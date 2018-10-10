@@ -16,6 +16,7 @@
 package io.enoa.docker.command.origin;
 
 import io.enoa.docker.dqp.container.*;
+import io.enoa.docker.stream.DStream;
 import io.enoa.docker.thr.DockerException;
 import io.enoa.toolkit.binary.EnoaBinary;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
@@ -355,9 +356,7 @@ public interface EOriginDockerContainer {
    */
   String export(String id);
 
-  default String statistics(String id) {
-    return this.statistics(id, Boolean.FALSE);
-  }
+  String statistics(String id);
 
   /**
    * Get container stats based on resource usage
@@ -367,16 +366,13 @@ public interface EOriginDockerContainer {
    * <p>
    * If either precpu_stats.online_cpus or cpu_stats.online_cpus is nil then for compatibility with older daemons the length of the corresponding cpu_usage.percpu_usage array should be used.
    *
-   * @param id     string Required
-   *               <p>
-   *               ID or name of the container
-   * @param stream boolean
-   *               default false
-   *               <p>
-   *               Stream the output. If false, the stats will be output once and then it will disconnect.
+   * @param id      string Required
+   *                <p>
+   *                ID or name of the container
+   * @param dstream DStream
    * @return String
    */
-  String statistics(String id, Boolean stream);
+  String statistics(String id, DStream<String> dstream);
 
   /**
    * @see #resize(String, DQPResize)

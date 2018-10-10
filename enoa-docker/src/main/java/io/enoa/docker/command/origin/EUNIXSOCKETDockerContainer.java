@@ -16,6 +16,7 @@
 package io.enoa.docker.command.origin;
 
 import io.enoa.docker.dqp.container.*;
+import io.enoa.docker.stream.DStream;
 import io.enoa.toolkit.binary.EnoaBinary;
 
 public class EUNIXSOCKETDockerContainer implements EOriginDockerContainer {
@@ -62,7 +63,12 @@ public class EUNIXSOCKETDockerContainer implements EOriginDockerContainer {
   }
 
   @Override
-  public String statistics(String id, Boolean stream) {
+  public String statistics(String id) {
+    return null;
+  }
+
+  @Override
+  public String statistics(String id, DStream<String> dstream) {
     return null;
   }
 

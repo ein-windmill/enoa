@@ -21,6 +21,7 @@ import io.enoa.docker.dqp.container.*;
 import io.enoa.docker.dret.DRet;
 import io.enoa.docker.dret.container.*;
 import io.enoa.docker.parser.DIParser;
+import io.enoa.docker.stream.DStream;
 import io.enoa.docker.thr.DockerException;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.value.Void;
@@ -82,11 +83,11 @@ public class EnoaDockerContainer {
   }
 
   public DRet<EStatistics> statistics(String id) {
-    return this.statistics(id, Boolean.FALSE);
+    return this.container.statistics(DIParser.statistics(), id);
   }
 
-  public DRet<EStatistics> statistics(String id, Boolean stream) {
-    return this.container.statistics(DIParser.statistics(), id, stream);
+  public DRet<EStatistics> statistics(String id, DStream<DRet<EStatistics>> dstream) {
+    return this.container.statistics(DIParser.statistics(), id, dstream);
   }
 
   public DRet<Void> resize(String id) {

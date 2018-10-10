@@ -16,12 +16,13 @@
 package io.enoa.docker.command.origin;
 
 import io.enoa.docker.dqp.container.*;
-import io.enoa.docker.thr.DockerException;
+import io.enoa.docker.stream.DStream;
 import io.enoa.http.Http;
 import io.enoa.http.protocol.HttpMethod;
 import io.enoa.http.protocol.HttpResponse;
+import io.enoa.http.protocol.chunk.Chunk;
+import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.binary.EnoaBinary;
-import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.text.TextKit;
 
 public class ETCPDockerContainer implements EOriginDockerContainer {
@@ -93,12 +94,21 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
   }
 
   @Override
-  public String statistics(String id, Boolean stream) {
-    if (stream)
-      throw new DockerException(EnoaTipKit.message("eo.tip.docker.notsupport_stream"));
+  public String statistics(String id) {
     HttpResponse response = this.docker.http("containers", id, "stats")
-      .para("stream", stream)
       .emit();
+    return response.body().string();
+  }
+
+  @Override
+  public String statistics(String id, DStream<String> dstream) {
+    Chunk.Builder builder = Chunk.builder(bytes -> dstream.runner().run(EnoaBinary.create(bytes, EoConst.CHARSET).string()));
+    if (dstream.stopper() != null) {
+      builder.stopper(dstream.stopper()::stop);
+    }
+    HttpResponse response = this.docker.http("containers", id, "stats")
+      .para("stream", true)
+      .chunk(builder.build());
     return response.body().string();
   }
 
