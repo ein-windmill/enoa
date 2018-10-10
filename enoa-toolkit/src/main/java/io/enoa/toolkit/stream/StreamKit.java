@@ -19,14 +19,17 @@ import io.enoa.toolkit.binary.EnoaBinary;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.thr.EoCloseException;
 
-import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
+import java.util.Arrays;
 
 public class StreamKit {
+
+  private static final int DEFAULT_BUFFER_SIZE = 8129;
+  private static final int MAX_BUFFER_SIZE = Integer.MAX_VALUE - 8;
 
   private StreamKit() {
   }
@@ -58,18 +61,45 @@ public class StreamKit {
     return EnoaBinary.create(bytes(stream));
   }
 
+//  public static byte[] bytes(InputStream stream) throws IOException {
+//    if (stream == null)
+//      return empty;
+//    try (ByteArrayOutputStream swapStream = new ByteArrayOutputStream()) {
+//      byte[] buff = new byte[1024];
+//      int rc;
+//      while ((rc = stream.read(buff, 0, 100)) > 0) {
+//        swapStream.write(buff, 0, rc);
+//      }
+//      close(stream);
+//      return swapStream.toByteArray();
+//    }
+//  }
+
   public static byte[] bytes(InputStream stream) throws IOException {
-    if (stream == null)
-      return empty;
-    try (ByteArrayOutputStream swapStream = new ByteArrayOutputStream()) {
-      byte[] buff = new byte[1024];
-      int rc;
-      while ((rc = stream.read(buff, 0, 100)) > 0) {
-        swapStream.write(buff, 0, rc);
+    byte[] buf = new byte[DEFAULT_BUFFER_SIZE];
+    int capacity = buf.length;
+    int nread = 0;
+    int n;
+    for (; ; ) {
+      // read to EOF which may read more or less than initial buffer size
+      while ((n = stream.read(buf, nread, capacity - nread)) > 0)
+        nread += n;
+
+      // if the last call to read returned -1, then we're done
+      if (n < 0)
+        break;
+
+      // need to allocate a larger buffer
+      if (capacity <= MAX_BUFFER_SIZE - capacity) {
+        capacity = capacity << 1;
+      } else {
+        if (capacity == MAX_BUFFER_SIZE)
+          throw new OutOfMemoryError("Required array size too large");
+        capacity = MAX_BUFFER_SIZE;
       }
-      close(stream);
-      return swapStream.toByteArray();
+      buf = Arrays.copyOf(buf, capacity);
     }
+    return (capacity == nread) ? buf : Arrays.copyOf(buf, nread);
   }
 
   public static void close(Closeable... closeables) {
