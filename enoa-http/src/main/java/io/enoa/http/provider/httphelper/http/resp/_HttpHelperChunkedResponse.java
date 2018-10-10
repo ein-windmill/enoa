@@ -57,7 +57,7 @@ public class _HttpHelperChunkedResponse extends AbstractResponse {
         byte[] buff = new byte[2];
         int rc = 0;
         while ((rc = stream.read(buff, 0, 2)) > 0) {
-          if (chunk.stopper().stop())
+          if (chunk.stopper() != null && chunk.stopper().stop())
             return HttpResponseBody.create(swap.toByteArray(), super.charset());
 
           byte curr = buff[0];
