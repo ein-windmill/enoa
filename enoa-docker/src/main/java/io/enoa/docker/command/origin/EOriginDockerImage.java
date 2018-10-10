@@ -17,6 +17,7 @@ package io.enoa.docker.command.origin;
 
 import io.enoa.docker.dqp.image.DQPBuild;
 import io.enoa.docker.dqp.image.DQPListImage;
+import io.enoa.docker.stream.DStream;
 
 public interface EOriginDockerImage {
 
@@ -26,6 +27,10 @@ public interface EOriginDockerImage {
 
   String list(DQPListImage dqp);
 
-  String build(DQPBuild dqp, String dockerfile);
+  default String build(DQPBuild dqp, String dockerfile) {
+    return this.build(dqp, dockerfile, null);
+  }
+
+  String build(DQPBuild dqp, String dockerfile, DStream<String> dstream);
 
 }

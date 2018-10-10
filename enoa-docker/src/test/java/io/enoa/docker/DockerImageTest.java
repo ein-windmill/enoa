@@ -19,7 +19,9 @@ import io.enoa.docker.dqp.image.DQPBuild;
 import io.enoa.docker.dqp.image.DQPListImage;
 import io.enoa.docker.dret.DRet;
 import io.enoa.docker.dret.image.EImage;
+import io.enoa.docker.stream.DStream;
 import io.enoa.json.Json;
+import io.enoa.toolkit.map.Kv;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -43,10 +45,16 @@ public class DockerImageTest extends AbstractDockerTest {
     DQPBuild dqp = DQPBuild.create()
       .t("enoa-alpine:0.1")
       .forcerm();
-    String dockerfile = "FROM alpine:3.8\n" +
+    String dockerfile = "FROM ubuntu:16.04\n" +
       "RUN mkdir demo";
-    String ret = Docker.origin().image().build(dqp, dockerfile);
-//    System.out.println(ret);
+//    String ret = Docker.origin().image().build(dqp, dockerfile, DStream.<String>builder(System.out::print).build());
+//    System.out.println();
+//    System.out.println("done===");
+
+    DRet<List<Kv>> ret = Docker.image().build(dqp, dockerfile, DStream.<Kv>builder(kv -> System.out.println(Json.toJson(kv))).build());
+    Assert.assertTrue(ret.ok());
+    String json = Json.toJson(ret.data());
+    System.out.println(json);
   }
 
 }

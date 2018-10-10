@@ -18,6 +18,10 @@ package io.enoa.http.protocol.chunk;
 @FunctionalInterface
 public interface IChunkStopper {
 
+  static IChunkStopper def() {
+    return () -> Boolean.FALSE;
+  }
+
   boolean stop();
 
 }
