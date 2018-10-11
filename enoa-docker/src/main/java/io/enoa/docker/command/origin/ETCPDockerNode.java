@@ -15,11 +15,51 @@
  */
 package io.enoa.docker.command.origin;
 
+import io.enoa.docker.dqp.common.DQPFilter;
+import io.enoa.docker.dret.DResp;
+import io.enoa.http.Http;
+import io.enoa.http.protocol.HttpMethod;
+import io.enoa.http.protocol.HttpResponse;
+
 public class ETCPDockerNode implements EOriginNode {
 
   private EnoaTCPDocker docker;
 
   ETCPDockerNode(EnoaTCPDocker docker) {
     this.docker = docker;
+  }
+
+  @Override
+  public DResp nodes(DQPFilter dqp) {
+    Http http = this.docker.http("nodes");
+    if (dqp != null)
+      http.para(dqp.dqr().http());
+    HttpResponse response = http.emit();
+    return DResp.create(response);
+  }
+
+  @Override
+  public DResp inspect(String id) {
+    HttpResponse response = this.docker.http("nodes", id).emit();
+    return DResp.create(response);
+  }
+
+  @Override
+  public DResp remove(String id, boolean force) {
+    HttpResponse response = this.docker.http("nodes", id)
+      .method(HttpMethod.DELETE)
+      .para("force", force)
+      .emit();
+    return DResp.create(response);
+  }
+
+  @Override
+  public DResp update(String id, long version, String body) {
+    HttpResponse response = this.docker.http("nodes", id, "update")
+      .method(HttpMethod.POST)
+      .para("version", version)
+      .raw(body, "application/json")
+      .emit();
+    return DResp.create(response);
   }
 }

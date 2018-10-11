@@ -13,36 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.command.origin;
+package io.enoa.docker.parser;
 
-import io.enoa.docker.dqp.common.DQPResize;
+import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dret.DResp;
 
-public class EUNIXSOCKETDockerExec implements EOriginDockerExec {
+class EStringParser extends AbstractParser<String> {
 
-  private EnoaUNIXSOCKETDocker docker;
+  private static class Holder {
+    private static final EStringParser INSTANCE = new EStringParser();
+  }
 
-  EUNIXSOCKETDockerExec(EnoaUNIXSOCKETDocker docker) {
-    this.docker = docker;
+  static EStringParser instance() {
+    return Holder.INSTANCE;
   }
 
   @Override
-  public DResp exec(String id, String body) {
-    return null;
+  public String ok(DockerConfig config, DResp resp) {
+    return resp.string();
   }
 
-  @Override
-  public DResp start(String id, String body) {
-    return null;
-  }
-
-  @Override
-  public DResp resize(String id, DQPResize dqp) {
-    return null;
-  }
-
-  @Override
-  public DResp inspect(String id) {
-    return null;
-  }
 }

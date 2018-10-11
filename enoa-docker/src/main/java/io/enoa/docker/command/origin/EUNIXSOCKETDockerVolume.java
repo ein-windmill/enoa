@@ -15,11 +15,40 @@
  */
 package io.enoa.docker.command.origin;
 
+import io.enoa.docker.dqp.common.DQPFilter;
+import io.enoa.docker.dqp.volume.DQPVolumeList;
+import io.enoa.docker.dret.DResp;
+
 public class EUNIXSOCKETDockerVolume implements EOriginDockerVolume {
 
   private EnoaUNIXSOCKETDocker docker;
 
   public EUNIXSOCKETDockerVolume(EnoaUNIXSOCKETDocker docker) {
     this.docker = docker;
+  }
+
+  @Override
+  public DResp list(DQPVolumeList dqp) {
+    return null;
+  }
+
+  @Override
+  public DResp create(String body) {
+    return null;
+  }
+
+  @Override
+  public DResp inspect(String id) {
+    return null;
+  }
+
+  @Override
+  public DResp remove(String id, Boolean force) {
+    return null;
+  }
+
+  @Override
+  public DResp prune(DQPFilter dqp) {
+    return null;
   }
 }

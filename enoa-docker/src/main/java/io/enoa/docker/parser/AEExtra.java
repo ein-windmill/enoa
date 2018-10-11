@@ -15,6 +15,7 @@
  */
 package io.enoa.docker.parser;
 
+import io.enoa.docker.dret.common.ETLSInfo;
 import io.enoa.docker.dret.container.*;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.date.DateKit;
@@ -239,6 +240,20 @@ class AEExtra {
     if (!(o instanceof Map))
       return null;
     return Kv.by((Map) o);
+  }
+
+  static ETLSInfo tls(Map kv, String key) {
+    Object tsc = kv.get(key);
+    if (!(tsc instanceof Map)) {
+      return null;
+    }
+    Kv tls = Kv.by((Map) tsc);
+    ETLSInfo.Builder tlsb = new ETLSInfo.Builder()
+      .trustroot(tls.string("TrustRoot"))
+      .certissuersubject(tls.string("CertIssuerSubject"))
+      .certissuerpublickey(tls.string("CertIssuerPublicKey"));
+    CollectionKit.clear(tls);
+    return tlsb.build();
   }
 
 }

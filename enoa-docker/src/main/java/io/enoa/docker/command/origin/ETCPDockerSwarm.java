@@ -15,6 +15,12 @@
  */
 package io.enoa.docker.command.origin;
 
+import io.enoa.docker.dqp.swarm.DQPSwarmUpdate;
+import io.enoa.docker.dret.DResp;
+import io.enoa.http.Http;
+import io.enoa.http.protocol.HttpMethod;
+import io.enoa.http.protocol.HttpResponse;
+
 public class ETCPDockerSwarm implements EOriginSwarm {
 
   private EnoaTCPDocker docker;
@@ -23,4 +29,61 @@ public class ETCPDockerSwarm implements EOriginSwarm {
     this.docker = docker;
   }
 
+  @Override
+  public DResp inspect() {
+    HttpResponse response = this.docker.http("swarm").emit();
+    return DResp.create(response);
+  }
+
+  @Override
+  public DResp init(String body) {
+    HttpResponse response = this.docker.http("swarm/init")
+      .method(HttpMethod.POST)
+      .raw(body, "application/json")
+      .emit();
+    return DResp.create(response);
+  }
+
+  @Override
+  public DResp join(String body) {
+    HttpResponse response = this.docker.http("swarm/join")
+      .method(HttpMethod.POST)
+      .raw(body, "application/json")
+      .emit();
+    return DResp.create(response);
+  }
+
+  @Override
+  public DResp leave(boolean force) {
+    HttpResponse response = this.docker.http("swarm/leave")
+      .method(HttpMethod.POST)
+      .para("force", force)
+      .emit();
+    return DResp.create(response);
+  }
+
+  @Override
+  public DResp update(DQPSwarmUpdate dqp, String body) {
+    Http http = this.docker.http("swarm/update")
+      .method(HttpMethod.POST)
+      .raw(body, "application/json");
+    if (dqp != null)
+      http.para(dqp.dqr().http());
+    HttpResponse response = http.emit();
+    return DResp.create(response);
+  }
+
+  @Override
+  public DResp unlockkey() {
+    HttpResponse response = this.docker.http("swarm/unlockkey").emit();
+    return DResp.create(response);
+  }
+
+  @Override
+  public DResp unlock(String body) {
+    HttpResponse response = this.docker.http("swarm/unlock")
+      .raw(body, "application/json")
+      .emit();
+    return DResp.create(response);
+  }
 }

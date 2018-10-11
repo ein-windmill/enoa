@@ -18,6 +18,13 @@ package io.enoa.docker.command.geneic;
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.command.origin.EOriginNode;
 import io.enoa.docker.command.origin.OriginDocker;
+import io.enoa.docker.dqp.common.DQPFilter;
+import io.enoa.docker.dret.DResp;
+import io.enoa.docker.dret.DRet;
+import io.enoa.docker.parser.DIParser;
+import io.enoa.toolkit.value.Void;
+
+import java.util.List;
 
 public class EGeneicDockerNode {
 
@@ -29,5 +36,30 @@ public class EGeneicDockerNode {
     this.docker = docker;
     this.config = docker._dockerconfig();
     this.nodes = docker.node();
+  }
+
+  public <T> DRet<List<T>> nodes(DIParser<List<T>> parser, DQPFilter dqp) {
+    DResp resp = this.nodes.nodes(dqp);
+    return parser.parse(this.config, resp);
+  }
+
+  public <T> DRet<T> inspect(DIParser<T> parser, String id) {
+    DResp resp = this.nodes.inspect(id);
+    return parser.parse(this.config, resp);
+  }
+
+  public DRet<Void> remove(String id) {
+    DResp resp = this.nodes.remove(id);
+    return DIParser.voidx().parse(this.config, resp);
+  }
+
+  public DRet<Void> remove(String id, boolean force) {
+    DResp resp = this.nodes.remove(id, force);
+    return DIParser.voidx().parse(this.config, resp);
+  }
+
+  public DRet<Void> update(String id, long version, String body) {
+    DResp resp = this.nodes.update(id, version, body);
+    return DIParser.voidx().parse(this.config, resp);
   }
 }

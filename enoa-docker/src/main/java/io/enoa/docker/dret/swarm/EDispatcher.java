@@ -13,36 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.command.origin;
+package io.enoa.docker.dret.swarm;
 
-import io.enoa.docker.dqp.common.DQPResize;
-import io.enoa.docker.dret.DResp;
+import io.enoa.docker.dret.AbstractDRet;
 
-public class EUNIXSOCKETDockerExec implements EOriginDockerExec {
+public class EDispatcher extends AbstractDRet {
 
-  private EnoaUNIXSOCKETDocker docker;
+  private final Long heartbeatperiod;
 
-  EUNIXSOCKETDockerExec(EnoaUNIXSOCKETDocker docker) {
-    this.docker = docker;
+  public EDispatcher(Builder builder) {
+    this.heartbeatperiod = builder.heartbeatperiod;
   }
 
-  @Override
-  public DResp exec(String id, String body) {
-    return null;
+  public Long heartbeatperiod() {
+    return this.heartbeatperiod;
   }
 
-  @Override
-  public DResp start(String id, String body) {
-    return null;
+  public static class Builder {
+
+    private Long heartbeatperiod;
+
+    public EDispatcher build() {
+      return new EDispatcher(this);
+    }
+
+    public Builder heartbeatperiod(Long heartbeatperiod) {
+      this.heartbeatperiod = heartbeatperiod;
+      return this;
+    }
   }
 
-  @Override
-  public DResp resize(String id, DQPResize dqp) {
-    return null;
-  }
 
-  @Override
-  public DResp inspect(String id) {
-    return null;
-  }
 }

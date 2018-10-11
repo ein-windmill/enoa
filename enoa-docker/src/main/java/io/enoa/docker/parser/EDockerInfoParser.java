@@ -111,8 +111,8 @@ class EDockerInfoParser extends AbstractParser<EDockerInfo> {
       .collect(Collectors.toList());
   }
 
-  private EPlugin plugin(Kv kv) {
-    EPlugin.Builder builder = new EPlugin.Builder();
+  private EDIPlugin plugin(Kv kv) {
+    EDIPlugin.Builder builder = new EDIPlugin.Builder();
     Map map = kv.as("Plugins");
     Object volume = map.get("Volume");
     if (volume instanceof List) {

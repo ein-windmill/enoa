@@ -17,6 +17,14 @@ package io.enoa.docker.command.eo;
 
 import io.enoa.docker.command.geneic.EGeneicDockerSwarm;
 import io.enoa.docker.command.geneic.GeneicDocker;
+import io.enoa.docker.dqp.swarm.DQPSwarmJoin;
+import io.enoa.docker.dqp.swarm.DQPSwarmUnlock;
+import io.enoa.docker.dqp.swarm.DQPSwarmUpdate;
+import io.enoa.docker.dret.DRet;
+import io.enoa.docker.dret.swarm.ESwarmInspect;
+import io.enoa.docker.dret.swarm.ESwarmUnlockKey;
+import io.enoa.docker.parser.DIParser;
+import io.enoa.toolkit.value.Void;
 
 public class EnoaDockerSwarm {
 
@@ -27,4 +35,45 @@ public class EnoaDockerSwarm {
     this.docker = docker;
     this.swarm = docker.swarm();
   }
+
+  public DRet<ESwarmInspect> inspect() {
+    return this.swarm.inspect(DIParser.swarminspect());
+  }
+
+  public DRet<String> init(String body) {
+    return this.swarm.init(DIParser.string(), body);
+  }
+
+  public DRet<Void> join(String body) {
+    return this.swarm.join(body);
+  }
+
+  public DRet<Void> join(DQPSwarmJoin dqp) {
+    return this.swarm.join(dqp);
+  }
+
+  public DRet<Void> leave() {
+    return this.swarm.leave();
+  }
+
+  public DRet<Void> leave(boolean force) {
+    return this.swarm.leave(force);
+  }
+
+  public DRet<Void> update(DQPSwarmUpdate dqp, String body) {
+    return this.swarm.update(dqp, body);
+  }
+
+  public DRet<ESwarmUnlockKey> unlockkey() {
+    return this.swarm.unlockkey(DIParser.swarmunlockkey());
+  }
+
+  public DRet<Void> unlock(String body) {
+    return this.swarm.unlock(body);
+  }
+
+  public DRet<Void> unlock(DQPSwarmUnlock dqp) {
+    return this.swarm.unlock(dqp);
+  }
+
 }

@@ -18,6 +18,13 @@ package io.enoa.docker.command.geneic;
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.command.origin.EOriginSwarm;
 import io.enoa.docker.command.origin.OriginDocker;
+import io.enoa.docker.dqp.swarm.DQPSwarmJoin;
+import io.enoa.docker.dqp.swarm.DQPSwarmUnlock;
+import io.enoa.docker.dqp.swarm.DQPSwarmUpdate;
+import io.enoa.docker.dret.DResp;
+import io.enoa.docker.dret.DRet;
+import io.enoa.docker.parser.DIParser;
+import io.enoa.toolkit.value.Void;
 
 public class EGeneicDockerSwarm {
 
@@ -29,5 +36,54 @@ public class EGeneicDockerSwarm {
     this.docker = docker;
     this.config = docker._dockerconfig();
     this.swarm = docker.swarm();
+  }
+
+  public <T> DRet<T> inspect(DIParser<T> parser) {
+    DResp resp = this.swarm.inspect();
+    return parser.parse(this.config, resp);
+  }
+
+  public <T> DRet<T> init(DIParser<T> parser, String body) {
+    DResp resp = this.swarm.init(body);
+    return parser.parse(this.config, resp);
+  }
+
+  public DRet<Void> join(String body) {
+    DResp resp = this.swarm.join(body);
+    return DIParser.voidx().parse(this.config, resp);
+  }
+
+  public DRet<Void> join(DQPSwarmJoin dqp) {
+    DResp resp = this.swarm.join(dqp);
+    return DIParser.voidx().parse(this.config, resp);
+  }
+
+  public DRet<Void> leave() {
+    return this.leave(Boolean.FALSE);
+  }
+
+  public DRet<Void> leave(boolean force) {
+    DResp resp = this.swarm.leave(force);
+    return DIParser.voidx().parse(this.config, resp);
+  }
+
+  public DRet<Void> update(DQPSwarmUpdate dqp, String body) {
+    DResp resp = this.swarm.update(dqp, body);
+    return DIParser.voidx().parse(this.config, resp);
+  }
+
+  public <T> DRet<T> unlockkey(DIParser<T> parser) {
+    DResp resp = this.swarm.unlockkey();
+    return parser.parse(this.config, resp);
+  }
+
+  public DRet<Void> unlock(String body) {
+    DResp resp = this.swarm.unlock(body);
+    return DIParser.voidx().parse(this.config, resp);
+  }
+
+  public DRet<Void> unlock(DQPSwarmUnlock dqp) {
+    DResp resp = this.swarm.unlock(dqp);
+    return DIParser.voidx().parse(this.config, resp);
   }
 }

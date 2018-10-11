@@ -15,11 +15,49 @@
  */
 package io.enoa.docker.command.origin;
 
+import io.enoa.docker.dqp.swarm.DQPSwarmUpdate;
+import io.enoa.docker.dret.DResp;
+
 public class EUNIXSOCKETDockerSwarm implements EOriginSwarm {
 
   private EnoaUNIXSOCKETDocker docker;
 
   EUNIXSOCKETDockerSwarm(EnoaUNIXSOCKETDocker docker) {
     this.docker = docker;
+  }
+
+  @Override
+  public DResp inspect() {
+    return null;
+  }
+
+  @Override
+  public DResp init(String body) {
+    return null;
+  }
+
+  @Override
+  public DResp join(String body) {
+    return null;
+  }
+
+  @Override
+  public DResp leave(boolean force) {
+    return null;
+  }
+
+  @Override
+  public DResp update(DQPSwarmUpdate dqp, String body) {
+    return null;
+  }
+
+  @Override
+  public DResp unlockkey() {
+    return null;
+  }
+
+  @Override
+  public DResp unlock(String body) {
+    return null;
   }
 }

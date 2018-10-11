@@ -26,6 +26,9 @@ import io.enoa.docker.dret.image.*;
 import io.enoa.docker.dret.network.ENetworPrune;
 import io.enoa.docker.dret.network.ENetwork;
 import io.enoa.docker.dret.network.ENetworkCreated;
+import io.enoa.docker.dret.node.ENode;
+import io.enoa.docker.dret.swarm.ESwarmInspect;
+import io.enoa.docker.dret.swarm.ESwarmUnlockKey;
 import io.enoa.docker.dret.volume.EVolume;
 import io.enoa.docker.dret.volume.EVolumeLs;
 import io.enoa.docker.dret.volume.EVolumePrune;
@@ -40,6 +43,14 @@ public interface DIParser<T> {
 
   static DIParser<Void> voidx() {
     return EVoidParser.instance();
+  }
+
+  static DIParser<EnoaBinary> binary() {
+    return EBinaryParser.instance();
+  }
+
+  static DIParser<String> string() {
+    return EStringParser.instance();
   }
 
   static DIParser<EDockerInfo> dockerinfo() {
@@ -60,10 +71,6 @@ public interface DIParser<T> {
 
   static DIParser<EProcesses> top() {
     return EProcessParser.instance();
-  }
-
-  static DIParser<String> logs() {
-    return ELogsParser.instance();
   }
 
   static DIParser<List<EChange>> changes() {
@@ -118,10 +125,6 @@ public interface DIParser<T> {
     return EImageCommitParser.instance();
   }
 
-  static DIParser<EnoaBinary> binary() {
-    return EBinaryParser.instance();
-  }
-
   static DIParser<List<ENetwork>> networklist() {
     return ENetworkListParser.instance();
   }
@@ -156,6 +159,22 @@ public interface DIParser<T> {
 
   static DIParser<EExecInspect> execinspect() {
     return EExecInspectParser.instance();
+  }
+
+  static DIParser<ESwarmInspect> swarminspect() {
+    return ESwarmInspectParser.instance();
+  }
+
+  static DIParser<ESwarmUnlockKey> swarmunlockkey() {
+    return ESwarmUnlockKeyParser.instance();
+  }
+
+  static DIParser<List<ENode>> nodelist() {
+    return ENodeListParser.instance();
+  }
+
+  static DIParser<ENode> node() {
+    return ENodeParser.instance();
   }
 
   /**

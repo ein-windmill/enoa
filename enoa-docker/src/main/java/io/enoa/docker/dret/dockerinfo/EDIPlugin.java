@@ -17,14 +17,14 @@ package io.enoa.docker.dret.dockerinfo;
 
 import io.enoa.docker.dret.AbstractDRet;
 
-public class EPlugin extends AbstractDRet {
+public class EDIPlugin extends AbstractDRet {
 
   private final String[] volume;
   private final String[] network;
   private final Object authorization;
   private final String[] log;
 
-  private EPlugin(Builder builder) {
+  private EDIPlugin(Builder builder) {
     this.volume = builder.volume;
     this.network = builder.network;
     this.authorization = builder.authorization;
@@ -56,8 +56,8 @@ public class EPlugin extends AbstractDRet {
     public Builder() {
     }
 
-    public EPlugin build() {
-      return new EPlugin(this);
+    public EDIPlugin build() {
+      return new EDIPlugin(this);
     }
 
     public Builder volume(String[] volume) {

@@ -17,6 +17,13 @@ package io.enoa.docker.command.eo;
 
 import io.enoa.docker.command.geneic.EGeneicDockerNode;
 import io.enoa.docker.command.geneic.GeneicDocker;
+import io.enoa.docker.dqp.common.DQPFilter;
+import io.enoa.docker.dret.DRet;
+import io.enoa.docker.dret.node.ENode;
+import io.enoa.docker.parser.DIParser;
+import io.enoa.toolkit.value.Void;
+
+import java.util.List;
 
 public class EnoaDockerNode {
 
@@ -26,5 +33,26 @@ public class EnoaDockerNode {
   EnoaDockerNode(GeneicDocker docker) {
     this.docker = docker;
     this.nodes = docker.node();
+  }
+
+
+  public DRet<List<ENode>> nodes(DQPFilter dqp) {
+    return this.nodes.nodes(DIParser.nodelist(), dqp);
+  }
+
+  public DRet<ENode> inspect(String id) {
+    return this.nodes.inspect(DIParser.node(), id);
+  }
+
+  public DRet<Void> remove(String id) {
+    return this.nodes.remove(id);
+  }
+
+  public DRet<Void> remove(String id, boolean force) {
+    return this.nodes.remove(id, force);
+  }
+
+  public DRet<Void> update(String id, long version, String body) {
+    return this.nodes.update(id, version, body);
   }
 }

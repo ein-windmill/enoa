@@ -13,36 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.command.origin;
+package io.enoa.docker.dret.swarm;
 
-import io.enoa.docker.dqp.common.DQPResize;
-import io.enoa.docker.dret.DResp;
+import io.enoa.docker.dret.AbstractDRet;
 
-public class EUNIXSOCKETDockerExec implements EOriginDockerExec {
+public class ESwarmUnlockKey extends AbstractDRet {
 
-  private EnoaUNIXSOCKETDocker docker;
+  private final String unlockkey;
 
-  EUNIXSOCKETDockerExec(EnoaUNIXSOCKETDocker docker) {
-    this.docker = docker;
+  public ESwarmUnlockKey(Builder builder) {
+    this.unlockkey = builder.unlockkey;
   }
 
-  @Override
-  public DResp exec(String id, String body) {
-    return null;
+  public String unlockkey() {
+    return this.unlockkey;
   }
 
-  @Override
-  public DResp start(String id, String body) {
-    return null;
+  public static class Builder {
+    private String unlockkey;
+
+    public ESwarmUnlockKey build() {
+      return new ESwarmUnlockKey(this);
+    }
+
+    public Builder unlockkey(String unlockkey) {
+      this.unlockkey = unlockkey;
+      return this;
+    }
   }
 
-  @Override
-  public DResp resize(String id, DQPResize dqp) {
-    return null;
-  }
-
-  @Override
-  public DResp inspect(String id) {
-    return null;
-  }
 }

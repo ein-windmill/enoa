@@ -15,6 +15,8 @@
  */
 package io.enoa.docker.command.origin;
 
+import io.enoa.docker.dqp.common.DQPFilter;
+import io.enoa.docker.dqp.network.DQPNetworkInspect;
 import io.enoa.docker.dqp.network.DQPNetworkList;
 import io.enoa.docker.dret.DResp;
 
@@ -28,6 +30,36 @@ public class EUNIXSOCKETDockerNetwork implements EOriginDockerNetwork {
 
   @Override
   public DResp list(DQPNetworkList dqp) {
+    return null;
+  }
+
+  @Override
+  public DResp inspect(String id, DQPNetworkInspect dqp) {
+    return null;
+  }
+
+  @Override
+  public DResp remove(String id) {
+    return null;
+  }
+
+  @Override
+  public DResp create(String body) {
+    return null;
+  }
+
+  @Override
+  public DResp connect(String id, String body) {
+    return null;
+  }
+
+  @Override
+  public DResp disconnect(String id, String body) {
+    return null;
+  }
+
+  @Override
+  public DResp prune(DQPFilter dqp) {
     return null;
   }
 }

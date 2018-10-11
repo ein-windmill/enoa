@@ -13,36 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.command.origin;
+package io.enoa.docker.dret.swarm;
 
-import io.enoa.docker.dqp.common.DQPResize;
-import io.enoa.docker.dret.DResp;
+import io.enoa.docker.dret.AbstractDRet;
 
-public class EUNIXSOCKETDockerExec implements EOriginDockerExec {
+public class ETaskDefaults extends AbstractDRet {
 
-  private EnoaUNIXSOCKETDocker docker;
 
-  EUNIXSOCKETDockerExec(EnoaUNIXSOCKETDocker docker) {
-    this.docker = docker;
+  private final ELogDriver logdriver;
+
+  public ETaskDefaults(Builder builder) {
+    this.logdriver = builder.logdriver;
   }
 
-  @Override
-  public DResp exec(String id, String body) {
-    return null;
+  public ELogDriver logdriver() {
+    return this.logdriver;
   }
 
-  @Override
-  public DResp start(String id, String body) {
-    return null;
+  public static class Builder {
+    private ELogDriver logdriver;
+
+    public ETaskDefaults build() {
+      return new ETaskDefaults(this);
+    }
+
+    public Builder logdriver(ELogDriver logdriver) {
+      this.logdriver = logdriver;
+      return this;
+    }
   }
 
-  @Override
-  public DResp resize(String id, DQPResize dqp) {
-    return null;
-  }
-
-  @Override
-  public DResp inspect(String id) {
-    return null;
-  }
 }

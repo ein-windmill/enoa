@@ -31,7 +31,7 @@ public class EDockerInfo extends AbstractDRet {
   private final String driver;
   private final List<String[]> driverstatus;
   private final Object systemstatus;
-  private final EPlugin plugins;
+  private final EDIPlugin plugins;
   private final Boolean memorylimit;
   private final Boolean swaplimit;
   private final Boolean kernelmemory;
@@ -178,7 +178,7 @@ public class EDockerInfo extends AbstractDRet {
     return this.systemstatus;
   }
 
-  public EPlugin plugins() {
+  public EDIPlugin plugins() {
     return this.plugins;
   }
 
@@ -381,7 +381,7 @@ public class EDockerInfo extends AbstractDRet {
     private String driver;
     private List<String[]> driverstatus;
     private Object systemstatus;
-    private EPlugin plugins;
+    private EDIPlugin plugins;
     private Boolean memorylimit;
     private Boolean swaplimit;
     private Boolean kernelmemory;
@@ -482,7 +482,7 @@ public class EDockerInfo extends AbstractDRet {
       return this;
     }
 
-    public Builder plugins(EPlugin plugins) {
+    public Builder plugins(EDIPlugin plugins) {
       this.plugins = plugins;
       return this;
     }

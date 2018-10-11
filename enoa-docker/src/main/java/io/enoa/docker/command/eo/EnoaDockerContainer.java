@@ -73,7 +73,7 @@ public class EnoaDockerContainer {
   }
 
   public DRet<String> logs(String id, DQPContainerLogs dqp) {
-    return this.container.logs(DIParser.logs(), id, dqp);
+    return this.container.logs(DIParser.string(), id, dqp);
   }
 
   public DRet<List<EChange>> changes(String id) {

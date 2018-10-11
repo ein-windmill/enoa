@@ -15,5 +15,70 @@
  */
 package io.enoa.docker.command.origin;
 
+import io.enoa.docker.dqp.common.DQPFilter;
+import io.enoa.docker.dret.DResp;
+
 public interface EOriginNode {
+
+
+  /**
+   * List nodes
+   *
+   * @param dqp dqp
+   * @return DResp
+   */
+  DResp nodes(DQPFilter dqp);
+
+
+  /**
+   * Inspect a node
+   *
+   * @param id string Required
+   *           <p>
+   *           The ID or name of the node
+   * @return DResp
+   */
+  DResp inspect(String id);
+
+  default DResp remove(String id) {
+    return this.remove(id, Boolean.FALSE);
+  }
+
+  /**
+   * Delete a node
+   *
+   * @param id    string Required
+   *              <p>
+   *              The ID or name of the node
+   * @param force boolean
+   *              default false
+   *              <p>
+   *              Force remove a node from the swarm
+   * @return DResp
+   */
+  DResp remove(String id, boolean force);
+
+
+  /**
+   * Update a node
+   *
+   * @param id      string Required
+   *                <p>
+   *                The ID of the node
+   * @param version integer <int64> Required
+   *                <p>
+   *                The version number of the node object being updated. This is required to avoid conflicting writes.
+   * @param body    body
+   *                {
+   *                "Availability": "active",
+   *                "Name": "node-name",
+   *                "Role": "manager",
+   *                "Labels": {
+   *                "foo": "bar"
+   *                }
+   *                }
+   * @return DResp
+   */
+  DResp update(String id, long version, String body);
+
 }
