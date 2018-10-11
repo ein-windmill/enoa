@@ -13,52 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.dqp.container;
+package io.enoa.docker.dqp.exec;
 
 import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.DQR;
 
-public class DQPContainerResize implements DQP {
+public class DQPExecStart implements DQP {
 
-  /**
-   * w
-   * integer
-   * <p>
-   * Width of the tty session in characters
-   */
-  private Integer width;
-  /**
-   * h
-   * integer
-   * <p>
-   * Height of the tty session in characters
-   */
-  private Integer height;
+  private Boolean detach;
+  private Boolean tty;
 
-  public static DQPContainerResize create() {
-    return new DQPContainerResize();
+  public static DQPExecStart create() {
+    return new DQPExecStart();
   }
 
-  public DQPContainerResize() {
+  public DQPExecStart() {
+
   }
 
-  public DQPContainerResize width(Integer width) {
-    this.width = width;
+  public DQPExecStart detach(Boolean detach) {
+    this.detach = detach;
     return this;
   }
 
-  public DQPContainerResize height(Integer height) {
-    this.height = height;
+  public DQPExecStart tty(Boolean tty) {
+    this.tty = tty;
     return this;
   }
 
   @Override
   public DQR dqr() {
-    DQR dqr = DQR.create();
-    if (this.height != null)
-      dqr.put("h", this.height);
-    if (this.width != null)
-      dqr.put("w", this.width);
-    return dqr;
+    return DQR.create()
+      .putIf("Tty", this.tty)
+      .putIf("Detach", this.detach);
   }
 }

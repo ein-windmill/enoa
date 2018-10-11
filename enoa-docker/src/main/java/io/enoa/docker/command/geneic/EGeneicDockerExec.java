@@ -18,6 +18,14 @@ package io.enoa.docker.command.geneic;
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.command.origin.EOriginDockerExec;
 import io.enoa.docker.command.origin.OriginDocker;
+import io.enoa.docker.dqp.common.DQPResize;
+import io.enoa.docker.dqp.exec.DQPExecCreate;
+import io.enoa.docker.dqp.exec.DQPExecStart;
+import io.enoa.docker.dret.DResp;
+import io.enoa.docker.dret.DRet;
+import io.enoa.docker.parser.DIParser;
+import io.enoa.toolkit.value.Void;
+
 
 public class EGeneicDockerExec {
 
@@ -29,5 +37,41 @@ public class EGeneicDockerExec {
     this.docker = docker;
     this.config = docker._dockerconfig();
     this.exec = docker.exec();
+  }
+
+
+  public <T> DRet<T> exec(DIParser<T> parser, String id, String body) {
+    DResp resp = this.exec.exec(id, body);
+    return parser.parse(this.config, resp);
+  }
+
+  public <T> DRet<T> exec(DIParser<T> parser, String id, DQPExecCreate dqp) {
+    DResp resp = this.exec.exec(id, dqp);
+    return parser.parse(this.config, resp);
+  }
+
+  public DRet<Void> start(String id, String body) {
+    DResp resp = this.exec.start(id, body);
+    return DIParser.voidx().parse(this.config, resp);
+  }
+
+  public DRet<Void> start(String id, DQPExecStart dqp) {
+    DResp resp = this.exec.start(id, dqp);
+    return DIParser.voidx().parse(this.config, resp);
+  }
+
+  public DRet<Void> resize(String id) {
+    DResp resp = this.exec.resize(id);
+    return DIParser.voidx().parse(this.config, resp);
+  }
+
+  public DRet<Void> resize(String id, DQPResize dqp) {
+    DResp resp = this.exec.resize(id, dqp);
+    return DIParser.voidx().parse(this.config, resp);
+  }
+
+  public <T> DRet<T> inspect(DIParser<T> parser, String id) {
+    DResp resp = this.exec.inspect(id);
+    return parser.parse(this.config, resp);
   }
 }

@@ -15,11 +15,53 @@
  */
 package io.enoa.docker.command.origin;
 
+import io.enoa.docker.dqp.common.DQPResize;
+import io.enoa.docker.dret.DResp;
+import io.enoa.http.Http;
+import io.enoa.http.protocol.HttpMethod;
+import io.enoa.http.protocol.HttpResponse;
+
 public class ETCPDockerExec implements EOriginDockerExec {
 
   private EnoaTCPDocker docker;
 
-  public ETCPDockerExec(EnoaTCPDocker docker) {
+  ETCPDockerExec(EnoaTCPDocker docker) {
     this.docker = docker;
   }
+
+  @Override
+  public DResp exec(String id, String body) {
+    HttpResponse response = this.docker.http("containers", id, "exec")
+      .method(HttpMethod.POST)
+      .raw(body, "application/json")
+      .emit();
+    return DResp.create(response);
+  }
+
+  @Override
+  public DResp start(String id, String body) {
+    HttpResponse response = this.docker.http("exec", id, "start")
+      .method(HttpMethod.POST)
+      .raw(body, "application/json")
+      .emit();
+    return DResp.create(response);
+  }
+
+  @Override
+  public DResp resize(String id, DQPResize dqp) {
+    Http http = this.docker.http("exec", id, "resize")
+      .method(HttpMethod.POST);
+    if (dqp != null)
+      http.para(dqp.dqr().http());
+    HttpResponse response = http.emit();
+    return DResp.create(response);
+  }
+
+  @Override
+  public DResp inspect(String id) {
+    HttpResponse response = this.docker.http("exec", id, "json")
+      .emit();
+    return DResp.create(response);
+  }
+
 }

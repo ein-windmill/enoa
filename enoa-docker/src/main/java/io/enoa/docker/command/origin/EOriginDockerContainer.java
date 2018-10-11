@@ -15,6 +15,7 @@
  */
 package io.enoa.docker.command.origin;
 
+import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.container.*;
 import io.enoa.docker.dret.DResp;
@@ -376,7 +377,7 @@ public interface EOriginDockerContainer {
   DResp statistics(String id, DStream<String> dstream);
 
   /**
-   * @see #resize(String, DQPContainerResize)
+   * @see #resize(String, DQPResize)
    */
   default DResp resize(String id) {
     return this.resize(id, null);
@@ -392,7 +393,7 @@ public interface EOriginDockerContainer {
    * @param dqp dqp
    * @return Dresp
    */
-  DResp resize(String id, DQPContainerResize dqp);
+  DResp resize(String id, DQPResize dqp);
 
   /**
    * @see #start(String, DQPContainerStart)

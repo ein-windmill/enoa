@@ -20,6 +20,8 @@ import io.enoa.docker.dret.DResp;
 import io.enoa.docker.dret.DRet;
 import io.enoa.docker.dret.container.*;
 import io.enoa.docker.dret.dockerinfo.EDockerInfo;
+import io.enoa.docker.dret.exec.EExecCreated;
+import io.enoa.docker.dret.exec.EExecInspect;
 import io.enoa.docker.dret.image.*;
 import io.enoa.docker.dret.network.ENetworPrune;
 import io.enoa.docker.dret.network.ENetwork;
@@ -146,6 +148,14 @@ public interface DIParser<T> {
 
   static DIParser<EVolumePrune> volumeprune() {
     return EVolumePruneParser.instance();
+  }
+
+  static DIParser<EExecCreated> execcreated() {
+    return EExecCreateParser.instance();
+  }
+
+  static DIParser<EExecInspect> execinspect() {
+    return EExecInspectParser.instance();
   }
 
   /**

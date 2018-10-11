@@ -18,6 +18,7 @@ package io.enoa.docker.command.geneic;
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.command.origin.EOriginDockerContainer;
 import io.enoa.docker.command.origin.OriginDocker;
+import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.container.*;
 import io.enoa.docker.dret.DResp;
@@ -112,7 +113,7 @@ public class EGeneicDockerContainer {
     return this.resize(id, null);
   }
 
-  public DRet<Void> resize(String id, DQPContainerResize dqp) {
+  public DRet<Void> resize(String id, DQPResize dqp) {
     DResp origin = this.container.resize(id, dqp);
     return DIParser.voidx().parse(this.config, origin);
   }

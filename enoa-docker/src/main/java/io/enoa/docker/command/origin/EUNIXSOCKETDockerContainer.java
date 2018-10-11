@@ -15,6 +15,7 @@
  */
 package io.enoa.docker.command.origin;
 
+import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.container.*;
 import io.enoa.docker.dret.DResp;
@@ -74,7 +75,7 @@ public class EUNIXSOCKETDockerContainer implements EOriginDockerContainer {
   }
 
   @Override
-  public DResp resize(String id, DQPContainerResize dqp) {
+  public DResp resize(String id, DQPResize dqp) {
     return null;
   }
 

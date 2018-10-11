@@ -15,7 +15,61 @@
  */
 package io.enoa.docker.command.origin;
 
+import io.enoa.docker.dqp.common.DQPResize;
+import io.enoa.docker.dqp.exec.DQPExecCreate;
+import io.enoa.docker.dqp.exec.DQPExecStart;
+import io.enoa.docker.dret.DResp;
+
 public interface EOriginDockerExec {
 
+
+  /**
+   * Create an exec instance
+   * Run a command inside a running container.
+   *
+   * @param body body
+   * @return DResp
+   */
+  DResp exec(String id, String body);
+
+  default DResp exec(String id, DQPExecCreate dqp) {
+    return this.exec(id, dqp.dqr().json());
+  }
+
+  /**
+   * Start an exec instance
+   * Starts a previously set up exec instance. If detach is true, this endpoint returns immediately after starting the command. Otherwise, it sets up an interactive session with the command.
+   *
+   * @param body body
+   * @return DResp
+   */
+  DResp start(String id, String body);
+
+  default DResp start(String id, DQPExecStart dqp) {
+    return this.start(id, dqp.dqr().json());
+  }
+
+  default DResp resize(String id) {
+    return this.resize(id, null);
+  }
+
+  /**
+   * Resize an exec instance
+   * Resize the TTY session used by an exec instance. This endpoint only works if tty was specified as part of creating and starting the exec instance.
+   *
+   * @param id  id
+   * @param dqp dqp
+   * @return DResp
+   */
+  DResp resize(String id, DQPResize dqp);
+
+  /**
+   * Inspect an exec instance
+   * Return low-level information about an exec instance.
+   *
+   * @param id id
+   * @return Dresp
+   */
+  DResp inspect(String id);
 
 }

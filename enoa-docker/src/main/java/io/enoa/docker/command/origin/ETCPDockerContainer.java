@@ -15,6 +15,7 @@
  */
 package io.enoa.docker.command.origin;
 
+import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.container.*;
 import io.enoa.docker.dret.DResp;
@@ -113,7 +114,7 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
   }
 
   @Override
-  public DResp resize(String id, DQPContainerResize dqp) {
+  public DResp resize(String id, DQPResize dqp) {
     Http http = this.docker.http("container", id, "resize")
       .method(HttpMethod.POST);
     if (dqp != null) {
