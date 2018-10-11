@@ -17,6 +17,7 @@ package io.enoa.docker;
 
 import io.enoa.docker.dqp.container.DQPLogs;
 import io.enoa.docker.dqp.container.DQPUpdate;
+import io.enoa.docker.dret.DResp;
 import io.enoa.docker.dret.DRet;
 import io.enoa.docker.dret.container.*;
 import io.enoa.docker.stream.DStream;
@@ -179,7 +180,7 @@ public class DockerContainerTest extends AbstractDockerTest {
 //    Assert.assertTrue(ret.ok());
 ////    String json = Json.toJson(ret.data());
 //    System.out.println(ret);
-    EnoaBinary binary = Docker.origin().container().archive("nginx", "/homne");
+    DResp resp = Docker.origin().container().archive("nginx", "/homne");
   }
 
   @Test

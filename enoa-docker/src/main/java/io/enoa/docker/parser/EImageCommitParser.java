@@ -17,34 +17,28 @@ package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dret.DResp;
-import io.enoa.docker.dret.container.ECError;
-import io.enoa.docker.dret.container.ECWait;
+import io.enoa.docker.dret.image.EICommit;
+import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.map.Kv;
 
-import java.util.Map;
-
-class EWaitParser extends AbstractParser<ECWait> {
+class EImageCommitParser extends AbstractParser<EICommit> {
 
   private static class Holder {
-    private static final EWaitParser INSTANCE = new EWaitParser();
+    private static final EImageCommitParser INSTANCE = new EImageCommitParser();
   }
 
-  static EWaitParser instance() {
+  static EImageCommitParser instance() {
     return Holder.INSTANCE;
   }
 
   @Override
-  public ECWait ok(DockerConfig config, DResp resp) {
+  public EICommit ok(DockerConfig config, DResp resp) {
     Kv kv = config.json().parse(resp.string(), Kv.class);
-    ECWait.Builder builder = new ECWait.Builder()
-      .statuscode(kv.integer("StatusCode"));
-    Object error = kv.get("Error");
-    if (error instanceof Map) {
-      Kv erm = Kv.by((Map) error);
-      ECError.Builder eb = new ECError.Builder()
-        .message(erm.string("Message"));
-      builder.error(eb.build());
-    }
+    if (CollectionKit.isEmpty(kv))
+      return null;
+    EICommit.Builder builder = new EICommit.Builder()
+      .id(kv.string("id"));
+    CollectionKit.clear(kv);
     return builder.build();
   }
 }

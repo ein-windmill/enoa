@@ -18,12 +18,12 @@ package io.enoa.docker.dret;
 public class DRet<T> extends AbstractDRet {
 
   //  private DockerConfig config;
-  private String origin;
+  private DResp origin;
   private boolean ok;
   private T data;
   private String message;
 
-  public static <J> DRet<J> fail(String origin, String message) {
+  public static <J> DRet<J> fail(DResp origin, String message) {
     return new Builder<J>()
       .ok(false)
       .origin(origin)
@@ -31,7 +31,7 @@ public class DRet<T> extends AbstractDRet {
       .build();
   }
 
-  public static <J> DRet<J> ok(String origin, J data) {
+  public static <J> DRet<J> ok(DResp origin, J data) {
     return new Builder<J>()
       .ok(true)
       .origin(origin)
@@ -47,7 +47,7 @@ public class DRet<T> extends AbstractDRet {
     this.message = builder.message;
   }
 
-  public String origin() {
+  public DResp origin() {
     return this.origin;
   }
 
@@ -65,13 +65,13 @@ public class DRet<T> extends AbstractDRet {
 
   @Override
   public String toString() {
-    return this.origin;
+    return this.origin.string();
   }
 
 
   private static class Builder<K> {
 
-    private String origin;
+    private DResp origin;
     private boolean ok;
     private K data;
     private String message;
@@ -81,7 +81,7 @@ public class DRet<T> extends AbstractDRet {
       return new DRet<>(this);
     }
 
-    public Builder<K> origin(String origin) {
+    public Builder<K> origin(DResp origin) {
       this.origin = origin;
       return this;
     }

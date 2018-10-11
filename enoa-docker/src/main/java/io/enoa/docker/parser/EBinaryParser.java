@@ -17,34 +17,19 @@ package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dret.DResp;
-import io.enoa.docker.dret.container.ECError;
-import io.enoa.docker.dret.container.ECWait;
-import io.enoa.toolkit.map.Kv;
+import io.enoa.toolkit.binary.EnoaBinary;
 
-import java.util.Map;
-
-class EWaitParser extends AbstractParser<ECWait> {
-
+class EBinaryParser extends AbstractParser<EnoaBinary> {
   private static class Holder {
-    private static final EWaitParser INSTANCE = new EWaitParser();
+    private static final EBinaryParser INSTANCE = new EBinaryParser();
   }
 
-  static EWaitParser instance() {
+  static EBinaryParser instance() {
     return Holder.INSTANCE;
   }
 
   @Override
-  public ECWait ok(DockerConfig config, DResp resp) {
-    Kv kv = config.json().parse(resp.string(), Kv.class);
-    ECWait.Builder builder = new ECWait.Builder()
-      .statuscode(kv.integer("StatusCode"));
-    Object error = kv.get("Error");
-    if (error instanceof Map) {
-      Kv erm = Kv.by((Map) error);
-      ECError.Builder eb = new ECError.Builder()
-        .message(erm.string("Message"));
-      builder.error(eb.build());
-    }
-    return builder.build();
+  public EnoaBinary ok(DockerConfig config, DResp origin) {
+    return origin.binary();
   }
 }

@@ -16,11 +16,12 @@
 package io.enoa.docker.command.origin;
 
 import io.enoa.docker.dqp.image.*;
+import io.enoa.docker.dret.DResp;
 import io.enoa.docker.stream.DStream;
 
 public interface EOriginDockerImage {
 
-  default String list() {
+  default DResp list() {
     return this.list(null);
   }
 
@@ -30,14 +31,14 @@ public interface EOriginDockerImage {
    * smaller representation of an image than inspecting a single image.
    *
    * @param dqp dqp
-   * @return String
+   * @return DResp
    */
-  String list(DQPListImage dqp);
+  DResp list(DQPListImage dqp);
 
   /**
    * @see #build(DQPBuild, String, DStream)
    */
-  default String build(DQPBuild dqp, String dockerfile) {
+  default DResp build(DQPBuild dqp, String dockerfile) {
     return this.build(dqp, dockerfile, null);
   }
 
@@ -58,16 +59,16 @@ public interface EOriginDockerImage {
    * @param dqp        dqp
    * @param dockerfile dockerfile content
    * @param dstream    chunk
-   * @return String
+   * @return DResp
    */
-  String build(DQPBuild dqp, String dockerfile, DStream<String> dstream);
+  DResp build(DQPBuild dqp, String dockerfile, DStream<String> dstream);
 
   /**
    * Delete builder cache
    *
-   * @return String
+   * @return DResp
    */
-  String prunebuild();
+  DResp prunebuild();
 
 
   /**
@@ -76,9 +77,9 @@ public interface EOriginDockerImage {
    *
    * @param dqp  dqp
    * @param body request body
-   * @return String
+   * @return DResp
    */
-  String create(DQPImageCreate dqp, String body);
+  DResp create(DQPImageCreate dqp, String body);
 
   /**
    * Inspect an image
@@ -87,9 +88,9 @@ public interface EOriginDockerImage {
    * @param id string Required
    *           <p>
    *           Image name or id
-   * @return string
+   * @return DResp
    */
-  String inspect(String id);
+  DResp inspect(String id);
 
   /**
    * Get the history of an image
@@ -100,20 +101,20 @@ public interface EOriginDockerImage {
    *           Image name or ID
    * @return Stirng
    */
-  String history(String id);
+  DResp history(String id);
 
   /**
    * @see #push(String, DQPPush)
    */
-  default String push(String id) {
+  default DResp push(String id) {
     return this.push(id, null, null);
   }
 
-  default String push(String id, DStream<String> dstream) {
+  default DResp push(String id, DStream<String> dstream) {
     return this.push(id, null, dstream);
   }
 
-  default String push(String id, DQPPush dqp) {
+  default DResp push(String id, DQPPush dqp) {
     return this.push(id, dqp, null);
   }
 
@@ -130,9 +131,9 @@ public interface EOriginDockerImage {
    *            <p>
    *            Image name or ID.
    * @param dqp dqp
-   * @return String
+   * @return DResp
    */
-  String push(String id, DQPPush dqp, DStream<String> dstream);
+  DResp push(String id, DQPPush dqp, DStream<String> dstream);
 
   /**
    * Tag an image
@@ -142,14 +143,14 @@ public interface EOriginDockerImage {
    *            <p>
    *            Image name or ID to tag.
    * @param dqp dqp
-   * @return String
+   * @return DResp
    */
-  String tag(String id, DQPTag dqp);
+  DResp tag(String id, DQPTag dqp);
 
   /**
    * @see #remove(String, DQPRmi)
    */
-  default String remove(String id) {
+  default DResp remove(String id) {
     return this.remove(id, null);
   }
 
@@ -162,20 +163,20 @@ public interface EOriginDockerImage {
    * @param id string Required
    *           <p>
    *           Image name or ID
-   * @return String
+   * @return DResp
    */
-  String remove(String id, DQPRmi dqp);
+  DResp remove(String id, DQPRmi dqp);
 
   /**
    * Search images
    * Search for an image on Docker Hub.
    *
    * @param dqp dqp
-   * @return String
+   * @return DResp
    */
-  String search(DQPSearch dqp);
+  DResp search(DQPSearch dqp);
 
-  default String pruneimage() {
+  default DResp pruneimage() {
     return this.pruneimage(null);
   }
 
@@ -184,12 +185,12 @@ public interface EOriginDockerImage {
    *
    * @return Stirng
    */
-  String pruneimage(DQPPruneImage dqp);
+  DResp pruneimage(DQPPruneImage dqp);
 
   /**
    * @see #commit(String, DQPCommit)
    */
-  default String commit(String body) {
+  default DResp commit(String body) {
     return this.commit(body, null);
   }
 
@@ -252,8 +253,29 @@ public interface EOriginDockerImage {
    *             ]
    *             }
    * @param dqp  dqp
-   * @return String
+   * @return DResp
    */
-  String commit(String body, DQPCommit dqp);
+  DResp commit(String body, DQPCommit dqp);
+
+  /**
+   * Export an image
+   * Get a tarball containing all images and metadata for a repository.
+   * <p>
+   * If name is a specific name and tag (e.g. ubuntu:latest), then only that image (and its parents) are returned. If name is an image ID, similarly only that image (and its parents) are returned, but with the exclusion of the repositories file in the tarball, as there were no image names referenced.
+   * Image tarball format
+   * <p>
+   * An image tarball contains one directory per image layer (named using its long ID), each containing these files:
+   * <p>
+   * VERSION: currently 1.0 - the file format version
+   * json: detailed layer information, similar to docker inspect layer_id
+   * layer.tar: A tarfile containing the filesystem changes in this layer
+   * <p>
+   * The layer.tar file contains aufs style .wh..wh.aufs files and directories for storing attribute changes and deletions.
+   * <p>
+   * If the tarball defines a repository, the tarball should also include a repositories file at the root that contains a list of repository and tag names mapped to layer IDs.
+   *
+   * @return DResp
+   */
+  DResp export(String id);
 
 }

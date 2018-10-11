@@ -16,6 +16,7 @@
 package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
+import io.enoa.docker.dret.DResp;
 import io.enoa.docker.dret.dockerinfo.*;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.convert.ConvertKit;
@@ -39,8 +40,8 @@ class EDockerInfoParser extends AbstractParser<EDockerInfo> {
   }
 
   @Override
-  public EDockerInfo ok(DockerConfig config, String origin) {
-    Kv kv = config.json().parse(origin, Kv.class);
+  public EDockerInfo ok(DockerConfig config, DResp resp) {
+    Kv kv = config.json().parse(resp.string(), Kv.class);
     EDockerInfo edi = new EDockerInfo.Builder()
       .id(kv.string("ID"))
       .containers(kv.integer("Containers"))

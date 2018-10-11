@@ -17,6 +17,7 @@ package io.enoa.docker.command.geneic;
 
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.command.origin.OriginDocker;
+import io.enoa.docker.dret.DResp;
 import io.enoa.docker.dret.DRet;
 import io.enoa.docker.parser.DIParser;
 
@@ -37,7 +38,7 @@ public class EnoaGenericDocker implements GeneicDocker {
 
   @Override
   public <T> DRet<T> info(DIParser<T> parser) {
-    String origin = this.docker.info();
+    DResp origin = this.docker.info();
     return parser.parse(this.config, origin);
   }
 

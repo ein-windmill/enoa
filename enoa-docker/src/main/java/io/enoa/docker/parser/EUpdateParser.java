@@ -1,6 +1,7 @@
 package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
+import io.enoa.docker.dret.DResp;
 import io.enoa.docker.dret.container.EUpdate;
 import io.enoa.toolkit.map.Kv;
 
@@ -16,8 +17,8 @@ class EUpdateParser extends AbstractParser<EUpdate> {
 
 
   @Override
-  public EUpdate ok(DockerConfig config, String origin) {
-    Kv kv = config.json().parse(origin, Kv.class);
+  public EUpdate ok(DockerConfig config, DResp resp) {
+    Kv kv = config.json().parse(resp.string(), Kv.class);
     EUpdate.Builder builder = new EUpdate.Builder();
     builder.warnings(AEExtra.stringarray(kv, "Warnings"));
     return builder.build();

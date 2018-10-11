@@ -16,6 +16,7 @@
 package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
+import io.enoa.docker.dret.DResp;
 import io.enoa.docker.dret.container.*;
 import io.enoa.toolkit.convert.ConvertKit;
 import io.enoa.toolkit.date.DateKit;
@@ -35,8 +36,8 @@ class EStatisticsParser extends AbstractParser<EStatistics> {
   }
 
   @Override
-  public EStatistics ok(DockerConfig config, String origin) {
-    Kv kv = config.json().parse(origin, Kv.class);
+  public EStatistics ok(DockerConfig config, DResp resp) {
+    Kv kv = config.json().parse(resp.string(), Kv.class);
     EStatistics.Builder builder = new EStatistics.Builder();
     builder.id(kv.string("id"))
       .name(kv.string("name"))

@@ -16,6 +16,7 @@
 package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
+import io.enoa.docker.dret.DResp;
 import io.enoa.docker.dret.container.ECConfig;
 import io.enoa.docker.dret.container.ECInspect;
 import io.enoa.toolkit.collection.CollectionKit;
@@ -35,8 +36,8 @@ class EContainerInspectParser extends AbstractParser<ECInspect> {
   }
 
   @Override
-  public ECInspect ok(DockerConfig config, String origin) {
-    Kv kv = config.json().parse(origin, Kv.class);
+  public ECInspect ok(DockerConfig config, DResp resp) {
+    Kv kv = config.json().parse(resp.string(), Kv.class);
     ECInspect.Builder builder = new ECInspect.Builder();
     builder.id(kv.string("Id"))
       .created(DateKit.parse(kv.string("Created"), "yyyy-MM-dd'T'HH:mm:ss.SSS"))

@@ -16,6 +16,7 @@
 package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
+import io.enoa.docker.dret.DResp;
 import io.enoa.docker.dret.image.EIPrune;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.map.Kv;
@@ -31,8 +32,8 @@ class EIPruneParser extends AbstractParser<EIPrune> {
   }
 
   @Override
-  public EIPrune ok(DockerConfig config, String origin) {
-    Kv kv = config.json().parse(origin, Kv.class);
+  public EIPrune ok(DockerConfig config, DResp resp) {
+    Kv kv = config.json().parse(resp.string(), Kv.class);
     EIPrune.Builder builder = new EIPrune.Builder()
       .spacereclaimed(kv.integer("SpaceReclaimed"));
     CollectionKit.clear(kv);

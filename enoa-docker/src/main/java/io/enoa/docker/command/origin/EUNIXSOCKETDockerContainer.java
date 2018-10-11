@@ -16,6 +16,7 @@
 package io.enoa.docker.command.origin;
 
 import io.enoa.docker.dqp.container.*;
+import io.enoa.docker.dret.DResp;
 import io.enoa.docker.stream.DStream;
 import io.enoa.toolkit.binary.EnoaBinary;
 
@@ -28,117 +29,117 @@ public class EUNIXSOCKETDockerContainer implements EOriginDockerContainer {
   }
 
   @Override
-  public String list(DQPListContainer dqp) {
+  public DResp list(DQPListContainer dqp) {
     return null;
   }
 
   @Override
-  public String create(String name, String body) {
+  public DResp create(String name, String body) {
     return null;
   }
 
   @Override
-  public String inspect(String id, Boolean size) {
+  public DResp inspect(String id, Boolean size) {
     return null;
   }
 
   @Override
-  public String top(String id, String para) {
+  public DResp top(String id, String para) {
     return null;
   }
 
   @Override
-  public String logs(String id, DQPLogs dqp) {
+  public DResp logs(String id, DQPLogs dqp) {
     return null;
   }
 
   @Override
-  public String changes(String id) {
+  public DResp changes(String id) {
     return null;
   }
 
   @Override
-  public String export(String id) {
+  public DResp export(String id) {
     return null;
   }
 
   @Override
-  public String statistics(String id) {
+  public DResp statistics(String id) {
     return null;
   }
 
   @Override
-  public String statistics(String id, DStream<String> dstream) {
+  public DResp statistics(String id, DStream<String> dstream) {
     return null;
   }
 
   @Override
-  public String resize(String id, DQPResize dqp) {
+  public DResp resize(String id, DQPResize dqp) {
     return null;
   }
 
   @Override
-  public String start(String id, DQPStart dqp) {
+  public DResp start(String id, DQPStart dqp) {
     return null;
   }
 
   @Override
-  public String stop(String id, DQPTime dqp) {
+  public DResp stop(String id, DQPTime dqp) {
     return null;
   }
 
   @Override
-  public String restart(String id, DQPTime dqp) {
+  public DResp restart(String id, DQPTime dqp) {
     return null;
   }
 
   @Override
-  public String kill(String id, DQPKill dqp) {
+  public DResp kill(String id, DQPKill dqp) {
     return null;
   }
 
   @Override
-  public String update(String id, String body) {
+  public DResp update(String id, String body) {
     return null;
   }
 
   @Override
-  public String rename(String id, String name) {
+  public DResp rename(String id, String name) {
     return null;
   }
 
   @Override
-  public String pause(String id) {
+  public DResp pause(String id) {
     return null;
   }
 
   @Override
-  public String unpause(String id) {
+  public DResp unpause(String id) {
     return null;
   }
 
   @Override
-  public String attach(String id, DQPAttch dqp) {
+  public DResp attach(String id, DQPAttch dqp) {
     return null;
   }
 
   @Override
-  public String wait(String id, String condition) {
+  public DResp wait(String id, String condition) {
     return null;
   }
 
   @Override
-  public String remove(String id, DQPRemove dqp) {
+  public DResp remove(String id, DQPRemove dqp) {
     return null;
   }
 
   @Override
-  public EnoaBinary archive(String id, String path) {
+  public DResp archive(String id, String path) {
     return null;
   }
 
   @Override
-  public String prune(DQPPruneContainer dqp) {
+  public DResp prune(DQPPruneContainer dqp) {
     return null;
   }
 }

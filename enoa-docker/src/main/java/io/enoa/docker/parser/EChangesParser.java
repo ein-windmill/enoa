@@ -16,6 +16,7 @@
 package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
+import io.enoa.docker.dret.DResp;
 import io.enoa.docker.dret.container.EChange;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.map.Kv;
@@ -36,8 +37,8 @@ class EChangesParser extends AbstractParser<List<EChange>> {
   }
 
   @Override
-  public List<EChange> ok(DockerConfig config, String origin) {
-    List<Kv> kvs = config.json().parseArray(origin, Kv.class);
+  public List<EChange> ok(DockerConfig config, DResp resp) {
+    List<Kv> kvs = config.json().parseArray(resp.string(), Kv.class);
     if (CollectionKit.isEmpty(kvs))
       return Collections.emptyList();
     List<EChange> changes = new ArrayList<>(kvs.size());

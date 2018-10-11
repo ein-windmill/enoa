@@ -16,6 +16,7 @@
 package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
+import io.enoa.docker.dret.DResp;
 import io.enoa.docker.dret.container.EProcesses;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.map.Kv;
@@ -35,8 +36,8 @@ class EProcessParser extends AbstractParser<EProcesses> {
   }
 
   @Override
-  public EProcesses ok(DockerConfig config, String origin) {
-    Kv kv = config.json().parse(origin, Kv.class);
+  public EProcesses ok(DockerConfig config, DResp resp) {
+    Kv kv = config.json().parse(resp.string(), Kv.class);
     if (CollectionKit.isEmpty(kv))
       return null;
     EProcesses.Builder builder = new EProcesses.Builder();

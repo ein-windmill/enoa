@@ -19,6 +19,7 @@ import io.enoa.docker.DockerConfig;
 import io.enoa.docker.command.origin.EOriginDockerContainer;
 import io.enoa.docker.command.origin.OriginDocker;
 import io.enoa.docker.dqp.container.*;
+import io.enoa.docker.dret.DResp;
 import io.enoa.docker.dret.DRet;
 import io.enoa.docker.parser.DIParser;
 import io.enoa.docker.stream.DStream;
@@ -47,12 +48,12 @@ public class EGeneicDockerContainer {
   }
 
   public <T> DRet<List<T>> list(DIParser<List<T>> parser, DQPListContainer dqp) {
-    String origin = this.container.list(dqp);
+    DResp origin = this.container.list(dqp);
     return parser.parse(this.config, origin);
   }
 
   public <T> DRet<T> create(DIParser<T> parser, String name, String body) {
-    String origin = this.container.create(name, body);
+    DResp origin = this.container.create(name, body);
     return parser.parse(this.config, origin);
   }
 
@@ -61,7 +62,7 @@ public class EGeneicDockerContainer {
   }
 
   public <T> DRet<T> inspect(DIParser<T> parser, String id, Boolean size) {
-    String origin = this.container.inspect(id, size);
+    DResp origin = this.container.inspect(id, size);
     return parser.parse(this.config, origin);
   }
 
@@ -70,7 +71,7 @@ public class EGeneicDockerContainer {
   }
 
   public <T> DRet<T> top(DIParser<T> parser, String id, String para) {
-    String origin = this.container.top(id, para);
+    DResp origin = this.container.top(id, para);
     return parser.parse(this.config, origin);
   }
 
@@ -79,22 +80,22 @@ public class EGeneicDockerContainer {
   }
 
   public <T> DRet<T> logs(DIParser<T> parser, String id, DQPLogs dqp) {
-    String origin = this.container.logs(id, dqp);
+    DResp origin = this.container.logs(id, dqp);
     return parser.parse(this.config, origin);
   }
 
   public <T> DRet<List<T>> changes(DIParser<List<T>> parser, String id) {
-    String origin = this.container.changes(id);
+    DResp origin = this.container.changes(id);
     return parser.parse(this.config, origin);
   }
 
   public DRet<Void> export(String id) {
-    String origin = this.container.export(id);
+    DResp origin = this.container.export(id);
     return DIParser.voidx().parse(this.config, origin);
   }
 
   public <T> DRet<T> statistics(DIParser<T> parser, String id) {
-    String origin = this.container.statistics(id);
+    DResp origin = this.container.statistics(id);
     return parser.parse(this.config, origin);
   }
 
@@ -102,7 +103,7 @@ public class EGeneicDockerContainer {
     DStream<String> dst0 = DStream.builder((IDStreamRunner<String>) data -> dstream.runner().run(parser.parse(this.config, data)))
       .stopper(dstream.stopper())
       .build();
-    String origin = this.container.statistics(id, dst0);
+    DResp origin = this.container.statistics(id, dst0);
     return parser.parse(this.config, origin);
   }
 
@@ -111,7 +112,7 @@ public class EGeneicDockerContainer {
   }
 
   public DRet<Void> resize(String id, DQPResize dqp) {
-    String origin = this.container.resize(id, dqp);
+    DResp origin = this.container.resize(id, dqp);
     return DIParser.voidx().parse(this.config, origin);
   }
 
@@ -120,7 +121,7 @@ public class EGeneicDockerContainer {
   }
 
   public DRet<Void> start(String id, DQPStart dqp) {
-    String origin = this.container.start(id, dqp);
+    DResp origin = this.container.start(id, dqp);
     return DIParser.voidx().parse(this.config, origin);
   }
 
@@ -129,7 +130,7 @@ public class EGeneicDockerContainer {
   }
 
   public DRet<Void> stop(String id, DQPTime dqp) {
-    String origin = this.container.stop(id, dqp);
+    DResp origin = this.container.stop(id, dqp);
     return DIParser.voidx().parse(this.config, origin);
   }
 
@@ -138,7 +139,7 @@ public class EGeneicDockerContainer {
   }
 
   public DRet<Void> restart(String id, DQPTime dqp) {
-    String origin = this.container.restart(id, dqp);
+    DResp origin = this.container.restart(id, dqp);
     return DIParser.voidx().parse(this.config, origin);
   }
 
@@ -147,7 +148,7 @@ public class EGeneicDockerContainer {
   }
 
   public DRet<Void> kill(String id, DQPKill dqp) {
-    String origin = this.container.kill(id, dqp);
+    DResp origin = this.container.kill(id, dqp);
     return DIParser.voidx().parse(this.config, origin);
   }
 
@@ -156,22 +157,22 @@ public class EGeneicDockerContainer {
   }
 
   public <T> DRet<T> update(DIParser<T> parser, String id, String body) {
-    String origin = this.container.update(id, body);
+    DResp origin = this.container.update(id, body);
     return parser.parse(this.config, origin);
   }
 
   public DRet<Void> rename(String id, String name) {
-    String origin = this.container.rename(id, name);
+    DResp origin = this.container.rename(id, name);
     return DIParser.voidx().parse(this.config, origin);
   }
 
   public DRet<Void> pause(String id) {
-    String origin = this.container.pause(id);
+    DResp origin = this.container.pause(id);
     return DIParser.voidx().parse(this.config, origin);
   }
 
   public DRet<Void> unpause(String id) {
-    String origin = this.container.unpause(id);
+    DResp origin = this.container.unpause(id);
     return DIParser.voidx().parse(this.config, origin);
   }
 
@@ -180,7 +181,7 @@ public class EGeneicDockerContainer {
   }
 
   public DRet<Void> attach(String id, DQPAttch dqp) {
-    String origin = this.container.attach(id, dqp);
+    DResp origin = this.container.attach(id, dqp);
     return DIParser.voidx().parse(this.config, origin);
   }
 
@@ -190,12 +191,12 @@ public class EGeneicDockerContainer {
   }
 
   public <T> DRet<T> wait(DIParser<T> parser, String id) {
-    String origin = this.container.wait(id);
+    DResp origin = this.container.wait(id);
     return parser.parse(this.config, origin);
   }
 
   public <T> DRet<T> wait(DIParser<T> parser, String id, String condition) {
-    String origin = this.container.wait(id, condition);
+    DResp origin = this.container.wait(id, condition);
     return parser.parse(this.config, origin);
   }
 
@@ -204,12 +205,12 @@ public class EGeneicDockerContainer {
   }
 
   public DRet<Void> remove(String id, DQPRemove dqp) {
-    String origin = this.container.remove(id, dqp);
+    DResp origin = this.container.remove(id, dqp);
     return DIParser.voidx().parse(this.config, origin);
   }
 
 //  public DRet<EnoaBinary> archive(String id, String path) {
-////    String origin = this.container.archive(id, path);
+////    DResp origin = this.container.archive(id, path);
 ////    return DIParser.voidx().parse(this.config, origin);
 ////    EnoaBinary archive = this.container.archive(id, path);
 ////    return
@@ -220,7 +221,7 @@ public class EGeneicDockerContainer {
   }
 
   public <T> DRet<T> prune(DIParser<T> parser, DQPPruneContainer dqp) {
-    String origin = this.container.prune(dqp);
+    DResp origin = this.container.prune(dqp);
     return parser.parse(this.config, origin);
   }
 

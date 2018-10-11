@@ -16,6 +16,7 @@
 package io.enoa.docker.command.origin;
 
 import io.enoa.docker.DockerConfig;
+import io.enoa.docker.dret.DResp;
 
 public class EnoaUNIXSOCKETDocker implements OriginDocker {
 
@@ -31,7 +32,7 @@ public class EnoaUNIXSOCKETDocker implements OriginDocker {
   }
 
   @Override
-  public String info() {
+  public DResp info() {
     return null;
   }
 

@@ -19,6 +19,7 @@ import io.enoa.docker.DockerConfig;
 import io.enoa.docker.command.origin.EOriginDockerImage;
 import io.enoa.docker.command.origin.OriginDocker;
 import io.enoa.docker.dqp.image.*;
+import io.enoa.docker.dret.DResp;
 import io.enoa.docker.dret.DRet;
 import io.enoa.docker.parser.DIParser;
 import io.enoa.docker.stream.DStream;
@@ -43,8 +44,8 @@ public class EGeneicDockerImage {
     this.image = docker.image();
   }
 
-  private DRet<List<Kv>> linestolist(String origin) {
-    String[] lines = origin.split("\n");
+  private DRet<List<Kv>> linestolist(DResp origin) {
+    String[] lines = origin.string().split("\n");
     if (CollectionKit.isEmpty(lines))
       return DRet.ok(origin, Collections.emptyList());
     List<Kv> kvs = Stream.of(lines)
@@ -58,40 +59,40 @@ public class EGeneicDockerImage {
   }
 
   public <T> DRet<List<T>> list(DIParser<List<T>> parser, DQPListImage dqp) {
-    String origin = this.image.list(dqp);
-    return parser.parse(this.config, origin);
+    DResp resp = this.image.list(dqp);
+    return parser.parse(this.config, resp);
   }
 
   public DRet<List<Kv>> build(DQPBuild dqp, String dockerfile) {
-    String origin = this.image.build(dqp, dockerfile);
-    return this.linestolist(origin);
+    DResp resp = this.image.build(dqp, dockerfile);
+    return this.linestolist(resp);
   }
 
   public DRet<List<Kv>> build(DQPBuild dqp, String dockerfile, DStream<Kv> dstream) {
     DStream<String> dst0 = DStream.<String>builder(text -> dstream.runner().run(this.config.json().parse(text, Kv.class)))
       .stopper(dstream.stopper()).build();
-    String origin = this.image.build(dqp, dockerfile, dst0);
-    return this.linestolist(origin);
+    DResp resp = this.image.build(dqp, dockerfile, dst0);
+    return this.linestolist(resp);
   }
 
   public <T> DRet<T> prunebuild(DIParser<T> parser) {
-    String origin = this.image.prunebuild();
-    return parser.parse(this.config, origin);
+    DResp resp = this.image.prunebuild();
+    return parser.parse(this.config, resp);
   }
 
   public DRet<Void> create(DQPImageCreate dqp, String body) {
-    String origin = this.image.create(dqp, body);
-    return DIParser.voidx().parse(this.config, origin);
+    DResp resp = this.image.create(dqp, body);
+    return DIParser.voidx().parse(this.config, resp);
   }
 
   public <T> DRet<T> inspect(DIParser<T> parser, String id) {
-    String origin = this.image.inspect(id);
-    return parser.parse(this.config, origin);
+    DResp resp = this.image.inspect(id);
+    return parser.parse(this.config, resp);
   }
 
   public <T> DRet<List<T>> history(DIParser<List<T>> parser, String id) {
-    String origin = this.image.history(id);
-    return parser.parse(this.config, origin);
+    DResp resp = this.image.history(id);
+    return parser.parse(this.config, resp);
   }
 
   public DRet<Void> push(String id) {
@@ -99,8 +100,8 @@ public class EGeneicDockerImage {
   }
 
   public DRet<Void> push(String id, DQPPush dqp) {
-    String origin = this.image.push(id, dqp, null);
-    return DIParser.voidx().parse(this.config, origin);
+    DResp resp = this.image.push(id, dqp, null);
+    return DIParser.voidx().parse(this.config, resp);
   }
 
   public DRet<Void> push(String id, DStream<Kv> dstream) {
@@ -110,13 +111,13 @@ public class EGeneicDockerImage {
   public DRet<Void> push(String id, DQPPush dqp, DStream<Kv> dstream) {
     DStream<String> dst0 = DStream.<String>builder(text -> dstream.runner().run(this.config.json().parse(text, Kv.class)))
       .stopper(dstream.stopper()).build();
-    String origin = this.image.push(id, dqp, dst0);
-    return DIParser.voidx().parse(this.config, origin);
+    DResp resp = this.image.push(id, dqp, dst0);
+    return DIParser.voidx().parse(this.config, resp);
   }
 
   public DRet<Void> tag(String id, DQPTag dqp) {
-    String origin = this.image.tag(id, dqp);
-    return DIParser.voidx().parse(this.config, origin);
+    DResp resp = this.image.tag(id, dqp);
+    return DIParser.voidx().parse(this.config, resp);
   }
 
   public <T> DRet<List<T>> remove(DIParser<List<T>> parser, String id) {
@@ -124,13 +125,13 @@ public class EGeneicDockerImage {
   }
 
   public <T> DRet<List<T>> remove(DIParser<List<T>> parser, String id, DQPRmi dqp) {
-    String origin = this.image.remove(id, dqp);
-    return parser.parse(this.config, origin);
+    DResp resp = this.image.remove(id, dqp);
+    return parser.parse(this.config, resp);
   }
 
   public <T> DRet<List<T>> search(DIParser<List<T>> parser, DQPSearch dqp) {
-    String origin = this.image.search(dqp);
-    return parser.parse(this.config, origin);
+    DResp resp = this.image.search(dqp);
+    return parser.parse(this.config, resp);
   }
 
   public <T> DRet<T> pruneimage(DIParser<T> parser) {
@@ -138,9 +139,22 @@ public class EGeneicDockerImage {
   }
 
   public <T> DRet<T> pruneimage(DIParser<T> parser, DQPPruneImage dqp) {
-    String origin = this.image.pruneimage(dqp);
-    return parser.parse(this.config, origin);
+    DResp resp = this.image.pruneimage(dqp);
+    return parser.parse(this.config, resp);
   }
 
+  public <T> DRet<T> commit(DIParser<T> parser, String body) {
+    return this.commit(parser, body, null);
+  }
+
+  public <T> DRet<T> commit(DIParser<T> parser, String body, DQPCommit dqp) {
+    DResp resp = this.image.commit(body, dqp);
+    return parser.parse(this.config, resp);
+  }
+
+  public <T> DRet<T> export(DIParser<T> parser, String id) {
+    DResp resp = this.image.export(id);
+    return parser.parse(this.config, resp);
+  }
 
 }

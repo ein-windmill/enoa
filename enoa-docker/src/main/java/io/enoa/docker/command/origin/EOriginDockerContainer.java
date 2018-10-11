@@ -16,9 +16,9 @@
 package io.enoa.docker.command.origin;
 
 import io.enoa.docker.dqp.container.*;
+import io.enoa.docker.dret.DResp;
 import io.enoa.docker.stream.DStream;
 import io.enoa.docker.thr.DockerException;
-import io.enoa.toolkit.binary.EnoaBinary;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 
 public interface EOriginDockerContainer {
@@ -26,7 +26,7 @@ public interface EOriginDockerContainer {
   /**
    * @see #list(DQPListContainer)
    */
-  default String list() {
+  default DResp list() {
     return this.list(null);
   }
 
@@ -74,9 +74,9 @@ public interface EOriginDockerContainer {
    *            since=(<container id> or <container name>)
    *            status=(created|restarting|running|removing|paused|exited|dead)
    *            volume=(<volume name> or <mount point destination>)
-   * @return String
+   * @return Dresp
    */
-  String list(DQPListContainer dqp);
+  DResp list(DQPListContainer dqp);
 
   /**
    * Create a container
@@ -238,12 +238,12 @@ public interface EOriginDockerContainer {
    *             }
    * @return EContainerCreated
    */
-  String create(String name, String body);
+  DResp create(String name, String body);
 
   /**
    * @see #inspect(String, Boolean)
    */
-  default String inspect(String id) {
+  default DResp inspect(String id) {
     return this.inspect(id, Boolean.FALSE);
   }
 
@@ -252,14 +252,14 @@ public interface EOriginDockerContainer {
    *
    * @param id   ID or name of the container
    * @param size Return the size of container as fields SizeRw and SizeRootFs
-   * @return String
+   * @return Dresp
    */
-  String inspect(String id, Boolean size);
+  DResp inspect(String id, Boolean size);
 
   /**
    * @see #top(String, String)
    */
-  default String top(String id) {
+  default DResp top(String id) {
     return this.top(id, null);
   }
 
@@ -272,7 +272,7 @@ public interface EOriginDockerContainer {
    *             default "-ef"
    *             <p>
    *             The arguments to pass to ps. For example, aux
-   * @return String
+   * @return Dresp
    * {
    * "Titles": [
    * "UID",
@@ -308,12 +308,12 @@ public interface EOriginDockerContainer {
    * ]
    * }
    */
-  String top(String id, String para);
+  DResp top(String id, String para);
 
   /**
    * @see #logs(String, DQPLogs)
    */
-  default String logs(String id) {
+  default DResp logs(String id) {
     return this.logs(id, DQPLogs.create().stdout());
   }
 
@@ -326,9 +326,9 @@ public interface EOriginDockerContainer {
    * @param id string Required
    *           <p>
    *           ID or name of the container
-   * @return String
+   * @return Dresp
    */
-  String logs(String id, DQPLogs dqp);
+  DResp logs(String id, DQPLogs dqp);
 
   /**
    * Get changes on a container’s filesystem
@@ -341,9 +341,9 @@ public interface EOriginDockerContainer {
    * @param id string Required
    *           <p>
    *           ID or name of the container
-   * @return String
+   * @return Dresp
    */
-  String changes(String id);
+  DResp changes(String id);
 
   /**
    * Export a container
@@ -352,11 +352,11 @@ public interface EOriginDockerContainer {
    * @param id string Required
    *           <p>
    *           ID or name of the container
-   * @return String
+   * @return Dresp
    */
-  String export(String id);
+  DResp export(String id);
 
-  String statistics(String id);
+  DResp statistics(String id);
 
   /**
    * Get container stats based on resource usage
@@ -370,14 +370,14 @@ public interface EOriginDockerContainer {
    *                <p>
    *                ID or name of the container
    * @param dstream DStream
-   * @return String
+   * @return Dresp
    */
-  String statistics(String id, DStream<String> dstream);
+  DResp statistics(String id, DStream<String> dstream);
 
   /**
    * @see #resize(String, DQPResize)
    */
-  default String resize(String id) {
+  default DResp resize(String id) {
     return this.resize(id, null);
   }
 
@@ -389,14 +389,14 @@ public interface EOriginDockerContainer {
    *            <p>
    *            ID or name of the container
    * @param dqp dqp
-   * @return String
+   * @return Dresp
    */
-  String resize(String id, DQPResize dqp);
+  DResp resize(String id, DQPResize dqp);
 
   /**
    * @see #start(String, DQPStart)
    */
-  default String start(String id) {
+  default DResp start(String id) {
     return this.start(id, null);
   }
 
@@ -407,14 +407,14 @@ public interface EOriginDockerContainer {
    *            <p>
    *            ID or name of the container
    * @param dqp dqp
-   * @return String
+   * @return Dresp
    */
-  String start(String id, DQPStart dqp);
+  DResp start(String id, DQPStart dqp);
 
   /**
    * @see #stop(String, DQPTime)
    */
-  default String stop(String id) {
+  default DResp stop(String id) {
     return this.stop(id, null);
   }
 
@@ -425,14 +425,14 @@ public interface EOriginDockerContainer {
    *            <p>
    *            ID or name of the container
    * @param dqp dqp
-   * @return String
+   * @return Dresp
    */
-  String stop(String id, DQPTime dqp);
+  DResp stop(String id, DQPTime dqp);
 
   /**
    * @see #restart(String, DQPTime)
    */
-  default String restart(String id) {
+  default DResp restart(String id) {
     return this.restart(id, null);
   }
 
@@ -444,14 +444,14 @@ public interface EOriginDockerContainer {
    *            <p>
    *            ID or name of the container
    * @param dqp dqp
-   * @return String
+   * @return Dresp
    */
-  String restart(String id, DQPTime dqp);
+  DResp restart(String id, DQPTime dqp);
 
   /**
    * @see #kill(String, DQPKill)
    */
-  default String kill(String id) {
+  default DResp kill(String id) {
     return this.kill(id, null);
   }
 
@@ -463,14 +463,14 @@ public interface EOriginDockerContainer {
    *            <p>
    *            ID or name of the container
    * @param dqp dqp
-   * @return String
+   * @return Dresp
    */
-  String kill(String id, DQPKill dqp);
+  DResp kill(String id, DQPKill dqp);
 
   /**
    * @see #update(String, String)
    */
-  default String update(String id, DQPUpdate dqp) {
+  default DResp update(String id, DQPUpdate dqp) {
     return this.update(id, dqp.dqr().json());
   }
 
@@ -500,9 +500,9 @@ public interface EOriginDockerContainer {
    *             "Name": "on-failure"
    *             }
    *             }
-   * @return string
+   * @return Dresp
    */
-  String update(String id, String body);
+  DResp update(String id, String body);
 
   /**
    * Rename a container
@@ -515,9 +515,9 @@ public interface EOriginDockerContainer {
    *             string Required
    *             <p>
    *             New name for the container
-   * @return String
+   * @return Dresp
    */
-  String rename(String id, String name);
+  DResp rename(String id, String name);
 
   /**
    * Pause a container
@@ -530,9 +530,9 @@ public interface EOriginDockerContainer {
    * @param id string Required
    *           <p>
    *           ID or name of the container
-   * @return String
+   * @return Dresp
    */
-  String pause(String id);
+  DResp pause(String id);
 
   /**
    * Unpause a container
@@ -541,14 +541,14 @@ public interface EOriginDockerContainer {
    * @param id string Required
    *           <p>
    *           ID or name of the container
-   * @return String
+   * @return Dresp
    */
-  String unpause(String id);
+  DResp unpause(String id);
 
   /**
    * @see #attach(String, DQPAttch)
    */
-  default String attach(String id) {
+  default DResp attach(String id) {
     return this.attach(id, null);
   }
 
@@ -625,9 +625,9 @@ public interface EOriginDockerContainer {
    *            <p>
    *            ID or name of the container
    * @param dqp dqp
-   * @return String
+   * @return Dresp
    */
-  String attach(String id, DQPAttch dqp);
+  DResp attach(String id, DQPAttch dqp);
 
   @Deprecated
   default Void ws(String id) {
@@ -637,7 +637,7 @@ public interface EOriginDockerContainer {
   /**
    * @see #wait(String, String)
    */
-  default String wait(String id) {
+  default DResp wait(String id) {
     return this.wait(id, "not-running");
   }
 
@@ -652,12 +652,12 @@ public interface EOriginDockerContainer {
    *                  default "not-running"
    *                  <p>
    *                  Wait until a container state reaches the given condition, either 'not-running' (default), 'next-exit', or 'removed'.
-   * @return String
+   * @return Dresp
    */
-  String wait(String id, String condition);
+  DResp wait(String id, String condition);
 
 
-  default String remove(String id) {
+  default DResp remove(String id) {
     return this.remove(id, null);
   }
 
@@ -668,9 +668,9 @@ public interface EOriginDockerContainer {
    *            <p>
    *            ID or name of the container
    * @param dqp dqp
-   * @return String
+   * @return Dresp
    */
-  String remove(String id, DQPRemove dqp);
+  DResp remove(String id, DQPRemove dqp);
 
   /**
    * Get an archive of a filesystem resource in a container
@@ -682,11 +682,11 @@ public interface EOriginDockerContainer {
    * @param path string Required
    *             <p>
    *             Resource in the container’s filesystem to archive.
-   * @return
+   * @return Dresp
    */
-  EnoaBinary archive(String id, String path);
+  DResp archive(String id, String path);
 
-  default String prune() {
+  default DResp prune() {
     return this.prune(null);
   }
 
@@ -694,9 +694,9 @@ public interface EOriginDockerContainer {
    * Delete stopped containers
    *
    * @param dqp dqp
-   * @return String
+   * @return Dresp
    */
-  String prune(DQPPruneContainer dqp);
+  DResp prune(DQPPruneContainer dqp);
 
 
 }

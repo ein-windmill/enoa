@@ -16,6 +16,7 @@
 package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
+import io.enoa.docker.dret.DResp;
 import io.enoa.docker.dret.image.EHistory;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.map.Kv;
@@ -35,8 +36,8 @@ class EImageHistoryParser extends AbstractParser<List<EHistory>> {
   }
 
   @Override
-  public List<EHistory> ok(DockerConfig config, String origin) {
-    List<Kv> kvs = config.json().parseArray(origin, Kv.class);
+  public List<EHistory> ok(DockerConfig config, DResp resp) {
+    List<Kv> kvs = config.json().parseArray(resp.string(), Kv.class);
     if (CollectionKit.isEmpty(kvs))
       return Collections.emptyList();
     List<EHistory> rets = new ArrayList<>(kvs.size());

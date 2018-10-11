@@ -16,6 +16,7 @@
 package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
+import io.enoa.docker.dret.DResp;
 import io.enoa.docker.dret.DRet;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.text.TextKit;
@@ -23,20 +24,26 @@ import io.enoa.toolkit.text.TextKit;
 abstract class AbstractParser<T> implements DIParser<T> {
 
   @Override
-  public DRet<T> parse(DockerConfig config, String origin) {
-    if (origin == null)
+  public DRet<T> parse(DockerConfig config, DResp resp) {
+    if (resp == null)
       return DRet.fail(null, null);
-    if (TextKit.blanky(origin))
-      return DRet.ok(origin, this.ok(config, origin));
-    if (origin.charAt(0) != '{')
-      return DRet.ok(origin, this.ok(config, origin));
-    
-    Kv kv = config.json().parse(origin, Kv.class);
-    if (kv.notNullValue("message"))
-      return DRet.fail(origin, kv.string("message"));
-    return DRet.ok(origin, this.ok(config, origin));
+    String contenttype = resp.contenttype();
+    if (contenttype.equalsIgnoreCase("application/json") ||
+      contenttype.equalsIgnoreCase("text/plain")) {
+      String origin = resp.string();
+      if (TextKit.blanky(origin))
+        return DRet.ok(resp, this.ok(config, resp));
+      if (origin.charAt(0) != '{')
+        return DRet.ok(resp, this.ok(config, resp));
+
+      Kv kv = config.json().parse(origin, Kv.class);
+      if (kv.notNullValue("message"))
+        return DRet.fail(resp, kv.string("message"));
+      return DRet.ok(resp, this.ok(config, resp));
+    }
+    return DRet.ok(resp, this.ok(config, resp));
   }
 
-  public abstract T ok(DockerConfig config, String origin);
+  public abstract T ok(DockerConfig config, DResp origin);
 
 }

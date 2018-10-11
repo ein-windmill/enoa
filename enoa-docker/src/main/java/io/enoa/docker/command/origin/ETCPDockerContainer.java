@@ -16,6 +16,7 @@
 package io.enoa.docker.command.origin;
 
 import io.enoa.docker.dqp.container.*;
+import io.enoa.docker.dret.DResp;
 import io.enoa.docker.stream.DStream;
 import io.enoa.http.Http;
 import io.enoa.http.protocol.HttpMethod;
@@ -35,213 +36,211 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
 
 
   @Override
-  public String list(DQPListContainer dqp) {
+  public DResp list(DQPListContainer dqp) {
     Http http = this.docker.http("/containers/json");
     if (dqp != null)
       http.para(dqp.dqr().http());
     HttpResponse response = http.emit();
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override
-  public String create(String name, String body) {
+  public DResp create(String name, String body) {
     HttpResponse response = this.docker.http("/containers/create")
       .method(HttpMethod.POST)
       .para("name", name)
       .raw(body, "application/json")
       .emit();
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override
-  public String inspect(String id, Boolean size) {
+  public DResp inspect(String id, Boolean size) {
     HttpResponse response = this.docker.http("containers", id, "json")
       .para("size", size)
       .emit();
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override
-  public String top(String id, String para) {
+  public DResp top(String id, String para) {
     Http http = this.docker.http("containers", id, "top");
     if (TextKit.blankn(para))
       http.para("ps_args", para);
     HttpResponse response = http.emit();
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override
-  public String logs(String id, DQPLogs dqp) {
+  public DResp logs(String id, DQPLogs dqp) {
     Http http = this.docker.http("containers", id, "logs");
     if (dqp != null)
       http.para(dqp.dqr().http());
     HttpResponse response = http.emit();
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override
-  public String changes(String id) {
+  public DResp changes(String id) {
     HttpResponse response = this.docker.http("containers", id, "changes")
       .emit();
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override
-  public String export(String id) {
+  public DResp export(String id) {
     HttpResponse response = this.docker.http("containers", id, "export")
       .emit();
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override
-  public String statistics(String id) {
+  public DResp statistics(String id) {
     HttpResponse response = this.docker.http("containers", id, "stats")
       .emit();
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override
-  public String statistics(String id, DStream<String> dstream) {
-    Chunk.Builder builder = Chunk.builder(bytes -> dstream.runner().run(EnoaBinary.create(bytes, EoConst.CHARSET).string()));
-    if (dstream.stopper() != null) {
-      builder.stopper(dstream.stopper()::stop);
-    }
+  public DResp statistics(String id, DStream<String> dstream) {
+    Chunk.Builder builder = Chunk.builder(bytes -> dstream.runner().run(EnoaBinary.create(bytes, EoConst.CHARSET).string()))
+      .stopper(() -> dstream.stopper() == null ? Boolean.FALSE : dstream.stopper().stop());
     HttpResponse response = this.docker.http("containers", id, "stats")
       .para("stream", true)
       .chunk(builder.build());
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override
-  public String resize(String id, DQPResize dqp) {
+  public DResp resize(String id, DQPResize dqp) {
     Http http = this.docker.http("container", id, "resize")
       .method(HttpMethod.POST);
     if (dqp != null) {
       http.para(dqp.dqr().http());
     }
     HttpResponse response = http.emit();
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override
-  public String start(String id, DQPStart dqp) {
+  public DResp start(String id, DQPStart dqp) {
     Http http = this.docker.http("containers", id, "start")
       .method(HttpMethod.POST);
     if (dqp != null)
       http.para(dqp.dqr().http());
     HttpResponse response = http.emit();
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override
-  public String stop(String id, DQPTime dqp) {
+  public DResp stop(String id, DQPTime dqp) {
     Http http = this.docker.http("containers", id, "stop")
       .method(HttpMethod.POST);
     if (dqp != null)
       http.para(dqp.dqr().http());
     HttpResponse response = http.emit();
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override
-  public String restart(String id, DQPTime dqp) {
+  public DResp restart(String id, DQPTime dqp) {
     Http http = this.docker.http("containers", id, "restart")
       .method(HttpMethod.POST);
     if (dqp != null)
       http.para(dqp.dqr().http());
     HttpResponse response = http.emit();
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override
-  public String kill(String id, DQPKill dqp) {
+  public DResp kill(String id, DQPKill dqp) {
     Http http = this.docker.http("containers", id, "kill")
       .method(HttpMethod.POST);
     if (dqp != null)
       http.para(dqp.dqr().http());
     HttpResponse response = http.emit();
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override
-  public String update(String id, String body) {
+  public DResp update(String id, String body) {
     HttpResponse response = this.docker.http("containers", id, "update")
       .method(HttpMethod.POST)
       .raw(body, "application/json")
       .emit();
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override
-  public String rename(String id, String name) {
+  public DResp rename(String id, String name) {
     HttpResponse response = this.docker.http("containers", id, "rename")
       .method(HttpMethod.POST)
       .para("name", name)
       .emit();
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override
-  public String pause(String id) {
+  public DResp pause(String id) {
     HttpResponse response = this.docker.http("containers", id, "pause")
       .method(HttpMethod.POST)
       .emit();
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override
-  public String unpause(String id) {
+  public DResp unpause(String id) {
     HttpResponse response = this.docker.http("containers", id, "unpause")
       .method(HttpMethod.POST)
       .emit();
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override
-  public String attach(String id, DQPAttch dqp) {
+  public DResp attach(String id, DQPAttch dqp) {
     Http http = this.docker.http("containers", id, "attach")
       .method(HttpMethod.POST);
     if (dqp != null)
       http.para(dqp.dqr().http());
     HttpResponse response = http.emit();
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override
-  public String wait(String id, String condition) {
+  public DResp wait(String id, String condition) {
     HttpResponse response = this.docker.http("containers", id, "wait")
       .method(HttpMethod.POST)
       .para("condition", condition)
       .emit();
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override
-  public String remove(String id, DQPRemove dqp) {
+  public DResp remove(String id, DQPRemove dqp) {
     Http http = this.docker.http("containers", id)
       .method(HttpMethod.DELETE);
     if (dqp != null)
       http.para(dqp.dqr().http());
     HttpResponse response = http.emit();
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override
-  public EnoaBinary archive(String id, String path) {
+  public DResp archive(String id, String path) {
     HttpResponse response = this.docker.http("containers", id, "archive")
       .method(HttpMethod.GET)
       .para("path", path)
       .emit();
-    return EnoaBinary.create(response.body().bytes());
+    return DResp.create(response);
   }
 
   @Override
-  public String prune(DQPPruneContainer dqp) {
+  public DResp prune(DQPPruneContainer dqp) {
     Http http = this.docker.http("containers/prune")
       .method(HttpMethod.POST);
     if (dqp != null)
       http.para(dqp.dqr().http());
     HttpResponse response = http.emit();
-    return response.body().string();
+    return DResp.create(response);
   }
 }

@@ -16,6 +16,7 @@
 package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
+import io.enoa.docker.dret.DResp;
 import io.enoa.docker.dret.image.EIRemove;
 import io.enoa.docker.dret.image.EImagePrune;
 import io.enoa.toolkit.collection.CollectionKit;
@@ -34,8 +35,8 @@ class EImagePruneParser extends AbstractParser<EImagePrune> {
   }
 
   @Override
-  public EImagePrune ok(DockerConfig config, String origin) {
-    Kv kv = config.json().parse(origin, Kv.class);
+  public EImagePrune ok(DockerConfig config, DResp resp) {
+    Kv kv = config.json().parse(resp.string(), Kv.class);
     EImagePrune.Builder builder = new EImagePrune.Builder()
       .spacereclaimed(kv.integer("SpaceReclaimed"))
       .imagesdeleted(this.removes(kv));

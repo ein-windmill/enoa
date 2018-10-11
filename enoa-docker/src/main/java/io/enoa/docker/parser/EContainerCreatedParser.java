@@ -16,6 +16,7 @@
 package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
+import io.enoa.docker.dret.DResp;
 import io.enoa.docker.dret.container.EContainerCreated;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.map.Kv;
@@ -36,8 +37,8 @@ class EContainerCreatedParser extends AbstractParser<EContainerCreated> {
   }
 
   @Override
-  public EContainerCreated ok(DockerConfig config, String origin) {
-    Kv kv = config.json().parse(origin, Kv.class);
+  public EContainerCreated ok(DockerConfig config, DResp resp) {
+    Kv kv = config.json().parse(resp.string(), Kv.class);
     EContainerCreated.Builder builder = new EContainerCreated.Builder();
     builder.id(kv.string("Id"))
       .warnings(this.warnings(kv));

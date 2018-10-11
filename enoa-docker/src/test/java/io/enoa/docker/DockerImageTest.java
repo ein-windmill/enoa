@@ -23,7 +23,10 @@ import io.enoa.docker.dret.DRet;
 import io.enoa.docker.dret.image.*;
 import io.enoa.docker.stream.DStream;
 import io.enoa.json.Json;
+import io.enoa.toolkit.binary.EnoaBinary;
+import io.enoa.toolkit.file.FileKit;
 import io.enoa.toolkit.map.Kv;
+import io.enoa.toolkit.path.PathKit;
 import io.enoa.toolkit.value.Void;
 import org.junit.Assert;
 import org.junit.Ignore;
@@ -123,5 +126,24 @@ public class DockerImageTest extends AbstractDockerTest {
     String json = Json.toJson(ret.data());
     System.out.println(json);
   }
+
+  @Test
+  public void testCommit() {
+    String body = "{}";
+    DRet<EICommit> ret = Docker.image().commit(body);
+    Assert.assertTrue(ret.ok());
+    String json = Json.toJson(ret.data());
+    System.out.println(json);
+  }
+
+  @Test
+  public void testExport() {
+    DRet<EnoaBinary> ret = Docker.image().export("nginx");
+    Assert.assertTrue(ret.ok());
+    EnoaBinary binary = ret.data();
+    FileKit.write(PathKit.debugPath().resolve("_tmp/nginx.tgz"), binary.bytebuffer());
+    System.out.println();
+  }
+
 
 }

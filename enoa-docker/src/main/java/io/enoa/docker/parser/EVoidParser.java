@@ -16,6 +16,7 @@
 package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
+import io.enoa.docker.dret.DResp;
 import io.enoa.toolkit.value.Void;
 
 class EVoidParser extends AbstractParser<Void> {
@@ -29,7 +30,7 @@ class EVoidParser extends AbstractParser<Void> {
   }
 
   @Override
-  public Void ok(DockerConfig config, String origin) {
+  public Void ok(DockerConfig config, DResp resp) {
     return Void.create();
   }
 

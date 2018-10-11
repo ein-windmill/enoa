@@ -16,10 +16,11 @@
 package io.enoa.docker.command.origin;
 
 import io.enoa.docker.command._DockerConfigSupport;
+import io.enoa.docker.dret.DResp;
 
 public interface OriginDocker extends _DockerConfigSupport {
 
-  String info();
+  DResp info();
 
   EOriginDockerContainer container();
 

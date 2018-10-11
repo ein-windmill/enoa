@@ -16,6 +16,7 @@
 package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
+import io.enoa.docker.dret.DResp;
 import io.enoa.docker.dret.image.*;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.date.DateKit;
@@ -34,8 +35,8 @@ class EImageInspectParser extends AbstractParser<EIInspect> {
   }
 
   @Override
-  public EIInspect ok(DockerConfig config, String origin) {
-    Kv kv = config.json().parse(origin, Kv.class);
+  public EIInspect ok(DockerConfig config, DResp resp) {
+    Kv kv = config.json().parse(resp.string(), Kv.class);
     EContainerConfig containerconfig = this.containerconfig(kv);
     EIInspect.Builder builder = new EIInspect.Builder()
       .id(kv.string("Id"))

@@ -16,6 +16,7 @@
 package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
+import io.enoa.docker.dret.DResp;
 import io.enoa.docker.dret.container.ECPrune;
 import io.enoa.toolkit.map.Kv;
 
@@ -30,8 +31,8 @@ class ECPruneParser extends AbstractParser<ECPrune> {
   }
 
   @Override
-  public ECPrune ok(DockerConfig config, String origin) {
-    Kv kv = config.json().parse(origin, Kv.class);
+  public ECPrune ok(DockerConfig config, DResp resp) {
+    Kv kv = config.json().parse(resp.string(), Kv.class);
     ECPrune.Builder builder = new ECPrune.Builder()
       .containersdeleted(AEExtra.stringarray(kv, "ContainersDeleted"))
       .spacereclaimed(kv.integer("SpaceReclaimed"));

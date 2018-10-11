@@ -16,6 +16,7 @@
 package io.enoa.docker.command.origin;
 
 import io.enoa.docker.DockerConfig;
+import io.enoa.docker.dret.DResp;
 import io.enoa.http.EoUrl;
 import io.enoa.http.Http;
 import io.enoa.http.protocol.HttpMethod;
@@ -58,11 +59,11 @@ public class EnoaTCPDocker implements OriginDocker {
   }
 
   @Override
-  public String info() {
+  public DResp info() {
     HttpResponse response = this.http(TextKit.union("/", this.config.version(), "/info"))
       .method(HttpMethod.GET)
       .emit();
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override

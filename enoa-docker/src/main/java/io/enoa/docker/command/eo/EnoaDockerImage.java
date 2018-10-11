@@ -22,6 +22,7 @@ import io.enoa.docker.dret.DRet;
 import io.enoa.docker.dret.image.*;
 import io.enoa.docker.parser.DIParser;
 import io.enoa.docker.stream.DStream;
+import io.enoa.toolkit.binary.EnoaBinary;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.value.Void;
 
@@ -108,5 +109,17 @@ public class EnoaDockerImage {
 
   public DRet<EImagePrune> pruneimage(DQPPruneImage dqp) {
     return this.image.pruneimage(DIParser.imageprune(), dqp);
+  }
+
+  public DRet<EICommit> commit(String body) {
+    return this.image.commit(DIParser.imagecommit(), body);
+  }
+
+  public DRet<EICommit> commit(String body, DQPCommit dqp) {
+    return this.image.commit(DIParser.imagecommit(), body, dqp);
+  }
+
+  public DRet<EnoaBinary> export(String id) {
+    return this.image.export(DIParser.binary(), id);
   }
 }

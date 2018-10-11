@@ -18,6 +18,7 @@ package io.enoa.docker.command.origin;
 import io.enoa.docker.dqp.DQH;
 import io.enoa.docker.dqp.DQR;
 import io.enoa.docker.dqp.image.*;
+import io.enoa.docker.dret.DResp;
 import io.enoa.docker.stream.DStream;
 import io.enoa.docker.tar.DTar;
 import io.enoa.docker.thr.DockerException;
@@ -38,17 +39,17 @@ public class ETCPDockerImage implements EOriginDockerImage {
   }
 
   @Override
-  public String list(DQPListImage dqp) {
+  public DResp list(DQPListImage dqp) {
     Http http = this.docker.http("images/json")
       .method(HttpMethod.GET);
     if (dqp != null)
       http.para(dqp.dqr().http());
     HttpResponse response = http.emit();
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override
-  public String build(DQPBuild dqp, String dockerfile, DStream<String> dstream) {
+  public DResp build(DQPBuild dqp, String dockerfile, DStream<String> dstream) {
     if (dqp == null)
       throw new DockerException(EnoaTipKit.message("eo.tip.docker.lost_dqp"));
     DQR dqr = dqp.dqr();
@@ -62,19 +63,19 @@ public class ETCPDockerImage implements EOriginDockerImage {
       http.chunk(Chunk.builder(bytes -> dstream.runner().run(EnoaBinary.create(bytes).string()))
         .stopper(() -> dstream.stopper() == null ? Boolean.FALSE : dstream.stopper().stop())
         .build());
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override
-  public String prunebuild() {
+  public DResp prunebuild() {
     HttpResponse response = this.docker.http("build/prune")
       .method(HttpMethod.POST)
       .emit();
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override
-  public String create(DQPImageCreate dqp, String body) {
+  public DResp create(DQPImageCreate dqp, String body) {
     Http http = this.docker.http("images/create")
       .method(HttpMethod.POST);
     if (dqp != null) {
@@ -86,25 +87,25 @@ public class ETCPDockerImage implements EOriginDockerImage {
         http.para(dqr.http());
     }
     HttpResponse response = http.emit();
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override
-  public String inspect(String id) {
+  public DResp inspect(String id) {
     HttpResponse response = this.docker.http("images", id, "json")
       .emit();
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override
-  public String history(String id) {
+  public DResp history(String id) {
     HttpResponse response = this.docker.http("images", id, "history")
       .emit();
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override
-  public String push(String id, DQPPush dqp, DStream<String> dstream) {
+  public DResp push(String id, DQPPush dqp, DStream<String> dstream) {
     Http http = this.docker.http("images", id, "push")
       .method(HttpMethod.POST);
     if (dqp != null) {
@@ -120,55 +121,63 @@ public class ETCPDockerImage implements EOriginDockerImage {
       http.chunk(Chunk.builder(bytes -> dstream.runner().run(EnoaBinary.create(bytes, EoConst.CHARSET).string()))
         .stopper(() -> dstream.stopper() == null ? Boolean.FALSE : dstream.stopper().stop())
         .build());
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override
-  public String tag(String id, DQPTag dqp) {
+  public DResp tag(String id, DQPTag dqp) {
     HttpResponse response = this.docker.http("images", id, "tag")
       .method(HttpMethod.POST)
       .para(dqp.dqr().http())
       .emit();
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override
-  public String remove(String id, DQPRmi dqp) {
+  public DResp remove(String id, DQPRmi dqp) {
     Http http = this.docker.http("images", id)
       .method(HttpMethod.DELETE);
     if (dqp != null)
       http.para(dqp.dqr().http());
     HttpResponse response = http.emit();
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override
-  public String search(DQPSearch dqp) {
+  public DResp search(DQPSearch dqp) {
     HttpResponse response = this.docker.http("images/search")
       .method(HttpMethod.GET)
       .para(dqp.dqr().http())
       .emit();
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override
-  public String pruneimage(DQPPruneImage dqp) {
+  public DResp pruneimage(DQPPruneImage dqp) {
     Http http = this.docker.http("images/prune")
       .method(HttpMethod.POST);
     if (dqp != null)
       http.para(dqp.dqr().http());
     HttpResponse response = http.emit();
-    return response.body().string();
+    return DResp.create(response);
   }
 
   @Override
-  public String commit(String body, DQPCommit dqp) {
+  public DResp commit(String body, DQPCommit dqp) {
     Http http = this.docker.http("commit")
       .method(HttpMethod.POST)
       .raw(body, "application/json");
     if (dqp != null)
       http.para(dqp.dqr().http());
     HttpResponse response = http.emit();
-    return response.body().string();
+    return DResp.create(response);
+  }
+
+  @Override
+  public DResp export(String id) {
+    HttpResponse response = this.docker.http("images", id, "get")
+      .method(HttpMethod.GET)
+      .emit();
+    return DResp.create(response);
   }
 }

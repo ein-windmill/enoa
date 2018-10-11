@@ -13,22 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.parser;
+package io.enoa.docker.dret.image;
 
-import io.enoa.docker.DockerConfig;
-import io.enoa.docker.dret.DResp;
+import io.enoa.docker.dret.AbstractDRet;
 
-class ELogsParser extends AbstractParser<String> {
-  private static class Holder {
-    private static final ELogsParser INSTANCE = new ELogsParser();
+public class EICommit extends AbstractDRet {
+
+  private String id;
+
+  public EICommit(Builder builder) {
+    this.id = builder.id;
   }
 
-  static ELogsParser instance() {
-    return Holder.INSTANCE;
+  public String id() {
+    return id;
   }
 
-  @Override
-  public String ok(DockerConfig config, DResp resp) {
-    return resp.string();
+  public static class Builder {
+    private String id;
+
+    public EICommit build() {
+      return new EICommit(this);
+    }
+
+    public Builder id(String id) {
+      this.id = id;
+      return this;
+    }
   }
 }

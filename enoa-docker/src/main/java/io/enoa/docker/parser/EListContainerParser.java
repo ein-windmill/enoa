@@ -16,6 +16,7 @@
 package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
+import io.enoa.docker.dret.DResp;
 import io.enoa.docker.dret.container.EContainer;
 import io.enoa.docker.dret.container.EPort;
 import io.enoa.toolkit.collection.CollectionKit;
@@ -34,9 +35,9 @@ class EListContainerParser extends AbstractParser<List<EContainer>> {
   }
 
   @Override
-  public List<EContainer> ok(DockerConfig config, String origin) {
+  public List<EContainer> ok(DockerConfig config, DResp resp) {
     List<EContainer> rets;
-    List<Kv> kvs = config.json().parseArray(origin, Kv.class);
+    List<Kv> kvs = config.json().parseArray(resp.string(), Kv.class);
     if (CollectionKit.isEmpty(kvs)) {
       rets = Collections.emptyList();
       return rets;

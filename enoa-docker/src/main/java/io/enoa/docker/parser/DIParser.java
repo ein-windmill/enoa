@@ -16,10 +16,13 @@
 package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
+import io.enoa.docker.dret.DResp;
 import io.enoa.docker.dret.DRet;
 import io.enoa.docker.dret.container.*;
 import io.enoa.docker.dret.dockerinfo.EDockerInfo;
 import io.enoa.docker.dret.image.*;
+import io.enoa.toolkit.EoConst;
+import io.enoa.toolkit.binary.EnoaBinary;
 import io.enoa.toolkit.value.Void;
 
 import java.util.List;
@@ -103,6 +106,27 @@ public interface DIParser<T> {
     return EImagePruneParser.instance();
   }
 
-  DRet<T> parse(DockerConfig config, String origin);
+  static DIParser<EICommit> imagecommit() {
+    return EImageCommitParser.instance();
+  }
+
+  static DIParser<EnoaBinary> binary() {
+    return EBinaryParser.instance();
+  }
+
+  /**
+   * only use not create dresp object
+   * <p>
+   * todo a better way
+   *
+   * @param config config
+   * @param text   text
+   * @return dret
+   */
+  default DRet<T> parse(DockerConfig config, String text) {
+    return this.parse(config, DResp.create(100, "application/json", text.getBytes(EoConst.CHARSET)));
+  }
+
+  DRet<T> parse(DockerConfig config, DResp resp);
 
 }
