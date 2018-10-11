@@ -15,10 +15,7 @@
  */
 package io.enoa.docker;
 
-import io.enoa.docker.dqp.image.DQPBuild;
-import io.enoa.docker.dqp.image.DQPListImage;
-import io.enoa.docker.dqp.image.DQPSearch;
-import io.enoa.docker.dqp.image.DQPTag;
+import io.enoa.docker.dqp.image.*;
 import io.enoa.docker.dret.DRet;
 import io.enoa.docker.dret.image.*;
 import io.enoa.docker.stream.DStream;
@@ -143,6 +140,23 @@ public class DockerImageTest extends AbstractDockerTest {
     EnoaBinary binary = ret.data();
     FileKit.write(PathKit.debugPath().resolve("_tmp/nginx.tgz"), binary.bytebuffer());
     System.out.println();
+  }
+
+  @Test
+  public void testExportSeveral() {
+    DRet<EnoaBinary> ret = Docker.image().export(DQPExportSeveral.create().names("nginx"));
+    Assert.assertTrue(ret.ok());
+    EnoaBinary binary = ret.data();
+    FileKit.write(PathKit.debugPath().resolve("_tmp/nginx.tgz"), binary.bytebuffer());
+    System.out.println();
+  }
+
+  @Test
+  public void testLoad() {
+    EnoaBinary binary = FileKit.read(PathKit.debugPath().resolve("_tmp/nginx.tgz"));
+    DRet<Void> ret = Docker.image().load(binary.bytes());
+    Assert.assertTrue(ret.ok());
+    System.out.println(ret);
   }
 
 

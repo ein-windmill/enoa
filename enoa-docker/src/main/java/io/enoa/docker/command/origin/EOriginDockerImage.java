@@ -278,4 +278,35 @@ public interface EOriginDockerImage {
    */
   DResp export(String id);
 
+  /**
+   * Export several images
+   * Get a tarball containing all images and metadata for several image repositories.
+   * <p>
+   * For each value of the names parameter: if it is a specific name and tag (e.g. ubuntu:latest), then only that image (and its parents) are returned; if it is an image ID, similarly only that image (and its parents) are returned and there would be no names referenced in the 'repositories' file for this image ID.
+   * <p>
+   * For details on the format, see <a href="https://docs.docker.com/engine/api/v1.37/#operation/ImageGet">the export image endpoint.</a>
+   *
+   * @param dqp dqp
+   * @return DResp
+   */
+  DResp export(DQPExportSeveral dqp);
+
+  /**
+   * @see #load(byte[], DQPLoad)
+   */
+  default DResp load(byte[] binary) {
+    return this.load(binary, null);
+  }
+
+  /**
+   * Import images
+   * Load a set of images and tags into a repository.
+   * <p>
+   * For details on the format, see <a href="https://docs.docker.com/engine/api/v1.37/#operation/ImageGet">the export image endpoint.</a>
+   *
+   * @param dqp dqp
+   * @return Dresp
+   */
+  DResp load(byte[] binary, DQPLoad dqp);
+
 }

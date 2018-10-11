@@ -180,4 +180,24 @@ public class ETCPDockerImage implements EOriginDockerImage {
       .emit();
     return DResp.create(response);
   }
+
+  @Override
+  public DResp export(DQPExportSeveral dqp) {
+    Http http = this.docker.http("images/get");
+    if (dqp != null)
+      http.para(dqp.dqr().http());
+    HttpResponse response = http.emit();
+    return DResp.create(response);
+  }
+
+  @Override
+  public DResp load(byte[] binary, DQPLoad dqp) {
+    Http http = this.docker.http("images/load")
+      .method(HttpMethod.POST)
+      .binary(binary);
+    if (dqp != null)
+      http.para(dqp.dqr().http());
+    HttpResponse response = http.emit();
+    return DResp.create(response);
+  }
 }

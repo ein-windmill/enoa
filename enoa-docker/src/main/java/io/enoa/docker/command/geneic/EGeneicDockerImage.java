@@ -157,4 +157,18 @@ public class EGeneicDockerImage {
     return parser.parse(this.config, resp);
   }
 
+  public <T> DRet<T> export(DIParser<T> parser, DQPExportSeveral dqp) {
+    DResp resp = this.image.export(dqp);
+    return parser.parse(this.config, resp);
+  }
+
+  public DRet<Void> load(byte[] binary) {
+    return this.load(binary, null);
+  }
+
+  public DRet<Void> load(byte[] binary, DQPLoad dqp) {
+    DResp resp = this.image.load(binary, dqp);
+    return DIParser.voidx().parse(this.config, resp);
+  }
+
 }

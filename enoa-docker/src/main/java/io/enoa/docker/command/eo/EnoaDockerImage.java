@@ -122,4 +122,17 @@ public class EnoaDockerImage {
   public DRet<EnoaBinary> export(String id) {
     return this.image.export(DIParser.binary(), id);
   }
+
+  public DRet<EnoaBinary> export(DQPExportSeveral dqp) {
+    return this.image.export(DIParser.binary(), dqp);
+  }
+
+  public DRet<Void> load(byte[] binary) {
+    return this.image.load(binary);
+  }
+
+  public DRet<Void> load(byte[] binary, DQPLoad dqp) {
+    return this.image.load(binary, dqp);
+  }
+
 }
