@@ -17,6 +17,17 @@ package io.enoa.docker.command.eo;
 
 import io.enoa.docker.command.geneic.EGeneicDockerNetwork;
 import io.enoa.docker.command.geneic.GeneicDocker;
+import io.enoa.docker.dqp.network.DQPNetworkInspect;
+import io.enoa.docker.dqp.network.DQPNetworkList;
+import io.enoa.docker.dqp.network.DQPNetworkPrune;
+import io.enoa.docker.dret.DRet;
+import io.enoa.docker.dret.network.ENetworPrune;
+import io.enoa.docker.dret.network.ENetwork;
+import io.enoa.docker.dret.network.ENetworkCreated;
+import io.enoa.docker.parser.DIParser;
+import io.enoa.toolkit.value.Void;
+
+import java.util.List;
 
 public class EnoaDockerNetwork {
 
@@ -27,4 +38,45 @@ public class EnoaDockerNetwork {
     this.docker = docker;
     this.networks = docker.network();
   }
+
+  public DRet<List<ENetwork>> list() {
+    return this.networks.list(DIParser.networklist());
+  }
+
+  public DRet<List<ENetwork>> list(DQPNetworkList dqp) {
+    return this.networks.list(DIParser.networklist(), dqp);
+  }
+
+  public DRet<ENetwork> inspect(String id) {
+    return this.networks.inspect(DIParser.networkinspect(), id);
+  }
+
+  public DRet<ENetwork> inspect(String id, DQPNetworkInspect dqp) {
+    return this.networks.inspect(DIParser.networkinspect(), id, dqp);
+  }
+
+  public DRet<Void> remove(String id) {
+    return this.networks.remove(id);
+  }
+
+  public DRet<ENetworkCreated> create(String body) {
+    return this.networks.create(DIParser.networkcreated(), body);
+  }
+
+  public DRet<Void> connect(String id, String body) {
+    return this.networks.connect(id, body);
+  }
+
+  public DRet<Void> disconnect(String id, String body) {
+    return this.networks.disconnect(id, body);
+  }
+
+  public DRet<ENetworPrune> prune() {
+    return this.networks.prune(DIParser.networkprune());
+  }
+
+  public DRet<ENetworPrune> prune(DQPNetworkPrune dqp) {
+    return this.networks.prune(DIParser.networkprune(), dqp);
+  }
+
 }

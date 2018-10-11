@@ -17,35 +17,29 @@ package io.enoa.docker.dqp.container;
 
 import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.DQR;
-import io.enoa.toolkit.text.TextKit;
 
-public class DQPStart implements DQP {
+public class DQPContainerTime implements DQP {
 
-  /**
-   * detachKeys
-   * string
-   * <p>
-   * Override the key sequence for detaching a container. Format is a single character [a-Z] or ctrl-<value> where <value> is one of: a-z, @, ^, [, , or _.
-   */
-  private String detachkeys;
+  private Integer time;
 
-  public static DQPStart create() {
-    return new DQPStart();
+  public static DQPContainerTime create() {
+    return new DQPContainerTime();
   }
 
-  public DQPStart() {
+  public DQPContainerTime() {
+
   }
 
-  public DQPStart detachkeys(String detachkeys) {
-    this.detachkeys = detachkeys;
+  public DQPContainerTime time(Integer time) {
+    this.time = time;
     return this;
   }
 
   @Override
   public DQR dqr() {
     DQR dqr = DQR.create();
-    if (TextKit.blankn(this.detachkeys))
-      dqr.put("detachKeys", this.detachkeys);
+    if (this.time != null)
+      dqr.put("t", this.time);
     return dqr;
   }
 }

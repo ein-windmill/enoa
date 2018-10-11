@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.dqp.image;
+package io.enoa.docker.dqp.container;
 
 import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.DQR;
@@ -23,67 +23,45 @@ import io.enoa.toolkit.collection.CollectionKit;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DQPSearch implements DQP {
+public class DQPContainerPrune implements DQP {
 
-  /**
-   * string Required
-   * <p>
-   * Term to search
-   */
-  private String term;
-  /**
-   * integer
-   * <p>
-   * Maximum number of results to return
-   */
-  private Integer limit;
   /**
    * string
    * <p>
-   * A JSON encoded value of the filters (a map[string][]string) to process on the images list. Available filters:
+   * Filters to process on the prune list, encoded as JSON (a map[string][]string).
    * <p>
-   * is-automated=(true|false)
-   * is-official=(true|false)
-   * stars=<number> Matches images that has at least 'number' stars.
+   * Available filters:
+   * <p>
+   * until=<timestamp> Prune containers created before this timestamp. The <timestamp> can be Unix timestamps, date formatted timestamps, or Go duration strings (e.g. 10m, 1h30m) computed relative to the daemon machine’s time.
+   * label (label=<key>, label=<key>=<value>, label!=<key>, or label!=<key>=<value>) Prune containers with (or without, in case label!=... is used) the specified labels.
    */
   private List<String> filters;
 
-  public static DQPSearch create() {
-    return new DQPSearch();
+  public static DQPContainerPrune create() {
+    return new DQPContainerPrune();
   }
 
-  public DQPSearch() {
+  public DQPContainerPrune() {
   }
 
-  public DQPSearch term(String term) {
-    this.term = term;
-    return this;
-  }
-
-  public DQPSearch limit(Integer limit) {
-    this.limit = limit;
-    return this;
-  }
-
-  public DQPSearch filters(String filter) {
+  public DQPContainerPrune filters(String filter) {
     if (this.filters == null)
       this.filters = new ArrayList<>();
     this.filters.add(filter);
     return this;
   }
 
-  public DQPSearch filters(List<String> filters) {
+  public DQPContainerPrune filters(List<String> filters) {
     this.filters = filters;
     return this;
   }
 
   @Override
   public DQR dqr() {
-    DQR dqr = DQR.create()
-      .putIf("term", this.term)
-      .putIf("limit", this.limit);
-    if (CollectionKit.notEmpty(this.filters))
+    DQR dqr = DQR.create();
+    if (CollectionKit.notEmpty(this.filters)) {
       dqr.put("filters", Json.toJson(this.filters));
+    }
     return dqr;
   }
 }

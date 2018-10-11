@@ -13,33 +13,46 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.dret.container;
+package io.enoa.docker.dret.network;
 
 import io.enoa.docker.dret.AbstractDRet;
 
-public class ENetwork extends AbstractDRet {
+public class ENetworkCreated extends AbstractDRet {
 
+  private String id;
+  private String warning;
 
-  private final EBridge bridge;
-
-  public ENetwork(Builder builder) {
-    this.bridge = builder.bridge;
+  public ENetworkCreated(Builder builder) {
+    this.id = builder.id;
+    this.warning = builder.warning;
   }
 
-  public EBridge bridge() {
-    return this.bridge;
+  public String id() {
+    return id;
+  }
+
+  public String warning() {
+    return warning;
   }
 
   public static class Builder {
-    private EBridge bridge;
 
-    public ENetwork build() {
-      return new ENetwork(this);
+    private String id;
+    private String warning;
+
+    public ENetworkCreated build() {
+      return new ENetworkCreated(this);
     }
 
-    public Builder bridge(EBridge bridge) {
-      this.bridge = bridge;
+    public Builder id(String id) {
+      this.id = id;
+      return this;
+    }
+
+    public Builder warning(String warning) {
+      this.warning = warning;
       return this;
     }
   }
+
 }

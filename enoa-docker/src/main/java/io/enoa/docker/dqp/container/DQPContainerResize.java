@@ -18,7 +18,7 @@ package io.enoa.docker.dqp.container;
 import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.DQR;
 
-public class DQPResize implements DQP {
+public class DQPContainerResize implements DQP {
 
   /**
    * w
@@ -35,19 +35,19 @@ public class DQPResize implements DQP {
    */
   private Integer height;
 
-  public static DQPResize create() {
-    return new DQPResize();
+  public static DQPContainerResize create() {
+    return new DQPContainerResize();
   }
 
-  public DQPResize() {
+  public DQPContainerResize() {
   }
 
-  public DQPResize width(Integer width) {
+  public DQPContainerResize width(Integer width) {
     this.width = width;
     return this;
   }
 
-  public DQPResize height(Integer height) {
+  public DQPContainerResize height(Integer height) {
     this.height = height;
     return this;
   }

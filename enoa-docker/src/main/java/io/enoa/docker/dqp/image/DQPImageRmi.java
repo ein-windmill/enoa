@@ -18,45 +18,37 @@ package io.enoa.docker.dqp.image;
 import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.DQR;
 
-public class DQPTag implements DQP {
+public class DQPImageRmi implements DQP {
 
-  /**
-   * string
-   * <p>
-   * The repository to tag in. For example, someuser/someimage.
-   */
-  private String repo;
-  /**
-   * string
-   * <p>
-   * The name of the new tag.
-   */
-  private String tag;
+  private Boolean force;
+  private Boolean noprune;
 
-  public static DQPTag create() {
-    return new DQPTag();
+  public static DQPImageRmi create() {
+    return new DQPImageRmi();
   }
 
-  public DQPTag() {
+  public DQPImageRmi() {
+    this.force = Boolean.FALSE;
+    this.noprune = Boolean.FALSE;
   }
 
-
-  public DQPTag repo(String repo) {
-    this.repo = repo;
+  public DQPImageRmi force(Boolean force) {
+    this.force = force;
     return this;
   }
 
-  public DQPTag tag(String tag) {
-    this.tag = tag;
+  public DQPImageRmi noprune(Boolean noprune) {
+    this.noprune = noprune;
     return this;
   }
-
 
   @Override
   public DQR dqr() {
-    DQR dqr = DQR.create()
-      .putIf("repo", this.repo)
-      .putIf("tag", this.tag);
+    DQR dqr = DQR.create();
+    if (this.force)
+      dqr.put("force", this.force);
+    if (this.noprune)
+      dqr.put("noprune", this.noprune);
     return dqr;
   }
 }

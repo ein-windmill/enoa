@@ -33,12 +33,12 @@ public interface EOriginDockerImage {
    * @param dqp dqp
    * @return DResp
    */
-  DResp list(DQPListImage dqp);
+  DResp list(DQPImageList dqp);
 
   /**
-   * @see #build(DQPBuild, String, DStream)
+   * @see #build(DQPImageBuild, String, DStream)
    */
-  default DResp build(DQPBuild dqp, String dockerfile) {
+  default DResp build(DQPImageBuild dqp, String dockerfile) {
     return this.build(dqp, dockerfile, null);
   }
 
@@ -61,7 +61,7 @@ public interface EOriginDockerImage {
    * @param dstream    chunk
    * @return DResp
    */
-  DResp build(DQPBuild dqp, String dockerfile, DStream<String> dstream);
+  DResp build(DQPImageBuild dqp, String dockerfile, DStream<String> dstream);
 
   /**
    * Delete builder cache
@@ -104,7 +104,7 @@ public interface EOriginDockerImage {
   DResp history(String id);
 
   /**
-   * @see #push(String, DQPPush)
+   * @see #push(String, DQPImagePush)
    */
   default DResp push(String id) {
     return this.push(id, null, null);
@@ -114,7 +114,7 @@ public interface EOriginDockerImage {
     return this.push(id, null, dstream);
   }
 
-  default DResp push(String id, DQPPush dqp) {
+  default DResp push(String id, DQPImagePush dqp) {
     return this.push(id, dqp, null);
   }
 
@@ -133,7 +133,7 @@ public interface EOriginDockerImage {
    * @param dqp dqp
    * @return DResp
    */
-  DResp push(String id, DQPPush dqp, DStream<String> dstream);
+  DResp push(String id, DQPImagePush dqp, DStream<String> dstream);
 
   /**
    * Tag an image
@@ -145,10 +145,10 @@ public interface EOriginDockerImage {
    * @param dqp dqp
    * @return DResp
    */
-  DResp tag(String id, DQPTag dqp);
+  DResp tag(String id, DQPImageTag dqp);
 
   /**
-   * @see #remove(String, DQPRmi)
+   * @see #remove(String, DQPImageRmi)
    */
   default DResp remove(String id) {
     return this.remove(id, null);
@@ -165,7 +165,7 @@ public interface EOriginDockerImage {
    *           Image name or ID
    * @return DResp
    */
-  DResp remove(String id, DQPRmi dqp);
+  DResp remove(String id, DQPImageRmi dqp);
 
   /**
    * Search images
@@ -174,7 +174,7 @@ public interface EOriginDockerImage {
    * @param dqp dqp
    * @return DResp
    */
-  DResp search(DQPSearch dqp);
+  DResp search(DQPImageSearch dqp);
 
   default DResp pruneimage() {
     return this.pruneimage(null);
@@ -185,10 +185,10 @@ public interface EOriginDockerImage {
    *
    * @return Stirng
    */
-  DResp pruneimage(DQPPruneImage dqp);
+  DResp pruneimage(DQPImagePrune dqp);
 
   /**
-   * @see #commit(String, DQPCommit)
+   * @see #commit(String, DQPImageCommit)
    */
   default DResp commit(String body) {
     return this.commit(body, null);
@@ -255,7 +255,7 @@ public interface EOriginDockerImage {
    * @param dqp  dqp
    * @return DResp
    */
-  DResp commit(String body, DQPCommit dqp);
+  DResp commit(String body, DQPImageCommit dqp);
 
   /**
    * Export an image
@@ -289,10 +289,10 @@ public interface EOriginDockerImage {
    * @param dqp dqp
    * @return DResp
    */
-  DResp export(DQPExportSeveral dqp);
+  DResp export(DQPImageExportSeveral dqp);
 
   /**
-   * @see #load(byte[], DQPLoad)
+   * @see #load(byte[], DQPImageLoad)
    */
   default DResp load(byte[] binary) {
     return this.load(binary, null);
@@ -307,6 +307,6 @@ public interface EOriginDockerImage {
    * @param dqp dqp
    * @return Dresp
    */
-  DResp load(byte[] binary, DQPLoad dqp);
+  DResp load(byte[] binary, DQPImageLoad dqp);
 
 }

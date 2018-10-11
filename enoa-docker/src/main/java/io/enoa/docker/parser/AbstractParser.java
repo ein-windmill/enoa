@@ -44,6 +44,6 @@ abstract class AbstractParser<T> implements DIParser<T> {
     return DRet.ok(resp, this.ok(config, resp));
   }
 
-  public abstract T ok(DockerConfig config, DResp origin);
+  public abstract T ok(DockerConfig config, DResp resp);
 
 }

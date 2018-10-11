@@ -19,7 +19,7 @@ import io.enoa.docker.dqp.DQH;
 import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.DQR;
 
-public class DQPBuild implements DQP {
+public class DQPImageBuild implements DQP {
 
   /**
    * string
@@ -208,11 +208,11 @@ public class DQPBuild implements DQP {
    */
   private String registryconfig;
 
-  public static DQPBuild create() {
-    return new DQPBuild();
+  public static DQPImageBuild create() {
+    return new DQPImageBuild();
   }
 
-  public DQPBuild() {
+  public DQPImageBuild() {
     this.dockerfile = "Dockerfile";
     this.q = Boolean.FALSE;
     this.nocache = Boolean.FALSE;
@@ -222,142 +222,142 @@ public class DQPBuild implements DQP {
     this.contenttype = "application/x-tar";
   }
 
-  public DQPBuild dockerfile(String dockerfile) {
+  public DQPImageBuild dockerfile(String dockerfile) {
     this.dockerfile = dockerfile;
     return this;
   }
 
-  public DQPBuild t(String t) {
+  public DQPImageBuild t(String t) {
     this.t = t;
     return this;
   }
 
-  public DQPBuild extrahosts(String extrahosts) {
+  public DQPImageBuild extrahosts(String extrahosts) {
     this.extrahosts = extrahosts;
     return this;
   }
 
-  public DQPBuild remote(String remote) {
+  public DQPImageBuild remote(String remote) {
     this.remote = remote;
     return this;
   }
 
-  public DQPBuild q() {
+  public DQPImageBuild q() {
     return this.q(Boolean.TRUE);
   }
 
-  public DQPBuild q(Boolean q) {
+  public DQPImageBuild q(Boolean q) {
     this.q = q;
     return this;
   }
 
-  public DQPBuild nocache() {
+  public DQPImageBuild nocache() {
     return this.nocache(Boolean.TRUE);
   }
 
-  public DQPBuild nocache(Boolean nocache) {
+  public DQPImageBuild nocache(Boolean nocache) {
     this.nocache = nocache;
     return this;
   }
 
-  public DQPBuild cachefrom(String cachefrom) {
+  public DQPImageBuild cachefrom(String cachefrom) {
     this.cachefrom = cachefrom;
     return this;
   }
 
-  public DQPBuild pull(String pull) {
+  public DQPImageBuild pull(String pull) {
     this.pull = pull;
     return this;
   }
 
-  public DQPBuild rm() {
+  public DQPImageBuild rm() {
     return this.rm(Boolean.TRUE);
   }
 
-  public DQPBuild rm(Boolean rm) {
+  public DQPImageBuild rm(Boolean rm) {
     this.rm = rm;
     return this;
   }
 
-  public DQPBuild forcerm() {
+  public DQPImageBuild forcerm() {
     return this.forcerm(Boolean.TRUE);
   }
 
-  public DQPBuild forcerm(Boolean forcerm) {
+  public DQPImageBuild forcerm(Boolean forcerm) {
     this.forcerm = forcerm;
     return this;
   }
 
-  public DQPBuild memory(Integer memory) {
+  public DQPImageBuild memory(Integer memory) {
     this.memory = memory;
     return this;
   }
 
-  public DQPBuild memswap(Integer memswap) {
+  public DQPImageBuild memswap(Integer memswap) {
     this.memswap = memswap;
     return this;
   }
 
-  public DQPBuild cpushares(Integer cpushares) {
+  public DQPImageBuild cpushares(Integer cpushares) {
     this.cpushares = cpushares;
     return this;
   }
 
-  public DQPBuild cpusetcpus(String cpusetcpus) {
+  public DQPImageBuild cpusetcpus(String cpusetcpus) {
     this.cpusetcpus = cpusetcpus;
     return this;
   }
 
-  public DQPBuild cpuperiod(Integer cpuperiod) {
+  public DQPImageBuild cpuperiod(Integer cpuperiod) {
     this.cpuperiod = cpuperiod;
     return this;
   }
 
-  public DQPBuild cpuquota(Integer cpuquota) {
+  public DQPImageBuild cpuquota(Integer cpuquota) {
     this.cpuquota = cpuquota;
     return this;
   }
 
-  public DQPBuild buildargs(String buildargs) {
+  public DQPImageBuild buildargs(String buildargs) {
     this.buildargs = buildargs;
     return this;
   }
 
-  public DQPBuild shmsize(Integer shmsize) {
+  public DQPImageBuild shmsize(Integer shmsize) {
     this.shmsize = shmsize;
     return this;
   }
 
-  public DQPBuild squash() {
+  public DQPImageBuild squash() {
     return this.squash(Boolean.TRUE);
   }
 
-  public DQPBuild squash(Boolean squash) {
+  public DQPImageBuild squash(Boolean squash) {
     this.squash = squash;
     return this;
   }
 
-  public DQPBuild labels(String labels) {
+  public DQPImageBuild labels(String labels) {
     this.labels = labels;
     return this;
   }
 
-  public DQPBuild networkmode(String networkmode) {
+  public DQPImageBuild networkmode(String networkmode) {
     this.networkmode = networkmode;
     return this;
   }
 
-  public DQPBuild platform(String platform) {
+  public DQPImageBuild platform(String platform) {
     this.platform = platform;
     return this;
   }
 
-  public DQPBuild contenttype(String contenttype) {
+  public DQPImageBuild contenttype(String contenttype) {
     this.contenttype = contenttype;
     return this;
   }
 
-  public DQPBuild registryconfig(String registryconfig) {
+  public DQPImageBuild registryconfig(String registryconfig) {
     this.registryconfig = registryconfig;
     return this;
   }

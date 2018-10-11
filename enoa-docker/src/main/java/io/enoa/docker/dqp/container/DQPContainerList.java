@@ -18,7 +18,7 @@ package io.enoa.docker.dqp.container;
 import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.DQR;
 
-public class DQPListContainer implements DQP {
+public class DQPContainerList implements DQP {
 
   /**
    * boolean
@@ -42,34 +42,34 @@ public class DQPListContainer implements DQP {
    * Filters to process on the container list, encoded as JSON (a map[string][]string).
    * For example, {"status": ["paused"]} will only return paused containers. Available
    */
-  private FilterListContainer filter;
+  private FilterContainerList filter;
 
-  public DQPListContainer() {
+  public DQPContainerList() {
 
   }
 
-  public static DQPListContainer create() {
-    return new DQPListContainer();
+  public static DQPContainerList create() {
+    return new DQPContainerList();
   }
 
-  public DQPListContainer all(boolean all) {
+  public DQPContainerList all(boolean all) {
     this.all = all;
     return this;
   }
 
-  public DQPListContainer limit(Integer limit) {
+  public DQPContainerList limit(Integer limit) {
     this.limit = limit;
     return this;
   }
 
-  public DQPListContainer size(boolean size) {
+  public DQPContainerList size(boolean size) {
     this.size = size;
     return this;
   }
 
-  public FilterListContainer filter() {
+  public FilterContainerList filter() {
     if (this.filter == null)
-      this.filter = new FilterListContainer(this);
+      this.filter = new FilterContainerList(this);
     return this.filter;
   }
 

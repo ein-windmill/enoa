@@ -13,43 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.dqp.image;
+package io.enoa.docker.dqp.container;
 
 import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.DQR;
+import io.enoa.toolkit.text.TextKit;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class DQPExportSeveral implements DQP {
+public class DQPContainerStart implements DQP {
 
   /**
-   * Comma Separated array of string
-   *
-   * Image names to filter by
+   * detachKeys
+   * string
+   * <p>
+   * Override the key sequence for detaching a container. Format is a single character [a-Z] or ctrl-<value> where <value> is one of: a-z, @, ^, [, , or _.
    */
-  private List<String> names;
+  private String detachkeys;
 
-  public static DQPExportSeveral create() {
-    return new DQPExportSeveral();
+  public static DQPContainerStart create() {
+    return new DQPContainerStart();
   }
 
-  public DQPExportSeveral names(String name) {
-    if (this.names == null)
-      this.names = new ArrayList<>();
-    this.names.add(name);
-    return this;
+  public DQPContainerStart() {
   }
 
-  public DQPExportSeveral names(List<String> names) {
-    this.names = names;
+  public DQPContainerStart detachkeys(String detachkeys) {
+    this.detachkeys = detachkeys;
     return this;
   }
 
   @Override
   public DQR dqr() {
-    DQR dqr = DQR.create()
-      .put("names", this.names);
+    DQR dqr = DQR.create();
+    if (TextKit.blankn(this.detachkeys))
+      dqr.put("detachKeys", this.detachkeys);
     return dqr;
   }
 }

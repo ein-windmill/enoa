@@ -18,7 +18,7 @@ package io.enoa.docker.dqp.image;
 import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.DQR;
 
-public class DQPCommit implements DQP {
+public class DQPImageCommit implements DQP {
 
   private String container;
   private String repo;
@@ -28,45 +28,45 @@ public class DQPCommit implements DQP {
   private Boolean pause;
   private String changes;
 
-  public static DQPCommit create() {
-    return new DQPCommit();
+  public static DQPImageCommit create() {
+    return new DQPImageCommit();
   }
 
-  public DQPCommit() {
+  public DQPImageCommit() {
     this.pause = Boolean.TRUE;
   }
 
-  public DQPCommit container(String container) {
+  public DQPImageCommit container(String container) {
     this.container = container;
     return this;
   }
 
-  public DQPCommit repo(String repo) {
+  public DQPImageCommit repo(String repo) {
     this.repo = repo;
     return this;
   }
 
-  public DQPCommit tag(String tag) {
+  public DQPImageCommit tag(String tag) {
     this.tag = tag;
     return this;
   }
 
-  public DQPCommit comment(String comment) {
+  public DQPImageCommit comment(String comment) {
     this.comment = comment;
     return this;
   }
 
-  public DQPCommit author(String author) {
+  public DQPImageCommit author(String author) {
     this.author = author;
     return this;
   }
 
-  public DQPCommit pause(Boolean pause) {
+  public DQPImageCommit pause(Boolean pause) {
     this.pause = pause;
     return this;
   }
 
-  public DQPCommit changes(String changes) {
+  public DQPImageCommit changes(String changes) {
     this.changes = changes;
     return this;
   }

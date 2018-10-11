@@ -58,17 +58,17 @@ public class EGeneicDockerImage {
     return this.list(parser, null);
   }
 
-  public <T> DRet<List<T>> list(DIParser<List<T>> parser, DQPListImage dqp) {
+  public <T> DRet<List<T>> list(DIParser<List<T>> parser, DQPImageList dqp) {
     DResp resp = this.image.list(dqp);
     return parser.parse(this.config, resp);
   }
 
-  public DRet<List<Kv>> build(DQPBuild dqp, String dockerfile) {
+  public DRet<List<Kv>> build(DQPImageBuild dqp, String dockerfile) {
     DResp resp = this.image.build(dqp, dockerfile);
     return this.linestolist(resp);
   }
 
-  public DRet<List<Kv>> build(DQPBuild dqp, String dockerfile, DStream<Kv> dstream) {
+  public DRet<List<Kv>> build(DQPImageBuild dqp, String dockerfile, DStream<Kv> dstream) {
     DStream<String> dst0 = DStream.<String>builder(text -> dstream.runner().run(this.config.json().parse(text, Kv.class)))
       .stopper(dstream.stopper()).build();
     DResp resp = this.image.build(dqp, dockerfile, dst0);
@@ -96,10 +96,10 @@ public class EGeneicDockerImage {
   }
 
   public DRet<Void> push(String id) {
-    return this.push(id, (DQPPush) null);
+    return this.push(id, (DQPImagePush) null);
   }
 
-  public DRet<Void> push(String id, DQPPush dqp) {
+  public DRet<Void> push(String id, DQPImagePush dqp) {
     DResp resp = this.image.push(id, dqp, null);
     return DIParser.voidx().parse(this.config, resp);
   }
@@ -108,14 +108,14 @@ public class EGeneicDockerImage {
     return this.push(id, null, dstream);
   }
 
-  public DRet<Void> push(String id, DQPPush dqp, DStream<Kv> dstream) {
+  public DRet<Void> push(String id, DQPImagePush dqp, DStream<Kv> dstream) {
     DStream<String> dst0 = DStream.<String>builder(text -> dstream.runner().run(this.config.json().parse(text, Kv.class)))
       .stopper(dstream.stopper()).build();
     DResp resp = this.image.push(id, dqp, dst0);
     return DIParser.voidx().parse(this.config, resp);
   }
 
-  public DRet<Void> tag(String id, DQPTag dqp) {
+  public DRet<Void> tag(String id, DQPImageTag dqp) {
     DResp resp = this.image.tag(id, dqp);
     return DIParser.voidx().parse(this.config, resp);
   }
@@ -124,12 +124,12 @@ public class EGeneicDockerImage {
     return this.remove(parser, id, null);
   }
 
-  public <T> DRet<List<T>> remove(DIParser<List<T>> parser, String id, DQPRmi dqp) {
+  public <T> DRet<List<T>> remove(DIParser<List<T>> parser, String id, DQPImageRmi dqp) {
     DResp resp = this.image.remove(id, dqp);
     return parser.parse(this.config, resp);
   }
 
-  public <T> DRet<List<T>> search(DIParser<List<T>> parser, DQPSearch dqp) {
+  public <T> DRet<List<T>> search(DIParser<List<T>> parser, DQPImageSearch dqp) {
     DResp resp = this.image.search(dqp);
     return parser.parse(this.config, resp);
   }
@@ -138,7 +138,7 @@ public class EGeneicDockerImage {
     return this.pruneimage(parser, null);
   }
 
-  public <T> DRet<T> pruneimage(DIParser<T> parser, DQPPruneImage dqp) {
+  public <T> DRet<T> pruneimage(DIParser<T> parser, DQPImagePrune dqp) {
     DResp resp = this.image.pruneimage(dqp);
     return parser.parse(this.config, resp);
   }
@@ -147,7 +147,7 @@ public class EGeneicDockerImage {
     return this.commit(parser, body, null);
   }
 
-  public <T> DRet<T> commit(DIParser<T> parser, String body, DQPCommit dqp) {
+  public <T> DRet<T> commit(DIParser<T> parser, String body, DQPImageCommit dqp) {
     DResp resp = this.image.commit(body, dqp);
     return parser.parse(this.config, resp);
   }
@@ -157,7 +157,7 @@ public class EGeneicDockerImage {
     return parser.parse(this.config, resp);
   }
 
-  public <T> DRet<T> export(DIParser<T> parser, DQPExportSeveral dqp) {
+  public <T> DRet<T> export(DIParser<T> parser, DQPImageExportSeveral dqp) {
     DResp resp = this.image.export(dqp);
     return parser.parse(this.config, resp);
   }
@@ -166,7 +166,7 @@ public class EGeneicDockerImage {
     return this.load(binary, null);
   }
 
-  public DRet<Void> load(byte[] binary, DQPLoad dqp) {
+  public DRet<Void> load(byte[] binary, DQPImageLoad dqp) {
     DResp resp = this.image.load(binary, dqp);
     return DIParser.voidx().parse(this.config, resp);
   }

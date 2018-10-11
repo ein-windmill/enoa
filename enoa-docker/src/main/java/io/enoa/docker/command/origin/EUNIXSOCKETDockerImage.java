@@ -28,12 +28,12 @@ public class EUNIXSOCKETDockerImage implements EOriginDockerImage {
   }
 
   @Override
-  public DResp list(DQPListImage dqp) {
+  public DResp list(DQPImageList dqp) {
     return null;
   }
 
   @Override
-  public DResp build(DQPBuild dqp, String dockerfile, DStream<String> dstream) {
+  public DResp build(DQPImageBuild dqp, String dockerfile, DStream<String> dstream) {
     return null;
   }
 
@@ -58,37 +58,47 @@ public class EUNIXSOCKETDockerImage implements EOriginDockerImage {
   }
 
   @Override
-  public DResp push(String id, DQPPush dqp, DStream<String> dstream) {
+  public DResp push(String id, DQPImagePush dqp, DStream<String> dstream) {
     return null;
   }
 
   @Override
-  public DResp tag(String id, DQPTag dqp) {
+  public DResp tag(String id, DQPImageTag dqp) {
     return null;
   }
 
   @Override
-  public DResp remove(String id, DQPRmi dqp) {
+  public DResp remove(String id, DQPImageRmi dqp) {
     return null;
   }
 
   @Override
-  public DResp search(DQPSearch dqp) {
+  public DResp search(DQPImageSearch dqp) {
     return null;
   }
 
   @Override
-  public DResp pruneimage(DQPPruneImage dqp) {
+  public DResp pruneimage(DQPImagePrune dqp) {
     return null;
   }
 
   @Override
-  public DResp commit(String body, DQPCommit dqp) {
+  public DResp commit(String body, DQPImageCommit dqp) {
     return null;
   }
 
   @Override
   public DResp export(String id) {
+    return null;
+  }
+
+  @Override
+  public DResp export(DQPImageExportSeveral dqp) {
+    return null;
+  }
+
+  @Override
+  public DResp load(byte[] binary, DQPImageLoad dqp) {
     return null;
   }
 }

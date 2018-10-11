@@ -18,37 +18,38 @@ package io.enoa.docker.dqp.image;
 import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.DQR;
 
-public class DQPRmi implements DQP {
+import java.util.ArrayList;
+import java.util.List;
 
-  private Boolean force;
-  private Boolean noprune;
+public class DQPImageExportSeveral implements DQP {
 
-  public static DQPRmi create() {
-    return new DQPRmi();
+  /**
+   * Comma Separated array of string
+   *
+   * Image names to filter by
+   */
+  private List<String> names;
+
+  public static DQPImageExportSeveral create() {
+    return new DQPImageExportSeveral();
   }
 
-  public DQPRmi() {
-    this.force = Boolean.FALSE;
-    this.noprune = Boolean.FALSE;
-  }
-
-  public DQPRmi force(Boolean force) {
-    this.force = force;
+  public DQPImageExportSeveral names(String name) {
+    if (this.names == null)
+      this.names = new ArrayList<>();
+    this.names.add(name);
     return this;
   }
 
-  public DQPRmi noprune(Boolean noprune) {
-    this.noprune = noprune;
+  public DQPImageExportSeveral names(List<String> names) {
+    this.names = names;
     return this;
   }
 
   @Override
   public DQR dqr() {
-    DQR dqr = DQR.create();
-    if (this.force)
-      dqr.put("force", this.force);
-    if (this.noprune)
-      dqr.put("noprune", this.noprune);
+    DQR dqr = DQR.create()
+      .put("names", this.names);
     return dqr;
   }
 }

@@ -18,7 +18,7 @@ package io.enoa.docker.dqp.container;
 import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.DQR;
 
-public class DQPRemove implements DQP {
+public class DQPContainerRemove implements DQP {
 
 
   /**
@@ -32,36 +32,36 @@ public class DQPRemove implements DQP {
   private boolean link;
 
 
-  public static DQPRemove create() {
-    return new DQPRemove();
+  public static DQPContainerRemove create() {
+    return new DQPContainerRemove();
   }
 
-  public DQPRemove() {
+  public DQPContainerRemove() {
   }
 
-  public DQPRemove volumes() {
+  public DQPContainerRemove volumes() {
     return this.volumes(Boolean.TRUE);
   }
 
-  public DQPRemove volumes(boolean volumes) {
+  public DQPContainerRemove volumes(boolean volumes) {
     this.volumes = volumes;
     return this;
   }
 
-  public DQPRemove force() {
+  public DQPContainerRemove force() {
     return this.force(Boolean.TRUE);
   }
 
-  public DQPRemove force(boolean force) {
+  public DQPContainerRemove force(boolean force) {
     this.force = force;
     return this;
   }
 
-  public DQPRemove link() {
+  public DQPContainerRemove link() {
     return this.link(Boolean.TRUE);
   }
 
-  public DQPRemove link(boolean link) {
+  public DQPContainerRemove link(boolean link) {
     this.link = link;
     return this;
   }

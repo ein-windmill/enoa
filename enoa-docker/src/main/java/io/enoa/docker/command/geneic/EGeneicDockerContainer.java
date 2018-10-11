@@ -47,7 +47,7 @@ public class EGeneicDockerContainer {
     return this.list(parser, null);
   }
 
-  public <T> DRet<List<T>> list(DIParser<List<T>> parser, DQPListContainer dqp) {
+  public <T> DRet<List<T>> list(DIParser<List<T>> parser, DQPContainerList dqp) {
     DResp origin = this.container.list(dqp);
     return parser.parse(this.config, origin);
   }
@@ -79,7 +79,7 @@ public class EGeneicDockerContainer {
     return this.logs(parser, id, null);
   }
 
-  public <T> DRet<T> logs(DIParser<T> parser, String id, DQPLogs dqp) {
+  public <T> DRet<T> logs(DIParser<T> parser, String id, DQPContainerLogs dqp) {
     DResp origin = this.container.logs(id, dqp);
     return parser.parse(this.config, origin);
   }
@@ -111,7 +111,7 @@ public class EGeneicDockerContainer {
     return this.resize(id, null);
   }
 
-  public DRet<Void> resize(String id, DQPResize dqp) {
+  public DRet<Void> resize(String id, DQPContainerResize dqp) {
     DResp origin = this.container.resize(id, dqp);
     return DIParser.voidx().parse(this.config, origin);
   }
@@ -120,7 +120,7 @@ public class EGeneicDockerContainer {
     return this.start(id, null);
   }
 
-  public DRet<Void> start(String id, DQPStart dqp) {
+  public DRet<Void> start(String id, DQPContainerStart dqp) {
     DResp origin = this.container.start(id, dqp);
     return DIParser.voidx().parse(this.config, origin);
   }
@@ -129,7 +129,7 @@ public class EGeneicDockerContainer {
     return this.stop(id, null);
   }
 
-  public DRet<Void> stop(String id, DQPTime dqp) {
+  public DRet<Void> stop(String id, DQPContainerTime dqp) {
     DResp origin = this.container.stop(id, dqp);
     return DIParser.voidx().parse(this.config, origin);
   }
@@ -138,7 +138,7 @@ public class EGeneicDockerContainer {
     return this.restart(id, null);
   }
 
-  public DRet<Void> restart(String id, DQPTime dqp) {
+  public DRet<Void> restart(String id, DQPContainerTime dqp) {
     DResp origin = this.container.restart(id, dqp);
     return DIParser.voidx().parse(this.config, origin);
   }
@@ -147,12 +147,12 @@ public class EGeneicDockerContainer {
     return this.kill(id, null);
   }
 
-  public DRet<Void> kill(String id, DQPKill dqp) {
+  public DRet<Void> kill(String id, DQPContainerKill dqp) {
     DResp origin = this.container.kill(id, dqp);
     return DIParser.voidx().parse(this.config, origin);
   }
 
-  public <T> DRet<T> update(DIParser<T> parser, String id, DQPUpdate dqp) {
+  public <T> DRet<T> update(DIParser<T> parser, String id, DQPContainerUpdate dqp) {
     return this.update(parser, id, dqp.dqr().json());
   }
 
@@ -204,7 +204,7 @@ public class EGeneicDockerContainer {
     return this.remove(id, null);
   }
 
-  public DRet<Void> remove(String id, DQPRemove dqp) {
+  public DRet<Void> remove(String id, DQPContainerRemove dqp) {
     DResp origin = this.container.remove(id, dqp);
     return DIParser.voidx().parse(this.config, origin);
   }
@@ -220,7 +220,7 @@ public class EGeneicDockerContainer {
     return this.prune(parser, null);
   }
 
-  public <T> DRet<T> prune(DIParser<T> parser, DQPPruneContainer dqp) {
+  public <T> DRet<T> prune(DIParser<T> parser, DQPContainerPrune dqp) {
     DResp origin = this.container.prune(dqp);
     return parser.parse(this.config, origin);
   }

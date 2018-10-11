@@ -18,7 +18,6 @@ package io.enoa.docker.command.origin;
 import io.enoa.docker.dqp.container.*;
 import io.enoa.docker.dret.DResp;
 import io.enoa.docker.stream.DStream;
-import io.enoa.toolkit.binary.EnoaBinary;
 
 public class EUNIXSOCKETDockerContainer implements EOriginDockerContainer {
 
@@ -29,7 +28,7 @@ public class EUNIXSOCKETDockerContainer implements EOriginDockerContainer {
   }
 
   @Override
-  public DResp list(DQPListContainer dqp) {
+  public DResp list(DQPContainerList dqp) {
     return null;
   }
 
@@ -49,7 +48,7 @@ public class EUNIXSOCKETDockerContainer implements EOriginDockerContainer {
   }
 
   @Override
-  public DResp logs(String id, DQPLogs dqp) {
+  public DResp logs(String id, DQPContainerLogs dqp) {
     return null;
   }
 
@@ -74,27 +73,27 @@ public class EUNIXSOCKETDockerContainer implements EOriginDockerContainer {
   }
 
   @Override
-  public DResp resize(String id, DQPResize dqp) {
+  public DResp resize(String id, DQPContainerResize dqp) {
     return null;
   }
 
   @Override
-  public DResp start(String id, DQPStart dqp) {
+  public DResp start(String id, DQPContainerStart dqp) {
     return null;
   }
 
   @Override
-  public DResp stop(String id, DQPTime dqp) {
+  public DResp stop(String id, DQPContainerTime dqp) {
     return null;
   }
 
   @Override
-  public DResp restart(String id, DQPTime dqp) {
+  public DResp restart(String id, DQPContainerTime dqp) {
     return null;
   }
 
   @Override
-  public DResp kill(String id, DQPKill dqp) {
+  public DResp kill(String id, DQPContainerKill dqp) {
     return null;
   }
 
@@ -129,7 +128,7 @@ public class EUNIXSOCKETDockerContainer implements EOriginDockerContainer {
   }
 
   @Override
-  public DResp remove(String id, DQPRemove dqp) {
+  public DResp remove(String id, DQPContainerRemove dqp) {
     return null;
   }
 
@@ -139,7 +138,7 @@ public class EUNIXSOCKETDockerContainer implements EOriginDockerContainer {
   }
 
   @Override
-  public DResp prune(DQPPruneContainer dqp) {
+  public DResp prune(DQPContainerPrune dqp) {
     return null;
   }
 }

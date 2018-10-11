@@ -25,9 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FilterListImage implements DBack<DQPListImage> {
+public class FilterImageList implements DBack<DQPImageList> {
 
-  private DQPListImage dqp;
+  private DQPImageList dqp;
 
 
   /**
@@ -51,66 +51,66 @@ public class FilterListImage implements DBack<DQPListImage> {
    */
   private List<String> since;
 
-  FilterListImage(DQPListImage dqp) {
+  FilterImageList(DQPImageList dqp) {
     this.dqp = dqp;
   }
 
-  public FilterListImage before(String before) {
+  public FilterImageList before(String before) {
     if (CollectionKit.isEmpty(this.before))
       this.before = new ArrayList<>();
     this.before.add(before);
     return this;
   }
 
-  public FilterListImage before(List<String> before) {
+  public FilterImageList before(List<String> before) {
     this.before = before;
     return this;
   }
 
-  public FilterListImage dangling(Boolean dangling) {
+  public FilterImageList dangling(Boolean dangling) {
     if (CollectionKit.isEmpty(this.dangling))
       this.dangling = new ArrayList<>();
     this.dangling.add(dangling);
     return this;
   }
 
-  public FilterListImage dangling(List<Boolean> dangling) {
+  public FilterImageList dangling(List<Boolean> dangling) {
     this.dangling = dangling;
     return this;
   }
 
-  public FilterListImage label(String label) {
+  public FilterImageList label(String label) {
     if (CollectionKit.isEmpty(this.label))
       this.label = new ArrayList<>();
     this.label.add(label);
     return this;
   }
 
-  public FilterListImage label(List<String> label) {
+  public FilterImageList label(List<String> label) {
     this.label = label;
     return this;
   }
 
-  public FilterListImage reference(String reference) {
+  public FilterImageList reference(String reference) {
     if (CollectionKit.isEmpty(this.reference))
       this.reference = new ArrayList<>();
     this.reference.add(reference);
     return this;
   }
 
-  public FilterListImage reference(List<String> reference) {
+  public FilterImageList reference(List<String> reference) {
     this.reference = reference;
     return this;
   }
 
-  public FilterListImage since(String since) {
+  public FilterImageList since(String since) {
     if (CollectionKit.isEmpty(this.since))
       this.since = new ArrayList<>();
     this.since.add(since);
     return this;
   }
 
-  public FilterListImage since(List<String> since) {
+  public FilterImageList since(List<String> since) {
     this.since = since;
     return this;
   }
@@ -134,7 +134,7 @@ public class FilterListImage implements DBack<DQPListImage> {
   }
 
   @Override
-  public DQPListImage back() {
+  public DQPImageList back() {
     return this.dqp;
   }
 }

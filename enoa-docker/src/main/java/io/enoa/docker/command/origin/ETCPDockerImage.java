@@ -39,7 +39,7 @@ public class ETCPDockerImage implements EOriginDockerImage {
   }
 
   @Override
-  public DResp list(DQPListImage dqp) {
+  public DResp list(DQPImageList dqp) {
     Http http = this.docker.http("images/json")
       .method(HttpMethod.GET);
     if (dqp != null)
@@ -49,7 +49,7 @@ public class ETCPDockerImage implements EOriginDockerImage {
   }
 
   @Override
-  public DResp build(DQPBuild dqp, String dockerfile, DStream<String> dstream) {
+  public DResp build(DQPImageBuild dqp, String dockerfile, DStream<String> dstream) {
     if (dqp == null)
       throw new DockerException(EnoaTipKit.message("eo.tip.docker.lost_dqp"));
     DQR dqr = dqp.dqr();
@@ -105,7 +105,7 @@ public class ETCPDockerImage implements EOriginDockerImage {
   }
 
   @Override
-  public DResp push(String id, DQPPush dqp, DStream<String> dstream) {
+  public DResp push(String id, DQPImagePush dqp, DStream<String> dstream) {
     Http http = this.docker.http("images", id, "push")
       .method(HttpMethod.POST);
     if (dqp != null) {
@@ -125,7 +125,7 @@ public class ETCPDockerImage implements EOriginDockerImage {
   }
 
   @Override
-  public DResp tag(String id, DQPTag dqp) {
+  public DResp tag(String id, DQPImageTag dqp) {
     HttpResponse response = this.docker.http("images", id, "tag")
       .method(HttpMethod.POST)
       .para(dqp.dqr().http())
@@ -134,7 +134,7 @@ public class ETCPDockerImage implements EOriginDockerImage {
   }
 
   @Override
-  public DResp remove(String id, DQPRmi dqp) {
+  public DResp remove(String id, DQPImageRmi dqp) {
     Http http = this.docker.http("images", id)
       .method(HttpMethod.DELETE);
     if (dqp != null)
@@ -144,7 +144,7 @@ public class ETCPDockerImage implements EOriginDockerImage {
   }
 
   @Override
-  public DResp search(DQPSearch dqp) {
+  public DResp search(DQPImageSearch dqp) {
     HttpResponse response = this.docker.http("images/search")
       .method(HttpMethod.GET)
       .para(dqp.dqr().http())
@@ -153,7 +153,7 @@ public class ETCPDockerImage implements EOriginDockerImage {
   }
 
   @Override
-  public DResp pruneimage(DQPPruneImage dqp) {
+  public DResp pruneimage(DQPImagePrune dqp) {
     Http http = this.docker.http("images/prune")
       .method(HttpMethod.POST);
     if (dqp != null)
@@ -163,7 +163,7 @@ public class ETCPDockerImage implements EOriginDockerImage {
   }
 
   @Override
-  public DResp commit(String body, DQPCommit dqp) {
+  public DResp commit(String body, DQPImageCommit dqp) {
     Http http = this.docker.http("commit")
       .method(HttpMethod.POST)
       .raw(body, "application/json");
@@ -182,7 +182,7 @@ public class ETCPDockerImage implements EOriginDockerImage {
   }
 
   @Override
-  public DResp export(DQPExportSeveral dqp) {
+  public DResp export(DQPImageExportSeveral dqp) {
     Http http = this.docker.http("images/get");
     if (dqp != null)
       http.para(dqp.dqr().http());
@@ -191,7 +191,7 @@ public class ETCPDockerImage implements EOriginDockerImage {
   }
 
   @Override
-  public DResp load(byte[] binary, DQPLoad dqp) {
+  public DResp load(byte[] binary, DQPImageLoad dqp) {
     Http http = this.docker.http("images/load")
       .method(HttpMethod.POST)
       .binary(binary);

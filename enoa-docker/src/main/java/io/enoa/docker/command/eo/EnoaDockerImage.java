@@ -43,15 +43,15 @@ public class EnoaDockerImage {
     return this.image.list(DIParser.image());
   }
 
-  public DRet<List<EImage>> list(DQPListImage dqp) {
+  public DRet<List<EImage>> list(DQPImageList dqp) {
     return this.image.list(DIParser.image(), dqp);
   }
 
-  public DRet<List<Kv>> build(DQPBuild dqp, String dockerfile) {
+  public DRet<List<Kv>> build(DQPImageBuild dqp, String dockerfile) {
     return this.image.build(dqp, dockerfile);
   }
 
-  public DRet<List<Kv>> build(DQPBuild dqp, String dockerfile, DStream<Kv> dstream) {
+  public DRet<List<Kv>> build(DQPImageBuild dqp, String dockerfile, DStream<Kv> dstream) {
     return this.image.build(dqp, dockerfile, dstream);
   }
 
@@ -75,7 +75,7 @@ public class EnoaDockerImage {
     return this.image.push(id);
   }
 
-  public DRet<Void> push(String id, DQPPush dqp) {
+  public DRet<Void> push(String id, DQPImagePush dqp) {
     return this.image.push(id, dqp);
   }
 
@@ -83,11 +83,11 @@ public class EnoaDockerImage {
     return this.image.push(id, dstream);
   }
 
-  public DRet<Void> push(String id, DQPPush dqp, DStream<Kv> dstream) {
+  public DRet<Void> push(String id, DQPImagePush dqp, DStream<Kv> dstream) {
     return this.image.push(id, dqp, dstream);
   }
 
-  public DRet<Void> tag(String id, DQPTag dqp) {
+  public DRet<Void> tag(String id, DQPImageTag dqp) {
     return this.image.tag(id, dqp);
   }
 
@@ -95,11 +95,11 @@ public class EnoaDockerImage {
     return this.remove(id, null);
   }
 
-  public DRet<List<EIRemove>> remove(String id, DQPRmi dqp) {
+  public DRet<List<EIRemove>> remove(String id, DQPImageRmi dqp) {
     return this.image.remove(DIParser.imageremove(), id, dqp);
   }
 
-  public DRet<List<EISearch>> search(DQPSearch dqp) {
+  public DRet<List<EISearch>> search(DQPImageSearch dqp) {
     return this.image.search(DIParser.imagesearch(), dqp);
   }
 
@@ -107,7 +107,7 @@ public class EnoaDockerImage {
     return this.pruneimage(null);
   }
 
-  public DRet<EImagePrune> pruneimage(DQPPruneImage dqp) {
+  public DRet<EImagePrune> pruneimage(DQPImagePrune dqp) {
     return this.image.pruneimage(DIParser.imageprune(), dqp);
   }
 
@@ -115,7 +115,7 @@ public class EnoaDockerImage {
     return this.image.commit(DIParser.imagecommit(), body);
   }
 
-  public DRet<EICommit> commit(String body, DQPCommit dqp) {
+  public DRet<EICommit> commit(String body, DQPImageCommit dqp) {
     return this.image.commit(DIParser.imagecommit(), body, dqp);
   }
 
@@ -123,7 +123,7 @@ public class EnoaDockerImage {
     return this.image.export(DIParser.binary(), id);
   }
 
-  public DRet<EnoaBinary> export(DQPExportSeveral dqp) {
+  public DRet<EnoaBinary> export(DQPImageExportSeveral dqp) {
     return this.image.export(DIParser.binary(), dqp);
   }
 
@@ -131,7 +131,7 @@ public class EnoaDockerImage {
     return this.image.load(binary);
   }
 
-  public DRet<Void> load(byte[] binary, DQPLoad dqp) {
+  public DRet<Void> load(byte[] binary, DQPImageLoad dqp) {
     return this.image.load(binary, dqp);
   }
 

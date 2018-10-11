@@ -42,7 +42,7 @@ public class EnoaDockerContainer {
     return this.list(null);
   }
 
-  public DRet<List<EContainer>> list(DQPListContainer dqp) {
+  public DRet<List<EContainer>> list(DQPContainerList dqp) {
     return this.container.list(DIParser.listcontainer(), dqp);
   }
 
@@ -70,7 +70,7 @@ public class EnoaDockerContainer {
     return this.logs(id, null);
   }
 
-  public DRet<String> logs(String id, DQPLogs dqp) {
+  public DRet<String> logs(String id, DQPContainerLogs dqp) {
     return this.container.logs(DIParser.logs(), id, dqp);
   }
 
@@ -94,7 +94,7 @@ public class EnoaDockerContainer {
     return this.resize(id, null);
   }
 
-  public DRet<Void> resize(String id, DQPResize dqp) {
+  public DRet<Void> resize(String id, DQPContainerResize dqp) {
     return this.container.resize(id, dqp);
   }
 
@@ -102,7 +102,7 @@ public class EnoaDockerContainer {
     return this.container.start(id);
   }
 
-  public DRet<Void> start(String id, DQPStart dqp) {
+  public DRet<Void> start(String id, DQPContainerStart dqp) {
     return this.container.start(id, dqp);
   }
 
@@ -110,7 +110,7 @@ public class EnoaDockerContainer {
     return this.container.stop(id);
   }
 
-  public DRet<Void> stop(String id, DQPTime dqp) {
+  public DRet<Void> stop(String id, DQPContainerTime dqp) {
     return this.container.stop(id, dqp);
   }
 
@@ -118,7 +118,7 @@ public class EnoaDockerContainer {
     return this.container.restart(id);
   }
 
-  public DRet<Void> restart(String id, DQPTime dqp) {
+  public DRet<Void> restart(String id, DQPContainerTime dqp) {
     return this.container.restart(id, dqp);
   }
 
@@ -126,11 +126,11 @@ public class EnoaDockerContainer {
     return this.container.kill(id);
   }
 
-  public DRet<Void> kill(String id, DQPKill dqp) {
+  public DRet<Void> kill(String id, DQPContainerKill dqp) {
     return this.container.kill(id, dqp);
   }
 
-  public DRet<EUpdate> update(String id, DQPUpdate dqp) {
+  public DRet<EUpdate> update(String id, DQPContainerUpdate dqp) {
     return this.container.update(DIParser.update(), id, dqp);
   }
 
@@ -175,7 +175,7 @@ public class EnoaDockerContainer {
     return this.container.remove(id);
   }
 
-  public DRet<Void> remove(String id, DQPRemove dqp) {
+  public DRet<Void> remove(String id, DQPContainerRemove dqp) {
     return this.container.remove(id, dqp);
   }
 
@@ -187,7 +187,7 @@ public class EnoaDockerContainer {
     return this.prune(null);
   }
 
-  public DRet<ECPrune> prune(DQPPruneContainer dqp) {
+  public DRet<ECPrune> prune(DQPContainerPrune dqp) {
     return this.container.prune(DIParser.containerprune(), dqp);
   }
 

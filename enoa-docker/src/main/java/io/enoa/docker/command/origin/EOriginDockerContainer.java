@@ -24,7 +24,7 @@ import io.enoa.toolkit.eo.tip.EnoaTipKit;
 public interface EOriginDockerContainer {
 
   /**
-   * @see #list(DQPListContainer)
+   * @see #list(DQPContainerList)
    */
   default DResp list() {
     return this.list(null);
@@ -76,7 +76,7 @@ public interface EOriginDockerContainer {
    *            volume=(<volume name> or <mount point destination>)
    * @return Dresp
    */
-  DResp list(DQPListContainer dqp);
+  DResp list(DQPContainerList dqp);
 
   /**
    * Create a container
@@ -311,10 +311,10 @@ public interface EOriginDockerContainer {
   DResp top(String id, String para);
 
   /**
-   * @see #logs(String, DQPLogs)
+   * @see #logs(String, DQPContainerLogs)
    */
   default DResp logs(String id) {
-    return this.logs(id, DQPLogs.create().stdout());
+    return this.logs(id, DQPContainerLogs.create().stdout());
   }
 
   /**
@@ -328,7 +328,7 @@ public interface EOriginDockerContainer {
    *           ID or name of the container
    * @return Dresp
    */
-  DResp logs(String id, DQPLogs dqp);
+  DResp logs(String id, DQPContainerLogs dqp);
 
   /**
    * Get changes on a container’s filesystem
@@ -375,7 +375,7 @@ public interface EOriginDockerContainer {
   DResp statistics(String id, DStream<String> dstream);
 
   /**
-   * @see #resize(String, DQPResize)
+   * @see #resize(String, DQPContainerResize)
    */
   default DResp resize(String id) {
     return this.resize(id, null);
@@ -391,10 +391,10 @@ public interface EOriginDockerContainer {
    * @param dqp dqp
    * @return Dresp
    */
-  DResp resize(String id, DQPResize dqp);
+  DResp resize(String id, DQPContainerResize dqp);
 
   /**
-   * @see #start(String, DQPStart)
+   * @see #start(String, DQPContainerStart)
    */
   default DResp start(String id) {
     return this.start(id, null);
@@ -409,10 +409,10 @@ public interface EOriginDockerContainer {
    * @param dqp dqp
    * @return Dresp
    */
-  DResp start(String id, DQPStart dqp);
+  DResp start(String id, DQPContainerStart dqp);
 
   /**
-   * @see #stop(String, DQPTime)
+   * @see #stop(String, DQPContainerTime)
    */
   default DResp stop(String id) {
     return this.stop(id, null);
@@ -427,10 +427,10 @@ public interface EOriginDockerContainer {
    * @param dqp dqp
    * @return Dresp
    */
-  DResp stop(String id, DQPTime dqp);
+  DResp stop(String id, DQPContainerTime dqp);
 
   /**
-   * @see #restart(String, DQPTime)
+   * @see #restart(String, DQPContainerTime)
    */
   default DResp restart(String id) {
     return this.restart(id, null);
@@ -446,10 +446,10 @@ public interface EOriginDockerContainer {
    * @param dqp dqp
    * @return Dresp
    */
-  DResp restart(String id, DQPTime dqp);
+  DResp restart(String id, DQPContainerTime dqp);
 
   /**
-   * @see #kill(String, DQPKill)
+   * @see #kill(String, DQPContainerKill)
    */
   default DResp kill(String id) {
     return this.kill(id, null);
@@ -465,12 +465,12 @@ public interface EOriginDockerContainer {
    * @param dqp dqp
    * @return Dresp
    */
-  DResp kill(String id, DQPKill dqp);
+  DResp kill(String id, DQPContainerKill dqp);
 
   /**
    * @see #update(String, String)
    */
-  default DResp update(String id, DQPUpdate dqp) {
+  default DResp update(String id, DQPContainerUpdate dqp) {
     return this.update(id, dqp.dqr().json());
   }
 
@@ -670,7 +670,7 @@ public interface EOriginDockerContainer {
    * @param dqp dqp
    * @return Dresp
    */
-  DResp remove(String id, DQPRemove dqp);
+  DResp remove(String id, DQPContainerRemove dqp);
 
   /**
    * Get an archive of a filesystem resource in a container
@@ -696,7 +696,7 @@ public interface EOriginDockerContainer {
    * @param dqp dqp
    * @return Dresp
    */
-  DResp prune(DQPPruneContainer dqp);
+  DResp prune(DQPContainerPrune dqp);
 
 
 }

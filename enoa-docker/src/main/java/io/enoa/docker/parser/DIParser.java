@@ -21,6 +21,9 @@ import io.enoa.docker.dret.DRet;
 import io.enoa.docker.dret.container.*;
 import io.enoa.docker.dret.dockerinfo.EDockerInfo;
 import io.enoa.docker.dret.image.*;
+import io.enoa.docker.dret.network.ENetworPrune;
+import io.enoa.docker.dret.network.ENetwork;
+import io.enoa.docker.dret.network.ENetworkCreated;
 import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.binary.EnoaBinary;
 import io.enoa.toolkit.value.Void;
@@ -112,6 +115,22 @@ public interface DIParser<T> {
 
   static DIParser<EnoaBinary> binary() {
     return EBinaryParser.instance();
+  }
+
+  static DIParser<List<ENetwork>> networklist() {
+    return ENetworkListParser.instance();
+  }
+
+  static DIParser<ENetwork> networkinspect() {
+    return ENetworkInspectParser.instance();
+  }
+
+  static DIParser<ENetworkCreated> networkcreated() {
+    return ENetworkCreatedParser.instance();
+  }
+
+  static DIParser<ENetworPrune> networkprune() {
+    return ENetworkPruneParser.instance();
   }
 
   /**

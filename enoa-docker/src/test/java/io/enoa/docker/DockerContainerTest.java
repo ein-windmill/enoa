@@ -15,14 +15,13 @@
  */
 package io.enoa.docker;
 
-import io.enoa.docker.dqp.container.DQPLogs;
-import io.enoa.docker.dqp.container.DQPUpdate;
+import io.enoa.docker.dqp.container.DQPContainerLogs;
+import io.enoa.docker.dqp.container.DQPContainerUpdate;
 import io.enoa.docker.dret.DResp;
 import io.enoa.docker.dret.DRet;
 import io.enoa.docker.dret.container.*;
 import io.enoa.docker.stream.DStream;
 import io.enoa.json.Json;
-import io.enoa.toolkit.binary.EnoaBinary;
 import io.enoa.toolkit.value.Void;
 import org.junit.Assert;
 import org.junit.Ignore;
@@ -61,7 +60,7 @@ public class DockerContainerTest extends AbstractDockerTest {
 
   @Test
   public void testLogs() {
-    DRet<String> ret = Docker.container().logs("nginx", DQPLogs.create().stdout());
+    DRet<String> ret = Docker.container().logs("nginx", DQPContainerLogs.create().stdout());
     Assert.assertTrue(ret.ok());
     String logs = ret.data();
     System.out.println(logs);
@@ -132,7 +131,7 @@ public class DockerContainerTest extends AbstractDockerTest {
 
   @Test
   public void testUpdate() {
-    DRet<EUpdate> ret = Docker.container().update("nginx", DQPUpdate.create());
+    DRet<EUpdate> ret = Docker.container().update("nginx", DQPContainerUpdate.create());
     Assert.assertTrue(ret.ok());
     String json = Json.toJson(ret.data());
     System.out.println(json);

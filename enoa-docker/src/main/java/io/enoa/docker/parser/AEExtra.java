@@ -206,7 +206,7 @@ class AEExtra {
 
     Object networks = mssm.get("Networks");
     if (networks instanceof Map) {
-      ENetwork.Builder nkb = new ENetwork.Builder();
+      ECNetwork.Builder nkb = new ECNetwork.Builder();
       Map nksm = (Map) networks;
       Object bridge = nksm.get("bridge");
       if (bridge instanceof Map) {
@@ -231,6 +231,14 @@ class AEExtra {
       nsb.network(nkb.build());
     }
     return nsb.build();
+  }
+
+
+  static Kv kv(Map map, String key) {
+    Object o = map.get(key);
+    if (!(o instanceof Map))
+      return null;
+    return Kv.by((Map) o);
   }
 
 }

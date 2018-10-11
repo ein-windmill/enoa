@@ -15,55 +15,48 @@
  */
 package io.enoa.docker.dqp.image;
 
-import io.enoa.docker.dqp.DQH;
 import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.DQR;
 
-public class DQPPush implements DQP {
+public class DQPImageTag implements DQP {
 
   /**
    * string
    * <p>
-   * The tag to associate with the image on the registry.
+   * The repository to tag in. For example, someuser/someimage.
+   */
+  private String repo;
+  /**
+   * string
+   * <p>
+   * The name of the new tag.
    */
   private String tag;
-  /**
-   * X-Registry-Auth
-   * string Required
-   * <p>
-   * A base64-encoded auth configuration.
-   * <a href="https://docs.docker.com/engine/api/v1.37/#section/Authentication">See the authentication section for details.</a>
-   */
-  private String registryauth;
 
-  public static DQPPush create() {
-    return new DQPPush();
+  public static DQPImageTag create() {
+    return new DQPImageTag();
   }
 
-  public DQPPush() {
+  public DQPImageTag() {
   }
 
-  public DQPPush tag(String tag) {
+
+  public DQPImageTag repo(String repo) {
+    this.repo = repo;
+    return this;
+  }
+
+  public DQPImageTag tag(String tag) {
     this.tag = tag;
     return this;
   }
 
-  public DQPPush registryauth(String registryauth) {
-    this.registryauth = registryauth;
-    return this;
-  }
 
   @Override
   public DQR dqr() {
     DQR dqr = DQR.create()
+      .putIf("repo", this.repo)
       .putIf("tag", this.tag);
     return dqr;
-  }
-
-  @Override
-  public DQH dqh() {
-    DQH dqh = DQH.create()
-      .addIf("X-Registry-Auth", this.registryauth);
-    return dqh;
   }
 }

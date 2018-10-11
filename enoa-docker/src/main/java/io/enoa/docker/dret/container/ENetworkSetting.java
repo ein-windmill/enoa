@@ -33,7 +33,7 @@ public class ENetworkSetting extends AbstractDRet {
   private final Integer ipprefixlen;
   private final String ipv6gateway;
   private final String macaddress;
-  private final ENetwork network;
+  private final ECNetwork network;
 
   public ENetworkSetting(Builder builder) {
     this.bridge = builder.bridge;
@@ -109,7 +109,7 @@ public class ENetworkSetting extends AbstractDRet {
     return this.macaddress;
   }
 
-  public ENetwork network() {
+  public ECNetwork network() {
     return this.network;
   }
 
@@ -129,7 +129,7 @@ public class ENetworkSetting extends AbstractDRet {
     private Integer ipprefixlen;
     private String ipv6gateway;
     private String macaddress;
-    private ENetwork network;
+    private ECNetwork network;
 
     public ENetworkSetting build() {
       return new ENetworkSetting(this);
@@ -205,7 +205,7 @@ public class ENetworkSetting extends AbstractDRet {
       return this;
     }
 
-    public Builder network(ENetwork network) {
+    public Builder network(ECNetwork network) {
       this.network = network;
       return this;
     }

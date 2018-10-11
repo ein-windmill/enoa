@@ -13,40 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.dqp.container;
+package io.enoa.docker.dqp.image;
 
 import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.DQR;
-import io.enoa.toolkit.text.TextKit;
 
-public class DQPKill implements DQP {
+public class DQPImageLoad implements DQP {
 
-  /**
-   * string
-   * "SIGKILL"
-   * <p>
-   * Signal to send to the container as an integer or string (e.g. SIGINT)
-   */
-  private String signal;
+  private Boolean quiet;
 
-
-  public static DQPKill create() {
-    return new DQPKill();
+  public static DQPImageLoad create() {
+    return new DQPImageLoad();
   }
 
-  public DQPKill() {
+  public DQPImageLoad() {
+    this.quiet = Boolean.FALSE;
   }
 
-  public DQPKill signal(String signal) {
-    this.signal = signal;
+  public DQPImageLoad quiet(Boolean quiet) {
+    this.quiet = quiet;
     return this;
   }
 
   @Override
   public DQR dqr() {
-    DQR dqr = DQR.create();
-    if (TextKit.blankn(this.signal))
-      dqr.put("signal", this.signal);
-    return dqr;
+    return DQR.create()
+      .put("quiet", this.quiet);
   }
 }

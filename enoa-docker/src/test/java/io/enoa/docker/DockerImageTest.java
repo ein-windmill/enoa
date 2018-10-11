@@ -37,7 +37,7 @@ public class DockerImageTest extends AbstractDockerTest {
 
   @Test
   public void testList() {
-    DRet<List<EImage>> ret = Docker.image().list(DQPListImage.create().all());
+    DRet<List<EImage>> ret = Docker.image().list(DQPImageList.create().all());
     Assert.assertTrue(ret.ok());
     String json = Json.toJson(ret.data());
     System.out.println(json);
@@ -45,7 +45,7 @@ public class DockerImageTest extends AbstractDockerTest {
 
   @Test
   public void testBuild() {
-    DQPBuild dqp = DQPBuild.create()
+    DQPImageBuild dqp = DQPImageBuild.create()
       .t("enoa-alpine:0.1")
       .forcerm();
     String dockerfile = "FROM ubuntu:16.04\n" +
@@ -93,7 +93,7 @@ public class DockerImageTest extends AbstractDockerTest {
 
   @Test
   public void testTag() {
-    DRet<Void> ret = Docker.image().tag("ubuntu:16.04", DQPTag.create()
+    DRet<Void> ret = Docker.image().tag("ubuntu:16.04", DQPImageTag.create()
       .repo("registry.host.com/ubuntu")
       .tag("16:04"));
     Assert.assertTrue(ret.ok());
@@ -110,7 +110,7 @@ public class DockerImageTest extends AbstractDockerTest {
 
   @Test
   public void testSearch() {
-    DRet<List<EISearch>> ret = Docker.image().search(DQPSearch.create().term("nginx"));
+    DRet<List<EISearch>> ret = Docker.image().search(DQPImageSearch.create().term("nginx"));
     Assert.assertTrue(ret.ok());
     String json = Json.toJson(ret.data());
     System.out.println(json);
@@ -144,7 +144,7 @@ public class DockerImageTest extends AbstractDockerTest {
 
   @Test
   public void testExportSeveral() {
-    DRet<EnoaBinary> ret = Docker.image().export(DQPExportSeveral.create().names("nginx"));
+    DRet<EnoaBinary> ret = Docker.image().export(DQPImageExportSeveral.create().names("nginx"));
     Assert.assertTrue(ret.ok());
     EnoaBinary binary = ret.data();
     FileKit.write(PathKit.debugPath().resolve("_tmp/nginx.tgz"), binary.bytebuffer());

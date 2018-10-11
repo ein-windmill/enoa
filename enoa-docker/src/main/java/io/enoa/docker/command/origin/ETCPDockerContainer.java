@@ -36,7 +36,7 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
 
 
   @Override
-  public DResp list(DQPListContainer dqp) {
+  public DResp list(DQPContainerList dqp) {
     Http http = this.docker.http("/containers/json");
     if (dqp != null)
       http.para(dqp.dqr().http());
@@ -72,7 +72,7 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
   }
 
   @Override
-  public DResp logs(String id, DQPLogs dqp) {
+  public DResp logs(String id, DQPContainerLogs dqp) {
     Http http = this.docker.http("containers", id, "logs");
     if (dqp != null)
       http.para(dqp.dqr().http());
@@ -112,7 +112,7 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
   }
 
   @Override
-  public DResp resize(String id, DQPResize dqp) {
+  public DResp resize(String id, DQPContainerResize dqp) {
     Http http = this.docker.http("container", id, "resize")
       .method(HttpMethod.POST);
     if (dqp != null) {
@@ -123,7 +123,7 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
   }
 
   @Override
-  public DResp start(String id, DQPStart dqp) {
+  public DResp start(String id, DQPContainerStart dqp) {
     Http http = this.docker.http("containers", id, "start")
       .method(HttpMethod.POST);
     if (dqp != null)
@@ -133,7 +133,7 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
   }
 
   @Override
-  public DResp stop(String id, DQPTime dqp) {
+  public DResp stop(String id, DQPContainerTime dqp) {
     Http http = this.docker.http("containers", id, "stop")
       .method(HttpMethod.POST);
     if (dqp != null)
@@ -143,7 +143,7 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
   }
 
   @Override
-  public DResp restart(String id, DQPTime dqp) {
+  public DResp restart(String id, DQPContainerTime dqp) {
     Http http = this.docker.http("containers", id, "restart")
       .method(HttpMethod.POST);
     if (dqp != null)
@@ -153,7 +153,7 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
   }
 
   @Override
-  public DResp kill(String id, DQPKill dqp) {
+  public DResp kill(String id, DQPContainerKill dqp) {
     Http http = this.docker.http("containers", id, "kill")
       .method(HttpMethod.POST);
     if (dqp != null)
@@ -216,7 +216,7 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
   }
 
   @Override
-  public DResp remove(String id, DQPRemove dqp) {
+  public DResp remove(String id, DQPContainerRemove dqp) {
     Http http = this.docker.http("containers", id)
       .method(HttpMethod.DELETE);
     if (dqp != null)
@@ -235,7 +235,7 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
   }
 
   @Override
-  public DResp prune(DQPPruneContainer dqp) {
+  public DResp prune(DQPContainerPrune dqp) {
     Http http = this.docker.http("containers/prune")
       .method(HttpMethod.POST);
     if (dqp != null)

@@ -18,7 +18,7 @@ package io.enoa.docker.dqp.image;
 import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.DQR;
 
-public class DQPListImage implements DQP {
+public class DQPImageList implements DQP {
 
 
   /**
@@ -46,36 +46,36 @@ public class DQPListImage implements DQP {
    * reference=(<image-name>[:<tag>])
    * since=(<image-name>[:<tag>], <image id> or <image@digest>)
    */
-  private FilterListImage filters;
+  private FilterImageList filters;
 
-  public static DQPListImage create() {
-    return new DQPListImage();
+  public static DQPImageList create() {
+    return new DQPImageList();
   }
 
-  public DQPListImage() {
+  public DQPImageList() {
   }
 
-  public DQPListImage all() {
+  public DQPImageList all() {
     return this.all(Boolean.TRUE);
   }
 
-  public DQPListImage all(boolean all) {
+  public DQPImageList all(boolean all) {
     this.all = all;
     return this;
   }
 
-  public DQPListImage digests() {
+  public DQPImageList digests() {
     return this.digests(Boolean.TRUE);
   }
 
-  public DQPListImage digests(boolean digests) {
+  public DQPImageList digests(boolean digests) {
     this.digests = digests;
     return this;
   }
 
-  public FilterListImage filters() {
+  public FilterImageList filters() {
     if (this.filters == null)
-      this.filters = new FilterListImage(this);
+      this.filters = new FilterImageList(this);
     return this.filters;
   }
 

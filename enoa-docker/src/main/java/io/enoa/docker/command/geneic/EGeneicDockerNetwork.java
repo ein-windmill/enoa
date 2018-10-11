@@ -18,6 +18,15 @@ package io.enoa.docker.command.geneic;
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.command.origin.EOriginDockerNetwork;
 import io.enoa.docker.command.origin.OriginDocker;
+import io.enoa.docker.dqp.network.DQPNetworkInspect;
+import io.enoa.docker.dqp.network.DQPNetworkList;
+import io.enoa.docker.dqp.network.DQPNetworkPrune;
+import io.enoa.docker.dret.DResp;
+import io.enoa.docker.dret.DRet;
+import io.enoa.docker.parser.DIParser;
+import io.enoa.toolkit.value.Void;
+
+import java.util.List;
 
 public class EGeneicDockerNetwork {
 
@@ -31,4 +40,52 @@ public class EGeneicDockerNetwork {
     this.config = docker._dockerconfig();
     this.networks = docker.network();
   }
+
+  public <T> DRet<List<T>> list(DIParser<List<T>> parser) {
+    return this.list(parser, null);
+  }
+
+  public <T> DRet<List<T>> list(DIParser<List<T>> parser, DQPNetworkList dqp) {
+    DResp resp = this.networks.list(dqp);
+    return parser.parse(this.config, resp);
+  }
+
+  public <T> DRet<T> inspect(DIParser<T> parser, String id) {
+    return this.inspect(parser, id, null);
+  }
+
+  public <T> DRet<T> inspect(DIParser<T> parser, String id, DQPNetworkInspect dqp) {
+    DResp resp = this.networks.inspect(id, dqp);
+    return parser.parse(this.config, resp);
+  }
+
+  public DRet<Void> remove(String id) {
+    DResp resp = this.networks.remove(id);
+    return DIParser.voidx().parse(this.config, resp);
+  }
+
+  public <T> DRet<T> create(DIParser<T> parser, String body) {
+    DResp resp = this.networks.create(body);
+    return parser.parse(this.config, resp);
+  }
+
+  public DRet<Void> connect(String id, String body) {
+    DResp resp = this.networks.connect(id, body);
+    return DIParser.voidx().parse(this.config, resp);
+  }
+
+  public DRet<Void> disconnect(String id, String body) {
+    DResp resp = this.networks.disconnect(id, body);
+    return DIParser.voidx().parse(this.config, resp);
+  }
+
+  public <T> DRet<T> prune(DIParser<T> parser) {
+    return this.prune(parser, null);
+  }
+
+  public <T> DRet<T> prune(DIParser<T> parser, DQPNetworkPrune dqp) {
+    DResp resp = this.networks.prune(dqp);
+    return parser.parse(this.config, resp);
+  }
+
 }

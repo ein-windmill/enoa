@@ -29,9 +29,9 @@ import java.util.stream.Collectors;
  * Filters to process on the container list, encoded as JSON (a map[string][]string).
  * For example, {"status": ["paused"]} will only return paused containers. Available
  */
-public class FilterListContainer implements DBack<DQPListContainer> {
+public class FilterContainerList implements DBack<DQPContainerList> {
 
-  private DQPListContainer lc;
+  private DQPContainerList lc;
 
   /**
    * ancestor=(<image-name>[:<tag>], <image id>, or <image@digest>)
@@ -95,192 +95,192 @@ public class FilterListContainer implements DBack<DQPListContainer> {
   private List<String> volume;
 
 
-  FilterListContainer(DQPListContainer lc) {
+  FilterContainerList(DQPContainerList lc) {
     this.lc = lc;
   }
 
-  public FilterListContainer ancestor(String ancestor) {
+  public FilterContainerList ancestor(String ancestor) {
     if (CollectionKit.isEmpty(this.ancestor))
       this.ancestor = new ArrayList<>();
     this.ancestor.add(ancestor);
     return this;
   }
 
-  public FilterListContainer ancestor(List<String> ancestor) {
+  public FilterContainerList ancestor(List<String> ancestor) {
     this.ancestor = ancestor;
     return this;
   }
 
-  public FilterListContainer before(String before) {
+  public FilterContainerList before(String before) {
     if (CollectionKit.isEmpty(this.before))
       this.before = new ArrayList<>();
     this.before.add(before);
     return this;
   }
 
-  public FilterListContainer before(List<String> before) {
+  public FilterContainerList before(List<String> before) {
     this.before = before;
     return this;
   }
 
-  public FilterListContainer expose(String expose) {
+  public FilterContainerList expose(String expose) {
     if (CollectionKit.isEmpty(this.expose))
       this.expose = new ArrayList<>();
     this.expose.add(expose);
     return this;
   }
 
-  public FilterListContainer expose(List<String> expose) {
+  public FilterContainerList expose(List<String> expose) {
     this.expose = expose;
     return this;
   }
 
-  public FilterListContainer exited(Integer exited) {
+  public FilterContainerList exited(Integer exited) {
     if (CollectionKit.isEmpty(this.exited))
       this.exited = new ArrayList<>();
     this.exited.add(exited);
     return this;
   }
 
-  public FilterListContainer exited(List<Integer> exited) {
+  public FilterContainerList exited(List<Integer> exited) {
     this.exited = exited;
     return this;
   }
 
-  public FilterListContainer health(String health) {
+  public FilterContainerList health(String health) {
     if (CollectionKit.isEmpty(this.health))
       this.health = new ArrayList<>();
     this.health.add(health);
     return this;
   }
 
-  public FilterListContainer health(List<String> health) {
+  public FilterContainerList health(List<String> health) {
     this.health = health;
     return this;
   }
 
-  public FilterListContainer id(String id) {
+  public FilterContainerList id(String id) {
     if (CollectionKit.isEmpty(this.id))
       this.id = new ArrayList<>();
     this.id.add(id);
     return this;
   }
 
-  public FilterListContainer id(List<String> id) {
+  public FilterContainerList id(List<String> id) {
     this.id = id;
     return this;
   }
 
-  public FilterListContainer isolation(String isolation) {
+  public FilterContainerList isolation(String isolation) {
     if (CollectionKit.isEmpty(this.isolation))
       this.isolation = new ArrayList<>();
     this.isolation.add(isolation);
     return this;
   }
 
-  public FilterListContainer isolation(List<String> isolation) {
+  public FilterContainerList isolation(List<String> isolation) {
     this.isolation = isolation;
     return this;
   }
 
-  public FilterListContainer istask(Boolean istask) {
+  public FilterContainerList istask(Boolean istask) {
     if (CollectionKit.isEmpty(this.istask))
       this.istask = new ArrayList<>();
     this.istask.add(istask);
     return this;
   }
 
-  public FilterListContainer istask(List<Boolean> istask) {
+  public FilterContainerList istask(List<Boolean> istask) {
     this.istask = istask;
     return this;
   }
 
-  public FilterListContainer label(String label) {
+  public FilterContainerList label(String label) {
     if (CollectionKit.isEmpty(this.label))
       this.label = new ArrayList<>();
     this.label.add(label);
     return this;
   }
 
-  public FilterListContainer label(List<String> label) {
+  public FilterContainerList label(List<String> label) {
     this.label = label;
     return this;
   }
 
-  public FilterListContainer name(String name) {
+  public FilterContainerList name(String name) {
     if (CollectionKit.isEmpty(this.name))
       this.name = new ArrayList<>();
     this.name.add(name);
     return this;
   }
 
-  public FilterListContainer name(List<String> name) {
+  public FilterContainerList name(List<String> name) {
     this.name = name;
     return this;
   }
 
-  public FilterListContainer network(String network) {
+  public FilterContainerList network(String network) {
     if (CollectionKit.isEmpty(this.network))
       this.network = new ArrayList<>();
     this.network.add(network);
     return this;
   }
 
-  public FilterListContainer network(List<String> network) {
+  public FilterContainerList network(List<String> network) {
     this.network = network;
     return this;
   }
 
-  public FilterListContainer publish(String publish) {
+  public FilterContainerList publish(String publish) {
     if (CollectionKit.isEmpty(this.publish))
       this.publish = new ArrayList<>();
     this.publish.add(publish);
     return this;
   }
 
-  public FilterListContainer publish(List<String> publish) {
+  public FilterContainerList publish(List<String> publish) {
     this.publish = publish;
     return this;
   }
 
-  public FilterListContainer since(String since) {
+  public FilterContainerList since(String since) {
     if (CollectionKit.isEmpty(this.since))
       this.since = new ArrayList<>();
     this.since.add(since);
     return this;
   }
 
-  public FilterListContainer since(List<String> since) {
+  public FilterContainerList since(List<String> since) {
     this.since = since;
     return this;
   }
 
-  public FilterListContainer status(String status) {
+  public FilterContainerList status(String status) {
     if (CollectionKit.isEmpty(this.status))
       this.status = new ArrayList<>();
     this.status.add(status);
     return this;
   }
 
-  public FilterListContainer status(List<String> status) {
+  public FilterContainerList status(List<String> status) {
     this.status = status;
     return this;
   }
 
-  public FilterListContainer volume(String volume) {
+  public FilterContainerList volume(String volume) {
     if (CollectionKit.isEmpty(this.volume))
       this.volume = new ArrayList<>();
     this.volume.add(volume);
     return this;
   }
 
-  public FilterListContainer volume(List<String> volume) {
+  public FilterContainerList volume(List<String> volume) {
     this.volume = volume;
     return this;
   }
 
   @Override
-  public DQPListContainer back() {
+  public DQPContainerList back() {
     return this.lc;
   }
 
@@ -322,7 +322,7 @@ public class FilterListContainer implements DBack<DQPListContainer> {
       .put("filters", json);
   }
 
-//  public FilterListContainer clear() {
+//  public FilterContainerList clear() {
 //    return this;
 //  }
 

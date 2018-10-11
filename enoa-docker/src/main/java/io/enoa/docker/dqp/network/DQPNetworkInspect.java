@@ -13,31 +13,49 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.dqp.image;
+package io.enoa.docker.dqp.network;
 
 import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.DQR;
 
-public class DQPLoad implements DQP {
+public class DQPNetworkInspect implements DQP {
 
-  private Boolean quiet;
+  /**
+   * boolean
+   * default false
+   * <p>
+   * Detailed inspect output for troubleshooting
+   */
+  private Boolean verbose;
+  /**
+   * string
+   * <p>
+   * Filter the network by scope (swarm, global, or local)
+   */
+  private String scope;
 
-  public static DQPLoad create() {
-    return new DQPLoad();
+  public static DQPNetworkInspect create() {
+    return new DQPNetworkInspect();
   }
 
-  public DQPLoad() {
-    this.quiet = Boolean.FALSE;
+  public DQPNetworkInspect() {
+    this.verbose = Boolean.FALSE;
   }
 
-  public DQPLoad quiet(Boolean quiet) {
-    this.quiet = quiet;
+  public DQPNetworkInspect verbose(Boolean verbose) {
+    this.verbose = verbose;
+    return this;
+  }
+
+  public DQPNetworkInspect scope(String scope) {
+    this.scope = scope;
     return this;
   }
 
   @Override
   public DQR dqr() {
     return DQR.create()
-      .put("quiet", this.quiet);
+      .put("verbose", this.verbose)
+      .putIf("scope", this.scope);
   }
 }

@@ -15,11 +15,19 @@
  */
 package io.enoa.docker.command.origin;
 
+import io.enoa.docker.dqp.network.DQPNetworkList;
+import io.enoa.docker.dret.DResp;
+
 public class EUNIXSOCKETDockerNetwork implements EOriginDockerNetwork {
 
   private EnoaUNIXSOCKETDocker docker;
 
-  public EUNIXSOCKETDockerNetwork(EnoaUNIXSOCKETDocker docker) {
+  EUNIXSOCKETDockerNetwork(EnoaUNIXSOCKETDocker docker) {
     this.docker = docker;
+  }
+
+  @Override
+  public DResp list(DQPNetworkList dqp) {
+    return null;
   }
 }

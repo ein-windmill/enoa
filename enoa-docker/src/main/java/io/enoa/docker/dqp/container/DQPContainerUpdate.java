@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class DQPUpdate implements DQP {
+public class DQPContainerUpdate implements DQP {
 
 
   private Integer cpushares;
@@ -60,211 +60,211 @@ public class DQPUpdate implements DQP {
   private RestartPolicy restartpolicy;
 
 
-  public static DQPUpdate create() {
-    return new DQPUpdate();
+  public static DQPContainerUpdate create() {
+    return new DQPContainerUpdate();
   }
 
-  public DQPUpdate() {
+  public DQPContainerUpdate() {
   }
 
-  public DQPUpdate cpushares(Integer cpushares) {
+  public DQPContainerUpdate cpushares(Integer cpushares) {
     this.cpushares = cpushares;
     return this;
   }
 
-  public DQPUpdate memory(Long memory) {
+  public DQPContainerUpdate memory(Long memory) {
     this.memory = memory;
     return this;
   }
 
-  public DQPUpdate cgroupparent(String cgroupparent) {
+  public DQPContainerUpdate cgroupparent(String cgroupparent) {
     this.cgroupparent = cgroupparent;
     return this;
   }
 
-  public DQPUpdate blkioweight(Integer blkioweight) {
+  public DQPContainerUpdate blkioweight(Integer blkioweight) {
     this.blkioweight = blkioweight;
     return this;
   }
 
-  public DQPUpdate blkioweightdevice(BlkioWeight blkioweightdevice) {
+  public DQPContainerUpdate blkioweightdevice(BlkioWeight blkioweightdevice) {
     if (this.blkioweightdevice == null)
       this.blkioweightdevice = new ArrayList<>();
     this.blkioweightdevice.add(blkioweightdevice);
     return this;
   }
 
-  public DQPUpdate blkioweightdevice(List<BlkioWeight> blkioweightdevice) {
+  public DQPContainerUpdate blkioweightdevice(List<BlkioWeight> blkioweightdevice) {
     this.blkioweightdevice = blkioweightdevice;
     return this;
   }
 
-  public DQPUpdate blkiodevicereadbps(BlkioRate blkiodevicereadbps) {
+  public DQPContainerUpdate blkiodevicereadbps(BlkioRate blkiodevicereadbps) {
     if (this.blkiodevicereadbps == null)
       this.blkiodevicereadbps = new ArrayList<>();
     this.blkiodevicereadbps.add(blkiodevicereadbps);
     return this;
   }
 
-  public DQPUpdate blkiodevicereadbps(List<BlkioRate> blkiodevicereadbps) {
+  public DQPContainerUpdate blkiodevicereadbps(List<BlkioRate> blkiodevicereadbps) {
     this.blkiodevicereadbps = blkiodevicereadbps;
     return this;
   }
 
-  public DQPUpdate blkiodevicewritebps(BlkioRate blkiodevicewritebps) {
+  public DQPContainerUpdate blkiodevicewritebps(BlkioRate blkiodevicewritebps) {
     if (this.blkiodevicewritebps == null)
       this.blkiodevicewritebps = new ArrayList<>();
     this.blkiodevicewritebps.add(blkiodevicewritebps);
     return this;
   }
 
-  public DQPUpdate blkiodevicewritebps(List<BlkioRate> blkiodevicewritebps) {
+  public DQPContainerUpdate blkiodevicewritebps(List<BlkioRate> blkiodevicewritebps) {
     this.blkiodevicewritebps = blkiodevicewritebps;
     return this;
   }
 
-  public DQPUpdate blkiodevicereadiops(BlkioRate blkiodevicereadiops) {
+  public DQPContainerUpdate blkiodevicereadiops(BlkioRate blkiodevicereadiops) {
     if (this.blkiodevicereadiops == null)
       this.blkiodevicereadiops = new ArrayList<>();
     this.blkiodevicereadiops.add(blkiodevicereadiops);
     return this;
   }
 
-  public DQPUpdate blkiodevicereadiops(List<BlkioRate> blkiodevicereadiops) {
+  public DQPContainerUpdate blkiodevicereadiops(List<BlkioRate> blkiodevicereadiops) {
     this.blkiodevicereadiops = blkiodevicereadiops;
     return this;
   }
 
-  public DQPUpdate blkiodevicewriteiops(BlkioRate blkiodevicewriteiops) {
+  public DQPContainerUpdate blkiodevicewriteiops(BlkioRate blkiodevicewriteiops) {
     if (this.blkiodevicewriteiops == null)
       this.blkiodevicewriteiops = new ArrayList<>();
     this.blkiodevicewriteiops.add(blkiodevicewriteiops);
     return this;
   }
 
-  public DQPUpdate blkiodevicewriteiops(List<BlkioRate> blkiodevicewriteiops) {
+  public DQPContainerUpdate blkiodevicewriteiops(List<BlkioRate> blkiodevicewriteiops) {
     this.blkiodevicewriteiops = blkiodevicewriteiops;
     return this;
   }
 
-  public DQPUpdate cpuperiod(Long cpuperiod) {
+  public DQPContainerUpdate cpuperiod(Long cpuperiod) {
     this.cpuperiod = cpuperiod;
     return this;
   }
 
-  public DQPUpdate cpuquota(Long cpuquota) {
+  public DQPContainerUpdate cpuquota(Long cpuquota) {
     this.cpuquota = cpuquota;
     return this;
   }
 
-  public DQPUpdate cpurealtimeperiod(Long cpurealtimeperiod) {
+  public DQPContainerUpdate cpurealtimeperiod(Long cpurealtimeperiod) {
     this.cpurealtimeperiod = cpurealtimeperiod;
     return this;
   }
 
-  public DQPUpdate cpurealtimeruntime(Long cpurealtimeruntime) {
+  public DQPContainerUpdate cpurealtimeruntime(Long cpurealtimeruntime) {
     this.cpurealtimeruntime = cpurealtimeruntime;
     return this;
   }
 
-  public DQPUpdate cpusetcpus(String cpusetcpus) {
+  public DQPContainerUpdate cpusetcpus(String cpusetcpus) {
     this.cpusetcpus = cpusetcpus;
     return this;
   }
 
-  public DQPUpdate cpusetmems(String cpusetmems) {
+  public DQPContainerUpdate cpusetmems(String cpusetmems) {
     this.cpusetmems = cpusetmems;
     return this;
   }
 
-  public DQPUpdate devices(List<Device> devices) {
+  public DQPContainerUpdate devices(List<Device> devices) {
     this.devices = devices;
     return this;
   }
 
-  public DQPUpdate devicecgrouprules(String devicecgrouprules) {
+  public DQPContainerUpdate devicecgrouprules(String devicecgrouprules) {
     if (this.devicecgrouprules == null)
       this.devicecgrouprules = new ArrayList<>();
     this.devicecgrouprules.add(devicecgrouprules);
     return this;
   }
 
-  public DQPUpdate devicecgrouprules(List<String> devicecgrouprules) {
+  public DQPContainerUpdate devicecgrouprules(List<String> devicecgrouprules) {
     this.devicecgrouprules = devicecgrouprules;
     return this;
   }
 
-  public DQPUpdate diskquota(Long diskquota) {
+  public DQPContainerUpdate diskquota(Long diskquota) {
     this.diskquota = diskquota;
     return this;
   }
 
-  public DQPUpdate kernelmemory(Long kernelmemory) {
+  public DQPContainerUpdate kernelmemory(Long kernelmemory) {
     this.kernelmemory = kernelmemory;
     return this;
   }
 
-  public DQPUpdate memoryreservation(Long memoryreservation) {
+  public DQPContainerUpdate memoryreservation(Long memoryreservation) {
     this.memoryreservation = memoryreservation;
     return this;
   }
 
-  public DQPUpdate memoryswap(Long memoryswap) {
+  public DQPContainerUpdate memoryswap(Long memoryswap) {
     this.memoryswap = memoryswap;
     return this;
   }
 
-  public DQPUpdate memoryswappiness(Long memoryswappiness) {
+  public DQPContainerUpdate memoryswappiness(Long memoryswappiness) {
     this.memoryswappiness = memoryswappiness;
     return this;
   }
 
-  public DQPUpdate nanocpus(Long nanocpus) {
+  public DQPContainerUpdate nanocpus(Long nanocpus) {
     this.nanocpus = nanocpus;
     return this;
   }
 
-  public DQPUpdate oomkilldisable(Boolean oomkilldisable) {
+  public DQPContainerUpdate oomkilldisable(Boolean oomkilldisable) {
     this.oomkilldisable = oomkilldisable;
     return this;
   }
 
-  public DQPUpdate init(Boolean init) {
+  public DQPContainerUpdate init(Boolean init) {
     this.init = init;
     return this;
   }
 
-  public DQPUpdate pidslimit(Long pidslimit) {
+  public DQPContainerUpdate pidslimit(Long pidslimit) {
     this.pidslimit = pidslimit;
     return this;
   }
 
-  public DQPUpdate ulimits(List<Ulimit> ulimits) {
+  public DQPContainerUpdate ulimits(List<Ulimit> ulimits) {
     this.ulimits = ulimits;
     return this;
   }
 
-  public DQPUpdate cpucount(Long cpucount) {
+  public DQPContainerUpdate cpucount(Long cpucount) {
     this.cpucount = cpucount;
     return this;
   }
 
-  public DQPUpdate cpupercent(Long cpupercent) {
+  public DQPContainerUpdate cpupercent(Long cpupercent) {
     this.cpupercent = cpupercent;
     return this;
   }
 
-  public DQPUpdate iomaximumiops(Long iomaximumiops) {
+  public DQPContainerUpdate iomaximumiops(Long iomaximumiops) {
     this.iomaximumiops = iomaximumiops;
     return this;
   }
 
-  public DQPUpdate iomaximumbandwidth(Long iomaximumbandwidth) {
+  public DQPContainerUpdate iomaximumbandwidth(Long iomaximumbandwidth) {
     this.iomaximumbandwidth = iomaximumbandwidth;
     return this;
   }
 
-  public DQPUpdate restartpolicy(RestartPolicy restartpolicy) {
+  public DQPContainerUpdate restartpolicy(RestartPolicy restartpolicy) {
     this.restartpolicy = restartpolicy;
     return this;
   }

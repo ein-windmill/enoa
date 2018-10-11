@@ -18,7 +18,7 @@ package io.enoa.docker.dqp.container;
 import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.DQR;
 
-public class DQPLogs implements DQP {
+public class DQPContainerLogs implements DQP {
 
   /**
    * boolean
@@ -80,63 +80,63 @@ public class DQPLogs implements DQP {
    */
   private String tail;
 
-  public static DQPLogs create() {
-    return new DQPLogs();
+  public static DQPContainerLogs create() {
+    return new DQPContainerLogs();
   }
 
-  public DQPLogs() {
+  public DQPContainerLogs() {
     this.since = 0;
     this.unit = 0;
     this.tail = "all";
   }
 
-  public DQPLogs follow() {
+  public DQPContainerLogs follow() {
     return this.follow(true);
   }
 
-  public DQPLogs follow(boolean follow) {
+  public DQPContainerLogs follow(boolean follow) {
     this.follow = follow;
     return this;
   }
 
-  public DQPLogs stdout() {
+  public DQPContainerLogs stdout() {
     return this.stdout(true);
   }
 
-  public DQPLogs stdout(boolean stdout) {
+  public DQPContainerLogs stdout(boolean stdout) {
     this.stdout = stdout;
     return this;
   }
 
-  public DQPLogs stderr() {
+  public DQPContainerLogs stderr() {
     return this.stderr(true);
   }
 
-  public DQPLogs stderr(boolean stderr) {
+  public DQPContainerLogs stderr(boolean stderr) {
     this.stderr = stderr;
     return this;
   }
 
-  public DQPLogs since(int since) {
+  public DQPContainerLogs since(int since) {
     this.since = since;
     return this;
   }
 
-  public DQPLogs unit(int unit) {
+  public DQPContainerLogs unit(int unit) {
     this.unit = unit;
     return this;
   }
 
-  public DQPLogs timestamps() {
+  public DQPContainerLogs timestamps() {
     return this.timestamps(true);
   }
 
-  public DQPLogs timestamps(boolean timestamps) {
+  public DQPContainerLogs timestamps(boolean timestamps) {
     this.timestamps = timestamps;
     return this;
   }
 
-  public DQPLogs tail(String tail) {
+  public DQPContainerLogs tail(String tail) {
     this.tail = tail;
     return this;
   }

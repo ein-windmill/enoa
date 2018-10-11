@@ -13,33 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.dqp.container;
+package io.enoa.docker.dret.container;
 
-import io.enoa.docker.dqp.DQP;
-import io.enoa.docker.dqp.DQR;
+import io.enoa.docker.dret.AbstractDRet;
 
-public class DQPTime implements DQP {
+public class ECNetwork extends AbstractDRet {
 
-  private Integer time;
 
-  public static DQPTime create() {
-    return new DQPTime();
+  private final EBridge bridge;
+
+  public ECNetwork(Builder builder) {
+    this.bridge = builder.bridge;
   }
 
-  public DQPTime() {
-
+  public EBridge bridge() {
+    return this.bridge;
   }
 
-  public DQPTime time(Integer time) {
-    this.time = time;
-    return this;
-  }
+  public static class Builder {
+    private EBridge bridge;
 
-  @Override
-  public DQR dqr() {
-    DQR dqr = DQR.create();
-    if (this.time != null)
-      dqr.put("t", this.time);
-    return dqr;
+    public ECNetwork build() {
+      return new ECNetwork(this);
+    }
+
+    public Builder bridge(EBridge bridge) {
+      this.bridge = bridge;
+      return this;
+    }
   }
 }
