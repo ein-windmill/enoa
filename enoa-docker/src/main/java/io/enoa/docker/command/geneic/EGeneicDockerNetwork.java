@@ -20,7 +20,7 @@ import io.enoa.docker.command.origin.EOriginDockerNetwork;
 import io.enoa.docker.command.origin.OriginDocker;
 import io.enoa.docker.dqp.network.DQPNetworkInspect;
 import io.enoa.docker.dqp.network.DQPNetworkList;
-import io.enoa.docker.dqp.network.DQPNetworkPrune;
+import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dret.DResp;
 import io.enoa.docker.dret.DRet;
 import io.enoa.docker.parser.DIParser;
@@ -83,7 +83,7 @@ public class EGeneicDockerNetwork {
     return this.prune(parser, null);
   }
 
-  public <T> DRet<T> prune(DIParser<T> parser, DQPNetworkPrune dqp) {
+  public <T> DRet<T> prune(DIParser<T> parser, DQPFilter dqp) {
     DResp resp = this.networks.prune(dqp);
     return parser.parse(this.config, resp);
   }

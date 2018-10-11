@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.dqp.container;
+package io.enoa.docker.dqp.volume;
 
 import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.DQR;
@@ -23,35 +23,22 @@ import io.enoa.toolkit.collection.CollectionKit;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DQPContainerPrune implements DQP {
+public class DQPVolumeList implements DQP {
 
-  /**
-   * string
-   * <p>
-   * Filters to process on the prune list, encoded as JSON (a map[string][]string).
-   * <p>
-   * Available filters:
-   * <p>
-   * until=<timestamp> Prune containers created before this timestamp. The <timestamp> can be Unix timestamps, date formatted timestamps, or Go duration strings (e.g. 10m, 1h30m) computed relative to the daemon machine’s time.
-   * label (label=<key>, label=<key>=<value>, label!=<key>, or label!=<key>=<value>) Prune containers with (or without, in case label!=... is used) the specified labels.
-   */
   private List<String> filters;
 
-  public static DQPContainerPrune create() {
-    return new DQPContainerPrune();
+
+  public DQPVolumeList() {
   }
 
-  public DQPContainerPrune() {
-  }
-
-  public DQPContainerPrune filters(String filter) {
+  public DQPVolumeList filters(String filter) {
     if (this.filters == null)
       this.filters = new ArrayList<>();
     this.filters.add(filter);
     return this;
   }
 
-  public DQPContainerPrune filters(List<String> filters) {
+  public DQPVolumeList filters(List<String> filters) {
     this.filters = filters;
     return this;
   }
@@ -59,9 +46,8 @@ public class DQPContainerPrune implements DQP {
   @Override
   public DQR dqr() {
     DQR dqr = DQR.create();
-    if (CollectionKit.notEmpty(this.filters)) {
+    if (CollectionKit.notEmpty(this.filters))
       dqr.put("filters", Json.toJson(this.filters));
-    }
     return dqr;
   }
 }

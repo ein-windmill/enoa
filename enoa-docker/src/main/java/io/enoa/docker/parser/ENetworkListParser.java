@@ -41,7 +41,7 @@ class ENetworkListParser extends AbstractParser<List<ENetwork>> {
     if (CollectionKit.isEmpty(kvs))
       return Collections.emptyList();
     List<ENetwork> rets = new ArrayList<>();
-    kvs.forEach(kv -> rets.add(ENetworkInspectParser.network(kv)));
+    kvs.forEach(kv -> rets.add(ENetworkInspectParser.instance().network(kv)));
     CollectionKit.clear(kvs);
     return rets;
   }

@@ -2,7 +2,7 @@ package io.enoa.docker.command.origin;
 
 import io.enoa.docker.dqp.network.DQPNetworkInspect;
 import io.enoa.docker.dqp.network.DQPNetworkList;
-import io.enoa.docker.dqp.network.DQPNetworkPrune;
+import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dret.DResp;
 import io.enoa.http.Http;
 import io.enoa.http.protocol.HttpMethod;
@@ -71,7 +71,7 @@ public class ETCPDockerNetwork implements EOriginDockerNetwork {
   }
 
   @Override
-  public DResp prune(DQPNetworkPrune dqp) {
+  public DResp prune(DQPFilter dqp) {
     Http http = this.docker.http("networks/prune")
       .method(HttpMethod.POST);
     if (dqp != null)

@@ -17,6 +17,7 @@ package io.enoa.docker.command.eo;
 
 import io.enoa.docker.command.geneic.EGeneicDockerImage;
 import io.enoa.docker.command.geneic.GeneicDocker;
+import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.image.*;
 import io.enoa.docker.dret.DRet;
 import io.enoa.docker.dret.image.*;
@@ -107,7 +108,7 @@ public class EnoaDockerImage {
     return this.pruneimage(null);
   }
 
-  public DRet<EImagePrune> pruneimage(DQPImagePrune dqp) {
+  public DRet<EImagePrune> pruneimage(DQPFilter dqp) {
     return this.image.pruneimage(DIParser.imageprune(), dqp);
   }
 

@@ -19,6 +19,7 @@ import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.DQR;
 import io.enoa.docker.dqp.image.DQPImageList;
 import io.enoa.json.Json;
+import io.enoa.toolkit.collection.CollectionKit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +58,9 @@ public class DQPNetworkList implements DQP {
 
   @Override
   public DQR dqr() {
-    return DQR.create()
-      .putIf("filters", Json.toJson(this.filters));
+    DQR dqr = DQR.create();
+    if (CollectionKit.notEmpty(this.filters))
+      dqr.put("filters", Json.toJson(this.filters));
+    return dqr;
   }
 }

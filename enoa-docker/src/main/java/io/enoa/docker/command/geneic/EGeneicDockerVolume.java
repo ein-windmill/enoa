@@ -18,6 +18,13 @@ package io.enoa.docker.command.geneic;
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.command.origin.EOriginDockerVolume;
 import io.enoa.docker.command.origin.OriginDocker;
+import io.enoa.docker.dqp.common.DQPFilter;
+import io.enoa.docker.dqp.volume.DQPVolumeCreate;
+import io.enoa.docker.dqp.volume.DQPVolumeList;
+import io.enoa.docker.dret.DResp;
+import io.enoa.docker.dret.DRet;
+import io.enoa.docker.parser.DIParser;
+import io.enoa.toolkit.value.Void;
 
 public class EGeneicDockerVolume {
 
@@ -30,4 +37,47 @@ public class EGeneicDockerVolume {
     this.config = docker._dockerconfig();
     this.volumes = docker.volume();
   }
+
+  public <T> DRet<T> list(DIParser<T> parser) {
+    return this.list(parser, null);
+  }
+
+  public <T> DRet<T> list(DIParser<T> parser, DQPVolumeList dqp) {
+    DResp resp = this.volumes.list(dqp);
+    return parser.parse(this.config, resp);
+  }
+
+  public <T> DRet<T> create(DIParser<T> parser, String body) {
+    DResp resp = this.volumes.create(body);
+    return parser.parse(this.config, resp);
+  }
+
+  public <T> DRet<T> create(DIParser<T> parser, DQPVolumeCreate dqp) {
+    DResp resp = this.volumes.create(dqp);
+    return parser.parse(this.config, resp);
+  }
+
+  public <T> DRet<T> inspect(DIParser<T> parser, String id) {
+    DResp resp = this.volumes.inspect(id);
+    return parser.parse(this.config, resp);
+  }
+
+  public DRet<Void> remove(String id) {
+    return this.remove(id, Boolean.FALSE);
+  }
+
+  public DRet<Void> remove(String id, Boolean force) {
+    DResp resp = this.volumes.remove(id, force);
+    return DIParser.voidx().parse(this.config, resp);
+  }
+
+  public <T> DRet<T> prune(DIParser<T> parser) {
+    return this.prune(parser, null);
+  }
+
+  public <T> DRet<T> prune(DIParser<T> parser, DQPFilter dqp) {
+    DResp resp = this.volumes.prune(dqp);
+    return parser.parse(this.config, resp);
+  }
+
 }

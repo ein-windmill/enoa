@@ -17,6 +17,7 @@ package io.enoa.docker.command.eo;
 
 import io.enoa.docker.command.geneic.EGeneicDockerContainer;
 import io.enoa.docker.command.geneic.GeneicDocker;
+import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.container.*;
 import io.enoa.docker.dret.DRet;
 import io.enoa.docker.dret.container.*;
@@ -187,7 +188,7 @@ public class EnoaDockerContainer {
     return this.prune(null);
   }
 
-  public DRet<ECPrune> prune(DQPContainerPrune dqp) {
+  public DRet<ECPrune> prune(DQPFilter dqp) {
     return this.container.prune(DIParser.containerprune(), dqp);
   }
 

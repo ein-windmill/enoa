@@ -42,10 +42,10 @@ class ENetworkInspectParser extends AbstractParser<ENetwork> {
   @Override
   public ENetwork ok(DockerConfig config, DResp resp) {
     Kv kv = config.json().parse(resp.string(), Kv.class);
-    return network(kv);
+    return this.network(kv);
   }
 
-  static ENetwork network(Kv kv) {
+  ENetwork network(Kv kv) {
     ENetwork.Builder builder = new ENetwork.Builder()
       .name(kv.string("Name"))
       .id(kv.string("Id"))
@@ -56,15 +56,15 @@ class ENetworkInspectParser extends AbstractParser<ENetwork> {
       .internal(kv.bool("Internal"))
       .attachable(kv.bool("Attachable"))
       .ingress(kv.bool("Ingress"))
-      .ipam(ipam(kv))
-      .containers(containers(kv))
+      .ipam(this.ipam(kv))
+      .containers(this.containers(kv))
       .options(AEExtra.kv(kv, "Options"))
       .labels(AEExtra.kv(kv, "Labels"));
     return builder.build();
   }
 
 
-  private static Map<String, ENetworkContainer> containers(Kv kv) {
+  Map<String, ENetworkContainer> containers(Kv kv) {
     Object cto = kv.get("Containers");
     if (!(cto instanceof Map))
       return null;
@@ -87,7 +87,7 @@ class ENetworkInspectParser extends AbstractParser<ENetwork> {
   }
 
 
-  private static EIPAM ipam(Kv kv) {
+  EIPAM ipam(Kv kv) {
     Object ipmo = kv.get("IPAM");
     if (!(ipmo instanceof Map))
       return null;

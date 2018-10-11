@@ -17,7 +17,7 @@ package io.enoa.docker.command.origin;
 
 import io.enoa.docker.dqp.network.DQPNetworkInspect;
 import io.enoa.docker.dqp.network.DQPNetworkList;
-import io.enoa.docker.dqp.network.DQPNetworkPrune;
+import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dret.DResp;
 
 /**
@@ -151,7 +151,7 @@ public interface EOriginDockerNetwork {
   DResp disconnect(String id, String body);
 
   /**
-   * @see #prune(DQPNetworkPrune)
+   * @see #prune(DQPFilter)
    */
   default DResp prune() {
     return this.prune(null);
@@ -162,6 +162,6 @@ public interface EOriginDockerNetwork {
    *
    * @return DResp
    */
-  DResp prune(DQPNetworkPrune dqp);
+  DResp prune(DQPFilter dqp);
 
 }

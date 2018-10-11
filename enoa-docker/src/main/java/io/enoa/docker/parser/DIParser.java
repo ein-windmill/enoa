@@ -24,6 +24,9 @@ import io.enoa.docker.dret.image.*;
 import io.enoa.docker.dret.network.ENetworPrune;
 import io.enoa.docker.dret.network.ENetwork;
 import io.enoa.docker.dret.network.ENetworkCreated;
+import io.enoa.docker.dret.volume.EVolume;
+import io.enoa.docker.dret.volume.EVolumeLs;
+import io.enoa.docker.dret.volume.EVolumePrune;
 import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.binary.EnoaBinary;
 import io.enoa.toolkit.value.Void;
@@ -133,6 +136,18 @@ public interface DIParser<T> {
     return ENetworkPruneParser.instance();
   }
 
+  static DIParser<EVolumeLs> volumelist() {
+    return EVolumeListParser.instance();
+  }
+
+  static DIParser<EVolume> volume() {
+    return EVolumeParser.instance();
+  }
+
+  static DIParser<EVolumePrune> volumeprune() {
+    return EVolumePruneParser.instance();
+  }
+
   /**
    * only use not create dresp object
    * <p>
@@ -142,6 +157,7 @@ public interface DIParser<T> {
    * @param text   text
    * @return dret
    */
+  @Deprecated
   default DRet<T> parse(DockerConfig config, String text) {
     return this.parse(config, DResp.create(100, "application/json", text.getBytes(EoConst.CHARSET)));
   }

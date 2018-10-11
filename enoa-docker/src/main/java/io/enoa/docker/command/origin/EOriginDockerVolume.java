@@ -15,5 +15,83 @@
  */
 package io.enoa.docker.command.origin;
 
+import io.enoa.docker.dqp.common.DQPFilter;
+import io.enoa.docker.dqp.volume.DQPVolumeCreate;
+import io.enoa.docker.dqp.volume.DQPVolumeList;
+import io.enoa.docker.dret.DResp;
+
 public interface EOriginDockerVolume {
+
+
+  default DResp list() {
+    return this.list(null);
+  }
+
+  /**
+   * List volumes
+   *
+   * @param dqp dqp
+   * @return DResp
+   */
+  DResp list(DQPVolumeList dqp);
+
+
+  /**
+   * Create a volume
+   *
+   * @param body request body
+   *             {
+   *             "Name": "tardis",
+   *             "Labels": {
+   *             "com.example.some-label": "some-value",
+   *             "com.example.some-other-label": "some-other-value"
+   *             },
+   *             "Driver": "custom"
+   *             }
+   * @return DResp
+   */
+  DResp create(String body);
+
+  default DResp create(DQPVolumeCreate dqp) {
+    return this.create(dqp.dqr().json());
+  }
+
+  /**
+   * Inspect a volume
+   *
+   * @param id string Required
+   *           <p>
+   *           Volume name or ID
+   * @return DResp
+   */
+  DResp inspect(String id);
+
+  default DResp remove(String id) {
+    return this.remove(id, Boolean.FALSE);
+  }
+
+  /**
+   * Remove a volume
+   * Instruct the driver to remove the volume.
+   *
+   * @param id string Required
+   *           <p>
+   *           Volume name or ID
+   * @return DResp
+   */
+  DResp remove(String id, Boolean force);
+
+
+  default DResp prune() {
+    return this.prune(null);
+  }
+
+  /**
+   * Delete unused volumes
+   *
+   * @param dqp dqp
+   * @return DResp
+   */
+  DResp prune(DQPFilter dqp);
+
 }

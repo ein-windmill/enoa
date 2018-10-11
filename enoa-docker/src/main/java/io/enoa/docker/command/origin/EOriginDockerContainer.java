@@ -15,6 +15,7 @@
  */
 package io.enoa.docker.command.origin;
 
+import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.container.*;
 import io.enoa.docker.dret.DResp;
 import io.enoa.docker.stream.DStream;
@@ -696,7 +697,7 @@ public interface EOriginDockerContainer {
    * @param dqp dqp
    * @return Dresp
    */
-  DResp prune(DQPContainerPrune dqp);
+  DResp prune(DQPFilter dqp);
 
 
 }

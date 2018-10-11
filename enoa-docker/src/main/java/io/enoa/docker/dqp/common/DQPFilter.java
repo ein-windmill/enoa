@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.dqp.image;
+package io.enoa.docker.dqp.common;
 
 import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.DQR;
@@ -22,34 +22,33 @@ import io.enoa.json.Json;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DQPImagePrune implements DQP {
+public class DQPFilter implements DQP {
 
   /**
    * string
    * <p>
-   * Filters to process on the prune list, encoded as JSON (a map[string][]string). Available filters:
+   * Filters to process on the prune list, encoded as JSON (a map[string][]string).
    * <p>
-   * dangling=<boolean> When set to true (or 1), prune only unused and untagged images. When set to false (or 0), all unused images are pruned.
-   * until=<string> Prune images created before this timestamp. The <timestamp> can be Unix timestamps, date formatted timestamps, or Go duration strings (e.g. 10m, 1h30m) computed relative to the daemon machine’s time.
-   * label (label=<key>, label=<key>=<value>, label!=<key>, or label!=<key>=<value>) Prune images with (or without, in case label!=... is used) the specified labels.
+   * Available filters:
+   * <p>
+   * until=<timestamp> Prune networks created before this timestamp. The <timestamp> can be Unix timestamps,
+   * date formatted timestamps, or Go duration strings (e.g. 10m, 1h30m) computed relative to the daemon machine’s time.
+   * label (label=<key>, label=<key>=<value>, label!=<key>, or label!=<key>=<value>) Prune networks with (or without,
+   * in case label!=... is used) the specified labels.
    */
   private List<String> filters;
 
-  public static DQPImagePrune create() {
-    return new DQPImagePrune();
+  public DQPFilter() {
   }
 
-  public DQPImagePrune() {
-  }
-
-  public DQPImagePrune filters(String filter) {
+  public DQPFilter filters(String filter) {
     if (this.filters == null)
       this.filters = new ArrayList<>();
     this.filters.add(filter);
     return this;
   }
 
-  public DQPImagePrune filters(List<String> filters) {
+  public DQPFilter filters(List<String> filters) {
     this.filters = filters;
     return this;
   }
@@ -57,8 +56,9 @@ public class DQPImagePrune implements DQP {
   @Override
   public DQR dqr() {
     DQR dqr = DQR.create();
-    if (this.filters != null)
-      dqr.put("filters", Json.toJson(this.filters));
+    if (this.filters != null) {
+      dqr.putIf("filters", Json.toJson(this.filters));
+    }
     return dqr;
   }
 }

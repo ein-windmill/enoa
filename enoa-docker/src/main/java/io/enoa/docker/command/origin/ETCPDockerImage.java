@@ -17,6 +17,7 @@ package io.enoa.docker.command.origin;
 
 import io.enoa.docker.dqp.DQH;
 import io.enoa.docker.dqp.DQR;
+import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.image.*;
 import io.enoa.docker.dret.DResp;
 import io.enoa.docker.stream.DStream;
@@ -153,7 +154,7 @@ public class ETCPDockerImage implements EOriginDockerImage {
   }
 
   @Override
-  public DResp pruneimage(DQPImagePrune dqp) {
+  public DResp pruneimage(DQPFilter dqp) {
     Http http = this.docker.http("images/prune")
       .method(HttpMethod.POST);
     if (dqp != null)
