@@ -13,32 +13,44 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.dret.exec;
+package io.enoa.docker.dret.common;
 
 import io.enoa.docker.dret.AbstractDRet;
 
-public class EExecCreated extends AbstractDRet {
+public class ECreatedWithWarning extends AbstractDRet {
 
   private String id;
+  private String warning;
 
-  public EExecCreated(Builder builder) {
+  public ECreatedWithWarning(Builder builder) {
     this.id = builder.id;
+    this.warning = builder.warning;
   }
 
   public String id() {
     return id;
   }
 
+  public String warning() {
+    return warning;
+  }
+
   public static class Builder {
 
     private String id;
+    private String warning;
 
-    public EExecCreated build() {
-      return new EExecCreated(this);
+    public ECreatedWithWarning build() {
+      return new ECreatedWithWarning(this);
     }
 
     public Builder id(String id) {
       this.id = id;
+      return this;
+    }
+
+    public Builder warning(String warning) {
+      this.warning = warning;
       return this;
     }
   }

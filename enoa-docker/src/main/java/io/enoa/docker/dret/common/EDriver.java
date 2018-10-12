@@ -13,46 +13,46 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.dret.network;
+package io.enoa.docker.dret.common;
 
 import io.enoa.docker.dret.AbstractDRet;
+import io.enoa.toolkit.map.Kv;
 
-public class ENetworkCreated extends AbstractDRet {
+public class EDriver extends AbstractDRet {
 
-  private String id;
-  private String warning;
+  private final String name;
+  private final Kv options;
 
-  public ENetworkCreated(Builder builder) {
-    this.id = builder.id;
-    this.warning = builder.warning;
+  public EDriver(Builder builder) {
+    this.name = builder.name;
+    this.options = builder.options;
   }
 
-  public String id() {
-    return id;
+  public String name() {
+    return this.name;
   }
 
-  public String warning() {
-    return warning;
+  public Kv options() {
+    return this.options;
   }
 
   public static class Builder {
 
-    private String id;
-    private String warning;
+    private String name;
+    private Kv options;
 
-    public ENetworkCreated build() {
-      return new ENetworkCreated(this);
+    public EDriver build() {
+      return new EDriver(this);
     }
 
-    public Builder id(String id) {
-      this.id = id;
+    public Builder name(String name) {
+      this.name = name;
       return this;
     }
 
-    public Builder warning(String warning) {
-      this.warning = warning;
+    public Builder options(Kv options) {
+      this.options = options;
       return this;
     }
   }
-
 }

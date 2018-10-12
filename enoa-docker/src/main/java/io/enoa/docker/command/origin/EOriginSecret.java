@@ -15,5 +15,23 @@
  */
 package io.enoa.docker.command.origin;
 
+import io.enoa.docker.dqp.common.DQPFilter;
+import io.enoa.docker.dret.DResp;
+
 public interface EOriginSecret {
+
+  default DResp list() {
+    return this.list(null);
+  }
+
+  DResp list(DQPFilter dqp);
+
+  DResp create(String body);
+
+  DResp inspect(String id);
+
+  DResp remove(String id);
+
+  DResp update(String id, long version, String body);
+
 }

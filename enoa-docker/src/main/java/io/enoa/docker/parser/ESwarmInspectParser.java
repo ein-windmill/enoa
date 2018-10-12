@@ -17,6 +17,7 @@ package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dret.DResp;
+import io.enoa.docker.dret.common.EDriver;
 import io.enoa.docker.dret.swarm.*;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.date.DateKit;
@@ -47,7 +48,7 @@ class ESwarmInspectParser extends AbstractParser<ESwarmInspect> {
       .createdat(DateKit.parse(kv.string("CreatedAt"), "yyyy-MM-dd'T'HH:mm:ss.SSS"))
       .updatedat(DateKit.parse(kv.string("UpdatedAt"), "yyyy-MM-dd'T'HH:mm:ss.SSS"))
       .rootrotationinprogress(kv.bool("RootRotationInProgress"))
-      .version(this.version(kv))
+      .version(AEExtra.version(kv))
       .spec(this.spec(kv))
       .tlsinfo(AEExtra.tls(kv, "TLSInfo"))
       .jointokens(this.jointokens(kv));
@@ -80,17 +81,6 @@ class ESwarmInspectParser extends AbstractParser<ESwarmInspect> {
 //    CollectionKit.clear(tls);
 //    return tlsb.build();
 //  }
-
-  private EVersion version(Kv kv) {
-    Object vot = kv.get("Version");
-    if (!(vot instanceof Map))
-      return null;
-    Kv vom = Kv.by((Map) vot);
-    EVersion.Builder builder = new EVersion.Builder()
-      .index(vom.integer("Index"));
-    CollectionKit.clear(vom);
-    return builder.build();
-  }
 
   private ESwarmSpec spec(Kv kv) {
     Object spo = kv.get("Spec");
@@ -172,7 +162,7 @@ class ESwarmInspectParser extends AbstractParser<ESwarmInspect> {
       Object ldr = tdm.get("LogDriver");
       if (ldr instanceof Map) {
         Kv ldm = Kv.by((Map) ldr);
-        ELogDriver.Builder edb = new ELogDriver.Builder()
+        EDriver.Builder edb = new EDriver.Builder()
           .name(ldm.string("Name"))
           .options(AEExtra.kv(ldm, "Options"));
         CollectionKit.clear(ldm);

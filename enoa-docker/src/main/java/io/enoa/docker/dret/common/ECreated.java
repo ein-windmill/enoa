@@ -13,33 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.dret.swarm;
+package io.enoa.docker.dret.common;
 
 import io.enoa.docker.dret.AbstractDRet;
-import io.enoa.docker.dret.common.EDriver;
 
-public class ETaskDefaults extends AbstractDRet {
+public class ECreated extends AbstractDRet {
 
+  private String id;
 
-  private final EDriver logdriver;
-
-  public ETaskDefaults(Builder builder) {
-    this.logdriver = builder.logdriver;
+  public ECreated(Builder builder) {
+    this.id = builder.id;
   }
 
-  public EDriver logdriver() {
-    return this.logdriver;
+  public String id() {
+    return id;
   }
 
   public static class Builder {
-    private EDriver logdriver;
 
-    public ETaskDefaults build() {
-      return new ETaskDefaults(this);
+    private String id;
+
+    public ECreated build() {
+      return new ECreated(this);
     }
 
-    public Builder logdriver(EDriver logdriver) {
-      this.logdriver = logdriver;
+    public Builder id(String id) {
+      this.id = id;
       return this;
     }
   }

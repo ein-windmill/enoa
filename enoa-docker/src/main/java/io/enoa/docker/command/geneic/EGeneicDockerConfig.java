@@ -18,6 +18,13 @@ package io.enoa.docker.command.geneic;
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.command.origin.EOriginConfig;
 import io.enoa.docker.command.origin.OriginDocker;
+import io.enoa.docker.dqp.common.DQPFilter;
+import io.enoa.docker.dret.DResp;
+import io.enoa.docker.dret.DRet;
+import io.enoa.docker.parser.DIParser;
+import io.enoa.toolkit.value.Void;
+
+import java.util.List;
 
 public class EGeneicDockerConfig {
 
@@ -30,4 +37,34 @@ public class EGeneicDockerConfig {
     this.config = docker._dockerconfig();
     this.configs = docker.config();
   }
+
+  public <T> DRet<List<T>> list(DIParser<List<T>> parser) {
+    return this.list(parser, null);
+  }
+
+  public <T> DRet<List<T>> list(DIParser<List<T>> parser, DQPFilter dqp) {
+    DResp resp = this.configs.list(dqp);
+    return parser.parse(this.config, resp);
+  }
+
+  public <T> DRet<T> create(DIParser<T> parser, String body) {
+    DResp resp = this.configs.create(body);
+    return parser.parse(this.config, resp);
+  }
+
+  public <T> DRet<T> inspect(DIParser<T> parser, String id) {
+    DResp resp = this.configs.inspect(id);
+    return parser.parse(this.config, resp);
+  }
+
+  public DRet<Void> remove(String id) {
+    DResp resp = this.configs.remove(id);
+    return DIParser.voidx().parse(this.config, resp);
+  }
+
+  public DRet<Void> update(String id, long version, String body) {
+    DResp resp = this.configs.update(id, version, body);
+    return DIParser.voidx().parse(this.config, resp);
+  }
+
 }

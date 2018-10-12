@@ -16,4 +16,7 @@
 package io.enoa.docker.command.origin;
 
 public interface EOriginPlugin {
+
+
+
 }

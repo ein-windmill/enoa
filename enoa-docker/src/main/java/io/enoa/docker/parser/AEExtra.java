@@ -17,6 +17,7 @@ package io.enoa.docker.parser;
 
 import io.enoa.docker.dret.common.ETLSInfo;
 import io.enoa.docker.dret.container.*;
+import io.enoa.docker.dret.swarm.EVersion;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.date.DateKit;
 import io.enoa.toolkit.map.Kv;
@@ -256,4 +257,19 @@ class AEExtra {
     return tlsb.build();
   }
 
+
+  static EVersion version(Kv kv) {
+    return version(kv, "Version");
+  }
+
+  static EVersion version(Kv kv, String key) {
+    Object vot = kv.get(key);
+    if (!(vot instanceof Map))
+      return null;
+    Kv vom = Kv.by((Map) vot);
+    EVersion.Builder builder = new EVersion.Builder()
+      .index(vom.integer("Index"));
+    CollectionKit.clear(vom);
+    return builder.build();
+  }
 }

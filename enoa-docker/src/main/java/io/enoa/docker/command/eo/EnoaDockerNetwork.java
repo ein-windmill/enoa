@@ -23,7 +23,7 @@ import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dret.DRet;
 import io.enoa.docker.dret.network.ENetworPrune;
 import io.enoa.docker.dret.network.ENetwork;
-import io.enoa.docker.dret.network.ENetworkCreated;
+import io.enoa.docker.dret.common.ECreatedWithWarning;
 import io.enoa.docker.parser.DIParser;
 import io.enoa.toolkit.value.Void;
 
@@ -59,8 +59,8 @@ public class EnoaDockerNetwork {
     return this.networks.remove(id);
   }
 
-  public DRet<ENetworkCreated> create(String body) {
-    return this.networks.create(DIParser.networkcreated(), body);
+  public DRet<ECreatedWithWarning> create(String body) {
+    return this.networks.create(DIParser.createdwithwarning(), body);
   }
 
   public DRet<Void> connect(String id, String body) {

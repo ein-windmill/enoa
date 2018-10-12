@@ -17,28 +17,49 @@ package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dret.DResp;
-import io.enoa.docker.dret.exec.EExecCreated;
+import io.enoa.docker.dret.config.EConfig;
+import io.enoa.docker.dret.config.EConfigSpec;
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.date.DateKit;
 import io.enoa.toolkit.map.Kv;
 
-class EExecCreateParser extends AbstractParser<EExecCreated> {
+import java.util.Map;
+
+class EConfigParser extends AbstractParser<EConfig> {
 
   private static class Holder {
-    private static final EExecCreateParser INSTANCE = new EExecCreateParser();
+    private static final EConfigParser INSTANCE = new EConfigParser();
   }
 
-  static EExecCreateParser instance() {
+  static EConfigParser instance() {
     return Holder.INSTANCE;
   }
 
   @Override
-  public EExecCreated ok(DockerConfig config, DResp resp) {
+  public EConfig ok(DockerConfig config, DResp resp) {
     Kv kv = config.json().parse(resp.string(), Kv.class);
+    EConfig cfg = this.config(kv);
+    CollectionKit.clear(kv);
+    return cfg;
+  }
+
+
+  EConfig config(Kv kv) {
     if (CollectionKit.isEmpty(kv))
       return null;
-    EExecCreated.Builder builder = new EExecCreated.Builder()
-      .id(kv.string("Id"));
-    CollectionKit.clear(kv);
+    EConfig.Builder builder = new EConfig.Builder()
+      .id(kv.string("ID"))
+      .createdat(DateKit.parse(kv.string("CreatedAt"), "yyyy-MM-dd'T'HH:mm:ss.SSS"))
+      .updatedat(DateKit.parse(kv.string("UpdatedAt"), "yyyy-MM-dd'T'HH:mm:ss.SSS"));
+    Object spt = kv.get("Spec");
+    if (spt instanceof Map) {
+      Kv spec = Kv.by((Map) spt);
+      EConfigSpec.Builder scb = new EConfigSpec.Builder()
+        .name(spec.string("Name"));
+      CollectionKit.clear(spec);
+      builder.spec(scb.build());
+    }
     return builder.build();
   }
+
 }

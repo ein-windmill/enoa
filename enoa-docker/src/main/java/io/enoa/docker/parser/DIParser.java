@@ -18,15 +18,17 @@ package io.enoa.docker.parser;
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dret.DResp;
 import io.enoa.docker.dret.DRet;
+import io.enoa.docker.dret.common.ECreated;
+import io.enoa.docker.dret.common.ECreatedWithWarning;
+import io.enoa.docker.dret.config.EConfig;
 import io.enoa.docker.dret.container.*;
 import io.enoa.docker.dret.dockerinfo.EDockerInfo;
-import io.enoa.docker.dret.exec.EExecCreated;
 import io.enoa.docker.dret.exec.EExecInspect;
 import io.enoa.docker.dret.image.*;
 import io.enoa.docker.dret.network.ENetworPrune;
 import io.enoa.docker.dret.network.ENetwork;
-import io.enoa.docker.dret.network.ENetworkCreated;
 import io.enoa.docker.dret.node.ENode;
+import io.enoa.docker.dret.secret.ESecret;
 import io.enoa.docker.dret.service.EServiceUpdate;
 import io.enoa.docker.dret.swarm.ESwarmInspect;
 import io.enoa.docker.dret.swarm.ESwarmUnlockKey;
@@ -54,16 +56,20 @@ public interface DIParser<T> {
     return EStringParser.instance();
   }
 
+  static DIParser<ECreatedWithWarning> createdwithwarning() {
+    return ECreatedWithWarningParser.instance();
+  }
+
+  static DIParser<ECreated> created() {
+    return ECreateParser.instance();
+  }
+
   static DIParser<EDockerInfo> dockerinfo() {
     return EDockerInfoParser.instance();
   }
 
   static DIParser<List<EContainer>> listcontainer() {
     return EListContainerParser.instance();
-  }
-
-  static DIParser<EContainerCreated> created() {
-    return EContainerCreatedParser.instance();
   }
 
   static DIParser<ECInspect> containerinspect() {
@@ -134,10 +140,6 @@ public interface DIParser<T> {
     return ENetworkInspectParser.instance();
   }
 
-  static DIParser<ENetworkCreated> networkcreated() {
-    return ENetworkCreatedParser.instance();
-  }
-
   static DIParser<ENetworPrune> networkprune() {
     return ENetworkPruneParser.instance();
   }
@@ -152,10 +154,6 @@ public interface DIParser<T> {
 
   static DIParser<EVolumePrune> volumeprune() {
     return EVolumePruneParser.instance();
-  }
-
-  static DIParser<EExecCreated> execcreated() {
-    return EExecCreateParser.instance();
   }
 
   static DIParser<EExecInspect> execinspect() {
@@ -180,6 +178,22 @@ public interface DIParser<T> {
 
   static DIParser<EServiceUpdate> serviceupdate() {
     return EServiceUpdateParser.instance();
+  }
+
+  static DIParser<List<ESecret>> secretlist() {
+    return ESecretListParser.instance();
+  }
+
+  static DIParser<ESecret> secret() {
+    return ESecretParser.instance();
+  }
+
+  static DIParser<List<EConfig>> configlist() {
+    return EConfigListParser.instance();
+  }
+
+  static DIParser<EConfig> config() {
+    return EConfigParser.instance();
   }
 
   /**

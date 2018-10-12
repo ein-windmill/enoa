@@ -17,29 +17,29 @@ package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dret.DResp;
-import io.enoa.docker.dret.network.ENetworkCreated;
+import io.enoa.docker.dret.config.EConfig;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.map.Kv;
 
-class ENetworkCreatedParser extends AbstractParser<ENetworkCreated> {
+import java.util.ArrayList;
+import java.util.List;
+
+class EConfigListParser extends AbstractParser<List<EConfig>> {
 
   private static class Holder {
-    private static final ENetworkCreatedParser INSTANCE = new ENetworkCreatedParser();
+    private static final EConfigListParser INSTANCE = new EConfigListParser();
   }
 
-  static ENetworkCreatedParser instance() {
+  static EConfigListParser instance() {
     return Holder.INSTANCE;
   }
 
   @Override
-  public ENetworkCreated ok(DockerConfig config, DResp resp) {
-    Kv kv = config.json().parse(resp.string(), Kv.class);
-    if (CollectionKit.isEmpty(kv))
-      return null;
-    ENetworkCreated.Builder builder = new ENetworkCreated.Builder()
-      .id(kv.string("Id"))
-      .warning(kv.string("Warning"));
-    CollectionKit.clear(kv);
-    return builder.build();
+  public List<EConfig> ok(DockerConfig config, DResp resp) {
+    List<Kv> kvs = config.json().parseArray(resp.string(), Kv.class);
+    List<EConfig> rets = new ArrayList<>(kvs.size());
+    kvs.forEach(kv -> rets.add(EConfigParser.instance().config(kv)));
+    CollectionKit.clear(kvs);
+    return rets;
   }
 }

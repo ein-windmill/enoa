@@ -17,40 +17,29 @@ package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dret.DResp;
-import io.enoa.docker.dret.container.EContainerCreated;
+import io.enoa.docker.dret.common.ECreated;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.map.Kv;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
-class EContainerCreatedParser extends AbstractParser<EContainerCreated> {
+class ECreateParser extends AbstractParser<ECreated> {
 
   private static class Holder {
-    private static final EContainerCreatedParser INSTANCE = new EContainerCreatedParser();
+    private static final ECreateParser INSTANCE = new ECreateParser();
   }
 
-  static EContainerCreatedParser instance() {
+  static ECreateParser instance() {
     return Holder.INSTANCE;
   }
 
   @Override
-  public EContainerCreated ok(DockerConfig config, DResp resp) {
+  public ECreated ok(DockerConfig config, DResp resp) {
     Kv kv = config.json().parse(resp.string(), Kv.class);
-    EContainerCreated.Builder builder = new EContainerCreated.Builder();
-    builder.id(kv.string("Id"))
-      .warnings(this.warnings(kv));
+    if (CollectionKit.isEmpty(kv))
+      return null;
+    ECreated.Builder builder = new ECreated.Builder()
+      .id(kv.string("Id"));
     CollectionKit.clear(kv);
     return builder.build();
-  }
-
-  private List<String> warnings(Kv kv) {
-    Object warnings = kv.get("Warnings");
-    if (!(warnings instanceof Collection))
-      return Collections.emptyList();
-    Collection _wars = (Collection) warnings;
-    return (List<String>) _wars.stream().collect(Collectors.toList());
   }
 }

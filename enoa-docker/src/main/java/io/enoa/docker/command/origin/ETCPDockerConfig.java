@@ -15,11 +15,60 @@
  */
 package io.enoa.docker.command.origin;
 
+import io.enoa.docker.dqp.common.DQPFilter;
+import io.enoa.docker.dret.DResp;
+import io.enoa.http.Http;
+import io.enoa.http.protocol.HttpMethod;
+import io.enoa.http.protocol.HttpResponse;
+
 public class ETCPDockerConfig implements EOriginConfig {
 
   private EnoaTCPDocker docker;
 
   ETCPDockerConfig(EnoaTCPDocker docker) {
     this.docker = docker;
+  }
+
+  @Override
+  public DResp list(DQPFilter dqp) {
+    Http http = this.docker.http("configs");
+    if (dqp != null)
+      http.para(dqp.dqr().http());
+    HttpResponse response = http.emit();
+    return DResp.create(response);
+  }
+
+  @Override
+  public DResp create(String body) {
+    HttpResponse response = this.docker.http("configs/create")
+      .method(HttpMethod.POST)
+      .raw(body, "application/json")
+      .emit();
+    return DResp.create(response);
+  }
+
+  @Override
+  public DResp inspect(String id) {
+    HttpResponse response = this.docker.http("configs", id)
+      .emit();
+    return DResp.create(response);
+  }
+
+  @Override
+  public DResp remove(String id) {
+    HttpResponse response = this.docker.http("configs", id)
+      .method(HttpMethod.DELETE)
+      .emit();
+    return DResp.create(response);
+  }
+
+  @Override
+  public DResp update(String id, long version, String body) {
+    HttpResponse response = this.docker.http("configs", id, "update")
+      .method(HttpMethod.POST)
+      .para("version", version)
+      .raw(body, "application/json")
+      .emit();
+    return DResp.create(response);
   }
 }

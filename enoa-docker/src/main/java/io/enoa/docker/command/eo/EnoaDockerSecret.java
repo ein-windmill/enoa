@@ -17,6 +17,14 @@ package io.enoa.docker.command.eo;
 
 import io.enoa.docker.command.geneic.EGeneicDockerSecret;
 import io.enoa.docker.command.geneic.GeneicDocker;
+import io.enoa.docker.dqp.common.DQPFilter;
+import io.enoa.docker.dret.DRet;
+import io.enoa.docker.dret.common.ECreated;
+import io.enoa.docker.dret.secret.ESecret;
+import io.enoa.docker.parser.DIParser;
+import io.enoa.toolkit.value.Void;
+
+import java.util.List;
 
 public class EnoaDockerSecret {
 
@@ -28,4 +36,29 @@ public class EnoaDockerSecret {
     this.docker = docker;
     this.secrets = docker.secret();
   }
+
+  public DRet<List<ESecret>> list() {
+    return this.secrets.list(DIParser.secretlist());
+  }
+
+  public DRet<List<ESecret>> list(DQPFilter dqp) {
+    return this.secrets.list(DIParser.secretlist(), dqp);
+  }
+
+  public DRet<ECreated> create(String body) {
+    return this.secrets.create(DIParser.created(), body);
+  }
+
+  public DRet<ESecret> inspect(String id) {
+    return this.secrets.inspect(DIParser.secret(), id);
+  }
+
+  public DRet<Void> remove(String id) {
+    return this.secrets.remove(id);
+  }
+
+  public DRet<Void> update(String id, long version, String body) {
+    return this.secrets.update(id, version, body);
+  }
+
 }

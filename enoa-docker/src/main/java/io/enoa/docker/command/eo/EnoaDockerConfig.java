@@ -17,6 +17,14 @@ package io.enoa.docker.command.eo;
 
 import io.enoa.docker.command.geneic.EGeneicDockerConfig;
 import io.enoa.docker.command.geneic.GeneicDocker;
+import io.enoa.docker.dqp.common.DQPFilter;
+import io.enoa.docker.dret.DRet;
+import io.enoa.docker.dret.common.ECreated;
+import io.enoa.docker.dret.config.EConfig;
+import io.enoa.docker.parser.DIParser;
+import io.enoa.toolkit.value.Void;
+
+import java.util.List;
 
 public class EnoaDockerConfig {
 
@@ -27,4 +35,30 @@ public class EnoaDockerConfig {
     this.docker = docker;
     this.configs = docker.config();
   }
+
+  public DRet<List<EConfig>> list() {
+    return this.list(null);
+  }
+
+  public DRet<List<EConfig>> list(DQPFilter dqp) {
+    return this.configs.list(DIParser.configlist(), dqp);
+  }
+
+  public DRet<ECreated> create(String body) {
+    return this.configs.create(DIParser.created(), body);
+  }
+
+  public DRet<EConfig> inspect(String id) {
+    return this.configs.inspect(DIParser.config(), id);
+  }
+
+  public DRet<Void> remove(String id) {
+    return this.configs.remove(id);
+  }
+
+  public DRet<Void> update(String id, long version, String body) {
+    return this.configs.update(id, version, body);
+  }
+
+
 }

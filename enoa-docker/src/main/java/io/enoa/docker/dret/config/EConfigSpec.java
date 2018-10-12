@@ -13,46 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.dret.swarm;
+package io.enoa.docker.dret.config;
 
 import io.enoa.docker.dret.AbstractDRet;
-import io.enoa.toolkit.map.Kv;
 
-public class ELogDriver extends AbstractDRet {
+public class EConfigSpec extends AbstractDRet {
 
-  private final String name;
-  private final Kv options;
+  private String name;
 
-  public ELogDriver(Builder builder) {
+  public EConfigSpec(Builder builder) {
     this.name = builder.name;
-    this.options = builder.options;
   }
 
   public String name() {
-    return this.name;
-  }
-
-  public Kv options() {
-    return this.options;
+    return name;
   }
 
   public static class Builder {
-
     private String name;
-    private Kv options;
 
-    public ELogDriver build() {
-      return new ELogDriver(this);
+    public EConfigSpec build() {
+      return new EConfigSpec(this);
     }
 
     public Builder name(String name) {
       this.name = name;
       return this;
     }
-
-    public Builder options(Kv options) {
-      this.options = options;
-      return this;
-    }
   }
+
 }

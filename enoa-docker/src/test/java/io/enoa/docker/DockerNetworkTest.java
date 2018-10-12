@@ -18,7 +18,7 @@ package io.enoa.docker;
 import io.enoa.docker.dret.DRet;
 import io.enoa.docker.dret.network.ENetworPrune;
 import io.enoa.docker.dret.network.ENetwork;
-import io.enoa.docker.dret.network.ENetworkCreated;
+import io.enoa.docker.dret.common.ECreatedWithWarning;
 import io.enoa.json.Json;
 import io.enoa.toolkit.value.Void;
 import org.junit.Assert;
@@ -55,7 +55,7 @@ public class DockerNetworkTest extends AbstractDockerTest {
   @Test
   public void testCreate() {
     String body = "{}";
-    DRet<ENetworkCreated> ret = Docker.network().create(body);
+    DRet<ECreatedWithWarning> ret = Docker.network().create(body);
     Assert.assertTrue(ret.ok());
     String json = Json.toJson(ret.data());
     System.out.println(json);

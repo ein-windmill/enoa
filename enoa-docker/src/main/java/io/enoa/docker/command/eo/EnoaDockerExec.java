@@ -21,7 +21,7 @@ import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.exec.DQPExecCreate;
 import io.enoa.docker.dqp.exec.DQPExecStart;
 import io.enoa.docker.dret.DRet;
-import io.enoa.docker.dret.exec.EExecCreated;
+import io.enoa.docker.dret.common.ECreated;
 import io.enoa.docker.dret.exec.EExecInspect;
 import io.enoa.docker.parser.DIParser;
 import io.enoa.toolkit.value.Void;
@@ -36,12 +36,12 @@ public class EnoaDockerExec {
     this.exec = docker.exec();
   }
 
-  public DRet<EExecCreated> exec(String id, String body) {
-    return this.exec.exec(DIParser.execcreated(), id, body);
+  public DRet<ECreated> exec(String id, String body) {
+    return this.exec.exec(DIParser.created(), id, body);
   }
 
-  public DRet<EExecCreated> exec(String id, DQPExecCreate dqp) {
-    return this.exec.exec(DIParser.execcreated(), id, dqp);
+  public DRet<ECreated> exec(String id, DQPExecCreate dqp) {
+    return this.exec.exec(DIParser.created(), id, dqp);
   }
 
   public DRet<Void> start(String id, String body) {
