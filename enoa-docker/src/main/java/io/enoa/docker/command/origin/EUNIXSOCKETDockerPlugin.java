@@ -15,11 +15,73 @@
  */
 package io.enoa.docker.command.origin;
 
+import io.enoa.docker.dqp.common.DQPFilter;
+import io.enoa.docker.dqp.plugin.DQPPluginInstall;
+import io.enoa.docker.dqp.plugin.DQPPluginUpgrade;
+import io.enoa.docker.dret.DResp;
+
+import java.util.Collection;
+
 public class EUNIXSOCKETDockerPlugin implements EOriginPlugin {
 
   private EnoaUNIXSOCKETDocker docker;
 
   EUNIXSOCKETDockerPlugin(EnoaUNIXSOCKETDocker docker) {
     this.docker = docker;
+  }
+
+  @Override
+  public DResp list(DQPFilter dqp) {
+    return null;
+  }
+
+  @Override
+  public DResp privileges(String remote) {
+    return null;
+  }
+
+  @Override
+  public DResp install(DQPPluginInstall dqp) {
+    return null;
+  }
+
+  @Override
+  public DResp inspect(String id) {
+    return null;
+  }
+
+  @Override
+  public DResp remove(String id, boolean force) {
+    return null;
+  }
+
+  @Override
+  public DResp enable(String id, int timeout) {
+    return null;
+  }
+
+  @Override
+  public DResp disable(String id) {
+    return null;
+  }
+
+  @Override
+  public DResp upgrade(String id, DQPPluginUpgrade dqp) {
+    return null;
+  }
+
+  @Override
+  public DResp create(String id, String raw) {
+    return null;
+  }
+
+  @Override
+  public DResp push(String id) {
+    return null;
+  }
+
+  @Override
+  public DResp set(String id, Collection<String> args) {
+    return null;
   }
 }

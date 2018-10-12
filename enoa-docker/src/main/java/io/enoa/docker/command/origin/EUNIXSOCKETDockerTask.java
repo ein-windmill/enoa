@@ -15,6 +15,9 @@
  */
 package io.enoa.docker.command.origin;
 
+import io.enoa.docker.dqp.common.DQPFilter;
+import io.enoa.docker.dret.DResp;
+
 public class EUNIXSOCKETDockerTask implements EOriginTask {
 
   private EnoaUNIXSOCKETDocker docker;
@@ -22,5 +25,15 @@ public class EUNIXSOCKETDockerTask implements EOriginTask {
 
   EUNIXSOCKETDockerTask(EnoaUNIXSOCKETDocker docker) {
     this.docker = docker;
+  }
+
+  @Override
+  public DResp list(DQPFilter dqp) {
+    return null;
+  }
+
+  @Override
+  public DResp inspect(String id) {
+    return null;
   }
 }

@@ -15,11 +15,47 @@
  */
 package io.enoa.docker.command.origin;
 
+import io.enoa.docker.dqp.common.DQPFilter;
+import io.enoa.docker.dqp.service.DQPServiceCreate;
+import io.enoa.docker.dqp.service.DQPServiceUpdate;
+import io.enoa.docker.dret.DResp;
+import io.enoa.docker.dret.service.DQPServiceLogs;
+
 public class EUNIXSOCKETDockerService implements EOriginService {
 
   private EnoaUNIXSOCKETDocker docker;
 
   EUNIXSOCKETDockerService(EnoaUNIXSOCKETDocker docker) {
     this.docker = docker;
+  }
+
+  @Override
+  public DResp list(DQPFilter dqp) {
+    return null;
+  }
+
+  @Override
+  public DResp create(String body, DQPServiceCreate dqp) {
+    return null;
+  }
+
+  @Override
+  public DResp inspect(String id, boolean insertDefaults) {
+    return null;
+  }
+
+  @Override
+  public DResp remove(String id) {
+    return null;
+  }
+
+  @Override
+  public DResp update(String id, String body, DQPServiceUpdate dqp) {
+    return null;
+  }
+
+  @Override
+  public DResp logs(String id, DQPServiceLogs dqp) {
+    return null;
   }
 }

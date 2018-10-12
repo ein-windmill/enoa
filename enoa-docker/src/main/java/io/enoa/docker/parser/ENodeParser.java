@@ -25,10 +25,7 @@ import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.date.DateKit;
 import io.enoa.toolkit.map.Kv;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 class ENodeParser extends AbstractParser<ENode> {
 
@@ -123,39 +120,7 @@ class ENodeParser extends AbstractParser<ENode> {
       EResources.Builder erb = new EResources.Builder()
         .nanocpus(rok.longer("NanoCPUs"))
         .memorybytes(rok.longer("MemoryBytes"));
-      Object gr = rok.get("GenericResources");
-      if (gr instanceof Collection) {
-        Collection ees = (Collection) gr;
-        List<EGenericResource> rets = new ArrayList<>(ees.size());
-        ees.forEach(e -> {
-          if (!(e instanceof Map))
-            return;
-          Kv ek = Kv.by((Map) e);
-          EGenericResource.Builder egrb = new EGenericResource.Builder();
-          Object nrs = ek.get("NamedResourceSpec");
-          Object drs = ek.get("DiscreteResourceSpec");
-
-          if (nrs instanceof Map) {
-            Kv nrk = Kv.by((Map) nrs);
-            ENodeResourceSpec.Builder nrsb = new ENodeResourceSpec.Builder()
-              .kind(nrk.string("Kind"))
-              .value(nrk.integer("Value"));
-            egrb.namedresourcespec(nrsb.build());
-            CollectionKit.clear(nrk);
-          }
-          if (drs instanceof Map) {
-            Kv drk = Kv.by((Map) drs);
-            ENodeResourceSpec.Builder nrsb = new ENodeResourceSpec.Builder()
-              .kind(drk.string("Kind"))
-              .value(drk.integer("Value"));
-            egrb.discreteresourcespec(nrsb.build());
-            CollectionKit.clear(drk);
-          }
-          rets.add(egrb.build());
-          CollectionKit.clear(ek);
-        });
-        erb.genericresources(rets);
-      }
+      erb.genericresources(this.genericresources(rok, "GenericResources"));
       CollectionKit.clear(rok);
       builder.resources(erb.build());
     }
@@ -186,6 +151,42 @@ class ENodeParser extends AbstractParser<ENode> {
 
     builder.tlsinfo(AEExtra.tls(desn, "TLSInfo"));
     return builder.build();
+  }
+
+  List<EGenericResource> genericresources(Kv kv, String key) {
+    Object gr = kv.get(key);
+    if (!(gr instanceof Collection))
+      return Collections.emptyList();
+    Collection ees = (Collection) gr;
+    List<EGenericResource> rets = new ArrayList<>(ees.size());
+    ees.forEach(e -> {
+      if (!(e instanceof Map))
+        return;
+      Kv ek = Kv.by((Map) e);
+      EGenericResource.Builder egrb = new EGenericResource.Builder();
+      Object nrs = ek.get("NamedResourceSpec");
+      Object drs = ek.get("DiscreteResourceSpec");
+
+      if (nrs instanceof Map) {
+        Kv nrk = Kv.by((Map) nrs);
+        ENodeResourceSpec.Builder nrsb = new ENodeResourceSpec.Builder()
+          .kind(nrk.string("Kind"))
+          .value(nrk.integer("Value"));
+        egrb.namedresourcespec(nrsb.build());
+        CollectionKit.clear(nrk);
+      }
+      if (drs instanceof Map) {
+        Kv drk = Kv.by((Map) drs);
+        ENodeResourceSpec.Builder nrsb = new ENodeResourceSpec.Builder()
+          .kind(drk.string("Kind"))
+          .value(drk.integer("Value"));
+        egrb.discreteresourcespec(nrsb.build());
+        CollectionKit.clear(drk);
+      }
+      rets.add(egrb.build());
+      CollectionKit.clear(ek);
+    });
+    return rets;
   }
 
 

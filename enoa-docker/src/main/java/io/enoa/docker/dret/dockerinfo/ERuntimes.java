@@ -16,32 +16,55 @@
 package io.enoa.docker.dret.dockerinfo;
 
 import io.enoa.docker.dret.AbstractDRet;
-
-import java.util.Map;
+import io.enoa.toolkit.map.Kv;
 
 public class ERuntimes extends AbstractDRet {
 
-  private final Map<String, String> runc;
+  private final Kv runc;
+  private final Kv runcmaster;
+  private final Kv custom;
 
   private ERuntimes(Builder builder) {
     this.runc = builder.runc;
+    this.runcmaster = builder.runcmaster;
+    this.custom = builder.custom;
   }
 
-  public Map<String, String> runc() {
+  public Kv runc() {
     return this.runc;
+  }
+
+  public Kv runcmaster() {
+    return this.runcmaster;
+  }
+
+  public Kv custom() {
+    return this.custom;
   }
 
   public static class Builder {
 
-    private Map<String, String> runc;
+    private Kv runc;
+    private Kv runcmaster;
+    private Kv custom;
 
 
     public ERuntimes build() {
       return new ERuntimes(this);
     }
 
-    public Builder runc(Map<String, String> runc) {
+    public Builder runc(Kv runc) {
       this.runc = runc;
+      return this;
+    }
+
+    public Builder runcmaster(Kv runcmaster) {
+      this.runcmaster = runcmaster;
+      return this;
+    }
+
+    public Builder custom(Kv custom) {
+      this.custom = custom;
       return this;
     }
   }

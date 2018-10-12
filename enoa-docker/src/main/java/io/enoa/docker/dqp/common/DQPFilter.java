@@ -22,7 +22,7 @@ import io.enoa.json.Json;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DQPFilter implements DQP {
+public class DQPFilter<T extends DQPFilter> implements DQP {
 
   /**
    * string
@@ -38,19 +38,23 @@ public class DQPFilter implements DQP {
    */
   private List<String> filters;
 
+  public static DQPFilter create() {
+    return new DQPFilter();
+  }
+
   public DQPFilter() {
   }
 
-  public DQPFilter filters(String filter) {
+  public T filters(String filter) {
     if (this.filters == null)
       this.filters = new ArrayList<>();
     this.filters.add(filter);
-    return this;
+    return (T) this;
   }
 
-  public DQPFilter filters(List<String> filters) {
+  public T filters(List<String> filters) {
     this.filters = filters;
-    return this;
+    return (T) this;
   }
 
   @Override

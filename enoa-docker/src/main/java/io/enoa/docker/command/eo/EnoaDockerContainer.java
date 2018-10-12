@@ -46,7 +46,7 @@ public class EnoaDockerContainer {
   }
 
   public DRet<List<EContainer>> list(DQPContainerList dqp) {
-    return this.container.list(DIParser.listcontainer(), dqp);
+    return this.container.list(DIParser.containerlist(), dqp);
   }
 
   public DRet<ECreatedWithWarning> create(String name, String body) {

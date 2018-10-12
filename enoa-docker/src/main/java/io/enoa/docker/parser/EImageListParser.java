@@ -25,13 +25,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-class EImageParser extends AbstractParser<List<EImage>> {
+class EImageListParser extends AbstractParser<List<EImage>> {
 
   private static class Holder {
-    private static final EImageParser INSTANCE = new EImageParser();
+    private static final EImageListParser INSTANCE = new EImageListParser();
   }
 
-  static EImageParser instance() {
+  static EImageListParser instance() {
     return Holder.INSTANCE;
   }
 
@@ -41,21 +41,23 @@ class EImageParser extends AbstractParser<List<EImage>> {
     if (CollectionKit.isEmpty(kvs))
       return Collections.emptyList();
     List<EImage> rets = new ArrayList<>(kvs.size());
-    kvs.forEach(kv -> {
-      EImage.Builder builder = new EImage.Builder()
-        .id(kv.string("Id"))
-        .parentid(kv.string("ParentId"))
-        .repotags(AEExtra.stringarray(kv, "RepoTags"))
-        .repodigests(AEExtra.stringarray(kv, "RepoDigests"))
-        .created(kv.longer("Created"))
-        .size(kv.longer("Size"))
-        .virtualsize(kv.longer("VirtualSize"))
-        .sharedsize(kv.integer("SharedSize"))
-        .labels(AEExtra.stringarray(kv, "Labels"))
-        .containers(kv.integer("Containers"));
-      rets.add(builder.build());
-    });
+    kvs.forEach(kv -> rets.add(this.image(kv)));
     return rets;
+  }
+
+  EImage image(Kv kv) {
+    EImage.Builder builder = new EImage.Builder()
+      .id(kv.string("Id"))
+      .parentid(kv.string("ParentId"))
+      .repotags(AEExtra.stringarray(kv, "RepoTags"))
+      .repodigests(AEExtra.stringarray(kv, "RepoDigests"))
+      .created(kv.longer("Created"))
+      .size(kv.longer("Size"))
+      .virtualsize(kv.longer("VirtualSize"))
+      .sharedsize(kv.integer("SharedSize"))
+      .labels(AEExtra.kv(kv, "Labels"))
+      .containers(kv.integer("Containers"));
+    return builder.build();
   }
 
 }

@@ -24,47 +24,46 @@ import io.enoa.toolkit.map.Kv;
 
 import java.util.*;
 
-class EListContainerParser extends AbstractParser<List<EContainer>> {
+class EContainerListParser extends AbstractParser<List<EContainer>> {
 
   private static class Holder {
-    private static final EListContainerParser INSTANCE = new EListContainerParser();
+    private static final EContainerListParser INSTANCE = new EContainerListParser();
   }
 
-  static EListContainerParser instance() {
+  static EContainerListParser instance() {
     return Holder.INSTANCE;
   }
 
   @Override
   public List<EContainer> ok(DockerConfig config, DResp resp) {
-    List<EContainer> rets;
+    ;
     List<Kv> kvs = config.json().parseArray(resp.string(), Kv.class);
     if (CollectionKit.isEmpty(kvs)) {
-      rets = Collections.emptyList();
-      return rets;
+      return Collections.emptyList();
     }
-    rets = new ArrayList<>(kvs.size());
-
-    kvs.forEach(kv -> {
-      EContainer.Builder builder = new EContainer.Builder();
-      builder.id(kv.string("Id"))
-        .names(AEExtra.stringarray(kv, "Names"))
-        .image(kv.string("Image"))
-        .imageid(kv.string("ImageID"))
-        .command(kv.string("Command"))
-        .created(kv.longer("Created"))
-        .ports(this.ports(kv));
-      // fixme container list labels
-      builder.labels(kv.get("Labels"));
-      builder.state(kv.string("State"))
-        .status(kv.string("Status"))
-        .hostconfig(AEExtra.hostconfig(kv))
-        .networksetting(AEExtra.networksetting(kv))
-        .mounts(AEExtra.mounts(kv));
-
-      rets.add(builder.build());
-    });
+    List<EContainer> rets = new ArrayList<>(kvs.size());
+    kvs.forEach(kv -> rets.add(this.container(kv)));
     CollectionKit.clear(kvs);
     return rets;
+  }
+
+  EContainer container(Kv kv) {
+    EContainer.Builder builder = new EContainer.Builder();
+    builder.id(kv.string("Id"))
+      .names(AEExtra.stringarray(kv, "Names"))
+      .image(kv.string("Image"))
+      .imageid(kv.string("ImageID"))
+      .command(kv.string("Command"))
+      .created(kv.longer("Created"))
+      .ports(this.ports(kv));
+    // fixme container list labels
+    builder.labels(kv.get("Labels"));
+    builder.state(kv.string("State"))
+      .status(kv.string("Status"))
+      .hostconfig(AEExtra.hostconfig(kv))
+      .networksetting(AEExtra.networksetting(kv))
+      .mounts(AEExtra.mounts(kv));
+    return builder.build();
   }
 
   private List<EPort> ports(Kv kv) {

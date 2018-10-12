@@ -17,45 +17,47 @@ package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dret.DResp;
-import io.enoa.docker.dret.container.EProcesses;
+import io.enoa.docker.dret.system.Edf;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.map.Kv;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.Map;
 
-class EProcessParser extends AbstractParser<EProcesses> {
+class EdfParser extends AbstractParser<Edf> {
 
   private static class Holder {
-    private static final EProcessParser INSTANCE = new EProcessParser();
+    private static final EdfParser INSTANCE = new EdfParser();
   }
 
-  static EProcessParser instance() {
+  static EdfParser instance() {
     return Holder.INSTANCE;
   }
 
   @Override
-  public EProcesses ok(DockerConfig config, DResp resp) {
+  public Edf ok(DockerConfig config, DResp resp) {
     Kv kv = config.json().parse(resp.string(), Kv.class);
     if (CollectionKit.isEmpty(kv))
       return null;
-    EProcesses.Builder builder = new EProcesses.Builder();
-    Collection<String> titles = kv.as("Titles");
-    builder.titles(titles.toArray(new String[titles.size()]));
-//    Collection processes = kv.as("Processes");
-//    if (CollectionKit.isEmpty(processes))
-//      return builder.build();
-
-//    List<String[]> pcs = new ArrayList<>(processes.size());
-//    processes.forEach(proc -> {
-//      if (!(proc instanceof Collection))
-//        return;
-//      Collection item = (Collection) proc;
-//      pcs.add((String[]) item.toArray(new String[item.size()]));
-//    });
-    builder.processes(AEExtra.listarray(kv, "Processes"));
-    CollectionKit.clear(kv);
+    Edf.Builder builder = new Edf.Builder()
+      .layerssize(kv.longer("LayersSize"));
+    Object cct = kv.get("Containers");
+    if (cct instanceof Map) {
+      Kv _k = Kv.by((Map) cct);
+      builder.container(EContainerListParser.instance().container(_k));
+      CollectionKit.clear(_k);
+    }
+    Object ict = kv.get("Images");
+    if (ict instanceof Map) {
+      Kv _k = Kv.by((Map) ict);
+      builder.image(EImageListParser.instance().image(_k));
+      CollectionKit.clear(_k);
+    }
+    Object vct = kv.get("Volumes");
+    if (vct instanceof Map) {
+      Kv _k = Kv.by((Map) vct);
+      builder.volume(EVolumeParser.instance().volume(_k));
+      CollectionKit.clear(_k);
+    }
     return builder.build();
   }
 }

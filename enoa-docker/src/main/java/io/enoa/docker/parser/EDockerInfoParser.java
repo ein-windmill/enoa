@@ -76,7 +76,7 @@ class EDockerInfoParser extends AbstractParser<EDockerInfo> {
       .ostype(kv.string("OSType"))
       .architecture(kv.string("Architecture"))
       .indexserveraddress(kv.string("IndexServerAddress"))
-      .registryconfig(this.registryconfig(kv))
+      .registryconfig(this.registryconfig(kv, "RegistryConfig"))
       .ncpu(kv.integer("NCPU"))
       .memtotal(kv.doubler("MemTotal"))
       .genericresources(kv.get("GenericResources"))
@@ -90,7 +90,7 @@ class EDockerInfoParser extends AbstractParser<EDockerInfo> {
       .serverversion(kv.string("ServerVersion"))
       .clusteradvertise(kv.string("ClusterAdvertise"))
       .clusterstore(kv.string("ClusterStore"))
-      .runtimes(this.runtimes(kv))
+      .runtimes(AEExtra.runtimes(kv, "Runtimes"))
       .defaultruntime(kv.string("DefaultRuntime"))
       .swarm(this.swarm(kv))
       .liverestoreenabled(kv.bool("LiveRestoreEnabled"))
@@ -133,9 +133,9 @@ class EDockerInfoParser extends AbstractParser<EDockerInfo> {
     return builder.build();
   }
 
-  public ERegistryConfig registryconfig(Kv kv) {
+  public ERegistryConfig registryconfig(Kv kv, String key) {
     ERegistryConfig.Builder builder = new ERegistryConfig.Builder();
-    Map map = kv.as("RegistryConfig");
+    Map map = kv.as(key);
     Object anacs = map.get("AllowNondistributableArtifactsCIDRs");
     if (anacs instanceof List) {
       List ans = (List) anacs;
@@ -192,20 +192,6 @@ class EDockerInfoParser extends AbstractParser<EDockerInfo> {
     return (String[]) lls.toArray(new String[lls.size()]);
   }
 
-  private ERuntimes runtimes(Kv kv) {
-    Object runtimes = kv.get("Runtimes");
-    if (!(runtimes instanceof Map))
-      return null;
-    Map rum = (Map) runtimes;
-    Object runc = rum.get("runc");
-    if (!(runc instanceof Map))
-      return null;
-    Map rnm = (Map) runc;
-    ERuntimes.Builder builder = new ERuntimes.Builder();
-    builder.runc(rnm);
-    return builder.build();
-  }
-
   private ESwarm swarm(Kv kv) {
     Object swarm = kv.get("Swarm");
     if (!(swarm instanceof Map))
@@ -221,7 +207,7 @@ class EDockerInfoParser extends AbstractParser<EDockerInfo> {
     return builder.build();
   }
 
-  private ECommit comment(Kv kv, String key) {
+  ECommit comment(Kv kv, String key) {
     Object ky = kv.get(key);
     if (!(ky instanceof Map))
       return null;

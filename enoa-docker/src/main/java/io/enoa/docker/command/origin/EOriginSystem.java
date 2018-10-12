@@ -15,6 +15,82 @@
  */
 package io.enoa.docker.command.origin;
 
+import io.enoa.docker.dqp.system.DQPAuth;
+import io.enoa.docker.dqp.system.DQPMonitor;
+import io.enoa.docker.dret.DResp;
+
 public interface EOriginSystem {
+
+  /**
+   * Check auth configuration
+   * Validate credentials for a registry and, if available, get an identity token for accessing the registry without password.
+   *
+   * @param dqp dqp
+   * @return DResp
+   */
+  DResp auth(DQPAuth dqp);
+
+  /**
+   * Get system information
+   *
+   * @return DResp
+   */
+  DResp info();
+
+  /**
+   * Get version
+   * Returns the version of Docker that is running and various information about the system that Docker is running on.
+   *
+   * @return DResp
+   */
+  DResp version();
+
+  /**
+   * Ping
+   * This is a dummy endpoint you can use to test if the server is accessible.
+   *
+   * @return DResp
+   */
+  DResp ping();
+
+  default DResp monitor() {
+    return this.monitor(null);
+  }
+
+  /**
+   * Monitor events
+   * <p>
+   * Stream real-time events from the server.
+   * <p>
+   * Various objects within Docker report events when something happens to them.
+   * <p>
+   * Containers report these events: attach, commit, copy, create, destroy, detach, die, exec_create, exec_detach, exec_start, exec_die, export, health_status, kill, oom, pause, rename, resize, restart, start, stop, top, unpause, and update
+   * <p>
+   * Images report these events: delete, import, load, pull, push, save, tag, and untag
+   * <p>
+   * Volumes report these events: create, mount, unmount, and destroy
+   * <p>
+   * Networks report these events: create, connect, disconnect, destroy, update, and remove
+   * <p>
+   * The Docker daemon reports these events: reload
+   * <p>
+   * Services report these events: create, update, and remove
+   * <p>
+   * Nodes report these events: create, update, and remove
+   * <p>
+   * Secrets report these events: create, update, and remove
+   * <p>
+   * Configs report these events: create, update, and remove
+   *
+   * @return DResp
+   */
+  DResp monitor(DQPMonitor dqp);
+
+  /**
+   * Get data usage information
+   *
+   * @return DResp
+   */
+  DResp df();
 
 }

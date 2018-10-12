@@ -49,7 +49,7 @@ class ESwarmInspectParser extends AbstractParser<ESwarmInspect> {
       .updatedat(DateKit.parse(kv.string("UpdatedAt"), "yyyy-MM-dd'T'HH:mm:ss.SSS"))
       .rootrotationinprogress(kv.bool("RootRotationInProgress"))
       .version(AEExtra.version(kv))
-      .spec(this.spec(kv))
+      .spec(this.spec(kv, "Spec"))
       .tlsinfo(AEExtra.tls(kv, "TLSInfo"))
       .jointokens(this.jointokens(kv));
     CollectionKit.clear(kv);
@@ -82,8 +82,8 @@ class ESwarmInspectParser extends AbstractParser<ESwarmInspect> {
 //    return tlsb.build();
 //  }
 
-  private ESwarmSpec spec(Kv kv) {
-    Object spo = kv.get("Spec");
+  ESwarmSpec spec(Kv kv, String key) {
+    Object spo = kv.get(key);
     if (!(spo instanceof Map))
       return null;
     Kv spec = Kv.by((Map) spo);

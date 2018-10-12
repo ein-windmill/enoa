@@ -49,9 +49,10 @@ public class ETCPDockerPlugin implements EOriginPlugin {
 
   @Override
   public DResp privileges(String remote) {
-    HttpResponse response = this.docker.http("plugins/privileges")
-      .para("remote", remote)
-      .emit();
+    Http http = this.docker.http("plugins/privileges");
+    if (TextKit.blankn())
+      http.para("remote", remote);
+    HttpResponse response = http.emit();
     return DResp.create(response);
   }
 

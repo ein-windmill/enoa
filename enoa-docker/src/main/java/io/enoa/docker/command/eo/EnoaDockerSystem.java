@@ -17,6 +17,11 @@ package io.enoa.docker.command.eo;
 
 import io.enoa.docker.command.geneic.EGeneicDockerSystem;
 import io.enoa.docker.command.geneic.GeneicDocker;
+import io.enoa.docker.dqp.system.DQPAuth;
+import io.enoa.docker.dqp.system.DQPMonitor;
+import io.enoa.docker.dret.DRet;
+import io.enoa.docker.dret.system.*;
+import io.enoa.docker.parser.DIParser;
 
 public class EnoaDockerSystem {
 
@@ -27,6 +32,35 @@ public class EnoaDockerSystem {
   EnoaDockerSystem(GeneicDocker docker) {
     this.docker = docker;
     this.system = docker.system();
-
   }
+
+
+  public DRet<EAuth> auth(DQPAuth dqp) {
+    return this.system.auth(DIParser.auth(), dqp);
+  }
+
+  public DRet<EInfo> info() {
+    return this.system.info(DIParser.info());
+  }
+
+  public DRet<EYVersion> version() {
+    return this.system.version(DIParser.eyversion());
+  }
+
+  public DRet<String> ping() {
+    return this.system.ping(DIParser.string());
+  }
+
+  public DRet<EMonitor> monitor() {
+    return this.system.monitor(DIParser.monitor());
+  }
+
+  public DRet<EMonitor> monitor(DQPMonitor dqp) {
+    return this.system.monitor(DIParser.monitor(), dqp);
+  }
+
+  public DRet<Edf> df() {
+    return this.system.df(DIParser.edfparser());
+  }
+
 }

@@ -16,6 +16,7 @@
 package io.enoa.docker.dret.image;
 
 import io.enoa.docker.dret.AbstractDRet;
+import io.enoa.toolkit.map.Kv;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class EImage extends AbstractDRet {
   private Long size;
   private Long virtualsize;
   private Integer sharedsize;
-  private List<String> labels;
+  private Kv labels;
   private Integer containers;
 
   public EImage(Builder builder) {
@@ -77,7 +78,7 @@ public class EImage extends AbstractDRet {
     return this.sharedsize;
   }
 
-  public List<String> labels() {
+  public Kv labels() {
     return this.labels;
   }
 
@@ -94,7 +95,7 @@ public class EImage extends AbstractDRet {
     private Long size;
     private Long virtualsize;
     private Integer sharedsize;
-    private List<String> labels;
+    private Kv labels;
     private Integer containers;
 
     public EImage build() {
@@ -141,7 +142,7 @@ public class EImage extends AbstractDRet {
       return this;
     }
 
-    public Builder labels(List<String> labels) {
+    public Builder labels(Kv labels) {
       this.labels = labels;
       return this;
     }

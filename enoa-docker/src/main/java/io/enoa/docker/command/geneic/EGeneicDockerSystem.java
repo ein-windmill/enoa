@@ -18,6 +18,11 @@ package io.enoa.docker.command.geneic;
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.command.origin.EOriginSystem;
 import io.enoa.docker.command.origin.OriginDocker;
+import io.enoa.docker.dqp.system.DQPAuth;
+import io.enoa.docker.dqp.system.DQPMonitor;
+import io.enoa.docker.dret.DResp;
+import io.enoa.docker.dret.DRet;
+import io.enoa.docker.parser.DIParser;
 
 public class EGeneicDockerSystem {
 
@@ -29,5 +34,39 @@ public class EGeneicDockerSystem {
     this.docker = docker;
     this.config = docker._dockerconfig();
     this.system = docker.system();
+  }
+
+  public <T> DRet<T> auth(DIParser<T> parser, DQPAuth dqp) {
+    DResp resp = this.system.auth(dqp);
+    return parser.parse(this.config, resp);
+  }
+
+  public <T> DRet<T> info(DIParser<T> parser) {
+    DResp resp = this.system.info();
+    return parser.parse(this.config, resp);
+  }
+
+  public <T> DRet<T> version(DIParser<T> parser) {
+    DResp resp = this.system.version();
+    return parser.parse(this.config, resp);
+  }
+
+  public <T> DRet<T> ping(DIParser<T> parser) {
+    DResp resp = this.system.ping();
+    return parser.parse(this.config, resp);
+  }
+
+  public <T> DRet<T> monitor(DIParser<T> parser) {
+    return this.monitor(parser, null);
+  }
+
+  public <T> DRet<T> monitor(DIParser<T> parser, DQPMonitor dqp) {
+    DResp resp = this.system.monitor(dqp);
+    return parser.parse(this.config, resp);
+  }
+
+  public <T> DRet<T> df(DIParser<T> parser) {
+    DResp resp = this.system.df();
+    return parser.parse(this.config, resp);
   }
 }

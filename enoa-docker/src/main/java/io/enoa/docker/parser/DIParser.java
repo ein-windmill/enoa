@@ -34,6 +34,7 @@ import io.enoa.docker.dret.secret.ESecret;
 import io.enoa.docker.dret.service.EServiceUpdate;
 import io.enoa.docker.dret.swarm.ESwarmInspect;
 import io.enoa.docker.dret.swarm.ESwarmUnlockKey;
+import io.enoa.docker.dret.system.*;
 import io.enoa.docker.dret.volume.EVolume;
 import io.enoa.docker.dret.volume.EVolumeLs;
 import io.enoa.docker.dret.volume.EVolumePrune;
@@ -70,8 +71,8 @@ public interface DIParser<T> {
     return EDockerInfoParser.instance();
   }
 
-  static DIParser<List<EContainer>> listcontainer() {
-    return EListContainerParser.instance();
+  static DIParser<List<EContainer>> containerlist() {
+    return EContainerListParser.instance();
   }
 
   static DIParser<ECInspect> containerinspect() {
@@ -102,8 +103,8 @@ public interface DIParser<T> {
     return ECPruneParser.instance();
   }
 
-  static DIParser<List<EImage>> image() {
-    return EImageParser.instance();
+  static DIParser<List<EImage>> imagelist() {
+    return EImageListParser.instance();
   }
 
   static DIParser<EIPrune> buildprune() {
@@ -208,6 +209,26 @@ public interface DIParser<T> {
 
   static DIParser<List<EPluginPrivilege>> pluginprivilege() {
     return EPluginPrivilegeParser.instance();
+  }
+
+  static DIParser<EInfo> info() {
+    return EInfoParser.instance();
+  }
+
+  static DIParser<EYVersion> eyversion() {
+    return EYVersionParser.instance();
+  }
+
+  static DIParser<EMonitor> monitor() {
+    return EMonitorParser.instance();
+  }
+
+  static DIParser<Edf> edfparser() {
+    return EdfParser.instance();
+  }
+
+  static DIParser<EAuth> auth() {
+    return EAuthParser.instance();
   }
 
   /**

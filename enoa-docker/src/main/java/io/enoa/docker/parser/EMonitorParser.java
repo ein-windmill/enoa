@@ -17,45 +17,47 @@ package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dret.DResp;
-import io.enoa.docker.dret.container.EProcesses;
+import io.enoa.docker.dret.system.EActor;
+import io.enoa.docker.dret.system.EMonitor;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.map.Kv;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.Map;
 
-class EProcessParser extends AbstractParser<EProcesses> {
+class EMonitorParser extends AbstractParser<EMonitor> {
 
   private static class Holder {
-    private static final EProcessParser INSTANCE = new EProcessParser();
+    private static final EMonitorParser INSTANCE = new EMonitorParser();
   }
 
-  static EProcessParser instance() {
+  static EMonitorParser instance() {
     return Holder.INSTANCE;
   }
 
   @Override
-  public EProcesses ok(DockerConfig config, DResp resp) {
+  public EMonitor ok(DockerConfig config, DResp resp) {
     Kv kv = config.json().parse(resp.string(), Kv.class);
     if (CollectionKit.isEmpty(kv))
       return null;
-    EProcesses.Builder builder = new EProcesses.Builder();
-    Collection<String> titles = kv.as("Titles");
-    builder.titles(titles.toArray(new String[titles.size()]));
-//    Collection processes = kv.as("Processes");
-//    if (CollectionKit.isEmpty(processes))
-//      return builder.build();
-
-//    List<String[]> pcs = new ArrayList<>(processes.size());
-//    processes.forEach(proc -> {
-//      if (!(proc instanceof Collection))
-//        return;
-//      Collection item = (Collection) proc;
-//      pcs.add((String[]) item.toArray(new String[item.size()]));
-//    });
-    builder.processes(AEExtra.listarray(kv, "Processes"));
+    EMonitor.Builder builder = new EMonitor.Builder()
+      .action(kv.string("Action"))
+      .type(kv.string("Type"))
+      .time(kv.longer("time"))
+      .actor(this.actor(kv));
     CollectionKit.clear(kv);
     return builder.build();
   }
+
+  private EActor actor(Kv kv) {
+    Object ao = kv.get("Actor");
+    if (!(ao instanceof Map))
+      return null;
+    Kv ak = Kv.by((Map) ao);
+    EActor.Builder builder = new EActor.Builder()
+      .id(ak.string("ID"))
+      .attributes(AEExtra.kv(ak, "Attributes"));
+    CollectionKit.clear(ak);
+    return builder.build();
+  }
+
 }

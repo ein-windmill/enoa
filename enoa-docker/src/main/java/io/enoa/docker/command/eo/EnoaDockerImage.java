@@ -41,11 +41,11 @@ public class EnoaDockerImage {
   }
 
   public DRet<List<EImage>> list() {
-    return this.image.list(DIParser.image());
+    return this.image.list(DIParser.imagelist());
   }
 
   public DRet<List<EImage>> list(DQPImageList dqp) {
-    return this.image.list(DIParser.image(), dqp);
+    return this.image.list(DIParser.imagelist(), dqp);
   }
 
   public DRet<List<Kv>> build(DQPImageBuild dqp, String dockerfile) {

@@ -17,10 +17,12 @@ package io.enoa.docker.parser;
 
 import io.enoa.docker.dret.common.ETLSInfo;
 import io.enoa.docker.dret.container.*;
+import io.enoa.docker.dret.dockerinfo.ERuntimes;
 import io.enoa.docker.dret.swarm.EVersion;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.date.DateKit;
 import io.enoa.toolkit.map.Kv;
+import io.enoa.toolkit.value.EnoaValue;
 
 import java.util.*;
 import java.util.function.Supplier;
@@ -33,7 +35,28 @@ class AEExtra {
     if (!(sarr instanceof Collection)) {
       return Collections.emptyList();
     }
-    return (List<String>) ((Collection) sarr).stream().collect(Collectors.toCollection((Supplier<Collection<Object>>) () -> new LinkedList<>()));
+    return (List<String>) ((Collection) sarr).stream()
+      .collect(Collectors.toCollection((Supplier<Collection<Object>>) () -> new LinkedList<>()));
+  }
+
+  static List<String[]> listarray(Map map, String key) {
+    Object pa = map.get(key);
+    if (!(pa instanceof Collection))
+      return Collections.emptyList();
+    Collection cas = (Collection) pa;
+    List<String[]> rets = new ArrayList<>(cas.size());
+    cas.forEach(ca -> {
+      if (!(ca instanceof Collection))
+        return;
+      Collection cs = (Collection) ca;
+      rets.add((String[]) cs.toArray(new String[cs.size()]));
+    });
+    return rets;
+  }
+
+  static String[] array(Map map, String key) {
+    List<String> stringarray = stringarray(map, key);
+    return stringarray.toArray(new String[stringarray.size()]);
   }
 
   static ECState inspectstate(Map map) {
@@ -259,12 +282,12 @@ class AEExtra {
   }
 
 
-  static EVersion version(Kv kv) {
-    return version(kv, "Version");
+  static EVersion version(Map map) {
+    return version(map, "Version");
   }
 
-  static EVersion version(Kv kv, String key) {
-    Object vot = kv.get(key);
+  static EVersion version(Map map, String key) {
+    Object vot = map.get(key);
     if (!(vot instanceof Map))
       return null;
     Kv vom = Kv.by((Map) vot);
@@ -273,4 +296,44 @@ class AEExtra {
     CollectionKit.clear(vom);
     return builder.build();
   }
+
+  static ERuntimes runtimes(Map map, String key) {
+    Object runtimes = map.get(key);
+    if (!(runtimes instanceof Map))
+      return null;
+    Map rum = (Map) runtimes;
+    ERuntimes.Builder builder = new ERuntimes.Builder();
+
+    Object runc = rum.get("runc");
+    if (runc instanceof Map) {
+      builder.runc(Kv.by((Map) runc));
+    }
+    Object runcm = rum.get("runc-master");
+    if (runcm instanceof Map) {
+      builder.runc(Kv.by((Map) runcm));
+    }
+    Object ctm = rum.get("custom");
+    if (ctm instanceof Map) {
+      Kv ck = Kv.by((Map) ctm);
+      Object args = ck.get("runtimeArgs");
+      if (args instanceof Collection) {
+        Collection ans = (Collection) args;
+        ck.set("runtimeArgs", ans.toArray(new String[ans.size()]));
+      }
+      builder.custom(ck);
+    }
+    return builder.build();
+  }
+
+  static Date date(Map map, String key) {
+    return date(map, key, "yyyy-MM-dd'T'HH:mm:ss");
+  }
+
+  static Date date(Map map, String key, String format) {
+    Object o = map.get(key);
+    if (o == null)
+      return null;
+    return DateKit.parse(EnoaValue.with(o).string(), format);
+  }
+
 }

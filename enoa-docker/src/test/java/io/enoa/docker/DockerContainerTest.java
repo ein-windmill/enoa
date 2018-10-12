@@ -19,6 +19,7 @@ import io.enoa.docker.dqp.container.DQPContainerLogs;
 import io.enoa.docker.dqp.container.DQPContainerUpdate;
 import io.enoa.docker.dret.DResp;
 import io.enoa.docker.dret.DRet;
+import io.enoa.docker.dret.common.ECreatedWithWarning;
 import io.enoa.docker.dret.container.*;
 import io.enoa.docker.stream.DStream;
 import io.enoa.json.Json;
@@ -346,7 +347,7 @@ public class DockerContainerTest extends AbstractDockerTest {
       "    }\n" +
       "  }\n" +
       "}";
-    DRet<EContainerCreated> ret = Docker.container().create("test", json);
+    DRet<ECreatedWithWarning> ret = Docker.container().create("test", json);
     Assert.assertTrue(ret.ok());
     System.out.println(ret);
   }

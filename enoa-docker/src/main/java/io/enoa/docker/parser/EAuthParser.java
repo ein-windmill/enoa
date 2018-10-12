@@ -17,44 +17,28 @@ package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dret.DResp;
-import io.enoa.docker.dret.container.EProcesses;
+import io.enoa.docker.dret.system.EAuth;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.map.Kv;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-class EProcessParser extends AbstractParser<EProcesses> {
+class EAuthParser extends AbstractParser<EAuth> {
 
   private static class Holder {
-    private static final EProcessParser INSTANCE = new EProcessParser();
+    private static final EAuthParser INSTANCE = new EAuthParser();
   }
 
-  static EProcessParser instance() {
+  static EAuthParser instance() {
     return Holder.INSTANCE;
   }
 
   @Override
-  public EProcesses ok(DockerConfig config, DResp resp) {
+  public EAuth ok(DockerConfig config, DResp resp) {
     Kv kv = config.json().parse(resp.string(), Kv.class);
     if (CollectionKit.isEmpty(kv))
       return null;
-    EProcesses.Builder builder = new EProcesses.Builder();
-    Collection<String> titles = kv.as("Titles");
-    builder.titles(titles.toArray(new String[titles.size()]));
-//    Collection processes = kv.as("Processes");
-//    if (CollectionKit.isEmpty(processes))
-//      return builder.build();
-
-//    List<String[]> pcs = new ArrayList<>(processes.size());
-//    processes.forEach(proc -> {
-//      if (!(proc instanceof Collection))
-//        return;
-//      Collection item = (Collection) proc;
-//      pcs.add((String[]) item.toArray(new String[item.size()]));
-//    });
-    builder.processes(AEExtra.listarray(kv, "Processes"));
+    EAuth.Builder builder = new EAuth.Builder()
+      .status(kv.string("Status"))
+      .identitytoken(kv.string("IdentityToken"));
     CollectionKit.clear(kv);
     return builder.build();
   }

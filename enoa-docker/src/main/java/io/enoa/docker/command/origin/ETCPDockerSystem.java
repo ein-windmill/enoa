@@ -15,11 +15,61 @@
  */
 package io.enoa.docker.command.origin;
 
+import io.enoa.docker.dqp.system.DQPAuth;
+import io.enoa.docker.dqp.system.DQPMonitor;
+import io.enoa.docker.dret.DResp;
+import io.enoa.http.Http;
+import io.enoa.http.protocol.HttpMethod;
+import io.enoa.http.protocol.HttpResponse;
+
 public class ETCPDockerSystem implements EOriginSystem {
 
   private EnoaTCPDocker docker;
 
   ETCPDockerSystem(EnoaTCPDocker docker) {
     this.docker = docker;
+  }
+
+  @Override
+  public DResp auth(DQPAuth dqp) {
+    Http http = this.docker.http("auth")
+      .method(HttpMethod.POST);
+    if (dqp != null)
+      http.para(dqp.dqr().http());
+    HttpResponse response = http.emit();
+    return DResp.create(response);
+  }
+
+  @Override
+  public DResp info() {
+    HttpResponse response = this.docker.http("info").emit();
+    return DResp.create(response);
+  }
+
+  @Override
+  public DResp version() {
+    HttpResponse response = this.docker.http("version").emit();
+    return DResp.create(response);
+  }
+
+  @Override
+  public DResp ping() {
+    HttpResponse response = this.docker.http("_ping").emit();
+    return DResp.create(response);
+  }
+
+  @Override
+  public DResp monitor(DQPMonitor dqp) {
+    Http http = this.docker.http("events");
+    if (dqp != null)
+      http.para(dqp.dqr().http());
+    HttpResponse response = http.emit();
+    return DResp.create(response);
+  }
+
+  @Override
+  public DResp df() {
+    HttpResponse response = this.docker.http("system/df").emit();
+    return DResp.create(response);
   }
 }

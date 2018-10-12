@@ -20,7 +20,6 @@ import io.enoa.docker.dret.DResp;
 import io.enoa.docker.dret.volume.EUseageData;
 import io.enoa.docker.dret.volume.EVolume;
 import io.enoa.toolkit.collection.CollectionKit;
-import io.enoa.toolkit.date.DateKit;
 import io.enoa.toolkit.map.Kv;
 
 import java.util.Map;
@@ -50,7 +49,7 @@ class EVolumeParser extends AbstractParser<EVolume> {
       .name(kv.string("Name"))
       .driver(kv.string("Driver"))
       .mountpoint(kv.string("Mountpoint"))
-      .createdat(DateKit.parse(kv.string("CreatedAt"), "yyyy-MM-dd'T'HH:mm:ss"))
+      .createdat(AEExtra.date(kv, "CreatedAt"))
       .status(AEExtra.kv(kv, "Status"))
       .labels(AEExtra.kv(kv, "Labels"))
       .scope(kv.string("Scope", "local"))

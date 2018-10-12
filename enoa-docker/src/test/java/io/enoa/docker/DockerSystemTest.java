@@ -15,5 +15,20 @@
  */
 package io.enoa.docker;
 
+import io.enoa.docker.dret.DRet;
+import io.enoa.docker.dret.system.EInfo;
+import io.enoa.json.Json;
+import org.junit.Assert;
+import org.junit.Test;
+
 public class DockerSystemTest extends AbstractDockerTest {
+
+  @Test
+  public void testInfo() {
+    DRet<EInfo> ret = Docker.system().info();
+    Assert.assertTrue(ret.ok());
+    String json = Json.toJson(ret.data());
+    System.out.println(json);
+  }
+
 }

@@ -13,41 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.command.origin;
+package io.enoa.docker.dqp.system;
 
+import io.enoa.docker.dqp.DQR;
 import io.enoa.docker.dqp.common.DQPFilter;
-import io.enoa.docker.dret.DResp;
 
-public class EUNIXSOCKETDockerConfig implements EOriginConfig {
+public class DQPMonitor extends DQPFilter<DQPMonitor> {
 
-  private EnoaUNIXSOCKETDocker docker;
+  private String since;
+  private String until;
 
-  EUNIXSOCKETDockerConfig(EnoaUNIXSOCKETDocker docker) {
-    this.docker = docker;
+
+  public static DQPMonitor create() {
+    return new DQPMonitor();
+  }
+
+  public DQPMonitor since(String since) {
+    this.since = since;
+    return this;
+  }
+
+  public DQPMonitor until(String until) {
+    this.until = until;
+    return this;
   }
 
   @Override
-  public DResp list(DQPFilter dqp) {
-    return null;
-  }
-
-  @Override
-  public DResp create(String body) {
-    return null;
-  }
-
-  @Override
-  public DResp inspect(String id) {
-    return null;
-  }
-
-  @Override
-  public DResp remove(String id) {
-    return null;
-  }
-
-  @Override
-  public DResp update(String id, long version, String body) {
-    return null;
+  public DQR dqr() {
+    return DQR.create()
+      .put(super.dqr())
+      .putIf("since", this.since)
+      .putIf("until", this.until);
   }
 }
