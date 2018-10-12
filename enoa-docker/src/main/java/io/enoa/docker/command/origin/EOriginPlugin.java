@@ -15,8 +15,80 @@
  */
 package io.enoa.docker.command.origin;
 
+import io.enoa.docker.dqp.common.DQPFilter;
+import io.enoa.docker.dqp.plugin.DQPPluginInstall;
+import io.enoa.docker.dqp.plugin.DQPPluginUpgrade;
+import io.enoa.docker.dret.DResp;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public interface EOriginPlugin {
 
+
+  default DResp list() {
+    return this.list(null);
+  }
+
+  DResp list(DQPFilter dqp);
+
+  default DResp privileges() {
+    return this.privileges(null);
+  }
+
+  DResp privileges(String remote);
+
+  default DResp install() {
+    return this.install(null);
+  }
+
+  DResp install(DQPPluginInstall dqp);
+
+  DResp inspect(String id);
+
+  default DResp remove(String id) {
+    return this.remove(id, Boolean.FALSE);
+  }
+
+  DResp remove(String id, boolean force);
+
+  default DResp enable(String id) {
+    return this.enable(id, 0);
+  }
+
+  DResp enable(String id, int timeout);
+
+  DResp disable(String id);
+
+  default DResp upgrade(String id) {
+    return this.upgrade(id, null);
+  }
+
+  DResp upgrade(String id, DQPPluginUpgrade dqp);
+
+  default DResp create(String id) {
+    return this.create(id, null);
+  }
+
+  DResp create(String id, String raw);
+
+  DResp push(String id);
+
+  default DResp set(String id) {
+    return this.set(id, Collections.emptyList());
+  }
+
+  default DResp set(String id, String arg) {
+    return this.set(id, new String[]{arg});
+  }
+
+  default DResp set(String id, String... args) {
+    return this.set(id, Stream.of(args).collect(Collectors.toList()));
+  }
+
+  DResp set(String id, Collection<String> args);
 
 
 }

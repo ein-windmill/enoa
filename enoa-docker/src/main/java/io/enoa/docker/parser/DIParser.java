@@ -28,6 +28,8 @@ import io.enoa.docker.dret.image.*;
 import io.enoa.docker.dret.network.ENetworPrune;
 import io.enoa.docker.dret.network.ENetwork;
 import io.enoa.docker.dret.node.ENode;
+import io.enoa.docker.dret.plugin.EPlugin;
+import io.enoa.docker.dret.plugin.EPluginPrivilege;
 import io.enoa.docker.dret.secret.ESecret;
 import io.enoa.docker.dret.service.EServiceUpdate;
 import io.enoa.docker.dret.swarm.ESwarmInspect;
@@ -194,6 +196,18 @@ public interface DIParser<T> {
 
   static DIParser<EConfig> config() {
     return EConfigParser.instance();
+  }
+
+  static DIParser<List<EPlugin>> pluginlist() {
+    return EPluginListParser.instance();
+  }
+
+  static DIParser<EPlugin> plugin() {
+    return EPluginParser.instance();
+  }
+
+  static DIParser<List<EPluginPrivilege>> pluginprivilege() {
+    return EPluginPrivilegeParser.instance();
   }
 
   /**

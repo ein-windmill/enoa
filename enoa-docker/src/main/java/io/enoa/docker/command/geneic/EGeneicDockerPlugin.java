@@ -18,6 +18,12 @@ package io.enoa.docker.command.geneic;
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.command.origin.EOriginPlugin;
 import io.enoa.docker.command.origin.OriginDocker;
+import io.enoa.docker.dqp.common.DQPFilter;
+import io.enoa.docker.dqp.plugin.DQPPluginInstall;
+import io.enoa.docker.dqp.plugin.DQPPluginUpgrade;
+import io.enoa.docker.dret.DRet;
+
+import java.util.Collection;
 
 public class EGeneicDockerPlugin {
 
@@ -29,5 +35,110 @@ public class EGeneicDockerPlugin {
     this.docker = docker;
     this.config = docker._dockerconfig();
     this.plugins = docker.plugin();
+  }
+
+
+  public DRet list() {
+    return null;
+  }
+
+
+  public DRet list(DQPFilter dqp) {
+    return null;
+  }
+
+
+  public DRet privileges() {
+    return null;
+  }
+
+
+  public DRet privileges(String remote) {
+    return null;
+  }
+
+
+  public DRet install() {
+    return null;
+  }
+
+
+  public DRet install(DQPPluginInstall dqp) {
+    return null;
+  }
+
+
+  public DRet inspect(String id) {
+    return null;
+  }
+
+
+  public DRet remove(String id) {
+    return null;
+  }
+
+
+  public DRet remove(String id, boolean force) {
+    return null;
+  }
+
+
+  public DRet enable(String id) {
+    return null;
+  }
+
+
+  public DRet enable(String id, int timeout) {
+    return null;
+  }
+
+
+  public DRet disable(String id) {
+    return null;
+  }
+
+
+  public DRet upgrade(String id) {
+    return null;
+  }
+
+
+  public DRet upgrade(String id, DQPPluginUpgrade dqp) {
+    return null;
+  }
+
+
+  public DRet create(String id) {
+    return null;
+  }
+
+
+  public DRet create(String id, String raw) {
+    return null;
+  }
+
+
+  public DRet push(String id) {
+    return null;
+  }
+
+
+  public DRet set(String id) {
+    return null;
+  }
+
+
+  public DRet set(String id, String arg) {
+    return null;
+  }
+
+
+  public DRet set(String id, String... args) {
+    return null;
+  }
+
+
+  public DRet set(String id, Collection<String> args) {
+    return null;
   }
 }

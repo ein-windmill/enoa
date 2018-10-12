@@ -13,52 +13,51 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.dret.service;
+package io.enoa.docker.dret.plugin;
 
 import io.enoa.docker.dret.AbstractDRet;
-import io.enoa.docker.dret.plugin.EPluginPrivilege;
 
 import java.util.List;
 
-public class EPluginSpec extends AbstractDRet {
+public class EPluginEnv extends AbstractDRet {
 
   private String name;
-  private String remote;
-  private Boolean disabled;
-  private List<EPluginPrivilege> pluginprivilege;
+  private String description;
+  private List<String> settable;
+  private String value;
 
-  public EPluginSpec(Builder builder) {
+  public EPluginEnv(Builder builder) {
     this.name = builder.name;
-    this.remote = builder.remote;
-    this.disabled = builder.disabled;
-    this.pluginprivilege = builder.pluginprivilege;
+    this.description = builder.description;
+    this.settable = builder.settable;
+    this.value = builder.value;
   }
 
   public String name() {
     return name;
   }
 
-  public String remote() {
-    return remote;
+  public String description() {
+    return description;
   }
 
-  public Boolean disabled() {
-    return disabled;
+  public List<String> settable() {
+    return settable;
   }
 
-  public List<EPluginPrivilege> pluginprivilege() {
-    return pluginprivilege;
+  public String value() {
+    return value;
   }
 
   public static class Builder {
 
     private String name;
-    private String remote;
-    private Boolean disabled;
-    private List<EPluginPrivilege> pluginprivilege;
+    private String description;
+    private List<String> settable;
+    private String value;
 
-    public EPluginSpec build() {
-      return new EPluginSpec(this);
+    public EPluginEnv build() {
+      return new EPluginEnv(this);
     }
 
     public Builder name(String name) {
@@ -66,19 +65,20 @@ public class EPluginSpec extends AbstractDRet {
       return this;
     }
 
-    public Builder remote(String remote) {
-      this.remote = remote;
+    public Builder description(String description) {
+      this.description = description;
       return this;
     }
 
-    public Builder disabled(Boolean disabled) {
-      this.disabled = disabled;
+    public Builder settable(List<String> settable) {
+      this.settable = settable;
       return this;
     }
 
-    public Builder pluginprivilege(List<EPluginPrivilege> pluginprivilege) {
-      this.pluginprivilege = pluginprivilege;
+    public Builder value(String value) {
+      this.value = value;
       return this;
     }
   }
 }
+

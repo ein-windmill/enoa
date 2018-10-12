@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.dret.service;
+package io.enoa.docker.dret.plugin;
 
 import io.enoa.docker.dret.AbstractDRet;
 

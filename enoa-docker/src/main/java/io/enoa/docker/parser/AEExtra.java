@@ -23,6 +23,7 @@ import io.enoa.toolkit.date.DateKit;
 import io.enoa.toolkit.map.Kv;
 
 import java.util.*;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 class AEExtra {
@@ -32,7 +33,7 @@ class AEExtra {
     if (!(sarr instanceof Collection)) {
       return Collections.emptyList();
     }
-    return (List<String>) ((Collection) sarr).stream().collect(Collectors.toList());
+    return (List<String>) ((Collection) sarr).stream().collect(Collectors.toCollection((Supplier<Collection<Object>>) () -> new LinkedList<>()));
   }
 
   static ECState inspectstate(Map map) {
