@@ -13,16 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.dret.node;
+package io.enoa.docker.dret.common;
 
 import io.enoa.docker.dret.AbstractDRet;
+import io.enoa.docker.dret.node.ENodeResourceSpec;
 
-public class ENodeGenericResource extends AbstractDRet {
+public class EGenericResource extends AbstractDRet {
 
   private ENodeResourceSpec discreteresourcespec;
   private ENodeResourceSpec namedresourcespec;
 
-  public ENodeGenericResource(Builder builder) {
+  public EGenericResource(Builder builder) {
     this.discreteresourcespec = builder.discreteresourcespec;
     this.namedresourcespec = builder.namedresourcespec;
   }
@@ -39,8 +40,8 @@ public class ENodeGenericResource extends AbstractDRet {
     private ENodeResourceSpec discreteresourcespec;
     private ENodeResourceSpec namedresourcespec;
 
-    public ENodeGenericResource build() {
-      return new ENodeGenericResource(this);
+    public EGenericResource build() {
+      return new EGenericResource(this);
     }
 
     public Builder discreteresourcespec(ENodeResourceSpec discreteresourcespec) {

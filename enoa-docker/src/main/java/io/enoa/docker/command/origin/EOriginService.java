@@ -15,5 +15,41 @@
  */
 package io.enoa.docker.command.origin;
 
+import io.enoa.docker.dqp.common.DQPFilter;
+import io.enoa.docker.dqp.service.DQPServiceCreate;
+import io.enoa.docker.dqp.service.DQPServiceUpdate;
+import io.enoa.docker.dret.DResp;
+import io.enoa.docker.dret.service.DQPServiceLogs;
+
 public interface EOriginService {
+
+  default DResp list() {
+    return this.list(null);
+  }
+
+  DResp list(DQPFilter dqp);
+
+  default DResp create(String body) {
+    return this.create(body, null);
+  }
+
+  DResp create(String body, DQPServiceCreate dqp);
+
+  default DResp inspect(String id) {
+    return this.inspect(id, Boolean.FALSE);
+  }
+
+  DResp inspect(String id, boolean insertDefaults);
+
+  DResp remove(String id);
+
+  DResp update(String id, String body, DQPServiceUpdate dqp);
+
+  default DResp logs(String id) {
+    return this.logs(id, null);
+  }
+
+  DResp logs(String id, DQPServiceLogs dqp);
+
+
 }

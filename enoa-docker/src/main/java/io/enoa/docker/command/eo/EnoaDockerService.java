@@ -17,6 +17,16 @@ package io.enoa.docker.command.eo;
 
 import io.enoa.docker.command.geneic.EGeneicDockerService;
 import io.enoa.docker.command.geneic.GeneicDocker;
+import io.enoa.docker.dqp.common.DQPFilter;
+import io.enoa.docker.dqp.service.DQPServiceCreate;
+import io.enoa.docker.dqp.service.DQPServiceUpdate;
+import io.enoa.docker.dret.DRet;
+import io.enoa.docker.dret.service.DQPServiceLogs;
+import io.enoa.docker.dret.service.EServiceUpdate;
+import io.enoa.docker.parser.DIParser;
+import io.enoa.toolkit.value.Void;
+
+import java.util.List;
 
 public class EnoaDockerService {
 
@@ -28,4 +38,47 @@ public class EnoaDockerService {
     this.docker = docker;
     this.services = docker.service();
   }
+
+
+  public <T> DRet<List<T>> list(DIParser<List<T>> parser) {
+    return this.services.list(parser);
+  }
+
+  public <T> DRet<List<T>> list(DIParser<List<T>> parser, DQPFilter dqp) {
+    return this.services.list(parser, dqp);
+  }
+
+  public <T> DRet<T> create(DIParser<T> parser, String body) {
+    return this.services.create(parser, body);
+  }
+
+  public <T> DRet<T> create(DIParser<T> parser, String body, DQPServiceCreate dqp) {
+    return this.services.create(parser, body, dqp);
+  }
+
+  public <T> DRet<T> inspect(DIParser<T> parser, String id) {
+    return this.services.inspect(parser, id);
+  }
+
+  public <T> DRet<T> inspect(DIParser<T> parser, String id, boolean insertDefaults) {
+    return this.services.inspect(parser, id, insertDefaults);
+  }
+
+  public DRet<Void> remove(String id) {
+    return this.services.remove(id);
+  }
+
+  public DRet<EServiceUpdate> update(String id, String body, DQPServiceUpdate dqp) {
+    return this.services.update(DIParser.serviceupdate(), id, body, dqp);
+  }
+
+  public DRet<String> logs(String id) {
+    return this.services.logs(DIParser.string(), id);
+  }
+
+  public DRet<String> logs(String id, DQPServiceLogs dqp) {
+    return this.services.logs(DIParser.string(), id, dqp);
+  }
+
+
 }

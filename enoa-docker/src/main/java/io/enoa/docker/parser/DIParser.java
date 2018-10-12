@@ -27,6 +27,7 @@ import io.enoa.docker.dret.network.ENetworPrune;
 import io.enoa.docker.dret.network.ENetwork;
 import io.enoa.docker.dret.network.ENetworkCreated;
 import io.enoa.docker.dret.node.ENode;
+import io.enoa.docker.dret.service.EServiceUpdate;
 import io.enoa.docker.dret.swarm.ESwarmInspect;
 import io.enoa.docker.dret.swarm.ESwarmUnlockKey;
 import io.enoa.docker.dret.volume.EVolume;
@@ -175,6 +176,10 @@ public interface DIParser<T> {
 
   static DIParser<ENode> node() {
     return ENodeParser.instance();
+  }
+
+  static DIParser<EServiceUpdate> serviceupdate() {
+    return EServiceUpdateParser.instance();
   }
 
   /**

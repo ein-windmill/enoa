@@ -17,6 +17,8 @@ package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dret.DResp;
+import io.enoa.docker.dret.common.EGenericResource;
+import io.enoa.docker.dret.common.EResources;
 import io.enoa.docker.dret.node.*;
 import io.enoa.docker.dret.swarm.EVersion;
 import io.enoa.toolkit.collection.CollectionKit;
@@ -118,18 +120,18 @@ class ENodeParser extends AbstractParser<ENode> {
     Object rot = desn.get("Resources");
     if (rot instanceof Map) {
       Kv rok = Kv.by((Map) rot);
-      ENodeResources.Builder erb = new ENodeResources.Builder()
+      EResources.Builder erb = new EResources.Builder()
         .nanocpus(rok.longer("NanoCPUs"))
         .memorybytes(rok.longer("MemoryBytes"));
       Object gr = rok.get("GenericResources");
       if (gr instanceof Collection) {
         Collection ees = (Collection) gr;
-        List<ENodeGenericResource> rets = new ArrayList<>(ees.size());
+        List<EGenericResource> rets = new ArrayList<>(ees.size());
         ees.forEach(e -> {
           if (!(e instanceof Map))
             return;
           Kv ek = Kv.by((Map) e);
-          ENodeGenericResource.Builder egrb = new ENodeGenericResource.Builder();
+          EGenericResource.Builder egrb = new EGenericResource.Builder();
           Object nrs = ek.get("NamedResourceSpec");
           Object drs = ek.get("DiscreteResourceSpec");
 

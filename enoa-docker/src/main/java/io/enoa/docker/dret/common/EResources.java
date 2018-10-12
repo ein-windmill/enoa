@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.dret.node;
+package io.enoa.docker.dret.common;
 
 import io.enoa.docker.dret.AbstractDRet;
 
 import java.util.List;
 
-public class ENodeResources extends AbstractDRet {
+public class EResources extends AbstractDRet {
 
   private Long nanocpus;
   private Long memorybytes;
-  private List<ENodeGenericResource> genericresources;
+  private List<EGenericResource> genericresources;
 
-  public ENodeResources(Builder builder) {
+  public EResources(Builder builder) {
     this.nanocpus = builder.nanocpus;
     this.memorybytes = builder.memorybytes;
     this.genericresources = builder.genericresources;
@@ -39,7 +39,7 @@ public class ENodeResources extends AbstractDRet {
     return this.memorybytes;
   }
 
-  public List<ENodeGenericResource> genericresources() {
+  public List<EGenericResource> genericresources() {
     return this.genericresources;
   }
 
@@ -47,10 +47,10 @@ public class ENodeResources extends AbstractDRet {
 
     private Long nanocpus;
     private Long memorybytes;
-    private List<ENodeGenericResource> genericresources;
+    private List<EGenericResource> genericresources;
 
-    public ENodeResources build() {
-      return new ENodeResources(this);
+    public EResources build() {
+      return new EResources(this);
     }
 
     public Builder nanocpus(Long nanocpus) {
@@ -63,7 +63,7 @@ public class ENodeResources extends AbstractDRet {
       return this;
     }
 
-    public Builder genericresources(List<ENodeGenericResource> genericresources) {
+    public Builder genericresources(List<EGenericResource> genericresources) {
       this.genericresources = genericresources;
       return this;
     }

@@ -16,13 +16,14 @@
 package io.enoa.docker.dret.node;
 
 import io.enoa.docker.dret.AbstractDRet;
+import io.enoa.docker.dret.common.EResources;
 import io.enoa.docker.dret.common.ETLSInfo;
 
 public class ENodeDescription extends AbstractDRet {
 
   private String hostname;
   private EPlatform platform;
-  private ENodeResources resources;
+  private EResources resources;
   private ENodeEngine engine;
   private ETLSInfo tlsinfo;
 
@@ -42,7 +43,7 @@ public class ENodeDescription extends AbstractDRet {
     return this.platform;
   }
 
-  public ENodeResources resources() {
+  public EResources resources() {
     return this.resources;
   }
 
@@ -57,7 +58,7 @@ public class ENodeDescription extends AbstractDRet {
   public static class Builder {
     private String hostname;
     private EPlatform platform;
-    private ENodeResources resources;
+    private EResources resources;
     private ENodeEngine engine;
     private ETLSInfo tlsinfo;
 
@@ -75,7 +76,7 @@ public class ENodeDescription extends AbstractDRet {
       return this;
     }
 
-    public Builder resources(ENodeResources resources) {
+    public Builder resources(EResources resources) {
       this.resources = resources;
       return this;
     }
