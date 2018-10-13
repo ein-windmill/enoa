@@ -38,13 +38,11 @@ Log.epm().install(new Slf4JLogProvider());
 Log.use("name").debug("debug");
 ```
 
-:::warning
-於其他元件 EPM 不同的是, Log EPM 盡支援單個例項, 通常專案中不應該使用多種日誌框架. 同時 use 方法也不是選取例項的意思, 而是相當於 `LoggerFactory.getLogger("name")`
-:::
+### 宣告
 
-:::danger
-大多數日誌框架提供給 Marker 介面, 由於每個框架的 Marker 介面都不相同, 因此也不便於做轉換, 因此 Enoa Log 中沒有實現 Marker 相關介面, 如果你的工程中需要使用 Marker 請放棄 Enoa Log.
-:::
+> 於其他元件 EPM 不同的是, Log EPM 盡支援單個例項, 通常專案中不應該使用多種日誌框架. 同時 use 方法也不是選取例項的意思, 而是相當於 `LoggerFactory.getLogger("name")`
+>
+> 大多數日誌框架提供給 Marker 介面, 由於每個框架的 Marker 介面都不相同, 因此也不便於做轉換, 因此 Enoa Log 中沒有實現 Marker 相關介面, 如果你的工程中需要使用 Marker 請放棄 Enoa Log.
 
 ## Slf4j
 

@@ -14,9 +14,8 @@
 
 Solr 元件提供一個基於 Http api 的 Solr 客戶端, 於官方提供的 SolrJ 相比, 使用更簡單, 也完全符合 Solr Web 段完全相同的介面.
 
-:::warning
-部分介面注意: Solr 的沒個介面都要求提供一個 Core name, 1.6 中的 EoSolr 介面, 將 core 的設置於 select update 放置於一起, 因此在使用的過程中可能會造成不良的使用習慣, 因此在下一個版本中, EoSolr 中剔除了 select 以及 update, 只有設定了 core 之後才可進行 select, update, 使用程式碼不會有太大的更改; 如果你使用了 http 方法來自定義設定一個 http 提供者, 那麼就需要注意, 不要在 1.6 中呼叫了 core 之後再呼叫 http, 這在下一個版本中將不會受到支援, 因此需要先呼叫 http 在設定 core 即可在下次升級是不用作出改動.
-:::
+### 警告
+> Solr 的每個介面都要求提供一個 Core name, 1.6 中的 EoSolr 介面, 將 core 的設置於 select update 放置於一起, 因此在使用的過程中可能會造成不良的使用習慣, 因此在下一個版本中, EoSolr 中剔除了 select 以及 update, 只有設定了 core 之後才可進行 select, update, 使用程式碼不會有太大的更改; 如果你使用了 http 方法來自定義設定一個 http 提供者, 那麼就需要注意, 不要在 1.6 中呼叫了 core 之後再呼叫 http, 這在下一個版本中將不會受到支援, 因此需要先呼叫 http 在設定 core 即可在下次升級是不用作出改動.
 
 ## EPM
 
@@ -34,7 +33,7 @@ Solr.epm().install("other", new SolrConfig.Builder()
   .build());
 ```
 
-使用
+## USE
 
 ```java
 Solr.use(); // get solr instance with name 'main'

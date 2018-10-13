@@ -64,9 +64,8 @@ Eml.use("receiver"); // get eml instance with name receiver
 Eml.with(new EnoaEmlSession(config))
 ```
 
-:::danger
-但是, 請知道, 這個方法將會在下一個版本中直接移除, 因此請不要使用. 請通過 `epm` 方法進行管理, 獲取直接使用 `EoEmlSession` 在你的專案中.
-:::
+### 宣告
+> 請知道, 這個方法將會在下一個版本中直接移除, 因此請不要使用. 請通過 `epm` 方法進行管理, 獲取直接使用 `EoEmlSession` 在你的專案中.
 
 ## EmlConfig
 
@@ -128,34 +127,53 @@ EmlSender sender = Eml.use("sender")
 
 
 - sender
+
   傳送郵件模式
+
 - richtext
+
   是否開啟富文字
+
 - from
+
   郵件傳送人, 如果不提供, 則會選取 config 中的 user 欄位, 多次呼叫將會選取最後一次傳送的值
+
 - to
+
   郵件接收人, 可以多個
+
 - cc
+
   郵件抄送人, 可以多個
+
 - bcc
+
   郵件密送, 可以多個
+
 - subject
+
   郵件標題
+
 - body
+
   郵件正文, 多次呼叫將會選取最後一次傳送的值
+
 - attachment
+
   附件, 可以多個
+
 - reporter
+
   郵件彙報, 郵件傳送前將會呼叫的方法, 將會把傳送的郵件請求資訊傳送過來, 此方法會非同步呼叫, 不影響郵件傳送
+
 
 
 ## 收取郵件
 
-:::warning
-收取郵件尚未完成.
-:::
+> 收取郵件尚未完成.
 
-## 非同步收取
+
+## 非同步操作
 
 Eml 元件也支援非同步操作, 同樣基於 [Promise](#Promise), 使用 `DonePromise`. 因此受支援的 Promise 方法包括
 
@@ -163,7 +181,7 @@ Eml 元件也支援非同步操作, 同樣基於 [Promise](#Promise), 使用 `Do
 - capture
 - always
 
-e.g.
+### 非同步傳送
 
 ```java
 EmlSender sender = Eml.use("sender")
@@ -188,3 +206,6 @@ EmlSender sender = Eml.use("sender")
   .always(() -> System.out.println("Always echo.."));
 ```
 
+### 非同步收取
+
+> 收取郵件尚未完成.

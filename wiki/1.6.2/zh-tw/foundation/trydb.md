@@ -105,12 +105,12 @@ EBinary bean = Trydb.bean("select * from t_binary limit 1", EBinary.class);
 update 方法, 用於執行 Sql 中的 `update`, `delete`, `insert` 語句, 沒有單獨新增 delete, insert 是因為, delete 以及 insert 實際也是修改操作, 因此可通用 update 方法.
 update 呼叫後會返回執行 Sql 後的資料影響行數.
 
-:::warning
-特別說明: update 方法用於執行 `insert` 語句時, 不支援獲取表的自增 ID 值. 為什麼?
-[Why Auto Increment Is A Terrible Idea](https://www.clever-cloud.com/blog/engineering/2015/05/20/why-auto-increment-is-a-terrible-idea/)
+### 宣告
 
-可以替換的方案其實很多, 比如 [SnowflakeKit](#SnowflakeKit)
-:::
+> 特別說明: update 方法用於執行 `insert` 語句時, 不支援獲取表的自增 ID 值. 為什麼?
+> [Why Auto Increment Is A Terrible Idea](https://www.clever-cloud.com/blog/engineering/2015/05/20/why-auto-increment-is-a-terrible-idea/)
+>
+> 可以替換的方案其實很多, 比如 [SnowflakeKit](#SnowflakeKit)
 
 ```java
 byte[] bytes = {0, 1, 3, 4, 5, 6, 3, 4, 5, 6, 3, 4, 5, 6};
@@ -124,12 +124,19 @@ Trydb.update("delete from t_binary where id=?", 1);
 pagekv 用於資料分頁查詢, 並返回 Page\<Kv> 物件; pagekv 有四個引數:
 
 1. pn
+
    當前頁碼
+
 2. ps
+
    每頁資料量
+
 3. sql
+
    sql
+
 4. paras/map
+
    可選項, sql 佔位符處理, 支援陣列或 map 型, map 型只有用於模板時才可使用.
 
 ```java
@@ -139,21 +146,32 @@ Page<Kv> pkv0 = Trydb.pagekv(3, 1, "select * from t_binary");
 來看一下 Page 物件. Page 中包含如下欄位
 
 - pageNumber
+
   當前頁碼
+
 - pageSize
+
   一頁資料大小
+
 - totalPage
+
   總共多少頁
+
 - offset
+
   分頁遊標偏移值
+
 - totalRow
+
   總共多少資料
+
 - rows
+
   當前頁資料
 
-:::info
-Page 物件是一個存在 Getter Setter 方法的物件, 上述的所有欄位均可通過 get set 方法進行設定; 是的, 這並不符合 Enoa 的習慣, 但這是一個妥協的結果, 因為 Page 物件將會有很高的機率用於和外部互動, 那麼如果不這麼做就有可能會導致無法解析的問題.
-:::
+### 宣告
+
+> Page 物件是一個存在 Getter Setter 方法的物件, 上述的所有欄位均可通過 get set 方法進行設定; 是的, 這並不符合 Enoa 的習慣, 但這是一個妥協的結果, 因為 Page 物件將會有很高的機率用於和外部互動, 那麼如果不這麼做就有可能會導致無法解析的問題.
 
 ## page
 
@@ -275,9 +293,9 @@ Trydb 選用的 Promise 是 DoneArgPromise, 因此受支援的 Promise 方法有
 - always
 
 
-:::warning
-elegant 模式非同步需要了解, 因為建立 Promise 後, 使用 target 方法傳入的型別無法帶入到 Promise 泛型中, 導致 async 之後無法識別 target 的型別, 因此 elegant 非同步操作後無法正確識別泛型.
-:::
+### 宣告
+
+> elegant 模式非同步需要了解, 因為建立 Promise 後, 使用 target 方法傳入的型別無法帶入到 Promise 泛型中, 導致 async 之後無法識別 target 的型別, 因此 elegant 非同步操作後無法正確識別泛型.
 
 
 

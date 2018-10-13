@@ -15,7 +15,7 @@
 
 在說明 Repeater 之前, 來先看一下 Repeater 的結構圖:
 
-![Repeater](https://hackmd.0u0.me/uploads/upload_248f7643211af94ea3ed44ba01d2c0c6.svg)
+![Repeater](https://raw.githubusercontent.com/iaceob/gallery/master/enoa/repeater.svg?sanitize=true)
 
 簡單說, Repeater 就是一個 Web 伺服器中繼器.
 

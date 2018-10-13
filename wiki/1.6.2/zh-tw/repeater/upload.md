@@ -22,7 +22,7 @@
   tio-httpserver 支援文件上傳, 但是其實現方式與其他伺服器的支援完全不同, 其他伺服器對於文件上傳都是通過 InputStream 或者提供相應的方法進行獲取. tio-httpserver 不同的是, 其不提供獲取 InputStream, 而是將上傳的文件放置與引數中, 該引數值的型別是 UplodFile, 且獲取的值是 byte 陣列, 因此 Repeater 的做法是直接將該陣列儲存到文件中去.
 
 
-**注意**:
+### 注意:
 
 Repeater 的文件上傳機制實際上對各提供者做了改造, 通常文件上傳到臨時文件並不會在接收到請求就馬上進行儲存, 而是在呼叫獲取文件的方法後再儲存到臨時文件去.
 
@@ -56,9 +56,11 @@ Repeater 的文件上傳機制實際上對各提供者做了改造, 通常文件
 | Tomcat         | YES     |
 
 - NanoHttpd
+
   cos 上傳也是 Repeater 中 NanoHttpd 唯一支援上傳的方式
 
 - tio-httpserver
+
   tio 因其特殊性, 無法支援 cos, cos 上傳通過 InputStream 進行寫入, tio 若要相容就需要將 byte 陣列轉化為 InputStream, 這樣完全是浪費.
 
 對於本身已支援文件上傳的提供者, 預設走的就是提供者自己的上傳方式, 若要切換為 cos 上傳, 在 Repeater 啟動時提供配置告知即可, 下列表格是相應的伺服器告知鍵.
@@ -67,7 +69,7 @@ Repeater 的文件上傳機制實際上對各提供者做了改造, 通常文件
 | -------------- | ----------------------------- | ----- | ----------------------------------- |
 | FastCGI        |                               |       | 無需提供, FastCGI 文件上傳必須使用 cos   |
 | NanoHttpd      |                               |       | 無需提供, NanoHttpd 文件上傳必須使用 cos |
-| tio-httpserver |                               |       | 不支援                                |
+| tio            |                               |       | 不支援                                |
 | Jetty          | provider.jetty.upload.vendor  | cos   | -                                    |
 | Netty          | provider.netty.upload.vendor  | cos   | -                                    |
 | Tomcat         | provider.tomcat.upload.vendor | cos   | -                                    |

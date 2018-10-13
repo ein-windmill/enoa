@@ -162,37 +162,8 @@ Http.request(EoUrl.with("https://httpbin.org").subpath("get"))
 
 异步请求, 调用`enqueue` 方法将进入异步模式, 关于异步请求后的各个方法, 参照以下流程图理解:
 
-```flow
-st=>start: enqueue
-e=>end: always
-ok=>operation: ok
-error=>operation: error
-then0=>operation: then
-execute=>operation: execute
-fail=>operation: fail
-capture=>operation: capture
-always=>operation: always
-valid=>operation: valid
-continue=>operation: continue
-hasvalid=>condition: has valid
-hascapture=>condition: has exception
-hasthen=>condition: has then
-validret=>condition: true or false
-isok=>condition: yes or no
+![Http Promise](https://raw.githubusercontent.com/iaceob/gallery/master/enoa/http-promise.svg?sanitize=true)
 
-
-st->isok->continue->hasthen->then0->hasthen->hasvalid->valid->validret->execute->hascapture->always
-validret(yes)->hasvalid
-validret(no)->fail->hascapture
-hasvalid(yes)->valid
-hasvalid(no)->execute
-hascapture(yes)->capture->always
-hascapture(no)->always
-isok(yes)->ok->continue
-isok(no)->error->continue
-hasthen(yes)->then0
-hasthen(no)->hasvalid
-```
 
 受限于流程图的表达形式以及篇幅的问题, 该图中有部分错误, capture 并非是最后一步检查, 而是进入 enqueue 之后的任何一步错误都会进入到 capture 然后进入 always, 另外, 因为 execute 以及 fail 都是支持多个的, 因此也会一直检查是否调用完毕, 才会进入到下一个流程.
 

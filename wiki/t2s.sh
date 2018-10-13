@@ -1,10 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 
 BIN_PATH=$(dirname $(readlink -f $0))
 VERSION=
 
 TARGET=zh-cn
 ORIGIN=zh-tw
+DOCKER=docker
 
 OPENCC=
 
@@ -55,7 +56,7 @@ start(){
 #  cppath ${BIN_PATH}/${ZH_TW}
 
   VERSION=$1
-  OPENCC="docker run --rm --name occ -v ${BIN_PATH}/${VERSION}/${ORIGIN}:/data/origin -v ${BIN_PATH}/${VERSION}/${TARGET}:/data/target 1docker/opencc opencc"
+  OPENCC="${DOCKER} run --rm --name occ -v ${BIN_PATH}/${VERSION}/${ORIGIN}:/data/origin -v ${BIN_PATH}/${VERSION}/${TARGET}:/data/target 1docker/opencc opencc"
   DOC_PATH=${BIN_PATH}/${VERSION}/${ORIGIN}
   if [ ! -d "${DOC_PATH}" ]; then
     die 'not have this path -> '${DOC_PATH}

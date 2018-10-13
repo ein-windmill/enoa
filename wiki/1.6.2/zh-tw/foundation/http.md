@@ -162,37 +162,8 @@ Http.request(EoUrl.with("https://httpbin.org").subpath("get"))
 
 非同步請求, 呼叫`enqueue` 方法將進入非同步模式, 關於非同步請求後的各個方法, 參照以下流程圖理解:
 
-```flow
-st=>start: enqueue
-e=>end: always
-ok=>operation: ok
-error=>operation: error
-then0=>operation: then
-execute=>operation: execute
-fail=>operation: fail
-capture=>operation: capture
-always=>operation: always
-valid=>operation: valid
-continue=>operation: continue
-hasvalid=>condition: has valid
-hascapture=>condition: has exception
-hasthen=>condition: has then
-validret=>condition: true or false
-isok=>condition: yes or no
+![Http Promise](https://raw.githubusercontent.com/iaceob/gallery/master/enoa/http-promise.svg?sanitize=true)
 
-
-st->isok->continue->hasthen->then0->hasthen->hasvalid->valid->validret->execute->hascapture->always
-validret(yes)->hasvalid
-validret(no)->fail->hascapture
-hasvalid(yes)->valid
-hasvalid(no)->execute
-hascapture(yes)->capture->always
-hascapture(no)->always
-isok(yes)->ok->continue
-isok(no)->error->continue
-hasthen(yes)->then0
-hasthen(no)->hasvalid
-```
 
 受限於流程圖的表達形式以及篇幅的問題, 該圖中有部分錯誤, capture 並非是最後一步檢查, 而是進入 enqueue 之後的任何一步錯誤都會進入到 capture 然後進入 always, 另外, 因為 execute 以及 fail 都是支援多個的, 因此也會一直檢查是否呼叫完畢, 才會進入到下一個流程.
 
@@ -296,21 +267,37 @@ Http.request("http://httpbin.org/get")
 Http 中存在 HttpRequest 介面, 僅限於 Http 內部使用, 使用者通常不需要自己建立也無法直接維護 HttpRequest; 但是仍然有機會獲得 HttpRequest, 通過 [handler](#handler-ampamp-reporter) 即可. 不過無法對其進行修改, 只能夠查閱.
 
 - version
+
   Http request version
+
 - url
+
   請求連結
+
 - method
+
   Http request method
+
 - headers
+
   請求頭
+
 - body
+
   請求體
+
 - config
+
   請求相關配置, 包括超時時間等.
+
 - charset
+
   字元編碼
+
 - proxy
+
   代理資訊
+
 
 
 ## HttpResponse
@@ -318,41 +305,77 @@ Http 中存在 HttpRequest 介面, 僅限於 Http 內部使用, 使用者通常�
 HttpResponse 的方法相對較多.
 
 - code
+
   Http response code
+
 - version
+
   Http version
+
 - ok
+
   Response code 在 20x 區間返回 true, 否則 false
+
 - uri
+
   Request uri
+
 - url
+
   Request url
+
 - protocol
+
   HTTP or HTTPS
+
 - host
+
   Request host
+
 - charset
+
   字元編碼
+
 - message
+
   Response message
+
 - isRedirect
+
   響應是否重定向
+
 - cookieNames
+
   所有 Cookie 名稱
+
 - cookieObject
+
   獲取單個 Cookie Object
+
 - cookie
+
   獲取單個 Cookie String 值
+
 - headerNames
+
   所有 Response Header 名稱
+
 - header
+
   獲取單個 Header 值
+
 - headers
+
   獲取陣列 Header 值
+
 - body
+
   響應體
+
 - clear
+
   清除 Response
+
 
 著重說明 body, body 方法, 返回的是 HttpResponseBody 物件, 該物件可以直接獲取響應體的 byte\[], 或者直接轉換為 string.
 

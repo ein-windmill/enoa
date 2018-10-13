@@ -8,15 +8,25 @@ Yosart 擴充套件用於進行高階功能擴充套件, Yosart 整個框架是�
 Yosart 支援以下型別擴充套件
 
 - BOOT_HOOK
+
   啟動鉤子, 將會在 Yosart 呼叫 Repeater 之前呼叫; 允許多個擴充套件
+
 - ROUTER
+
   路由擴充套件, Yosart 所接收到的請求會全部分發到註冊的路由擴充套件上; 只允許一個擴充套件.
+
 - ASSETS
+
   靜態資原始檔擴充套件; 只允許一個
+
 - RENDER
+
   渲染擴充套件; 允許多個
+
 - SESSION
+
   Session 擴充套件; 只允許一個
+
 
 在 Yosart 中, 如果是隻允許一個的擴充套件, 多次新增以最後一個為標準. 例如:
 
@@ -57,14 +67,23 @@ public EoResp go(YoRequest request, String where, int zone, Timestamp ts) {
 先不著急看程式碼, 來看看一下 Para 註解提供的方法
 
 - index
+
   描述引數對應索引位置
+
 - value
+
   引數名
+
 - def
+
   預設值
+
 - format
+
   時間格式化
+
 - summary
+
   欄位描述
 
 `value` 以及 `def` 很容易理解, `value` 是請求引數名, `def` 如果不存在該引數填充的預設值(空字串也算不存在).
@@ -152,10 +171,15 @@ mgr.load("/manager/pre_*", new PreHook(), AnostHookMgr.Mode.REGEX);
 限定 Api 的 Hook 僅會作用於匹配到的介面, 匹配模式有三種
 
 - FULL
+
   Api 全匹配
+
 - PREFIX
+
   字首匹配
+
 - REGEX
+
   正則匹配
 
 預設全匹配模式
@@ -205,9 +229,9 @@ public class IndexHook implements IHook {
 
 在 hook 方法中即可以在進入到 Control 之前進行部分操作.
 
-:::info
-hook 方法中會傳遞一個 Resp 物件, 該物件是 Anost 收到請求後就會建立的一個響應物件, 因此在這裡使用 resp 新增的資料最終都會寫入到 Response 中.
-:::
+### 宣告
+
+> hook 方法中會傳遞一個 Resp 物件, 該物件是 Anost 收到請求後就會建立的一個響應物件, 因此在這裡使用 resp 新增的資料最終都會寫入到 Response 中.
 
 IHook 介面, 允許丟擲 `HookException`, Anost 並不會對 HookException 進行任何處理, 只會冒泡的上游, 因此建議搭配 [exception-extension](#exception-extension) 擴充套件一同使用, 效果更加.
 
@@ -453,9 +477,8 @@ Yosart.createServer()
 </dependency>
 ```
 
-:::warning
-這個 POM 只是引入擴充套件, 具體選用什麼模板需要單獨引入. [Template](#Template)
-:::
+### 宣告
+> 這個 POM 只是引入擴充套件, 具體選用什麼模板需要單獨引入. [Template](#Template)
 
 #### 使用
 

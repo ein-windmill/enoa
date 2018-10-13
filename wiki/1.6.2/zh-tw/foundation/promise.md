@@ -60,15 +60,7 @@ Promise 提供了幾種不同介面, 根據合適的情況選擇, 當然也可�
 
 ## Builder
 
-```graphviz
-digraph builder {
-  nodesep=1.0
-  node [color=black, fontname=Courier, shape=box]
-  edge [color=red, style=dashed]
-  Promise -> {Builder}
-  Builder -> {EoPromise DonePromise DoneArgPromise ThenPromise[color=red]}
-}
-```
+![Promise Builder](https://raw.githubusercontent.com/iaceob/gallery/master/enoa/promise-builder.svg?sanitize=true)
 
 - EoPromise
   - capture
@@ -86,15 +78,9 @@ digraph builder {
 
 ## Arguments
 
-```graphviz
-digraph arguments {
-  nodesep=1.0
-  node [color=black, fontname=Courier, shape=box]
-  edge [color=red, style=dashed]
-  Promise -> {Arguments}
-  Arguments -> {PromiseArg PromiseBool PromiseCapture PromiseThen PromiseVoid}
-}
-```
+![Promise Arguments](https://raw.githubusercontent.com/iaceob/gallery/master/enoa/promise-args.svg?sanitize=true)
+
+
 
 ## 使用
 

@@ -56,14 +56,23 @@ Request 是 EoxAccessor 介面中獲取到的請求資訊, 內部方法相對較
 請求資訊的方法包括
 
 - method
+
   請求型別 GET POST PATCH DELET 等等
+
 - context
+
   上下文連結
+
 - uri
+
   URI
+
 - url
+
   URL
+
 - body
+
   請求體, 當請求以 post 形式發起是, 請求資料可以通過 body 方法獲取.
 
 ### 請求引數
@@ -73,16 +82,27 @@ Request 是 EoxAccessor 介面中獲取到的請求資訊, 內部方法相對較
 下面列出一些比較不同的方法
 
 - para
+
   獲取引數值
+
 - paraMap
+
   獲取所有引數
+
 - paraNames
+
   獲取所有引數名
+
 - paraValues
+
   獲取某個引數名下的所有值, 返回陣列
+
 - files
+
   上傳的所有檔案列表, 同名方法有個帶引數, 區別是, 不帶引數獲取的所有檔案, 帶引數獲取該名稱下的所有檔案
+
 - file
+
   獲取單個檔案
 
 ```java
@@ -103,14 +123,23 @@ UFile uf = request.file("file");
 Header 引數方法相對較少, 但是要注意的是, Request 中也提供獲取 Cookie 的相關方法, 此類方法也歸檔於 Header 引數中
 
 - header
+
   獲取單個 Header 值
+
 - headerNames
+
   獲取所有 Header 名稱
+
 - cookie
+
   獲取單個 Cookie 值
+
 - cookieObject
+
   獲取單個 Cookie 物件
+
 - cookies
+
   獲取所有 Cookie
 
 
@@ -132,11 +161,17 @@ header 方法引數名不區分大小寫.
 attr 是一個特別的存在, attr 並不屬於原始請求所攜帶的資料, 而是當請求到達時建立的一個物件, 生命週期僅在當次請求中. 並且 Request 提供設定 attr 的方法.
 
 - attrNames
+
   所有屬性名
+
 - attr
+
   獲取或者設定屬性
+
 - rmAttr
+
   刪除屬性
+
 
 ```java
 String[] names = request.attrNames();
@@ -151,19 +186,34 @@ request.rmAttr("id");
 Response 物件用於表述, 當次請求需要返回資料給請求者. 相對於 Request, Response 就簡單很多
 
 - status
+
   響應狀態碼
+
 - contentType
+
   響應資料型別
+
 - contentLength
+
   響應體長度
+
 - cookie
+
   響應 Cookie
+
 - header
+
   響應 Header
+
 - body
+
   響應體
+
 - charset
+
   字元編碼
+
+
 
 首先, 狀態碼可以參考 [HttpStatus](https://github.com/fewensa/enoa/blob/master/enoa-repeater/src/main/java/io/enoa/repeater/http/HttpStatus.java "HttpStatus.java"), 提供響應的狀態碼即可; 通常 200(OK) 表示成功, 30x 表示授權失敗, 40x 表示資源不存在, 50x 表示伺服器錯誤.
 
