@@ -21,6 +21,7 @@ This article will document some plans/changes in future releases.
 
 - Add EPThenPromiseBuilder
 - Add ds factory datasource
+- Add docker client
 
 ### Changed
 
