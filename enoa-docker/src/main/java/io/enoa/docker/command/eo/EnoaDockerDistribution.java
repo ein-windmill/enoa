@@ -17,6 +17,9 @@ package io.enoa.docker.command.eo;
 
 import io.enoa.docker.command.geneic.EGeneicDockerDistribution;
 import io.enoa.docker.command.geneic.GeneicDocker;
+import io.enoa.docker.dret.DRet;
+import io.enoa.docker.dret.distribution.EDistribution;
+import io.enoa.docker.parser.DIParser;
 
 public class EnoaDockerDistribution {
 
@@ -28,4 +31,9 @@ public class EnoaDockerDistribution {
     this.docker = docker;
     this.distribution = docker.distribution();
   }
+
+  public DRet<EDistribution> distribution(String id) {
+    return this.distribution.distribution(DIParser.distribution(), id);
+  }
+
 }

@@ -22,6 +22,7 @@ import io.enoa.docker.dret.common.ECreated;
 import io.enoa.docker.dret.common.ECreatedWithWarning;
 import io.enoa.docker.dret.config.EConfig;
 import io.enoa.docker.dret.container.*;
+import io.enoa.docker.dret.distribution.EDistribution;
 import io.enoa.docker.dret.dockerinfo.EDockerInfo;
 import io.enoa.docker.dret.exec.EExecInspect;
 import io.enoa.docker.dret.image.*;
@@ -229,6 +230,10 @@ public interface DIParser<T> {
 
   static DIParser<EAuth> auth() {
     return EAuthParser.instance();
+  }
+
+  static DIParser<EDistribution> distribution() {
+    return EDistributionParser.instance();
   }
 
   /**

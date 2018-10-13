@@ -15,5 +15,20 @@
  */
 package io.enoa.docker;
 
+import io.enoa.docker.dret.DRet;
+import io.enoa.docker.dret.distribution.EDistribution;
+import io.enoa.json.Json;
+import org.junit.Assert;
+import org.junit.Test;
+
 public class DockerDistributionTest extends AbstractDockerTest {
+
+  @Test
+  public void testDistribution() {
+    DRet<EDistribution> ret = Docker.distribution().distribution("nginx");
+    Assert.assertTrue(ret.ok());
+    String json = Json.toJson(ret.data());
+    System.out.println(json);
+  }
+
 }

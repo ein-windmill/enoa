@@ -15,11 +15,20 @@
  */
 package io.enoa.docker.command.origin;
 
+import io.enoa.docker.dret.DResp;
+import io.enoa.http.protocol.HttpResponse;
+
 public class ETCPDockerDistribution implements EOriginDistribution {
 
   private EnoaTCPDocker docker;
 
   ETCPDockerDistribution(EnoaTCPDocker docker) {
     this.docker = docker;
+  }
+
+  @Override
+  public DResp distribution(String id) {
+    HttpResponse response = this.docker.http("distribution", id, "json").emit();
+    return DResp.create(response);
   }
 }

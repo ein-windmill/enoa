@@ -96,6 +96,17 @@ class ENodeParser extends AbstractParser<ENode> {
     return builder.build();
   }
 
+  EPlatform platform(Kv kv) {
+    EPlatform.Builder pb = new EPlatform.Builder()
+      .architecture(kv.string("Architecture", kv.string("architecture")))
+      .os(kv.string("OS", kv.string("os")))
+      .osversion(kv.string("OSVersion", kv.string("osVersion")))
+      .osfeatures(AEExtra.array(kv, "OSFeatures"))
+      .variant(kv.string("Variant", kv.string("variant")))
+      .features(AEExtra.array(kv, "Features"));
+    return pb.build();
+  }
+
   private ENodeDescription description(Kv kv) {
     Object dot = kv.get("Description");
     if (!(dot instanceof Map))
@@ -107,10 +118,7 @@ class ENodeParser extends AbstractParser<ENode> {
     Object plo = desn.get("Platform");
     if (plo instanceof Map) {
       Kv pak = Kv.by((Map) plo);
-      EPlatform.Builder pb = new EPlatform.Builder()
-        .architecture(pak.string("Architecture"))
-        .os(pak.string("OS"));
-      builder.platform(pb.build());
+      builder.platform(this.platform(pak));
       CollectionKit.clear(pak);
     }
 

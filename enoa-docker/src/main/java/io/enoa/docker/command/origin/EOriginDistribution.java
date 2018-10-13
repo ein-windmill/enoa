@@ -15,5 +15,19 @@
  */
 package io.enoa.docker.command.origin;
 
+import io.enoa.docker.dret.DResp;
+
 public interface EOriginDistribution {
+
+  /**
+   * Get image information from the registry
+   * Return image digest and platform information by contacting the registry.
+   *
+   * @param id string Required
+   *             <p>
+   *             Image name or id
+   * @return DResp
+   */
+  DResp distribution(String id);
+
 }

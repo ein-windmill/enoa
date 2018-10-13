@@ -15,11 +15,18 @@
  */
 package io.enoa.docker.command.origin;
 
+import io.enoa.docker.dret.DResp;
+
 public class EUNIXSOCKETDockerDistribution implements EOriginDistribution {
 
   private EnoaUNIXSOCKETDocker docker;
 
   EUNIXSOCKETDockerDistribution(EnoaUNIXSOCKETDocker docker) {
     this.docker = docker;
+  }
+
+  @Override
+  public DResp distribution(String id) {
+    return null;
   }
 }
