@@ -51,12 +51,14 @@ class _Gson extends EnoaJson {
     if (_gson != null)
       return _gson;
 
+    GsonBuilder builder = new GsonBuilder()
+      .disableHtmlEscaping();
     if (datePattern == null) {
-      _gson = new Gson();
+      _gson = builder.create();
       CACHE.put("def", _gson);
       return _gson;
     }
-    _gson = new GsonBuilder().setDateFormat(datePattern).create();
+    _gson = builder.setDateFormat(datePattern).create();
     CACHE.put(datePattern, _gson);
     return _gson;
   }

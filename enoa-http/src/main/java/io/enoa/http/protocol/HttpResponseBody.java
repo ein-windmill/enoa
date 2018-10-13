@@ -19,6 +19,8 @@ import java.nio.charset.Charset;
 
 public abstract class HttpResponseBody {
 
+  private static final HttpResponseBody EMPTY = create(new byte[0], Charset.forName("UTF-8"));
+
   public abstract Charset charset();
 
   public abstract byte[] bytes();
@@ -30,6 +32,10 @@ public abstract class HttpResponseBody {
 
   public String string(Charset charset) {
     return new String(this.bytes(), charset);
+  }
+
+  public static HttpResponseBody empty() {
+    return EMPTY;
   }
 
   public static HttpResponseBody create(byte[] bytes, Charset charset) {

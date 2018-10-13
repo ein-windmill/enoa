@@ -27,11 +27,16 @@ import java.util.Arrays;
 
 public abstract class EnoaBinary implements Serializable {
 
+  private String string;
+
   public abstract Charset charset();
 
   public abstract byte[] bytes();
 
   public String string(Charset charset) {
+    if (this.string != null)
+      return this.string;
+
     CharsetDecoder decoder = charset.newDecoder();
     ByteBuffer byteBuffer = ByteBuffer.wrap(this.bytes());
     CharBuffer charBuffer = CharBuffer.allocate(byteBuffer.limit());
@@ -40,6 +45,7 @@ public abstract class EnoaBinary implements Serializable {
     String ret = charBuffer.toString();
     charBuffer.clear();
     byteBuffer.clear();
+    this.string = ret;
     return ret;
   }
 
