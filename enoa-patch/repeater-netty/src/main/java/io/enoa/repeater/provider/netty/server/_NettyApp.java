@@ -23,6 +23,7 @@ import io.enoa.repeater.factory.ts.RepeaterTranslateFactory;
 import io.enoa.repeater.http.HttpStatus;
 import io.enoa.repeater.http.Request;
 import io.enoa.repeater.http.Response;
+import io.enoa.repeater.http.ResponseBody;
 import io.enoa.repeater.provider.netty.server.plus._RepeaterNettyRequest;
 import io.enoa.repeater.provider.netty.server.plus._RepeaterNettyRequestImpl;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
@@ -36,6 +37,8 @@ import io.netty.util.ReferenceCountUtil;
 
 class _NettyApp extends ChannelInboundHandlerAdapter {
 
+
+  private static final byte[] EMPTY = new byte[0];
 
   //
   private EoxAccessor accessor;
@@ -125,7 +128,8 @@ class _NettyApp extends ChannelInboundHandlerAdapter {
       Response resp = this.accessor.access(req);
 
       ByteBuf body = ctx.alloc().buffer();
-      body.writeBytes(resp.body().bytes());
+      ResponseBody rb = resp.body();
+      body.writeBytes(rb == null ? EMPTY : rb.bytes());
 
       FullHttpResponse response = new DefaultFullHttpResponse(
         HttpVersion.HTTP_1_1, HttpResponseStatus.valueOf(resp.status().code()), body);
@@ -144,6 +148,7 @@ class _NettyApp extends ChannelInboundHandlerAdapter {
     }
 
   }
+
 
   @Override
   public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
