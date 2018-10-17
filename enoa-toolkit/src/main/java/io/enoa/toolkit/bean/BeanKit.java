@@ -191,6 +191,8 @@ public class BeanKit {
     R ret = ReflectKit.newInstance(clazz);
     Method[] methods = clazz.getMethods();
     for (Method method : methods) {
+      if (method.getParameterCount() != 1)
+        continue;
       String name = method.getName();
       Object val = _m.get(ignorecase ? TextKit.upper(name) : name);
       if (val == null) {
