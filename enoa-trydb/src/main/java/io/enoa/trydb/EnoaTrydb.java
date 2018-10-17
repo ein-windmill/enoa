@@ -172,7 +172,7 @@ public class EnoaTrydb implements _TrydbCommandBase<EnoaTrydb>, _TrydbCommandTSq
       PreparedStatement pst = conn.prepareStatement(sql);
       this.dialect().fillParas(pst, paras);
       ResultSet rs = pst.executeQuery();
-      List<T> rets = RsBuilder.build(rs, clazz, this.config.namecase());
+      List<T> rets = RsBuilder.build(rs, clazz, this.config);
       StreamKit.close(false, pst, rs);
       return rets;
     } catch (SQLException e) {

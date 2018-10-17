@@ -19,6 +19,8 @@ import io.enoa.toolkit.convert.ConvertKit;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.namecase.INameCase;
 import io.enoa.toolkit.sys.ReflectKit;
+import io.enoa.toolkit.text.TextKit;
+import io.enoa.trydb.TrydbConfig;
 import io.enoa.trydb.convert._BlobConverter;
 import io.enoa.trydb.convert._ClobConverter;
 import io.enoa.trydb.convert._NClobConverter;
@@ -54,7 +56,7 @@ class MapBuilder implements IRsBuilder<Map> {
   }
 
   @Override
-  public List<Map> build(ResultSet rs, Class<Map> clazz, INameCase namecase) throws SQLException {
+  public List<Map> build(ResultSet rs, Class<Map> clazz, TrydbConfig config) throws SQLException {
     List<Map> rets = new ArrayList<>();
     ResultSetMetaData meta = rs.getMetaData();
     int cct = meta.getColumnCount();
@@ -67,7 +69,7 @@ class MapBuilder implements IRsBuilder<Map> {
         Object value;
         if (types[i] < Types.BLOB) {
           value = rs.getObject(i);
-          map.put(names[i], value);
+          map.put(this.name(names[i], config.ignorecase()), value);
           continue;
         }
 
@@ -92,11 +94,16 @@ class MapBuilder implements IRsBuilder<Map> {
             throw (SQLException) cause;
           throw e;
         }
-        map.put(names[i], value);
+        map.put(this.name(names[i], config.ignorecase()), value);
       }
       rets.add(map);
     }
 
     return rets;
   }
+
+  private String name(String origin, Boolean ignorecase) {
+    return ignorecase ? TextKit.upper(origin) : origin;
+  }
+
 }

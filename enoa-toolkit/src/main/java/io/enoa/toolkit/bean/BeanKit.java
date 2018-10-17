@@ -162,35 +162,44 @@ public class BeanKit {
   }
 
   public static <R> R reductionMap(Map map, Class<R> clazz) {
-    return reductionMap(map, clazz, NamecaseKit.namecase(NamecaseType.CASE_NONE), true);
+    return reductionMap(map, clazz, NamecaseKit.namecase(NamecaseType.CASE_NONE), true, false);
   }
 
-  public static <R> R reductionMap(Map map, Class<R> clazz, boolean skipError) {
-    return reductionMap(map, clazz, NamecaseKit.namecase(NamecaseType.CASE_NONE), skipError);
+  public static <R> R reductionMap(Map map, Class<R> clazz, boolean skipError, boolean ignorecase) {
+    return reductionMap(map, clazz, NamecaseKit.namecase(NamecaseType.CASE_NONE), skipError, ignorecase);
   }
 
   public static <R> R reductionMap(Map map, Class<R> clazz, INameCase namecase) {
-    return reductionMap(map, clazz, namecase, true);
+    return reductionMap(map, clazz, namecase, true, false);
   }
 
-  public static <R> R reductionMap(Map map, Class<R> clazz, INameCase namecase, boolean skipError) {
-    if (map == null)
+  public static <R> R reductionMap(Map mapx, Class<R> clazz, INameCase namecase, boolean skipError, boolean ignorecase) {
+    if (mapx == null)
       return null;
     if (clazz == null)
       return null;
+    Map _m;
+    if (ignorecase) {
+      _m = new HashMap(mapx.size());
+      mapx.forEach((key, val) -> {
+        _m.put(key == null ? null : key.toString().toUpperCase(), val);
+      });
+    } else {
+      _m = mapx;
+    }
 
     R ret = ReflectKit.newInstance(clazz);
     Method[] methods = clazz.getMethods();
     for (Method method : methods) {
       String name = method.getName();
-      Object val = map.get(name);
+      Object val = _m.get(ignorecase ? TextKit.upper(name) : name);
       if (val == null) {
         if (!name.startsWith("set"))
           continue;
         name = TextKit.lowerFirst(name.substring(3));
-        val = map.get(name);
+        val = _m.get(ignorecase ? TextKit.upper(name) : name);
         if (val == null) {
-          val = map.get(namecase.convert(name));
+          val = _m.get(namecase.convert(ignorecase ? TextKit.upper(name) : name));
           if (val == null)
             continue;
         }
@@ -222,26 +231,27 @@ public class BeanKit {
         throw new RuntimeException(e.getMessage(), e);
       }
     }
+    CollectionKit.clear(_m);
     return ret;
   }
 
   public static <R> List<R> reductionMaps(List<Map> maps, Class<R> clazz) {
-    return reductionMaps(maps, clazz, NamecaseKit.namecase(NamecaseType.CASE_NONE), true);
+    return reductionMaps(maps, clazz, NamecaseKit.namecase(NamecaseType.CASE_NONE), true, false);
   }
 
   public static <R> List<R> reductionMaps(List<Map> maps, Class<R> clazz, INameCase namecase) {
-    return reductionMaps(maps, clazz, namecase, true);
+    return reductionMaps(maps, clazz, namecase, true, false);
   }
 
-  public static <R> List<R> reductionMaps(List<Map> maps, Class<R> clazz, boolean skipError) {
-    return reductionMaps(maps, clazz, NamecaseKit.namecase(NamecaseType.CASE_NONE), skipError);
+  public static <R> List<R> reductionMaps(List<Map> maps, Class<R> clazz, boolean skipError, boolean ignorecase) {
+    return reductionMaps(maps, clazz, NamecaseKit.namecase(NamecaseType.CASE_NONE), skipError, ignorecase);
   }
 
-  public static <R> List<R> reductionMaps(List<Map> maps, Class<R> clazz, INameCase namecase, boolean skipError) {
+  public static <R> List<R> reductionMaps(List<Map> maps, Class<R> clazz, INameCase namecase, boolean skipError, boolean ignorecase) {
     if (maps == null)
       return Collections.emptyList();
     List<R> rets = new ArrayList<>();
-    maps.forEach(map -> rets.add(reductionMap(map, clazz, namecase, skipError)));
+    maps.forEach(map -> rets.add(reductionMap(map, clazz, namecase, skipError, ignorecase)));
     return rets;
   }
 

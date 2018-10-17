@@ -146,8 +146,6 @@
     <version-snakeyaml>1.9</version-snakeyaml>
     <version-jbcrypt>0.4</version-jbcrypt>
 
-    <version-snowflake>1.0.0</version-snowflake>
-
     <version-nanohttpd>2.3.1</version-nanohttpd>
     <version-jetty>9.4.8.v20171121</version-jetty>
     <version-netty>4.1.29.Final</version-netty>

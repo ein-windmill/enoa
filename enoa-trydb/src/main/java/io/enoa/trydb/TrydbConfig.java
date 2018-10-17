@@ -35,6 +35,7 @@ public class TrydbConfig {
   private final ISqlReporter reporter;
   private final INameCase namecase;
   private final Firetpl sqltemplate;
+  private final boolean ignorecase;
 
 
   private TrydbConfig(Builder builder) {
@@ -46,6 +47,11 @@ public class TrydbConfig {
     this.reporter = builder.report;
     this.namecase = builder.namecase;
     this.sqltemplate = builder.sqltemplate;
+    this.ignorecase = builder.ignorecase;
+  }
+
+  public boolean ignorecase() {
+    return this.ignorecase;
   }
 
   public String name() {
@@ -89,12 +95,14 @@ public class TrydbConfig {
     private ISqlReporter report;
     private INameCase namecase;
     private Firetpl sqltemplate;
+    private boolean ignorecase;
 
     public Builder() {
       this.name = "main";
       this.level = TxLevel.REPEATABLE_READ;
-      this.debug = false;
+      this.debug = Boolean.FALSE;
       this.namecase = NamecaseKit.namecase(NamecaseType.CASE_UNDERLINE);
+      this.ignorecase = Boolean.FALSE;
     }
 
     public TrydbConfig build() {
@@ -103,6 +111,15 @@ public class TrydbConfig {
 
     public Builder name(String name) {
       this.name = name;
+      return this;
+    }
+
+    public Builder ignorecase() {
+      return this.ignorecase(Boolean.TRUE);
+    }
+
+    public Builder ignorecase(boolean ignorecase) {
+      this.ignorecase = ignorecase;
       return this;
     }
 

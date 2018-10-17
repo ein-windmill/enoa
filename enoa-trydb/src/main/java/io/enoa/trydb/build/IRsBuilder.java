@@ -15,7 +15,7 @@
  */
 package io.enoa.trydb.build;
 
-import io.enoa.toolkit.namecase.INameCase;
+import io.enoa.trydb.TrydbConfig;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,6 +24,6 @@ import java.util.List;
 public interface IRsBuilder<R> {
 
 
-  List<R> build(ResultSet rs, Class<R> clazz, INameCase namecase) throws SQLException;
+  List<R> build(ResultSet rs, Class<R> clazz, TrydbConfig config) throws SQLException;
 
 }
