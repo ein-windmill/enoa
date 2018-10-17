@@ -31,25 +31,27 @@ public class EoTrydbConfig implements EoDbConfig {
   private final String name;
   private final boolean debug;
   private final EoDsFactory ds;
-  private final EoDsConfig dsConfig;
+  private final EoDsConfig dsconfig;
   private final IDialect dialect;
   private final TxLevel level;
   private final ISqlReporter reporter;
   private final INameCase namecase;
   private final boolean showSql;
   private final Firetpl sqltemplate;
+  private final boolean ignorecase;
 
   private EoTrydbConfig(Builder builder) {
     this.name = builder.name;
     this.debug = builder.debug;
     this.ds = builder.ds;
-    this.dsConfig = builder.dsConfig;
+    this.dsconfig = builder.dsconfig;
     this.dialect = builder.dialect;
     this.level = builder.level;
     this.reporter = builder.reporter;
     this.namecase = builder.namecase;
     this.showSql = builder.showSql;
     this.sqltemplate = builder.sqltemplate;
+    this.ignorecase = builder.ignorecase;
   }
 
   @Override
@@ -63,8 +65,12 @@ public class EoTrydbConfig implements EoDbConfig {
   }
 
   @Override
-  public EoDsConfig dsConfig() {
-    return this.dsConfig;
+  public EoDsConfig dsconfig() {
+    return this.dsconfig;
+  }
+
+  public boolean ignorecase() {
+    return this.ignorecase;
   }
 
   public boolean debug() {
@@ -99,20 +105,22 @@ public class EoTrydbConfig implements EoDbConfig {
     private String name;
     private boolean debug;
     private EoDsFactory ds;
-    private EoDsConfig dsConfig;
+    private EoDsConfig dsconfig;
     private IDialect dialect;
     private TxLevel level;
     private ISqlReporter reporter;
     private INameCase namecase;
     private boolean showSql;
     private Firetpl sqltemplate;
+    private boolean ignorecase;
 
 
     public Builder() {
       this.name = "main";
       this.level = TxLevel.REPEATABLE_READ;
-      this.debug = false;
+      this.debug = Boolean.FALSE;
       this.namecase = NamecaseKit.namecase(NamecaseType.CASE_UNDERLINE);
+      this.ignorecase = Boolean.FALSE;
     }
 
     public EoTrydbConfig build() {
@@ -121,6 +129,15 @@ public class EoTrydbConfig implements EoDbConfig {
 
     public Builder name(String name) {
       this.name = name;
+      return this;
+    }
+
+    public Builder ignorecase() {
+      return this.ignorecase(Boolean.FALSE);
+    }
+
+    public Builder ignorecase(boolean ignorecase) {
+      this.ignorecase = ignorecase;
       return this;
     }
 
@@ -135,7 +152,7 @@ public class EoTrydbConfig implements EoDbConfig {
 
     public Builder ds(EoDsFactory ds, EoDsConfig config) {
       this.ds = ds;
-      this.dsConfig = config;
+      this.dsconfig = config;
       return this;
     }
 

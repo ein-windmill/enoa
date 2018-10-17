@@ -125,7 +125,7 @@ public class MybatisConfig implements EoDbConfig {
   }
 
   @Override
-  public EoDsConfig dsConfig() {
+  public EoDsConfig dsconfig() {
     return this.dsConfig;
   }
 

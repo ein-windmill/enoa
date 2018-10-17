@@ -26,7 +26,7 @@ class _ActiveRecord extends EnoaDb {
 
   _ActiveRecord(ActiveRecordConfig config) {
     this.config = config;
-    this.ds = this.config.ds().datasource(this.config.dsConfig());
+    this.ds = this.config.ds().datasource(this.config.dsconfig());
   }
 
   @Override
