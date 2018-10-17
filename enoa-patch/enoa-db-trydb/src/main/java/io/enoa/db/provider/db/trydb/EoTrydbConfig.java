@@ -133,7 +133,7 @@ public class EoTrydbConfig implements EoDbConfig {
     }
 
     public Builder ignorecase() {
-      return this.ignorecase(Boolean.FALSE);
+      return this.ignorecase(Boolean.TRUE);
     }
 
     public Builder ignorecase(boolean ignorecase) {
