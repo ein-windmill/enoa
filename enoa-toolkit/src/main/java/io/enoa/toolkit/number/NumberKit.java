@@ -74,6 +74,8 @@ public final class NumberKit {
    * @return boolean
    */
   public static boolean isNumber(String text) {
+    if (TextKit.isBlank(text))
+      return false;
     boolean hasDot = false;
     for (int i = text.length(); i-- > 0; ) {
       char at = text.charAt(i);
