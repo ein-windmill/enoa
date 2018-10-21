@@ -16,6 +16,7 @@
 package io.enoa.toolkit.bean;
 
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.convert.ConvertKit;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.map.OKv;
@@ -208,14 +209,15 @@ public class BeanKit {
       }
 
       try {
-        if (val instanceof Number) {
-          Class<?>[] pts = method.getParameterTypes();
-          if (CollectionKit.isEmpty(pts))
-            throw new IllegalArgumentException("NOT FOUND ARGUMENTS");
-          method.invoke(ret, NumberKit.to((Number) val, pts[0]));
-        } else {
-          method.invoke(ret, val);
-        }
+//        if (val instanceof Number) {
+//          Class<?>[] pts = method.getParameterTypes();
+//          if (CollectionKit.isEmpty(pts))
+//            throw new IllegalArgumentException("NOT FOUND ARGUMENTS");
+//          method.invoke(ret, NumberKit.to((Number) val, pts[0]));
+//        } else {
+//          method.invoke(ret, val);
+//        }
+        invoke(method, ret, val);
       } catch (IllegalArgumentException e) {
         if (skipError) {
           continue;
@@ -235,6 +237,34 @@ public class BeanKit {
     }
     CollectionKit.clear(_m);
     return ret;
+  }
+
+  private static void invoke(Method method, Object object, Object val) throws Exception {
+    Class<?> clazz = method.getParameterTypes()[0];
+    if (Boolean.class.isAssignableFrom(clazz)) {
+      if (val instanceof Boolean) {
+        method.invoke(object, val);
+        return;
+      }
+      if (val instanceof Number) {
+        method.invoke(object, ConvertKit.bool((Number) val));
+        return;
+      }
+      if (val instanceof String) {
+        method.invoke(object, ConvertKit.bool((String) val));
+        return;
+      }
+    }
+
+    if (val instanceof Number) {
+      Class<?>[] pts = method.getParameterTypes();
+      if (CollectionKit.isEmpty(pts))
+        throw new IllegalArgumentException("NOT FOUND ARGUMENTS");
+      method.invoke(object, NumberKit.to((Number) val, pts[0]));
+      return;
+    }
+
+    method.invoke(object, val);
   }
 
   public static <R> List<R> reductionMaps(List<Map> maps, Class<R> clazz) {

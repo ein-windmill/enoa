@@ -232,6 +232,11 @@ public final class NumberKit {
 
     String trimmed = TextKit.nospace(text, true);
 
+    if (trimmed.equalsIgnoreCase("true"))
+      return (T) to(1, to);
+    if (trimmed.equalsIgnoreCase("false"))
+      return (T) to(0, to);
+
     if (to.equals(Integer.class)) {
       if (trimmed.contains("."))
         trimmed = trimmed.substring(0, trimmed.indexOf("."));
