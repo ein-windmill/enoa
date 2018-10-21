@@ -233,6 +233,8 @@ public final class NumberKit {
     String trimmed = TextKit.nospace(text, true);
 
     if (to.equals(Integer.class)) {
+      if (trimmed.contains("."))
+        trimmed = trimmed.substring(0, trimmed.indexOf("."));
       return (T) (HexKit.isHexNumber(trimmed) ? Integer.decode(trimmed) : Integer.valueOf(trimmed));
     }
     if (to.equals(Long.class)) {

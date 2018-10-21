@@ -17,6 +17,9 @@ package io.enoa.json.provider.gson;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializer;
+import com.google.gson.reflect.TypeToken;
 import io.enoa.json.EnoaJson;
 
 import java.lang.reflect.ParameterizedType;
@@ -59,26 +62,21 @@ class _Gson extends EnoaJson {
     if (_gson != null)
       return _gson;
 
-//    GsonBuilder builder = new GsonBuilder()
-//      .disableHtmlEscaping();
-//    if (datePattern == null) {
-//      _gson = builder.create();
-//      CACHE.put("def", _gson);
-//      return _gson;
-//    }
-//    _gson = builder.setDateFormat(datePattern).create();
-//    CACHE.put(datePattern, _gson);
-//    return _gson;
+    GsonBuilder builder = new GsonBuilder()
+      .registerTypeAdapter(Double.class, (JsonSerializer<Double>) (src, typeOfSrc, context) -> {
+        if (src == src.longValue())
+          return new JsonPrimitive(src.longValue());
+        return new JsonPrimitive(src);
+      });
 
     if (this.gsonfig == null) {
-      GsonBuilder builder = new GsonBuilder()
-        .disableHtmlEscaping()
+      builder.disableHtmlEscaping()
         .setDateFormat(datePattern == null ? "yyyy-MM-dd HH:mm:ss.SSS" : datePattern);
       _gson = builder.create();
       CACHE.put(datePattern, _gson);
       return _gson;
     }
-    GsonBuilder builder = new GsonBuilder();
+//    GsonBuilder builder = new GsonBuilder();
     if (this.gsonfig.disableHtmlEscaping()) {
       builder.disableHtmlEscaping();
     }
@@ -103,12 +101,14 @@ class _Gson extends EnoaJson {
 
   @Override
   public String toJson(Object object) {
-    return this.gson().toJson(object);
+    return this.gson().toJson(object, new TypeToken<Map<String, Object>>() {
+    }.getType());
   }
 
   @Override
   public String toJson(Object object, String datePattern) {
-    return this.gson(datePattern).toJson(object);
+    return this.gson(datePattern).toJson(object, new TypeToken<Map<String, Object>>() {
+    }.getType());
   }
 
   @Override
