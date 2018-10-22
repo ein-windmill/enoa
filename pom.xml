@@ -147,7 +147,7 @@
     <version-jbcrypt>0.4</version-jbcrypt>
 
     <version-nanohttpd>2.3.1</version-nanohttpd>
-    <version-jetty>9.4.8.v20171121</version-jetty>
+    <version-jetty>[9.4.11.v20180605,)</version-jetty>
     <version-netty>4.1.29.Final</version-netty>
     <version-tio-http>0.0.5-tio-http</version-tio-http>
     <version-tomcat>9.0.0.M13</version-tomcat>
@@ -166,7 +166,7 @@
     <version-fastclasspathscanner>2.18.1</version-fastclasspathscanner>
     <version-email>1.4.7</version-email>
 
-    <version-amqp>5.3.0</version-amqp>
+    <version-amqp>[5.4.0,)</version-amqp>
     <version-unixsocket>0.19</version-unixsocket>
     <version-commons-compress>1.18</version-commons-compress>
   </properties>
