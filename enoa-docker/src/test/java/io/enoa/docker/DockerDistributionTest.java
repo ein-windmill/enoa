@@ -19,8 +19,10 @@ import io.enoa.docker.dret.DRet;
 import io.enoa.docker.dret.distribution.EDistribution;
 import io.enoa.json.Json;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public class DockerDistributionTest extends AbstractDockerTest {
 
   @Test

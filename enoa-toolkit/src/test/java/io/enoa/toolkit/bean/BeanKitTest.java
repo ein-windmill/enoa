@@ -26,7 +26,7 @@ public class BeanKitTest {
   public void testToNum() {
     short f0 = 1;
     Kv kv = Kv.by("field", f0);
-    TestEntity te = BeanKit.reductionMap(kv, TestEntity.class, false);
+    TestEntity te = BeanKit.reductionMap(kv, TestEntity.class, false, false);
     System.out.println(te);
   }
 

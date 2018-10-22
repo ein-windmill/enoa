@@ -101,14 +101,12 @@ class _Gson extends EnoaJson {
 
   @Override
   public String toJson(Object object) {
-    return this.gson().toJson(object, new TypeToken<Map<String, Object>>() {
-    }.getType());
+    return this.gson().toJson(object);
   }
 
   @Override
   public String toJson(Object object, String datePattern) {
-    return this.gson(datePattern).toJson(object, new TypeToken<Map<String, Object>>() {
-    }.getType());
+    return this.gson(datePattern).toJson(object);
   }
 
   @Override

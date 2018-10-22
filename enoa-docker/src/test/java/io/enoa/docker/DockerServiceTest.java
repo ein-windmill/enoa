@@ -15,5 +15,8 @@
  */
 package io.enoa.docker;
 
+import org.junit.Ignore;
+
+@Ignore
 public class DockerServiceTest extends AbstractDockerTest {
 }

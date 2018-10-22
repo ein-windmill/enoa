@@ -22,10 +22,12 @@ import io.enoa.docker.dret.common.ECreatedWithWarning;
 import io.enoa.json.Json;
 import io.enoa.toolkit.value.Void;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
 
+@Ignore
 public class DockerNetworkTest extends AbstractDockerTest {
 
 

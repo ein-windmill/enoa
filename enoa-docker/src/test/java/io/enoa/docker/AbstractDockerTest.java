@@ -18,7 +18,9 @@ package io.enoa.docker;
 import io.enoa.json.Json;
 import io.enoa.json.provider.gson.GsonProvider;
 import org.junit.Before;
+import org.junit.Ignore;
 
+@Ignore
 public abstract class AbstractDockerTest {
 
   @Before
