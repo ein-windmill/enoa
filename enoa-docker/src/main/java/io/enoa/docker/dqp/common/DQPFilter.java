@@ -18,9 +18,13 @@ package io.enoa.docker.dqp.common;
 import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.DQR;
 import io.enoa.json.Json;
+import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.convert.ConvertKit;
+import io.enoa.toolkit.map.Kv;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class DQPFilter<T extends DQPFilter> implements DQP {
 
@@ -36,7 +40,7 @@ public class DQPFilter<T extends DQPFilter> implements DQP {
    * label (label=<key>, label=<key>=<value>, label!=<key>, or label!=<key>=<value>) Prune networks with (or without,
    * in case label!=... is used) the specified labels.
    */
-  private List<String> filters;
+  private Map<String, Set<String>> filter;
 
   public static DQPFilter create() {
     return new DQPFilter();
@@ -45,23 +49,47 @@ public class DQPFilter<T extends DQPFilter> implements DQP {
   public DQPFilter() {
   }
 
-  public T filters(String filter) {
-    if (this.filters == null)
-      this.filters = new ArrayList<>();
-    this.filters.add(filter);
+  public T filter(String name, String value) {
+    if (this.filter == null)
+      this.filter = new HashMap<>();
+    Set<String> arr = this.filter.get(name);
+    if (CollectionKit.isEmpty(arr))
+      arr = new HashSet<>();
+    arr.add(value);
+    this.filter.put(name, arr);
     return (T) this;
   }
 
-  public T filters(List<String> filters) {
-    this.filters = filters;
+  public T filter(String name, String... vals) {
+    return this.filter(name, Stream.of(vals).collect(Collectors.toSet()));
+  }
+
+  public T filter(String name, Collection<String> vals) {
+    if (this.filter == null)
+      this.filter = new HashMap<>();
+    Set<String> arr = this.filter.get(name);
+    if (CollectionKit.isEmpty(arr))
+      arr = new HashSet<>();
+    arr.addAll(vals);
+    this.filter.put(name, arr);
+    return (T) this;
+  }
+
+  public T filter(Map<String, Set<String>> filter) {
+    this.filter = filter;
+    return (T) this;
+  }
+
+  public T filter(Kv filter) {
+    filter.forEach((key, val) -> this.filter(key, ConvertKit.string(val)));
     return (T) this;
   }
 
   @Override
   public DQR dqr() {
     DQR dqr = DQR.create();
-    if (this.filters != null) {
-      dqr.putIf("filters", Json.toJson(this.filters));
+    if (this.filter != null) {
+      dqr.putIf("filters", Json.toJson(this.filter));
     }
     return dqr;
   }

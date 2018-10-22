@@ -15,15 +15,10 @@
  */
 package io.enoa.docker.dqp.image;
 
-import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.DQR;
-import io.enoa.json.Json;
-import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.docker.dqp.common.DQPFilter;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class DQPImageSearch implements DQP {
+public class DQPImageSearch extends DQPFilter<DQPImageSearch> {
 
   /**
    * string Required
@@ -37,16 +32,17 @@ public class DQPImageSearch implements DQP {
    * Maximum number of results to return
    */
   private Integer limit;
-  /**
-   * string
-   * <p>
-   * A JSON encoded value of the filters (a map[string][]string) to process on the images list. Available filters:
-   * <p>
-   * is-automated=(true|false)
-   * is-official=(true|false)
-   * stars=<number> Matches images that has at least 'number' stars.
-   */
-  private List<String> filters;
+
+//  /**
+//   * string
+//   * <p>
+//   * A JSON encoded value of the filters (a map[string][]string) to process on the images list. Available filters:
+//   * <p>
+//   * is-automated=(true|false)
+//   * is-official=(true|false)
+//   * stars=<number> Matches images that has at least 'number' stars.
+//   */
+//  private List<String> filters;
 
   public static DQPImageSearch create() {
     return new DQPImageSearch();
@@ -65,25 +61,12 @@ public class DQPImageSearch implements DQP {
     return this;
   }
 
-  public DQPImageSearch filters(String filter) {
-    if (this.filters == null)
-      this.filters = new ArrayList<>();
-    this.filters.add(filter);
-    return this;
-  }
-
-  public DQPImageSearch filters(List<String> filters) {
-    this.filters = filters;
-    return this;
-  }
-
   @Override
   public DQR dqr() {
     DQR dqr = DQR.create()
+      .put(super.dqr())
       .putIf("term", this.term)
       .putIf("limit", this.limit);
-    if (CollectionKit.notEmpty(this.filters))
-      dqr.put("filters", Json.toJson(this.filters));
     return dqr;
   }
 }

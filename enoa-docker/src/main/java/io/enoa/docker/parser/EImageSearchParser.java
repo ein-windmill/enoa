@@ -50,7 +50,7 @@ class EImageSearchParser extends AbstractParser<List<EISearch>> {
         .starcount(kv.integer("star_count"));
       rets.add(builder.build());
     });
-    CollectionKit.clear(rets);
+    CollectionKit.clear(kvs);
     return rets;
   }
 }

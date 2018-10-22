@@ -15,52 +15,47 @@
  */
 package io.enoa.docker.dqp.network;
 
-import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.DQR;
-import io.enoa.docker.dqp.image.DQPImageList;
-import io.enoa.json.Json;
-import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.docker.dqp.common.DQPFilter;
 
-import java.util.ArrayList;
-import java.util.List;
+public class DQPNetworkList extends DQPFilter<DQPNetworkList> {
 
-public class DQPNetworkList implements DQP {
+//  /**
+//   * string
+//   * <p>
+//   * JSON encoded value of the filters (a map[string][]string) to process on the networks list. Available filters:
+//   * <p>
+//   * driver=<driver-name> Matches a network's driver.
+//   * id=<network-id> Matches all or part of a network ID.
+//   * label=<key> or label=<key>=<value> of a network label.
+//   * name=<network-name> Matches all or part of a network name.
+//   * scope=["swarm"|"global"|"local"] Filters networks by scope (swarm, global, or local).
+//   * type=["custom"|"builtin"] Filters networks by type. The custom keyword returns all user-defined networks.
+//   */
+//  private List<String> filters;
 
-  /**
-   * string
-   * <p>
-   * JSON encoded value of the filters (a map[string][]string) to process on the networks list. Available filters:
-   * <p>
-   * driver=<driver-name> Matches a network's driver.
-   * id=<network-id> Matches all or part of a network ID.
-   * label=<key> or label=<key>=<value> of a network label.
-   * name=<network-name> Matches all or part of a network name.
-   * scope=["swarm"|"global"|"local"] Filters networks by scope (swarm, global, or local).
-   * type=["custom"|"builtin"] Filters networks by type. The custom keyword returns all user-defined networks.
-   */
-  private List<String> filters;
-
-  public static DQPImageList create() {
-    return new DQPImageList();
+  public static DQPNetworkList create() {
+    return new DQPNetworkList();
   }
 
-  public DQPNetworkList filters(String filter) {
-    if (this.filters == null)
-      this.filters = new ArrayList<>();
-    this.filters.add(filter);
-    return this;
-  }
-
-  public DQPNetworkList filters(List<String> filters) {
-    this.filters = filters;
-    return this;
-  }
+//  public DQPNetworkList filters(String filter) {
+//    if (this.filters == null)
+//      this.filters = new ArrayList<>();
+//    this.filters.add(filter);
+//    return this;
+//  }
+//
+//  public DQPNetworkList filters(List<String> filters) {
+//    this.filters = filters;
+//    return this;
+//  }
 
   @Override
   public DQR dqr() {
-    DQR dqr = DQR.create();
-    if (CollectionKit.notEmpty(this.filters))
-      dqr.put("filters", Json.toJson(this.filters));
-    return dqr;
+//    DQR dqr = DQR.create();
+//    if (CollectionKit.notEmpty(this.filters))
+//      dqr.put("filters", Json.toJson(this.filters));
+//    return dqr;
+    return super.dqr();
   }
 }

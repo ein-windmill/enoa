@@ -15,39 +15,35 @@
  */
 package io.enoa.docker.dqp.volume;
 
-import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.DQR;
-import io.enoa.json.Json;
-import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.docker.dqp.common.DQPFilter;
 
-import java.util.ArrayList;
-import java.util.List;
+public class DQPVolumeList extends DQPFilter<DQPVolumeList> {
 
-public class DQPVolumeList implements DQP {
-
-  private List<String> filters;
+//  private List<String> filters;
 
 
   public DQPVolumeList() {
   }
 
-  public DQPVolumeList filters(String filter) {
-    if (this.filters == null)
-      this.filters = new ArrayList<>();
-    this.filters.add(filter);
-    return this;
-  }
-
-  public DQPVolumeList filters(List<String> filters) {
-    this.filters = filters;
-    return this;
-  }
+//  public DQPVolumeList filters(String filter) {
+//    if (this.filters == null)
+//      this.filters = new ArrayList<>();
+//    this.filters.add(filter);
+//    return this;
+//  }
+//
+//  public DQPVolumeList filters(List<String> filters) {
+//    this.filters = filters;
+//    return this;
+//  }
 
   @Override
   public DQR dqr() {
-    DQR dqr = DQR.create();
-    if (CollectionKit.notEmpty(this.filters))
-      dqr.put("filters", Json.toJson(this.filters));
-    return dqr;
+//    DQR dqr = DQR.create();
+//    if (CollectionKit.notEmpty(this.filters))
+//      dqr.put("filters", Json.toJson(this.filters));
+//    return dqr;
+    return super.dqr();
   }
 }
