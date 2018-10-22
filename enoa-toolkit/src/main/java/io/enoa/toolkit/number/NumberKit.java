@@ -74,6 +74,8 @@ public final class NumberKit {
    * @return boolean
    */
   public static boolean isNumber(String text) {
+    if (TextKit.isBlank(text))
+      return false;
     boolean hasDot = false;
     for (int i = text.length(); i-- > 0; ) {
       char at = text.charAt(i);
@@ -230,7 +232,14 @@ public final class NumberKit {
 
     String trimmed = TextKit.nospace(text, true);
 
+    if (trimmed.equalsIgnoreCase("true"))
+      return (T) to(1, to);
+    if (trimmed.equalsIgnoreCase("false"))
+      return (T) to(0, to);
+
     if (to.equals(Integer.class)) {
+      if (trimmed.contains("."))
+        trimmed = trimmed.substring(0, trimmed.indexOf("."));
       return (T) (HexKit.isHexNumber(trimmed) ? Integer.decode(trimmed) : Integer.valueOf(trimmed));
     }
     if (to.equals(Long.class)) {

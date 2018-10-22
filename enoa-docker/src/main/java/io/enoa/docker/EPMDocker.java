@@ -74,6 +74,16 @@ public class EPMDocker {
     this.install("main", config);
   }
 
+  public void uninstall(String name) {
+    this.originmap.remove(name);
+    this.dockermap.remove(name);
+    this.geneicmap.remove(name);
+  }
+
+  public void uninstall() {
+    this.uninstall("main");
+  }
+
   public EoDocker docker(String name) {
     if (this.dockermap.containsKey(name))
       return this.dockermap.get(name);

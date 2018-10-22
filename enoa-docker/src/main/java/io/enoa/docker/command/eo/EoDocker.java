@@ -22,11 +22,7 @@ import io.enoa.docker.parser.DIParser;
 
 public interface EoDocker extends _DockerConfigSupport {
 
-  default DRet<EDockerInfo> info() {
-    return this.info(DIParser.dockerinfo());
-  }
-
-  DRet<EDockerInfo> info(DIParser<EDockerInfo> parser);
+  DRet<EDockerInfo> info();
 
   EnoaDockerContainer container();
 

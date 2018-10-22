@@ -56,10 +56,6 @@ public class Docker {
     return use().info();
   }
 
-  public static DRet<EDockerInfo> info(DIParser<EDockerInfo> parser) {
-    return use().info(parser);
-  }
-
   public static EnoaDockerContainer container() {
     return use().container();
   }

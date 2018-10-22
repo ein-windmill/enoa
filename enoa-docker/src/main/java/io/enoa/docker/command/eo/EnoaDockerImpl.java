@@ -35,8 +35,8 @@ public class EnoaDockerImpl implements EoDocker {
   }
 
   @Override
-  public DRet<EDockerInfo> info(DIParser<EDockerInfo> parser) {
-    return this.docker.info(parser);
+  public DRet<EDockerInfo> info() {
+    return this.docker.info(DIParser.dockerinfo());
   }
 
   @Override

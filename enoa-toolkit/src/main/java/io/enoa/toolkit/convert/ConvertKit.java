@@ -208,7 +208,7 @@ public class ConvertKit {
   public static Boolean bool(Number number, Boolean def) {
     if (number == null)
       return def;
-    return longer(number) == 0;
+    return longer(number) == 1;
   }
 
   public static Boolean bool(Number number) {
