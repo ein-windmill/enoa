@@ -15,13 +15,13 @@
  */
 package io.enoa.docker;
 
-import io.enoa.docker.command.eo.EnoaDockerImpl;
-import io.enoa.docker.command.eo.EoDocker;
-import io.enoa.docker.command.geneic.EnoaGenericDocker;
-import io.enoa.docker.command.geneic.GeneicDocker;
-import io.enoa.docker.command.origin.EnoaTCPDocker;
-import io.enoa.docker.command.origin.EnoaUNIXSOCKETDocker;
-import io.enoa.docker.command.origin.OriginDocker;
+import io.enoa.docker.command.docker.eo.EnoaDockerImpl;
+import io.enoa.docker.command.docker.eo.EoDocker;
+import io.enoa.docker.command.docker.geneic.EnoaGenericDocker;
+import io.enoa.docker.command.docker.geneic.GeneicDocker;
+import io.enoa.docker.command.docker.origin.EnoaTCPDocker;
+import io.enoa.docker.command.docker.origin.EnoaUNIXSOCKETDocker;
+import io.enoa.docker.command.docker.origin.OriginDocker;
 import io.enoa.docker.thr.DockerException;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.text.TextKit;
