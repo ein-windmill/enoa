@@ -23,7 +23,7 @@ import io.enoa.docker.dqp.swarm.DQPSwarmUpdate;
 import io.enoa.docker.ret.docker.DRet;
 import io.enoa.docker.ret.docker.swarm.ESwarmInspect;
 import io.enoa.docker.ret.docker.swarm.ESwarmUnlockKey;
-import io.enoa.docker.parser.DIParser;
+import io.enoa.docker.parser.docker.DIParser;
 import io.enoa.toolkit.value.Void;
 
 public class EnoaDockerSwarm {

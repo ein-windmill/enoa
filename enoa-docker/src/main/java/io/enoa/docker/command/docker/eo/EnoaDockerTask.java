@@ -19,7 +19,7 @@ import io.enoa.docker.command.docker.geneic.EGeneicDockerTask;
 import io.enoa.docker.command.docker.geneic.GeneicDocker;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.ret.docker.DRet;
-import io.enoa.docker.parser.DIParser;
+import io.enoa.docker.parser.docker.DIParser;
 
 import java.util.List;
 

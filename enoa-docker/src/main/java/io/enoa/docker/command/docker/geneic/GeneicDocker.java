@@ -17,7 +17,7 @@ package io.enoa.docker.command.docker.geneic;
 
 import io.enoa.docker.command.docker._DockerConfigSupport;
 import io.enoa.docker.ret.docker.DRet;
-import io.enoa.docker.parser.DIParser;
+import io.enoa.docker.parser.docker.DIParser;
 
 public interface GeneicDocker extends _DockerConfigSupport {
 

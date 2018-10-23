@@ -24,7 +24,7 @@ import io.enoa.docker.ret.docker.DRet;
 import io.enoa.docker.ret.docker.volume.EVolume;
 import io.enoa.docker.ret.docker.volume.EVolumeLs;
 import io.enoa.docker.ret.docker.volume.EVolumePrune;
-import io.enoa.docker.parser.DIParser;
+import io.enoa.docker.parser.docker.DIParser;
 import io.enoa.toolkit.value.Void;
 
 public class EnoaDockerVolume {

@@ -22,7 +22,7 @@ import io.enoa.docker.dqp.system.DQPAuth;
 import io.enoa.docker.dqp.system.DQPMonitor;
 import io.enoa.docker.ret.docker.DResp;
 import io.enoa.docker.ret.docker.DRet;
-import io.enoa.docker.parser.DIParser;
+import io.enoa.docker.parser.docker.DIParser;
 
 public class EGeneicDockerSystem {
 

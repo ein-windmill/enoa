@@ -23,7 +23,7 @@ import io.enoa.docker.dqp.container.*;
 import io.enoa.docker.ret.docker.DRet;
 import io.enoa.docker.ret.docker.common.ECreatedWithWarning;
 import io.enoa.docker.ret.docker.container.*;
-import io.enoa.docker.parser.DIParser;
+import io.enoa.docker.parser.docker.DIParser;
 import io.enoa.docker.stream.DStream;
 import io.enoa.docker.thr.DockerException;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
