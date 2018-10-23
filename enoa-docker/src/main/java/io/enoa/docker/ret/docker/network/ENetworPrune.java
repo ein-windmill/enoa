@@ -15,11 +15,11 @@
  */
 package io.enoa.docker.ret.docker.network;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
 import java.util.List;
 
-public class ENetworPrune extends AbstractDockerRet {
+public class ENetworPrune extends AbstractDRRet {
 
   private List<String> networksdeleted;
 

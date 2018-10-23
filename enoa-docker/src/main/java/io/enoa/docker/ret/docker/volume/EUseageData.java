@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.volume;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class EUseageData extends AbstractDockerRet {
+public class EUseageData extends AbstractDRRet {
 
   private Integer size;
   private Integer refcount;

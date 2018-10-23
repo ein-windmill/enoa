@@ -15,13 +15,13 @@
  */
 package io.enoa.docker.ret.docker.distribution;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 import io.enoa.docker.ret.docker.node.EPlatform;
 
 import java.util.List;
 
 
-public class EDistribution extends AbstractDockerRet {
+public class EDistribution extends AbstractDRRet {
 
 
   private final EDescriptor descriptor;

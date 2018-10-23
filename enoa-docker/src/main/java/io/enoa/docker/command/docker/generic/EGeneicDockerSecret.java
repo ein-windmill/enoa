@@ -13,28 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.command.docker.geneic;
+package io.enoa.docker.command.docker.generic;
 
 import io.enoa.docker.DockerConfig;
-import io.enoa.docker.command.docker.origin.EOriginTask;
+import io.enoa.docker.command.docker.origin.EOriginSecret;
 import io.enoa.docker.command.docker.origin.OriginDocker;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.ret.docker.DResp;
 import io.enoa.docker.ret.docker.DRet;
 import io.enoa.docker.parser.docker.DIParser;
+import io.enoa.toolkit.value.Void;
 
 import java.util.List;
 
-public class EGeneicDockerTask {
+public class EGeneicDockerSecret {
 
   private OriginDocker docker;
   private DockerConfig config;
-  private EOriginTask tasks;
+  private EOriginSecret secrets;
 
-  EGeneicDockerTask(OriginDocker docker) {
+  EGeneicDockerSecret(OriginDocker docker) {
     this.docker = docker;
     this.config = docker._dockerconfig();
-    this.tasks = docker.task();
+    this.secrets = docker.secret();
   }
 
   public <T> DRet<List<T>> list(DIParser<List<T>> parser) {
@@ -42,13 +43,27 @@ public class EGeneicDockerTask {
   }
 
   public <T> DRet<List<T>> list(DIParser<List<T>> parser, DQPFilter dqp) {
-    DResp resp = this.tasks.list(dqp);
+    DResp resp = this.secrets.list(dqp);
+    return parser.parse(this.config, resp);
+  }
+
+  public <T> DRet<T> create(DIParser<T> parser, String body) {
+    DResp resp = this.secrets.create(body);
     return parser.parse(this.config, resp);
   }
 
   public <T> DRet<T> inspect(DIParser<T> parser, String id) {
-    DResp resp = this.tasks.inspect(id);
+    DResp resp = this.secrets.inspect(id);
     return parser.parse(this.config, resp);
   }
 
+  public DRet<Void> remove(String id) {
+    DResp resp = this.secrets.remove(id);
+    return DIParser.voidx().parse(this.config, resp);
+  }
+
+  public DRet<Void> update(String id, long version, String body) {
+    DResp resp = this.secrets.update(id, version, body);
+    return DIParser.voidx().parse(this.config, resp);
+  }
 }

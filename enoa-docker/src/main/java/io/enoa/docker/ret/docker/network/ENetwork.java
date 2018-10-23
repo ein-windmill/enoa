@@ -15,13 +15,13 @@
  */
 package io.enoa.docker.ret.docker.network;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 import io.enoa.toolkit.map.Kv;
 
 import java.util.Date;
 import java.util.Map;
 
-public class ENetwork extends AbstractDockerRet {
+public class ENetwork extends AbstractDRRet {
 
   private String name;
   private String id;

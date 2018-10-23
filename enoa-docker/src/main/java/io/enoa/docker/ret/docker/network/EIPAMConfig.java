@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.network;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class EIPAMConfig extends AbstractDockerRet {
+public class EIPAMConfig extends AbstractDRRet {
 
   private String subnet;
   private String gateway;

@@ -1,4 +1,4 @@
-package io.enoa.docker.command.registry.geneic;
+package io.enoa.docker.command.registry.generic;
 
 import io.enoa.docker.command.registry.origin.OriginRegistry;
 

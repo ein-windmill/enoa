@@ -17,26 +17,21 @@ package io.enoa.docker.command.registry.origin;
 
 import io.enoa.docker.ret.registry.RResp;
 
-public class ERegistryManifests implements OriginManifests {
+public class EOriginRegistryBlob implements OriginBlob {
 
-  private ERegistryImpl registry;
+  private EOriginRegistryImpl registry;
 
-  public ERegistryManifests(ERegistryImpl registry) {
+  public EOriginRegistryBlob(EOriginRegistryImpl registry) {
     this.registry = registry;
   }
 
   @Override
-  public RResp find(String repository, String reference) {
+  public RResp find(String repository, String digest) {
     return null;
   }
 
   @Override
-  public RResp update(String repository, String reference) {
-    return null;
-  }
-
-  @Override
-  public RResp delete(String repository, String reference) {
+  public RResp delete(String repository, String digest) {
     return null;
   }
 }

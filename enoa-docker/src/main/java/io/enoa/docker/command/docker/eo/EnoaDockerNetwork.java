@@ -15,8 +15,8 @@
  */
 package io.enoa.docker.command.docker.eo;
 
-import io.enoa.docker.command.docker.geneic.EGeneicDockerNetwork;
-import io.enoa.docker.command.docker.geneic.GeneicDocker;
+import io.enoa.docker.command.docker.generic.EGeneicDockerNetwork;
+import io.enoa.docker.command.docker.generic.GeneicDocker;
 import io.enoa.docker.dqp.network.DQPNetworkInspect;
 import io.enoa.docker.dqp.network.DQPNetworkList;
 import io.enoa.docker.dqp.common.DQPFilter;

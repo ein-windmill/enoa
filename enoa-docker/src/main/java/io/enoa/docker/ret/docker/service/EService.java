@@ -15,12 +15,12 @@
  */
 package io.enoa.docker.ret.docker.service;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 import io.enoa.docker.ret.docker.swarm.EVersion;
 
 import java.util.Date;
 
-public class EService extends AbstractDockerRet {
+public class EService extends AbstractDRRet {
 
   private String id;
   private EVersion version;

@@ -15,8 +15,8 @@
  */
 package io.enoa.docker.command.docker.eo;
 
-import io.enoa.docker.command.docker.geneic.EGeneicDockerDistribution;
-import io.enoa.docker.command.docker.geneic.GeneicDocker;
+import io.enoa.docker.command.docker.generic.EGeneicDockerDistribution;
+import io.enoa.docker.command.docker.generic.GeneicDocker;
 import io.enoa.docker.ret.docker.DRet;
 import io.enoa.docker.ret.docker.distribution.EDistribution;
 import io.enoa.docker.parser.docker.DIParser;

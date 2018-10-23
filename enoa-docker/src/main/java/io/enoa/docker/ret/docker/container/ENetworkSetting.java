@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.container;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class ENetworkSetting extends AbstractDockerRet {
+public class ENetworkSetting extends AbstractDRRet {
 
   private final String bridge;
   private final String sandboxid;

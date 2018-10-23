@@ -15,6 +15,17 @@
  */
 package io.enoa.docker;
 
+import io.enoa.docker.command.registry.eo.EERegistryImpl;
+import io.enoa.docker.command.registry.eo.EoRegistry;
+import io.enoa.docker.command.registry.generic.EGenericRegistryImpl;
+import io.enoa.docker.command.registry.generic.GenericRegistry;
+import io.enoa.docker.command.registry.origin.EDockerhubImpl;
+import io.enoa.docker.command.registry.origin.EOriginRegistryImpl;
+import io.enoa.docker.command.registry.origin.OriginRegistry;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 public class EPMRegistry {
 
   private static class Holder {
@@ -25,8 +36,77 @@ public class EPMRegistry {
     return Holder.INSTANCE;
   }
 
-  private EPMRegistry() {
+  private Map<String, OriginRegistry> origin;
+  private Map<String, GenericRegistry> generic;
+  private Map<String, EoRegistry> eo;
 
+  private EPMRegistry() {
+    this.origin = new ConcurrentHashMap<>();
+    this.generic = new ConcurrentHashMap<>();
+    this.eo = new ConcurrentHashMap<>();
+  }
+
+  public void install(String name, RegistryConfig config) {
+    if (config.dockerhub()) {
+      this.origin.put(name, new EDockerhubImpl(config));
+    } else {
+      this.origin.put(name, new EOriginRegistryImpl(config));
+    }
+  }
+
+  public void install(RegistryConfig config) {
+    this.install("main", config);
+  }
+
+  public void uninstall(String name) {
+    this.origin.remove(name);
+    this.generic.remove(name);
+    this.eo.remove(name);
+  }
+
+  public void uninstall() {
+    this.uninstall("main");
+  }
+
+  public OriginRegistry origin(String name) {
+    OriginRegistry registry = this.origin.get(name);
+    return registry;
+  }
+
+  public OriginRegistry origin() {
+    return this.origin("main");
+  }
+
+  public GenericRegistry generic(String name) {
+    GenericRegistry geneic = this.generic.get(name);
+    if (geneic != null)
+      return geneic;
+    OriginRegistry origin = this.origin(name);
+    if (origin == null)
+      return null;
+    geneic = new EGenericRegistryImpl(origin);
+    this.generic.put(name, geneic);
+    return geneic;
+  }
+
+  public GenericRegistry generic() {
+    return this.generic("main");
+  }
+
+  public EoRegistry registry(String name) {
+    EoRegistry registry = this.eo.get(name);
+    if (registry != null)
+      return registry;
+    GenericRegistry generic = this.generic(name);
+    if (generic == null)
+      return null;
+    registry = new EERegistryImpl(generic);
+    this.eo.put(name, registry);
+    return registry;
+  }
+
+  public EoRegistry registry() {
+    return this.registry("main");
   }
 
 }

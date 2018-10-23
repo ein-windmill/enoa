@@ -15,10 +15,10 @@
  */
 package io.enoa.docker.ret.docker.swarm;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 import io.enoa.toolkit.map.Kv;
 
-public class ESwarmSpec extends AbstractDockerRet {
+public class ESwarmSpec extends AbstractDRRet {
 
   private final String name;
   private final Kv labels;

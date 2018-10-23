@@ -16,7 +16,7 @@
 package io.enoa.docker;
 
 import io.enoa.docker.command.docker.eo.*;
-import io.enoa.docker.command.docker.geneic.GeneicDocker;
+import io.enoa.docker.command.docker.generic.GeneicDocker;
 import io.enoa.docker.command.docker.origin.OriginDocker;
 import io.enoa.docker.ret.docker.DRet;
 import io.enoa.docker.ret.docker.dockerinfo.EDockerInfo;

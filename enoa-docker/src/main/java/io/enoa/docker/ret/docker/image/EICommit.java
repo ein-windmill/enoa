@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.image;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class EICommit extends AbstractDockerRet {
+public class EICommit extends AbstractDRRet {
 
   private String id;
 

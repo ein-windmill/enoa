@@ -15,11 +15,11 @@
  */
 package io.enoa.docker.ret.docker.exec;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
 import java.util.List;
 
-public class EProcessConfig extends AbstractDockerRet {
+public class EProcessConfig extends AbstractDRRet {
 
   private Boolean privileged;
   private String user;

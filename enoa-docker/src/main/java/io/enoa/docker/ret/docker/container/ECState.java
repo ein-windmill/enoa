@@ -15,11 +15,11 @@
  */
 package io.enoa.docker.ret.docker.container;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
 import java.util.Date;
 
-public class ECState extends AbstractDockerRet {
+public class ECState extends AbstractDRRet {
 
   private final String status;
   private final Boolean running;

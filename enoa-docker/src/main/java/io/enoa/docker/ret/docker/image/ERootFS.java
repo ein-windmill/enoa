@@ -15,11 +15,11 @@
  */
 package io.enoa.docker.ret.docker.image;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
 import java.util.List;
 
-public class ERootFS extends AbstractDockerRet {
+public class ERootFS extends AbstractDRRet {
   private String type;
   private List<String> layers;
   private String baselayer;

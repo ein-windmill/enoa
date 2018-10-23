@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.service;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class ETmpfsOptions extends AbstractDockerRet {
+public class ETmpfsOptions extends AbstractDRRet {
 
   private Long sizebytes;
   private Integer mode;

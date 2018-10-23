@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.container;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class ERestartPolicy extends AbstractDockerRet {
+public class ERestartPolicy extends AbstractDRRet {
 
   private final Integer maximumretrycount;
   private final String name;

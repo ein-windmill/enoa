@@ -15,11 +15,11 @@
  */
 package io.enoa.docker.ret.docker.swarm;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
 import java.util.List;
 
-public class ECAConfig extends AbstractDockerRet {
+public class ECAConfig extends AbstractDRRet {
 
   private final Long nodecertexpiry;
   private final String signingcacert;

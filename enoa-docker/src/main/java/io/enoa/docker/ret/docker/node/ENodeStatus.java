@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.node;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class ENodeStatus extends AbstractDockerRet {
+public class ENodeStatus extends AbstractDRRet {
 
   private String state;
   private String message;

@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.common;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class EUser extends AbstractDockerRet {
+public class EUser extends AbstractDRRet {
 
   private Integer uid;
   private Integer gid;

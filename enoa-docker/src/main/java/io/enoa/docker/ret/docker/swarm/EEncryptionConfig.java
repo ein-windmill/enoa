@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.swarm;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class EEncryptionConfig extends AbstractDockerRet {
+public class EEncryptionConfig extends AbstractDRRet {
 
   private final Boolean autolockmanagers;
 

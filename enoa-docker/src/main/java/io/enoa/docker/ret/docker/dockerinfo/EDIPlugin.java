@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.dockerinfo;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class EDIPlugin extends AbstractDockerRet {
+public class EDIPlugin extends AbstractDRRet {
 
   private final String[] volume;
   private final String[] network;

@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.system;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class EYRemoteManage extends AbstractDockerRet {
+public class EYRemoteManage extends AbstractDRRet {
 
   private String nodeid;
   private String addr;

@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.container;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class ECpuUseage extends AbstractDockerRet {
+public class ECpuUseage extends AbstractDRRet {
 
   private final Integer totalusage;
   private final Integer usageinkernelmode;

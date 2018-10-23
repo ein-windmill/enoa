@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.dockerinfo;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class EIndex extends AbstractDockerRet {
+public class EIndex extends AbstractDRRet {
 
   private final String name;
   private final String[] mirrors;

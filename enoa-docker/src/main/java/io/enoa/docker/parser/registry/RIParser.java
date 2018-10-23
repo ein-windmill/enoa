@@ -15,12 +15,12 @@
  */
 package io.enoa.docker.parser.registry;
 
-import io.enoa.docker.DockerConfig;
+import io.enoa.docker.RegistryConfig;
 import io.enoa.docker.ret.registry.RResp;
 import io.enoa.docker.ret.registry.RRet;
 
 public interface RIParser<T> {
 
-  RRet<T> parse(DockerConfig config, RResp resp);
+  RRet<T> parse(RegistryConfig config, RResp resp);
 
 }

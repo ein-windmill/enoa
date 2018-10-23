@@ -17,8 +17,8 @@ package io.enoa.docker;
 
 import io.enoa.docker.command.docker.eo.EnoaDockerImpl;
 import io.enoa.docker.command.docker.eo.EoDocker;
-import io.enoa.docker.command.docker.geneic.EnoaGenericDocker;
-import io.enoa.docker.command.docker.geneic.GeneicDocker;
+import io.enoa.docker.command.docker.generic.EnoaGenericDocker;
+import io.enoa.docker.command.docker.generic.GeneicDocker;
 import io.enoa.docker.command.docker.origin.EnoaTCPDocker;
 import io.enoa.docker.command.docker.origin.EnoaUNIXSOCKETDocker;
 import io.enoa.docker.command.docker.origin.OriginDocker;

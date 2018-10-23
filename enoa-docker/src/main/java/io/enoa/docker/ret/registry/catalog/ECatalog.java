@@ -13,16 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.ret;
+package io.enoa.docker.ret.registry.catalog;
 
-import io.enoa.json.Json;
+import io.enoa.docker.ret.AbstractDRRet;
 
-import java.io.Serializable;
-
-public abstract class AbstractDockerRet implements Serializable {
-
-  @Override
-  public String toString() {
-    return Json.toJson(this);
-  }
+public class ECatalog extends AbstractDRRet {
 }

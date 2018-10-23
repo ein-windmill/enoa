@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.command.docker.geneic;
+package io.enoa.docker.command.docker.generic;
 
 import io.enoa.docker.DockerConfig;
-import io.enoa.docker.command.docker.origin.EOriginConfig;
+import io.enoa.docker.command.docker.origin.EOriginNode;
 import io.enoa.docker.command.docker.origin.OriginDocker;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.ret.docker.DResp;
@@ -26,45 +26,40 @@ import io.enoa.toolkit.value.Void;
 
 import java.util.List;
 
-public class EGeneicDockerConfig {
+public class EGeneicDockerNode {
 
   private OriginDocker docker;
   private DockerConfig config;
-  private EOriginConfig configs;
+  private EOriginNode nodes;
 
-  EGeneicDockerConfig(OriginDocker docker) {
+  EGeneicDockerNode(OriginDocker docker) {
     this.docker = docker;
     this.config = docker._dockerconfig();
-    this.configs = docker.config();
+    this.nodes = docker.node();
   }
 
-  public <T> DRet<List<T>> list(DIParser<List<T>> parser) {
-    return this.list(parser, null);
-  }
-
-  public <T> DRet<List<T>> list(DIParser<List<T>> parser, DQPFilter dqp) {
-    DResp resp = this.configs.list(dqp);
-    return parser.parse(this.config, resp);
-  }
-
-  public <T> DRet<T> create(DIParser<T> parser, String body) {
-    DResp resp = this.configs.create(body);
+  public <T> DRet<List<T>> nodes(DIParser<List<T>> parser, DQPFilter dqp) {
+    DResp resp = this.nodes.nodes(dqp);
     return parser.parse(this.config, resp);
   }
 
   public <T> DRet<T> inspect(DIParser<T> parser, String id) {
-    DResp resp = this.configs.inspect(id);
+    DResp resp = this.nodes.inspect(id);
     return parser.parse(this.config, resp);
   }
 
   public DRet<Void> remove(String id) {
-    DResp resp = this.configs.remove(id);
+    DResp resp = this.nodes.remove(id);
+    return DIParser.voidx().parse(this.config, resp);
+  }
+
+  public DRet<Void> remove(String id, boolean force) {
+    DResp resp = this.nodes.remove(id, force);
     return DIParser.voidx().parse(this.config, resp);
   }
 
   public DRet<Void> update(String id, long version, String body) {
-    DResp resp = this.configs.update(id, version, body);
+    DResp resp = this.nodes.update(id, version, body);
     return DIParser.voidx().parse(this.config, resp);
   }
-
 }

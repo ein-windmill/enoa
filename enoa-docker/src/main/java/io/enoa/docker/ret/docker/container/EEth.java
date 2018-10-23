@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.container;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class EEth extends AbstractDockerRet {
+public class EEth extends AbstractDRRet {
 
   private final Integer rxbytes;
   private final Integer rxdropped;

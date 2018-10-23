@@ -15,11 +15,11 @@
  */
 package io.enoa.docker.ret.docker.image;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
 import java.util.List;
 
-public class EImagePrune extends AbstractDockerRet {
+public class EImagePrune extends AbstractDRRet {
 
   private List<EIRemove> imagesdeleted;
   private Integer spacereclaimed;

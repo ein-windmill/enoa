@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.distribution;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class EDescriptor extends AbstractDockerRet {
+public class EDescriptor extends AbstractDRRet {
 
   private final String mediatype;
   private final String digest;

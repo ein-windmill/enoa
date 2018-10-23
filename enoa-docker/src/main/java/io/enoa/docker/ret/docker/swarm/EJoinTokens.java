@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.swarm;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class EJoinTokens extends AbstractDockerRet {
+public class EJoinTokens extends AbstractDRRet {
   private final String worker;
   private final String manager;
 

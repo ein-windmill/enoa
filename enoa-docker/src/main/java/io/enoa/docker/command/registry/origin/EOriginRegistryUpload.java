@@ -17,11 +17,11 @@ package io.enoa.docker.command.registry.origin;
 
 import io.enoa.docker.ret.registry.RResp;
 
-public class ERegistryUpload implements OriginUpload {
+public class EOriginRegistryUpload implements OriginUpload {
 
-  private ERegistryImpl registry;
+  private EOriginRegistryImpl registry;
 
-  public ERegistryUpload(ERegistryImpl registry) {
+  public EOriginRegistryUpload(EOriginRegistryImpl registry) {
     this.registry = registry;
   }
 

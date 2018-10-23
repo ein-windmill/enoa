@@ -15,11 +15,11 @@
  */
 package io.enoa.docker.ret.docker.container;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
 import java.util.List;
 
-public class EProcesses extends AbstractDockerRet {
+public class EProcesses extends AbstractDRRet {
 
 
   private final String[] titles;

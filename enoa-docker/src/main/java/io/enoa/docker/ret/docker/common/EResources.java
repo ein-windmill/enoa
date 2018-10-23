@@ -15,11 +15,11 @@
  */
 package io.enoa.docker.ret.docker.common;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
 import java.util.List;
 
-public class EResources extends AbstractDockerRet {
+public class EResources extends AbstractDRRet {
 
   private Long nanocpus;
   private Long memorybytes;

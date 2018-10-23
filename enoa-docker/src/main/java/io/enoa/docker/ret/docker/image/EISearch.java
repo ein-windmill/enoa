@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.image;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class EISearch extends AbstractDockerRet {
+public class EISearch extends AbstractDRRet {
 
   private String description;
   private Boolean official;

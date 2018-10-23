@@ -15,11 +15,11 @@
  */
 package io.enoa.docker.ret.docker.image;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
 import java.util.Date;
 
-public class EIMetadata extends AbstractDockerRet {
+public class EIMetadata extends AbstractDRRet {
 
   private final Date lasttagtime;
 

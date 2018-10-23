@@ -15,11 +15,11 @@
  */
 package io.enoa.docker.ret.docker.plugin;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
 import java.util.List;
 
-public class EPluginLinux extends AbstractDockerRet {
+public class EPluginLinux extends AbstractDRRet {
 
   private List<String> capabilities;
   private Boolean allowalldevices;

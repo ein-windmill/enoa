@@ -15,7 +15,9 @@
  */
 package io.enoa.docker.command.registry.eo;
 
-public interface EoRegistry {
+import io.enoa.docker.command.registry._RegistryConfigSupport;
+
+public interface EoRegistry extends _RegistryConfigSupport {
 
 
 

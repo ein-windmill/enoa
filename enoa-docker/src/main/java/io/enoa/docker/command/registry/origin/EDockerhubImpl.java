@@ -15,9 +15,20 @@
  */
 package io.enoa.docker.command.registry.origin;
 
+import io.enoa.docker.RegistryConfig;
 import io.enoa.docker.ret.registry.RResp;
 
-public class EDockerhubImpl implements OriginRegistry {
+public class EDockerhubImpl extends AbstractOriginRegistry {
+
+  public EDockerhubImpl(RegistryConfig config) {
+    super(config);
+  }
+
+  @Override
+  public RegistryConfig _registryconfig() {
+    return super.config();
+  }
+
   @Override
   public RResp _catalog(Integer n, String last) {
     return null;
@@ -42,4 +53,5 @@ public class EDockerhubImpl implements OriginRegistry {
   public OriginUpload upload() {
     return new EDockerhubUpload(this);
   }
+
 }

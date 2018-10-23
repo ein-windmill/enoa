@@ -15,13 +15,13 @@
  */
 package io.enoa.docker.ret.docker.service;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 import io.enoa.docker.ret.docker.image.EHealthcheck;
 import io.enoa.toolkit.map.Kv;
 
 import java.util.List;
 
-public class EContainerSpec extends AbstractDockerRet {
+public class EContainerSpec extends AbstractDRRet {
 
   private String Image;
   private Kv Labels;

@@ -15,11 +15,11 @@
  */
 package io.enoa.docker.ret.docker.container;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
 import java.util.List;
 
-public class EContainer extends AbstractDockerRet {
+public class EContainer extends AbstractDRRet {
 
   private final String id;
   private final List<String> names;

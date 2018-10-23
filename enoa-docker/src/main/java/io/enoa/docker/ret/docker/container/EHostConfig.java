@@ -15,12 +15,12 @@
  */
 package io.enoa.docker.ret.docker.container;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 import io.enoa.toolkit.map.Kv;
 
 import java.util.List;
 
-public class EHostConfig extends AbstractDockerRet {
+public class EHostConfig extends AbstractDRRet {
 
   //  private Object BlkioWeightDevice;
 //  private Object BlkioDeviceReadBps;

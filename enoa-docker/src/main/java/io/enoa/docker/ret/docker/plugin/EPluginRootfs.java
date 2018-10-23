@@ -15,11 +15,11 @@
  */
 package io.enoa.docker.ret.docker.plugin;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
 import java.util.List;
 
-public class EPluginRootfs extends AbstractDockerRet {
+public class EPluginRootfs extends AbstractDRRet {
 
   private String type;
   private List<String> diffids;

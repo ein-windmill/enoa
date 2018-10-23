@@ -13,25 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.command.registry.origin;
+package io.enoa.docker.ret;
 
-import io.enoa.docker.ret.registry.RResp;
+import io.enoa.json.Json;
 
-public class ERegistryBlob implements OriginBlob {
+import java.io.Serializable;
 
-  private ERegistryImpl registry;
-
-  public ERegistryBlob(ERegistryImpl registry) {
-    this.registry = registry;
-  }
+public abstract class AbstractDRRet implements Serializable {
 
   @Override
-  public RResp find(String repository, String digest) {
-    return null;
-  }
-
-  @Override
-  public RResp delete(String repository, String digest) {
-    return null;
+  public String toString() {
+    return Json.toJson(this);
   }
 }

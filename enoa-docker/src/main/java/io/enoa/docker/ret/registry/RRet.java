@@ -15,7 +15,7 @@
  */
 package io.enoa.docker.ret.registry;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class RRet<T> extends AbstractDockerRet {
+public class RRet<T> extends AbstractDRRet {
 }

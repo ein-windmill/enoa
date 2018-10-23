@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.service;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class EPrivileges extends AbstractDockerRet {
+public class EPrivileges extends AbstractDRRet {
 
   private ECredentialSpec credentialspec;
   private ESELinuxContext selinuxcontext;

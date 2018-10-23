@@ -15,11 +15,11 @@
  */
 package io.enoa.docker.ret.docker.node;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 import io.enoa.docker.ret.docker.common.EResources;
 import io.enoa.docker.ret.docker.common.ETLSInfo;
 
-public class ENodeDescription extends AbstractDockerRet {
+public class ENodeDescription extends AbstractDRRet {
 
   private String hostname;
   private EPlatform platform;

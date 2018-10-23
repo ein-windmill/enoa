@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.container;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class ECpuStats extends AbstractDockerRet {
+public class ECpuStats extends AbstractDRRet {
 
   private final ECpuUseage cpuusage;
   private final EThrottlingData throttlingdata;

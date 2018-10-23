@@ -15,12 +15,12 @@
  */
 package io.enoa.docker.ret.docker.dockerinfo;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
 import java.util.Date;
 import java.util.List;
 
-public class EDockerInfo extends AbstractDockerRet {
+public class EDockerInfo extends AbstractDRRet {
 
   private final String id;
   private final Integer containers;

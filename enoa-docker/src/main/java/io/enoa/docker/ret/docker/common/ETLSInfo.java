@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.common;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class ETLSInfo extends AbstractDockerRet {
+public class ETLSInfo extends AbstractDRRet {
   private final String trustroot;
   private final String certissuersubject;
   private final String certissuerpublickey;

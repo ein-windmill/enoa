@@ -15,12 +15,12 @@
  */
 package io.enoa.docker.ret.docker.node;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 import io.enoa.toolkit.map.Kv;
 
 import java.util.List;
 
-public class ENodeEngine extends AbstractDockerRet {
+public class ENodeEngine extends AbstractDRRet {
 
   private String engineversion;
   private Kv labels;

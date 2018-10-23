@@ -15,12 +15,12 @@
  */
 package io.enoa.docker.ret.docker.plugin;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 import io.enoa.docker.ret.docker.common.EUser;
 
 import java.util.List;
 
-public class EPluginConfig extends AbstractDockerRet {
+public class EPluginConfig extends AbstractDRRet {
 
   private final String dockerversion;
   private final String description;

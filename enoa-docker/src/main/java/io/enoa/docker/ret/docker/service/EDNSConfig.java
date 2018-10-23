@@ -15,11 +15,11 @@
  */
 package io.enoa.docker.ret.docker.service;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
 import java.util.List;
 
-public class EDNSConfig extends AbstractDockerRet {
+public class EDNSConfig extends AbstractDRRet {
 
   private List<String> nameservers;
   private List<String> search;

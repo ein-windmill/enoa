@@ -15,11 +15,11 @@
  */
 package io.enoa.docker.ret.docker.system;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
 import java.util.Date;
 
-public class EYVersion extends AbstractDockerRet {
+public class EYVersion extends AbstractDRRet {
 
   private final String version;
   private final String os;

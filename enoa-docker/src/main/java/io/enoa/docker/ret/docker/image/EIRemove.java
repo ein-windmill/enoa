@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.image;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class EIRemove extends AbstractDockerRet {
+public class EIRemove extends AbstractDRRet {
 
   private final String untagged;
   private final String deleted;

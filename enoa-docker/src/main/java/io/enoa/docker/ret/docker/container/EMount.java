@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.container;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class EMount extends AbstractDockerRet {
+public class EMount extends AbstractDRRet {
 
   private final String type;
   private final String name;

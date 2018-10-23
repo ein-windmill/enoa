@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.network;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class ENetworkContainer extends AbstractDockerRet {
+public class ENetworkContainer extends AbstractDRRet {
 
   private String name;
   private String endpointid;

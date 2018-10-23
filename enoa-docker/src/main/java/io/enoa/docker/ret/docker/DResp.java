@@ -15,14 +15,14 @@
  */
 package io.enoa.docker.ret.docker;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 import io.enoa.http.protocol.HttpResponse;
 import io.enoa.toolkit.binary.EnoaBinary;
 import io.enoa.toolkit.text.TextKit;
 
 import java.nio.ByteBuffer;
 
-public class DResp extends AbstractDockerRet {
+public class DResp extends AbstractDRRet {
 
   private int code;
   private String contenttype;

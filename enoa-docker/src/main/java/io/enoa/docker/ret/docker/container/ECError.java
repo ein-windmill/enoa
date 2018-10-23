@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.container;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class ECError extends AbstractDockerRet {
+public class ECError extends AbstractDRRet {
 
   private String message;
 

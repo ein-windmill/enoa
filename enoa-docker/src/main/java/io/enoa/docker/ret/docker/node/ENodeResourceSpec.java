@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.node;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class ENodeResourceSpec extends AbstractDockerRet {
+public class ENodeResourceSpec extends AbstractDRRet {
 
   private String kind;
   private Integer value;

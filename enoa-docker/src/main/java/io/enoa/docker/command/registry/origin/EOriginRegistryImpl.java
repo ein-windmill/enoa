@@ -15,12 +15,32 @@
  */
 package io.enoa.docker.command.registry.origin;
 
+import io.enoa.docker.RegistryConfig;
 import io.enoa.docker.ret.registry.RResp;
+import io.enoa.http.Http;
+import io.enoa.http.protocol.HttpResponse;
+import io.enoa.toolkit.text.TextKit;
 
-public class ERegistryImpl implements OriginRegistry {
+public class EOriginRegistryImpl extends AbstractOriginRegistry {
+
+  public EOriginRegistryImpl(RegistryConfig config) {
+    super(config);
+  }
+
+  @Override
+  public RegistryConfig _registryconfig() {
+    return super.config();
+  }
+
   @Override
   public RResp _catalog(Integer n, String last) {
-    return null;
+    Http http = super.http("_catalog");
+    if (n != null)
+      http.para("n", n);
+    if (TextKit.blankn(last))
+      http.para("last", last);
+    HttpResponse response = http.emit();
+    return RResp.create(response);
   }
 
   @Override
@@ -30,16 +50,17 @@ public class ERegistryImpl implements OriginRegistry {
 
   @Override
   public OriginManifests manifests() {
-    return new ERegistryManifests(this);
+    return new EOriginRegistryManifests(this);
   }
 
   @Override
   public OriginBlob blob() {
-    return new ERegistryBlob(this);
+    return new EOriginRegistryBlob(this);
   }
 
   @Override
   public OriginUpload upload() {
-    return new ERegistryUpload(this);
+    return new EOriginRegistryUpload(this);
   }
+
 }

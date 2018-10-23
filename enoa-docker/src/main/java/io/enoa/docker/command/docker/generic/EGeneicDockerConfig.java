@@ -13,33 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.command.docker.geneic;
+package io.enoa.docker.command.docker.generic;
 
 import io.enoa.docker.DockerConfig;
-import io.enoa.docker.command.docker.origin.EOriginService;
+import io.enoa.docker.command.docker.origin.EOriginConfig;
 import io.enoa.docker.command.docker.origin.OriginDocker;
 import io.enoa.docker.dqp.common.DQPFilter;
-import io.enoa.docker.dqp.service.DQPServiceCreate;
-import io.enoa.docker.dqp.service.DQPServiceUpdate;
 import io.enoa.docker.ret.docker.DResp;
 import io.enoa.docker.ret.docker.DRet;
-import io.enoa.docker.ret.docker.service.DQPServiceLogs;
 import io.enoa.docker.parser.docker.DIParser;
 import io.enoa.toolkit.value.Void;
 
 import java.util.List;
 
-public class EGeneicDockerService {
+public class EGeneicDockerConfig {
 
   private OriginDocker docker;
   private DockerConfig config;
-  private EOriginService services;
+  private EOriginConfig configs;
 
-
-  EGeneicDockerService(OriginDocker docker) {
+  EGeneicDockerConfig(OriginDocker docker) {
     this.docker = docker;
     this.config = docker._dockerconfig();
-    this.services = docker.service();
+    this.configs = docker.config();
   }
 
   public <T> DRet<List<T>> list(DIParser<List<T>> parser) {
@@ -47,45 +43,28 @@ public class EGeneicDockerService {
   }
 
   public <T> DRet<List<T>> list(DIParser<List<T>> parser, DQPFilter dqp) {
-    DResp resp = this.services.list(dqp);
+    DResp resp = this.configs.list(dqp);
     return parser.parse(this.config, resp);
   }
 
   public <T> DRet<T> create(DIParser<T> parser, String body) {
-    return this.create(parser, body, null);
-  }
-
-  public <T> DRet<T> create(DIParser<T> parser, String body, DQPServiceCreate dqp) {
-    DResp resp = this.services.create(body, dqp);
+    DResp resp = this.configs.create(body);
     return parser.parse(this.config, resp);
   }
 
   public <T> DRet<T> inspect(DIParser<T> parser, String id) {
-    return this.inspect(parser, id, Boolean.FALSE);
-  }
-
-  public <T> DRet<T> inspect(DIParser<T> parser, String id, boolean insertDefaults) {
-    DResp resp = this.services.inspect(id, insertDefaults);
+    DResp resp = this.configs.inspect(id);
     return parser.parse(this.config, resp);
   }
 
   public DRet<Void> remove(String id) {
-    DResp resp = this.services.remove(id);
+    DResp resp = this.configs.remove(id);
     return DIParser.voidx().parse(this.config, resp);
   }
 
-  public <T> DRet<T> update(DIParser<T> parser, String id, String body, DQPServiceUpdate dqp) {
-    DResp resp = this.services.update(id, body, dqp);
-    return parser.parse(this.config, resp);
-  }
-
-  public <T> DRet<T> logs(DIParser<T> parser, String id) {
-    return this.logs(parser, id, null);
-  }
-
-  public <T> DRet<T> logs(DIParser<T> parser, String id, DQPServiceLogs dqp) {
-    DResp resp = this.services.logs(id, dqp);
-    return parser.parse(this.config, resp);
+  public DRet<Void> update(String id, long version, String body) {
+    DResp resp = this.configs.update(id, version, body);
+    return DIParser.voidx().parse(this.config, resp);
   }
 
 }

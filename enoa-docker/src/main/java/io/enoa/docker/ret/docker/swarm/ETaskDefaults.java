@@ -15,10 +15,10 @@
  */
 package io.enoa.docker.ret.docker.swarm;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 import io.enoa.docker.ret.docker.common.EDriver;
 
-public class ETaskDefaults extends AbstractDockerRet {
+public class ETaskDefaults extends AbstractDRRet {
 
 
   private final EDriver logdriver;

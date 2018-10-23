@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.swarm;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class ERaft extends AbstractDockerRet {
+public class ERaft extends AbstractDRRet {
 
   private final Long snapshotinterval;
   private final Long keepoldsnapshots;

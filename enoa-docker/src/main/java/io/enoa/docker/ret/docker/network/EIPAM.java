@@ -15,12 +15,12 @@
  */
 package io.enoa.docker.ret.docker.network;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 import io.enoa.toolkit.map.Kv;
 
 import java.util.List;
 
-public class EIPAM extends AbstractDockerRet {
+public class EIPAM extends AbstractDRRet {
 
   private String driver;
   private List<EIPAMConfig> config;

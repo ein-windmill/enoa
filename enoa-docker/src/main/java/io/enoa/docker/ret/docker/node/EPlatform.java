@@ -1,8 +1,8 @@
 package io.enoa.docker.ret.docker.node;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class EPlatform extends AbstractDockerRet {
+public class EPlatform extends AbstractDRRet {
 
   private final String architecture;
   private final String os;

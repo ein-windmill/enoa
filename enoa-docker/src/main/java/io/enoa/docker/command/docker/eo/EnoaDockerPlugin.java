@@ -15,8 +15,8 @@
  */
 package io.enoa.docker.command.docker.eo;
 
-import io.enoa.docker.command.docker.geneic.EGeneicDockerPlugin;
-import io.enoa.docker.command.docker.geneic.GeneicDocker;
+import io.enoa.docker.command.docker.generic.EGeneicDockerPlugin;
+import io.enoa.docker.command.docker.generic.GeneicDocker;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.plugin.DQPPluginInstall;
 import io.enoa.docker.dqp.plugin.DQPPluginUpgrade;

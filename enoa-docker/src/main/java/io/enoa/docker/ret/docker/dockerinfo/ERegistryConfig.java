@@ -15,11 +15,11 @@
  */
 package io.enoa.docker.ret.docker.dockerinfo;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
 import java.util.Map;
 
-public class ERegistryConfig extends AbstractDockerRet {
+public class ERegistryConfig extends AbstractDRRet {
 
   private final String[] allownondistributableartifactscidrs;
   private final String[] allownondistributableartifactshostnames;

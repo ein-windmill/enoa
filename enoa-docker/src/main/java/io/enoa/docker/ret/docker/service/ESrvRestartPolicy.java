@@ -1,8 +1,8 @@
 package io.enoa.docker.ret.docker.service;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class ESrvRestartPolicy extends AbstractDockerRet {
+public class ESrvRestartPolicy extends AbstractDRRet {
 
   private String condition;
   private Long delay;

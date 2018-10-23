@@ -15,14 +15,14 @@
  */
 package io.enoa.docker.ret.docker.system;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 import io.enoa.docker.ret.docker.common.ETLSInfo;
 import io.enoa.docker.ret.docker.swarm.ESwarmSpec;
 import io.enoa.docker.ret.docker.swarm.EVersion;
 
 import java.util.Date;
 
-public class EYCluster extends AbstractDockerRet {
+public class EYCluster extends AbstractDRRet {
 
   private String id;
   private EVersion version;

@@ -15,12 +15,12 @@
  */
 package io.enoa.docker.ret.docker.service;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
 import java.util.List;
 
 // todo fill it
-public class EPlacement extends AbstractDockerRet {
+public class EPlacement extends AbstractDRRet {
 
   private List<String>  Constraints;
 

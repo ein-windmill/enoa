@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.dockerinfo;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class ESwarm extends AbstractDockerRet {
+public class ESwarm extends AbstractDRRet {
 
   private final String nodeid;
   private final String nodeaddr;

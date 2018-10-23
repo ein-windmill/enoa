@@ -27,6 +27,7 @@ public class RegistryConfig implements Serializable {
   private final Boolean debug;
   private final Boolean dockerhub;
   private final EoHttp http;
+  private final String version;
 
   public RegistryConfig(Builder builder) {
     this.host = builder.host;
@@ -35,6 +36,11 @@ public class RegistryConfig implements Serializable {
     this.debug = builder.debug;
     this.http = builder.http;
     this.dockerhub = builder.dockerhub;
+    this.version = builder.version;
+  }
+
+  public String version() {
+    return version;
   }
 
   public Boolean dockerhub() {
@@ -68,12 +74,14 @@ public class RegistryConfig implements Serializable {
     private Boolean debug;
     private Boolean dockerhub;
     private EoHttp http;
+    private String version;
 
     public Builder() {
       this.ssl = Boolean.FALSE;
       this.debug = Boolean.FALSE;
       this.dockerhub = Boolean.FALSE;
       this.http = EoHttp.def();
+      this.version = "v2";
     }
 
     public RegistryConfig build() {

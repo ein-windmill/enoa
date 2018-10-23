@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.system;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class EYPlugin extends AbstractDockerRet {
+public class EYPlugin extends AbstractDRRet {
 
 
   private String[] volume;

@@ -15,10 +15,10 @@
  */
 package io.enoa.docker.ret.docker.system;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 import io.enoa.toolkit.map.Kv;
 
-public class EActor extends AbstractDockerRet {
+public class EActor extends AbstractDRRet {
 
   private String id;
   private Kv attributes;

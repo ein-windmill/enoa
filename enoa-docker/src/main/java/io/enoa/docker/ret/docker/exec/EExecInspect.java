@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.exec;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class EExecInspect extends AbstractDockerRet {
+public class EExecInspect extends AbstractDRRet {
 
   private Boolean canremove;
   private String containerid;

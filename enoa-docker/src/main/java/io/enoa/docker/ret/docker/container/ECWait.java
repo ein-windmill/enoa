@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.container;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class ECWait extends AbstractDockerRet {
+public class ECWait extends AbstractDRRet {
 
   private Integer statuscode;
   private ECError error;

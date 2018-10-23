@@ -15,10 +15,10 @@
  */
 package io.enoa.docker.ret.docker.service;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 import io.enoa.docker.ret.docker.common.EResources;
 
-public class EServiceResources extends AbstractDockerRet {
+public class EServiceResources extends AbstractDRRet {
 
   private EResources limits;
   private EResources reservation;

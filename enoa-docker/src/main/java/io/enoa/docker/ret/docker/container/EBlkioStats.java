@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.container;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class EBlkioStats extends AbstractDockerRet {
+public class EBlkioStats extends AbstractDRRet {
 
   private final Object ioservicebytesrecursive;
   private final Object ioservicedrecursive;

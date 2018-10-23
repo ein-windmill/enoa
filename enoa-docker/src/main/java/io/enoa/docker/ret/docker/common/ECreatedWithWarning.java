@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.common;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class ECreatedWithWarning extends AbstractDockerRet {
+public class ECreatedWithWarning extends AbstractDRRet {
 
   private String id;
   private String warning;

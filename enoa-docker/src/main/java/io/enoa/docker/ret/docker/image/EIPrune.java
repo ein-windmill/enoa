@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.image;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class EIPrune extends AbstractDockerRet {
+public class EIPrune extends AbstractDRRet {
 
   private Integer spacereclaimed;
 

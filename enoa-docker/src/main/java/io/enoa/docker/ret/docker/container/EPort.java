@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.container;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class EPort extends AbstractDockerRet {
+public class EPort extends AbstractDRRet {
 
   private final String ip;
   private final Integer privateport;

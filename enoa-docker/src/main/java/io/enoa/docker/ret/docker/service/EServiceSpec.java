@@ -15,10 +15,10 @@
  */
 package io.enoa.docker.ret.docker.service;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 import io.enoa.toolkit.map.Kv;
 
-public class EServiceSpec extends AbstractDockerRet {
+public class EServiceSpec extends AbstractDRRet {
 
   private String Name;
   private Kv  Labels;

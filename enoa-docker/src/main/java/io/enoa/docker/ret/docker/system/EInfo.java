@@ -15,7 +15,7 @@
  */
 package io.enoa.docker.ret.docker.system;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 import io.enoa.docker.ret.docker.common.EGenericResource;
 import io.enoa.docker.ret.docker.dockerinfo.ECommit;
 import io.enoa.docker.ret.docker.dockerinfo.ERegistryConfig;
@@ -24,7 +24,7 @@ import io.enoa.docker.ret.docker.dockerinfo.ERuntimes;
 import java.util.Date;
 import java.util.List;
 
-public class EInfo extends AbstractDockerRet {
+public class EInfo extends AbstractDRRet {
 
   private final String id;
   private final Integer containers;

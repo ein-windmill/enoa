@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.service;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class EServiceSecret extends AbstractDockerRet {
+public class EServiceSecret extends AbstractDRRet {
 
   private ESrvFile file;
   private String secretid;

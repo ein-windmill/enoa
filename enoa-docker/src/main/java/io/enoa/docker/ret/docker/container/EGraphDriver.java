@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.container;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class EGraphDriver extends AbstractDockerRet {
+public class EGraphDriver extends AbstractDRRet {
 
 
   private final String name;

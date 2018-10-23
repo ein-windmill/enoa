@@ -15,12 +15,12 @@
  */
 package io.enoa.docker.ret.docker.volume;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 import io.enoa.toolkit.map.Kv;
 
 import java.util.Date;
 
-public class EVolume extends AbstractDockerRet {
+public class EVolume extends AbstractDRRet {
 
   private String name;
   private String driver;

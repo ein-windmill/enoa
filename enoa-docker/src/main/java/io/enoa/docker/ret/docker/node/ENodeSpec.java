@@ -1,9 +1,9 @@
 package io.enoa.docker.ret.docker.node;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 import io.enoa.toolkit.map.Kv;
 
-public class ENodeSpec extends AbstractDockerRet {
+public class ENodeSpec extends AbstractDRRet {
 
   private final String availability;
   private final String name;

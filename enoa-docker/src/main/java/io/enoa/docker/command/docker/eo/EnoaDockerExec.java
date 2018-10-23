@@ -15,8 +15,8 @@
  */
 package io.enoa.docker.command.docker.eo;
 
-import io.enoa.docker.command.docker.geneic.EGeneicDockerExec;
-import io.enoa.docker.command.docker.geneic.GeneicDocker;
+import io.enoa.docker.command.docker.generic.EGeneicDockerExec;
+import io.enoa.docker.command.docker.generic.GeneicDocker;
 import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.exec.DQPExecCreate;
 import io.enoa.docker.dqp.exec.DQPExecStart;

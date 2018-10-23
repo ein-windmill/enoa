@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.container;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class EBridge extends AbstractDockerRet {
+public class EBridge extends AbstractDRRet {
 
   private final Object ipamconfig;
   private final Object links;

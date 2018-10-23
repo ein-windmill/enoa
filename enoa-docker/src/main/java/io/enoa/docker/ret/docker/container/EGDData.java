@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.container;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class EGDData extends AbstractDockerRet {
+public class EGDData extends AbstractDRRet {
 
   private final String lowerdir;
   private final String mergeddir;

@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.swarm;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class EDispatcher extends AbstractDockerRet {
+public class EDispatcher extends AbstractDRRet {
 
   private final Long heartbeatperiod;
 

@@ -15,9 +15,10 @@
  */
 package io.enoa.docker.command.registry.origin;
 
+import io.enoa.docker.command.registry._RegistryConfigSupport;
 import io.enoa.docker.ret.registry.RResp;
 
-public interface OriginRegistry {
+public interface OriginRegistry extends _RegistryConfigSupport {
 
 
   default RResp _catelog() {

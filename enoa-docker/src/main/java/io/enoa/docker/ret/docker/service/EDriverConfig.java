@@ -15,10 +15,10 @@
  */
 package io.enoa.docker.ret.docker.service;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 import io.enoa.toolkit.map.Kv;
 
-public class EDriverConfig extends AbstractDockerRet {
+public class EDriverConfig extends AbstractDRRet {
   private String name;
   private Kv options;
 

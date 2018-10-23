@@ -13,29 +13,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.command.docker.geneic;
+package io.enoa.docker.command.docker.generic;
 
 import io.enoa.docker.DockerConfig;
-import io.enoa.docker.command.docker.origin.EOriginDistribution;
+import io.enoa.docker.command.docker.origin.EOriginTask;
 import io.enoa.docker.command.docker.origin.OriginDocker;
+import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.ret.docker.DResp;
 import io.enoa.docker.ret.docker.DRet;
 import io.enoa.docker.parser.docker.DIParser;
 
-public class EGeneicDockerDistribution {
+import java.util.List;
+
+public class EGeneicDockerTask {
 
   private OriginDocker docker;
   private DockerConfig config;
-  private EOriginDistribution distribution;
+  private EOriginTask tasks;
 
-  EGeneicDockerDistribution(OriginDocker docker) {
+  EGeneicDockerTask(OriginDocker docker) {
     this.docker = docker;
     this.config = docker._dockerconfig();
-    this.distribution = docker.distribution();
+    this.tasks = docker.task();
   }
 
-  public <T> DRet<T> distribution(DIParser<T> parser, String id) {
-    DResp resp = this.distribution.distribution(id);
+  public <T> DRet<List<T>> list(DIParser<List<T>> parser) {
+    return this.list(parser, null);
+  }
+
+  public <T> DRet<List<T>> list(DIParser<List<T>> parser, DQPFilter dqp) {
+    DResp resp = this.tasks.list(dqp);
+    return parser.parse(this.config, resp);
+  }
+
+  public <T> DRet<T> inspect(DIParser<T> parser, String id) {
+    DResp resp = this.tasks.inspect(id);
     return parser.parse(this.config, resp);
   }
 

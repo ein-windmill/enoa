@@ -15,12 +15,12 @@
  */
 package io.enoa.docker.ret.docker.system;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 import io.enoa.docker.ret.docker.container.EContainer;
 import io.enoa.docker.ret.docker.image.EImage;
 import io.enoa.docker.ret.docker.volume.EVolume;
 
-public class Edf extends AbstractDockerRet {
+public class Edf extends AbstractDRRet {
 
   private final Long layerssize;
   private final EImage image;

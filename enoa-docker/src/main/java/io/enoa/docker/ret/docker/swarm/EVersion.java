@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.swarm;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class EVersion extends AbstractDockerRet {
+public class EVersion extends AbstractDRRet {
 
   /**
    *  ObjectVersion

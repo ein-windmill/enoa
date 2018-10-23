@@ -15,11 +15,11 @@
  */
 package io.enoa.docker.ret.docker.secret;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 import io.enoa.docker.ret.docker.common.EDriver;
 import io.enoa.toolkit.map.Kv;
 
-public class ESecretSpec extends AbstractDockerRet {
+public class ESecretSpec extends AbstractDRRet {
 
   private final String name;
   private final Kv labels;

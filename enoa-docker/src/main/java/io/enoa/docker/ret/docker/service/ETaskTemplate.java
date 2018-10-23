@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.service;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class ETaskTemplate extends AbstractDockerRet {
+public class ETaskTemplate extends AbstractDRRet {
 
 
   private EPluginSpec PluginSpec;

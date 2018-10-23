@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.container;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class ELogConfig extends AbstractDockerRet {
+public class ELogConfig extends AbstractDRRet {
 
   private final String type;
   private final Object config;

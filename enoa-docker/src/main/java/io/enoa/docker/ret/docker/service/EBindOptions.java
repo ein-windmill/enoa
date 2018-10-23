@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.service;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class EBindOptions extends AbstractDockerRet {
+public class EBindOptions extends AbstractDRRet {
 
   private String  propagation;
 

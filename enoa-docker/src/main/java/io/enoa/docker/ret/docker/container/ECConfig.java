@@ -15,12 +15,12 @@
  */
 package io.enoa.docker.ret.docker.container;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 import io.enoa.toolkit.map.Kv;
 
 import java.util.List;
 
-public class ECConfig extends AbstractDockerRet {
+public class ECConfig extends AbstractDRRet {
 
   private final String hostname;
   private final String domainname;

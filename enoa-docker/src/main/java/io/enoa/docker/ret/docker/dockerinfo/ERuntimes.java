@@ -15,10 +15,10 @@
  */
 package io.enoa.docker.ret.docker.dockerinfo;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 import io.enoa.toolkit.map.Kv;
 
-public class ERuntimes extends AbstractDockerRet {
+public class ERuntimes extends AbstractDRRet {
 
   private final Kv runc;
   private final Kv runcmaster;

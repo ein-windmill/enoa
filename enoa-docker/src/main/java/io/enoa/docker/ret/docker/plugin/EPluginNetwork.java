@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.plugin;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class EPluginNetwork extends AbstractDockerRet {
+public class EPluginNetwork extends AbstractDRRet {
 
   private String type;
 

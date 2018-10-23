@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.service;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class EServiceMount extends AbstractDockerRet {
+public class EServiceMount extends AbstractDRRet {
 
   private String target;
   private String source;

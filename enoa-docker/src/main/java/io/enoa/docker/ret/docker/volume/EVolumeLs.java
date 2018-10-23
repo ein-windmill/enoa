@@ -16,11 +16,11 @@
 
 package io.enoa.docker.ret.docker.volume;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
 import java.util.List;
 
-public class EVolumeLs extends AbstractDockerRet {
+public class EVolumeLs extends AbstractDRRet {
 
   private List<EVolume> volumes;
   private List<String> warnings;

@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.service;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class ESELinuxContext extends AbstractDockerRet {
+public class ESELinuxContext extends AbstractDRRet {
 
   private Boolean disable;
   private String  user;

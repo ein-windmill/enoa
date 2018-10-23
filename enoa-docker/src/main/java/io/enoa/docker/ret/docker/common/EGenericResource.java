@@ -15,10 +15,10 @@
  */
 package io.enoa.docker.ret.docker.common;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 import io.enoa.docker.ret.docker.node.ENodeResourceSpec;
 
-public class EGenericResource extends AbstractDockerRet {
+public class EGenericResource extends AbstractDRRet {
 
   private ENodeResourceSpec discreteresourcespec;
   private ENodeResourceSpec namedresourcespec;

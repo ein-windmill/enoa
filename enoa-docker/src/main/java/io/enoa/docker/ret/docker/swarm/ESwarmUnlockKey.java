@@ -15,9 +15,9 @@
  */
 package io.enoa.docker.ret.docker.swarm;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
-public class ESwarmUnlockKey extends AbstractDockerRet {
+public class ESwarmUnlockKey extends AbstractDRRet {
 
   private final String unlockkey;
 

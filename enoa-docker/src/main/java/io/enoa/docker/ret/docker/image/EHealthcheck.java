@@ -15,11 +15,11 @@
  */
 package io.enoa.docker.ret.docker.image;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
 import java.util.List;
 
-public class EHealthcheck extends AbstractDockerRet {
+public class EHealthcheck extends AbstractDRRet {
 
   private List<String> test;
   private Integer interval;

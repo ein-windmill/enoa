@@ -15,12 +15,12 @@
  */
 package io.enoa.docker.ret.docker.image;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 import io.enoa.toolkit.map.Kv;
 
 import java.util.List;
 
-public class EImage extends AbstractDockerRet {
+public class EImage extends AbstractDRRet {
 
   private String id;
   private String parentid;

@@ -15,13 +15,13 @@
  */
 package io.enoa.docker.ret.docker.image;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 import io.enoa.docker.ret.docker.container.EGraphDriver;
 
 import java.util.Date;
 import java.util.List;
 
-public class EIInspect extends AbstractDockerRet {
+public class EIInspect extends AbstractDRRet {
 
   private String id;
   private List<String> repotags;

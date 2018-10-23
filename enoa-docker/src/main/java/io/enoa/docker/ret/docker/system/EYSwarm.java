@@ -15,11 +15,11 @@
  */
 package io.enoa.docker.ret.docker.system;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
 import java.util.List;
 
-public class EYSwarm extends AbstractDockerRet {
+public class EYSwarm extends AbstractDRRet {
 
   private String nodeid;
   private String nodeaddr;

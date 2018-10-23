@@ -15,11 +15,11 @@
  */
 package io.enoa.docker.ret.docker.volume;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 
 import java.util.List;
 
-public class EVolumePrune extends AbstractDockerRet {
+public class EVolumePrune extends AbstractDRRet {
 
 
   private List<String> volumesdeleted;

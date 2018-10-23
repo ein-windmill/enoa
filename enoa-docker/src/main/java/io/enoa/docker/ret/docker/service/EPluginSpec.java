@@ -15,12 +15,12 @@
  */
 package io.enoa.docker.ret.docker.service;
 
-import io.enoa.docker.ret.AbstractDockerRet;
+import io.enoa.docker.ret.AbstractDRRet;
 import io.enoa.docker.ret.docker.plugin.EPluginPrivilege;
 
 import java.util.List;
 
-public class EPluginSpec extends AbstractDockerRet {
+public class EPluginSpec extends AbstractDRRet {
 
   private String name;
   private String remote;
