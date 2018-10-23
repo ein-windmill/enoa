@@ -20,7 +20,7 @@ import io.enoa.docker.dqp.DQR;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.plugin.DQPPluginInstall;
 import io.enoa.docker.dqp.plugin.DQPPluginUpgrade;
-import io.enoa.docker.dret.DResp;
+import io.enoa.docker.ret.docker.DResp;
 import io.enoa.http.Http;
 import io.enoa.http.protocol.HttpMethod;
 import io.enoa.http.protocol.HttpResponse;

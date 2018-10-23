@@ -20,9 +20,9 @@ import io.enoa.docker.command.geneic.GeneicDocker;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.plugin.DQPPluginInstall;
 import io.enoa.docker.dqp.plugin.DQPPluginUpgrade;
-import io.enoa.docker.dret.DRet;
-import io.enoa.docker.dret.plugin.EPlugin;
-import io.enoa.docker.dret.plugin.EPluginPrivilege;
+import io.enoa.docker.ret.docker.DRet;
+import io.enoa.docker.ret.docker.plugin.EPlugin;
+import io.enoa.docker.ret.docker.plugin.EPluginPrivilege;
 import io.enoa.docker.parser.DIParser;
 import io.enoa.toolkit.value.Void;
 

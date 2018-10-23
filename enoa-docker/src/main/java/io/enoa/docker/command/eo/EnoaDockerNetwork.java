@@ -20,10 +20,10 @@ import io.enoa.docker.command.geneic.GeneicDocker;
 import io.enoa.docker.dqp.network.DQPNetworkInspect;
 import io.enoa.docker.dqp.network.DQPNetworkList;
 import io.enoa.docker.dqp.common.DQPFilter;
-import io.enoa.docker.dret.DRet;
-import io.enoa.docker.dret.network.ENetworPrune;
-import io.enoa.docker.dret.network.ENetwork;
-import io.enoa.docker.dret.common.ECreatedWithWarning;
+import io.enoa.docker.ret.docker.DRet;
+import io.enoa.docker.ret.docker.network.ENetworPrune;
+import io.enoa.docker.ret.docker.network.ENetwork;
+import io.enoa.docker.ret.docker.common.ECreatedWithWarning;
 import io.enoa.docker.parser.DIParser;
 import io.enoa.toolkit.value.Void;
 

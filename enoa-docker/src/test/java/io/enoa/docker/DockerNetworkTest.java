@@ -15,10 +15,10 @@
  */
 package io.enoa.docker;
 
-import io.enoa.docker.dret.DRet;
-import io.enoa.docker.dret.network.ENetworPrune;
-import io.enoa.docker.dret.network.ENetwork;
-import io.enoa.docker.dret.common.ECreatedWithWarning;
+import io.enoa.docker.ret.docker.DRet;
+import io.enoa.docker.ret.docker.network.ENetworPrune;
+import io.enoa.docker.ret.docker.network.ENetwork;
+import io.enoa.docker.ret.docker.common.ECreatedWithWarning;
 import io.enoa.json.Json;
 import io.enoa.toolkit.value.Void;
 import org.junit.Assert;

@@ -16,8 +16,8 @@
 package io.enoa.docker;
 
 import io.enoa.docker.dqp.image.*;
-import io.enoa.docker.dret.DRet;
-import io.enoa.docker.dret.image.*;
+import io.enoa.docker.ret.docker.DRet;
+import io.enoa.docker.ret.docker.image.*;
 import io.enoa.docker.stream.DStream;
 import io.enoa.json.Json;
 import io.enoa.toolkit.binary.EnoaBinary;

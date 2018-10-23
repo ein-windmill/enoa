@@ -16,9 +16,8 @@
 package io.enoa.docker.command.eo;
 
 import io.enoa.docker.command._DockerConfigSupport;
-import io.enoa.docker.dret.DRet;
-import io.enoa.docker.dret.dockerinfo.EDockerInfo;
-import io.enoa.docker.parser.DIParser;
+import io.enoa.docker.ret.docker.DRet;
+import io.enoa.docker.ret.docker.dockerinfo.EDockerInfo;
 
 public interface EoDocker extends _DockerConfigSupport {
 

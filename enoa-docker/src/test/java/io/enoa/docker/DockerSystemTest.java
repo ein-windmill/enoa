@@ -15,8 +15,8 @@
  */
 package io.enoa.docker;
 
-import io.enoa.docker.dret.DRet;
-import io.enoa.docker.dret.system.EInfo;
+import io.enoa.docker.ret.docker.DRet;
+import io.enoa.docker.ret.docker.system.EInfo;
 import io.enoa.json.Json;
 import org.junit.Assert;
 import org.junit.Ignore;

@@ -18,8 +18,8 @@ package io.enoa.docker.command.origin;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.service.DQPServiceCreate;
 import io.enoa.docker.dqp.service.DQPServiceUpdate;
-import io.enoa.docker.dret.DResp;
-import io.enoa.docker.dret.service.DQPServiceLogs;
+import io.enoa.docker.ret.docker.DResp;
+import io.enoa.docker.ret.docker.service.DQPServiceLogs;
 
 public class EUNIXSOCKETDockerService implements EOriginService {
 

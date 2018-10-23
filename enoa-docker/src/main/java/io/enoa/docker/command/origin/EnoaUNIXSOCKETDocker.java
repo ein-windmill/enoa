@@ -16,7 +16,7 @@
 package io.enoa.docker.command.origin;
 
 import io.enoa.docker.DockerConfig;
-import io.enoa.docker.dret.DResp;
+import io.enoa.docker.ret.docker.DResp;
 
 public class EnoaUNIXSOCKETDocker implements OriginDocker {
 

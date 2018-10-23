@@ -18,7 +18,7 @@ package io.enoa.docker.command.origin;
 import io.enoa.docker.dqp.swarm.DQPSwarmJoin;
 import io.enoa.docker.dqp.swarm.DQPSwarmUnlock;
 import io.enoa.docker.dqp.swarm.DQPSwarmUpdate;
-import io.enoa.docker.dret.DResp;
+import io.enoa.docker.ret.docker.DResp;
 
 public interface EOriginSwarm {
 

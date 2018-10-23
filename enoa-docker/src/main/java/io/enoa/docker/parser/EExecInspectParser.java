@@ -16,9 +16,9 @@
 package io.enoa.docker.parser;
 
 import io.enoa.docker.DockerConfig;
-import io.enoa.docker.dret.DResp;
-import io.enoa.docker.dret.exec.EExecInspect;
-import io.enoa.docker.dret.exec.EProcessConfig;
+import io.enoa.docker.ret.docker.DResp;
+import io.enoa.docker.ret.docker.exec.EExecInspect;
+import io.enoa.docker.ret.docker.exec.EProcessConfig;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.map.Kv;
 

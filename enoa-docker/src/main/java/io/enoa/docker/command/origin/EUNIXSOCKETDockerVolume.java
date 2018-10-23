@@ -17,7 +17,7 @@ package io.enoa.docker.command.origin;
 
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.volume.DQPVolumeList;
-import io.enoa.docker.dret.DResp;
+import io.enoa.docker.ret.docker.DResp;
 
 public class EUNIXSOCKETDockerVolume implements EOriginDockerVolume {
 
