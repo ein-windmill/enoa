@@ -21,7 +21,7 @@ import io.enoa.docker.ret.docker.DResp;
 import io.enoa.docker.ret.docker.DRet;
 import io.enoa.docker.parser.docker.DIParser;
 
-public class EnoaGenericDocker implements GeneicDocker {
+public class EnoaGenericDocker implements GenericDocker {
 
   private DockerConfig config;
   private OriginDocker docker;

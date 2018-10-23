@@ -16,7 +16,7 @@
 package io.enoa.docker.command.docker.eo;
 
 import io.enoa.docker.command.docker.generic.EGeneicDockerSwarm;
-import io.enoa.docker.command.docker.generic.GeneicDocker;
+import io.enoa.docker.command.docker.generic.GenericDocker;
 import io.enoa.docker.dqp.swarm.DQPSwarmJoin;
 import io.enoa.docker.dqp.swarm.DQPSwarmUnlock;
 import io.enoa.docker.dqp.swarm.DQPSwarmUpdate;
@@ -28,10 +28,10 @@ import io.enoa.toolkit.value.Void;
 
 public class EnoaDockerSwarm {
 
-  private GeneicDocker docker;
+  private GenericDocker docker;
   private EGeneicDockerSwarm swarm;
 
-  EnoaDockerSwarm(GeneicDocker docker) {
+  EnoaDockerSwarm(GenericDocker docker) {
     this.docker = docker;
     this.swarm = docker.swarm();
   }

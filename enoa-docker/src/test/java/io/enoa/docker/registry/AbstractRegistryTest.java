@@ -13,27 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker;
+package io.enoa.docker.registry;
 
+import io.enoa.docker.Registry;
+import io.enoa.docker.RegistryConfig;
+import io.enoa.http.Http;
+import io.enoa.http.protocol.enoa.IHttpHandler;
+import io.enoa.http.protocol.enoa.IHttpReporter;
 import io.enoa.json.Json;
 import io.enoa.json.provider.gson.GsonProvider;
 import org.junit.Before;
 import org.junit.Ignore;
 
 @Ignore
-public abstract class AbstractDockerTest {
+public abstract class AbstractRegistryTest {
 
   @Before
   public void ibe() {
-    Json.epm().install(new GsonProvider());
-    DockerConfig config = new DockerConfig.Builder()
-      .host("tcp://localhost:2375")
-      .tls(Boolean.FALSE)
-      .version("v1.35")
-      .debug()
+    RegistryConfig config = new RegistryConfig.Builder()
+      .debug(Boolean.TRUE)
+      .host("localhost")
+      .port(5000)
+      .http(() -> Http.use().reporter(IHttpReporter.def()).handler(IHttpHandler.def()))
       .json(new GsonProvider())
       .build();
-    Docker.epm().install(config);
+    Registry.epm().install(config);
+    Json.epm().install(new GsonProvider());
   }
 
 }

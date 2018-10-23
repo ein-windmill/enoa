@@ -16,7 +16,7 @@
 package io.enoa.docker.command.docker.eo;
 
 import io.enoa.docker.command.docker.generic.EGeneicDockerContainer;
-import io.enoa.docker.command.docker.generic.GeneicDocker;
+import io.enoa.docker.command.docker.generic.GenericDocker;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.container.*;
@@ -33,10 +33,10 @@ import java.util.List;
 
 public class EnoaDockerContainer {
 
-  private GeneicDocker docker;
+  private GenericDocker docker;
   private EGeneicDockerContainer container;
 
-  EnoaDockerContainer(GeneicDocker docker) {
+  EnoaDockerContainer(GenericDocker docker) {
     this.docker = docker;
     this.container = this.docker.container();
   }

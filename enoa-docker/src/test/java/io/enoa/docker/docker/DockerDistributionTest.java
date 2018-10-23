@@ -13,24 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker;
+package io.enoa.docker.docker;
 
+import io.enoa.docker.Docker;
 import io.enoa.docker.ret.docker.DRet;
-import io.enoa.docker.ret.docker.dockerinfo.EDockerInfo;
+import io.enoa.docker.ret.docker.distribution.EDistribution;
 import io.enoa.json.Json;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
 @Ignore
-public class DockerTest extends AbstractDockerTest {
-
+public class DockerDistributionTest extends AbstractDockerTest {
 
   @Test
-  public void testInfo() {
-    DRet<EDockerInfo> ret = Docker.info();
+  public void testDistribution() {
+    DRet<EDistribution> ret = Docker.distribution().distribution("nginx");
     Assert.assertTrue(ret.ok());
-    String json = Json.toJson(ret);
+    String json = Json.toJson(ret.data());
     System.out.println(json);
   }
 

@@ -28,13 +28,17 @@ abstract class AbstractOriginRegistry implements OriginRegistry {
     this.config = config;
   }
 
-  protected Http http(String url, String... subpath) {
+  protected Http http(String api, String... subpath) {
     String _u = TextKit.union(this.config.ssl() ? "https://" : "http://",
       this.config.host(),
       this.config.port() == null ? "" : ":",
-      this.config.port() == null ? "" : this.config.port());
+      this.config.port() == null ? "" : this.config.port(),
+      "/");
     return this.config.http().http()
-      .url(EoUrl.with(url).subpath(this.config.version()).subpath(subpath));
+      .url(EoUrl.with(_u)
+        .subpath(this.config.version())
+        .subpath(api)
+        .subpath(subpath));
   }
 
   protected RegistryConfig config() {

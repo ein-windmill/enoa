@@ -1,4 +1,4 @@
-package io.enoa.docker;
+package io.enoa.docker.docker;
 
 import org.junit.Ignore;
 

@@ -13,10 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker;
+package io.enoa.docker.parser.registry;
 
-import org.junit.Ignore;
+import io.enoa.docker.parser.__PEXtra;
 
-@Ignore
-public class DockerConfigTest extends AbstractDockerTest {
+class REExtra extends __PEXtra {
 }

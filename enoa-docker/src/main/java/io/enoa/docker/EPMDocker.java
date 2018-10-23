@@ -18,7 +18,7 @@ package io.enoa.docker;
 import io.enoa.docker.command.docker.eo.EnoaDockerImpl;
 import io.enoa.docker.command.docker.eo.EoDocker;
 import io.enoa.docker.command.docker.generic.EnoaGenericDocker;
-import io.enoa.docker.command.docker.generic.GeneicDocker;
+import io.enoa.docker.command.docker.generic.GenericDocker;
 import io.enoa.docker.command.docker.origin.EnoaTCPDocker;
 import io.enoa.docker.command.docker.origin.EnoaUNIXSOCKETDocker;
 import io.enoa.docker.command.docker.origin.OriginDocker;
@@ -41,7 +41,7 @@ public class EPMDocker {
 
   private Map<String, OriginDocker> originmap = new ConcurrentHashMap<>();
   private Map<String, EoDocker> dockermap = new ConcurrentHashMap<>();
-  private Map<String, GeneicDocker> geneicmap = new ConcurrentHashMap<>();
+  private Map<String, GenericDocker> geneicmap = new ConcurrentHashMap<>();
 
   private boolean exists(String name) {
     return this.dockermap.containsKey(name);
@@ -88,7 +88,7 @@ public class EPMDocker {
     if (this.dockermap.containsKey(name))
       return this.dockermap.get(name);
 
-    GeneicDocker generic = this.generic(name);
+    GenericDocker generic = this.generic(name);
     if (generic == null)
       throw new DockerException(EnoaTipKit.message("eo.tip.docker.docker_404", name));
     EoDocker docker = new EnoaDockerImpl(generic);
@@ -100,19 +100,19 @@ public class EPMDocker {
     return this.docker("main");
   }
 
-  public GeneicDocker generic(String name) {
+  public GenericDocker generic(String name) {
     if (this.geneicmap.containsKey(name))
       return this.geneicmap.get(name);
 
     OriginDocker docker = this.origin(name);
     if (docker == null)
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.docker.docker_404", name));
-    GeneicDocker gdker = new EnoaGenericDocker(docker);
+    GenericDocker gdker = new EnoaGenericDocker(docker);
     this.geneicmap.put(name, gdker);
     return gdker;
   }
 
-  public GeneicDocker generic() {
+  public GenericDocker generic() {
     return this.generic("main");
   }
 

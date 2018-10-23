@@ -13,32 +13,44 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.ret.registry.catalog;
+package io.enoa.docker.ret.registry.tag;
 
 import io.enoa.docker.ret.AbstractDRRet;
 
-public class ECatalog extends AbstractDRRet {
+public class EITag extends AbstractDRRet {
 
-  private final String[] repositories;
+  private final String name;
+  private final String[] tags;
 
-  public ECatalog(Builder builder) {
-    this.repositories = builder.repositories;
+  public EITag(Builder builder) {
+    this.name = builder.name;
+    this.tags = builder.tags;
   }
 
-  public String[] repositories() {
-    return repositories;
+  public String name() {
+    return name;
+  }
+
+  public String[] tags() {
+    return tags;
   }
 
   public static class Builder {
-    private String[] repositories;
 
+    private String name;
+    private String[] tags;
 
-    public ECatalog build() {
-      return new ECatalog(this);
+    public EITag build() {
+      return new EITag(this);
     }
 
-    public Builder repositories(String[] repositories) {
-      this.repositories = repositories;
+    public Builder name(String name) {
+      this.name = name;
+      return this;
+    }
+
+    public Builder tags(String[] tags) {
+      this.tags = tags;
       return this;
     }
   }

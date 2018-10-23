@@ -13,26 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.command.registry.generic;
+package io.enoa.docker.command.registry.eo;
 
-import io.enoa.docker.command.registry._RegistryConfigSupport;
-import io.enoa.docker.parser.registry.RIParser;
-import io.enoa.docker.ret.registry.RRet;
+import io.enoa.docker.command.registry.generic.GenericBlob;
+import io.enoa.docker.command.registry.generic.GenericRegistry;
 
-public interface GenericRegistry extends _RegistryConfigSupport {
+public class EERegistryBlob {
 
-  default <T> RRet<T> _catalog(RIParser<T> parser) {
-    return this._catalog(parser, 50, null);
+  private GenericBlob blob;
+
+  public EERegistryBlob(GenericRegistry registry) {
+    this.blob = registry.blob();
   }
 
-  <T> RRet<T> _catalog(RIParser<T> parser, Integer n, String last);
-
-  <T> RRet<T> tags(RIParser<T> parser, String repository);
-
-  GenericManifests manifests();
-
-  GenericBlob blob();
-
-  GenericUpload upload();
 
 }

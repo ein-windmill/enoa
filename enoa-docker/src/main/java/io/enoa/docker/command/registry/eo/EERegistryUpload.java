@@ -13,10 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker;
+package io.enoa.docker.command.registry.eo;
 
-import org.junit.Ignore;
+import io.enoa.docker.command.registry.generic.GenericRegistry;
+import io.enoa.docker.command.registry.generic.GenericUpload;
 
-@Ignore
-public class DockerPluginTest extends AbstractDockerTest {
+public class EERegistryUpload {
+
+  private GenericUpload upload;
+
+  public EERegistryUpload(GenericRegistry registry) {
+    this.upload = registry.upload();
+  }
 }

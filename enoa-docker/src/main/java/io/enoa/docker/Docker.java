@@ -16,7 +16,7 @@
 package io.enoa.docker;
 
 import io.enoa.docker.command.docker.eo.*;
-import io.enoa.docker.command.docker.generic.GeneicDocker;
+import io.enoa.docker.command.docker.generic.GenericDocker;
 import io.enoa.docker.command.docker.origin.OriginDocker;
 import io.enoa.docker.ret.docker.DRet;
 import io.enoa.docker.ret.docker.dockerinfo.EDockerInfo;
@@ -35,11 +35,11 @@ public class Docker {
     return epm().docker();
   }
 
-  public static GeneicDocker generic(String name) {
+  public static GenericDocker generic(String name) {
     return epm().generic(name);
   }
 
-  public static GeneicDocker generic() {
+  public static GenericDocker generic() {
     return epm().generic();
   }
 

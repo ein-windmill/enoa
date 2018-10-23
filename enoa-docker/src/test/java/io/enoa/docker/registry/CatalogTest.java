@@ -13,26 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.command.registry.generic;
+package io.enoa.docker.registry;
 
-import io.enoa.docker.command.registry._RegistryConfigSupport;
-import io.enoa.docker.parser.registry.RIParser;
+import io.enoa.docker.Registry;
 import io.enoa.docker.ret.registry.RRet;
+import io.enoa.docker.ret.registry.catalog.ECatalog;
+import io.enoa.json.Json;
+import org.junit.Assert;
+import org.junit.Test;
 
-public interface GenericRegistry extends _RegistryConfigSupport {
+public class CatalogTest extends AbstractRegistryTest {
 
-  default <T> RRet<T> _catalog(RIParser<T> parser) {
-    return this._catalog(parser, 50, null);
+  @Test
+  public void testCatalog() {
+    RRet<ECatalog> ret = Registry._catalog();
+    Assert.assertTrue(ret.ok());
+    ECatalog data = ret.data();
+    String json = Json.toJson(data);
+    System.out.println(json);
   }
-
-  <T> RRet<T> _catalog(RIParser<T> parser, Integer n, String last);
-
-  <T> RRet<T> tags(RIParser<T> parser, String repository);
-
-  GenericManifests manifests();
-
-  GenericBlob blob();
-
-  GenericUpload upload();
 
 }

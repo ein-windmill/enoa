@@ -16,7 +16,7 @@
 package io.enoa.docker.command.docker.eo;
 
 import io.enoa.docker.command.docker.generic.EGeneicDockerTask;
-import io.enoa.docker.command.docker.generic.GeneicDocker;
+import io.enoa.docker.command.docker.generic.GenericDocker;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.ret.docker.DRet;
 import io.enoa.docker.parser.docker.DIParser;
@@ -26,10 +26,10 @@ import java.util.List;
 public class EnoaDockerTask {
 
 
-  private GeneicDocker docker;
+  private GenericDocker docker;
   private EGeneicDockerTask tasks;
 
-  EnoaDockerTask(GeneicDocker docker) {
+  EnoaDockerTask(GenericDocker docker) {
     this.docker = docker;
     this.tasks = docker.task();
   }

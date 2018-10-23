@@ -16,9 +16,25 @@
 package io.enoa.docker.command.registry.eo;
 
 import io.enoa.docker.command.registry._RegistryConfigSupport;
+import io.enoa.docker.ret.registry.RRet;
+import io.enoa.docker.ret.registry.catalog.ECatalog;
+import io.enoa.docker.ret.registry.tag.EITag;
 
 public interface EoRegistry extends _RegistryConfigSupport {
 
 
+  default RRet<ECatalog> _catalog() {
+    return this._catalog(30, null);
+  }
+
+  RRet<ECatalog> _catalog(Integer n, String last);
+
+  RRet<EITag> tags(String repository);
+
+  EERegistryManifests manifests();
+
+  EERegistryBlob blob();
+
+  EERegistryUpload upload();
 
 }

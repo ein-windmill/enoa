@@ -15,7 +15,11 @@
  */
 package io.enoa.docker;
 
+import io.enoa.docker.thr.RegistryException;
 import io.enoa.http.EoHttp;
+import io.enoa.json.EnoaJson;
+import io.enoa.json.EoJsonFactory;
+import io.enoa.toolkit.eo.tip.EnoaTipKit;
 
 import java.io.Serializable;
 
@@ -28,6 +32,7 @@ public class RegistryConfig implements Serializable {
   private final Boolean dockerhub;
   private final EoHttp http;
   private final String version;
+  private final EnoaJson json;
 
   public RegistryConfig(Builder builder) {
     this.host = builder.host;
@@ -37,10 +42,15 @@ public class RegistryConfig implements Serializable {
     this.http = builder.http;
     this.dockerhub = builder.dockerhub;
     this.version = builder.version;
+    this.json = builder.json.json();
   }
 
   public String version() {
     return version;
+  }
+
+  public EnoaJson json() {
+    return json;
   }
 
   public Boolean dockerhub() {
@@ -75,6 +85,7 @@ public class RegistryConfig implements Serializable {
     private Boolean dockerhub;
     private EoHttp http;
     private String version;
+    private EoJsonFactory json;
 
     public Builder() {
       this.ssl = Boolean.FALSE;
@@ -85,6 +96,8 @@ public class RegistryConfig implements Serializable {
     }
 
     public RegistryConfig build() {
+      if (this.json == null)
+        throw new RegistryException(EnoaTipKit.message("eo.tip.docker.no_json"));
       return new RegistryConfig(this);
     }
 
@@ -115,6 +128,11 @@ public class RegistryConfig implements Serializable {
 
     public Builder http(EoHttp http) {
       this.http = http;
+      return this;
+    }
+
+    public Builder json(EoJsonFactory json) {
+      this.json = json;
       return this;
     }
   }

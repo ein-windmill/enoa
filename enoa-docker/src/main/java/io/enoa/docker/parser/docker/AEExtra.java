@@ -15,6 +15,7 @@
  */
 package io.enoa.docker.parser.docker;
 
+import io.enoa.docker.parser.__PEXtra;
 import io.enoa.docker.ret.docker.common.ETLSInfo;
 import io.enoa.docker.ret.docker.container.*;
 import io.enoa.docker.ret.docker.dockerinfo.ERuntimes;
@@ -25,39 +26,9 @@ import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.value.EnoaValue;
 
 import java.util.*;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-class AEExtra {
-
-  static List<String> stringarray(Map map, String key) {
-    Object sarr = map.get(key);
-    if (!(sarr instanceof Collection)) {
-      return Collections.emptyList();
-    }
-    return (List<String>) ((Collection) sarr).stream()
-      .collect(Collectors.toCollection((Supplier<Collection<Object>>) () -> new LinkedList<>()));
-  }
-
-  static List<String[]> listarray(Map map, String key) {
-    Object pa = map.get(key);
-    if (!(pa instanceof Collection))
-      return Collections.emptyList();
-    Collection cas = (Collection) pa;
-    List<String[]> rets = new ArrayList<>(cas.size());
-    cas.forEach(ca -> {
-      if (!(ca instanceof Collection))
-        return;
-      Collection cs = (Collection) ca;
-      rets.add((String[]) cs.toArray(new String[cs.size()]));
-    });
-    return rets;
-  }
-
-  static String[] array(Map map, String key) {
-    List<String> stringarray = stringarray(map, key);
-    return stringarray.toArray(new String[stringarray.size()]);
-  }
+class AEExtra extends __PEXtra {
 
   static ECState inspectstate(Map map) {
     Object state = map.get("State");

@@ -42,22 +42,23 @@ public class EGenericRegistryImpl implements GenericRegistry {
 
   @Override
   public <T> RRet<T> tags(RIParser<T> parser, String repository) {
-    return null;
+    RResp resp = this.registry.tags(repository);
+    return parser.parse(this._registryconfig(), resp);
   }
 
   @Override
-  public GeneicManifests manifests() {
-    return new GeneicManifests(this.registry);
+  public GenericManifests manifests() {
+    return new GenericManifests(this.registry);
   }
 
   @Override
-  public GeneicBlob blob() {
-    return new GeneicBlob(this.registry);
+  public GenericBlob blob() {
+    return new GenericBlob(this.registry);
   }
 
   @Override
-  public GeneicUpload upload() {
-    return new GeneicUpload(this.registry);
+  public GenericUpload upload() {
+    return new GenericUpload(this.registry);
   }
 
 }

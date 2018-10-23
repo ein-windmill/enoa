@@ -19,7 +19,7 @@ import io.enoa.docker.command.docker._DockerConfigSupport;
 import io.enoa.docker.ret.docker.DRet;
 import io.enoa.docker.parser.docker.DIParser;
 
-public interface GeneicDocker extends _DockerConfigSupport {
+public interface GenericDocker extends _DockerConfigSupport {
 
   <T> DRet<T> info(DIParser<T> parser);
 

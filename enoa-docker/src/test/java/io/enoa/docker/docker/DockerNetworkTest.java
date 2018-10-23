@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker;
+package io.enoa.docker.docker;
 
+import io.enoa.docker.Docker;
 import io.enoa.docker.ret.docker.DRet;
 import io.enoa.docker.ret.docker.network.ENetworPrune;
 import io.enoa.docker.ret.docker.network.ENetwork;

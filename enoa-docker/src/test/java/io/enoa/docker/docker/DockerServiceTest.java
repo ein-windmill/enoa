@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker;
+package io.enoa.docker.docker;
 
 import org.junit.Ignore;
 
 @Ignore
-public class DockerSwarmTest extends AbstractDockerTest {
+public class DockerServiceTest extends AbstractDockerTest {
 }

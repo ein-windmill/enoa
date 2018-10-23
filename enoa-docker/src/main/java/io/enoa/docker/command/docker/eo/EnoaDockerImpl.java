@@ -16,16 +16,16 @@
 package io.enoa.docker.command.docker.eo;
 
 import io.enoa.docker.DockerConfig;
-import io.enoa.docker.command.docker.generic.GeneicDocker;
+import io.enoa.docker.command.docker.generic.GenericDocker;
 import io.enoa.docker.ret.docker.DRet;
 import io.enoa.docker.ret.docker.dockerinfo.EDockerInfo;
 import io.enoa.docker.parser.docker.DIParser;
 
 public class EnoaDockerImpl implements EoDocker {
 
-  private GeneicDocker docker;
+  private GenericDocker docker;
 
-  public EnoaDockerImpl(GeneicDocker docker) {
+  public EnoaDockerImpl(GenericDocker docker) {
     this.docker = docker;
   }
 

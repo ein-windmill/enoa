@@ -16,7 +16,7 @@
 package io.enoa.docker.command.docker.eo;
 
 import io.enoa.docker.command.docker.generic.EGeneicDockerConfig;
-import io.enoa.docker.command.docker.generic.GeneicDocker;
+import io.enoa.docker.command.docker.generic.GenericDocker;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.ret.docker.DRet;
 import io.enoa.docker.ret.docker.common.ECreated;
@@ -28,10 +28,10 @@ import java.util.List;
 
 public class EnoaDockerConfig {
 
-  private GeneicDocker docker;
+  private GenericDocker docker;
   private EGeneicDockerConfig configs;
 
-  EnoaDockerConfig(GeneicDocker docker) {
+  EnoaDockerConfig(GenericDocker docker) {
     this.docker = docker;
     this.configs = docker.config();
   }

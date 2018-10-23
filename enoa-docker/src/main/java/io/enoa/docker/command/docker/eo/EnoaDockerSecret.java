@@ -16,7 +16,7 @@
 package io.enoa.docker.command.docker.eo;
 
 import io.enoa.docker.command.docker.generic.EGeneicDockerSecret;
-import io.enoa.docker.command.docker.generic.GeneicDocker;
+import io.enoa.docker.command.docker.generic.GenericDocker;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.ret.docker.DRet;
 import io.enoa.docker.ret.docker.common.ECreated;
@@ -29,10 +29,10 @@ import java.util.List;
 public class EnoaDockerSecret {
 
 
-  private GeneicDocker docker;
+  private GenericDocker docker;
   private EGeneicDockerSecret secrets;
 
-  EnoaDockerSecret(GeneicDocker docker) {
+  EnoaDockerSecret(GenericDocker docker) {
     this.docker = docker;
     this.secrets = docker.secret();
   }

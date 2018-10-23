@@ -17,20 +17,27 @@ package io.enoa.docker.parser.registry;
 
 import io.enoa.docker.RegistryConfig;
 import io.enoa.docker.ret.registry.RResp;
-import io.enoa.docker.ret.registry.RRet;
-import io.enoa.docker.ret.registry.catalog.ECatalog;
 import io.enoa.docker.ret.registry.tag.EITag;
+import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.map.Kv;
 
-public interface RIParser<T> {
+class EITagParser extends AbstractParser<EITag> {
 
-  static RIParser<ECatalog> catalog() {
-    return ECatalogParser.instance();
+  private static class Holder {
+    private static final EITagParser INSTANCE = new EITagParser();
   }
 
-  static RIParser<EITag> tag() {
-    return EITagParser.instance();
+  static EITagParser instance() {
+    return Holder.INSTANCE;
   }
 
-  RRet<T> parse(RegistryConfig config, RResp resp);
-
+  @Override
+  public EITag ok(RegistryConfig config, RResp resp) {
+    Kv kv = config.json().parse(resp.string(), Kv.class);
+    EITag.Builder builder = new EITag.Builder()
+      .name(kv.string("name"))
+      .tags(REExtra.array(kv, "tags"));
+    CollectionKit.clear(kv);
+    return builder.build();
+  }
 }

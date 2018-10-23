@@ -15,10 +15,68 @@
  */
 package io.enoa.docker;
 
+import io.enoa.docker.command.registry.eo.EERegistryBlob;
+import io.enoa.docker.command.registry.eo.EERegistryManifests;
+import io.enoa.docker.command.registry.eo.EERegistryUpload;
+import io.enoa.docker.command.registry.eo.EoRegistry;
+import io.enoa.docker.command.registry.generic.GenericRegistry;
+import io.enoa.docker.command.registry.origin.OriginRegistry;
+import io.enoa.docker.ret.registry.RRet;
+import io.enoa.docker.ret.registry.catalog.ECatalog;
+import io.enoa.docker.ret.registry.tag.EITag;
+
 public class Registry {
 
   public static EPMRegistry epm() {
     return EPMRegistry.instance();
+  }
+
+  public static EoRegistry use(String name) {
+    return epm().registry(name);
+  }
+
+  public static EoRegistry use() {
+    return epm().registry();
+  }
+
+  public static OriginRegistry origin(String name) {
+    return epm().origin(name);
+  }
+
+  public static OriginRegistry origin() {
+    return epm().origin();
+  }
+
+  public GenericRegistry generic(String name) {
+    return epm().generic(name);
+  }
+
+  public GenericRegistry generic() {
+    return epm().generic();
+  }
+
+  public static RRet<ECatalog> _catalog() {
+    return use()._catalog();
+  }
+
+  public static RRet<ECatalog> _catalog(Integer n, String last) {
+    return use()._catalog(n, last);
+  }
+
+  public static RRet<EITag> tags(String repository) {
+    return use().tags(repository);
+  }
+
+  public static EERegistryManifests manifests() {
+    return use().manifests();
+  }
+
+  public static EERegistryBlob blob() {
+    return use().blob();
+  }
+
+  public static EERegistryUpload upload() {
+    return use().upload();
   }
 
 }

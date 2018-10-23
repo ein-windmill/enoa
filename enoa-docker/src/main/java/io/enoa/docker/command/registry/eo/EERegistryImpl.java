@@ -17,6 +17,10 @@ package io.enoa.docker.command.registry.eo;
 
 import io.enoa.docker.RegistryConfig;
 import io.enoa.docker.command.registry.generic.GenericRegistry;
+import io.enoa.docker.parser.registry.RIParser;
+import io.enoa.docker.ret.registry.RRet;
+import io.enoa.docker.ret.registry.catalog.ECatalog;
+import io.enoa.docker.ret.registry.tag.EITag;
 
 public class EERegistryImpl implements EoRegistry {
 
@@ -30,4 +34,31 @@ public class EERegistryImpl implements EoRegistry {
   public RegistryConfig _registryconfig() {
     return this.registry._registryconfig();
   }
+
+  @Override
+  public RRet<ECatalog> _catalog(Integer n, String last) {
+    return this.registry._catalog(RIParser.catalog(), n, last);
+  }
+
+  @Override
+  public RRet<EITag> tags(String repository) {
+    return this.registry.tags(RIParser.tag(), repository);
+  }
+
+  @Override
+  public EERegistryManifests manifests() {
+    return new EERegistryManifests(this.registry);
+  }
+
+  @Override
+  public EERegistryBlob blob() {
+    return new EERegistryBlob(this.registry);
+  }
+
+  @Override
+  public EERegistryUpload upload() {
+    return new EERegistryUpload(this.registry);
+  }
+
+
 }

@@ -13,24 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker;
+package io.enoa.docker.docker;
 
-import io.enoa.docker.ret.docker.DRet;
-import io.enoa.docker.ret.docker.system.EInfo;
-import io.enoa.json.Json;
-import org.junit.Assert;
 import org.junit.Ignore;
-import org.junit.Test;
 
 @Ignore
-public class DockerSystemTest extends AbstractDockerTest {
-
-  @Test
-  public void testInfo() {
-    DRet<EInfo> ret = Docker.system().info();
-    Assert.assertTrue(ret.ok());
-    String json = Json.toJson(ret.data());
-    System.out.println(json);
-  }
-
+public class DockerExecTest extends AbstractDockerTest {
 }

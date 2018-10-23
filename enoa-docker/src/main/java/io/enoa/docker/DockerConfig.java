@@ -15,8 +15,10 @@
  */
 package io.enoa.docker;
 
+import io.enoa.docker.thr.DockerException;
 import io.enoa.json.EnoaJson;
 import io.enoa.json.EoJsonFactory;
+import io.enoa.toolkit.eo.tip.EnoaTipKit;
 
 import java.io.Serializable;
 import java.nio.file.Path;
@@ -111,6 +113,8 @@ public class DockerConfig implements Serializable {
     }
 
     public DockerConfig build() {
+      if (this.json == null)
+        throw new DockerException(EnoaTipKit.message("eo.tip.docker.no_json"));
       return new DockerConfig(this);
     }
 

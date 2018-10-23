@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker;
+package io.enoa.docker.docker;
 
+import io.enoa.docker.Docker;
 import io.enoa.docker.dqp.container.DQPContainerLogs;
 import io.enoa.docker.dqp.container.DQPContainerUpdate;
 import io.enoa.docker.ret.docker.DResp;

@@ -45,7 +45,8 @@ public class EOriginRegistryImpl extends AbstractOriginRegistry {
 
   @Override
   public RResp tags(String repository) {
-    return null;
+    HttpResponse response = super.http(repository, "tags/list").emit();
+    return RResp.create(response);
   }
 
   @Override

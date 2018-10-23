@@ -16,7 +16,7 @@
 package io.enoa.docker.command.docker.eo;
 
 import io.enoa.docker.command.docker.generic.EGeneicDockerNetwork;
-import io.enoa.docker.command.docker.generic.GeneicDocker;
+import io.enoa.docker.command.docker.generic.GenericDocker;
 import io.enoa.docker.dqp.network.DQPNetworkInspect;
 import io.enoa.docker.dqp.network.DQPNetworkList;
 import io.enoa.docker.dqp.common.DQPFilter;
@@ -31,10 +31,10 @@ import java.util.List;
 
 public class EnoaDockerNetwork {
 
-  private GeneicDocker docker;
+  private GenericDocker docker;
   private EGeneicDockerNetwork networks;
 
-  EnoaDockerNetwork(GeneicDocker docker) {
+  EnoaDockerNetwork(GenericDocker docker) {
     this.docker = docker;
     this.networks = docker.network();
   }
