@@ -21,7 +21,7 @@ import io.enoa.docker.dqp.DQR;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DQPImageExportSeveral implements DQP {
+public class DQPImageExport implements DQP {
 
   /**
    * Comma Separated array of string
@@ -30,18 +30,18 @@ public class DQPImageExportSeveral implements DQP {
    */
   private List<String> names;
 
-  public static DQPImageExportSeveral create() {
-    return new DQPImageExportSeveral();
+  public static DQPImageExport create() {
+    return new DQPImageExport();
   }
 
-  public DQPImageExportSeveral names(String name) {
+  public DQPImageExport names(String name) {
     if (this.names == null)
       this.names = new ArrayList<>();
     this.names.add(name);
     return this;
   }
 
-  public DQPImageExportSeveral names(List<String> names) {
+  public DQPImageExport names(List<String> names) {
     this.names = names;
     return this;
   }

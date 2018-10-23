@@ -18,7 +18,7 @@ package io.enoa.docker.command.docker.generic;
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.command.docker.origin.EOriginDockerImage;
 import io.enoa.docker.command.docker.origin.OriginDocker;
-import io.enoa.docker.dqp.docker.common.DQPFilter;
+import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.docker.image.*;
 import io.enoa.docker.ret.docker.DResp;
 import io.enoa.docker.ret.docker.DRet;
@@ -64,15 +64,15 @@ public class EGeneicDockerImage {
     return parser.parse(this.config, resp);
   }
 
-  public DRet<List<Kv>> build(DQPImageBuild dqp, String dockerfile) {
-    DResp resp = this.image.build(dqp, dockerfile);
+  public DRet<List<Kv>> build(String dockerfile, DQPImageBuild dqp) {
+    DResp resp = this.image.build(dockerfile, dqp);
     return this.linestolist(resp);
   }
 
-  public DRet<List<Kv>> build(DQPImageBuild dqp, String dockerfile, DStream<Kv> dstream) {
+  public DRet<List<Kv>> build(String dockerfile, DQPImageBuild dqp, DStream<Kv> dstream) {
     DStream<String> dst0 = DStream.<String>builder(text -> dstream.runner().run(this.config.json().parse(text, Kv.class)))
       .stopper(dstream.stopper()).build();
-    DResp resp = this.image.build(dqp, dockerfile, dst0);
+    DResp resp = this.image.build(dockerfile, dqp, dst0);
     return this.linestolist(resp);
   }
 
@@ -81,8 +81,8 @@ public class EGeneicDockerImage {
     return parser.parse(this.config, resp);
   }
 
-  public DRet<Void> create(DQPImageCreate dqp, String body) {
-    DResp resp = this.image.create(dqp, body);
+  public DRet<Void> create(String body, DQPImageCreate dqp) {
+    DResp resp = this.image.create(body, dqp);
     return DIParser.voidx().parse(this.config, resp);
   }
 
@@ -158,7 +158,7 @@ public class EGeneicDockerImage {
     return parser.parse(this.config, resp);
   }
 
-  public <T> DRet<T> export(DIParser<T> parser, DQPImageExportSeveral dqp) {
+  public <T> DRet<T> export(DIParser<T> parser, DQPImageExport dqp) {
     DResp resp = this.image.export(dqp);
     return parser.parse(this.config, resp);
   }

@@ -16,7 +16,11 @@
 package io.enoa.docker.docker;
 
 import io.enoa.docker.Docker;
-import io.enoa.docker.dqp.docker.image.*;
+import io.enoa.docker.dqp.DQP;
+import io.enoa.docker.dqp.docker.image.DQPImageBuild;
+import io.enoa.docker.dqp.docker.image.DQPImageExport;
+import io.enoa.docker.dqp.docker.image.DQPImageList;
+import io.enoa.docker.dqp.docker.image.DQPImageTag;
 import io.enoa.docker.ret.docker.DRet;
 import io.enoa.docker.ret.docker.image.*;
 import io.enoa.docker.stream.DStream;
@@ -55,7 +59,7 @@ public class DockerImageTest extends AbstractDockerTest {
 //    System.out.println();
 //    System.out.println("done===");
 
-    DRet<List<Kv>> ret = Docker.image().build(dqp, dockerfile, DStream.<Kv>builder(kv -> System.out.println(Json.toJson(kv))).build());
+    DRet<List<Kv>> ret = Docker.image().build(dockerfile, dqp, DStream.<Kv>builder(kv -> System.out.println(Json.toJson(kv))).build());
     Assert.assertTrue(ret.ok());
     String json = Json.toJson(ret.data());
     System.out.println(json);
@@ -111,7 +115,7 @@ public class DockerImageTest extends AbstractDockerTest {
 
   @Test
   public void testSearch() {
-    DRet<List<EISearch>> ret = Docker.image().search(DQPImageSearch.create().term("nginx"));
+    DRet<List<EISearch>> ret = Docker.image().search(DQP.docker().image().search().term("nginx"));
     Assert.assertTrue(ret.ok());
     String json = Json.toJson(ret.data());
     System.out.println(json);
@@ -145,7 +149,7 @@ public class DockerImageTest extends AbstractDockerTest {
 
   @Test
   public void testExportSeveral() {
-    DRet<EnoaBinary> ret = Docker.image().export(DQPImageExportSeveral.create().names("nginx"));
+    DRet<EnoaBinary> ret = Docker.image().export(DQPImageExport.create().names("nginx"));
     Assert.assertTrue(ret.ok());
     EnoaBinary binary = ret.data();
     FileKit.write(PathKit.debugPath().resolve("_tmp/nginx.tgz"), binary.bytebuffer());

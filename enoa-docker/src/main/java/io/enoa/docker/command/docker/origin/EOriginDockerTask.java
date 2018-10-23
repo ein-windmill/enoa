@@ -13,25 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.dqp.docker.common;
+package io.enoa.docker.command.docker.origin;
 
-import io.enoa.docker.dqp.DQH;
-import io.enoa.docker.dqp.DQP;
+import io.enoa.docker.dqp.common.DQPFilter;
+import io.enoa.docker.ret.docker.DResp;
 
-public abstract class DQPRegistryAuth implements DQP {
+public interface EOriginDockerTask {
 
-
-  private String registryauth;
-
-
-  public DQPRegistryAuth registryauth(String registryauth) {
-    this.registryauth = registryauth;
-    return this;
+  default DResp list() {
+    return this.list(null);
   }
 
-  @Override
-  public DQH dqh() {
-    return DQH.create()
-      .addIf("X-Registry-Auth", this.registryauth);
-  }
+  DResp list(DQPFilter dqp);
+
+
+  DResp inspect(String id);
+
 }

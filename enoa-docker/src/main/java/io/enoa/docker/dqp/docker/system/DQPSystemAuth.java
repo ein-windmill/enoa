@@ -18,33 +18,33 @@ package io.enoa.docker.dqp.docker.system;
 import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.DQR;
 
-public class DQPAuth implements DQP {
+public class DQPSystemAuth implements DQP {
 
   private String username;
   private String password;
   private String email;
   private String serveraddress;
 
-  public static DQPAuth create() {
-    return new DQPAuth();
+  public static DQPSystemAuth create() {
+    return new DQPSystemAuth();
   }
 
-  public DQPAuth username(String username) {
+  public DQPSystemAuth username(String username) {
     this.username = username;
     return this;
   }
 
-  public DQPAuth password(String password) {
+  public DQPSystemAuth password(String password) {
     this.password = password;
     return this;
   }
 
-  public DQPAuth email(String email) {
+  public DQPSystemAuth email(String email) {
     this.email = email;
     return this;
   }
 
-  public DQPAuth serveraddress(String serveraddress) {
+  public DQPSystemAuth serveraddress(String serveraddress) {
     this.serveraddress = serveraddress;
     return this;
   }

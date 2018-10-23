@@ -32,21 +32,21 @@ public interface OriginDocker extends _DockerConfigSupport {
 
   EOriginDockerExec exec();
 
-  EOriginSwarm swarm();
+  EOriginDockerSwarm swarm();
 
-  EOriginNode node();
+  EOriginDockerNode node();
 
-  EOriginService service();
+  EOriginDockerService service();
 
-  EOriginTask task();
+  EOriginDockerTask task();
 
-  EOriginSecret secret();
+  EOriginDockerSecret secret();
 
   EOriginConfig config();
 
-  EOriginPlugin plugin();
+  EOriginDockerPlugin plugin();
 
-  EOriginSystem system();
+  EOriginDockerSystem system();
 
   EOriginDistribution distribution();
 

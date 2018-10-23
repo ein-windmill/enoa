@@ -15,10 +15,13 @@
  */
 package io.enoa.docker.command.docker.origin;
 
-import io.enoa.docker.dqp.docker.common.DQPFilter;
+import io.enoa.docker.dqp.common.DQPFilter;
+import io.enoa.docker.dqp.docker.service.DQPServiceCreate;
+import io.enoa.docker.dqp.docker.service.DQPServiceUpdate;
 import io.enoa.docker.ret.docker.DResp;
+import io.enoa.docker.ret.docker.service.DQPServiceLogs;
 
-public interface EOriginSecret {
+public interface EOriginDockerService {
 
   default DResp list() {
     return this.list(null);
@@ -26,12 +29,27 @@ public interface EOriginSecret {
 
   DResp list(DQPFilter dqp);
 
-  DResp create(String body);
+  default DResp create(String body) {
+    return this.create(body, null);
+  }
 
-  DResp inspect(String id);
+  DResp create(String body, DQPServiceCreate dqp);
+
+  default DResp inspect(String id) {
+    return this.inspect(id, Boolean.FALSE);
+  }
+
+  DResp inspect(String id, boolean insertDefaults);
 
   DResp remove(String id);
 
-  DResp update(String id, long version, String body);
+  DResp update(String id, String body, DQPServiceUpdate dqp);
+
+  default DResp logs(String id) {
+    return this.logs(id, null);
+  }
+
+  DResp logs(String id, DQPServiceLogs dqp);
+
 
 }

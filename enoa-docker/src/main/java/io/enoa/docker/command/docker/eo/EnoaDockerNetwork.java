@@ -19,7 +19,7 @@ import io.enoa.docker.command.docker.generic.EGeneicDockerNetwork;
 import io.enoa.docker.command.docker.generic.GenericDocker;
 import io.enoa.docker.dqp.docker.network.DQPNetworkInspect;
 import io.enoa.docker.dqp.docker.network.DQPNetworkList;
-import io.enoa.docker.dqp.docker.common.DQPFilter;
+import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.ret.docker.DRet;
 import io.enoa.docker.ret.docker.network.ENetworPrune;
 import io.enoa.docker.ret.docker.network.ENetwork;

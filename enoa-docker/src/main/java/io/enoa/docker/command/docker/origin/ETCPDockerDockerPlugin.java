@@ -17,7 +17,7 @@ package io.enoa.docker.command.docker.origin;
 
 import io.enoa.docker.dqp.DQH;
 import io.enoa.docker.dqp.DQR;
-import io.enoa.docker.dqp.docker.common.DQPFilter;
+import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.docker.plugin.DQPPluginInstall;
 import io.enoa.docker.dqp.docker.plugin.DQPPluginUpgrade;
 import io.enoa.docker.ret.docker.DResp;
@@ -29,12 +29,12 @@ import io.enoa.toolkit.text.TextKit;
 
 import java.util.Collection;
 
-public class ETCPDockerPlugin implements EOriginPlugin {
+public class ETCPDockerDockerPlugin implements EOriginDockerPlugin {
 
 
   private EnoaTCPDocker docker;
 
-  ETCPDockerPlugin(EnoaTCPDocker docker) {
+  ETCPDockerDockerPlugin(EnoaTCPDocker docker) {
     this.docker = docker;
   }
 

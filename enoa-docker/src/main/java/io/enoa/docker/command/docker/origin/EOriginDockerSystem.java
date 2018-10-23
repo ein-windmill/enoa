@@ -15,11 +15,11 @@
  */
 package io.enoa.docker.command.docker.origin;
 
-import io.enoa.docker.dqp.docker.system.DQPAuth;
+import io.enoa.docker.dqp.docker.system.DQPSystemAuth;
 import io.enoa.docker.dqp.docker.system.DQPMonitor;
 import io.enoa.docker.ret.docker.DResp;
 
-public interface EOriginSystem {
+public interface EOriginDockerSystem {
 
   /**
    * Check auth configuration
@@ -28,7 +28,7 @@ public interface EOriginSystem {
    * @param dqp dqp
    * @return DResp
    */
-  DResp auth(DQPAuth dqp);
+  DResp auth(DQPSystemAuth dqp);
 
   /**
    * Get system information

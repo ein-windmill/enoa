@@ -16,12 +16,15 @@
 package io.enoa.docker.dqp.docker.volume;
 
 import io.enoa.docker.dqp.DQR;
-import io.enoa.docker.dqp.docker.common.DQPFilter;
+import io.enoa.docker.dqp.common.DQPFilter;
 
 public class DQPVolumeList extends DQPFilter<DQPVolumeList> {
 
 //  private List<String> filters;
 
+  public static DQPVolumeList create() {
+    return new DQPVolumeList();
+  }
 
   public DQPVolumeList() {
   }

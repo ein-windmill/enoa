@@ -15,47 +15,49 @@
  */
 package io.enoa.docker.command.docker.origin;
 
-import io.enoa.docker.dqp.docker.common.DQPFilter;
-import io.enoa.docker.dqp.docker.service.DQPServiceCreate;
-import io.enoa.docker.dqp.docker.service.DQPServiceUpdate;
+import io.enoa.docker.dqp.docker.swarm.DQPSwarmUpdate;
 import io.enoa.docker.ret.docker.DResp;
-import io.enoa.docker.ret.docker.service.DQPServiceLogs;
 
-public class EUNIXSOCKETDockerService implements EOriginService {
+public class EUNIXSOCKETDockerDockerSwarm implements EOriginDockerSwarm {
 
   private EnoaUNIXSOCKETDocker docker;
 
-  EUNIXSOCKETDockerService(EnoaUNIXSOCKETDocker docker) {
+  EUNIXSOCKETDockerDockerSwarm(EnoaUNIXSOCKETDocker docker) {
     this.docker = docker;
   }
 
   @Override
-  public DResp list(DQPFilter dqp) {
+  public DResp inspect() {
     return null;
   }
 
   @Override
-  public DResp create(String body, DQPServiceCreate dqp) {
+  public DResp init(String body) {
     return null;
   }
 
   @Override
-  public DResp inspect(String id, boolean insertDefaults) {
+  public DResp join(String body) {
     return null;
   }
 
   @Override
-  public DResp remove(String id) {
+  public DResp leave(boolean force) {
     return null;
   }
 
   @Override
-  public DResp update(String id, String body, DQPServiceUpdate dqp) {
+  public DResp update(DQPSwarmUpdate dqp, String body) {
     return null;
   }
 
   @Override
-  public DResp logs(String id, DQPServiceLogs dqp) {
+  public DResp unlockkey() {
+    return null;
+  }
+
+  @Override
+  public DResp unlock(String body) {
     return null;
   }
 }

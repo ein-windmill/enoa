@@ -18,7 +18,7 @@ package io.enoa.docker.command.docker.generic;
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.command.docker.origin.EOriginDockerExec;
 import io.enoa.docker.command.docker.origin.OriginDocker;
-import io.enoa.docker.dqp.docker.common.DQPResize;
+import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.docker.exec.DQPExecCreate;
 import io.enoa.docker.dqp.docker.exec.DQPExecStart;
 import io.enoa.docker.ret.docker.DResp;

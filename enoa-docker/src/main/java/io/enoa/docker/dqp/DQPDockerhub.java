@@ -13,46 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.command.hub.origin;
+package io.enoa.docker.dqp;
 
 import io.enoa.docker.dqp.common.DQPPage;
 import io.enoa.docker.dqp.dockerhub.DQPSearch;
-import io.enoa.docker.ret.registry.RResp;
 
-public class EOriginDockerhubImpl implements OriginDockerhub {
+public class DQPDockerhub {
 
-  @Override
-  public RResp explore(DQPPage dqp) {
-    return null;
+  private static class Holder {
+    private static final DQPDockerhub INSTANCE = new DQPDockerhub();
   }
 
-  @Override
-  public RResp search(DQPSearch dqp) {
-    return null;
+  static DQPDockerhub instance() {
+    return Holder.INSTANCE;
   }
 
-  @Override
-  public RResp inspect(String repository) {
-    return null;
+  private DQPDockerhub() {
+
   }
 
-  @Override
-  public RResp tags(String repository, DQPPage dqp) {
-    return null;
+  public DQPSearch search() {
+    return DQPSearch.create();
   }
 
-  @Override
-  public RResp dockerfile(String repository) {
-    return null;
+  public DQPPage page() {
+    return DQPPage.create();
   }
 
-  @Override
-  public RResp autobuild(String repository) {
-    return null;
+  public DQPPage page(Integer pagesize) {
+    return DQPPage.create();
   }
 
-  @Override
-  public RResp history(String repository, DQPPage dqp) {
-    return null;
-  }
 }

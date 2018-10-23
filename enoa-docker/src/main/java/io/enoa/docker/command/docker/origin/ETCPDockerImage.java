@@ -17,7 +17,7 @@ package io.enoa.docker.command.docker.origin;
 
 import io.enoa.docker.dqp.DQH;
 import io.enoa.docker.dqp.DQR;
-import io.enoa.docker.dqp.docker.common.DQPFilter;
+import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.docker.image.*;
 import io.enoa.docker.ret.docker.DResp;
 import io.enoa.docker.stream.DStream;
@@ -50,7 +50,7 @@ public class ETCPDockerImage implements EOriginDockerImage {
   }
 
   @Override
-  public DResp build(DQPImageBuild dqp, String dockerfile, DStream<String> dstream) {
+  public DResp build(String dockerfile, DQPImageBuild dqp, DStream<String> dstream) {
     if (dqp == null)
       throw new DockerException(EnoaTipKit.message("eo.tip.docker.lost_dqp"));
     DQR dqr = dqp.dqr();
@@ -76,7 +76,7 @@ public class ETCPDockerImage implements EOriginDockerImage {
   }
 
   @Override
-  public DResp create(DQPImageCreate dqp, String body) {
+  public DResp create(String body, DQPImageCreate dqp) {
     Http http = this.docker.http("images/create")
       .method(HttpMethod.POST);
     if (dqp != null) {
@@ -183,7 +183,7 @@ public class ETCPDockerImage implements EOriginDockerImage {
   }
 
   @Override
-  public DResp export(DQPImageExportSeveral dqp) {
+  public DResp export(DQPImageExport dqp) {
     Http http = this.docker.http("images/get");
     if (dqp != null)
       http.para(dqp.dqr().http());

@@ -17,8 +17,8 @@ package io.enoa.docker.command.docker.eo;
 
 import io.enoa.docker.command.docker.generic.EGeneicDockerContainer;
 import io.enoa.docker.command.docker.generic.GenericDocker;
-import io.enoa.docker.dqp.docker.common.DQPFilter;
-import io.enoa.docker.dqp.docker.common.DQPResize;
+import io.enoa.docker.dqp.common.DQPFilter;
+import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.docker.container.*;
 import io.enoa.docker.ret.docker.DRet;
 import io.enoa.docker.ret.docker.common.ECreatedWithWarning;
@@ -157,7 +157,7 @@ public class EnoaDockerContainer {
     return this.container.attach(id);
   }
 
-  public DRet<Void> attach(String id, DQPAttch dqp) {
+  public DRet<Void> attach(String id, DQPContainerAttch dqp) {
     return this.container.attach(id, dqp);
   }
 

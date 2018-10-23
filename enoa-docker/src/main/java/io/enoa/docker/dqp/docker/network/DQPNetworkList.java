@@ -16,7 +16,7 @@
 package io.enoa.docker.dqp.docker.network;
 
 import io.enoa.docker.dqp.DQR;
-import io.enoa.docker.dqp.docker.common.DQPFilter;
+import io.enoa.docker.dqp.common.DQPFilter;
 
 public class DQPNetworkList extends DQPFilter<DQPNetworkList> {
 

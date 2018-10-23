@@ -15,7 +15,7 @@
  */
 package io.enoa.docker.command.docker.origin;
 
-import io.enoa.docker.dqp.docker.common.DQPFilter;
+import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.docker.plugin.DQPPluginInstall;
 import io.enoa.docker.dqp.docker.plugin.DQPPluginUpgrade;
 import io.enoa.docker.ret.docker.DResp;
@@ -25,7 +25,7 @@ import java.util.Collections;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public interface EOriginPlugin {
+public interface EOriginDockerPlugin {
 
 
   default DResp list() {

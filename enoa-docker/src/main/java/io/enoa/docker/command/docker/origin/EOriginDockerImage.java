@@ -15,7 +15,7 @@
  */
 package io.enoa.docker.command.docker.origin;
 
-import io.enoa.docker.dqp.docker.common.DQPFilter;
+import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.docker.image.*;
 import io.enoa.docker.ret.docker.DResp;
 import io.enoa.docker.stream.DStream;
@@ -37,10 +37,10 @@ public interface EOriginDockerImage {
   DResp list(DQPImageList dqp);
 
   /**
-   * @see #build(DQPImageBuild, String, DStream)
+   * @see #build(String, DQPImageBuild, DStream)
    */
-  default DResp build(DQPImageBuild dqp, String dockerfile) {
-    return this.build(dqp, dockerfile, null);
+  default DResp build(String dockerfile, DQPImageBuild dqp) {
+    return this.build(dockerfile, dqp, null);
   }
 
   /**
@@ -62,7 +62,7 @@ public interface EOriginDockerImage {
    * @param dstream    chunk
    * @return DResp
    */
-  DResp build(DQPImageBuild dqp, String dockerfile, DStream<String> dstream);
+  DResp build(String dockerfile, DQPImageBuild dqp, DStream<String> dstream);
 
   /**
    * Delete builder cache
@@ -80,7 +80,7 @@ public interface EOriginDockerImage {
    * @param body request body
    * @return DResp
    */
-  DResp create(DQPImageCreate dqp, String body);
+  DResp create(String body, DQPImageCreate dqp);
 
   /**
    * Inspect an image
@@ -290,7 +290,7 @@ public interface EOriginDockerImage {
    * @param dqp dqp
    * @return DResp
    */
-  DResp export(DQPImageExportSeveral dqp);
+  DResp export(DQPImageExport dqp);
 
   /**
    * @see #load(byte[], DQPImageLoad)

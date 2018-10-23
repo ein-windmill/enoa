@@ -15,18 +15,45 @@
  */
 package io.enoa.docker.command.docker.origin;
 
-import io.enoa.docker.dqp.docker.common.DQPFilter;
+import io.enoa.docker.dqp.docker.system.DQPSystemAuth;
+import io.enoa.docker.dqp.docker.system.DQPMonitor;
 import io.enoa.docker.ret.docker.DResp;
 
-public interface EOriginTask {
+public class EUNIXSOCKETDockerDockerSystem implements EOriginDockerSystem {
 
-  default DResp list() {
-    return this.list(null);
+  private EnoaUNIXSOCKETDocker docker;
+
+  EUNIXSOCKETDockerDockerSystem(EnoaUNIXSOCKETDocker docker) {
+    this.docker = docker;
   }
 
-  DResp list(DQPFilter dqp);
+  @Override
+  public DResp auth(DQPSystemAuth dqp) {
+    return null;
+  }
 
+  @Override
+  public DResp info() {
+    return null;
+  }
 
-  DResp inspect(String id);
+  @Override
+  public DResp version() {
+    return null;
+  }
 
+  @Override
+  public DResp ping() {
+    return null;
+  }
+
+  @Override
+  public DResp monitor(DQPMonitor dqp) {
+    return null;
+  }
+
+  @Override
+  public DResp df() {
+    return null;
+  }
 }

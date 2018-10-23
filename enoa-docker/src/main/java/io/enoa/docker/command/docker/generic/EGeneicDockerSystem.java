@@ -16,9 +16,9 @@
 package io.enoa.docker.command.docker.generic;
 
 import io.enoa.docker.DockerConfig;
-import io.enoa.docker.command.docker.origin.EOriginSystem;
+import io.enoa.docker.command.docker.origin.EOriginDockerSystem;
 import io.enoa.docker.command.docker.origin.OriginDocker;
-import io.enoa.docker.dqp.docker.system.DQPAuth;
+import io.enoa.docker.dqp.docker.system.DQPSystemAuth;
 import io.enoa.docker.dqp.docker.system.DQPMonitor;
 import io.enoa.docker.ret.docker.DResp;
 import io.enoa.docker.ret.docker.DRet;
@@ -28,7 +28,7 @@ public class EGeneicDockerSystem {
 
   private OriginDocker docker;
   private DockerConfig config;
-  private EOriginSystem system;
+  private EOriginDockerSystem system;
 
   EGeneicDockerSystem(OriginDocker docker) {
     this.docker = docker;
@@ -36,7 +36,7 @@ public class EGeneicDockerSystem {
     this.system = docker.system();
   }
 
-  public <T> DRet<T> auth(DIParser<T> parser, DQPAuth dqp) {
+  public <T> DRet<T> auth(DIParser<T> parser, DQPSystemAuth dqp) {
     DResp resp = this.system.auth(dqp);
     return parser.parse(this.config, resp);
   }

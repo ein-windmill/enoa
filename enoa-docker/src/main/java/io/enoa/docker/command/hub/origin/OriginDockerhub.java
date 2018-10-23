@@ -15,20 +15,41 @@
  */
 package io.enoa.docker.command.hub.origin;
 
+import io.enoa.docker.dqp.DQP;
+import io.enoa.docker.dqp.common.DQPPage;
+import io.enoa.docker.dqp.dockerhub.DQPSearch;
 import io.enoa.docker.ret.registry.RResp;
 
 public interface OriginDockerhub {
 
   default RResp explore() {
-    return this.explore(1);
+    return this.explore(DQP.hub().page());
   }
 
-  default RResp explore(Integer pageNumber) {
-    return this.explore(pageNumber, 15);
+  RResp explore(DQPPage dqp);
+
+  default RResp search() {
+    return this.search(DQP.hub().search());
   }
 
-  RResp explore(Integer pageNumber, Integer pageSize);
+  RResp search(DQPSearch dqp);
 
-//  RResp search()
+  RResp inspect(String repository);
+
+  default RResp tags(String repository) {
+    return this.tags(repository, DQP.hub().page(50));
+  }
+
+  RResp tags(String repository, DQPPage dqp);
+
+  RResp dockerfile(String repository);
+
+  RResp autobuild(String repository);
+
+  default RResp history(String repository) {
+    return this.history(repository, DQP.hub().page(50));
+  }
+
+  RResp history(String repository, DQPPage dqp);
 
 }

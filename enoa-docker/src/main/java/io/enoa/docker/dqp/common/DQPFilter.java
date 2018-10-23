@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.dqp.docker.common;
+package io.enoa.docker.dqp.common;
 
 import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.DQR;

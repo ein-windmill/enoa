@@ -17,7 +17,7 @@ package io.enoa.docker.command.docker.eo;
 
 import io.enoa.docker.command.docker.generic.EGeneicDockerImage;
 import io.enoa.docker.command.docker.generic.GenericDocker;
-import io.enoa.docker.dqp.docker.common.DQPFilter;
+import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.docker.image.*;
 import io.enoa.docker.ret.docker.DRet;
 import io.enoa.docker.ret.docker.image.*;
@@ -48,20 +48,20 @@ public class EnoaDockerImage {
     return this.image.list(DIParser.imagelist(), dqp);
   }
 
-  public DRet<List<Kv>> build(DQPImageBuild dqp, String dockerfile) {
-    return this.image.build(dqp, dockerfile);
+  public DRet<List<Kv>> build(String dockerfile, DQPImageBuild dqp) {
+    return this.image.build(dockerfile, dqp);
   }
 
-  public DRet<List<Kv>> build(DQPImageBuild dqp, String dockerfile, DStream<Kv> dstream) {
-    return this.image.build(dqp, dockerfile, dstream);
+  public DRet<List<Kv>> build(String dockerfile, DQPImageBuild dqp, DStream<Kv> dstream) {
+    return this.image.build(dockerfile, dqp, dstream);
   }
 
   public DRet<EIPrune> prunebuild() {
     return this.image.prunebuild(DIParser.buildprune());
   }
 
-  public DRet<Void> create(DQPImageCreate dqp, String body) {
-    return this.image.create(dqp, body);
+  public DRet<Void> create(String body, DQPImageCreate dqp) {
+    return this.image.create(body, dqp);
   }
 
   public DRet<EIInspect> inspect(String id) {
@@ -124,7 +124,7 @@ public class EnoaDockerImage {
     return this.image.export(DIParser.binary(), id);
   }
 
-  public DRet<EnoaBinary> export(DQPImageExportSeveral dqp) {
+  public DRet<EnoaBinary> export(DQPImageExport dqp) {
     return this.image.export(DIParser.binary(), dqp);
   }
 

@@ -15,25 +15,32 @@
  */
 package io.enoa.docker.command.docker.origin;
 
-import io.enoa.docker.dqp.docker.common.DQPFilter;
+import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.ret.docker.DResp;
+import io.enoa.http.Http;
+import io.enoa.http.protocol.HttpResponse;
 
-public class EUNIXSOCKETDockerTask implements EOriginTask {
+public class ETCPDockerDockerTask implements EOriginDockerTask {
+  private EnoaTCPDocker docker;
 
-  private EnoaUNIXSOCKETDocker docker;
-
-
-  EUNIXSOCKETDockerTask(EnoaUNIXSOCKETDocker docker) {
+  ETCPDockerDockerTask(EnoaTCPDocker docker) {
     this.docker = docker;
   }
 
   @Override
   public DResp list(DQPFilter dqp) {
-    return null;
+    Http http = this.docker.http("tasks");
+    if (dqp != null)
+      http.para(dqp.dqr().http());
+    HttpResponse response = http.emit();
+    return DResp.create(response);
   }
 
   @Override
   public DResp inspect(String id) {
-    return null;
+    HttpResponse response = this.docker.http("tasks", id)
+      .emit();
+    return DResp.create(response);
   }
+
 }

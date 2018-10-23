@@ -26,8 +26,8 @@ public class DQPSwarmUpdate implements DQP {
   private Boolean rotatemanagerunlockkey;
 
 
-  public static DQPSwarmJoin create() {
-    return new DQPSwarmJoin();
+  public static DQPSwarmUpdate create() {
+    return new DQPSwarmUpdate();
   }
 
   public DQPSwarmUpdate() {

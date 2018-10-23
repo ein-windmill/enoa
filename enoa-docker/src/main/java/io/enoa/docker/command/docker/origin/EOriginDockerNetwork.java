@@ -17,7 +17,7 @@ package io.enoa.docker.command.docker.origin;
 
 import io.enoa.docker.dqp.docker.network.DQPNetworkInspect;
 import io.enoa.docker.dqp.docker.network.DQPNetworkList;
-import io.enoa.docker.dqp.docker.common.DQPFilter;
+import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.ret.docker.DResp;
 
 /**

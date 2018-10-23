@@ -16,7 +16,7 @@
 package io.enoa.docker.docker;
 
 import io.enoa.docker.Docker;
-import io.enoa.docker.dqp.docker.container.DQPContainerLogs;
+import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.docker.container.DQPContainerUpdate;
 import io.enoa.docker.ret.docker.DResp;
 import io.enoa.docker.ret.docker.DRet;
@@ -62,7 +62,8 @@ public class DockerContainerTest extends AbstractDockerTest {
 
   @Test
   public void testLogs() {
-    DRet<String> ret = Docker.container().logs("nginx", DQPContainerLogs.create().stdout());
+//    DRet<String> ret = Docker.container().logs("nginx", DQPContainerLogs.create().stdout());
+    DRet<String> ret = Docker.container().logs("nginx", DQP.docker().container().logs().stdout());
     Assert.assertTrue(ret.ok());
     String logs = ret.data();
     System.out.println(logs);

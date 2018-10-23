@@ -19,7 +19,7 @@ import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.DQR;
 import io.enoa.toolkit.text.TextKit;
 
-public class DQPAttch implements DQP {
+public class DQPContainerAttch implements DQP {
 
   private String detachkeys;
   private boolean logs;
@@ -29,40 +29,40 @@ public class DQPAttch implements DQP {
   private boolean stderr;
 
 
-  public static DQPAttch create() {
-    return new DQPAttch();
+  public static DQPContainerAttch create() {
+    return new DQPContainerAttch();
   }
 
-  public DQPAttch() {
+  public DQPContainerAttch() {
   }
 
 
-  public DQPAttch detachkeys(String detachkeys) {
+  public DQPContainerAttch detachkeys(String detachkeys) {
     this.detachkeys = detachkeys;
     return this;
   }
 
-  public DQPAttch logs(boolean logs) {
+  public DQPContainerAttch logs(boolean logs) {
     this.logs = logs;
     return this;
   }
 
-  public DQPAttch stream(boolean stream) {
+  public DQPContainerAttch stream(boolean stream) {
     this.stream = stream;
     return this;
   }
 
-  public DQPAttch stdin(boolean stdin) {
+  public DQPContainerAttch stdin(boolean stdin) {
     this.stdin = stdin;
     return this;
   }
 
-  public DQPAttch stdout(boolean stdout) {
+  public DQPContainerAttch stdout(boolean stdout) {
     this.stdout = stdout;
     return this;
   }
 
-  public DQPAttch stderr(boolean stderr) {
+  public DQPContainerAttch stderr(boolean stderr) {
     this.stderr = stderr;
     return this;
   }

@@ -15,23 +15,23 @@
  */
 package io.enoa.docker.command.docker.origin;
 
-import io.enoa.docker.dqp.docker.common.DQPFilter;
+import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.ret.docker.DResp;
 import io.enoa.http.Http;
 import io.enoa.http.protocol.HttpMethod;
 import io.enoa.http.protocol.HttpResponse;
 
-public class ETCPDockerSecret implements EOriginSecret {
+public class ETCPDockerDockerNode implements EOriginDockerNode {
 
   private EnoaTCPDocker docker;
 
-  ETCPDockerSecret(EnoaTCPDocker docker) {
+  ETCPDockerDockerNode(EnoaTCPDocker docker) {
     this.docker = docker;
   }
 
   @Override
-  public DResp list(DQPFilter dqp) {
-    Http http = this.docker.http("secrets");
+  public DResp nodes(DQPFilter dqp) {
+    Http http = this.docker.http("nodes");
     if (dqp != null)
       http.para(dqp.dqr().http());
     HttpResponse response = http.emit();
@@ -39,33 +39,26 @@ public class ETCPDockerSecret implements EOriginSecret {
   }
 
   @Override
-  public DResp create(String body) {
-    HttpResponse response = this.docker.http("secrets/create")
-      .method(HttpMethod.POST)
-      .raw(body, "applications/json")
-      .emit();
-    return DResp.create(response);
-  }
-
-  @Override
   public DResp inspect(String id) {
-    HttpResponse response = this.docker.http("secrets", id).emit();
+    HttpResponse response = this.docker.http("nodes", id).emit();
     return DResp.create(response);
   }
 
   @Override
-  public DResp remove(String id) {
-    HttpResponse response = this.docker.http("secrets", id)
+  public DResp remove(String id, boolean force) {
+    HttpResponse response = this.docker.http("nodes", id)
       .method(HttpMethod.DELETE)
+      .para("force", force)
       .emit();
     return DResp.create(response);
   }
 
   @Override
   public DResp update(String id, long version, String body) {
-    HttpResponse response = this.docker.http("secrets", id, "update")
+    HttpResponse response = this.docker.http("nodes", id, "update")
+      .method(HttpMethod.POST)
       .para("version", version)
-      .raw(body, "applications/json")
+      .raw(body, "application/json")
       .emit();
     return DResp.create(response);
   }

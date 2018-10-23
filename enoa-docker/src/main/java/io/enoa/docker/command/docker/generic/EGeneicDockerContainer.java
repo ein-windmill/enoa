@@ -18,8 +18,8 @@ package io.enoa.docker.command.docker.generic;
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.command.docker.origin.EOriginDockerContainer;
 import io.enoa.docker.command.docker.origin.OriginDocker;
-import io.enoa.docker.dqp.docker.common.DQPResize;
-import io.enoa.docker.dqp.docker.common.DQPFilter;
+import io.enoa.docker.dqp.common.DQPResize;
+import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.docker.container.*;
 import io.enoa.docker.ret.docker.DResp;
 import io.enoa.docker.ret.docker.DRet;
@@ -182,7 +182,7 @@ public class EGeneicDockerContainer {
     return this.attach(id, null);
   }
 
-  public DRet<Void> attach(String id, DQPAttch dqp) {
+  public DRet<Void> attach(String id, DQPContainerAttch dqp) {
     DResp origin = this.container.attach(id, dqp);
     return DIParser.voidx().parse(this.config, origin);
   }

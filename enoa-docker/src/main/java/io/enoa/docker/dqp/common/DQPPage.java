@@ -13,42 +13,48 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.dqp.docker.service;
+package io.enoa.docker.dqp.common;
 
 import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.DQR;
 
-public class DQPServiceUpdate extends DQPServiceCreate implements DQP {
+public class DQPPage<T> implements DQP {
 
+  private Integer pagenumber;
+  private Integer pagesize;
 
-  private Long version;
-  private String registryauthfrom;
-  private String rollback;
-
-  public static DQPServiceUpdate create() {
-    return new DQPServiceUpdate();
+  public static <J> DQPPage<J> create() {
+    return new DQPPage<>();
   }
 
-  public DQPServiceUpdate version(Long version) {
-    this.version = version;
-    return this;
+  public static <J> DQPPage<J> create(Integer pagesize) {
+    return new DQPPage<>(pagesize);
   }
 
-  public DQPServiceUpdate registryauthfrom(String registryauthfrom) {
-    this.registryauthfrom = registryauthfrom;
-    return this;
+  public DQPPage() {
+    this.pagenumber = 1;
+    this.pagesize = 15;
   }
 
-  public DQPServiceUpdate rollback(String rollback) {
-    this.rollback = rollback;
-    return this;
+  public DQPPage(Integer pagesize) {
+    this();
+    this.pagesize = pagesize;
+  }
+
+  public T pagenumber(Integer pagenumber) {
+    this.pagenumber = pagenumber;
+    return (T) this;
+  }
+
+  public T pagesize(Integer pagesize) {
+    this.pagesize = pagesize;
+    return (T) this;
   }
 
   @Override
   public DQR dqr() {
     return DQR.create()
-      .putIf("version", this.version)
-      .putIf("registryAuthFrom", this.registryauthfrom)
-      .putIf("rollback", this.rollback);
+      .put("page", this.pagenumber)
+      .put("page_size", this.pagesize);
   }
 }

@@ -15,8 +15,6 @@
  */
 package io.enoa.docker.dqp;
 
-import io.enoa.docker.dqp.docker.container.DQPContainerList;
-
 import java.io.Serializable;
 
 /**
@@ -24,8 +22,12 @@ import java.io.Serializable;
  */
 public interface DQP extends Serializable {
 
-  static DQPContainerList ps() {
-    return new DQPContainerList();
+  static DQPDocker docker() {
+    return DQPDocker.instance();
+  }
+
+  static DQPDockerhub hub() {
+    return DQPDockerhub.instance();
   }
 
   /**

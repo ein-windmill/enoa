@@ -16,9 +16,9 @@
 package io.enoa.docker.command.docker.generic;
 
 import io.enoa.docker.DockerConfig;
-import io.enoa.docker.command.docker.origin.EOriginTask;
+import io.enoa.docker.command.docker.origin.EOriginDockerTask;
 import io.enoa.docker.command.docker.origin.OriginDocker;
-import io.enoa.docker.dqp.docker.common.DQPFilter;
+import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.ret.docker.DResp;
 import io.enoa.docker.ret.docker.DRet;
 import io.enoa.docker.parser.docker.DIParser;
@@ -29,7 +29,7 @@ public class EGeneicDockerTask {
 
   private OriginDocker docker;
   private DockerConfig config;
-  private EOriginTask tasks;
+  private EOriginDockerTask tasks;
 
   EGeneicDockerTask(OriginDocker docker) {
     this.docker = docker;

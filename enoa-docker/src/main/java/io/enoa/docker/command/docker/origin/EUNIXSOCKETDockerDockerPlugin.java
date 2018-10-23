@@ -16,35 +16,32 @@
 package io.enoa.docker.command.docker.origin;
 
 import io.enoa.docker.dqp.common.DQPFilter;
-import io.enoa.docker.dqp.docker.image.*;
+import io.enoa.docker.dqp.docker.plugin.DQPPluginInstall;
+import io.enoa.docker.dqp.docker.plugin.DQPPluginUpgrade;
 import io.enoa.docker.ret.docker.DResp;
-import io.enoa.docker.stream.DStream;
 
-public class EUNIXSOCKETDockerImage implements EOriginDockerImage {
+import java.util.Collection;
+
+public class EUNIXSOCKETDockerDockerPlugin implements EOriginDockerPlugin {
 
   private EnoaUNIXSOCKETDocker docker;
 
-  EUNIXSOCKETDockerImage(EnoaUNIXSOCKETDocker docker) {
+  EUNIXSOCKETDockerDockerPlugin(EnoaUNIXSOCKETDocker docker) {
     this.docker = docker;
   }
 
   @Override
-  public DResp list(DQPImageList dqp) {
+  public DResp list(DQPFilter dqp) {
     return null;
   }
 
   @Override
-  public DResp build(String dockerfile, DQPImageBuild dqp, DStream<String> dstream) {
+  public DResp privileges(String remote) {
     return null;
   }
 
   @Override
-  public DResp prunebuild() {
-    return null;
-  }
-
-  @Override
-  public DResp create(String body, DQPImageCreate dqp) {
+  public DResp install(DQPPluginInstall dqp) {
     return null;
   }
 
@@ -54,52 +51,37 @@ public class EUNIXSOCKETDockerImage implements EOriginDockerImage {
   }
 
   @Override
-  public DResp history(String id) {
+  public DResp remove(String id, boolean force) {
     return null;
   }
 
   @Override
-  public DResp push(String id, DQPImagePush dqp, DStream<String> dstream) {
+  public DResp enable(String id, int timeout) {
     return null;
   }
 
   @Override
-  public DResp tag(String id, DQPImageTag dqp) {
+  public DResp disable(String id) {
     return null;
   }
 
   @Override
-  public DResp remove(String id, DQPImageRmi dqp) {
+  public DResp upgrade(String id, DQPPluginUpgrade dqp) {
     return null;
   }
 
   @Override
-  public DResp search(DQPImageSearch dqp) {
+  public DResp create(String id, String raw) {
     return null;
   }
 
   @Override
-  public DResp pruneimage(DQPFilter dqp) {
+  public DResp push(String id) {
     return null;
   }
 
   @Override
-  public DResp commit(String body, DQPImageCommit dqp) {
-    return null;
-  }
-
-  @Override
-  public DResp export(String id) {
-    return null;
-  }
-
-  @Override
-  public DResp export(DQPImageExport dqp) {
-    return null;
-  }
-
-  @Override
-  public DResp load(byte[] binary, DQPImageLoad dqp) {
+  public DResp set(String id, Collection<String> args) {
     return null;
   }
 }

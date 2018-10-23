@@ -16,9 +16,9 @@
 package io.enoa.docker.command.docker.generic;
 
 import io.enoa.docker.DockerConfig;
-import io.enoa.docker.command.docker.origin.EOriginPlugin;
+import io.enoa.docker.command.docker.origin.EOriginDockerPlugin;
 import io.enoa.docker.command.docker.origin.OriginDocker;
-import io.enoa.docker.dqp.docker.common.DQPFilter;
+import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.docker.plugin.DQPPluginInstall;
 import io.enoa.docker.dqp.docker.plugin.DQPPluginUpgrade;
 import io.enoa.docker.ret.docker.DResp;
@@ -33,7 +33,7 @@ public class EGeneicDockerPlugin {
 
   private OriginDocker docker;
   private DockerConfig config;
-  private EOriginPlugin plugins;
+  private EOriginDockerPlugin plugins;
 
   EGeneicDockerPlugin(OriginDocker docker) {
     this.docker = docker;

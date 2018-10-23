@@ -15,34 +15,23 @@
  */
 package io.enoa.docker.command.docker.origin;
 
-import io.enoa.docker.dqp.docker.common.DQPFilter;
+import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.ret.docker.DResp;
 
-public class EUNIXSOCKETDockerNode implements EOriginNode {
+public interface EOriginDockerSecret {
 
-  private EnoaUNIXSOCKETDocker docker;
-
-  EUNIXSOCKETDockerNode(EnoaUNIXSOCKETDocker docker) {
-    this.docker = docker;
+  default DResp list() {
+    return this.list(null);
   }
 
-  @Override
-  public DResp nodes(DQPFilter dqp) {
-    return null;
-  }
+  DResp list(DQPFilter dqp);
 
-  @Override
-  public DResp inspect(String id) {
-    return null;
-  }
+  DResp create(String body);
 
-  @Override
-  public DResp remove(String id, boolean force) {
-    return null;
-  }
+  DResp inspect(String id);
 
-  @Override
-  public DResp update(String id, long version, String body) {
-    return null;
-  }
+  DResp remove(String id);
+
+  DResp update(String id, long version, String body);
+
 }

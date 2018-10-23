@@ -13,27 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.dqp.docker.plugin;
+package io.enoa.docker.dqp.common;
 
-import io.enoa.docker.dqp.DQR;
-import io.enoa.docker.dqp.common.DQPRegistryAuth;
+import io.enoa.docker.dqp.DQH;
+import io.enoa.docker.dqp.DQP;
 
-public class DQPPluginUpgrade extends DQPRegistryAuth {
+public abstract class DQPRegistryAuth implements DQP {
 
-  private String remote;
 
-  public static DQPPluginUpgrade create() {
-    return new DQPPluginUpgrade();
-  }
+  private String registryauth;
 
-  public DQPPluginUpgrade remote(String remote) {
-    this.remote = remote;
+
+  public DQPRegistryAuth registryauth(String registryauth) {
+    this.registryauth = registryauth;
     return this;
   }
 
   @Override
-  public DQR dqr() {
-    return null;
+  public DQH dqh() {
+    return DQH.create()
+      .addIf("X-Registry-Auth", this.registryauth);
   }
-
 }

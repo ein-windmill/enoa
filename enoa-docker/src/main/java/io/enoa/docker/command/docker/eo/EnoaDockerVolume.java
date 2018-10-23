@@ -17,7 +17,7 @@ package io.enoa.docker.command.docker.eo;
 
 import io.enoa.docker.command.docker.generic.EGeneicDockerVolume;
 import io.enoa.docker.command.docker.generic.GenericDocker;
-import io.enoa.docker.dqp.docker.common.DQPFilter;
+import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.docker.volume.DQPVolumeCreate;
 import io.enoa.docker.dqp.docker.volume.DQPVolumeList;
 import io.enoa.docker.ret.docker.DRet;

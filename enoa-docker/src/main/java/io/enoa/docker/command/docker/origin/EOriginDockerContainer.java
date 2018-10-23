@@ -15,8 +15,8 @@
  */
 package io.enoa.docker.command.docker.origin;
 
-import io.enoa.docker.dqp.docker.common.DQPResize;
-import io.enoa.docker.dqp.docker.common.DQPFilter;
+import io.enoa.docker.dqp.common.DQPResize;
+import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.docker.container.*;
 import io.enoa.docker.ret.docker.DResp;
 import io.enoa.docker.stream.DStream;
@@ -548,7 +548,7 @@ public interface EOriginDockerContainer {
   DResp unpause(String id);
 
   /**
-   * @see #attach(String, DQPAttch)
+   * @see #attach(String, DQPContainerAttch)
    */
   default DResp attach(String id) {
     return this.attach(id, null);
@@ -629,7 +629,7 @@ public interface EOriginDockerContainer {
    * @param dqp dqp
    * @return Dresp
    */
-  DResp attach(String id, DQPAttch dqp);
+  DResp attach(String id, DQPContainerAttch dqp);
 
   @Deprecated
   default Void ws(String id) {

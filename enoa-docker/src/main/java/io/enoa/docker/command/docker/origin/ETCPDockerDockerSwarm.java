@@ -21,11 +21,11 @@ import io.enoa.http.Http;
 import io.enoa.http.protocol.HttpMethod;
 import io.enoa.http.protocol.HttpResponse;
 
-public class ETCPDockerSwarm implements EOriginSwarm {
+public class ETCPDockerDockerSwarm implements EOriginDockerSwarm {
 
   private EnoaTCPDocker docker;
 
-  ETCPDockerSwarm(EnoaTCPDocker docker) {
+  ETCPDockerDockerSwarm(EnoaTCPDocker docker) {
     this.docker = docker;
   }
 

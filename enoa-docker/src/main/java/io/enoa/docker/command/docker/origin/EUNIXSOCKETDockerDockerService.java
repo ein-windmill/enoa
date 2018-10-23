@@ -15,18 +15,17 @@
  */
 package io.enoa.docker.command.docker.origin;
 
-import io.enoa.docker.dqp.docker.common.DQPFilter;
-import io.enoa.docker.dqp.docker.plugin.DQPPluginInstall;
-import io.enoa.docker.dqp.docker.plugin.DQPPluginUpgrade;
+import io.enoa.docker.dqp.common.DQPFilter;
+import io.enoa.docker.dqp.docker.service.DQPServiceCreate;
+import io.enoa.docker.dqp.docker.service.DQPServiceUpdate;
 import io.enoa.docker.ret.docker.DResp;
+import io.enoa.docker.ret.docker.service.DQPServiceLogs;
 
-import java.util.Collection;
-
-public class EUNIXSOCKETDockerPlugin implements EOriginPlugin {
+public class EUNIXSOCKETDockerDockerService implements EOriginDockerService {
 
   private EnoaUNIXSOCKETDocker docker;
 
-  EUNIXSOCKETDockerPlugin(EnoaUNIXSOCKETDocker docker) {
+  EUNIXSOCKETDockerDockerService(EnoaUNIXSOCKETDocker docker) {
     this.docker = docker;
   }
 
@@ -36,52 +35,27 @@ public class EUNIXSOCKETDockerPlugin implements EOriginPlugin {
   }
 
   @Override
-  public DResp privileges(String remote) {
+  public DResp create(String body, DQPServiceCreate dqp) {
     return null;
   }
 
   @Override
-  public DResp install(DQPPluginInstall dqp) {
+  public DResp inspect(String id, boolean insertDefaults) {
     return null;
   }
 
   @Override
-  public DResp inspect(String id) {
+  public DResp remove(String id) {
     return null;
   }
 
   @Override
-  public DResp remove(String id, boolean force) {
+  public DResp update(String id, String body, DQPServiceUpdate dqp) {
     return null;
   }
 
   @Override
-  public DResp enable(String id, int timeout) {
-    return null;
-  }
-
-  @Override
-  public DResp disable(String id) {
-    return null;
-  }
-
-  @Override
-  public DResp upgrade(String id, DQPPluginUpgrade dqp) {
-    return null;
-  }
-
-  @Override
-  public DResp create(String id, String raw) {
-    return null;
-  }
-
-  @Override
-  public DResp push(String id) {
-    return null;
-  }
-
-  @Override
-  public DResp set(String id, Collection<String> args) {
+  public DResp logs(String id, DQPServiceLogs dqp) {
     return null;
   }
 }

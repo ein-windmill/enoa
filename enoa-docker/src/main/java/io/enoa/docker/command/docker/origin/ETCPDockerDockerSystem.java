@@ -15,23 +15,25 @@
  */
 package io.enoa.docker.command.docker.origin;
 
-import io.enoa.docker.dqp.docker.common.DQPFilter;
+import io.enoa.docker.dqp.docker.system.DQPSystemAuth;
+import io.enoa.docker.dqp.docker.system.DQPMonitor;
 import io.enoa.docker.ret.docker.DResp;
 import io.enoa.http.Http;
 import io.enoa.http.protocol.HttpMethod;
 import io.enoa.http.protocol.HttpResponse;
 
-public class ETCPDockerNode implements EOriginNode {
+public class ETCPDockerDockerSystem implements EOriginDockerSystem {
 
   private EnoaTCPDocker docker;
 
-  ETCPDockerNode(EnoaTCPDocker docker) {
+  ETCPDockerDockerSystem(EnoaTCPDocker docker) {
     this.docker = docker;
   }
 
   @Override
-  public DResp nodes(DQPFilter dqp) {
-    Http http = this.docker.http("nodes");
+  public DResp auth(DQPSystemAuth dqp) {
+    Http http = this.docker.http("auth")
+      .method(HttpMethod.POST);
     if (dqp != null)
       http.para(dqp.dqr().http());
     HttpResponse response = http.emit();
@@ -39,27 +41,35 @@ public class ETCPDockerNode implements EOriginNode {
   }
 
   @Override
-  public DResp inspect(String id) {
-    HttpResponse response = this.docker.http("nodes", id).emit();
+  public DResp info() {
+    HttpResponse response = this.docker.http("info").emit();
     return DResp.create(response);
   }
 
   @Override
-  public DResp remove(String id, boolean force) {
-    HttpResponse response = this.docker.http("nodes", id)
-      .method(HttpMethod.DELETE)
-      .para("force", force)
-      .emit();
+  public DResp version() {
+    HttpResponse response = this.docker.http("version").emit();
     return DResp.create(response);
   }
 
   @Override
-  public DResp update(String id, long version, String body) {
-    HttpResponse response = this.docker.http("nodes", id, "update")
-      .method(HttpMethod.POST)
-      .para("version", version)
-      .raw(body, "application/json")
-      .emit();
+  public DResp ping() {
+    HttpResponse response = this.docker.http("_ping").emit();
+    return DResp.create(response);
+  }
+
+  @Override
+  public DResp monitor(DQPMonitor dqp) {
+    Http http = this.docker.http("events");
+    if (dqp != null)
+      http.para(dqp.dqr().http());
+    HttpResponse response = http.emit();
+    return DResp.create(response);
+  }
+
+  @Override
+  public DResp df() {
+    HttpResponse response = this.docker.http("system/df").emit();
     return DResp.create(response);
   }
 }

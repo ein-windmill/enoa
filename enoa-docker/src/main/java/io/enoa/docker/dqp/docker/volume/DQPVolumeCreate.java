@@ -27,6 +27,10 @@ public class DQPVolumeCreate implements DQP {
   private Kv labels;
 
 
+  public static DQPVolumeCreate create() {
+    return new DQPVolumeCreate();
+  }
+
   public DQPVolumeCreate() {
     this.driver = "local";
   }

@@ -17,7 +17,7 @@ package io.enoa.docker.command.docker.eo;
 
 import io.enoa.docker.command.docker.generic.EGeneicDockerSystem;
 import io.enoa.docker.command.docker.generic.GenericDocker;
-import io.enoa.docker.dqp.docker.system.DQPAuth;
+import io.enoa.docker.dqp.docker.system.DQPSystemAuth;
 import io.enoa.docker.dqp.docker.system.DQPMonitor;
 import io.enoa.docker.ret.docker.DRet;
 import io.enoa.docker.ret.docker.system.*;
@@ -35,7 +35,7 @@ public class EnoaDockerSystem {
   }
 
 
-  public DRet<EAuth> auth(DQPAuth dqp) {
+  public DRet<EAuth> auth(DQPSystemAuth dqp) {
     return this.system.auth(DIParser.auth(), dqp);
   }
 

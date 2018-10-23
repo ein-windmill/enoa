@@ -20,7 +20,7 @@ import io.enoa.docker.dqp.docker.swarm.DQPSwarmUnlock;
 import io.enoa.docker.dqp.docker.swarm.DQPSwarmUpdate;
 import io.enoa.docker.ret.docker.DResp;
 
-public interface EOriginSwarm {
+public interface EOriginDockerSwarm {
 
 
   /**
