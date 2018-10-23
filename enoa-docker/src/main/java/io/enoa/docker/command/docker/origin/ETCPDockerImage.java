@@ -17,8 +17,8 @@ package io.enoa.docker.command.docker.origin;
 
 import io.enoa.docker.dqp.DQH;
 import io.enoa.docker.dqp.DQR;
-import io.enoa.docker.dqp.common.DQPFilter;
-import io.enoa.docker.dqp.image.*;
+import io.enoa.docker.dqp.docker.common.DQPFilter;
+import io.enoa.docker.dqp.docker.image.*;
 import io.enoa.docker.ret.docker.DResp;
 import io.enoa.docker.stream.DStream;
 import io.enoa.docker.tar.DTar;

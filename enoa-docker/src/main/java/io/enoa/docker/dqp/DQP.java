@@ -15,7 +15,7 @@
  */
 package io.enoa.docker.dqp;
 
-import io.enoa.docker.dqp.container.DQPContainerList;
+import io.enoa.docker.dqp.docker.container.DQPContainerList;
 
 import java.io.Serializable;
 

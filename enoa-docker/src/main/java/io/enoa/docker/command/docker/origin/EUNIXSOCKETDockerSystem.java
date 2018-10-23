@@ -15,8 +15,8 @@
  */
 package io.enoa.docker.command.docker.origin;
 
-import io.enoa.docker.dqp.system.DQPAuth;
-import io.enoa.docker.dqp.system.DQPMonitor;
+import io.enoa.docker.dqp.docker.system.DQPAuth;
+import io.enoa.docker.dqp.docker.system.DQPMonitor;
 import io.enoa.docker.ret.docker.DResp;
 
 public class EUNIXSOCKETDockerSystem implements EOriginSystem {

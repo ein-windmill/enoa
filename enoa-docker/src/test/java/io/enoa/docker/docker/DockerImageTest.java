@@ -16,7 +16,7 @@
 package io.enoa.docker.docker;
 
 import io.enoa.docker.Docker;
-import io.enoa.docker.dqp.image.*;
+import io.enoa.docker.dqp.docker.image.*;
 import io.enoa.docker.ret.docker.DRet;
 import io.enoa.docker.ret.docker.image.*;
 import io.enoa.docker.stream.DStream;

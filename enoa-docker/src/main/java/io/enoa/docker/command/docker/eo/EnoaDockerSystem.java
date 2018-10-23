@@ -17,8 +17,8 @@ package io.enoa.docker.command.docker.eo;
 
 import io.enoa.docker.command.docker.generic.EGeneicDockerSystem;
 import io.enoa.docker.command.docker.generic.GenericDocker;
-import io.enoa.docker.dqp.system.DQPAuth;
-import io.enoa.docker.dqp.system.DQPMonitor;
+import io.enoa.docker.dqp.docker.system.DQPAuth;
+import io.enoa.docker.dqp.docker.system.DQPMonitor;
 import io.enoa.docker.ret.docker.DRet;
 import io.enoa.docker.ret.docker.system.*;
 import io.enoa.docker.parser.docker.DIParser;
