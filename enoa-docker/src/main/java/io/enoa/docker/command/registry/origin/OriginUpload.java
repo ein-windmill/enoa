@@ -17,48 +17,44 @@ package io.enoa.docker.command.registry.origin;
 
 import io.enoa.docker.ret.registry.RResp;
 
-public interface OriginRegistry {
-
-
-  default RResp _catelog() {
-    return this._catalog(50, null);
-  }
-
-  /**
-   * Find Repositories
-   * Returns a list of all existing repositories. A repository is a set of images with the same name and different tags.
-   * <p>
-   * Query Parameters
-   * Name 	Type 	Description
-   * n 	integer
-   * <p>
-   * Maximum number of results
-   * last 	string
-   * <p>
-   * Last result from previous response
-   *
-   * @return RResp
-   */
-  RResp _catalog(Integer n, String last);
+public interface OriginUpload {
 
 
   /**
-   * Find Tags
-   * Path Parameters
-   * Name 	Type 	Description
-   * repository 	RepositoryName
-   * <p>
-   * Repository name
+   * Create Upload
    *
    * @param repository Repository name
    * @return RResp
    */
-  RResp tags(String repository);
+  RResp create(String repository);
 
-  OriginManifests manifests();
 
-  OriginBlob blob();
+  /**
+   * Create Upload
+   *
+   * @param repository Repository name
+   * @param uuid       uuid
+   * @return RResp
+   */
+  RResp find(String repository, String uuid);
 
-  OriginUpload upload();
+
+  /**
+   * Update Upload
+   *
+   * @param repository Repository name
+   * @param uuid       uuid
+   * @return RResp
+   */
+  RResp update(String repository, String uuid);
+
+  /**
+   * Delete Upload
+   *
+   * @param repository Repository name
+   * @param uuid       uuid
+   * @return RResp
+   */
+  RResp delete(String repository, String uuid);
 
 }

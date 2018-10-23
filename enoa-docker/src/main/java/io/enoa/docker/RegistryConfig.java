@@ -17,12 +17,15 @@ package io.enoa.docker;
 
 import io.enoa.http.EoHttp;
 
-public class RegistryConfig {
+import java.io.Serializable;
+
+public class RegistryConfig implements Serializable {
 
   private final String host;
   private final Integer port;
   private final Boolean ssl;
   private final Boolean debug;
+  private final Boolean dockerhub;
   private final EoHttp http;
 
   public RegistryConfig(Builder builder) {
@@ -31,8 +34,12 @@ public class RegistryConfig {
     this.ssl = builder.ssl;
     this.debug = builder.debug;
     this.http = builder.http;
+    this.dockerhub = builder.dockerhub;
   }
 
+  public Boolean dockerhub() {
+    return dockerhub;
+  }
 
   public String host() {
     return host;
@@ -59,16 +66,23 @@ public class RegistryConfig {
     private Integer port;
     private Boolean ssl;
     private Boolean debug;
+    private Boolean dockerhub;
     private EoHttp http;
 
     public Builder() {
       this.ssl = Boolean.FALSE;
       this.debug = Boolean.FALSE;
+      this.dockerhub = Boolean.FALSE;
       this.http = EoHttp.def();
     }
 
     public RegistryConfig build() {
       return new RegistryConfig(this);
+    }
+
+    public Builder dockerhub(Boolean dockerhub) {
+      this.dockerhub = dockerhub;
+      return this;
     }
 
     public Builder host(String host) {

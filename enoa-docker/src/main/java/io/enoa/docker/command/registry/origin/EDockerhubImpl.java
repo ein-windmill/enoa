@@ -13,25 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.command.registry.geneic;
+package io.enoa.docker.command.registry.origin;
 
-import io.enoa.docker.parser.registry.RIParser;
-import io.enoa.docker.ret.registry.RRet;
+import io.enoa.docker.ret.registry.RResp;
 
-public interface GeneicRegistry {
-
-  default <T> RRet<T> _catalog(RIParser<T> parser) {
-    return this._catalog(parser, 50, null);
+public class EDockerhubImpl implements OriginRegistry {
+  @Override
+  public RResp _catalog(Integer n, String last) {
+    return null;
   }
 
-  <T> RRet<T> _catalog(RIParser<T> parser, Integer n, String last);
+  @Override
+  public RResp tags(String repository) {
+    return null;
+  }
 
-  <T> RRet<T> tags(RIParser<T> parser, String repository);
+  @Override
+  public OriginManifests manifests() {
+    return new EDockerhubManifests(this);
+  }
 
-  GeneicManifests manifests();
+  @Override
+  public OriginBlob blob() {
+    return new EDockerhubBlob(this);
+  }
 
-  GeneicBlob blob();
-
-  GeneicUpload upload();
-
+  @Override
+  public OriginUpload upload() {
+    return new EDockerhubUpload(this);
+  }
 }

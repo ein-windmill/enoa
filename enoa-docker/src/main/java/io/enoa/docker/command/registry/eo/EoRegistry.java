@@ -16,4 +16,7 @@
 package io.enoa.docker.command.registry.eo;
 
 public interface EoRegistry {
+
+
+
 }

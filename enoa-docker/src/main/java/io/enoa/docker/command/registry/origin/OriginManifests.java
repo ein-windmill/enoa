@@ -13,14 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.parser.registry;
+package io.enoa.docker.command.registry.origin;
 
-import io.enoa.docker.DockerConfig;
 import io.enoa.docker.ret.registry.RResp;
-import io.enoa.docker.ret.registry.RRet;
 
-public interface RIParser<T> {
+public interface OriginManifests {
 
-  RRet<T> parse(DockerConfig config, RResp resp);
+  /**
+   * Find Manifest
+   *
+   * @param repository Repository name
+   * @param reference  Manifest reference
+   * @return RResp
+   */
+  RResp find(String repository, String reference);
+
+  /**
+   * Update Manifest
+   *
+   * @param repository Repository name
+   * @param reference  Manifest reference
+   * @return RResp
+   */
+  RResp update(String repository, String reference);
+
+  /**
+   * Delete Manifest
+   *
+   * @param repository Repository name
+   * @param reference  Manifest reference
+   * @return RResp
+   */
+  RResp delete(String repository, String reference);
 
 }
