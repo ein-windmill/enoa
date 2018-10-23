@@ -1,0 +1,66 @@
+/*
+ * Copyright (c) 2018, enoa (fewensa@enoa.io)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package io.enoa.docker;
+
+import io.enoa.docker.command.hub.eo.EoDockerHub;
+import io.enoa.docker.command.hub.generic.GenericDockerhub;
+import io.enoa.docker.command.hub.origin.EOriginDockerhubImpl;
+import io.enoa.docker.command.hub.origin.OriginDockerhub;
+
+class EPMDockerhub {
+
+  private static class Holder {
+    private static final EPMDockerhub INSTANCE = new EPMDockerhub();
+  }
+
+  static EPMDockerhub instance() {
+    return Holder.INSTANCE;
+  }
+
+  private OriginDockerhub origin;
+  private GenericDockerhub generic;
+  private EoDockerHub eo;
+
+  private EPMDockerhub() {
+
+  }
+
+  public OriginDockerhub origin() {
+    if (this.origin != null)
+      return this.origin;
+    this.origin = new EOriginDockerhubImpl();
+    return this.origin;
+  }
+
+  public GenericDockerhub generic() {
+    if (this.generic != null)
+      return this.generic;
+
+    OriginDockerhub origin = this.origin();
+    this.generic = new GenericDockerhub(origin);
+    return this.generic;
+  }
+
+  public EoDockerHub dockerhub() {
+    if (this.eo != null)
+      return this.eo;
+    GenericDockerhub generic = this.generic();
+    this.eo = new EoDockerHub(generic);
+    return this.eo;
+  }
+
+
+}
