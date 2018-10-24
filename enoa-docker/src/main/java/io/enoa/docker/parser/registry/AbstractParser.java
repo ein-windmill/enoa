@@ -49,12 +49,14 @@ abstract class AbstractParser<T> implements RIParser<T> {
         Object dl = ek.get("detail");
         if (dl instanceof Map)
           erb.detail(Kv.by((Map) dl));
-        CollectionKit.clear(ek);
+        CollectionKit.clear(ek, kv);
         CollectionKit.clear(rl, rs);
         return RRet.fail(resp, erb.build());
       }
+      CollectionKit.clear(kv);
       return RRet.fail(resp, resp.string());
     }
+    CollectionKit.clear(kv);
     T data = this.ok(config, resp);
     return RRet.ok(resp, data);
   }

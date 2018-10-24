@@ -26,15 +26,12 @@ public class HRet<T> extends AbstractDRRet {
   private boolean ok;
   private T data;
   private String message;
-  private RError error;
-
 
   public static <J> HRet<J> fail(RResp origin, RError error) {
     return new Builder<J>()
       .ok(false)
       .origin(origin)
       .message(error.message())
-      .error(error)
       .build();
   }
 
@@ -63,7 +60,6 @@ public class HRet<T> extends AbstractDRRet {
     this.ok = builder.ok;
     this.data = builder.data;
     this.message = builder.message;
-    this.error = builder.error;
   }
 
 
@@ -79,17 +75,13 @@ public class HRet<T> extends AbstractDRRet {
     return data;
   }
 
-  public RError error() {
-    return error;
-  }
-
   public String message() {
     return message;
   }
 
   @Override
   public String toString() {
-    return this.ok ? Json.toJson(this.data) : this.error == null ? this.message : this.error.toString();
+    return this.ok ? Json.toJson(this.data) : this.message;
   }
 
   private static class Builder<K> {
@@ -98,7 +90,6 @@ public class HRet<T> extends AbstractDRRet {
     private boolean ok;
     private K data;
     private String message;
-    private RError error;
 
 
     public HRet<K> build() {
@@ -130,9 +121,5 @@ public class HRet<T> extends AbstractDRRet {
       return this;
     }
 
-    public Builder<K> error(RError error) {
-      this.error = error;
-      return this;
-    }
   }
 }

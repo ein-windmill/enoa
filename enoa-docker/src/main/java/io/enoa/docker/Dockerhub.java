@@ -18,11 +18,19 @@ package io.enoa.docker;
 import io.enoa.docker.command.hub.eo.EoDockerHub;
 import io.enoa.docker.command.hub.generic.GenericDockerhub;
 import io.enoa.docker.command.hub.origin.OriginDockerhub;
+import io.enoa.docker.dqp.common.DQPPage;
+import io.enoa.docker.dqp.dockerhub.DQPSearch;
+import io.enoa.docker.ret.dockerhub.HRet;
+import io.enoa.docker.ret.dockerhub.build.EHAutobuild;
+import io.enoa.docker.ret.dockerhub.build.EHBuildHistory;
+import io.enoa.docker.ret.dockerhub.explore.EHExplore;
+import io.enoa.docker.ret.dockerhub.inspece.EHRepository;
+import io.enoa.docker.ret.dockerhub.search.EHSearch;
+import io.enoa.docker.ret.dockerhub.tag.EHTag;
 
 public class Dockerhub {
 
-
-  private static EPMDockerhub epm() {
+  public static EPMDockerhub epm() {
     return EPMDockerhub.instance();
   }
 
@@ -38,5 +46,49 @@ public class Dockerhub {
     return epm().dockerhub();
   }
 
+
+  public static HRet<EHExplore> explore() {
+    return use().explore();
+  }
+
+  public static HRet<EHExplore> explore(DQPPage dqp) {
+    return use().explore(dqp);
+  }
+
+  public static HRet<EHSearch> search(String q) {
+    return use().search(q);
+  }
+
+  public static HRet<EHSearch> search(DQPSearch dqp) {
+    return use().search(dqp);
+  }
+
+  public static HRet<EHRepository> inspect(String repository) {
+    return use().inspect(repository);
+  }
+
+  public static HRet<EHTag> tags(String repository) {
+    return use().tags(repository);
+  }
+
+  public static HRet<EHTag> tags(String repository, DQPPage dqp) {
+    return use().tags(repository, dqp);
+  }
+
+  public static HRet<String> dockerfile(String repository) {
+    return use().dockerfile(repository);
+  }
+
+  public static HRet<EHAutobuild> autobuild(String repository) {
+    return use().autobuild(repository);
+  }
+
+  public static HRet<EHBuildHistory> history(String repository) {
+    return use().history(repository);
+  }
+
+  public static HRet<EHBuildHistory> history(String repository, DQPPage dqp) {
+    return use().history(repository, dqp);
+  }
 
 }

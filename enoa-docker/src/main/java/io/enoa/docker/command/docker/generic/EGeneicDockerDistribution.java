@@ -18,9 +18,9 @@ package io.enoa.docker.command.docker.generic;
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.command.docker.origin.EOriginDistribution;
 import io.enoa.docker.command.docker.origin.OriginDocker;
+import io.enoa.docker.parser.docker.DIParser;
 import io.enoa.docker.ret.docker.DResp;
 import io.enoa.docker.ret.docker.DRet;
-import io.enoa.docker.parser.docker.DIParser;
 
 public class EGeneicDockerDistribution {
 

@@ -23,7 +23,6 @@ import io.enoa.docker.ret.docker.swarm.EVersion;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.date.DateKit;
 import io.enoa.toolkit.map.Kv;
-import io.enoa.toolkit.value.EnoaValue;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -230,14 +229,6 @@ class AEExtra extends __PEXtra {
     return nsb.build();
   }
 
-
-  static Kv kv(Map map, String key) {
-    Object o = map.get(key);
-    if (!(o instanceof Map))
-      return null;
-    return Kv.by((Map) o);
-  }
-
   static ETLSInfo tls(Map kv, String key) {
     Object tsc = kv.get(key);
     if (!(tsc instanceof Map)) {
@@ -251,7 +242,6 @@ class AEExtra extends __PEXtra {
     CollectionKit.clear(tls);
     return tlsb.build();
   }
-
 
   static EVersion version(Map map) {
     return version(map, "Version");
@@ -294,17 +284,6 @@ class AEExtra extends __PEXtra {
       builder.custom(ck);
     }
     return builder.build();
-  }
-
-  static Date date(Map map, String key) {
-    return date(map, key, "yyyy-MM-dd'T'HH:mm:ss");
-  }
-
-  static Date date(Map map, String key, String format) {
-    Object o = map.get(key);
-    if (o == null)
-      return null;
-    return DateKit.parse(EnoaValue.with(o).string(), format);
   }
 
 }

@@ -38,29 +38,36 @@ class EPMDockerhub {
 
   }
 
-  public OriginDockerhub origin() {
-    if (this.origin != null)
-      return this.origin;
-    this.origin = new EOriginDockerhubImpl();
+  public void install(DockerhubConfig config) {
+    this.origin = new EOriginDockerhubImpl(config);
+  }
+
+  OriginDockerhub origin() {
     return this.origin;
   }
 
-  public GenericDockerhub generic() {
+  GenericDockerhub generic() {
     if (this.generic != null)
       return this.generic;
 
     OriginDockerhub origin = this.origin();
+    if (this.origin == null)
+      return null;
+
     this.generic = new GenericDockerhub(origin);
     return this.generic;
   }
 
-  public EoDockerHub dockerhub() {
+  EoDockerHub dockerhub() {
     if (this.eo != null)
       return this.eo;
+
     GenericDockerhub generic = this.generic();
+    if (this.generic == null)
+      return null;
+
     this.eo = new EoDockerHub(generic);
     return this.eo;
   }
-
 
 }

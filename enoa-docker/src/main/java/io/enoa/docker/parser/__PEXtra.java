@@ -15,6 +15,10 @@
  */
 package io.enoa.docker.parser;
 
+import io.enoa.toolkit.date.DateKit;
+import io.enoa.toolkit.map.Kv;
+import io.enoa.toolkit.value.EnoaValue;
+
 import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -50,4 +54,38 @@ public class __PEXtra {
     return stringarray.toArray(new String[stringarray.size()]);
   }
 
+  public static Kv kv(Map map, String key) {
+    Object o = map.get(key);
+    if (!(o instanceof Map))
+      return null;
+    return Kv.by((Map) o);
+  }
+
+
+  public static Collection<Kv> kvs(Map map, String key) {
+    Object o = map.get(key);
+    if (!(o instanceof Collection))
+      return Collections.emptyList();
+    Collection oc = (Collection) o;
+    List<Kv> kvs = new ArrayList<>(oc.size());
+    oc.forEach(c -> {
+      if (!(c instanceof Map)) {
+        return;
+      }
+      kvs.add(Kv.by((Map) c));
+    });
+//    CollectionKit.clear(oc);
+    return kvs;
+  }
+
+  public static Date date(Map map, String key) {
+    return date(map, key, "yyyy-MM-dd'T'HH:mm:ss");
+  }
+
+  public static Date date(Map map, String key, String format) {
+    Object o = map.get(key);
+    if (o == null)
+      return null;
+    return DateKit.parse(EnoaValue.with(o).string(), format);
+  }
 }

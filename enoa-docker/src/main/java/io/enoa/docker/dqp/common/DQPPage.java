@@ -18,16 +18,16 @@ package io.enoa.docker.dqp.common;
 import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.DQR;
 
-public class DQPPage<T> implements DQP {
+public class DQPPage<T extends DQPPage> implements DQP {
 
   private Integer pagenumber;
   private Integer pagesize;
 
-  public static <J> DQPPage<J> create() {
+  public static <J extends DQPPage> DQPPage<J> create() {
     return new DQPPage<>();
   }
 
-  public static <J> DQPPage<J> create(Integer pagesize) {
+  public static <J extends DQPPage> DQPPage<J> create(Integer pagesize) {
     return new DQPPage<>(pagesize);
   }
 

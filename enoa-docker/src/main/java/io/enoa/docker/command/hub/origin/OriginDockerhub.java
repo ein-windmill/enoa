@@ -15,12 +15,13 @@
  */
 package io.enoa.docker.command.hub.origin;
 
+import io.enoa.docker.command.hub._DockerhubConfigSupport;
 import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.common.DQPPage;
 import io.enoa.docker.dqp.dockerhub.DQPSearch;
 import io.enoa.docker.ret.registry.RResp;
 
-public interface OriginDockerhub {
+public interface OriginDockerhub extends _DockerhubConfigSupport {
 
   default RResp explore() {
     return this.explore(DQP.hub().page());
@@ -28,8 +29,8 @@ public interface OriginDockerhub {
 
   RResp explore(DQPPage dqp);
 
-  default RResp search() {
-    return this.search(DQP.hub().search());
+  default RResp search(String q) {
+    return this.search(DQP.hub().search().q(q));
   }
 
   RResp search(DQPSearch dqp);

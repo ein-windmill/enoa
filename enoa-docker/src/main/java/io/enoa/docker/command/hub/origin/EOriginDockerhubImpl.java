@@ -15,44 +15,75 @@
  */
 package io.enoa.docker.command.hub.origin;
 
+import io.enoa.docker.DockerhubConfig;
 import io.enoa.docker.dqp.common.DQPPage;
 import io.enoa.docker.dqp.dockerhub.DQPSearch;
 import io.enoa.docker.ret.registry.RResp;
+import io.enoa.http.protocol.HttpResponse;
+import io.enoa.toolkit.text.TextKit;
 
-public class EOriginDockerhubImpl implements OriginDockerhub {
+public class EOriginDockerhubImpl extends AbstractDockerhub {
+
+  public EOriginDockerhubImpl(DockerhubConfig config) {
+    super(config);
+  }
+
+  private String repository(String repository) {
+    return repository == null ? "" :
+      (repository.contains("/") ? repository :
+        repository.contains("library") ? repository :
+          TextKit.union("library/", repository));
+  }
 
   @Override
   public RResp explore(DQPPage dqp) {
-    return null;
+    HttpResponse response = super.http("repositories/library")
+      .para(dqp.dqr().http())
+      .emit();
+    return RResp.create(response);
   }
 
   @Override
   public RResp search(DQPSearch dqp) {
-    return null;
+    HttpResponse response = super.http("search/repositories")
+      .para(dqp.dqr().http())
+      .emit();
+    return RResp.create(response);
   }
 
   @Override
   public RResp inspect(String repository) {
-    return null;
+    HttpResponse response = super.http("repositories", this.repository(repository)).emit();
+    return RResp.create(response);
   }
 
   @Override
   public RResp tags(String repository, DQPPage dqp) {
-    return null;
+    HttpResponse response = super.http("repositories", this.repository(repository), "tags")
+      .para(dqp.dqr().http())
+      .emit();
+    return RResp.create(response);
   }
 
   @Override
   public RResp dockerfile(String repository) {
-    return null;
+    HttpResponse response = super.http("repositories", this.repository(repository), "dockerfile")
+      .emit();
+    return RResp.create(response);
   }
 
   @Override
   public RResp autobuild(String repository) {
-    return null;
+    HttpResponse response = super.http("repositories", this.repository(repository), "autobuild")
+      .emit();
+    return RResp.create(response);
   }
 
   @Override
   public RResp history(String repository, DQPPage dqp) {
-    return null;
+    HttpResponse response = super.http("repositories", this.repository(repository), "buildhistory")
+      .para(dqp.dqr().http())
+      .emit();
+    return RResp.create(response);
   }
 }
