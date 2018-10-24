@@ -15,12 +15,12 @@
  */
 package io.enoa.docker;
 
-import io.enoa.docker.command.hub.eo.EoDockerHub;
+import io.enoa.docker.command.hub.eo.EnoaDockerHub;
 import io.enoa.docker.command.hub.generic.GenericDockerhub;
 import io.enoa.docker.command.hub.origin.EOriginDockerhubImpl;
 import io.enoa.docker.command.hub.origin.OriginDockerhub;
 
-class EPMDockerhub {
+public class EPMDockerhub {
 
   private static class Holder {
     private static final EPMDockerhub INSTANCE = new EPMDockerhub();
@@ -32,7 +32,7 @@ class EPMDockerhub {
 
   private OriginDockerhub origin;
   private GenericDockerhub generic;
-  private EoDockerHub eo;
+  private EnoaDockerHub eo;
 
   private EPMDockerhub() {
 
@@ -58,7 +58,7 @@ class EPMDockerhub {
     return this.generic;
   }
 
-  EoDockerHub dockerhub() {
+  EnoaDockerHub dockerhub() {
     if (this.eo != null)
       return this.eo;
 
@@ -66,7 +66,7 @@ class EPMDockerhub {
     if (this.generic == null)
       return null;
 
-    this.eo = new EoDockerHub(generic);
+    this.eo = new EnoaDockerHub(generic);
     return this.eo;
   }
 

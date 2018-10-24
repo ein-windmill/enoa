@@ -15,7 +15,7 @@
  */
 package io.enoa.docker;
 
-import io.enoa.docker.command.hub.eo.EoDockerHub;
+import io.enoa.docker.command.hub.eo.EnoaDockerHub;
 import io.enoa.docker.command.hub.generic.GenericDockerhub;
 import io.enoa.docker.command.hub.origin.OriginDockerhub;
 import io.enoa.docker.dqp.common.DQPPage;
@@ -42,7 +42,7 @@ public class Dockerhub {
     return epm().generic();
   }
 
-  public static EoDockerHub use() {
+  public static EnoaDockerHub use() {
     return epm().dockerhub();
   }
 
