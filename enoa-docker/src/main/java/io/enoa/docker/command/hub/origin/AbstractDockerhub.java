@@ -34,7 +34,7 @@ abstract class AbstractDockerhub implements OriginDockerhub {
 
   protected Http http(String url, String... subpaths) {
     return this.config.http().http()
-      .url(EoUrl.with("https://hub.docker.com/v2/").subpath(url).subpath(subpaths));
+      .url(EoUrl.with(this.config.context()).subpath(url).subpath(subpaths));
   }
 
 }

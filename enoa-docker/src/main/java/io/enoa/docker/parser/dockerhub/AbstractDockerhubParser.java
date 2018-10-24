@@ -38,8 +38,9 @@ abstract class AbstractDockerhubParser<T> implements HIParser<T> {
 
     Kv kv = config.json().parse(string, Kv.class);
     if (kv.exists("detail")) {
+      HRet<T> ret = HRet.fail(resp, kv.string("detail"));
       CollectionKit.clear(kv);
-      return HRet.fail(resp, kv.string("detail"));
+      return ret;
     }
     CollectionKit.clear(kv);
     T data = this.ok(config, resp);

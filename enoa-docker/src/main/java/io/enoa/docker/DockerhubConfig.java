@@ -23,12 +23,18 @@ import io.enoa.toolkit.eo.tip.EnoaTipKit;
 
 public class DockerhubConfig {
 
+  private final String context;
   private final EoHttp http;
-  private EnoaJson json;
+  private final EnoaJson json;
 
   private DockerhubConfig(Builder builder) {
     this.json = builder.json.json();
     this.http = builder.http;
+    this.context = builder.context;
+  }
+
+  public String context() {
+    return this.context;
   }
 
   public EoHttp http() {
@@ -40,10 +46,12 @@ public class DockerhubConfig {
   }
 
   public static class Builder {
+    private String context;
     private EoJsonFactory json;
     private EoHttp http;
 
     public Builder() {
+      this.context = "https://hub.docker.com/v2/";
       this.http = EoHttp.def();
     }
 
