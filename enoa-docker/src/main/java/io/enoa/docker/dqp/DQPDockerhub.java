@@ -18,7 +18,7 @@ package io.enoa.docker.dqp;
 import io.enoa.docker.dqp.common.DQPPage;
 import io.enoa.docker.dqp.dockerhub.DQPSearch;
 
-public class DQPDockerhub {
+public final class DQPDockerhub {
 
   private static class Holder {
     private static final DQPDockerhub INSTANCE = new DQPDockerhub();

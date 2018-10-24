@@ -35,7 +35,7 @@ import io.enoa.docker.dqp.docker.volume.DQPVolumeCreate;
 import io.enoa.docker.dqp.docker.volume.DQPVolumeList;
 import io.enoa.docker.ret.docker.service.DQPServiceLogs;
 
-public class DQPDocker {
+public final class DQPDocker {
 
   private static class Holder {
     private static final DQPDocker INSTANCE = new DQPDocker();
@@ -45,15 +45,15 @@ public class DQPDocker {
     return Holder.INSTANCE;
   }
 
-  private Container container;
-  private Exec exec;
-  private Image image;
-  private Network network;
-  private Plugin plugin;
-  private Service service;
-  private Swarm swarm;
-  private System system;
-  private Volume volume;
+  private final Container container;
+  private final Exec exec;
+  private final Image image;
+  private final Network network;
+  private final Plugin plugin;
+  private final Service service;
+  private final Swarm swarm;
+  private final System system;
+  private final Volume volume;
 
   private DQPDocker() {
     this.container = new Container();
@@ -112,7 +112,7 @@ public class DQPDocker {
     return volume;
   }
 
-  public static class Container {
+  public static final class Container {
 
     public DQPContainerList list() {
       return DQPContainerList.create();
@@ -148,7 +148,7 @@ public class DQPDocker {
 
   }
 
-  public static class Exec {
+  public static final class Exec {
 
     public DQPExecCreate create() {
       return DQPExecCreate.create();
@@ -160,7 +160,7 @@ public class DQPDocker {
 
   }
 
-  public static class Image {
+  public static final class Image {
 
     public DQPImageList list() {
       return DQPImageList.create();
@@ -204,7 +204,7 @@ public class DQPDocker {
 
   }
 
-  public static class Network {
+  public static final class Network {
     public DQPNetworkList list() {
       return DQPNetworkList.create();
     }
@@ -214,7 +214,7 @@ public class DQPDocker {
     }
   }
 
-  public static class Plugin {
+  public static final class Plugin {
     public DQPPluginInstall install() {
       return DQPPluginInstall.create();
     }
@@ -224,7 +224,7 @@ public class DQPDocker {
     }
   }
 
-  public static class Service {
+  public static final class Service {
     public DQPServiceCreate create() {
       return DQPServiceCreate.create();
     }
@@ -238,7 +238,7 @@ public class DQPDocker {
     }
   }
 
-  public static class Swarm {
+  public static final class Swarm {
     public DQPSwarmJoin join() {
       return DQPSwarmJoin.create();
     }
@@ -252,13 +252,13 @@ public class DQPDocker {
     }
   }
 
-  public static class System {
+  public static final class System {
     public DQPSystemAuth auth() {
       return DQPSystemAuth.create();
     }
   }
 
-  public static class Volume {
+  public static final class Volume {
     public DQPVolumeCreate create() {
       return DQPVolumeCreate.create();
     }
