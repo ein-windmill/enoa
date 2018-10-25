@@ -110,6 +110,11 @@ class GNNumber {
       if (text.indexOf(".") != text.lastIndexOf("."))
         return false;
     }
+    try {
+      Double.parseDouble(text);
+    } catch (Exception e) {
+      return false;
+    }
     return true;
   }
 
