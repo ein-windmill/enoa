@@ -60,8 +60,20 @@ public class EnoaDockerImage {
     return this.image.prunebuild(DIParser.buildprune());
   }
 
-  public DRet<Void> create(String body, DQPImageCreate dqp) {
-    return this.image.create(body, dqp);
+  public DRet<List<Kv>> create(DQPImageCreate dqp) {
+    return this.image.create(dqp);
+  }
+
+  public DRet<List<Kv>> create(DQPImageCreate dqp, String body) {
+    return this.image.create(dqp, body);
+  }
+
+  public DRet<List<Kv>> create(DQPImageCreate dqp, DStream<Kv> dstream) {
+    return this.image.create(dqp, dstream);
+  }
+
+  public DRet<List<Kv>> create(DQPImageCreate dqp, String body, DStream<Kv> dstream) {
+    return this.image.create(dqp, body, dstream);
   }
 
   public DRet<EIInspect> inspect(String id) {

@@ -44,7 +44,7 @@ public class EUNIXSOCKETDockerImage implements EOriginDockerImage {
   }
 
   @Override
-  public DResp create(String body, DQPImageCreate dqp) {
+  public DResp create(DQPImageCreate dqp, String body, DStream<String> dstream) {
     return null;
   }
 

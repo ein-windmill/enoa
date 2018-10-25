@@ -15,10 +15,7 @@
  */
 package io.enoa.json.provider.gson;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializer;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import io.enoa.json.EnoaJson;
 
@@ -109,8 +106,16 @@ class _Gson extends EnoaJson {
     return this.gson(datePattern).toJson(object);
   }
 
+//  private <T> T jotomap(JsonObject jo) {
+//
+//  }
+
   @Override
   public <T> T parse(String json, Class<T> type) {
+//    if (Map.class.isAssignableFrom(type)) {
+//      JsonObject jo = this.gson().fromJson(json, JsonObject.class);
+//
+//    }
     return this.gson().fromJson(json, type);
   }
 

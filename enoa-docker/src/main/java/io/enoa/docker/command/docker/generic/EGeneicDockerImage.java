@@ -81,9 +81,28 @@ public class EGeneicDockerImage {
     return parser.parse(this.config, resp);
   }
 
-  public DRet<Void> create(String body, DQPImageCreate dqp) {
-    DResp resp = this.image.create(body, dqp);
-    return DIParser.voidx().parse(this.config, resp);
+  public DRet<List<Kv>> create(DQPImageCreate dqp) {
+    DResp resp = this.image.create(dqp);
+    return this.linestolist(resp);
+  }
+
+  public DRet<List<Kv>> create(DQPImageCreate dqp, String body) {
+    DResp resp = this.image.create(dqp, body);
+    return this.linestolist(resp);
+  }
+
+  public DRet<List<Kv>> create(DQPImageCreate dqp, DStream<Kv> dstream) {
+    DStream<String> dst0 = DStream.<String>builder(text -> dstream.runner().run(this.config.json().parse(text, Kv.class)))
+      .stopper(dstream.stopper()).build();
+    DResp resp = this.image.create(dqp, dst0);
+    return this.linestolist(resp);
+  }
+
+  public DRet<List<Kv>> create(DQPImageCreate dqp, String body, DStream<Kv> dstream) {
+    DStream<String> dst0 = DStream.<String>builder(text -> dstream.runner().run(this.config.json().parse(text, Kv.class)))
+      .stopper(dstream.stopper()).build();
+    DResp resp = this.image.create(dqp, body, dst0);
+    return this.linestolist(resp);
   }
 
   public <T> DRet<T> inspect(DIParser<T> parser, String id) {

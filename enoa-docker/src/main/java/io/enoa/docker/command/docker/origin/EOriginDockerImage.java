@@ -71,6 +71,17 @@ public interface EOriginDockerImage {
    */
   DResp prunebuild();
 
+  default DResp create(DQPImageCreate dqp) {
+    return this.create(dqp, null, null);
+  }
+
+  default DResp create(DQPImageCreate dqp, String body) {
+    return this.create(dqp, body, null);
+  }
+
+  default DResp create(DQPImageCreate dqp, DStream<String> dstream) {
+    return this.create(dqp, null, dstream);
+  }
 
   /**
    * Create an image
@@ -80,7 +91,8 @@ public interface EOriginDockerImage {
    * @param body request body
    * @return DResp
    */
-  DResp create(String body, DQPImageCreate dqp);
+  DResp create(DQPImageCreate dqp, String body, DStream<String> dstream);
+
 
   /**
    * Inspect an image

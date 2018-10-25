@@ -30,6 +30,7 @@ import io.enoa.http.protocol.chunk.Chunk;
 import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.binary.EnoaBinary;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
+import io.enoa.toolkit.text.TextKit;
 
 public class ETCPDockerImage implements EOriginDockerImage {
 
@@ -76,7 +77,7 @@ public class ETCPDockerImage implements EOriginDockerImage {
   }
 
   @Override
-  public DResp create(String body, DQPImageCreate dqp) {
+  public DResp create(DQPImageCreate dqp, String body, DStream<String> dstream) {
     Http http = this.docker.http("images/create")
       .method(HttpMethod.POST);
     if (dqp != null) {
@@ -87,9 +88,32 @@ public class ETCPDockerImage implements EOriginDockerImage {
       if (dqr != null)
         http.para(dqr.http());
     }
-    HttpResponse response = http.emit();
+    if (TextKit.blankn(body))
+      http.raw(body);
+
+    HttpResponse response = dstream == null ?
+      http.emit() :
+      http.chunk(Chunk.builder(bytes -> dstream.runner().run(EnoaBinary.create(bytes).string()))
+        .stopper(() -> dstream.stopper() == null ? Boolean.FALSE : dstream.stopper().stop())
+        .build());
     return DResp.create(response);
   }
+
+//  @Override
+//  public DResp create(String body, DQPImageCreate dqp) {
+//    Http http = this.docker.http("images/create")
+//      .method(HttpMethod.POST);
+//    if (dqp != null) {
+//      DQH dqh = dqp.dqh();
+//      if (dqh != null)
+//        http.header(dqh.headers());
+//      DQR dqr = dqp.dqr();
+//      if (dqr != null)
+//        http.para(dqr.http());
+//    }
+//    HttpResponse response = http.emit();
+//    return DResp.create(response);
+//  }
 
   @Override
   public DResp inspect(String id) {
