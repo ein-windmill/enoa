@@ -15,6 +15,7 @@
  */
 package io.enoa.json.provider.gson;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -25,7 +26,7 @@ import java.util.*;
 class MapObject {
 
 
-  static JsonObject maptojsonobject(Map map) {
+  static JsonObject maptojsonobject(Gson gson, Map map) {
     Set<Map.Entry> set = map.entrySet();
     JsonObject jo = new JsonObject();
     set.forEach(entry -> {
@@ -36,11 +37,11 @@ class MapObject {
         return;
       }
       if (value instanceof Map) {
-        jo.add(key, maptojsonobject((Map) value));
+        jo.add(key, maptojsonobject(gson, (Map) value));
         return;
       }
       if (value instanceof Collection) {
-        jo.add(key, tojsonobjectcollection((Collection) value));
+        jo.add(key, tojsonobjectcollection(gson, (Collection) value));
         return;
       }
       if (value instanceof Boolean) {
@@ -59,12 +60,13 @@ class MapObject {
         jo.addProperty(key, (Character) value);
         return;
       }
-      throw new RuntimeException("Unknown type key => " + key + ", value => " + value);
+//      throw new RuntimeException("Unknown type key => " + key + ", value => " + value);
+      jo.add(key, gson.fromJson(gson.toJson(value), JsonObject.class));
     });
     return jo;
   }
 
-  private static JsonArray tojsonobjectcollection(Collection collection) {
+  private static JsonArray tojsonobjectcollection(Gson gson, Collection collection) {
     JsonArray rets = new JsonArray(collection.size());
     collection.forEach(c -> {
       if (c == null) {
@@ -72,11 +74,11 @@ class MapObject {
         return;
       }
       if (c instanceof Map) {
-        rets.add(maptojsonobject((Map) c));
+        rets.add(maptojsonobject(gson, (Map) c));
         return;
       }
       if (c instanceof Collection) {
-        rets.add(tojsonobjectcollection((Collection) c));
+        rets.add(tojsonobjectcollection(gson, (Collection) c));
         return;
       }
       if (c instanceof Number) {
@@ -95,7 +97,8 @@ class MapObject {
         rets.add((String) c);
         return;
       }
-      throw new RuntimeException("Unknown type => " + c);
+//      throw new RuntimeException("Unknown type => " + c);
+      rets.add(gson.fromJson(gson.toJson(c), JsonObject.class));
     });
     return rets;
   }

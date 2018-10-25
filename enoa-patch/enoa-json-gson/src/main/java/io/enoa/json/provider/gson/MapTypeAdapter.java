@@ -27,17 +27,19 @@ import java.util.Map;
 
 class MapTypeAdapter<T> extends TypeAdapter<Map> {
 
+  private Gson gson;
   private TypeAdapter<JsonObject> jsonobject;
   private TypeToken<T> type;
 
   MapTypeAdapter(Gson gson, TypeToken<T> type) {
+    this.gson = gson;
     this.jsonobject = gson.getAdapter(JsonObject.class);
     this.type = type;
   }
 
   @Override
   public void write(JsonWriter out, Map value) throws IOException {
-    JsonObject jo = MapObject.maptojsonobject(value);
+    JsonObject jo = MapObject.maptojsonobject(gson, value);
     this.jsonobject.write(out, jo);
   }
 
