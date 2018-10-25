@@ -31,6 +31,10 @@ class MapObject {
     set.forEach(entry -> {
       String key = entry.getKey() == null ? null : entry.getKey().toString();
       Object value = entry.getValue();
+      if (value == null) {
+        jo.addProperty(key, (String) null);
+        return;
+      }
       if (value instanceof Map) {
         jo.add(key, maptojsonobject((Map) value));
         return;
@@ -63,6 +67,10 @@ class MapObject {
   private static JsonArray tojsonobjectcollection(Collection collection) {
     JsonArray rets = new JsonArray(collection.size());
     collection.forEach(c -> {
+      if (c == null) {
+        rets.add((String) null);
+        return;
+      }
       if (c instanceof Map) {
         rets.add(maptojsonobject((Map) c));
         return;
