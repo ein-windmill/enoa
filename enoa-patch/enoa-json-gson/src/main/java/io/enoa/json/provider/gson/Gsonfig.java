@@ -19,10 +19,16 @@ public class Gsonfig {
 
   private final String dateFormat;
   private final boolean disableHtmlEscaping;
+  private final boolean fixPrecision;
 
   public Gsonfig(Builder builder) {
     this.dateFormat = builder.dateFormat;
     this.disableHtmlEscaping = builder.disableHtmlEscaping;
+    this.fixPrecision = builder.fixPrecision;
+  }
+
+  public boolean fixPrecision() {
+    return this.fixPrecision;
   }
 
   public String dateFormat() {
@@ -36,14 +42,25 @@ public class Gsonfig {
   public static class Builder {
     private String dateFormat;
     private boolean disableHtmlEscaping;
+    private boolean fixPrecision;
 
     public Builder() {
       this.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS";
       this.disableHtmlEscaping = Boolean.TRUE;
+      this.fixPrecision = Boolean.FALSE;
     }
 
     public Gsonfig build() {
       return new Gsonfig(this);
+    }
+
+    public Builder fixPrecision() {
+      return this.fixPrecision(Boolean.TRUE);
+    }
+
+    public Builder fixPrecision(boolean fixPrecision) {
+      this.fixPrecision = fixPrecision;
+      return this;
     }
 
     public Builder dateFormat(String dateFormat) {

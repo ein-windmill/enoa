@@ -61,13 +61,16 @@ class _Gson extends EnoaJson {
     if (_gson != null)
       return _gson;
 
-    GsonBuilder builder = new GsonBuilder()
-      .registerTypeAdapterFactory(new MapTypeAdapterFactory())
-      .registerTypeAdapter(Double.class, (JsonSerializer<Double>) (src, typeOfSrc, context) -> {
-        if (src == src.longValue())
-          return new JsonPrimitive(src.longValue());
-        return new JsonPrimitive(src);
-      });
+    GsonBuilder builder = new GsonBuilder();
+    if (this.gsonfig.fixPrecision()) {
+      builder
+        .registerTypeAdapterFactory(new MapTypeAdapterFactory())
+        .registerTypeAdapter(Double.class, (JsonSerializer<Double>) (src, typeOfSrc, context) -> {
+          if (src == src.longValue())
+            return new JsonPrimitive(src.longValue());
+          return new JsonPrimitive(src);
+        });
+    }
 
     if (this.gsonfig == null) {
       builder.disableHtmlEscaping()

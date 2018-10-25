@@ -20,7 +20,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
-import java.math.BigDecimal;
 import java.util.*;
 
 class MapObject {
@@ -140,6 +139,9 @@ class MapObject {
   private static <T> Map refmap(TypeToken<T> type) {
     try {
       Class<? super T> clazz = type.getRawType();
+      if (clazz == Map.class) {
+        return new HashMap();
+      }
       Map map = (Map) clazz.getConstructor().newInstance();
       return map;
     } catch (Exception e) {
@@ -152,10 +154,8 @@ class MapObject {
       return Boolean.TRUE;
     if ("false".equals(text))
       return Boolean.FALSE;
-    boolean hasdot = text.contains(".");
-    if (hasdot) {
-
-    }
+    if (GNNumber.isNumber(text))
+      return GNNumber.number(text);
     return text;
   }
 
