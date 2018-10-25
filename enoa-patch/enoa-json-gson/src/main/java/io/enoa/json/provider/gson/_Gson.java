@@ -15,8 +15,10 @@
  */
 package io.enoa.json.provider.gson;
 
-import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializer;
 import io.enoa.json.EnoaJson;
 
 import java.lang.reflect.ParameterizedType;
@@ -60,6 +62,7 @@ class _Gson extends EnoaJson {
       return _gson;
 
     GsonBuilder builder = new GsonBuilder()
+      .registerTypeAdapterFactory(new MapTypeAdapterFactory())
       .registerTypeAdapter(Double.class, (JsonSerializer<Double>) (src, typeOfSrc, context) -> {
         if (src == src.longValue())
           return new JsonPrimitive(src.longValue());
