@@ -30,74 +30,87 @@ class GNNumber {
    * @return boolean
    */
   static boolean isNumber(String text) {
-    if (text == null || "".equals(text))
-      return false;
-    int len = text.length();
-    char ch = text.charAt(0);
+//    if (text == null || "".equals(text))
+//      return false;
+//    int len = text.length();
+//    char ch = text.charAt(0);
+//
+//    int position = 0;
+//    boolean negative = ch == '-';
+//    if (negative)
+//      position += 1;
+//
+//    ch = text.charAt(position);
+//    boolean zero0 = ch == '0';
+//    boolean dot0 = ch == '.';
+//    if (position + 1 == len) {
+//      if (dot0)
+//        return false;
+//    }
+//    if (zero0 || dot0)
+//      position += 1;
+//
+//    boolean hexmode = false;
+//    while (true) {
+//      if (position == len)
+//        return true;
+//      ch = text.charAt(position);
+//      if (hexmode) {
+//        if (!isHex(ch))
+//          return false;
+//        position += 1;
+//        continue;
+//      }
+//
+//      if (Character.isDigit(ch)) {
+//        position += 1;
+//        continue;
+//      }
+//
+//      // 1.
+//      if (ch == '.') {
+//        // 0..
+//        if (dot0)
+//          return false;
+//        position += 1;
+//        continue;
+//      }
+//      // 0x0af
+//      if (ch == 'x') {
+//        if (!zero0)
+//          return false;
+//        hexmode = true;
+//        position += 1;
+//        continue;
+//      }
+//
+//      // 0.e1 0.e+1 0.e-1
+//      if (ch == 'e' || ch == 'E') {
+//        if (position + 1 == len)
+//          return false;
+//        char next = text.charAt(position + 1);
+//        if (next == '-' || next == '+' || Character.isDigit(next)) {
+//          position += 2;
+//          continue;
+//        }
+//        return false;
+//      }
+//      return false;
+//    }
 
-    int position = 0;
-    boolean negative = ch == '-';
-    if (negative)
-      position += 1;
-
-    ch = text.charAt(position);
-    boolean zero0 = ch == '0';
-    boolean dot0 = ch == '.';
-    if (position + 1 == len) {
-      if (dot0)
+    if (text.contains("-")) {
+      if (text.lastIndexOf("-") != 0)
         return false;
     }
-    if (zero0 || dot0)
-      position += 1;
-
-    boolean hexmode = false;
-    while (true) {
-      if (position == len)
-        return true;
-      ch = text.charAt(position);
-      if (hexmode) {
-        if (!isHex(ch))
-          return false;
-        position += 1;
-        continue;
-      }
-
-      if (Character.isDigit(ch)) {
-        position += 1;
-        continue;
-      }
-
-      // 1.
-      if (ch == '.') {
-        // 0..
-        if (dot0)
-          return false;
-        position += 1;
-        continue;
-      }
-      // 0x0af
-      if (ch == 'x') {
-        if (!zero0)
-          return false;
-        hexmode = true;
-        position += 1;
-        continue;
-      }
-
-      // 0.e1 0.e+1 0.e-1
-      if (ch == 'e' || ch == 'E') {
-        if (position + 1 == len)
-          return false;
-        char next = text.charAt(position + 1);
-        if (next == '-' || next == '+' || Character.isDigit(next)) {
-          position += 2;
-          continue;
-        }
+    if (text.contains("+")) {
+      if (text.lastIndexOf("+") != 0)
         return false;
-      }
-      return false;
     }
-
+    if (text.contains(".")) {
+      if (text.indexOf(".") != text.lastIndexOf("."))
+        return false;
+    }
+    return true;
   }
 
   static Number number(String text) {
