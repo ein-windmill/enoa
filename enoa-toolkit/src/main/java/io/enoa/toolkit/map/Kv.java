@@ -17,9 +17,12 @@ package io.enoa.toolkit.map;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @SuppressWarnings({"serial", "rawtypes", "unchecked"})
 public class Kv extends HashMap<String, Object> implements FastKv<Kv> {
+
+  private boolean skipcase;
 
   public Kv() {
   }
@@ -40,4 +43,23 @@ public class Kv extends HashMap<String, Object> implements FastKv<Kv> {
     return OKv.by(this);
   }
 
+  public Kv skipcase() {
+    return this.skipcase(Boolean.TRUE);
+  }
+
+  public Kv skipcase(boolean skip) {
+    this.skipcase = skip;
+    return this;
+  }
+
+  @Override
+  public Object get(Object key) {
+    if (!this.skipcase)
+      return super.get(key);
+
+    Optional<String> first = this.keySet().stream()
+      .filter(k -> k.equalsIgnoreCase(key.toString()))
+      .findFirst();
+    return first.map(super::get).orElse(null);
+  }
 }

@@ -187,6 +187,26 @@ public class TemplateTrydb implements _TrydbCommandBase<TemplateTrydb>, _TrydbCo
   }
 
   @Override
+  public Page<Kv> pagekv(int pn, int ps, String name) {
+    return this.pagekv(IPSql.sqlfrom(), pn, ps, name);
+  }
+
+  @Override
+  public Page<Kv> pagekv(int pn, int ps, String name, Object... paras) {
+    return this.pagekv(IPSql.sqlfrom(), pn, ps, name, paras);
+  }
+
+  @Override
+  public <T> Page<T> page(int pn, int ps, String name, Class<T> clazz) {
+    return this.page(IPSql.sqlfrom(), pn, ps, name, clazz);
+  }
+
+  @Override
+  public <T> Page<T> page(int pn, int ps, String name, Class<T> clazz, Object... paras) {
+    return this.page(IPSql.sqlfrom(), pn, ps, name, clazz, paras);
+  }
+
+  @Override
   public TemplateEnqueueTrydb async() {
     return new TemplateEnqueueTrydb(this);
   }

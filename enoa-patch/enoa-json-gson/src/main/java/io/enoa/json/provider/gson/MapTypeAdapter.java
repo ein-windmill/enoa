@@ -39,6 +39,10 @@ class MapTypeAdapter<T> extends TypeAdapter<Map> {
 
   @Override
   public void write(JsonWriter out, Map value) throws IOException {
+    if (value == null) {
+      this.jsonobject.write(out, new JsonObject());
+      return;
+    }
     JsonObject jo = MapObject.maptojsonobject(gson, value);
     this.jsonobject.write(out, jo);
   }

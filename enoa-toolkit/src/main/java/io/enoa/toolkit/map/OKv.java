@@ -17,6 +17,7 @@ package io.enoa.toolkit.map;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * OKv (Ordered Key Value)
@@ -30,6 +31,8 @@ import java.util.Map;
  */
 @SuppressWarnings({"serial", "rawtypes", "unchecked"})
 public class OKv extends LinkedHashMap<String, Object> implements FastKv<OKv> {
+
+  private boolean skipcase;
 
   public OKv() {
   }
@@ -50,4 +53,23 @@ public class OKv extends LinkedHashMap<String, Object> implements FastKv<OKv> {
     return Kv.by(this);
   }
 
+  public OKv skipcase() {
+    return this.skipcase(Boolean.TRUE);
+  }
+
+  public OKv skipcase(boolean skip) {
+    this.skipcase = skip;
+    return this;
+  }
+
+  @Override
+  public Object get(Object key) {
+    if (!this.skipcase)
+      return super.get(key);
+
+    Optional<String> first = this.keySet().stream()
+      .filter(k -> k.equalsIgnoreCase(key.toString()))
+      .findFirst();
+    return first.map(super::get).orElse(null);
+  }
 }

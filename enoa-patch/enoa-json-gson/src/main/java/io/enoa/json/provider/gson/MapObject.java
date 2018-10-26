@@ -31,6 +31,8 @@ class MapObject {
     JsonObject jo = new JsonObject();
     set.forEach(entry -> {
       String key = entry.getKey() == null ? null : entry.getKey().toString();
+      if (key == null)
+        return;
       Object value = entry.getValue();
       if (value == null) {
         jo.addProperty(key, (String) null);
