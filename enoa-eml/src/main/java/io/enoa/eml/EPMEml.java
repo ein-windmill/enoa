@@ -49,6 +49,14 @@ public class EPMEml {
     this.emlMap.put(name, new EnoaEmlProvider(new EnoaEmlSession(config)));
   }
 
+  public void uninstall(String name) {
+    this.emlMap.remove(name);
+  }
+
+  public void uninstall() {
+    this.uninstall("main");
+  }
+
   public void clear() {
     this.emlMap.clear();
   }

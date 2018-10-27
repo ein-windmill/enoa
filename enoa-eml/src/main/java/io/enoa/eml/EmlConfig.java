@@ -127,7 +127,11 @@ public class EmlConfig {
     }
 
     public Builder debug() {
-      this.debug = true;
+      return this.debug(Boolean.TRUE);
+    }
+
+    public Builder debug(boolean debug) {
+      this.debug = debug;
       return this;
     }
 
