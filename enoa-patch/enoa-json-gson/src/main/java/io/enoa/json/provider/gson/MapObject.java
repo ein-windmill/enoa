@@ -15,10 +15,7 @@
  */
 package io.enoa.json.provider.gson;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.*;
@@ -46,24 +43,38 @@ class MapObject {
         jo.add(key, tojsonobjectcollection(gson, (Collection) value));
         return;
       }
-      if (value instanceof Boolean) {
-        jo.addProperty(key, (Boolean) value);
-        return;
-      }
-      if (value instanceof Number) {
-        jo.addProperty(key, (Number) value);
-        return;
-      }
-      if (value instanceof String) {
-        jo.addProperty(key, (String) value);
-        return;
-      }
-      if (value instanceof Character) {
-        jo.addProperty(key, (Character) value);
-        return;
-      }
-//      throw new RuntimeException("Unknown type key => " + key + ", value => " + value);
-      jo.add(key, gson.fromJson(gson.toJson(value), JsonObject.class));
+//      if (value instanceof Boolean) {
+//        jo.addProperty(key, (Boolean) value);
+//        return;
+//      }
+//      if (value instanceof Number) {
+//        jo.addProperty(key, (Number) value);
+//        return;
+//      }
+//      if (value instanceof String) {
+//        jo.addProperty(key, (String) value);
+//        return;
+//      }
+//      if (value instanceof Character) {
+//        jo.addProperty(key, (Character) value);
+//        return;
+//      }
+//      if (value instanceof Timestamp) {
+//        TypeAdapter<Timestamp> adapter = gson.getAdapter(Timestamp.class);
+//        jo.add(key, adapter.toJsonTree((Timestamp) value));
+//        return;
+//      }
+//      if (value instanceof Date) {
+//        TypeAdapter<Date> adapter = gson.getAdapter(Date.class);
+//        jo.add(key, adapter.toJsonTree((Date) value));
+//        return;
+//      }
+
+//      JsonObject _jo = gson.fromJson(gson.toJson(entry), JsonObject.class);
+//      jo.add(key, gson.fromJson(gson.toJson(value), JsonObject.class));
+
+      TypeAdapter adapter = gson.getAdapter(value.getClass());
+      jo.add(key, adapter.toJsonTree(value));
     });
     return jo;
   }
@@ -83,27 +94,42 @@ class MapObject {
         rets.add(tojsonobjectcollection(gson, (Collection) c));
         return;
       }
-      if (c instanceof Number) {
-        rets.add((Number) c);
-        return;
-      }
-      if (c instanceof Boolean) {
-        rets.add((Boolean) c);
-        return;
-      }
-      if (c instanceof Character) {
-        rets.add((Character) c);
-        return;
-      }
-      if (c instanceof String) {
-        rets.add((String) c);
-        return;
-      }
-//      throw new RuntimeException("Unknown type => " + c);
-      rets.add(gson.fromJson(gson.toJson(c), JsonObject.class));
+//      if (c instanceof Number) {
+//        rets.add((Number) c);
+//        return;
+//      }
+//      if (c instanceof Boolean) {
+//        rets.add((Boolean) c);
+//        return;
+//      }
+//      if (c instanceof Character) {
+//        rets.add((Character) c);
+//        return;
+//      }
+//      if (c instanceof String) {
+//        rets.add((String) c);
+//        return;
+//      }
+////      throw new RuntimeException("Unknown type => " + c);
+//      rets.add(gson.fromJson(gson.toJson(c), JsonObject.class));
+
+      TypeAdapter adapter = gson.getAdapter(c.getClass());
+      rets.add(adapter.toJsonTree(c));
     });
     return rets;
   }
+
+//  private static Object convobject(Gson gson, Object origin) {
+//    if (origin == null) {
+//      return null;
+//    }
+//    if (origin instanceof Map)
+//      return maptojsonobject(gson, (Map) origin);
+//    if (origin instanceof Collection)
+//      return tojsonobjectcollection(gson, (Collection) origin);
+//    if (origin instanceof Number)
+//      return origin;
+//  }
 
   static <T> Map jsonobjecttomap(JsonObject jo, TypeToken<T> type) {
     Map map = refmap(type);
