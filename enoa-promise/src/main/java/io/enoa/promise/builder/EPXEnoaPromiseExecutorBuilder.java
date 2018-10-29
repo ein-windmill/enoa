@@ -15,10 +15,7 @@
  */
 package io.enoa.promise.builder;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.SynchronousQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 public class EPXEnoaPromiseExecutorBuilder {
 
@@ -34,10 +31,30 @@ public class EPXEnoaPromiseExecutorBuilder {
   }
 
   public ExecutorService enqueue(String name) {
-    return this.enqueue(name, false);
+    return this.single(name);
   }
 
   public ExecutorService enqueue(String name, boolean daemon) {
+    return this.single(name, daemon);
+  }
+
+  public ExecutorService single(String name) {
+    return this.single(name, Boolean.FALSE);
+  }
+
+  public ExecutorService single(String name, boolean daemon) {
+    return Executors.newSingleThreadExecutor(runnable -> {
+      Thread result = new Thread(runnable, name);
+      result.setDaemon(daemon);
+      return result;
+    });
+  }
+
+  public ExecutorService multiple(String name) {
+    return this.multiple(name, Boolean.FALSE);
+  }
+
+  public ExecutorService multiple(String name, boolean daemon) {
     return new ThreadPoolExecutor(0, Integer.MAX_VALUE, 60, TimeUnit.SECONDS,
       new SynchronousQueue<>(), runnable -> {
       Thread result = new Thread(runnable, name);
