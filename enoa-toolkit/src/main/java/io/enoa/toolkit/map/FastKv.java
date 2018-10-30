@@ -31,6 +31,8 @@ public interface FastKv<S extends Map> extends Map<String, Object> {
   }
 
   default S set(Map<String, ?> map) {
+    if (map == null)
+      return (S) this;
     this.putAll(map);
     return (S) this;
   }

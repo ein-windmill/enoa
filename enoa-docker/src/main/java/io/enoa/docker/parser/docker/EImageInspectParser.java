@@ -69,7 +69,8 @@ class EImageInspectParser extends AbstractParser<EIInspect> {
       return null;
     Kv metadata = Kv.by((Map) mot);
     EIMetadata.Builder builder = new EIMetadata.Builder()
-      .lasttagtime(DateKit.parse(metadata.string("LastTagTime"), "yyyy-MM-dd'T'HH:mm:ss.SSS"));
+      .lasttagtime(AEExtra.date(metadata, "LastTagTime"));
+//      .lasttagtime(DateKit.parse(metadata.string("LastTagTime"), "yyyy-MM-dd'T'HH:mm:ss.SSS"));
     CollectionKit.clear(metadata);
     return builder.build();
   }

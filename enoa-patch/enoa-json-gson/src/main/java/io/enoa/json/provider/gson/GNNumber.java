@@ -111,7 +111,8 @@ class GNNumber {
         return false;
     }
     try {
-      Double.parseDouble(text);
+//      Double.parseDouble(text);
+      Long.parseLong(text);
     } catch (Exception e) {
       return false;
     }

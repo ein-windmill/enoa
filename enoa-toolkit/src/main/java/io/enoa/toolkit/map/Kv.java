@@ -28,7 +28,7 @@ public class Kv extends HashMap<String, Object> implements FastKv<Kv> {
   }
 
   public static Kv by(Map<String, ?> map) {
-    return new Kv().set(map);
+    return map == null ? null : new Kv().set(map);
   }
 
   public static Kv by(String key, Object value) {
