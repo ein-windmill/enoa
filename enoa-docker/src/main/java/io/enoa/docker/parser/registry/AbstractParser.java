@@ -16,9 +16,9 @@
 package io.enoa.docker.parser.registry;
 
 import io.enoa.docker.RegistryConfig;
-import io.enoa.docker.ret.registry.RError;
-import io.enoa.docker.ret.registry.RResp;
-import io.enoa.docker.ret.registry.RRet;
+import io.enoa.docker.dket.registry.RError;
+import io.enoa.docker.dket.registry.RResp;
+import io.enoa.docker.dket.registry.RRet;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.map.Kv;
 

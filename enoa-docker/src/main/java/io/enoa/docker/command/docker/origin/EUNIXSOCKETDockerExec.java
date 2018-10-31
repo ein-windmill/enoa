@@ -16,7 +16,7 @@
 package io.enoa.docker.command.docker.origin;
 
 import io.enoa.docker.dqp.common.DQPResize;
-import io.enoa.docker.ret.docker.DResp;
+import io.enoa.docker.dket.docker.DResp;
 
 public class EUNIXSOCKETDockerExec implements EOriginDockerExec {
 

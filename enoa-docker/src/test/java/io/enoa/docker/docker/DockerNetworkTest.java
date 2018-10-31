@@ -16,10 +16,10 @@
 package io.enoa.docker.docker;
 
 import io.enoa.docker.Docker;
-import io.enoa.docker.ret.docker.DRet;
-import io.enoa.docker.ret.docker.common.ECreatedWithWarning;
-import io.enoa.docker.ret.docker.network.ENetworPrune;
-import io.enoa.docker.ret.docker.network.ENetwork;
+import io.enoa.docker.dket.docker.DRet;
+import io.enoa.docker.dket.docker.common.ECreatedWithWarning;
+import io.enoa.docker.dket.docker.network.ENetworPrune;
+import io.enoa.docker.dket.docker.network.ENetwork;
 import io.enoa.json.Json;
 import io.enoa.toolkit.value.Void;
 import org.junit.Assert;

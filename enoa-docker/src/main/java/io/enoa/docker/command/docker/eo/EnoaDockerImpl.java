@@ -18,8 +18,8 @@ package io.enoa.docker.command.docker.eo;
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.command.docker.generic.GenericDocker;
 import io.enoa.docker.parser.docker.DIParser;
-import io.enoa.docker.ret.docker.DRet;
-import io.enoa.docker.ret.docker.dockerinfo.EDockerInfo;
+import io.enoa.docker.dket.docker.DRet;
+import io.enoa.docker.dket.docker.dockerinfo.EDockerInfo;
 
 public class EnoaDockerImpl implements EoDocker {
 

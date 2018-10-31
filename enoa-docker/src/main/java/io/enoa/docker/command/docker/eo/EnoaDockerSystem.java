@@ -20,8 +20,8 @@ import io.enoa.docker.command.docker.generic.GenericDocker;
 import io.enoa.docker.dqp.docker.system.DQPMonitor;
 import io.enoa.docker.dqp.docker.system.DQPSystemAuth;
 import io.enoa.docker.parser.docker.DIParser;
-import io.enoa.docker.ret.docker.DRet;
-import io.enoa.docker.ret.docker.system.*;
+import io.enoa.docker.dket.docker.DRet;
+import io.enoa.docker.dket.docker.system.*;
 
 public class EnoaDockerSystem {
 

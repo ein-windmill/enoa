@@ -18,7 +18,7 @@ package io.enoa.docker.command.docker.origin;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.docker.plugin.DQPPluginInstall;
 import io.enoa.docker.dqp.docker.plugin.DQPPluginUpgrade;
-import io.enoa.docker.ret.docker.DResp;
+import io.enoa.docker.dket.docker.DResp;
 
 import java.util.Collection;
 

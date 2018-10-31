@@ -1,8 +1,8 @@
 package io.enoa.docker.registry;
 
 import io.enoa.docker.Registry;
-import io.enoa.docker.ret.registry.RRet;
-import io.enoa.docker.ret.registry.tag.EITag;
+import io.enoa.docker.dket.registry.RRet;
+import io.enoa.docker.dket.registry.tag.EITag;
 import io.enoa.json.Json;
 import org.junit.Assert;
 import org.junit.Ignore;

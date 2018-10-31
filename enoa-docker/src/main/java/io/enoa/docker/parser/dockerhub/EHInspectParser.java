@@ -16,9 +16,9 @@
 package io.enoa.docker.parser.dockerhub;
 
 import io.enoa.docker.DockerhubConfig;
-import io.enoa.docker.ret.dockerhub.inspece.EHPermission;
-import io.enoa.docker.ret.dockerhub.inspece.EHRepository;
-import io.enoa.docker.ret.registry.RResp;
+import io.enoa.docker.dket.dockerhub.inspece.EHPermission;
+import io.enoa.docker.dket.dockerhub.inspece.EHRepository;
+import io.enoa.docker.dket.registry.RResp;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.map.Kv;
 

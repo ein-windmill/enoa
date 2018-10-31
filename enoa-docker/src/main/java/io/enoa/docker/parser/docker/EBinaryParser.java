@@ -16,7 +16,7 @@
 package io.enoa.docker.parser.docker;
 
 import io.enoa.docker.DockerConfig;
-import io.enoa.docker.ret.docker.DResp;
+import io.enoa.docker.dket.docker.DResp;
 import io.enoa.toolkit.binary.EnoaBinary;
 
 class EBinaryParser extends AbstractParser<EnoaBinary> {

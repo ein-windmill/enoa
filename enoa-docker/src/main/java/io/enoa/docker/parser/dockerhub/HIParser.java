@@ -16,14 +16,14 @@
 package io.enoa.docker.parser.dockerhub;
 
 import io.enoa.docker.DockerhubConfig;
-import io.enoa.docker.ret.dockerhub.HRet;
-import io.enoa.docker.ret.dockerhub.build.EHAutobuild;
-import io.enoa.docker.ret.dockerhub.build.EHBuildHistory;
-import io.enoa.docker.ret.dockerhub.explore.EHExplore;
-import io.enoa.docker.ret.dockerhub.inspece.EHRepository;
-import io.enoa.docker.ret.dockerhub.search.EHSearch;
-import io.enoa.docker.ret.dockerhub.tag.EHTag;
-import io.enoa.docker.ret.registry.RResp;
+import io.enoa.docker.dket.dockerhub.HRet;
+import io.enoa.docker.dket.dockerhub.build.EHAutobuild;
+import io.enoa.docker.dket.dockerhub.build.EHBuildHistory;
+import io.enoa.docker.dket.dockerhub.explore.EHExplore;
+import io.enoa.docker.dket.dockerhub.inspece.EHRepository;
+import io.enoa.docker.dket.dockerhub.search.EHSearch;
+import io.enoa.docker.dket.dockerhub.tag.EHTag;
+import io.enoa.docker.dket.registry.RResp;
 
 public interface HIParser<T> {
 

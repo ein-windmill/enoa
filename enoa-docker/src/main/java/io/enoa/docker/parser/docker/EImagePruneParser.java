@@ -16,9 +16,9 @@
 package io.enoa.docker.parser.docker;
 
 import io.enoa.docker.DockerConfig;
-import io.enoa.docker.ret.docker.DResp;
-import io.enoa.docker.ret.docker.image.EIRemove;
-import io.enoa.docker.ret.docker.image.EImagePrune;
+import io.enoa.docker.dket.docker.DResp;
+import io.enoa.docker.dket.docker.image.EIRemove;
+import io.enoa.docker.dket.docker.image.EImagePrune;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.map.Kv;
 

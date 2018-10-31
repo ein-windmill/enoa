@@ -16,7 +16,7 @@
 package io.enoa.docker.command.registry.origin;
 
 import io.enoa.docker.RegistryConfig;
-import io.enoa.docker.ret.registry.RResp;
+import io.enoa.docker.dket.registry.RResp;
 import io.enoa.http.Http;
 import io.enoa.http.protocol.HttpResponse;
 import io.enoa.toolkit.text.TextKit;

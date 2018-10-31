@@ -16,8 +16,8 @@
 package io.enoa.docker.registry;
 
 import io.enoa.docker.Registry;
-import io.enoa.docker.ret.registry.RRet;
-import io.enoa.docker.ret.registry.catalog.ECatalog;
+import io.enoa.docker.dket.registry.RRet;
+import io.enoa.docker.dket.registry.catalog.ECatalog;
 import io.enoa.json.Json;
 import org.junit.Assert;
 import org.junit.Test;

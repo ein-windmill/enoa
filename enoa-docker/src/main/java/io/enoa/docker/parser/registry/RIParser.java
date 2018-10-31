@@ -16,10 +16,10 @@
 package io.enoa.docker.parser.registry;
 
 import io.enoa.docker.RegistryConfig;
-import io.enoa.docker.ret.registry.RResp;
-import io.enoa.docker.ret.registry.RRet;
-import io.enoa.docker.ret.registry.catalog.ECatalog;
-import io.enoa.docker.ret.registry.tag.EITag;
+import io.enoa.docker.dket.registry.RResp;
+import io.enoa.docker.dket.registry.RRet;
+import io.enoa.docker.dket.registry.catalog.ECatalog;
+import io.enoa.docker.dket.registry.tag.EITag;
 
 public interface RIParser<T> {
 

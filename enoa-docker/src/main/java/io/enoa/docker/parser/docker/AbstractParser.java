@@ -16,8 +16,8 @@
 package io.enoa.docker.parser.docker;
 
 import io.enoa.docker.DockerConfig;
-import io.enoa.docker.ret.docker.DResp;
-import io.enoa.docker.ret.docker.DRet;
+import io.enoa.docker.dket.docker.DResp;
+import io.enoa.docker.dket.docker.DRet;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.text.TextKit;
 

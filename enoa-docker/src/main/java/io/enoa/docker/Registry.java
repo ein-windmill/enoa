@@ -21,9 +21,9 @@ import io.enoa.docker.command.registry.eo.EERegistryUpload;
 import io.enoa.docker.command.registry.eo.EoRegistry;
 import io.enoa.docker.command.registry.generic.GenericRegistry;
 import io.enoa.docker.command.registry.origin.OriginRegistry;
-import io.enoa.docker.ret.registry.RRet;
-import io.enoa.docker.ret.registry.catalog.ECatalog;
-import io.enoa.docker.ret.registry.tag.EITag;
+import io.enoa.docker.dket.registry.RRet;
+import io.enoa.docker.dket.registry.catalog.ECatalog;
+import io.enoa.docker.dket.registry.tag.EITag;
 
 public class Registry {
 

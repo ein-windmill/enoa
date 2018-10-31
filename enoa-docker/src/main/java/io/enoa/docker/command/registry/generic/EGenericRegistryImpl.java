@@ -18,8 +18,8 @@ package io.enoa.docker.command.registry.generic;
 import io.enoa.docker.RegistryConfig;
 import io.enoa.docker.command.registry.origin.OriginRegistry;
 import io.enoa.docker.parser.registry.RIParser;
-import io.enoa.docker.ret.registry.RResp;
-import io.enoa.docker.ret.registry.RRet;
+import io.enoa.docker.dket.registry.RResp;
+import io.enoa.docker.dket.registry.RRet;
 
 public class EGenericRegistryImpl implements GenericRegistry {
 

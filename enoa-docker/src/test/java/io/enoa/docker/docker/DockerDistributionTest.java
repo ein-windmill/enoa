@@ -16,8 +16,8 @@
 package io.enoa.docker.docker;
 
 import io.enoa.docker.Docker;
-import io.enoa.docker.ret.docker.DRet;
-import io.enoa.docker.ret.docker.distribution.EDistribution;
+import io.enoa.docker.dket.docker.DRet;
+import io.enoa.docker.dket.docker.distribution.EDistribution;
 import io.enoa.json.Json;
 import org.junit.Assert;
 import org.junit.Ignore;
