@@ -15,10 +15,10 @@
  */
 package io.enoa.docker.command.docker.origin;
 
+import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.docker.container.*;
-import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.stream.DStream;
 import io.enoa.docker.thr.DockerException;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
@@ -79,6 +79,15 @@ public interface EOriginDockerContainer {
    * @return Dresp
    */
   DResp list(DQPContainerList dqp);
+
+
+  default DResp create(String name, DQPContainerRun dqp) {
+    return this.create(name, dqp == null ? null : dqp.dqr().json());
+  }
+
+  default DResp create(String name, DQPContainerCreate dqp) {
+    return this.create(name, dqp == null ? null : dqp.dqr().json());
+  }
 
   /**
    * Create a container

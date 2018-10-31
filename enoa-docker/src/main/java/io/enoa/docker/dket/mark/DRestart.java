@@ -13,24 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.dqp.docker.container;
+package io.enoa.docker.dket.mark;
 
-import io.enoa.docker.dqp.DQP;
-import io.enoa.docker.dqp.DQR;
+import io.enoa.toolkit.mark.IMarkVal;
+import io.enoa.toolkit.text.TextKit;
 
-public class DQPContainerCreate implements DQP {
+public enum DRestart implements IMarkVal {
 
-  public static DQPContainerCreate create() {
-    return new DQPContainerCreate();
+  NO("no"),
+  on_failure("on-failure"),
+  always("always"),
+  //
+  ;
+
+  private final String val;
+
+  DRestart(String val) {
+    this.val = val;
   }
-
-  public DQPContainerCreate() {
-  }
-
-
 
   @Override
-  public DQR dqr() {
-    return null;
+  public String val() {
+    return val;
+  }
+
+  public static DRestart of(String val) {
+    if (TextKit.blanky(val))
+      return NO;
+    for (DRestart restart : DRestart.values()) {
+      if (restart.val.equalsIgnoreCase(val))
+        return restart;
+    }
+    return NO;
   }
 }

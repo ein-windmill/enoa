@@ -15,6 +15,7 @@
  */
 package io.enoa.docker.dqp;
 
+import io.enoa.docker.dket.docker.service.DQPServiceLogs;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.docker.container.*;
@@ -33,7 +34,6 @@ import io.enoa.docker.dqp.docker.swarm.DQPSwarmUpdate;
 import io.enoa.docker.dqp.docker.system.DQPSystemAuth;
 import io.enoa.docker.dqp.docker.volume.DQPVolumeCreate;
 import io.enoa.docker.dqp.docker.volume.DQPVolumeList;
-import io.enoa.docker.dket.docker.service.DQPServiceLogs;
 
 public final class DQPDocker {
 
@@ -113,6 +113,11 @@ public final class DQPDocker {
   }
 
   public static final class Container {
+
+
+    public DQPContainerRun run() {
+      return DQPContainerRun.create();
+    }
 
     public DQPContainerCreate create() {
       return DQPContainerCreate.create();
