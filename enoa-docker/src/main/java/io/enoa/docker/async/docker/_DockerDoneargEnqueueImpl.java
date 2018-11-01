@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.trydb.async;
+package io.enoa.docker.async.docker;
 
+import io.enoa.docker.promise.DockerDoneargPromise;
 import io.enoa.promise.DoneArgPromise;
 import io.enoa.promise.arg.PromiseArg;
 import io.enoa.promise.arg.PromiseCapture;
@@ -23,30 +24,26 @@ import io.enoa.promise.async.AsyncRunner;
 import io.enoa.promise.builder.EPDoneArgPromiseBuilder;
 import io.enoa.promise.builder.PromiseBuilder;
 import io.enoa.toolkit.collection.CollectionKit;
-import io.enoa.trydb.promise.TrydbPromise;
 
 import java.util.concurrent.ExecutorService;
 
-class _DefaultTrydbEnqueueImpl<T> implements EnqueueTrydb<T> {
+class _DockerDoneargEnqueueImpl<T> implements EnqueueDoneargDocker<T> {
 
-  private static class Holder {
-    private static final ExecutorService TRYDB_ENQUEUE = PromiseBuilder.executor().enqueue("Trydb Dispatcher");
-  }
+  private ExecutorService executor;
+  private AsyncRunner<T> runner;
 
-  private AsyncRunner<T> executor;
-
-  _DefaultTrydbEnqueueImpl(AsyncRunner<T> executor) {
+  _DockerDoneargEnqueueImpl(ExecutorService executor, AsyncRunner<T> runner) {
     this.executor = executor;
+    this.runner = runner;
   }
 
   @Override
-  public TrydbPromise<T> enqueue() {
+  public DockerDoneargPromise<T> enqueue() {
     EPDoneArgPromiseBuilder<T> donearg = PromiseBuilder.donearg();
-    Holder.TRYDB_ENQUEUE.execute(() -> {
+    this.executor.execute(() -> {
       try {
         String oldName = Thread.currentThread().getName();
-//        Thread.currentThread().setName(TextKit.union("ENOA-TRYDB-ENQUEUE-", oldName));
-        T ret = this.executor.run();
+        T ret = this.runner.run();
         if (CollectionKit.isEmpty(donearg.dones()))
           return;
         donearg.dones().forEach(done -> done.execute(ret));
@@ -63,15 +60,15 @@ class _DefaultTrydbEnqueueImpl<T> implements EnqueueTrydb<T> {
     });
 
     DoneArgPromise<T> promise = donearg.build();
-    return new TrydbPromise<T>() {
+    return new DockerDoneargPromise<T>() {
       @Override
-      public TrydbPromise<T> done(PromiseArg<T> done) {
+      public DockerDoneargPromise<T> done(PromiseArg<T> done) {
         promise.done(done);
         return this;
       }
 
       @Override
-      public TrydbPromise<T> capture(PromiseCapture capture) {
+      public DockerDoneargPromise<T> capture(PromiseCapture capture) {
         promise.capture(capture);
         return this;
       }

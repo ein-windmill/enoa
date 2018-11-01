@@ -13,11 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.docker;
+package io.enoa.docker.async.docker;
 
-import io.enoa.docker.AbstractDockerTest;
-import org.junit.Ignore;
+import io.enoa.docker.dket.docker.DRet;
+import io.enoa.promise.async.AsyncRunner;
 
-@Ignore
-public class DockerSwarmTest extends AbstractDockerTest {
+import java.util.concurrent.ExecutorService;
+
+public interface EnqueueDocker<T> {
+
+  static <PARA> EnqueueDoneargDocker<PARA> donearg(ExecutorService executor, AsyncRunner<PARA> runner) {
+    return new _DockerDoneargEnqueueImpl<>(executor, runner);
+  }
+
+  static <PARA> EnqueueAssetDocker<PARA> asset(ExecutorService executor, AsyncRunner<DRet<PARA>> runner) {
+    return new _DockerAssetEnqueueImpl<>(executor, runner);
+  }
+
+  T enqueue();
+
 }

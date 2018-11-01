@@ -51,6 +51,10 @@ public class Docker {
     return epm().origin();
   }
 
+  public static AsyncDocker async() {
+    return AsyncDocker.instance();
+  }
+
   public static DRet<EDockerInfo> info() {
     return use().info();
   }

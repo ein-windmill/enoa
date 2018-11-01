@@ -13,11 +13,4 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.docker;
-
-import io.enoa.docker.AbstractDockerTest;
-import org.junit.Ignore;
-
-@Ignore
-public class DockerSwarmTest extends AbstractDockerTest {
-}
+package io.enoa.docker.async.hub;

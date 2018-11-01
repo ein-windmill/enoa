@@ -13,11 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.docker;
+package io.enoa.docker.async.docker;
 
-import io.enoa.docker.AbstractDockerTest;
-import org.junit.Ignore;
+import io.enoa.docker.dket.docker.DRet;
+import io.enoa.docker.promise.DockerAssetPromise;
 
-@Ignore
-public class DockerSwarmTest extends AbstractDockerTest {
+public interface EnqueueAssetDocker<T> extends EnqueueDocker<DockerAssetPromise<DRet<T>>> {
+
+  @Override
+  DockerAssetPromise<DRet<T>> enqueue();
+
 }

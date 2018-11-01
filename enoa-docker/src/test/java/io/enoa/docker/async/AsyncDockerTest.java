@@ -13,11 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.docker;
+package io.enoa.docker.async;
 
 import io.enoa.docker.AbstractDockerTest;
-import org.junit.Ignore;
+import io.enoa.docker.Docker;
+import org.junit.Test;
 
-@Ignore
-public class DockerSwarmTest extends AbstractDockerTest {
+import java.util.concurrent.TimeUnit;
+
+public class AsyncDockerTest extends AbstractDockerTest {
+
+  private void sleep() {
+    try {
+      TimeUnit.SECONDS.sleep(3L);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
+  public void info() {
+    Docker.async()
+      .origin()
+      .info()
+      .enqueue()
+      .done(resp -> {
+        System.out.println(resp.string());
+      });
+    this.sleep();
+  }
+
 }

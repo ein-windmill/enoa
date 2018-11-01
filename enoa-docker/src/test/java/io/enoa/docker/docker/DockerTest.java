@@ -15,6 +15,7 @@
  */
 package io.enoa.docker.docker;
 
+import io.enoa.docker.AbstractDockerTest;
 import io.enoa.docker.Docker;
 import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.dket.docker.dockerinfo.EDockerInfo;
@@ -31,7 +32,7 @@ public class DockerTest extends AbstractDockerTest {
   public void testInfo() {
     DRet<EDockerInfo> ret = Docker.info();
     Assert.assertTrue(ret.ok());
-    String json = Json.toJson(ret);
+    String json = Json.toJson(ret.data());
     System.out.println(json);
   }
 

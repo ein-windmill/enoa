@@ -15,6 +15,7 @@
  */
 package io.enoa.docker.docker;
 
+import io.enoa.docker.AbstractDockerTest;
 import org.junit.Ignore;
 
 @Ignore

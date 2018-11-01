@@ -58,7 +58,7 @@ public class EPThenPromiseBuilder extends EPEoPromiseBuilder {
   @Override
   public ThenPromise build() {
     EoPromise promise = this.oe.build();
-    return new ThenPromise() {
+    return new ThenPromise<ThenPromise>() {
       @Override
       public <R, P> ThenPromise then(PromiseThen<R, P> then) {
         if (thens == null)

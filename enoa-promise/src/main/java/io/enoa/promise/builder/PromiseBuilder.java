@@ -59,4 +59,8 @@ public class PromiseBuilder {
     return new EPThenPromiseBuilder();
   }
 
+  public static <T> EPAssetPromiseBuilder<T> asset() {
+    return new EPAssetPromiseBuilder<>();
+  }
+
 }

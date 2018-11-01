@@ -15,6 +15,7 @@
  */
 package io.enoa.docker.docker;
 
+import io.enoa.docker.AbstractDockerTest;
 import io.enoa.docker.Docker;
 import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.dket.docker.distribution.EDistribution;

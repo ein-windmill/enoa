@@ -18,10 +18,12 @@ package io.enoa.docker;
 import io.enoa.docker.thr.DockerException;
 import io.enoa.json.EnoaJson;
 import io.enoa.json.EoJsonFactory;
+import io.enoa.promise.builder.PromiseBuilder;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 
 import java.io.Serializable;
 import java.nio.file.Path;
+import java.util.concurrent.ExecutorService;
 
 public class DockerConfig implements Serializable {
 
@@ -36,6 +38,7 @@ public class DockerConfig implements Serializable {
   private final boolean debug;
   private final EnoaJson json;
   private final boolean failthrow;
+  private final ExecutorService executor;
 
   private DockerConfig(Builder builder) {
     this.host = builder.host;
@@ -49,6 +52,11 @@ public class DockerConfig implements Serializable {
     this.debug = builder.debug;
     this.json = builder.json.json();
     this.failthrow = builder.failthrow;
+    this.executor = builder.executor;
+  }
+
+  public ExecutorService executor() {
+    return this.executor;
   }
 
   public boolean failthrow() {
@@ -108,14 +116,22 @@ public class DockerConfig implements Serializable {
     private boolean debug;
     private EoJsonFactory json;
     private boolean failthrow;
+    private ExecutorService executor;
 
     public Builder() {
+      this.version = "v1.35";
+      this.executor = PromiseBuilder.executor().enqueue("Docker Dispatcher");
     }
 
     public DockerConfig build() {
       if (this.json == null)
         throw new DockerException(EnoaTipKit.message("eo.tip.docker.no_json"));
       return new DockerConfig(this);
+    }
+
+    public Builder executor(ExecutorService executor) {
+      this.executor = executor;
+      return this;
     }
 
     public Builder failthrow(boolean failthrow) {

@@ -18,7 +18,7 @@ package io.enoa.promise;
 import io.enoa.promise.arg.PromiseCapture;
 import io.enoa.promise.arg.PromiseVoid;
 
-public interface EoPromise<T> extends Promise {
+public interface EoPromise<T extends EoPromise> extends Promise {
 
   T capture(PromiseCapture capture);
 

@@ -13,11 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.docker;
+package io.enoa.docker.promise;
 
-import io.enoa.docker.AbstractDockerTest;
-import org.junit.Ignore;
+import io.enoa.promise.DoneArgPromise;
+import io.enoa.promise.arg.PromiseArg;
+import io.enoa.promise.arg.PromiseCapture;
+import io.enoa.promise.arg.PromiseVoid;
 
-@Ignore
-public class DockerSwarmTest extends AbstractDockerTest {
+public interface DockerDoneargPromise<PARA> extends DoneArgPromise<PARA> {
+  @Override
+  DoneArgPromise<PARA> done(PromiseArg<PARA> done);
+
+  @Override
+  DoneArgPromise<PARA> capture(PromiseCapture capture);
+
+  @Override
+  void always(PromiseVoid always);
 }

@@ -13,11 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.docker;
+package io.enoa.promise;
 
-import io.enoa.docker.AbstractDockerTest;
-import org.junit.Ignore;
+import io.enoa.promise.arg.PromiseArg;
+import io.enoa.promise.arg.PromiseBool;
+import io.enoa.promise.arg.PromiseCapture;
 
-@Ignore
-public class DockerSwarmTest extends AbstractDockerTest {
+public interface AssetPromise<PARA> extends ThenPromise<AssetPromise>, EoPromise<AssetPromise> {
+
+  AssetPromise<PARA> asset(PromiseBool<PARA> bool);
+
+  AssetPromise<PARA> failthrow(PromiseArg<PARA> arg);
+
+  @Override
+  AssetPromise<PARA> capture(PromiseCapture capture);
+
 }

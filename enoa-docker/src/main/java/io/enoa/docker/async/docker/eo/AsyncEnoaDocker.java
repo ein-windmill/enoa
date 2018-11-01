@@ -13,11 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.docker;
+package io.enoa.docker.async.docker.eo;
 
-import io.enoa.docker.AbstractDockerTest;
-import org.junit.Ignore;
+import io.enoa.docker.command.docker.eo.EoDocker;
 
-@Ignore
-public class DockerSwarmTest extends AbstractDockerTest {
+public class AsyncEnoaDocker {
+
+
+  private EoDocker docker;
+
+  public AsyncEnoaDocker(EoDocker docker) {
+    this.docker = docker;
+  }
 }

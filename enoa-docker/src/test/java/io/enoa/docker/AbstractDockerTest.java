@@ -13,11 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.docker;
+package io.enoa.docker;
 
-import io.enoa.docker.AbstractDockerTest;
+import io.enoa.json.Json;
+import io.enoa.json.provider.gson.GsonProvider;
+import org.junit.Before;
 import org.junit.Ignore;
 
 @Ignore
-public class DockerSwarmTest extends AbstractDockerTest {
+public abstract class AbstractDockerTest {
+
+  @Before
+  public void ibe() {
+    Json.epm().install(new GsonProvider());
+    DockerConfig config = new DockerConfig.Builder()
+      .host("tcp://localhost:2375")
+      .tls(Boolean.FALSE)
+      .version("v1.35")
+      .debug()
+      .json(new GsonProvider())
+      .build();
+    Docker.epm().install(config);
+  }
+
 }
