@@ -18,12 +18,12 @@ package io.enoa.docker.command.docker.generic;
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.command.docker.origin.EOriginDockerContainer;
 import io.enoa.docker.command.docker.origin.OriginDocker;
+import io.enoa.docker.dket.docker.DResp;
+import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.docker.container.*;
 import io.enoa.docker.parser.docker.DIParser;
-import io.enoa.docker.dket.docker.DResp;
-import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.stream.DStream;
 import io.enoa.docker.stream.IDStreamRunner;
 import io.enoa.docker.thr.DockerException;
@@ -52,6 +52,10 @@ public class EGeneicDockerContainer {
   public <T> DRet<List<T>> list(DIParser<List<T>> parser, DQPContainerList dqp) {
     DResp origin = this.container.list(dqp);
     return parser.parse(this.config, origin);
+  }
+
+  public <T> DRet<T> create(DIParser<T> parser, String name, DQPContainerCreate dqp) {
+    return this.create(parser, name, dqp == null ? null : dqp.dqr().json());
   }
 
   public <T> DRet<T> create(DIParser<T> parser, String name, String body) {

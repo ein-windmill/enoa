@@ -34,11 +34,7 @@ public class EnoaTCPDocker implements OriginDocker {
     this.config = config;
   }
 
-  protected Http http(String subpath) {
-    return this.http(new String[]{subpath});
-  }
-
-  protected Http http(String... subpaths) {
+  protected EoUrl url(String... subpaths) {
     if (this._host == null) {
       String host = this.config.host();
       if (host.toLowerCase().startsWith("tcp://")) {
@@ -46,7 +42,19 @@ public class EnoaTCPDocker implements OriginDocker {
       }
       this._host = host;
     }
-    Http http = Http.request(EoUrl.with(this._host).subpath(subpaths));
+    return EoUrl.with(this._host).subpath(subpaths);
+  }
+
+  protected Http http(String subpath) {
+    return this.http(new String[]{subpath});
+  }
+
+  protected Http http(String... subpaths) {
+    return this.http(this.url(subpaths));
+  }
+
+  protected Http http(EoUrl url) {
+    Http http = Http.request(url);
     if (this.config.debug())
       http.reporter(IHttpReporter.def())
         .handler(IHttpHandler.def());

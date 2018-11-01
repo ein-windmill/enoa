@@ -16,12 +16,12 @@
 package io.enoa.docker.docker;
 
 import io.enoa.docker.Docker;
-import io.enoa.docker.dqp.DQP;
-import io.enoa.docker.dqp.docker.container.DQPContainerUpdate;
 import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.dket.docker.common.ECreatedWithWarning;
 import io.enoa.docker.dket.docker.container.*;
+import io.enoa.docker.dqp.DQP;
+import io.enoa.docker.dqp.docker.container.DQPContainerUpdate;
 import io.enoa.docker.stream.DStream;
 import io.enoa.json.Json;
 import io.enoa.toolkit.value.Void;
@@ -105,20 +105,6 @@ public class DockerContainerTest extends AbstractDockerTest {
   }
 
   @Test
-  public void testStart() {
-    DRet<Void> ret = Docker.container().start("nginx");
-    Assert.assertTrue(ret.ok());
-    System.out.println(ret);
-  }
-
-  @Test
-  public void testStop() {
-    DRet<Void> ret = Docker.container().stop("nginx");
-    Assert.assertTrue(ret.ok());
-    System.out.println(ret);
-  }
-
-  @Test
   public void testRestart() {
     DRet<Void> ret = Docker.container().restart("nginx");
     Assert.assertTrue(ret.ok());
@@ -162,21 +148,6 @@ public class DockerContainerTest extends AbstractDockerTest {
   }
 
   @Test
-  public void testWait() {
-    DRet<ECWait> ret = Docker.container().wait("nginx");
-    Assert.assertTrue(ret.ok());
-    String json = Json.toJson(ret.data());
-    System.out.println(json);
-  }
-
-  @Test
-  public void testRemove() {
-    DRet<Void> ret = Docker.container().remove("nginx");
-    Assert.assertTrue(ret.ok());
-    System.out.println(ret);
-  }
-
-  @Test
   public void testArchive() {
 //    DRet<Void> ret = Docker.container().archive("nginx", "/home");
 //    Assert.assertTrue(ret.ok());
@@ -196,163 +167,231 @@ public class DockerContainerTest extends AbstractDockerTest {
 
   @Test
   public void testCreate() {
-    String json = "{\n" +
-      "  \"Hostname\": \"\",\n" +
-      "  \"Domainname\": \"\",\n" +
-      "  \"User\": \"\",\n" +
-      "  \"AttachStdin\": false,\n" +
-      "  \"AttachStdout\": true,\n" +
-      "  \"AttachStderr\": true,\n" +
-      "  \"Tty\": false,\n" +
-      "  \"OpenStdin\": false,\n" +
-      "  \"StdinOnce\": false,\n" +
-      "  \"Env\": [\n" +
-      "    \"FOO=bar\",\n" +
-      "    \"BAZ=quux\"\n" +
-      "  ],\n" +
-      "  \"Cmd\": [\n" +
-      "    \"date\"\n" +
-      "  ],\n" +
-      "  \"Entrypoint\": \"\",\n" +
-      "  \"Image\": \"ubuntu\",\n" +
-      "  \"Labels\": {\n" +
-      "    \"com.example.vendor\": \"Acme\",\n" +
-      "    \"com.example.license\": \"GPL\",\n" +
-      "    \"com.example.version\": \"1.0\"\n" +
-      "  },\n" +
-      "  \"Volumes\": {\n" +
-      "    \"/volumes/data\": {}\n" +
-      "  },\n" +
-      "  \"WorkingDir\": \"\",\n" +
-      "  \"NetworkDisabled\": false,\n" +
-      "  \"MacAddress\": \"12:34:56:78:9a:bc\",\n" +
-      "  \"ExposedPorts\": {\n" +
-      "    \"22/tcp\": {}\n" +
-      "  },\n" +
-      "  \"StopSignal\": \"SIGTERM\",\n" +
-      "  \"StopTimeout\": 10,\n" +
-      "  \"HostConfig\": {\n" +
-      "    \"Binds\": [\n" +
-      "      \"/tmp:/tmp\"\n" +
-      "    ],\n" +
-      "    \"Links\": [\n" +
-      "      \"redis3:redis\"\n" +
-      "    ],\n" +
-      "    \"Memory\": 0,\n" +
-      "    \"MemorySwap\": 0,\n" +
-      "    \"MemoryReservation\": 0,\n" +
-      "    \"KernelMemory\": 0,\n" +
-      "    \"NanoCPUs\": 500000,\n" +
-      "    \"CpuPercent\": 80,\n" +
-      "    \"CpuShares\": 512,\n" +
-      "    \"CpuPeriod\": 100000,\n" +
-      "    \"CpuRealtimePeriod\": 1000000,\n" +
-      "    \"CpuRealtimeRuntime\": 10000,\n" +
-      "    \"CpuQuota\": 50000,\n" +
-      "    \"CpusetCpus\": \"0,1\",\n" +
-      "    \"CpusetMems\": \"0,1\",\n" +
-      "    \"MaximumIOps\": 0,\n" +
-      "    \"MaximumIOBps\": 0,\n" +
-      "    \"BlkioWeight\": 300,\n" +
-      "    \"BlkioWeightDevice\": [\n" +
-      "      {}\n" +
-      "    ],\n" +
-      "    \"BlkioDeviceReadBps\": [\n" +
-      "      {}\n" +
-      "    ],\n" +
-      "    \"BlkioDeviceReadIOps\": [\n" +
-      "      {}\n" +
-      "    ],\n" +
-      "    \"BlkioDeviceWriteBps\": [\n" +
-      "      {}\n" +
-      "    ],\n" +
-      "    \"BlkioDeviceWriteIOps\": [\n" +
-      "      {}\n" +
-      "    ],\n" +
-      "    \"MemorySwappiness\": 60,\n" +
-      "    \"OomKillDisable\": false,\n" +
-      "    \"OomScoreAdj\": 500,\n" +
-      "    \"PidMode\": \"\",\n" +
-      "    \"PidsLimit\": -1,\n" +
-      "    \"PortBindings\": {\n" +
-      "      \"22/tcp\": [\n" +
-      "        {\n" +
-      "          \"HostPort\": \"11022\"\n" +
-      "        }\n" +
-      "      ]\n" +
-      "    },\n" +
-      "    \"PublishAllPorts\": false,\n" +
-      "    \"Privileged\": false,\n" +
-      "    \"ReadonlyRootfs\": false,\n" +
-      "    \"Dns\": [\n" +
-      "      \"8.8.8.8\"\n" +
-      "    ],\n" +
-      "    \"DnsOptions\": [\n" +
-      "      \"\"\n" +
-      "    ],\n" +
-      "    \"DnsSearch\": [\n" +
-      "      \"\"\n" +
-      "    ],\n" +
-      "    \"VolumesFrom\": [\n" +
-      "      \"parent\",\n" +
-      "      \"other:ro\"\n" +
-      "    ],\n" +
-      "    \"CapAdd\": [\n" +
-      "      \"NET_ADMIN\"\n" +
-      "    ],\n" +
-      "    \"CapDrop\": [\n" +
-      "      \"MKNOD\"\n" +
-      "    ],\n" +
-      "    \"GroupAdd\": [\n" +
-      "      \"newgroup\"\n" +
-      "    ],\n" +
-      "    \"RestartPolicy\": {\n" +
-      "      \"Name\": \"\",\n" +
-      "      \"MaximumRetryCount\": 0\n" +
-      "    },\n" +
-      "    \"AutoRemove\": true,\n" +
-      "    \"NetworkMode\": \"bridge\",\n" +
-      "    \"Devices\": [],\n" +
-      "    \"Ulimits\": [\n" +
-      "      {}\n" +
-      "    ],\n" +
-      "    \"LogConfig\": {\n" +
-      "      \"Type\": \"json-file\",\n" +
-      "      \"Config\": {}\n" +
-      "    },\n" +
-      "    \"SecurityOpt\": [],\n" +
-      "    \"StorageOpt\": {},\n" +
-      "    \"CgroupParent\": \"\",\n" +
-      "    \"VolumeDriver\": \"\",\n" +
-      "    \"ShmSize\": 67108864\n" +
-      "  },\n" +
-      "  \"NetworkingConfig\": {\n" +
-      "    \"EndpointsConfig\": {\n" +
-      "      \"isolated_nw\": {\n" +
-      "        \"IPAMConfig\": {\n" +
-      "          \"IPv4Address\": \"172.20.30.33\",\n" +
-      "          \"IPv6Address\": \"2001:db8:abcd::3033\",\n" +
-      "          \"LinkLocalIPs\": [\n" +
-      "            \"169.254.34.68\",\n" +
-      "            \"fe80::3468\"\n" +
-      "          ]\n" +
-      "        },\n" +
-      "        \"Links\": [\n" +
-      "          \"container_1\",\n" +
-      "          \"container_2\"\n" +
-      "        ],\n" +
-      "        \"Aliases\": [\n" +
-      "          \"server_x\",\n" +
-      "          \"server_y\"\n" +
-      "        ]\n" +
-      "      }\n" +
-      "    }\n" +
-      "  }\n" +
-      "}";
-    DRet<ECreatedWithWarning> ret = Docker.container().create("test", json);
+//    String json = "{\n" +
+//      "  \"Hostname\": \"\",\n" +
+//      "  \"Domainname\": \"\",\n" +
+//      "  \"User\": \"\",\n" +
+//      "  \"AttachStdin\": false,\n" +
+//      "  \"AttachStdout\": true,\n" +
+//      "  \"AttachStderr\": true,\n" +
+//      "  \"Tty\": false,\n" +
+//      "  \"OpenStdin\": false,\n" +
+//      "  \"StdinOnce\": false,\n" +
+//      "  \"Env\": [\n" +
+//      "    \"FOO=bar\",\n" +
+//      "    \"BAZ=quux\"\n" +
+//      "  ],\n" +
+//      "  \"Cmd\": [\n" +
+//      "    \"date\"\n" +
+//      "  ],\n" +
+//      "  \"Entrypoint\": \"\",\n" +
+//      "  \"Image\": \"ubuntu\",\n" +
+//      "  \"Labels\": {\n" +
+//      "    \"com.example.vendor\": \"Acme\",\n" +
+//      "    \"com.example.license\": \"GPL\",\n" +
+//      "    \"com.example.version\": \"1.0\"\n" +
+//      "  },\n" +
+//      "  \"Volumes\": {\n" +
+//      "    \"/volumes/data\": {}\n" +
+//      "  },\n" +
+//      "  \"WorkingDir\": \"\",\n" +
+//      "  \"NetworkDisabled\": false,\n" +
+//      "  \"MacAddress\": \"12:34:56:78:9a:bc\",\n" +
+//      "  \"ExposedPorts\": {\n" +
+//      "    \"22/tcp\": {}\n" +
+//      "  },\n" +
+//      "  \"StopSignal\": \"SIGTERM\",\n" +
+//      "  \"StopTimeout\": 10,\n" +
+//      "  \"HostConfig\": {\n" +
+//      "    \"Binds\": [\n" +
+//      "      \"/tmp:/tmp\"\n" +
+//      "    ],\n" +
+//      "    \"Links\": [\n" +
+//      "      \"redis3:redis\"\n" +
+//      "    ],\n" +
+//      "    \"Memory\": 0,\n" +
+//      "    \"MemorySwap\": 0,\n" +
+//      "    \"MemoryReservation\": 0,\n" +
+//      "    \"KernelMemory\": 0,\n" +
+//      "    \"NanoCPUs\": 500000,\n" +
+//      "    \"CpuPercent\": 80,\n" +
+//      "    \"CpuShares\": 512,\n" +
+//      "    \"CpuPeriod\": 100000,\n" +
+//      "    \"CpuRealtimePeriod\": 1000000,\n" +
+//      "    \"CpuRealtimeRuntime\": 10000,\n" +
+//      "    \"CpuQuota\": 50000,\n" +
+//      "    \"CpusetCpus\": \"0,1\",\n" +
+//      "    \"CpusetMems\": \"0,1\",\n" +
+//      "    \"MaximumIOps\": 0,\n" +
+//      "    \"MaximumIOBps\": 0,\n" +
+//      "    \"BlkioWeight\": 300,\n" +
+//      "    \"BlkioWeightDevice\": [\n" +
+//      "      {}\n" +
+//      "    ],\n" +
+//      "    \"BlkioDeviceReadBps\": [\n" +
+//      "      {}\n" +
+//      "    ],\n" +
+//      "    \"BlkioDeviceReadIOps\": [\n" +
+//      "      {}\n" +
+//      "    ],\n" +
+//      "    \"BlkioDeviceWriteBps\": [\n" +
+//      "      {}\n" +
+//      "    ],\n" +
+//      "    \"BlkioDeviceWriteIOps\": [\n" +
+//      "      {}\n" +
+//      "    ],\n" +
+//      "    \"MemorySwappiness\": 60,\n" +
+//      "    \"OomKillDisable\": false,\n" +
+//      "    \"OomScoreAdj\": 500,\n" +
+//      "    \"PidMode\": \"\",\n" +
+//      "    \"PidsLimit\": -1,\n" +
+//      "    \"PortBindings\": {\n" +
+//      "      \"22/tcp\": [\n" +
+//      "        {\n" +
+//      "          \"HostPort\": \"11022\"\n" +
+//      "        }\n" +
+//      "      ]\n" +
+//      "    },\n" +
+//      "    \"PublishAllPorts\": false,\n" +
+//      "    \"Privileged\": false,\n" +
+//      "    \"ReadonlyRootfs\": false,\n" +
+//      "    \"Dns\": [\n" +
+//      "      \"8.8.8.8\"\n" +
+//      "    ],\n" +
+//      "    \"DnsOptions\": [\n" +
+//      "      \"\"\n" +
+//      "    ],\n" +
+//      "    \"DnsSearch\": [\n" +
+//      "      \"\"\n" +
+//      "    ],\n" +
+//      "    \"VolumesFrom\": [\n" +
+//      "      \"parent\",\n" +
+//      "      \"other:ro\"\n" +
+//      "    ],\n" +
+//      "    \"CapAdd\": [\n" +
+//      "      \"NET_ADMIN\"\n" +
+//      "    ],\n" +
+//      "    \"CapDrop\": [\n" +
+//      "      \"MKNOD\"\n" +
+//      "    ],\n" +
+//      "    \"GroupAdd\": [\n" +
+//      "      \"newgroup\"\n" +
+//      "    ],\n" +
+//      "    \"RestartPolicy\": {\n" +
+//      "      \"Name\": \"\",\n" +
+//      "      \"MaximumRetryCount\": 0\n" +
+//      "    },\n" +
+//      "    \"AutoRemove\": true,\n" +
+//      "    \"NetworkMode\": \"bridge\",\n" +
+//      "    \"Devices\": [],\n" +
+//      "    \"Ulimits\": [\n" +
+//      "      {}\n" +
+//      "    ],\n" +
+//      "    \"LogConfig\": {\n" +
+//      "      \"Type\": \"json-file\",\n" +
+//      "      \"Config\": {}\n" +
+//      "    },\n" +
+//      "    \"SecurityOpt\": [],\n" +
+//      "    \"StorageOpt\": {},\n" +
+//      "    \"CgroupParent\": \"\",\n" +
+//      "    \"VolumeDriver\": \"\",\n" +
+//      "    \"ShmSize\": 67108864\n" +
+//      "  },\n" +
+//      "  \"NetworkingConfig\": {\n" +
+//      "    \"EndpointsConfig\": {\n" +
+//      "      \"isolated_nw\": {\n" +
+//      "        \"IPAMConfig\": {\n" +
+//      "          \"IPv4Address\": \"172.20.30.33\",\n" +
+//      "          \"IPv6Address\": \"2001:db8:abcd::3033\",\n" +
+//      "          \"LinkLocalIPs\": [\n" +
+//      "            \"169.254.34.68\",\n" +
+//      "            \"fe80::3468\"\n" +
+//      "          ]\n" +
+//      "        },\n" +
+//      "        \"Links\": [\n" +
+//      "          \"container_1\",\n" +
+//      "          \"container_2\"\n" +
+//      "        ],\n" +
+//      "        \"Aliases\": [\n" +
+//      "          \"server_x\",\n" +
+//      "          \"server_y\"\n" +
+//      "        ]\n" +
+//      "      }\n" +
+//      "    }\n" +
+//      "  }\n" +
+//      "}";
+//    DRet<ECreatedWithWarning> ret = Docker.container().create("test", json);
+//    Assert.assertTrue(ret.ok());
+//    System.out.println(ret);
+
+    // docker run -it --rm --name test -v /data:/data -v /opt:/opt -v test:/testx -p 999:800 -p 127.0.0.1:998:800 -p 942:942 -e "ENV=fa" -e "NAME=kin" -l "label 0" --link registry:f  alpine ls
+    DRet<ECreatedWithWarning> ret = Docker.container().create("test",
+      DQP.docker().container().create()
+        .interactive()
+        .detach()
+        .tty()
+        .rm()
+        .name("test")
+        .volume("/data:/data")
+        .volume("/opt:/opt")
+        .volume("test:/testx")
+        .publish("999:800")
+        .publish("127.0.0.1:998:800")
+        .publish("942:942")
+        .env("ENV", "fa")
+        .env("NAME=kin")
+        .labels("label 0")
+        .link("registry:f")
+        .image("alpine")
+        .cmd("ls")
+    );
+    Assert.assertTrue(ret.ok());
+    String json = Json.toJson(ret.data());
+    System.out.println(json);
+  }
+
+  @Test
+  public void attach() {
+    DRet<Void> ret = Docker.container().attach("test",
+      DQP.docker().container().attch()
+        .stderr()
+        .stdin()
+        .stdout()
+        .stream()
+    );
+    Assert.assertTrue(ret.ok());
+    String json = Json.toJson(ret.data());
+    System.out.println(json);
+  }
+
+  @Test
+  public void testWait() {
+    DRet<ECWait> ret = Docker.container().wait("test", "removed");
+    Assert.assertTrue(ret.ok());
+    String json = Json.toJson(ret.data());
+    System.out.println(json);
+  }
+
+  @Test
+  public void testStart() {
+    DRet<Void> ret = Docker.container().start("test");
     Assert.assertTrue(ret.ok());
     System.out.println(ret);
   }
 
+  @Test
+  public void testStop() {
+    DRet<Void> ret = Docker.container().stop("nginx");
+    Assert.assertTrue(ret.ok());
+    System.out.println(ret);
+  }
+
+
+  @Test
+  public void testRemove() {
+    DRet<Void> ret = Docker.container().remove("test");
+    Assert.assertTrue(ret.ok());
+    System.out.println(ret);
+  }
 
 }

@@ -15,10 +15,10 @@
  */
 package io.enoa.docker.command.docker.origin;
 
+import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.docker.container.*;
-import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.stream.DStream;
 import io.enoa.http.Http;
 import io.enoa.http.protocol.HttpMethod;
@@ -210,9 +210,8 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
 
   @Override
   public DResp wait(String id, String condition) {
-    HttpResponse response = this.docker.http("containers", id, "wait")
+    HttpResponse response = this.docker.http(this.docker.url("containers", id, "wait").para("condition", condition))
       .method(HttpMethod.POST)
-      .para("condition", condition)
       .emit();
     return DResp.create(response);
   }

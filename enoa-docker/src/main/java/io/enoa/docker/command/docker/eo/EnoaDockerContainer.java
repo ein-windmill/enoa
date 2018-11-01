@@ -17,13 +17,13 @@ package io.enoa.docker.command.docker.eo;
 
 import io.enoa.docker.command.docker.generic.EGeneicDockerContainer;
 import io.enoa.docker.command.docker.generic.GenericDocker;
+import io.enoa.docker.dket.docker.DRet;
+import io.enoa.docker.dket.docker.common.ECreatedWithWarning;
+import io.enoa.docker.dket.docker.container.*;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.docker.container.*;
 import io.enoa.docker.parser.docker.DIParser;
-import io.enoa.docker.dket.docker.DRet;
-import io.enoa.docker.dket.docker.common.ECreatedWithWarning;
-import io.enoa.docker.dket.docker.container.*;
 import io.enoa.docker.stream.DStream;
 import io.enoa.docker.thr.DockerException;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
@@ -47,6 +47,10 @@ public class EnoaDockerContainer {
 
   public DRet<List<EContainer>> list(DQPContainerList dqp) {
     return this.container.list(DIParser.containerlist(), dqp);
+  }
+
+  public DRet<ECreatedWithWarning> create(String name, DQPContainerCreate dqp) {
+    return this.create(name, dqp == null ? null : dqp.dqr().json());
   }
 
   public DRet<ECreatedWithWarning> create(String name, String body) {

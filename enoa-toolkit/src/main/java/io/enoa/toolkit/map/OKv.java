@@ -35,6 +35,19 @@ public class OKv extends LinkedHashMap<String, Object> implements FastKv<OKv> {
   private boolean skipcase;
 
   public OKv() {
+    super();
+  }
+
+  public OKv(int initialCapacity, float loadFactor) {
+    super(initialCapacity, loadFactor);
+  }
+
+  public OKv(int initialCapacity) {
+    super(initialCapacity);
+  }
+
+  public OKv(int initialCapacity, float loadFactor, boolean accessOrder) {
+    super(initialCapacity, loadFactor, accessOrder);
   }
 
   public static OKv by(String key, Object value) {
@@ -47,6 +60,18 @@ public class OKv extends LinkedHashMap<String, Object> implements FastKv<OKv> {
 
   public static OKv create() {
     return new OKv();
+  }
+
+  public static OKv create(int initialCapacity, float loadFactor) {
+    return new OKv(initialCapacity, loadFactor);
+  }
+
+  public static OKv create(int initialCapacity) {
+    return new OKv(initialCapacity);
+  }
+
+  public static OKv create(int initialCapacity, float loadFactor, boolean accessOrder) {
+    return new OKv(initialCapacity, loadFactor, accessOrder);
   }
 
   public Kv kv() {

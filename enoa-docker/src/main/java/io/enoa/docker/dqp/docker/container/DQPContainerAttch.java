@@ -42,9 +42,17 @@ public class DQPContainerAttch implements DQP {
     return this;
   }
 
+  public DQPContainerAttch logs() {
+    return this.logs(Boolean.TRUE);
+  }
+
   public DQPContainerAttch logs(boolean logs) {
     this.logs = logs;
     return this;
+  }
+
+  public DQPContainerAttch stream() {
+    return this.stream(Boolean.TRUE);
   }
 
   public DQPContainerAttch stream(boolean stream) {
@@ -52,14 +60,26 @@ public class DQPContainerAttch implements DQP {
     return this;
   }
 
+  public DQPContainerAttch stdin() {
+    return this.stdin(Boolean.TRUE);
+  }
+
   public DQPContainerAttch stdin(boolean stdin) {
     this.stdin = stdin;
     return this;
   }
 
+  public DQPContainerAttch stdout() {
+    return this.stdout(Boolean.TRUE);
+  }
+
   public DQPContainerAttch stdout(boolean stdout) {
     this.stdout = stdout;
     return this;
+  }
+
+  public DQPContainerAttch stderr() {
+    return this.stderr(Boolean.TRUE);
   }
 
   public DQPContainerAttch stderr(boolean stderr) {
@@ -73,15 +93,15 @@ public class DQPContainerAttch implements DQP {
     if (TextKit.blankn(detachkeys))
       dqr.put("detachKeys", this.detachkeys);
     if (this.logs)
-      dqr.put("logs", this.logs);
+      dqr.put("logs", 1);
     if (this.stream)
-      dqr.put("stream", this.stream);
+      dqr.put("stream", 1);
     if (this.stdin)
-      dqr.put("stdin", this.stdin);
+      dqr.put("stdin", 1);
     if (this.stdout)
-      dqr.put("stdout", this.stdout);
+      dqr.put("stdout", 1);
     if (this.stderr)
-      dqr.put("stderr", this.stderr);
+      dqr.put("stderr", 1);
     return dqr;
   }
 

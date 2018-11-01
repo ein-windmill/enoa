@@ -25,6 +25,19 @@ public class Kv extends HashMap<String, Object> implements FastKv<Kv> {
   private boolean skipcase;
 
   public Kv() {
+    super();
+  }
+
+  public Kv(int initialCapacity, float loadFactor) {
+    super(initialCapacity, loadFactor);
+  }
+
+  public Kv(int initialCapacity) {
+    super(initialCapacity);
+  }
+
+  private Kv(Map<? extends String, ?> m) {
+    super(m);
   }
 
   public static Kv by(Map<String, ?> map) {
@@ -37,6 +50,14 @@ public class Kv extends HashMap<String, Object> implements FastKv<Kv> {
 
   public static Kv create() {
     return new Kv();
+  }
+
+  public static Kv create(int initialCapacity) {
+    return new Kv(initialCapacity);
+  }
+
+  public static Kv create(int initialCapacity, float loadFactor) {
+    return new Kv(initialCapacity, loadFactor);
   }
 
   public OKv okv() {

@@ -20,17 +20,12 @@ import io.enoa.docker.dket.AbstractDRRet;
 public class ExposedPort extends AbstractDRRet {
 
 
-  public enum Type {
-    TCP,
-    UDP
-  }
-
   private final Integer port;
-  private final Type type;
+  private final NetProtocol protocol;
 
 
   public ExposedPort(Builder builder) {
-    this.type = builder.type;
+    this.protocol = builder.protocol;
     this.port = builder.port;
   }
 
@@ -38,14 +33,14 @@ public class ExposedPort extends AbstractDRRet {
     return port;
   }
 
-  public Type type() {
-    return type;
+  public NetProtocol protocol() {
+    return protocol;
   }
 
   public static class Builder {
 
     private Integer port;
-    private Type type;
+    private NetProtocol protocol;
 
     public ExposedPort build() {
       return new ExposedPort(this);
@@ -56,8 +51,8 @@ public class ExposedPort extends AbstractDRRet {
       return this;
     }
 
-    public Builder type(Type type) {
-      this.type = type;
+    public Builder protocol(NetProtocol protocol) {
+      this.protocol = protocol;
       return this;
     }
   }

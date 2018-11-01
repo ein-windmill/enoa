@@ -18,6 +18,8 @@ package io.enoa.docker.parser.docker;
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dket.docker.DRet;
+import io.enoa.docker.thr.DockerException;
+import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.text.TextKit;
 
@@ -28,6 +30,12 @@ abstract class AbstractParser<T> implements DIParser<T> {
     if (resp == null)
       return DRet.fail(null, null);
     String contenttype = resp.contenttype();
+    if (contenttype == null) {
+      if (this instanceof EVoidParser)
+        return DRet.ok(resp, this.ok(config, resp));
+
+      throw new DockerException(EnoaTipKit.message("eo.tip.docker.serv_no_contenttype"));
+    }
     if (contenttype.equalsIgnoreCase("application/json") ||
       contenttype.equalsIgnoreCase("text/plain")) {
       String origin = resp.string();

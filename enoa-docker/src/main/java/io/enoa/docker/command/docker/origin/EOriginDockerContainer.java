@@ -81,13 +81,13 @@ public interface EOriginDockerContainer {
   DResp list(DQPContainerList dqp);
 
 
-  default DResp create(String name, DQPContainerRun dqp) {
-    return this.create(name, dqp == null ? null : dqp.dqr().json());
-  }
-
   default DResp create(String name, DQPContainerCreate dqp) {
     return this.create(name, dqp == null ? null : dqp.dqr().json());
   }
+
+//  default DResp create(String name, DQPContainerCreate dqp) {
+//    return this.create(name, dqp == null ? null : dqp.dqr().json(), dqp == null ? Boolean.FALSE : dqp.autoremove());
+//  }
 
   /**
    * Create a container
