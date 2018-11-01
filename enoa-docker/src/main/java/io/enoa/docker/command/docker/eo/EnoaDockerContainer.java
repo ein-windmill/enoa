@@ -157,12 +157,12 @@ public class EnoaDockerContainer {
     return this.container.unpause(id);
   }
 
-  public DRet<Void> attach(String id) {
-    return this.container.attach(id);
+  public DRet<String> attach(String id) {
+    return this.container.attach(DIParser.string(), id);
   }
 
-  public DRet<Void> attach(String id, DQPContainerAttch dqp) {
-    return this.container.attach(id, dqp);
+  public DRet<String> attach(String id, DQPContainerAttch dqp) {
+    return this.container.attach(DIParser.string(), id, dqp);
   }
 
   @Deprecated

@@ -182,13 +182,13 @@ public class EGeneicDockerContainer {
     return DIParser.voidx().parse(this.config, origin);
   }
 
-  public DRet<Void> attach(String id) {
-    return this.attach(id, null);
+  public <T> DRet<T> attach(DIParser<T> parser, String id) {
+    return this.attach(parser, id, null);
   }
 
-  public DRet<Void> attach(String id, DQPContainerAttch dqp) {
+  public <T> DRet<T> attach(DIParser<T> parser, String id, DQPContainerAttch dqp) {
     DResp origin = this.container.attach(id, dqp);
-    return DIParser.voidx().parse(this.config, origin);
+    return parser.parse(this.config, origin);
   }
 
   @Deprecated

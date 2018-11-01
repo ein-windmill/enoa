@@ -194,7 +194,7 @@ public class DockerContainerTest extends AbstractDockerTest {
 
   @Test
   public void attach() {
-    DRet<Void> ret = Docker.container().attach("test",
+    DRet<String> ret = Docker.container().attach("test",
       DQP.docker().container().attch()
         .stderr()
         .stdin()
