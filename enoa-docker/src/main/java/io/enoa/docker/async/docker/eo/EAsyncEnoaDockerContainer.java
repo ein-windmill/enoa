@@ -15,8 +15,8 @@
  */
 package io.enoa.docker.async.docker.eo;
 
-import io.enoa.docker.async.docker.EnqueueAssetDocker;
-import io.enoa.docker.async.docker.EnqueueDocker;
+import io.enoa.docker.enqueue.EnqueueAssetDocker;
+import io.enoa.docker.enqueue.EnqueueDocker;
 import io.enoa.docker.command.docker.eo.EnoaDockerContainer;
 import io.enoa.docker.command.docker.eo.EoDocker;
 import io.enoa.docker.dket.docker.DRet;
@@ -42,155 +42,155 @@ public class EAsyncEnoaDockerContainer {
 
 
   public EnqueueAssetDocker<DRet<List<EContainer>>> list() {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.list());
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.list());
   }
 
   public EnqueueAssetDocker<DRet<List<EContainer>>> list(DQPContainerList dqp) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.list(dqp));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.list(dqp));
   }
 
   public EnqueueAssetDocker<DRet<ECreatedWithWarning>> create(String name, DQPContainerCreate dqp) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.create(name, dqp));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.create(name, dqp));
   }
 
   public EnqueueAssetDocker<DRet<ECreatedWithWarning>> create(String name, String body) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.create(name, body));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.create(name, body));
   }
 
   public EnqueueAssetDocker<DRet<ECInspect>> inspect(String id) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.inspect(id));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.inspect(id));
   }
 
   public EnqueueAssetDocker<DRet<ECInspect>> inspect(String id, Boolean size) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.inspect(id, size));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.inspect(id, size));
   }
 
   public EnqueueAssetDocker<DRet<EProcesses>> top(String id) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.top(id));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.top(id));
   }
 
   public EnqueueAssetDocker<DRet<EProcesses>> top(String id, String para) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.top(id, para));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.top(id, para));
   }
 
   public EnqueueAssetDocker<DRet<String>> logs(String id) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.logs(id));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.logs(id));
   }
 
   public EnqueueAssetDocker<DRet<String>> logs(String id, DQPContainerLogs dqp) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.logs(id, dqp));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.logs(id, dqp));
   }
 
   public EnqueueAssetDocker<DRet<List<EChange>>> changes(String id) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.changes(id));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.changes(id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> export(String id) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.export(id));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.export(id));
   }
 
   public EnqueueAssetDocker<DRet<EStatistics>> statistics(String id) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.statistics(id));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.statistics(id));
   }
 
   public EnqueueAssetDocker<DRet<EStatistics>> statistics(String id, DStream<DRet<EStatistics>> dstream) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.statistics(id, dstream));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.statistics(id, dstream));
   }
 
   public EnqueueAssetDocker<DRet<Void>> resize(String id) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.resize(id));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.resize(id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> resize(String id, DQPResize dqp) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.resize(id, dqp));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.resize(id, dqp));
   }
 
   public EnqueueAssetDocker<DRet<Void>> start(String id) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.start(id));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.start(id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> start(String id, DQPContainerStart dqp) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.start(id, dqp));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.start(id, dqp));
   }
 
   public EnqueueAssetDocker<DRet<Void>> stop(String id) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.stop(id));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.stop(id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> stop(String id, DQPContainerTime dqp) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.stop(id, dqp));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.stop(id, dqp));
   }
 
   public EnqueueAssetDocker<DRet<Void>> restart(String id) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.restart(id));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.restart(id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> restart(String id, DQPContainerTime dqp) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.restart(id, dqp));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.restart(id, dqp));
   }
 
   public EnqueueAssetDocker<DRet<Void>> kill(String id) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.kill(id));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.kill(id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> kill(String id, DQPContainerKill dqp) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.kill(id, dqp));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.kill(id, dqp));
   }
 
   public EnqueueAssetDocker<DRet<EUpdate>> update(String id, DQPContainerUpdate dqp) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.update(id, dqp));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.update(id, dqp));
   }
 
   public EnqueueAssetDocker<DRet<EUpdate>> update(String id, String body) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.update(id, body));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.update(id, body));
   }
 
   public EnqueueAssetDocker<DRet<Void>> rename(String id, String name) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.rename(id, name));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.rename(id, name));
   }
 
   public EnqueueAssetDocker<DRet<Void>> pause(String id) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.pause(id));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.pause(id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> unpause(String id) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.unpause(id));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.unpause(id));
   }
 
   public EnqueueAssetDocker<DRet<String>> attach(String id) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.attach(id));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.attach(id));
   }
 
   public EnqueueAssetDocker<DRet<String>> attach(String id, DQPContainerAttch dqp) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.attach(id, dqp));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.attach(id, dqp));
   }
 
   @Deprecated
   public EnqueueAssetDocker<DRet<Void>> ws(String id) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.ws(id));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.ws(id));
   }
 
   public EnqueueAssetDocker<DRet<ECWait>> wait(String id) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.wait(id));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.wait(id));
   }
 
   public EnqueueAssetDocker<DRet<ECWait>> wait(String id, String condition) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.wait(id, condition));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.wait(id, condition));
   }
 
   public EnqueueAssetDocker<DRet<Void>> remove(String id) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.remove(id));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.remove(id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> remove(String id, DQPContainerRemove dqp) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.remove(id, dqp));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.remove(id, dqp));
   }
 
   public EnqueueAssetDocker<DRet<ECPrune>> prune() {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.prune());
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.prune());
   }
 
   public EnqueueAssetDocker<DRet<ECPrune>> prune(DQPFilter dqp) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.container.prune(dqp));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.container.prune(dqp));
   }
 }

@@ -15,8 +15,8 @@
  */
 package io.enoa.docker.async.docker.eo;
 
-import io.enoa.docker.async.docker.EnqueueAssetDocker;
-import io.enoa.docker.async.docker.EnqueueDocker;
+import io.enoa.docker.enqueue.EnqueueAssetDocker;
+import io.enoa.docker.enqueue.EnqueueDocker;
 import io.enoa.docker.command.docker.eo.EnoaDockerSystem;
 import io.enoa.docker.command.docker.eo.EoDocker;
 import io.enoa.docker.dket.docker.DRet;
@@ -40,30 +40,30 @@ public class EAsyncEnoaDockerSystem {
 
 
   public EnqueueAssetDocker<DRet<EAuth>> auth(DQPSystemAuth dqp) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.system.auth(dqp));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.system.auth(dqp));
   }
 
   public EnqueueAssetDocker<DRet<EDockerInfo>> info() {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.system.info());
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.system.info());
   }
 
   public EnqueueAssetDocker<DRet<EYVersion>> version() {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.system.version());
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.system.version());
   }
 
   public EnqueueAssetDocker<DRet<String>> ping() {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.system.ping());
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.system.ping());
   }
 
   public EnqueueAssetDocker<DRet<EMonitor>> monitor() {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.system.monitor());
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.system.monitor());
   }
 
   public EnqueueAssetDocker<DRet<EMonitor>> monitor(DQPMonitor dqp) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.system.monitor(dqp));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.system.monitor(dqp));
   }
 
   public EnqueueAssetDocker<DRet<Edf>> df() {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.system.df());
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.system.df());
   }
 }

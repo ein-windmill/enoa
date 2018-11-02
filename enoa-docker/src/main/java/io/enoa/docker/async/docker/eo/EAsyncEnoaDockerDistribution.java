@@ -15,8 +15,8 @@
  */
 package io.enoa.docker.async.docker.eo;
 
-import io.enoa.docker.async.docker.EnqueueAssetDocker;
-import io.enoa.docker.async.docker.EnqueueDocker;
+import io.enoa.docker.enqueue.EnqueueAssetDocker;
+import io.enoa.docker.enqueue.EnqueueDocker;
 import io.enoa.docker.command.docker.eo.EnoaDockerDistribution;
 import io.enoa.docker.command.docker.eo.EoDocker;
 import io.enoa.docker.dket.docker.DRet;
@@ -34,6 +34,6 @@ public class EAsyncEnoaDockerDistribution {
 
 
   public EnqueueAssetDocker<DRet<EDistribution>> distribution(String id) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.distribution.distribution(id));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.distribution.distribution(id));
   }
 }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.async.docker;
+package io.enoa.docker.enqueue;
 
 import io.enoa.docker.dket.docker.DRet;
 import io.enoa.promise.async.AsyncRunner;
@@ -26,7 +26,7 @@ public interface EnqueueDocker<T> {
     return new _DockerDoneargEnqueueImpl<>(executor, runner);
   }
 
-  static <PARA> EnqueueAssetDocker<DRet<PARA>> asset(ExecutorService executor, AsyncRunner<DRet<PARA>> runner) {
+  static <PARA> EnqueueAssetDocker<DRet<PARA>> asseter(ExecutorService executor, AsyncRunner<DRet<PARA>> runner) {
     return new _DockerAssetEnqueueImpl<>(executor, runner);
   }
 

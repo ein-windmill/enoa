@@ -16,8 +16,8 @@
 package io.enoa.docker.async.docker.eo;
 
 import io.enoa.docker.DockerConfig;
-import io.enoa.docker.async.docker.EnqueueAssetDocker;
-import io.enoa.docker.async.docker.EnqueueDocker;
+import io.enoa.docker.enqueue.EnqueueAssetDocker;
+import io.enoa.docker.enqueue.EnqueueDocker;
 import io.enoa.docker.command.docker._DockerConfigSupport;
 import io.enoa.docker.command.docker.eo.EoDocker;
 import io.enoa.docker.dket.docker.DRet;
@@ -65,7 +65,7 @@ public class EAsyncEnoaDocker implements _DockerConfigSupport {
   }
 
   public EnqueueAssetDocker<DRet<EDockerInfo>> info() {
-    return EnqueueDocker.asset(this._dockerconfig().executor(), () -> this.docker.info());
+    return EnqueueDocker.asseter(this._dockerconfig().executor(), () -> this.docker.info());
   }
 
   public EAsyncEnoaDockerConfig config() {

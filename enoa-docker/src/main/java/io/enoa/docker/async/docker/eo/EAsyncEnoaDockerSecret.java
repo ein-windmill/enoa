@@ -15,8 +15,8 @@
  */
 package io.enoa.docker.async.docker.eo;
 
-import io.enoa.docker.async.docker.EnqueueAssetDocker;
-import io.enoa.docker.async.docker.EnqueueDocker;
+import io.enoa.docker.enqueue.EnqueueAssetDocker;
+import io.enoa.docker.enqueue.EnqueueDocker;
 import io.enoa.docker.command.docker.eo.EnoaDockerSecret;
 import io.enoa.docker.command.docker.eo.EoDocker;
 import io.enoa.docker.dket.docker.DRet;
@@ -39,26 +39,26 @@ public class EAsyncEnoaDockerSecret {
 
 
   public EnqueueAssetDocker<DRet<List<ESecret>>> list() {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.secret.list());
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.secret.list());
   }
 
   public EnqueueAssetDocker<DRet<List<ESecret>>> list(DQPFilter dqp) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.secret.list(dqp));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.secret.list(dqp));
   }
 
   public EnqueueAssetDocker<DRet<ECreated>> create(String body) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.secret.create(body));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.secret.create(body));
   }
 
   public EnqueueAssetDocker<DRet<ESecret>> inspect(String id) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.secret.inspect(id));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.secret.inspect(id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> remove(String id) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.secret.remove(id));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.secret.remove(id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> update(String id, long version, String body) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.secret.update(id, version, body));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.secret.update(id, version, body));
   }
 }

@@ -15,8 +15,8 @@
  */
 package io.enoa.docker.async.docker.generic;
 
-import io.enoa.docker.async.docker.EnqueueAssetDocker;
-import io.enoa.docker.async.docker.EnqueueDocker;
+import io.enoa.docker.enqueue.EnqueueAssetDocker;
+import io.enoa.docker.enqueue.EnqueueDocker;
 import io.enoa.docker.command.docker.generic.EGenericDockerSystem;
 import io.enoa.docker.command.docker.generic.GenericDocker;
 import io.enoa.docker.dket.docker.DRet;
@@ -36,30 +36,30 @@ public class EAsyncGenericDockerSystem {
 
 
   public <T> EnqueueAssetDocker<DRet<T>> auth(DIParser<T> parser, DQPSystemAuth dqp) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.system.auth(parser, dqp));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.system.auth(parser, dqp));
   }
 
   public <T> EnqueueAssetDocker<DRet<T>> info(DIParser<T> parser) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.system.info(parser));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.system.info(parser));
   }
 
   public <T> EnqueueAssetDocker<DRet<T>> version(DIParser<T> parser) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.system.version(parser));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.system.version(parser));
   }
 
   public <T> EnqueueAssetDocker<DRet<T>> ping(DIParser<T> parser) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.system.ping(parser));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.system.ping(parser));
   }
 
   public <T> EnqueueAssetDocker<DRet<T>> monitor(DIParser<T> parser) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.system.monitor(parser));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.system.monitor(parser));
   }
 
   public <T> EnqueueAssetDocker<DRet<T>> monitor(DIParser<T> parser, DQPMonitor dqp) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.system.monitor(parser, dqp));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.system.monitor(parser, dqp));
   }
 
   public <T> EnqueueAssetDocker<DRet<T>> df(DIParser<T> parser) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.system.df(parser));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.system.df(parser));
   }
 }

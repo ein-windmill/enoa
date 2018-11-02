@@ -15,8 +15,8 @@
  */
 package io.enoa.docker.async.docker.eo;
 
-import io.enoa.docker.async.docker.EnqueueAssetDocker;
-import io.enoa.docker.async.docker.EnqueueDocker;
+import io.enoa.docker.enqueue.EnqueueAssetDocker;
+import io.enoa.docker.enqueue.EnqueueDocker;
 import io.enoa.docker.command.docker.eo.EnoaDockerNode;
 import io.enoa.docker.command.docker.eo.EoDocker;
 import io.enoa.docker.dket.docker.DRet;
@@ -38,22 +38,22 @@ public class EAsyncEnoaDockerNode  {
 
 
   public EnqueueAssetDocker<DRet<List<ENode>>> nodes(DQPFilter dqp) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.node.nodes(dqp));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.node.nodes(dqp));
   }
 
   public EnqueueAssetDocker<DRet<ENode>> inspect(String id) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.node.inspect(id));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.node.inspect(id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> remove(String id) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.node.remove(id));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.node.remove(id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> remove(String id, boolean force) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.node.remove(id, force));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.node.remove(id, force));
   }
 
   public EnqueueAssetDocker<DRet<Void>> update(String id, long version, String body) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.node.update(id, version, body));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.node.update(id, version, body));
   }
 }

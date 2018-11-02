@@ -15,8 +15,8 @@
  */
 package io.enoa.docker.async.docker.eo;
 
-import io.enoa.docker.async.docker.EnqueueAssetDocker;
-import io.enoa.docker.async.docker.EnqueueDocker;
+import io.enoa.docker.enqueue.EnqueueAssetDocker;
+import io.enoa.docker.enqueue.EnqueueDocker;
 import io.enoa.docker.command.docker.eo.EnoaDockerConfig;
 import io.enoa.docker.command.docker.eo.EoDocker;
 import io.enoa.docker.dket.docker.DRet;
@@ -39,26 +39,26 @@ public class EAsyncEnoaDockerConfig {
 
 
   public EnqueueAssetDocker<DRet<List<EConfig>>> list() {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.config.list());
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.config.list());
   }
 
   public EnqueueAssetDocker<DRet<List<EConfig>>> list(DQPFilter dqp) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.config.list(dqp));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.config.list(dqp));
   }
 
   public EnqueueAssetDocker<DRet<ECreated>> create(String body) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.config.create(body));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.config.create(body));
   }
 
   public EnqueueAssetDocker<DRet<EConfig>> inspect(String id) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.config.inspect(id));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.config.inspect(id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> remove(String id) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.config.remove(id));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.config.remove(id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> update(String id, long version, String body) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.config.update(id, version, body));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.config.update(id, version, body));
   }
 }

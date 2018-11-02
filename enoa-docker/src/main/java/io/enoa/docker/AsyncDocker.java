@@ -15,7 +15,7 @@
  */
 package io.enoa.docker;
 
-import io.enoa.docker.async.docker.EnqueueAssetDocker;
+import io.enoa.docker.enqueue.EnqueueAssetDocker;
 import io.enoa.docker.async.docker.eo.*;
 import io.enoa.docker.async.docker.generic.EAsyncGenericDocker;
 import io.enoa.docker.async.docker.origin.EAsyncOriginDocker;

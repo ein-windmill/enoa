@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.async.docker;
+package io.enoa.docker.enqueue;
 
 import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.promise.DockerAssetPromise;
@@ -27,7 +27,7 @@ import io.enoa.toolkit.collection.CollectionKit;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 
-public class _DockerAssetEnqueueImpl<PARA> implements EnqueueAssetDocker<DRet<PARA>> {
+class _DockerAssetEnqueueImpl<PARA> implements EnqueueAssetDocker<DRet<PARA>> {
 
   private ExecutorService executor;
   private AsyncRunner<DRet<PARA>> runner;

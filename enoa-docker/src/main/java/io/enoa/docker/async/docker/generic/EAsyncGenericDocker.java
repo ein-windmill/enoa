@@ -16,8 +16,8 @@
 package io.enoa.docker.async.docker.generic;
 
 import io.enoa.docker.DockerConfig;
-import io.enoa.docker.async.docker.EnqueueAssetDocker;
-import io.enoa.docker.async.docker.EnqueueDocker;
+import io.enoa.docker.enqueue.EnqueueAssetDocker;
+import io.enoa.docker.enqueue.EnqueueDocker;
 import io.enoa.docker.command.docker._DockerConfigSupport;
 import io.enoa.docker.command.docker.generic.GenericDocker;
 import io.enoa.docker.dket.docker.DRet;
@@ -66,7 +66,7 @@ public class EAsyncGenericDocker implements _DockerConfigSupport {
   }
 
   public <T> EnqueueAssetDocker<DRet<T>> info(DIParser<T> parser) {
-    return EnqueueDocker.asset(this._dockerconfig().executor(), () -> this.docker.info(parser));
+    return EnqueueDocker.asseter(this._dockerconfig().executor(), () -> this.docker.info(parser));
   }
 
   public EAsyncGenericDockerConfig config() {

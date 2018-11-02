@@ -15,8 +15,8 @@
  */
 package io.enoa.docker.async.docker.generic;
 
-import io.enoa.docker.async.docker.EnqueueAssetDocker;
-import io.enoa.docker.async.docker.EnqueueDocker;
+import io.enoa.docker.enqueue.EnqueueAssetDocker;
+import io.enoa.docker.enqueue.EnqueueDocker;
 import io.enoa.docker.command.docker.generic.EGenericDockerDistribution;
 import io.enoa.docker.command.docker.generic.GenericDocker;
 import io.enoa.docker.dket.docker.DRet;
@@ -33,6 +33,6 @@ public class EAsyncGenericDockerDistribution {
   }
 
   public <T> EnqueueAssetDocker<DRet<T>> distribution(DIParser<T> parser, String id) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.distribution.distribution(parser, id));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.distribution.distribution(parser, id));
   }
 }

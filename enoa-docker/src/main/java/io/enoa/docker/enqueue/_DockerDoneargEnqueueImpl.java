@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.async.docker;
+package io.enoa.docker.enqueue;
 
 import io.enoa.docker.promise.DockerDoneargPromise;
 import io.enoa.promise.DoneArgPromise;

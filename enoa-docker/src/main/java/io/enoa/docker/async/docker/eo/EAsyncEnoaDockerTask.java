@@ -15,8 +15,8 @@
  */
 package io.enoa.docker.async.docker.eo;
 
-import io.enoa.docker.async.docker.EnqueueAssetDocker;
-import io.enoa.docker.async.docker.EnqueueDocker;
+import io.enoa.docker.enqueue.EnqueueAssetDocker;
+import io.enoa.docker.enqueue.EnqueueDocker;
 import io.enoa.docker.command.docker.eo.EnoaDockerTask;
 import io.enoa.docker.command.docker.eo.EoDocker;
 import io.enoa.docker.dket.docker.DRet;
@@ -37,14 +37,14 @@ public class EAsyncEnoaDockerTask {
 
 
   public <T> EnqueueAssetDocker<DRet<List<T>>> list(DIParser<List<T>> parser) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.task.list(parser));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.task.list(parser));
   }
 
   public <T> EnqueueAssetDocker<DRet<List<T>>> list(DIParser<List<T>> parser, DQPFilter dqp) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.task.list(parser, dqp));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.task.list(parser, dqp));
   }
 
   public <T> EnqueueAssetDocker<DRet<T>> inspect(DIParser<T> parser, String id) {
-    return EnqueueDocker.asset(this.docker._dockerconfig().executor(), () -> this.task.inspect(parser, id));
+    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.task.inspect(parser, id));
   }
 }

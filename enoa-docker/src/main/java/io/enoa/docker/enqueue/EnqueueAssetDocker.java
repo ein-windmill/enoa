@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.async.docker;
+package io.enoa.docker.enqueue;
 
-import io.enoa.docker.promise.DockerDoneargPromise;
+import io.enoa.docker.promise.DockerAssetPromise;
 
-public interface EnqueueDoneargDocker<T> extends EnqueueDocker<DockerDoneargPromise<T>> {
-
+public interface EnqueueAssetDocker<T> extends EnqueueDocker<DockerAssetPromise<T>> {
 
   @Override
-  DockerDoneargPromise<T> enqueue();
+  DockerAssetPromise<T> enqueue();
+
 }
