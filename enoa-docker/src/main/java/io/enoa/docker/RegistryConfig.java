@@ -19,9 +19,11 @@ import io.enoa.docker.thr.RegistryException;
 import io.enoa.http.EoHttp;
 import io.enoa.json.EnoaJson;
 import io.enoa.json.EoJsonFactory;
+import io.enoa.promise.builder.PromiseBuilder;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 
 import java.io.Serializable;
+import java.util.concurrent.ExecutorService;
 
 public class RegistryConfig implements Serializable {
 
@@ -33,6 +35,7 @@ public class RegistryConfig implements Serializable {
   private final EoHttp http;
   private final String version;
   private final EnoaJson json;
+  private final ExecutorService executor;
 
   public RegistryConfig(Builder builder) {
     this.host = builder.host;
@@ -43,6 +46,11 @@ public class RegistryConfig implements Serializable {
     this.dockerhub = builder.dockerhub;
     this.version = builder.version;
     this.json = builder.json.json();
+    this.executor = builder.executor;
+  }
+
+  public ExecutorService executor() {
+    return executor;
   }
 
   public String version() {
@@ -86,6 +94,7 @@ public class RegistryConfig implements Serializable {
     private EoHttp http;
     private String version;
     private EoJsonFactory json;
+    private ExecutorService executor;
 
     public Builder() {
       this.ssl = Boolean.FALSE;
@@ -93,12 +102,18 @@ public class RegistryConfig implements Serializable {
       this.dockerhub = Boolean.FALSE;
       this.http = EoHttp.def();
       this.version = "v2";
+      this.executor = PromiseBuilder.executor().enqueue("Registry Dispatcher");
     }
 
     public RegistryConfig build() {
       if (this.json == null)
         throw new RegistryException(EnoaTipKit.message("eo.tip.docker.no_json"));
       return new RegistryConfig(this);
+    }
+
+    public Builder executor(ExecutorService executor) {
+      this.executor = executor;
+      return this;
     }
 
     public Builder dockerhub(Boolean dockerhub) {

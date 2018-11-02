@@ -39,42 +39,42 @@ public class EAsyncEnoaDockerSwarm {
 
 
   public EnqueueAssetDocker<DRet<ESwarmInspect>> inspect() {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.swarm.inspect());
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.swarm.inspect());
   }
 
   public EnqueueAssetDocker<DRet<String>> init(String body) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.swarm.init(body));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.swarm.init(body));
   }
 
   public EnqueueAssetDocker<DRet<Void>> join(String body) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.swarm.join(body));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.swarm.join(body));
   }
 
   public EnqueueAssetDocker<DRet<Void>> join(DQPSwarmJoin dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.swarm.join(dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.swarm.join(dqp));
   }
 
   public EnqueueAssetDocker<DRet<Void>> leave() {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.swarm.leave());
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.swarm.leave());
   }
 
   public EnqueueAssetDocker<DRet<Void>> leave(boolean force) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.swarm.leave(force));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.swarm.leave(force));
   }
 
   public EnqueueAssetDocker<DRet<Void>> update(DQPSwarmUpdate dqp, String body) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.swarm.update(dqp, body));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.swarm.update(dqp, body));
   }
 
   public EnqueueAssetDocker<DRet<ESwarmUnlockKey>> unlockkey() {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.swarm.unlockkey());
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.swarm.unlockkey());
   }
 
   public EnqueueAssetDocker<DRet<Void>> unlock(String body) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.swarm.unlock(body));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.swarm.unlock(body));
   }
 
   public EnqueueAssetDocker<DRet<Void>> unlock(DQPSwarmUnlock dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.swarm.unlock(dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.swarm.unlock(dqp));
   }
 }

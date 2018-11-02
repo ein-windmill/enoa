@@ -17,16 +17,23 @@ package io.enoa.docker.command.registry.generic;
 
 import io.enoa.docker.RegistryConfig;
 import io.enoa.docker.command.registry.origin.OriginRegistry;
-import io.enoa.docker.parser.registry.RIParser;
 import io.enoa.docker.dket.registry.RResp;
 import io.enoa.docker.dket.registry.RRet;
+import io.enoa.docker.parser.registry.RIParser;
 
 public class EGenericRegistryImpl implements GenericRegistry {
 
   private OriginRegistry registry;
 
+  private GenericManifests manifests;
+  private GenericBlob blob;
+  private GenericUpload upload;
+
   public EGenericRegistryImpl(OriginRegistry registry) {
     this.registry = registry;
+    this.manifests = new GenericManifests(this.registry);
+    this.blob = new GenericBlob(this.registry);
+    this.upload = new GenericUpload(this.registry);
   }
 
   @Override
@@ -48,17 +55,17 @@ public class EGenericRegistryImpl implements GenericRegistry {
 
   @Override
   public GenericManifests manifests() {
-    return new GenericManifests(this.registry);
+    return this.manifests;
   }
 
   @Override
   public GenericBlob blob() {
-    return new GenericBlob(this.registry);
+    return this.blob;
   }
 
   @Override
   public GenericUpload upload() {
-    return new GenericUpload(this.registry);
+    return this.upload;
   }
 
 }

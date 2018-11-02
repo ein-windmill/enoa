@@ -15,6 +15,9 @@
  */
 package io.enoa.docker;
 
+import io.enoa.docker.async.registry.eo.EAsyncEnoaRegistry;
+import io.enoa.docker.async.registry.generic.EAsyncGenericRegistry;
+import io.enoa.docker.async.registry.origin.EAsyncOriginRegistry;
 import io.enoa.docker.command.registry.eo.EERegistryImpl;
 import io.enoa.docker.command.registry.eo.EoRegistry;
 import io.enoa.docker.command.registry.generic.EGenericRegistryImpl;
@@ -40,10 +43,19 @@ public class EPMRegistry {
   private Map<String, GenericRegistry> generic;
   private Map<String, EoRegistry> eo;
 
+  private Map<String, AsyncRegistry> async;
+  private Map<String, EAsyncOriginRegistry> asyncorigin;
+  private Map<String, EAsyncGenericRegistry> asyncgeneric;
+  private Map<String, EAsyncEnoaRegistry> asynceo;
+
   private EPMRegistry() {
     this.origin = new ConcurrentHashMap<>();
     this.generic = new ConcurrentHashMap<>();
     this.eo = new ConcurrentHashMap<>();
+    this.async = new ConcurrentHashMap<>();
+    this.asynceo = new ConcurrentHashMap<>();
+    this.asyncorigin = new ConcurrentHashMap<>();
+    this.asyncgeneric = new ConcurrentHashMap<>();
   }
 
   public void install(String name, RegistryConfig config) {
@@ -107,6 +119,48 @@ public class EPMRegistry {
 
   public EoRegistry registry() {
     return this.registry("main");
+  }
+
+
+  public AsyncRegistry async(String name) {
+    AsyncRegistry registry = this.async.get(name);
+    if (registry != null)
+      return registry;
+    registry = new AsyncRegistry(name);
+    this.async.put(name, registry);
+    return registry;
+  }
+
+  public AsyncRegistry async() {
+    return this.async("main");
+  }
+
+
+  EAsyncOriginRegistry asyncorigin(String name) {
+    EAsyncOriginRegistry registry = this.asyncorigin.get(name);
+    if (registry != null)
+      return registry;
+    registry = new EAsyncOriginRegistry(this.origin(name));
+    this.asyncorigin.put(name, registry);
+    return registry;
+  }
+
+  EAsyncGenericRegistry asyncgeneric(String name) {
+    EAsyncGenericRegistry registry = this.asyncgeneric.get(name);
+    if (registry != null)
+      return registry;
+    registry = new EAsyncGenericRegistry(this.generic(name));
+    this.asyncgeneric.put(name, registry);
+    return registry;
+  }
+
+  EAsyncEnoaRegistry asynceo(String name) {
+    EAsyncEnoaRegistry registry = this.asynceo.get(name);
+    if (registry != null)
+      return registry;
+    registry = new EAsyncEnoaRegistry(this.registry(name));
+    this.asynceo.put(name, registry);
+    return registry;
   }
 
 }

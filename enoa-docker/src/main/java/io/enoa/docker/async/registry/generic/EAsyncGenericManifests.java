@@ -13,4 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.async.hub;
+package io.enoa.docker.async.registry.generic;
+
+import io.enoa.docker.command.registry.generic.GenericManifests;
+import io.enoa.docker.command.registry.generic.GenericRegistry;
+
+public class EAsyncGenericManifests {
+
+  private GenericRegistry registry;
+  private GenericManifests manifests;
+
+  EAsyncGenericManifests(GenericRegistry registry) {
+    this.manifests = registry.manifests();
+    this.registry = registry;
+  }
+
+}

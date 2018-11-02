@@ -22,9 +22,7 @@ import io.enoa.promise.arg.*;
 import io.enoa.promise.async.AsyncRunner;
 import io.enoa.promise.builder.EPAssetPromiseBuilder;
 import io.enoa.promise.builder.PromiseBuilder;
-import io.enoa.toolkit.collection.CollectionKit;
 
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 
 class _DockerAssetEnqueueImpl<PARA> implements EnqueueAssetDocker<DRet<PARA>> {
@@ -40,53 +38,7 @@ class _DockerAssetEnqueueImpl<PARA> implements EnqueueAssetDocker<DRet<PARA>> {
   @Override
   public DockerAssetPromise<DRet<PARA>> enqueue() {
     EPAssetPromiseBuilder<DRet<PARA>> builder = PromiseBuilder.asset();
-    this.executor.execute(() -> {
-      try {
-        String oldName = Thread.currentThread().getName();
-//        DRet<PARA> ret = this.runner.run();
-        DRet<PARA> ret = this.runner.run();
-
-        List<PromiseBool> assets = builder.assets();
-        boolean pass = Boolean.TRUE;
-        for (PromiseBool asset : assets) {
-          boolean asret = asset.execute(ret);
-          if (asret)
-            continue;
-          pass = Boolean.FALSE;
-          break;
-        }
-        if (!pass) {
-          List<PromiseArg> failthrows = builder.failthrows();
-          for (PromiseArg failthrow : failthrows) {
-            failthrow.execute(ret);
-          }
-          return;
-        }
-
-        Object tmp = ret;
-        List<PromiseThen> thens = builder.thens();
-        for (PromiseThen then : thens) {
-          tmp = then.execute(tmp);
-        }
-
-        List<PromiseArg> executes = builder.executes();
-        for (PromiseArg execute : executes) {
-          execute.execute(tmp);
-        }
-      } catch (Exception e) {
-        List<PromiseCapture> captures = builder.captures();
-        if (CollectionKit.isEmpty(captures)) {
-          e.printStackTrace();
-          return;
-        }
-        for (PromiseCapture capture : captures) {
-          capture.execute(e);
-        }
-      } finally {
-        if (builder.always() != null)
-          builder.always().execute();
-      }
-    });
+    this.executor.execute(new _EnqueueThread(builder, this.runner.run()));
     AssetPromise<DRet<PARA>> promise = builder.build();
     return new DockerAssetPromise<DRet<PARA>>() {
       @Override

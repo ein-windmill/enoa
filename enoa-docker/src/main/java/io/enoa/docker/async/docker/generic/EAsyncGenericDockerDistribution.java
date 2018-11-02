@@ -33,6 +33,6 @@ public class EAsyncGenericDockerDistribution {
   }
 
   public <T> EnqueueAssetDocker<DRet<T>> distribution(DIParser<T> parser, String id) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.distribution.distribution(parser, id));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.distribution.distribution(parser, id));
   }
 }

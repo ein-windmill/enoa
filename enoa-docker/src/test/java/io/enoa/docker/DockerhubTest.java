@@ -18,6 +18,8 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.util.concurrent.TimeUnit;
+
 @Ignore
 public class DockerhubTest {
 
@@ -95,4 +97,26 @@ public class DockerhubTest {
     System.out.println(json);
   }
 
+
+  @Test
+  public void testEnqueue() {
+    Dockerhub.async()
+      .inspect("library/nginx")
+      .enqueue()
+      .asset(HRet::ok)
+      .failthrow(ret -> System.err.println(ret.message()))
+      .<HRet<EHRepository>>then(HRet::data)
+      .<EHRepository>execute(repo -> System.out.println(Json.toJson(repo)))
+      .capture(System.err::println)
+      .always(() -> System.out.println("Always"));
+    this.sleep();
+  }
+
+  private void sleep() {
+    try {
+      TimeUnit.SECONDS.sleep(4L);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
 }

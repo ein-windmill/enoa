@@ -34,6 +34,6 @@ public class EAsyncEnoaDockerDistribution {
 
 
   public EnqueueAssetDocker<DRet<EDistribution>> distribution(String id) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.distribution.distribution(id));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.distribution.distribution(id));
   }
 }

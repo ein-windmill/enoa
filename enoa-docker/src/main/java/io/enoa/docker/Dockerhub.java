@@ -15,11 +15,9 @@
  */
 package io.enoa.docker;
 
-import io.enoa.docker.command.hub.eo.EnoaDockerHub;
+import io.enoa.docker.command.hub.eo.EnoaDockerhub;
 import io.enoa.docker.command.hub.generic.GenericDockerhub;
 import io.enoa.docker.command.hub.origin.OriginDockerhub;
-import io.enoa.docker.dqp.common.DQPPage;
-import io.enoa.docker.dqp.dockerhub.DQPSearch;
 import io.enoa.docker.dket.dockerhub.HRet;
 import io.enoa.docker.dket.dockerhub.build.EHAutobuild;
 import io.enoa.docker.dket.dockerhub.build.EHBuildHistory;
@@ -27,6 +25,8 @@ import io.enoa.docker.dket.dockerhub.explore.EHExplore;
 import io.enoa.docker.dket.dockerhub.inspece.EHRepository;
 import io.enoa.docker.dket.dockerhub.search.EHSearch;
 import io.enoa.docker.dket.dockerhub.tag.EHTag;
+import io.enoa.docker.dqp.common.DQPPage;
+import io.enoa.docker.dqp.dockerhub.DQPSearch;
 
 public class Dockerhub {
 
@@ -42,10 +42,13 @@ public class Dockerhub {
     return epm().generic();
   }
 
-  public static EnoaDockerHub use() {
+  public static EnoaDockerhub use() {
     return epm().dockerhub();
   }
 
+  public static AsyncDockerhub async() {
+    return epm().async();
+  }
 
   public static HRet<EHExplore> explore() {
     return use().explore();

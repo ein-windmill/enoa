@@ -37,22 +37,22 @@ public class EAsyncGenericDockerNode {
   }
 
   public <T> EnqueueAssetDocker<DRet<List<T>>> nodes(DIParser<List<T>> parser, DQPFilter dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.node.nodes(parser, dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.node.nodes(parser, dqp));
   }
 
   public <T> EnqueueAssetDocker<DRet<T>> inspect(DIParser<T> parser, String id) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.node.inspect(parser, id));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.node.inspect(parser, id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> remove(String id) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.node.remove(id));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.node.remove(id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> remove(String id, boolean force) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.node.remove(id, force));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.node.remove(id, force));
   }
 
   public EnqueueAssetDocker<DRet<Void>> update(String id, long version, String body) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.node.update(id, version, body));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.node.update(id, version, body));
   }
 }

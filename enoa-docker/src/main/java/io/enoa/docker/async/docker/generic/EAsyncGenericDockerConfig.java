@@ -37,26 +37,26 @@ public class EAsyncGenericDockerConfig {
   }
 
   public <T> EnqueueAssetDocker<DRet<List<T>>> list(DIParser<List<T>> parser) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.config.list(parser));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.config.list(parser));
   }
 
   public <T> EnqueueAssetDocker<DRet<List<T>>> list(DIParser<List<T>> parser, DQPFilter dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.config.list(parser, dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.config.list(parser, dqp));
   }
 
   public <T> EnqueueAssetDocker<DRet<T>> create(DIParser<T> parser, String body) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.config.create(parser, body));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.config.create(parser, body));
   }
 
   public <T> EnqueueAssetDocker<DRet<T>> inspect(DIParser<T> parser, String id) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.config.inspect(parser, id));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.config.inspect(parser, id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> remove(String id) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.config.remove(id));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.config.remove(id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> update(String id, long version, String body) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.config.update(id, version, body));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.config.update(id, version, body));
   }
 }

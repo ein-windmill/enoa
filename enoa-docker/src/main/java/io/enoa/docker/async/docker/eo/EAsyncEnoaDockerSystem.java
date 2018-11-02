@@ -40,30 +40,30 @@ public class EAsyncEnoaDockerSystem {
 
 
   public EnqueueAssetDocker<DRet<EAuth>> auth(DQPSystemAuth dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.system.auth(dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.system.auth(dqp));
   }
 
   public EnqueueAssetDocker<DRet<EDockerInfo>> info() {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.system.info());
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.system.info());
   }
 
   public EnqueueAssetDocker<DRet<EYVersion>> version() {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.system.version());
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.system.version());
   }
 
   public EnqueueAssetDocker<DRet<String>> ping() {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.system.ping());
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.system.ping());
   }
 
   public EnqueueAssetDocker<DRet<EMonitor>> monitor() {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.system.monitor());
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.system.monitor());
   }
 
   public EnqueueAssetDocker<DRet<EMonitor>> monitor(DQPMonitor dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.system.monitor(dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.system.monitor(dqp));
   }
 
   public EnqueueAssetDocker<DRet<Edf>> df() {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.system.df());
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.system.df());
   }
 }

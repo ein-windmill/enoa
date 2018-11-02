@@ -37,14 +37,14 @@ public class EAsyncEnoaDockerTask {
 
 
   public <T> EnqueueAssetDocker<DRet<List<T>>> list(DIParser<List<T>> parser) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.task.list(parser));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.task.list(parser));
   }
 
   public <T> EnqueueAssetDocker<DRet<List<T>>> list(DIParser<List<T>> parser, DQPFilter dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.task.list(parser, dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.task.list(parser, dqp));
   }
 
   public <T> EnqueueAssetDocker<DRet<T>> inspect(DIParser<T> parser, String id) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.task.inspect(parser, id));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.task.inspect(parser, id));
   }
 }

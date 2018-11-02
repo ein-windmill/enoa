@@ -17,17 +17,25 @@ package io.enoa.docker.command.registry.eo;
 
 import io.enoa.docker.RegistryConfig;
 import io.enoa.docker.command.registry.generic.GenericRegistry;
-import io.enoa.docker.parser.registry.RIParser;
 import io.enoa.docker.dket.registry.RRet;
 import io.enoa.docker.dket.registry.catalog.ECatalog;
 import io.enoa.docker.dket.registry.tag.EITag;
+import io.enoa.docker.parser.registry.RIParser;
 
 public class EERegistryImpl implements EoRegistry {
 
   private GenericRegistry registry;
 
+
+  private EERegistryUpload upload;
+  private EERegistryManifests manifests;
+  private EERegistryBlob blob;
+
   public EERegistryImpl(GenericRegistry registry) {
     this.registry = registry;
+    this.upload = new EERegistryUpload(this.registry);
+    this.manifests = new EERegistryManifests(this.registry);
+    this.blob = new EERegistryBlob(this.registry);
   }
 
   @Override
@@ -47,17 +55,17 @@ public class EERegistryImpl implements EoRegistry {
 
   @Override
   public EERegistryManifests manifests() {
-    return new EERegistryManifests(this.registry);
+    return this.manifests;
   }
 
   @Override
   public EERegistryBlob blob() {
-    return new EERegistryBlob(this.registry);
+    return this.blob;
   }
 
   @Override
   public EERegistryUpload upload() {
-    return new EERegistryUpload(this.registry);
+    return this.upload;
   }
 
 

@@ -39,26 +39,26 @@ public class EAsyncEnoaDockerConfig {
 
 
   public EnqueueAssetDocker<DRet<List<EConfig>>> list() {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.config.list());
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.config.list());
   }
 
   public EnqueueAssetDocker<DRet<List<EConfig>>> list(DQPFilter dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.config.list(dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.config.list(dqp));
   }
 
   public EnqueueAssetDocker<DRet<ECreated>> create(String body) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.config.create(body));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.config.create(body));
   }
 
   public EnqueueAssetDocker<DRet<EConfig>> inspect(String id) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.config.inspect(id));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.config.inspect(id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> remove(String id) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.config.remove(id));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.config.remove(id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> update(String id, long version, String body) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.config.update(id, version, body));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.config.update(id, version, body));
   }
 }

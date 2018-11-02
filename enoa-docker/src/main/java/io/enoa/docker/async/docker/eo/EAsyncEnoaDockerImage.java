@@ -42,110 +42,110 @@ public class EAsyncEnoaDockerImage {
 
 
   public EnqueueAssetDocker<DRet<List<EImage>>> list() {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.image.list());
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.list());
   }
 
   public EnqueueAssetDocker<DRet<List<EImage>>> list(DQPImageList dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.image.list(dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.list(dqp));
   }
 
   public EnqueueAssetDocker<DRet<List<Kv>>> build(String dockerfile, DQPImageBuild dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.image.build(dockerfile, dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.build(dockerfile, dqp));
   }
 
   public EnqueueAssetDocker<DRet<List<Kv>>> build(String dockerfile, DQPImageBuild dqp, DStream<Kv> dstream) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.image.build(dockerfile, dqp, dstream));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.build(dockerfile, dqp, dstream));
   }
 
   public EnqueueAssetDocker<DRet<EIPrune>> prunebuild() {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.image.prunebuild());
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.prunebuild());
   }
 
   public EnqueueAssetDocker<DRet<List<Kv>>> create(DQPImageCreate dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.image.create(dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.create(dqp));
   }
 
   public EnqueueAssetDocker<DRet<List<Kv>>> create(DQPImageCreate dqp, String body) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.image.create(dqp, body));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.create(dqp, body));
   }
 
   public EnqueueAssetDocker<DRet<List<Kv>>> create(DQPImageCreate dqp, DStream<Kv> dstream) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.image.create(dqp, dstream));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.create(dqp, dstream));
   }
 
   public EnqueueAssetDocker<DRet<List<Kv>>> create(DQPImageCreate dqp, String body, DStream<Kv> dstream) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.image.create(dqp, body, dstream));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.create(dqp, body, dstream));
   }
 
   public EnqueueAssetDocker<DRet<EIInspect>> inspect(String id) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.image.inspect(id));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.inspect(id));
   }
 
   public EnqueueAssetDocker<DRet<List<EHistory>>> history(String id) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.image.history(id));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.history(id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> push(String id) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.image.push(id));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.push(id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> push(String id, DQPImagePush dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.image.push(id, dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.push(id, dqp));
   }
 
   public EnqueueAssetDocker<DRet<Void>> push(String id, DStream<Kv> dstream) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.image.push(id, dstream));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.push(id, dstream));
   }
 
   public EnqueueAssetDocker<DRet<Void>> push(String id, DQPImagePush dqp, DStream<Kv> dstream) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.image.push(id, dqp, dstream));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.push(id, dqp, dstream));
   }
 
   public EnqueueAssetDocker<DRet<Void>> tag(String id, DQPImageTag dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.image.tag(id, dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.tag(id, dqp));
   }
 
   public EnqueueAssetDocker<DRet<List<EIRemove>>> remove(String id) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.image.remove(id));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.remove(id));
   }
 
   public EnqueueAssetDocker<DRet<List<EIRemove>>> remove(String id, DQPImageRmi dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.image.remove(id, dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.remove(id, dqp));
   }
 
   public EnqueueAssetDocker<DRet<List<EISearch>>> search(DQPImageSearch dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.image.search(dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.search(dqp));
   }
 
   public EnqueueAssetDocker<DRet<EImagePrune>> pruneimage() {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.image.pruneimage());
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.pruneimage());
   }
 
   public EnqueueAssetDocker<DRet<EImagePrune>> pruneimage(DQPFilter dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.image.pruneimage(dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.pruneimage(dqp));
   }
 
   public EnqueueAssetDocker<DRet<EICommit>> commit(String body) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.image.commit(body));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.commit(body));
   }
 
   public EnqueueAssetDocker<DRet<EICommit>> commit(String body, DQPImageCommit dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.image.commit(body, dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.commit(body, dqp));
   }
 
   public EnqueueAssetDocker<DRet<EnoaBinary>> export(String id) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.image.export(id));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.export(id));
   }
 
   public EnqueueAssetDocker<DRet<EnoaBinary>> export(DQPImageExport dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.image.export(dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.export(dqp));
   }
 
   public EnqueueAssetDocker<DRet<Void>> load(byte[] binary) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.image.load(binary));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.load(binary));
   }
 
   public EnqueueAssetDocker<DRet<Void>> load(byte[] binary, DQPImageLoad dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.image.load(binary, dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.load(binary, dqp));
   }
 }

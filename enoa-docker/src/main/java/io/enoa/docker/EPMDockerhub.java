@@ -15,7 +15,10 @@
  */
 package io.enoa.docker;
 
-import io.enoa.docker.command.hub.eo.EnoaDockerHub;
+import io.enoa.docker.async.hub.eo.EAsyncEnoaDockerhub;
+import io.enoa.docker.async.hub.generic.EAsyncGenericDockerhub;
+import io.enoa.docker.async.hub.origin.EAsyncOriginDockerhub;
+import io.enoa.docker.command.hub.eo.EnoaDockerhub;
 import io.enoa.docker.command.hub.generic.GenericDockerhub;
 import io.enoa.docker.command.hub.origin.EOriginDockerhubImpl;
 import io.enoa.docker.command.hub.origin.OriginDockerhub;
@@ -32,7 +35,12 @@ public class EPMDockerhub {
 
   private OriginDockerhub origin;
   private GenericDockerhub generic;
-  private EnoaDockerHub eo;
+  private EnoaDockerhub eo;
+  private AsyncDockerhub async;
+
+  private EAsyncOriginDockerhub asyncorigin;
+  private EAsyncGenericDockerhub asyncgeneric;
+  private EAsyncEnoaDockerhub asynceo;
 
   private EPMDockerhub() {
 
@@ -58,7 +66,7 @@ public class EPMDockerhub {
     return this.generic;
   }
 
-  EnoaDockerHub dockerhub() {
+  EnoaDockerhub dockerhub() {
     if (this.eo != null)
       return this.eo;
 
@@ -66,8 +74,35 @@ public class EPMDockerhub {
     if (this.generic == null)
       return null;
 
-    this.eo = new EnoaDockerHub(generic);
+    this.eo = new EnoaDockerhub(generic);
     return this.eo;
   }
 
+  AsyncDockerhub async() {
+    if (this.async != null)
+      return this.async;
+    this.async = new AsyncDockerhub();
+    return this.async;
+  }
+
+  EAsyncOriginDockerhub asyncorigin() {
+    if (this.asyncorigin != null)
+      return this.asyncorigin;
+    this.asyncorigin = new EAsyncOriginDockerhub(this.origin());
+    return this.asyncorigin;
+  }
+
+  EAsyncGenericDockerhub asyncgeneric() {
+    if (this.asyncgeneric != null)
+      return this.asyncgeneric;
+    this.asyncgeneric = new EAsyncGenericDockerhub(this.generic());
+    return asyncgeneric;
+  }
+
+  EAsyncEnoaDockerhub asynceo() {
+    if (this.asynceo != null)
+      return this.asynceo;
+    this.asynceo = new EAsyncEnoaDockerhub(this.dockerhub());
+    return asynceo;
+  }
 }

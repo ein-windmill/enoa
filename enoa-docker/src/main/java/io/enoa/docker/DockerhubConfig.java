@@ -19,18 +19,27 @@ import io.enoa.docker.thr.DockerhubException;
 import io.enoa.http.EoHttp;
 import io.enoa.json.EnoaJson;
 import io.enoa.json.EoJsonFactory;
+import io.enoa.promise.builder.PromiseBuilder;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
+
+import java.util.concurrent.ExecutorService;
 
 public class DockerhubConfig {
 
   private final String context;
   private final EoHttp http;
   private final EnoaJson json;
+  private final ExecutorService executor;
 
   private DockerhubConfig(Builder builder) {
     this.json = builder.json.json();
     this.http = builder.http;
     this.context = builder.context;
+    this.executor = builder.executor;
+  }
+
+  public ExecutorService executor() {
+    return executor;
   }
 
   public String context() {
@@ -49,16 +58,23 @@ public class DockerhubConfig {
     private String context;
     private EoJsonFactory json;
     private EoHttp http;
+    private ExecutorService executor;
 
     public Builder() {
       this.context = "https://hub.docker.com/v2/";
       this.http = EoHttp.def();
+      this.executor = PromiseBuilder.executor().enqueue("Dockerhub Dispatcher");
     }
 
     public DockerhubConfig build() {
       if (this.json == null)
         throw new DockerhubException(EnoaTipKit.message("eo.tip.docker.no_json"));
       return new DockerhubConfig(this);
+    }
+
+    public Builder executor(ExecutorService executor) {
+      this.executor = executor;
+      return this;
     }
 
     public Builder json(EoJsonFactory json) {

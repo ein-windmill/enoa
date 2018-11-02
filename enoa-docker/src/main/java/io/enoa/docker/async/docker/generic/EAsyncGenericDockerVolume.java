@@ -38,38 +38,38 @@ public class EAsyncGenericDockerVolume {
   }
 
   public <T> EnqueueAssetDocker<DRet<T>> list(DIParser<T> parser) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.volume.list(parser));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.volume.list(parser));
   }
 
   public <T> EnqueueAssetDocker<DRet<T>> list(DIParser<T> parser, DQPVolumeList dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.volume.list(parser, dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.volume.list(parser, dqp));
   }
 
   public <T> EnqueueAssetDocker<DRet<T>> create(DIParser<T> parser, String body) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.volume.create(parser, body));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.volume.create(parser, body));
   }
 
   public <T> EnqueueAssetDocker<DRet<T>> create(DIParser<T> parser, DQPVolumeCreate dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.volume.create(parser, dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.volume.create(parser, dqp));
   }
 
   public <T> EnqueueAssetDocker<DRet<T>> inspect(DIParser<T> parser, String id) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.volume.inspect(parser, id));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.volume.inspect(parser, id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> remove(String id) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.volume.remove(id));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.volume.remove(id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> remove(String id, Boolean force) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.volume.remove(id, force));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.volume.remove(id, force));
   }
 
   public <T> EnqueueAssetDocker<DRet<T>> prune(DIParser<T> parser) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.volume.prune(parser));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.volume.prune(parser));
   }
 
   public <T> EnqueueAssetDocker<DRet<T>> prune(DIParser<T> parser, DQPFilter dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.volume.prune(parser, dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.volume.prune(parser, dqp));
   }
 }

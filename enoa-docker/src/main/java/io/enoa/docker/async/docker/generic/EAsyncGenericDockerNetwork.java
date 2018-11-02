@@ -39,42 +39,42 @@ public class EAsyncGenericDockerNetwork {
   }
 
   public <T> EnqueueAssetDocker<DRet<List<T>>> list(DIParser<List<T>> parser) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.network.list(parser));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.network.list(parser));
   }
 
   public <T> EnqueueAssetDocker<DRet<List<T>>> list(DIParser<List<T>> parser, DQPNetworkList dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.network.list(parser, dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.network.list(parser, dqp));
   }
 
   public <T> EnqueueAssetDocker<DRet<T>> inspect(DIParser<T> parser, String id) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.network.inspect(parser, id));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.network.inspect(parser, id));
   }
 
   public <T> EnqueueAssetDocker<DRet<T>> inspect(DIParser<T> parser, String id, DQPNetworkInspect dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.network.inspect(parser, id, dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.network.inspect(parser, id, dqp));
   }
 
   public EnqueueAssetDocker<DRet<Void>> remove(String id) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.network.remove(id));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.network.remove(id));
   }
 
   public <T> EnqueueAssetDocker<DRet<T>> create(DIParser<T> parser, String body) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.network.create(parser, body));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.network.create(parser, body));
   }
 
   public EnqueueAssetDocker<DRet<Void>> connect(String id, String body) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.network.connect(id, body));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.network.connect(id, body));
   }
 
   public EnqueueAssetDocker<DRet<Void>> disconnect(String id, String body) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.network.disconnect(id, body));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.network.disconnect(id, body));
   }
 
   public <T> EnqueueAssetDocker<DRet<T>> prune(DIParser<T> parser) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.network.prune(parser));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.network.prune(parser));
   }
 
   public <T> EnqueueAssetDocker<DRet<T>> prune(DIParser<T> parser, DQPFilter dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.network.prune(parser, dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.network.prune(parser, dqp));
   }
 }

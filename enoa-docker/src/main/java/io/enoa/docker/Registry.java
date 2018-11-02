@@ -55,6 +55,14 @@ public class Registry {
     return epm().generic();
   }
 
+  public AsyncRegistry async(String name) {
+    return epm().async(name);
+  }
+
+  public AsyncRegistry async() {
+    return epm().async();
+  }
+
   public static RRet<ECatalog> _catalog() {
     return use()._catalog();
   }

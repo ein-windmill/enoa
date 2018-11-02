@@ -38,30 +38,30 @@ public class EAsyncEnoaDockerExec {
   }
 
   public EnqueueAssetDocker<DRet<ECreated>> exec(String id, String body) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.exec.exec(id, body));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.exec.exec(id, body));
   }
 
   public EnqueueAssetDocker<DRet<ECreated>> exec(String id, DQPExecCreate dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.exec.exec(id, dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.exec.exec(id, dqp));
   }
 
   public EnqueueAssetDocker<DRet<Void>> start(String id, String body) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.exec.start(id, body));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.exec.start(id, body));
   }
 
   public EnqueueAssetDocker<DRet<Void>> start(String id, DQPExecStart dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.exec.start(id, dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.exec.start(id, dqp));
   }
 
   public EnqueueAssetDocker<DRet<Void>> resize(String id) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.exec.resize(id));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.exec.resize(id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> resize(String id, DQPResize dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.exec.resize(id, dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.exec.resize(id, dqp));
   }
 
   public EnqueueAssetDocker<DRet<EExecInspect>> inspect(String id) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.exec.inspect(id));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.exec.inspect(id));
   }
 }

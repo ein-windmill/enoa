@@ -13,4 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.async.registry;
+package io.enoa.docker.async.registry.eo;
+
+import io.enoa.docker.command.registry.eo.EERegistryManifests;
+import io.enoa.docker.command.registry.eo.EoRegistry;
+
+public class EAsyncEnoaManifests {
+
+  private EoRegistry registry;
+  private EERegistryManifests manifests;
+
+  EAsyncEnoaManifests(EoRegistry registry) {
+    this.registry = registry;
+    this.manifests = this.registry.manifests();
+  }
+}

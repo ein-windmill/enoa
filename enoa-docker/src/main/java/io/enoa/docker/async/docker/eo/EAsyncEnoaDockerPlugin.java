@@ -42,86 +42,86 @@ public class EAsyncEnoaDockerPlugin {
 
 
   public EnqueueAssetDocker<DRet<List<EPlugin>>> list() {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.plugin.list());
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.plugin.list());
   }
 
   public EnqueueAssetDocker<DRet<List<EPlugin>>> list(DQPFilter dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.plugin.list(dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.plugin.list(dqp));
   }
 
   public EnqueueAssetDocker<DRet<List<EPluginPrivilege>>> privileges() {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.plugin.privileges());
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.plugin.privileges());
   }
 
   public EnqueueAssetDocker<DRet<List<EPluginPrivilege>>> privileges(String remote) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.plugin.privileges(remote));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.plugin.privileges(remote));
   }
 
   public EnqueueAssetDocker<DRet<List<EPluginPrivilege>>> install() {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.plugin.install());
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.plugin.install());
   }
 
   public EnqueueAssetDocker<DRet<List<EPluginPrivilege>>> install(DQPPluginInstall dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.plugin.install(dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.plugin.install(dqp));
   }
 
   public EnqueueAssetDocker<DRet<EPlugin>> inspect(String id) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.plugin.inspect(id));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.plugin.inspect(id));
   }
 
   public EnqueueAssetDocker<DRet<EPlugin>> remove(String id) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.plugin.remove(id));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.plugin.remove(id));
   }
 
   public EnqueueAssetDocker<DRet<EPlugin>> remove(String id, boolean force) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.plugin.remove(id, force));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.plugin.remove(id, force));
   }
 
   public EnqueueAssetDocker<DRet<Void>> enable(String id) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.plugin.enable(id));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.plugin.enable(id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> enable(String id, int timeout) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.plugin.enable(id, timeout));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.plugin.enable(id, timeout));
   }
 
   public EnqueueAssetDocker<DRet<Void>> disable(String id) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.plugin.disable(id));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.plugin.disable(id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> upgrade(String id) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.plugin.upgrade(id));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.plugin.upgrade(id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> upgrade(String id, DQPPluginUpgrade dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.plugin.upgrade(id, dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.plugin.upgrade(id, dqp));
   }
 
   public EnqueueAssetDocker<DRet<Void>> create(String id) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.plugin.create(id));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.plugin.create(id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> create(String id, String raw) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.plugin.create(id, raw));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.plugin.create(id, raw));
   }
 
   public EnqueueAssetDocker<DRet<Void>> push(String id) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.plugin.push(id));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.plugin.push(id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> set(String id) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.plugin.set(id));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.plugin.set(id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> set(String id, String arg) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.plugin.set(id, arg));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.plugin.set(id, arg));
   }
 
   public EnqueueAssetDocker<DRet<Void>> set(String id, String... args) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.plugin.set(id, args));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.plugin.set(id, args));
   }
 
   public EnqueueAssetDocker<DRet<Void>> set(String id, Collection<String> args) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.plugin.set(id, args));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.plugin.set(id, args));
   }
 }

@@ -20,8 +20,15 @@ import io.enoa.docker.dket.registry.RResp;
 
 public class EDockerhubImpl extends AbstractOriginRegistry {
 
+  private OriginManifests manifests;
+  private OriginBlob blob;
+  private OriginUpload upload;
+
   public EDockerhubImpl(RegistryConfig config) {
     super(config);
+    this.manifests = new EDockerhubManifests(this);
+    this.blob = new EDockerhubBlob(this);
+    this.upload = new EDockerhubUpload(this);
   }
 
   @Override
@@ -41,17 +48,17 @@ public class EDockerhubImpl extends AbstractOriginRegistry {
 
   @Override
   public OriginManifests manifests() {
-    return new EDockerhubManifests(this);
+    return this.manifests;
   }
 
   @Override
   public OriginBlob blob() {
-    return new EDockerhubBlob(this);
+    return this.blob;
   }
 
   @Override
   public OriginUpload upload() {
-    return new EDockerhubUpload(this);
+    return this.upload;
   }
 
 }

@@ -65,7 +65,7 @@ public class EAsyncEnoaDocker implements _DockerConfigSupport {
   }
 
   public EnqueueAssetDocker<DRet<EDockerInfo>> info() {
-    return EnqueueDocker.asseter(this._dockerconfig().executor(), () -> this.docker.info());
+    return EnqueueDocker.asseterdocker(this._dockerconfig().executor(), () -> this.docker.info());
   }
 
   public EAsyncEnoaDockerConfig config() {

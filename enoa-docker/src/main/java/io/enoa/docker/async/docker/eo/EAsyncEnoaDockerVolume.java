@@ -40,38 +40,38 @@ public class EAsyncEnoaDockerVolume {
 
 
   public EnqueueAssetDocker<DRet<EVolumeLs>> list() {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.volume.list());
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.volume.list());
   }
 
   public EnqueueAssetDocker<DRet<EVolumeLs>> list(DQPVolumeList dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.volume.list(dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.volume.list(dqp));
   }
 
   public EnqueueAssetDocker<DRet<EVolume>> create(String body) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.volume.create(body));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.volume.create(body));
   }
 
   public EnqueueAssetDocker<DRet<EVolume>> create(DQPVolumeCreate dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.volume.create(dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.volume.create(dqp));
   }
 
   public EnqueueAssetDocker<DRet<EVolume>> inspect(String id) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.volume.inspect(id));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.volume.inspect(id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> remove(String id) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.volume.remove(id));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.volume.remove(id));
   }
 
   public EnqueueAssetDocker<DRet<Void>> remove(String id, Boolean force) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.volume.remove(id, force));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.volume.remove(id, force));
   }
 
   public EnqueueAssetDocker<DRet<EVolumePrune>> prune() {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.volume.prune());
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.volume.prune());
   }
 
   public EnqueueAssetDocker<DRet<EVolumePrune>> prune(DQPFilter dqp) {
-    return EnqueueDocker.asseter(this.docker._dockerconfig().executor(), () -> this.volume.prune(dqp));
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.volume.prune(dqp));
   }
 }

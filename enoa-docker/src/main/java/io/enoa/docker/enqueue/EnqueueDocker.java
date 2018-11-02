@@ -16,6 +16,8 @@
 package io.enoa.docker.enqueue;
 
 import io.enoa.docker.dket.docker.DRet;
+import io.enoa.docker.dket.dockerhub.HRet;
+import io.enoa.docker.dket.registry.RRet;
 import io.enoa.promise.async.AsyncRunner;
 
 import java.util.concurrent.ExecutorService;
@@ -26,8 +28,16 @@ public interface EnqueueDocker<T> {
     return new _DockerDoneargEnqueueImpl<>(executor, runner);
   }
 
-  static <PARA> EnqueueAssetDocker<DRet<PARA>> asseter(ExecutorService executor, AsyncRunner<DRet<PARA>> runner) {
+  static <PARA> EnqueueAssetDocker<DRet<PARA>> asseterdocker(ExecutorService executor, AsyncRunner<DRet<PARA>> runner) {
     return new _DockerAssetEnqueueImpl<>(executor, runner);
+  }
+
+  static <PARA> EnqueueAssetDocker<HRet<PARA>> asseterhub(ExecutorService executor, AsyncRunner<HRet<PARA>> runner) {
+    return new _DockerhubAssetEnqueueImpl<>(executor, runner);
+  }
+
+  static <PARA> EnqueueAssetDocker<RRet<PARA>> asseterregistry(ExecutorService executor, AsyncRunner<RRet<PARA>> runner) {
+    return new _RegistryAssetEnqueueImpl<>(executor, runner);
   }
 
   T enqueue();

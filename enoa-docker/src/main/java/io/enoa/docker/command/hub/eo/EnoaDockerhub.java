@@ -29,11 +29,11 @@ import io.enoa.docker.dket.dockerhub.inspece.EHRepository;
 import io.enoa.docker.dket.dockerhub.search.EHSearch;
 import io.enoa.docker.dket.dockerhub.tag.EHTag;
 
-public class EnoaDockerHub implements _DockerhubConfigSupport {
+public class EnoaDockerhub implements _DockerhubConfigSupport {
 
   private GenericDockerhub hub;
 
-  public EnoaDockerHub(GenericDockerhub hub) {
+  public EnoaDockerhub(GenericDockerhub hub) {
     this.hub = hub;
   }
 

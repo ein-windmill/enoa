@@ -21,7 +21,7 @@ import io.enoa.docker.dket.registry.RResp;
 public interface OriginRegistry extends _RegistryConfigSupport {
 
 
-  default RResp _catelog() {
+  default RResp _catalog() {
     return this._catalog(50, null);
   }
 

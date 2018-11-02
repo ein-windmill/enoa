@@ -23,8 +23,16 @@ import io.enoa.toolkit.text.TextKit;
 
 public class EOriginRegistryImpl extends AbstractOriginRegistry {
 
+
+  private OriginManifests manifests;
+  private OriginBlob blob;
+  private OriginUpload upload;
+
   public EOriginRegistryImpl(RegistryConfig config) {
     super(config);
+    this.manifests = new EOriginRegistryManifests(this);
+    this.blob = new EOriginRegistryBlob(this);
+    this.upload = new EOriginRegistryUpload(this);
   }
 
   @Override
@@ -51,17 +59,17 @@ public class EOriginRegistryImpl extends AbstractOriginRegistry {
 
   @Override
   public OriginManifests manifests() {
-    return new EOriginRegistryManifests(this);
+    return this.manifests;
   }
 
   @Override
   public OriginBlob blob() {
-    return new EOriginRegistryBlob(this);
+    return this.blob;
   }
 
   @Override
   public OriginUpload upload() {
-    return new EOriginRegistryUpload(this);
+    return this.upload;
   }
 
 }

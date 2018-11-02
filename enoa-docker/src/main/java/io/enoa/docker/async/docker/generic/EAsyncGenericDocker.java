@@ -66,7 +66,7 @@ public class EAsyncGenericDocker implements _DockerConfigSupport {
   }
 
   public <T> EnqueueAssetDocker<DRet<T>> info(DIParser<T> parser) {
-    return EnqueueDocker.asseter(this._dockerconfig().executor(), () -> this.docker.info(parser));
+    return EnqueueDocker.asseterdocker(this._dockerconfig().executor(), () -> this.docker.info(parser));
   }
 
   public EAsyncGenericDockerConfig config() {
