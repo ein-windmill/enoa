@@ -585,6 +585,18 @@ public class DQPContainerCreate implements DQP {
     return this.rm;
   }
 
+  public boolean isinteractive() {
+    return this.interactive;
+  }
+
+  public boolean showtty() {
+    return this.tty;
+  }
+
+  public boolean isdetach() {
+    return this.detach;
+  }
+
   @Override
   public DQR dqr() {
     DQR dqr = DQR.create()

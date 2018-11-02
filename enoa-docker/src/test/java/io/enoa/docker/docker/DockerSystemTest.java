@@ -35,4 +35,11 @@ public class DockerSystemTest extends AbstractDockerTest {
     System.out.println(json);
   }
 
+  @Test
+  public void testPing() {
+    DRet<String> ret = Docker.system().ping();
+    Assert.assertTrue(ret.ok());
+    Assert.assertEquals(ret.data(), "OK");
+  }
+
 }

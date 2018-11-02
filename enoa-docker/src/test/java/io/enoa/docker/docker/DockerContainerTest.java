@@ -237,4 +237,31 @@ public class DockerContainerTest extends AbstractDockerTest {
     System.out.println(ret);
   }
 
+  @Test
+  public void testRun() {
+    DRet<String> ret = Docker.use()
+      .run("test",
+        DQP.docker().container().create()
+          .interactive()
+          .detach()
+          .tty()
+          .rm()
+          .name("test")
+          .volume("/data:/data")
+          .volume("/opt:/opt")
+          .volume("test:/testx")
+          .publish("999:800")
+          .publish("127.0.0.1:998:800")
+          .publish("942:942")
+          .env("ENV", "fa")
+          .env("NAME=kin")
+          .labels("label 0")
+          .link("registry:f")
+          .image("alpine")
+          .cmd("ls")
+      );
+    Assert.assertTrue(ret.ok());
+    System.out.println(ret.data());
+  }
+
 }

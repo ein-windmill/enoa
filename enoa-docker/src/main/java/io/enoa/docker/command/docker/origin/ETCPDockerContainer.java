@@ -115,7 +115,7 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
 
   @Override
   public DResp resize(String id, DQPResize dqp) {
-    Http http = this.docker.http("container", id, "resize")
+    Http http = this.docker.http("containers", id, "resize")
       .method(HttpMethod.POST);
     if (dqp != null) {
       http.para(dqp.dqr().http());
