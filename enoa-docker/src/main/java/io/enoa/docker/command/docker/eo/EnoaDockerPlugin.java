@@ -15,7 +15,7 @@
  */
 package io.enoa.docker.command.docker.eo;
 
-import io.enoa.docker.command.docker.generic.EGeneicDockerPlugin;
+import io.enoa.docker.command.docker.generic.EGenericDockerPlugin;
 import io.enoa.docker.command.docker.generic.GenericDocker;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.docker.plugin.DQPPluginInstall;
@@ -33,7 +33,7 @@ public class EnoaDockerPlugin {
 
 
   private GenericDocker docker;
-  private EGeneicDockerPlugin plugins;
+  private EGenericDockerPlugin plugins;
 
   EnoaDockerPlugin(GenericDocker docker) {
     this.docker = docker;

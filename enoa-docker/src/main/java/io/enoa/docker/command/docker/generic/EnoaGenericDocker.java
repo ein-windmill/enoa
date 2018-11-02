@@ -17,18 +17,48 @@ package io.enoa.docker.command.docker.generic;
 
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.command.docker.origin.OriginDocker;
-import io.enoa.docker.parser.docker.DIParser;
 import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dket.docker.DRet;
+import io.enoa.docker.parser.docker.DIParser;
 
 public class EnoaGenericDocker implements GenericDocker {
 
-  private DockerConfig config;
+  private DockerConfig dockerconfig;
   private OriginDocker docker;
+  private EGenericDockerContainer container;
+  private EGenericDockerImage image;
+  private EGenericDockerNetwork network;
+  private EGenericDockerVolume volume;
+  private EGenericDockerExec exec;
+  private EGenericDockerSwarm swarm;
+  private EGenericDockerNode node;
+  private EGenericDockerService service;
+  private EGenericDockerTask task;
+  private EGenericDockerSecret secret;
+  private EGenericDockerConfig config;
+  private EGenericDockerPlugin plugin;
+  private EGenericDockerSystem system;
+  private EGenericDockerDistribution distribution;
+
 
   public EnoaGenericDocker(OriginDocker docker) {
     this.docker = docker;
-    this.config = docker._dockerconfig();
+    this.dockerconfig = docker._dockerconfig();
+
+    this.container = new EGenericDockerContainer(this.docker);
+    this.image = new EGenericDockerImage(this.docker);
+    this.network = new EGenericDockerNetwork(this.docker);
+    this.volume = new EGenericDockerVolume(this.docker);
+    this.exec = new EGenericDockerExec(this.docker);
+    this.swarm = new EGenericDockerSwarm(this.docker);
+    this.node = new EGenericDockerNode(this.docker);
+    this.service = new EGenericDockerService(this.docker);
+    this.task = new EGenericDockerTask(this.docker);
+    this.secret = new EGenericDockerSecret(this.docker);
+    this.config = new EGenericDockerConfig(this.docker);
+    this.plugin = new EGenericDockerPlugin(this.docker);
+    this.system = new EGenericDockerSystem(this.docker);
+    this.distribution = new EGenericDockerDistribution(this.docker);
   }
 
   @Override
@@ -39,77 +69,77 @@ public class EnoaGenericDocker implements GenericDocker {
   @Override
   public <T> DRet<T> info(DIParser<T> parser) {
     DResp origin = this.docker.info();
-    return parser.parse(this.config, origin);
+    return parser.parse(this._dockerconfig(), origin);
   }
 
   @Override
-  public EGeneicDockerContainer container() {
-    return new EGeneicDockerContainer(this.docker);
+  public EGenericDockerContainer container() {
+    return this.container;
   }
 
   @Override
-  public EGeneicDockerImage image() {
-    return new EGeneicDockerImage(this.docker);
+  public EGenericDockerImage image() {
+    return this.image;
   }
 
   @Override
-  public EGeneicDockerNetwork network() {
-    return new EGeneicDockerNetwork(this.docker);
+  public EGenericDockerNetwork network() {
+    return this.network;
   }
 
   @Override
-  public EGeneicDockerVolume volume() {
-    return new EGeneicDockerVolume(this.docker);
+  public EGenericDockerVolume volume() {
+    return this.volume;
   }
 
   @Override
-  public EGeneicDockerExec exec() {
-    return new EGeneicDockerExec(this.docker);
+  public EGenericDockerExec exec() {
+    return this.exec;
   }
 
   @Override
-  public EGeneicDockerSwarm swarm() {
-    return new EGeneicDockerSwarm(this.docker);
+  public EGenericDockerSwarm swarm() {
+    return this.swarm;
   }
 
   @Override
-  public EGeneicDockerNode node() {
-    return new EGeneicDockerNode(this.docker);
+  public EGenericDockerNode node() {
+    return this.node;
   }
 
   @Override
-  public EGeneicDockerService service() {
-    return new EGeneicDockerService(this.docker);
+  public EGenericDockerService service() {
+    return this.service;
   }
 
   @Override
-  public EGeneicDockerTask task() {
-    return new EGeneicDockerTask(this.docker);
+  public EGenericDockerTask task() {
+    return this.task;
   }
 
   @Override
-  public EGeneicDockerSecret secret() {
-    return new EGeneicDockerSecret(this.docker);
+  public EGenericDockerSecret secret() {
+    return this.secret;
   }
 
   @Override
-  public EGeneicDockerConfig config() {
-    return new EGeneicDockerConfig(this.docker);
+  public EGenericDockerConfig config() {
+    return this.config;
   }
 
   @Override
-  public EGeneicDockerPlugin plugin() {
-    return new EGeneicDockerPlugin(this.docker);
+  public EGenericDockerPlugin plugin() {
+    return this.plugin;
   }
 
   @Override
-  public EGeneicDockerSystem system() {
-    return new EGeneicDockerSystem(this.docker);
+  public EGenericDockerSystem system() {
+    return this.system;
   }
 
   @Override
-  public EGeneicDockerDistribution distribution() {
-    return new EGeneicDockerDistribution(this.docker);
+  public EGenericDockerDistribution distribution() {
+    return this.distribution;
   }
 
 

@@ -212,9 +212,9 @@ public interface DIParser<T> {
     return EPluginPrivilegeParser.instance();
   }
 
-  static DIParser<EInfo> info() {
-    return EInfoParser.instance();
-  }
+//  static DIParser<EInfo> info() {
+//    return EInfoParser.instance();
+//  }
 
   static DIParser<EYVersion> eyversion() {
     return EYVersionParser.instance();

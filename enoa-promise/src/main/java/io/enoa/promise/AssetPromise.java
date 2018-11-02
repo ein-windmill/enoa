@@ -18,12 +18,19 @@ package io.enoa.promise;
 import io.enoa.promise.arg.PromiseArg;
 import io.enoa.promise.arg.PromiseBool;
 import io.enoa.promise.arg.PromiseCapture;
+import io.enoa.promise.arg.PromiseThen;
 
 public interface AssetPromise<PARA> extends ThenPromise<AssetPromise>, EoPromise<AssetPromise> {
 
   AssetPromise<PARA> asset(PromiseBool<PARA> bool);
 
   AssetPromise<PARA> failthrow(PromiseArg<PARA> arg);
+
+  @Override
+  <P> AssetPromise<PARA> then(PromiseThen<Object, P> then);
+
+  @Override
+  <T> AssetPromise<PARA> execute(PromiseArg<T> arg);
 
   @Override
   AssetPromise<PARA> capture(PromiseCapture capture);

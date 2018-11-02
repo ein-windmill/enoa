@@ -17,6 +17,10 @@ package io.enoa.docker.async;
 
 import io.enoa.docker.AbstractDockerTest;
 import io.enoa.docker.Docker;
+import io.enoa.docker.dket.docker.DRet;
+import io.enoa.docker.dket.docker.dockerinfo.EDockerInfo;
+import io.enoa.docker.parser.docker.DIParser;
+import io.enoa.json.Json;
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
@@ -25,7 +29,7 @@ public class AsyncDockerTest extends AbstractDockerTest {
 
   private void sleep() {
     try {
-      TimeUnit.SECONDS.sleep(3L);
+      TimeUnit.SECONDS.sleep(4L);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
@@ -37,9 +41,31 @@ public class AsyncDockerTest extends AbstractDockerTest {
       .origin()
       .info()
       .enqueue()
-      .done(resp -> {
-        System.out.println(resp.string());
-      });
+      .done(ret -> System.out.println(ret.string()))
+      .capture(System.err::println)
+      .always(() -> System.out.println("Always"));
+
+    Docker.async()
+      .generic()
+      .info(DIParser.dockerinfo())
+      .enqueue()
+      .asset(DRet::ok)
+      .failthrow(ret -> System.err.println(ret.message()))
+      .<DRet<EDockerInfo>>then(DRet::data)
+      .<EDockerInfo>execute(info -> System.out.println(Json.toJson(info)))
+      .capture(System.err::println)
+      .always(() -> System.out.println("Always"));
+
+    Docker.async()
+      .info()
+      .enqueue()
+      .asset(DRet::ok)
+      .failthrow(ret -> System.err.println(ret.message()))
+      .<DRet<EDockerInfo>>then(DRet::data)
+      .<EDockerInfo>execute(info -> System.out.println(Json.toJson(info)))
+      .capture(System.err::println)
+      .always(() -> System.out.println("Always"));
+
     this.sleep();
   }
 

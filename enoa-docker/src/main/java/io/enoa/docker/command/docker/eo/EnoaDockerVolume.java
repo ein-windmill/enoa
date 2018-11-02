@@ -15,7 +15,7 @@
  */
 package io.enoa.docker.command.docker.eo;
 
-import io.enoa.docker.command.docker.generic.EGeneicDockerVolume;
+import io.enoa.docker.command.docker.generic.EGenericDockerVolume;
 import io.enoa.docker.command.docker.generic.GenericDocker;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.docker.volume.DQPVolumeCreate;
@@ -31,7 +31,7 @@ public class EnoaDockerVolume {
 
 
   private GenericDocker docker;
-  private EGeneicDockerVolume volumes;
+  private EGenericDockerVolume volumes;
 
   EnoaDockerVolume(GenericDocker docker) {
     this.docker = docker;

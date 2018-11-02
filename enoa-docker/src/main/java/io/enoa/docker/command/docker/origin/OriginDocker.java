@@ -42,12 +42,12 @@ public interface OriginDocker extends _DockerConfigSupport {
 
   EOriginDockerSecret secret();
 
-  EOriginConfig config();
+  EOriginDockerConfig config();
 
   EOriginDockerPlugin plugin();
 
   EOriginDockerSystem system();
 
-  EOriginDistribution distribution();
+  EOriginDockerDistribution distribution();
 
 }

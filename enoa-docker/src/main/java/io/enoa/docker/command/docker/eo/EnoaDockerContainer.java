@@ -15,7 +15,7 @@
  */
 package io.enoa.docker.command.docker.eo;
 
-import io.enoa.docker.command.docker.generic.EGeneicDockerContainer;
+import io.enoa.docker.command.docker.generic.EGenericDockerContainer;
 import io.enoa.docker.command.docker.generic.GenericDocker;
 import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.dket.docker.common.ECreatedWithWarning;
@@ -34,7 +34,7 @@ import java.util.List;
 public class EnoaDockerContainer {
 
   private GenericDocker docker;
-  private EGeneicDockerContainer container;
+  private EGenericDockerContainer container;
 
   EnoaDockerContainer(GenericDocker docker) {
     this.docker = docker;
@@ -166,7 +166,7 @@ public class EnoaDockerContainer {
   }
 
   @Deprecated
-  public Void ws(String id) {
+  public DRet<Void> ws(String id) {
     throw new DockerException(EnoaTipKit.message("eo.tip.docker.notsupport"));
   }
 

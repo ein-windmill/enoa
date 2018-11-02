@@ -15,19 +15,23 @@
  */
 package io.enoa.docker.command.docker.eo;
 
-import io.enoa.docker.command.docker.generic.EGeneicDockerSystem;
+import io.enoa.docker.command.docker.generic.EGenericDockerSystem;
 import io.enoa.docker.command.docker.generic.GenericDocker;
+import io.enoa.docker.dket.docker.DRet;
+import io.enoa.docker.dket.docker.dockerinfo.EDockerInfo;
+import io.enoa.docker.dket.docker.system.EAuth;
+import io.enoa.docker.dket.docker.system.EMonitor;
+import io.enoa.docker.dket.docker.system.EYVersion;
+import io.enoa.docker.dket.docker.system.Edf;
 import io.enoa.docker.dqp.docker.system.DQPMonitor;
 import io.enoa.docker.dqp.docker.system.DQPSystemAuth;
 import io.enoa.docker.parser.docker.DIParser;
-import io.enoa.docker.dket.docker.DRet;
-import io.enoa.docker.dket.docker.system.*;
 
 public class EnoaDockerSystem {
 
 
   private GenericDocker docker;
-  private EGeneicDockerSystem system;
+  private EGenericDockerSystem system;
 
   EnoaDockerSystem(GenericDocker docker) {
     this.docker = docker;
@@ -39,8 +43,8 @@ public class EnoaDockerSystem {
     return this.system.auth(DIParser.auth(), dqp);
   }
 
-  public DRet<EInfo> info() {
-    return this.system.info(DIParser.info());
+  public DRet<EDockerInfo> info() {
+    return this.system.info(DIParser.dockerinfo());
   }
 
   public DRet<EYVersion> version() {

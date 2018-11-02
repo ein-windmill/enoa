@@ -18,7 +18,7 @@ package io.enoa.docker.command.docker.origin;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dket.docker.DResp;
 
-public class EUNIXSOCKETDockerConfig implements EOriginConfig {
+public class EUNIXSOCKETDockerConfig implements EOriginDockerConfig {
 
   private EnoaUNIXSOCKETDocker docker;
 

@@ -17,7 +17,7 @@ package io.enoa.docker.command.docker.origin;
 
 import io.enoa.docker.dket.docker.DResp;
 
-public class EUNIXSOCKETDockerDistribution implements EOriginDistribution {
+public class EUNIXSOCKETDockerDistribution implements EOriginDockerDistribution {
 
   private EnoaUNIXSOCKETDocker docker;
 

@@ -15,46 +15,87 @@
  */
 package io.enoa.docker;
 
-import io.enoa.docker.async.docker.eo.AsyncEnoaDocker;
-import io.enoa.docker.async.docker.generic.AsyncEnoaGenericDocker;
-import io.enoa.docker.async.docker.origin.AsyncOriginDocker;
+import io.enoa.docker.async.docker.EnqueueAssetDocker;
+import io.enoa.docker.async.docker.eo.*;
+import io.enoa.docker.async.docker.generic.EAsyncGenericDocker;
+import io.enoa.docker.async.docker.origin.EAsyncOriginDocker;
+import io.enoa.docker.dket.docker.DRet;
+import io.enoa.docker.dket.docker.dockerinfo.EDockerInfo;
 
 public class AsyncDocker {
 
-  private static class Holder {
-    private static final AsyncDocker INSTANCE = new AsyncDocker();
+  private String name;
+
+  AsyncDocker(String name) {
+    this.name = name;
   }
 
-  static AsyncDocker instance() {
-    return Holder.INSTANCE;
+  public EAsyncOriginDocker origin() {
+    return Docker.epm().asyncorigin(this.name);
+  }
+
+  public EAsyncGenericDocker generic() {
+    return Docker.epm().asyncgeneric(this.name);
+  }
+
+  public EAsyncEnoaDocker use() {
+    return Docker.epm().asynceo(this.name);
   }
 
 
-  private AsyncDocker() {
+  public EnqueueAssetDocker<DRet<EDockerInfo>> info() {
+    return use().info();
   }
 
-  public AsyncOriginDocker origin() {
-    return new AsyncOriginDocker(Docker.origin());
+  public EAsyncEnoaDockerConfig config() {
+    return use().config();
   }
 
-  public AsyncOriginDocker origin(String name) {
-    return new AsyncOriginDocker(Docker.origin(name));
+  public EAsyncEnoaDockerContainer container() {
+    return use().container();
   }
 
-  public AsyncEnoaGenericDocker generic() {
-    return new AsyncEnoaGenericDocker(Docker.generic());
+  public EAsyncEnoaDockerDistribution distribution() {
+    return use().distribution();
   }
 
-  public AsyncEnoaGenericDocker generic(String name) {
-    return new AsyncEnoaGenericDocker(Docker.generic(name));
+  public EAsyncEnoaDockerExec exec() {
+    return use().exec();
   }
 
-  public AsyncEnoaDocker use() {
-    return new AsyncEnoaDocker(Docker.use());
+  public EAsyncEnoaDockerImage image() {
+    return use().image();
   }
 
-  public AsyncEnoaDocker use(String name) {
-    return new AsyncEnoaDocker(Docker.use(name));
+  public EAsyncEnoaDockerNetwork network() {
+    return use().network();
   }
 
+  public EAsyncEnoaDockerNode node() {
+    return use().node();
+  }
+
+  public EAsyncEnoaDockerPlugin plugin() {
+    return use().plugin();
+  }
+
+  public EAsyncEnoaDockerSecret secret() {
+    return use().secret();
+  }
+
+  public EAsyncEnoaDockerSwarm swarm() {
+    return use().swarm();
+  }
+
+  public EAsyncEnoaDockerSystem system() {
+    return use().system();
+  }
+
+  public EAsyncEnoaDockerTask task() {
+    return use().task();
+  }
+
+  public EAsyncEnoaDockerVolume volume() {
+    return use().volume();
+  }
 }

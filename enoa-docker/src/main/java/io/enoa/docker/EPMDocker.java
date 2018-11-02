@@ -15,6 +15,9 @@
  */
 package io.enoa.docker;
 
+import io.enoa.docker.async.docker.eo.EAsyncEnoaDocker;
+import io.enoa.docker.async.docker.generic.EAsyncGenericDocker;
+import io.enoa.docker.async.docker.origin.EAsyncOriginDocker;
 import io.enoa.docker.command.docker.eo.EnoaDockerImpl;
 import io.enoa.docker.command.docker.eo.EoDocker;
 import io.enoa.docker.command.docker.generic.EnoaGenericDocker;
@@ -42,6 +45,11 @@ public class EPMDocker {
   private Map<String, OriginDocker> originmap = new ConcurrentHashMap<>();
   private Map<String, EoDocker> dockermap = new ConcurrentHashMap<>();
   private Map<String, GenericDocker> geneicmap = new ConcurrentHashMap<>();
+  private Map<String, AsyncDocker> asyncmap = new ConcurrentHashMap<>();
+
+  private Map<String, EAsyncOriginDocker> asyncorigin = new ConcurrentHashMap<>();
+  private Map<String, EAsyncGenericDocker> asyncgeneric = new ConcurrentHashMap<>();
+  private Map<String, EAsyncEnoaDocker> asynceo = new ConcurrentHashMap<>();
 
   private boolean exists(String name) {
     return this.dockermap.containsKey(name);
@@ -78,6 +86,10 @@ public class EPMDocker {
     this.originmap.remove(name);
     this.dockermap.remove(name);
     this.geneicmap.remove(name);
+    this.asyncmap.remove(name);
+    this.asyncgeneric.remove(name);
+    this.asyncorigin.remove(name);
+    this.asynceo.remove(name);
   }
 
   public void uninstall() {
@@ -122,6 +134,48 @@ public class EPMDocker {
 
   public OriginDocker origin() {
     return this.origin("main");
+  }
+
+  public AsyncDocker async(String name) {
+    AsyncDocker async = this.asyncmap.get(name);
+    if (async != null)
+      return async;
+    if (!this.originmap.containsKey(name))
+      throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.docker.docker_404", name));
+    async = new AsyncDocker(name);
+    this.asyncmap.put(name, async);
+    return async;
+  }
+
+  public AsyncDocker async() {
+    return this.async("main");
+  }
+
+  EAsyncOriginDocker asyncorigin(String name) {
+    EAsyncOriginDocker docker = this.asyncorigin.get(name);
+    if (docker != null)
+      return docker;
+    docker = new EAsyncOriginDocker(this.origin(name));
+    this.asyncorigin.put(name, docker);
+    return docker;
+  }
+
+  EAsyncGenericDocker asyncgeneric(String name) {
+    EAsyncGenericDocker docker = this.asyncgeneric.get(name);
+    if (docker != null)
+      return docker;
+    docker = new EAsyncGenericDocker(this.generic(name));
+    this.asyncgeneric.put(name, docker);
+    return docker;
+  }
+
+  EAsyncEnoaDocker asynceo(String name) {
+    EAsyncEnoaDocker docker = this.asynceo.get(name);
+    if (docker != null)
+      return docker;
+    docker = new EAsyncEnoaDocker(this.docker(name));
+    this.asynceo.put(name, docker);
+    return docker;
   }
 
 

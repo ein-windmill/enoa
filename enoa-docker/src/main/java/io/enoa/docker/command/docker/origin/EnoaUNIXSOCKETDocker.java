@@ -87,7 +87,7 @@ public class EnoaUNIXSOCKETDocker implements OriginDocker {
   }
 
   @Override
-  public EOriginConfig config() {
+  public EOriginDockerConfig config() {
     return new EUNIXSOCKETDockerConfig(this);
   }
 
@@ -102,7 +102,7 @@ public class EnoaUNIXSOCKETDocker implements OriginDocker {
   }
 
   @Override
-  public EOriginDistribution distribution() {
+  public EOriginDockerDistribution distribution() {
     return new EUNIXSOCKETDockerDistribution(this);
   }
 }

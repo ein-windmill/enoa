@@ -15,7 +15,7 @@
  */
 package io.enoa.docker.command.docker.eo;
 
-import io.enoa.docker.command.docker.generic.EGeneicDockerExec;
+import io.enoa.docker.command.docker.generic.EGenericDockerExec;
 import io.enoa.docker.command.docker.generic.GenericDocker;
 import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.docker.exec.DQPExecCreate;
@@ -29,7 +29,7 @@ import io.enoa.toolkit.value.Void;
 public class EnoaDockerExec {
 
   private GenericDocker docker;
-  private EGeneicDockerExec exec;
+  private EGenericDockerExec exec;
 
   EnoaDockerExec(GenericDocker docker) {
     this.docker = docker;

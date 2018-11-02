@@ -15,7 +15,7 @@
  */
 package io.enoa.docker.command.docker.eo;
 
-import io.enoa.docker.command.docker.generic.EGeneicDockerDistribution;
+import io.enoa.docker.command.docker.generic.EGenericDockerDistribution;
 import io.enoa.docker.command.docker.generic.GenericDocker;
 import io.enoa.docker.parser.docker.DIParser;
 import io.enoa.docker.dket.docker.DRet;
@@ -25,7 +25,7 @@ public class EnoaDockerDistribution {
 
 
   private GenericDocker docker;
-  private EGeneicDockerDistribution distribution;
+  private EGenericDockerDistribution distribution;
 
   EnoaDockerDistribution(GenericDocker docker) {
     this.docker = docker;

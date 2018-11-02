@@ -15,7 +15,7 @@
  */
 package io.enoa.docker.command.docker.eo;
 
-import io.enoa.docker.command.docker.generic.EGeneicDockerNode;
+import io.enoa.docker.command.docker.generic.EGenericDockerNode;
 import io.enoa.docker.command.docker.generic.GenericDocker;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.parser.docker.DIParser;
@@ -28,7 +28,7 @@ import java.util.List;
 public class EnoaDockerNode {
 
   private GenericDocker docker;
-  private EGeneicDockerNode nodes;
+  private EGenericDockerNode nodes;
 
   EnoaDockerNode(GenericDocker docker) {
     this.docker = docker;

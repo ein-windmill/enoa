@@ -26,7 +26,7 @@ public interface EnqueueDocker<T> {
     return new _DockerDoneargEnqueueImpl<>(executor, runner);
   }
 
-  static <PARA> EnqueueAssetDocker<PARA> asset(ExecutorService executor, AsyncRunner<DRet<PARA>> runner) {
+  static <PARA> EnqueueAssetDocker<DRet<PARA>> asset(ExecutorService executor, AsyncRunner<DRet<PARA>> runner) {
     return new _DockerAssetEnqueueImpl<>(executor, runner);
   }
 

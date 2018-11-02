@@ -17,16 +17,45 @@ package io.enoa.docker.command.docker.eo;
 
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.command.docker.generic.GenericDocker;
-import io.enoa.docker.parser.docker.DIParser;
 import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.dket.docker.dockerinfo.EDockerInfo;
+import io.enoa.docker.parser.docker.DIParser;
 
 public class EnoaDockerImpl implements EoDocker {
 
   private GenericDocker docker;
+  private EnoaDockerContainer container;
+  private EnoaDockerImage image;
+  private EnoaDockerNetwork network;
+  private EnoaDockerVolume volume;
+  private EnoaDockerExec exec;
+  private EnoaDockerSwarm swarm;
+  private EnoaDockerNode node;
+  private EnoaDockerService service;
+  private EnoaDockerTask task;
+  private EnoaDockerSecret secret;
+  private EnoaDockerConfig config;
+  private EnoaDockerPlugin plugin;
+  private EnoaDockerSystem system;
+  private EnoaDockerDistribution distribution;
+
 
   public EnoaDockerImpl(GenericDocker docker) {
     this.docker = docker;
+    this.container = new EnoaDockerContainer(this.docker);
+    this.image = new EnoaDockerImage(this.docker);
+    this.network = new EnoaDockerNetwork(this.docker);
+    this.volume = new EnoaDockerVolume(this.docker);
+    this.exec = new EnoaDockerExec(this.docker);
+    this.swarm = new EnoaDockerSwarm(this.docker);
+    this.node = new EnoaDockerNode(this.docker);
+    this.service = new EnoaDockerService(this.docker);
+    this.task = new EnoaDockerTask(this.docker);
+    this.secret = new EnoaDockerSecret(this.docker);
+    this.config = new EnoaDockerConfig(this.docker);
+    this.plugin = new EnoaDockerPlugin(this.docker);
+    this.system = new EnoaDockerSystem(this.docker);
+    this.distribution = new EnoaDockerDistribution(this.docker);
   }
 
   @Override
@@ -41,72 +70,72 @@ public class EnoaDockerImpl implements EoDocker {
 
   @Override
   public EnoaDockerContainer container() {
-    return new EnoaDockerContainer(this.docker);
+    return this.container;
   }
 
   @Override
   public EnoaDockerImage image() {
-    return new EnoaDockerImage(this.docker);
+    return this.image;
   }
 
   @Override
   public EnoaDockerNetwork network() {
-    return new EnoaDockerNetwork(this.docker);
+    return this.network;
   }
 
   @Override
   public EnoaDockerVolume volume() {
-    return new EnoaDockerVolume(this.docker);
+    return this.volume;
   }
 
   @Override
   public EnoaDockerExec exec() {
-    return new EnoaDockerExec(this.docker);
+    return this.exec;
   }
 
   @Override
   public EnoaDockerSwarm swarm() {
-    return new EnoaDockerSwarm(this.docker);
+    return this.swarm;
   }
 
   @Override
   public EnoaDockerNode node() {
-    return new EnoaDockerNode(this.docker);
+    return this.node;
   }
 
   @Override
   public EnoaDockerService service() {
-    return new EnoaDockerService(this.docker);
+    return this.service;
   }
 
   @Override
   public EnoaDockerTask task() {
-    return new EnoaDockerTask(this.docker);
+    return this.task;
   }
 
   @Override
   public EnoaDockerSecret secret() {
-    return new EnoaDockerSecret(this.docker);
+    return this.secret;
   }
 
   @Override
   public EnoaDockerConfig config() {
-    return new EnoaDockerConfig(this.docker);
+    return this.config;
   }
 
   @Override
   public EnoaDockerPlugin plugin() {
-    return new EnoaDockerPlugin(this.docker);
+    return this.plugin;
   }
 
   @Override
   public EnoaDockerSystem system() {
-    return new EnoaDockerSystem(this.docker);
+    return this.system;
   }
 
   @Override
   public EnoaDockerDistribution distribution() {
-    return new EnoaDockerDistribution(this.docker);
+    return this.distribution;
   }
 
 

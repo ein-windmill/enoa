@@ -60,7 +60,7 @@ public class EPThenPromiseBuilder extends EPEoPromiseBuilder {
     EoPromise promise = this.oe.build();
     return new ThenPromise<ThenPromise>() {
       @Override
-      public <R, P> ThenPromise then(PromiseThen<R, P> then) {
+      public <P> ThenPromise then(PromiseThen<Object, P> then) {
         if (thens == null)
           thens = new LinkedList<>();
         thens.add(then);

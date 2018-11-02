@@ -15,7 +15,7 @@
  */
 package io.enoa.docker.command.docker.eo;
 
-import io.enoa.docker.command.docker.generic.EGeneicDockerService;
+import io.enoa.docker.command.docker.generic.EGenericDockerService;
 import io.enoa.docker.command.docker.generic.GenericDocker;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.docker.service.DQPServiceCreate;
@@ -32,7 +32,7 @@ public class EnoaDockerService {
 
 
   private GenericDocker docker;
-  private EGeneicDockerService services;
+  private EGenericDockerService services;
 
   EnoaDockerService(GenericDocker docker) {
     this.docker = docker;

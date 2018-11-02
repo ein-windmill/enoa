@@ -23,32 +23,32 @@ public interface GenericDocker extends _DockerConfigSupport {
 
   <T> DRet<T> info(DIParser<T> parser);
 
-  EGeneicDockerContainer container();
+  EGenericDockerContainer container();
 
-  EGeneicDockerImage image();
+  EGenericDockerImage image();
 
-  EGeneicDockerNetwork network();
+  EGenericDockerNetwork network();
 
-  EGeneicDockerVolume volume();
+  EGenericDockerVolume volume();
 
-  EGeneicDockerExec exec();
+  EGenericDockerExec exec();
 
-  EGeneicDockerSwarm swarm();
+  EGenericDockerSwarm swarm();
 
-  EGeneicDockerNode node();
+  EGenericDockerNode node();
 
-  EGeneicDockerService service();
+  EGenericDockerService service();
 
-  EGeneicDockerTask task();
+  EGenericDockerTask task();
 
-  EGeneicDockerSecret secret();
+  EGenericDockerSecret secret();
 
-  EGeneicDockerConfig config();
+  EGenericDockerConfig config();
 
-  EGeneicDockerPlugin plugin();
+  EGenericDockerPlugin plugin();
 
-  EGeneicDockerSystem system();
+  EGenericDockerSystem system();
 
-  EGeneicDockerDistribution distribution();
+  EGenericDockerDistribution distribution();
 
 }

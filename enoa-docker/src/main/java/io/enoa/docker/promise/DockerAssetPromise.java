@@ -20,19 +20,19 @@ import io.enoa.promise.arg.*;
 
 public interface DockerAssetPromise<PARA> extends AssetPromise<PARA> {
   @Override
-  DockerAssetPromise<PARA> failthrow(PromiseArg<PARA> arg);
-
-  @Override
   DockerAssetPromise<PARA> asset(PromiseBool<PARA> bool);
 
   @Override
-  DockerAssetPromise<PARA> capture(PromiseCapture capture);
+  DockerAssetPromise<PARA> failthrow(PromiseArg<PARA> arg);
 
   @Override
-  <R, P> DockerAssetPromise<PARA> then(PromiseThen<R, P> then);
+  <P> DockerAssetPromise<PARA> then(PromiseThen<Object, P> then);
 
   @Override
   <T> DockerAssetPromise<PARA> execute(PromiseArg<T> arg);
+
+  @Override
+  DockerAssetPromise<PARA> capture(PromiseCapture capture);
 
   @Override
   void always(PromiseVoid always);

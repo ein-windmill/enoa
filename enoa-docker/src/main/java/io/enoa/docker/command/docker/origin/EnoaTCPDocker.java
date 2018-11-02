@@ -28,17 +28,46 @@ import io.enoa.toolkit.text.TextKit;
 public class EnoaTCPDocker implements OriginDocker {
 
   private String _host;
-  private DockerConfig config;
+  private DockerConfig dockerconfig;
 
-  public EnoaTCPDocker(DockerConfig config) {
-    this.config = config;
+  private EOriginDockerContainer container;
+  private EOriginDockerImage image;
+  private EOriginDockerNetwork network;
+  private EOriginDockerVolume volume;
+  private EOriginDockerExec exec;
+  private EOriginDockerSwarm swarm;
+  private EOriginDockerNode node;
+  private EOriginDockerService service;
+  private EOriginDockerTask task;
+  private EOriginDockerSecret secret;
+  private EOriginDockerConfig config;
+  private EOriginDockerPlugin plugin;
+  private EOriginDockerSystem system;
+  private EOriginDockerDistribution distribution;
+
+  public EnoaTCPDocker(DockerConfig dockerconfig) {
+    this.dockerconfig = dockerconfig;
+    this.container = new ETCPDockerContainer(this);
+    this.image = new ETCPDockerImage(this);
+    this.network = new ETCPDockerNetwork(this);
+    this.volume = new ETCPDockerVolume(this);
+    this.exec = new ETCPDockerExec(this);
+    this.swarm = new ETCPDockerDockerSwarm(this);
+    this.node = new ETCPDockerDockerNode(this);
+    this.service = new ETCPDockerDockerService(this);
+    this.task = new ETCPDockerDockerTask(this);
+    this.secret = new ETCPDockerDockerSecret(this);
+    this.config = new ETCPDockerConfig(this);
+    this.plugin = new ETCPDockerDockerPlugin(this);
+    this.system = new ETCPDockerDockerSystem(this);
+    this.distribution = new ETCPDockerDistribution(this);
   }
 
   protected EoUrl url(String... subpaths) {
     if (this._host == null) {
-      String host = this.config.host();
+      String host = this.dockerconfig.host();
       if (host.toLowerCase().startsWith("tcp://")) {
-        host = TextKit.union(this.config.tls() ? "https" : "http", host.substring(3));
+        host = TextKit.union(this.dockerconfig.tls() ? "https" : "http", host.substring(3));
       }
       this._host = host;
     }
@@ -55,7 +84,7 @@ public class EnoaTCPDocker implements OriginDocker {
 
   protected Http http(EoUrl url) {
     Http http = Http.request(url);
-    if (this.config.debug())
+    if (this.dockerconfig.debug())
       http.reporter(IHttpReporter.def())
         .handler(IHttpHandler.def());
     return http;
@@ -63,12 +92,12 @@ public class EnoaTCPDocker implements OriginDocker {
 
   @Override
   public DockerConfig _dockerconfig() {
-    return this.config;
+    return this.dockerconfig;
   }
 
   @Override
   public DResp info() {
-    HttpResponse response = this.http(TextKit.union("/", this.config.version(), "/info"))
+    HttpResponse response = this.http(TextKit.union("/", this.dockerconfig.version(), "/info"))
       .method(HttpMethod.GET)
       .emit();
     return DResp.create(response);
@@ -76,71 +105,72 @@ public class EnoaTCPDocker implements OriginDocker {
 
   @Override
   public EOriginDockerContainer container() {
-    return new ETCPDockerContainer(this);
+    return this.container;
   }
 
   @Override
   public EOriginDockerImage image() {
-    return new ETCPDockerImage(this);
+    return this.image;
   }
 
   @Override
   public EOriginDockerNetwork network() {
-    return new ETCPDockerNetwork(this);
+    return this.network;
   }
 
   @Override
   public EOriginDockerVolume volume() {
-    return new ETCPDockerVolume(this);
+    return this.volume;
   }
 
   @Override
   public EOriginDockerExec exec() {
-    return new ETCPDockerExec(this);
+    return this.exec;
   }
 
   @Override
   public EOriginDockerSwarm swarm() {
-    return new ETCPDockerDockerSwarm(this);
+    return this.swarm;
   }
 
   @Override
   public EOriginDockerNode node() {
-    return new ETCPDockerDockerNode(this);
+    return this.node;
   }
 
   @Override
   public EOriginDockerService service() {
-    return new ETCDockerDockerService(this);
+    return this.service;
   }
 
   @Override
   public EOriginDockerTask task() {
-    return new ETCPDockerDockerTask(this);
+    return this.task;
   }
 
   @Override
   public EOriginDockerSecret secret() {
-    return new ETCPDockerDockerSecret(this);
+    return this.secret;
   }
 
   @Override
-  public EOriginConfig config() {
-    return new ETCPDockerConfig(this);
+  public EOriginDockerConfig config() {
+    return this.config;
   }
 
   @Override
   public EOriginDockerPlugin plugin() {
-    return new ETCPDockerDockerPlugin(this);
+    return this.plugin;
   }
 
   @Override
   public EOriginDockerSystem system() {
-    return new ETCPDockerDockerSystem(this);
+    return this.system;
   }
 
   @Override
-  public EOriginDistribution distribution() {
-    return new ETCPDockerDistribution(this);
+  public EOriginDockerDistribution distribution() {
+    return this.distribution;
   }
+
 }

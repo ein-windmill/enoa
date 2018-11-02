@@ -21,7 +21,7 @@ import io.enoa.promise.arg.PromiseThen;
 
 public interface ThenPromise<SUB extends ThenPromise> extends EoPromise<SUB> {
 
-  <R, P> ThenPromise then(PromiseThen<R, P> then);
+  <P> ThenPromise then(PromiseThen<Object, P> then);
 
   <T> ThenPromise execute(PromiseArg<T> arg);
 

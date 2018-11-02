@@ -89,13 +89,15 @@ public class EPAssetPromiseBuilder<PARA> extends EPThenPromiseBuilder {
       }
 
       @Override
-      public <R, P> ThenPromise then(PromiseThen<R, P> then) {
-        return promise.then(then);
+      public <P> AssetPromise<PARA> then(PromiseThen<Object, P> then) {
+        promise.then(then);
+        return this;
       }
 
       @Override
-      public <T> ThenPromise execute(PromiseArg<T> arg) {
-        return promise.execute(arg);
+      public <T> AssetPromise<PARA> execute(PromiseArg<T> arg) {
+        promise.execute(arg);
+        return this;
       }
 
       @Override

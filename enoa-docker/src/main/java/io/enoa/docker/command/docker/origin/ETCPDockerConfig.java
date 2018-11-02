@@ -21,7 +21,7 @@ import io.enoa.http.Http;
 import io.enoa.http.protocol.HttpMethod;
 import io.enoa.http.protocol.HttpResponse;
 
-public class ETCPDockerConfig implements EOriginConfig {
+public class ETCPDockerConfig implements EOriginDockerConfig {
 
   private EnoaTCPDocker docker;
 

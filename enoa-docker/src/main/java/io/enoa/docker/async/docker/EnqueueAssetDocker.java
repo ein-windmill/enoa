@@ -15,12 +15,11 @@
  */
 package io.enoa.docker.async.docker;
 
-import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.promise.DockerAssetPromise;
 
-public interface EnqueueAssetDocker<T> extends EnqueueDocker<DockerAssetPromise<DRet<T>>> {
+public interface EnqueueAssetDocker<T> extends EnqueueDocker<DockerAssetPromise<T>> {
 
   @Override
-  DockerAssetPromise<DRet<T>> enqueue();
+  DockerAssetPromise<T> enqueue();
 
 }

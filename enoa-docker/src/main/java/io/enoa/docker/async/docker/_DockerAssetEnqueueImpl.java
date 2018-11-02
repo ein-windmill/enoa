@@ -27,7 +27,7 @@ import io.enoa.toolkit.collection.CollectionKit;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 
-public class _DockerAssetEnqueueImpl<PARA> implements EnqueueAssetDocker<PARA> {
+public class _DockerAssetEnqueueImpl<PARA> implements EnqueueAssetDocker<DRet<PARA>> {
 
   private ExecutorService executor;
   private AsyncRunner<DRet<PARA>> runner;
@@ -43,6 +43,7 @@ public class _DockerAssetEnqueueImpl<PARA> implements EnqueueAssetDocker<PARA> {
     this.executor.execute(() -> {
       try {
         String oldName = Thread.currentThread().getName();
+//        DRet<PARA> ret = this.runner.run();
         DRet<PARA> ret = this.runner.run();
 
         List<PromiseBool> assets = builder.assets();
@@ -107,7 +108,7 @@ public class _DockerAssetEnqueueImpl<PARA> implements EnqueueAssetDocker<PARA> {
       }
 
       @Override
-      public <R, P> DockerAssetPromise<DRet<PARA>> then(PromiseThen<R, P> then) {
+      public <P> DockerAssetPromise<DRet<PARA>> then(PromiseThen<Object, P> then) {
         promise.then(then);
         return this;
       }
@@ -123,5 +124,6 @@ public class _DockerAssetEnqueueImpl<PARA> implements EnqueueAssetDocker<PARA> {
         promise.always(always);
       }
     };
+
   }
 }

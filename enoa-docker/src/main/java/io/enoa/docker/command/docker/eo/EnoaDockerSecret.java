@@ -15,7 +15,7 @@
  */
 package io.enoa.docker.command.docker.eo;
 
-import io.enoa.docker.command.docker.generic.EGeneicDockerSecret;
+import io.enoa.docker.command.docker.generic.EGenericDockerSecret;
 import io.enoa.docker.command.docker.generic.GenericDocker;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.parser.docker.DIParser;
@@ -30,7 +30,7 @@ public class EnoaDockerSecret {
 
 
   private GenericDocker docker;
-  private EGeneicDockerSecret secrets;
+  private EGenericDockerSecret secrets;
 
   EnoaDockerSecret(GenericDocker docker) {
     this.docker = docker;

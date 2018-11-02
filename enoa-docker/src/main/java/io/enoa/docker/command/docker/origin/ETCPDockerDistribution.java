@@ -18,7 +18,7 @@ package io.enoa.docker.command.docker.origin;
 import io.enoa.docker.dket.docker.DResp;
 import io.enoa.http.protocol.HttpResponse;
 
-public class ETCPDockerDistribution implements EOriginDistribution {
+public class ETCPDockerDistribution implements EOriginDockerDistribution {
 
   private EnoaTCPDocker docker;
 
