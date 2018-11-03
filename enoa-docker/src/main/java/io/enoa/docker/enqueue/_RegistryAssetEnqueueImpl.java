@@ -38,7 +38,7 @@ class _RegistryAssetEnqueueImpl<PARA> implements EnqueueAssetDocker<RRet<PARA>> 
   @Override
   public DockerAssetPromise<RRet<PARA>> enqueue() {
     EPAssetPromiseBuilder<RRet<PARA>> builder = PromiseBuilder.asset();
-    this.executor.execute(new _EnqueueThread(builder, this.runner.run()));
+    this.executor.execute(new _EnqueueThread(builder, this.runner));
     AssetPromise<RRet<PARA>> promise = builder.build();
     return new DockerAssetPromise<RRet<PARA>>() {
       @Override

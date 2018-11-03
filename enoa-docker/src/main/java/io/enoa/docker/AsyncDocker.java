@@ -15,12 +15,15 @@
  */
 package io.enoa.docker;
 
+import io.enoa.docker.dqp.common.DQPResize;
+import io.enoa.docker.dqp.docker.container.DQPContainerCreate;
 import io.enoa.docker.enqueue.EnqueueAssetDocker;
 import io.enoa.docker.async.docker.eo.*;
 import io.enoa.docker.async.docker.generic.EAsyncGenericDocker;
 import io.enoa.docker.async.docker.origin.EAsyncOriginDocker;
 import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.dket.docker.dockerinfo.EDockerInfo;
+import io.enoa.docker.enqueue.EnqueueDocker;
 
 public class AsyncDocker {
 
@@ -41,7 +44,6 @@ public class AsyncDocker {
   public EAsyncEnoaDocker use() {
     return Docker.epm().asynceo(this.name);
   }
-
 
   public EnqueueAssetDocker<DRet<EDockerInfo>> info() {
     return use().info();
@@ -97,5 +99,13 @@ public class AsyncDocker {
 
   public EAsyncEnoaDockerVolume volume() {
     return use().volume();
+  }
+
+  public EnqueueAssetDocker<DRet<String>> run(String name, DQPContainerCreate create) {
+    return use().run(name, create);
+  }
+
+  public EnqueueAssetDocker<DRet<String>> run(String name, DQPContainerCreate create, DQPResize resize) {
+    return use().run(name, create, resize);
   }
 }

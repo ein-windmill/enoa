@@ -19,6 +19,8 @@ import io.enoa.docker.AbstractDockerTest;
 import io.enoa.docker.Docker;
 import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.dket.docker.dockerinfo.EDockerInfo;
+import io.enoa.docker.dqp.DQP;
+import io.enoa.docker.dqp.docker.container.DQPContainerCreate;
 import io.enoa.docker.parser.docker.DIParser;
 import io.enoa.json.Json;
 import org.junit.Test;
@@ -65,6 +67,36 @@ public class AsyncDockerTest extends AbstractDockerTest {
       .<EDockerInfo>execute(info -> System.out.println(Json.toJson(info)))
       .capture(System.err::println)
       .always(() -> System.out.println("Always"));
+
+    this.sleep();
+  }
+
+  @Test
+  public void testRun() {
+    DQPContainerCreate dqp = DQP.docker().container().create()
+//          .detach()
+      .interactive()
+      .tty()
+      .rm()
+      .name("test")
+      .publish("999:800")
+      .publish("127.0.0.1:998:800")
+      .publish("942:942")
+      .env("ENV", "fa")
+      .env("NAME=kin")
+      .labels("label 0")
+      .image("alpine:3.8")
+      .cmd("ls");
+
+    Docker.async()
+      .run("test", dqp)
+      .enqueue()
+      .asset(DRet::ok)
+      .failthrow(ret -> System.err.println(ret.message()))
+      .<DRet<String>>then(DRet::data)
+      .<String>execute(System.out::println)
+      .capture(System.err::println)
+      .always(() -> System.out.println("always"));
 
     this.sleep();
   }

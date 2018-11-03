@@ -199,7 +199,7 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
   }
 
   @Override
-  public DResp attach(String id, DQPContainerAttch dqp) {
+  public DResp attach(String id, DQPContainerAttach dqp) {
     Http http = this.docker.http("containers", id, "attach")
       .method(HttpMethod.POST);
     if (dqp != null)

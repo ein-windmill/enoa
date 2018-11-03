@@ -156,7 +156,7 @@ public class EAsyncOriginDockerContainer {
     return EnqueueDocker.donearg(this.docker._dockerconfig().executor(), () -> this.container.attach(id));
   }
 
-  public EnqueueDoneargDocker<DResp> attach(String id, DQPContainerAttch dqp) {
+  public EnqueueDoneargDocker<DResp> attach(String id, DQPContainerAttach dqp) {
     return EnqueueDocker.donearg(this.docker._dockerconfig().executor(), () -> this.container.attach(id, dqp));
   }
 

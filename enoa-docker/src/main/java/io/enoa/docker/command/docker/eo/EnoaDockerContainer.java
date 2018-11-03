@@ -161,7 +161,7 @@ public class EnoaDockerContainer {
     return this.container.attach(DIParser.string(), id);
   }
 
-  public DRet<String> attach(String id, DQPContainerAttch dqp) {
+  public DRet<String> attach(String id, DQPContainerAttach dqp) {
     return this.container.attach(DIParser.string(), id, dqp);
   }
 

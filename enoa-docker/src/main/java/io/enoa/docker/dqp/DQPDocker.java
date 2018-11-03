@@ -147,8 +147,8 @@ public final class DQPDocker {
       return DQPContainerUpdate.create();
     }
 
-    public DQPContainerAttch attch() {
-      return DQPContainerAttch.create();
+    public DQPContainerAttach attach() {
+      return DQPContainerAttach.create();
     }
 
     public DQPContainerRemove remove() {

@@ -16,12 +16,14 @@
 package io.enoa.docker.async.docker.eo;
 
 import io.enoa.docker.DockerConfig;
-import io.enoa.docker.enqueue.EnqueueAssetDocker;
-import io.enoa.docker.enqueue.EnqueueDocker;
 import io.enoa.docker.command.docker._DockerConfigSupport;
 import io.enoa.docker.command.docker.eo.EoDocker;
 import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.dket.docker.dockerinfo.EDockerInfo;
+import io.enoa.docker.dqp.common.DQPResize;
+import io.enoa.docker.dqp.docker.container.DQPContainerCreate;
+import io.enoa.docker.enqueue.EnqueueAssetDocker;
+import io.enoa.docker.enqueue.EnqueueDocker;
 
 public class EAsyncEnoaDocker implements _DockerConfigSupport {
 
@@ -119,4 +121,13 @@ public class EAsyncEnoaDocker implements _DockerConfigSupport {
   public EAsyncEnoaDockerVolume volume() {
     return this.volume;
   }
+
+  public EnqueueAssetDocker<DRet<String>> run(String name, DQPContainerCreate create) {
+    return EnqueueDocker.asseterdocker(this._dockerconfig().executor(), () -> this.docker.run(name, create));
+  }
+
+  public EnqueueAssetDocker<DRet<String>> run(String name, DQPContainerCreate create, DQPResize resize) {
+    return EnqueueDocker.asseterdocker(this._dockerconfig().executor(), () -> this.docker.run(name, create, resize));
+  }
+
 }

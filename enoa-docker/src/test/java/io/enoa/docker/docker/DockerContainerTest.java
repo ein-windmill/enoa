@@ -25,12 +25,14 @@ import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.docker.container.DQPContainerUpdate;
 import io.enoa.docker.stream.DStream;
 import io.enoa.json.Json;
+import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.value.Void;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 @Ignore
@@ -196,7 +198,7 @@ public class DockerContainerTest extends AbstractDockerTest {
   @Test
   public void attach() {
     DRet<String> ret = Docker.container().attach("test",
-      DQP.docker().container().attch()
+      DQP.docker().container().attach()
         .stderr()
         .stdin()
         .stdout()
@@ -239,29 +241,51 @@ public class DockerContainerTest extends AbstractDockerTest {
 
   @Test
   public void testRun() {
+    String result = this.dockerrun();
+    System.out.println(result);
+  }
+
+  @Test
+  public void testMu() {
+    while (true) {
+      String result = this.dockerrun();
+      System.out.println(result);
+      try {
+        TimeUnit.SECONDS.sleep(1L);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
+  private String dockerrun() {
+
     DRet<String> ret = Docker.use()
       .run("test",
         DQP.docker().container().create()
+//          .detach()
           .interactive()
-          .detach()
           .tty()
           .rm()
           .name("test")
-          .volume("/data:/data")
-          .volume("/opt:/opt")
-          .volume("test:/testx")
+//          .volume("/data:/data")
+//          .volume("/opt:/opt")
+//          .volume("test:/testx")
           .publish("999:800")
           .publish("127.0.0.1:998:800")
           .publish("942:942")
           .env("ENV", "fa")
           .env("NAME=kin")
           .labels("label 0")
-          .link("registry:f")
-          .image("alpine")
+//          .link("registry:f")
+          .image("alpine:3.8")
           .cmd("ls")
       );
     Assert.assertTrue(ret.ok());
-    System.out.println(ret.data());
+    String tty = ret.data();
+    if (TextKit.blanky(tty))
+      throw new RuntimeException("No result");
+    return tty;
   }
 
 }

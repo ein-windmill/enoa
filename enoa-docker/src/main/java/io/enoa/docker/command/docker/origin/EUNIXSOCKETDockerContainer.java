@@ -120,7 +120,7 @@ public class EUNIXSOCKETDockerContainer implements EOriginDockerContainer {
   }
 
   @Override
-  public DResp attach(String id, DQPContainerAttch dqp) {
+  public DResp attach(String id, DQPContainerAttach dqp) {
     return null;
   }
 

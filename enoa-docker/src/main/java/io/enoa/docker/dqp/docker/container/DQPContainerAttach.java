@@ -19,7 +19,7 @@ import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.DQR;
 import io.enoa.toolkit.text.TextKit;
 
-public class DQPContainerAttch implements DQP {
+public class DQPContainerAttach implements DQP {
 
   private String detachkeys;
   private boolean logs;
@@ -29,60 +29,60 @@ public class DQPContainerAttch implements DQP {
   private boolean stderr;
 
 
-  public static DQPContainerAttch create() {
-    return new DQPContainerAttch();
+  public static DQPContainerAttach create() {
+    return new DQPContainerAttach();
   }
 
-  public DQPContainerAttch() {
+  public DQPContainerAttach() {
   }
 
 
-  public DQPContainerAttch detachkeys(String detachkeys) {
+  public DQPContainerAttach detachkeys(String detachkeys) {
     this.detachkeys = detachkeys;
     return this;
   }
 
-  public DQPContainerAttch logs() {
+  public DQPContainerAttach logs() {
     return this.logs(Boolean.TRUE);
   }
 
-  public DQPContainerAttch logs(boolean logs) {
+  public DQPContainerAttach logs(boolean logs) {
     this.logs = logs;
     return this;
   }
 
-  public DQPContainerAttch stream() {
+  public DQPContainerAttach stream() {
     return this.stream(Boolean.TRUE);
   }
 
-  public DQPContainerAttch stream(boolean stream) {
+  public DQPContainerAttach stream(boolean stream) {
     this.stream = stream;
     return this;
   }
 
-  public DQPContainerAttch stdin() {
+  public DQPContainerAttach stdin() {
     return this.stdin(Boolean.TRUE);
   }
 
-  public DQPContainerAttch stdin(boolean stdin) {
+  public DQPContainerAttach stdin(boolean stdin) {
     this.stdin = stdin;
     return this;
   }
 
-  public DQPContainerAttch stdout() {
+  public DQPContainerAttach stdout() {
     return this.stdout(Boolean.TRUE);
   }
 
-  public DQPContainerAttch stdout(boolean stdout) {
+  public DQPContainerAttach stdout(boolean stdout) {
     this.stdout = stdout;
     return this;
   }
 
-  public DQPContainerAttch stderr() {
+  public DQPContainerAttach stderr() {
     return this.stderr(Boolean.TRUE);
   }
 
-  public DQPContainerAttch stderr(boolean stderr) {
+  public DQPContainerAttach stderr(boolean stderr) {
     this.stderr = stderr;
     return this;
   }

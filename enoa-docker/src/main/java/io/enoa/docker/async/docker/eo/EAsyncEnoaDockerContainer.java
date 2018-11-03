@@ -161,7 +161,7 @@ public class EAsyncEnoaDockerContainer {
     return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.container.attach(id));
   }
 
-  public EnqueueAssetDocker<DRet<String>> attach(String id, DQPContainerAttch dqp) {
+  public EnqueueAssetDocker<DRet<String>> attach(String id, DQPContainerAttach dqp) {
     return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.container.attach(id, dqp));
   }
 

@@ -20,6 +20,8 @@ import io.enoa.docker.command.docker.generic.GenericDocker;
 import io.enoa.docker.command.docker.origin.OriginDocker;
 import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.dket.docker.dockerinfo.EDockerInfo;
+import io.enoa.docker.dqp.common.DQPResize;
+import io.enoa.docker.dqp.docker.container.DQPContainerCreate;
 
 public class Docker {
 
@@ -117,6 +119,15 @@ public class Docker {
 
   public static EnoaDockerDistribution distribution() {
     return use().distribution();
+  }
+
+
+  public static DRet<String> run(String name, DQPContainerCreate create) {
+    return use().run(name, create);
+  }
+
+  public static DRet<String> run(String name, DQPContainerCreate create, DQPResize resize) {
+    return use().run(name, create, resize);
   }
 
 }

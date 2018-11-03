@@ -18,6 +18,7 @@ package io.enoa.docker.command.docker.eo;
 import io.enoa.docker.command.docker._DockerConfigSupport;
 import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.dket.docker.dockerinfo.EDockerInfo;
+import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.docker.container.DQPContainerCreate;
 
 public interface EoDocker extends _DockerConfigSupport {
@@ -52,6 +53,10 @@ public interface EoDocker extends _DockerConfigSupport {
 
   EnoaDockerDistribution distribution();
 
-  DRet<String> run(String name, DQPContainerCreate dqp);
+  default DRet<String> run(String name, DQPContainerCreate create) {
+    return this.run(name, create, null);
+  }
+
+  DRet<String> run(String name, DQPContainerCreate create, DQPResize resize);
 
 }

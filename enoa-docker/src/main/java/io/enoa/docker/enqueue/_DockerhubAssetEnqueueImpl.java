@@ -38,7 +38,7 @@ class _DockerhubAssetEnqueueImpl<PARA> implements EnqueueAssetDocker<HRet<PARA>>
   @Override
   public DockerAssetPromise<HRet<PARA>> enqueue() {
     EPAssetPromiseBuilder<HRet<PARA>> builder = PromiseBuilder.asset();
-    this.executor.execute(new _EnqueueThread(builder, this.runner.run()));
+    this.executor.execute(new _EnqueueThread(builder, this.runner));
     AssetPromise<HRet<PARA>> promise = builder.build();
     return new DockerAssetPromise<HRet<PARA>>() {
       @Override

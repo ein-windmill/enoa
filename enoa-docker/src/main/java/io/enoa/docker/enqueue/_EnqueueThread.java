@@ -19,6 +19,7 @@ import io.enoa.promise.arg.PromiseArg;
 import io.enoa.promise.arg.PromiseBool;
 import io.enoa.promise.arg.PromiseCapture;
 import io.enoa.promise.arg.PromiseThen;
+import io.enoa.promise.async.AsyncRunner;
 import io.enoa.promise.builder.EPAssetPromiseBuilder;
 import io.enoa.toolkit.collection.CollectionKit;
 
@@ -27,17 +28,19 @@ import java.util.List;
 class _EnqueueThread implements Runnable {
 
   private EPAssetPromiseBuilder builder;
-  private Object ret;
+  private AsyncRunner runner;
 
-  _EnqueueThread(EPAssetPromiseBuilder builder, Object ret) {
+  _EnqueueThread(EPAssetPromiseBuilder builder, AsyncRunner runner) {
     this.builder = builder;
-    this.ret = ret;
+    this.runner = runner;
   }
 
   @Override
   public void run() {
     try {
       String oldName = Thread.currentThread().getName();
+      Object ret = this.runner.run();
+
       List<PromiseBool> assets = builder.assets();
       boolean pass = Boolean.TRUE;
       for (PromiseBool asset : assets) {

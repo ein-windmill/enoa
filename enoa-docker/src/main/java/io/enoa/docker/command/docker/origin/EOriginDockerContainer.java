@@ -557,7 +557,7 @@ public interface EOriginDockerContainer {
   DResp unpause(String id);
 
   /**
-   * @see #attach(String, DQPContainerAttch)
+   * @see #attach(String, DQPContainerAttach)
    */
   default DResp attach(String id) {
     return this.attach(id, null);
@@ -638,7 +638,7 @@ public interface EOriginDockerContainer {
    * @param dqp dqp
    * @return Dresp
    */
-  DResp attach(String id, DQPContainerAttch dqp);
+  DResp attach(String id, DQPContainerAttach dqp);
 
   @Deprecated
   default Void ws(String id) {

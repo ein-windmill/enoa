@@ -18,13 +18,11 @@ package io.enoa.docker.docker;
 import io.enoa.docker.AbstractDockerTest;
 import io.enoa.docker.Docker;
 import io.enoa.docker.dqp.DQP;
-import io.enoa.docker.dqp.docker.image.DQPImageBuild;
-import io.enoa.docker.dqp.docker.image.DQPImageExport;
-import io.enoa.docker.dqp.docker.image.DQPImageList;
-import io.enoa.docker.dqp.docker.image.DQPImageTag;
+import io.enoa.docker.dqp.docker.image.*;
 import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.dket.docker.image.*;
 import io.enoa.docker.stream.DStream;
+import io.enoa.docker.stream.IDStreamRunner;
 import io.enoa.json.Json;
 import io.enoa.toolkit.binary.EnoaBinary;
 import io.enoa.toolkit.file.FileKit;
@@ -165,5 +163,11 @@ public class DockerImageTest extends AbstractDockerTest {
     System.out.println(ret);
   }
 
+
+  @Test
+  public void testCreate() {
+    Docker.image().create(DQPImageCreate.create().fromimage("docker.io/alpine").tag("3.8"),
+      DStream.<Kv>builder(data -> System.out.println(Json.toJson(data))).build());
+  }
 
 }
