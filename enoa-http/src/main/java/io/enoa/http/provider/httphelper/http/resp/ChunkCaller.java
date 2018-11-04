@@ -33,7 +33,6 @@ class ChunkCaller {
   private Queue<Byte> queues;
   private AtomicBoolean finish;
 
-
   ChunkCaller(Chunk chunk, Charset charset) {
     this.chunk = chunk;
     this.charset = charset;
@@ -47,19 +46,24 @@ class ChunkCaller {
     this.finish.set(Boolean.TRUE);
   }
 
-
   void call(byte[] bytes) {
     for (byte b : bytes) {
       this.queues.offer(b);
     }
   }
 
+  private void threadname(Thread thread) {
+    String oldname = thread.getName();
+    int fix = oldname.indexOf("-"),
+      lix = oldname.lastIndexOf("-");
+
+    String group = oldname.substring(fix + 1, lix);
+    thread.setName(chunk + "-" + group);
+  }
+
   private void run() {
     this.executor.execute(() -> {
-      String originName = Thread.currentThread().getName();
-      int ix = originName.lastIndexOf("-");
-      String newName = "Chunk-" + originName.substring(ix + 1);
-      Thread.currentThread().setName(newName);
+      this.threadname(Thread.currentThread());
       try (ByteArrayOutputStream temp = new ByteArrayOutputStream()) {
         while (true) {
           if (this.finish.get() || this.chunk.stopper().stop()) {

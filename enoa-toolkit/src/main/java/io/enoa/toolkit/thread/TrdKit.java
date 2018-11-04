@@ -25,9 +25,16 @@ public class TrdKit {
       thread.setName(name);
       return;
     }
-    int ix = oldname.lastIndexOf("-");
-    String newname = TextKit.union(name, "-", oldname.substring(ix + 1));
-    thread.setName(newname);
+//    int ix = oldname.lastIndexOf("-");
+//    String newname = TextKit.union(name, "-", oldname.substring(ix + 1));
+//    thread.setName(newname);
+
+    int fix = oldname.indexOf("-"),
+      lix = oldname.lastIndexOf("-");
+
+    String group = oldname.substring(fix + 1, lix),
+      mem = oldname.substring(lix + 1);
+    thread.setName(TextKit.union(name, "-", group, "-", mem));
   }
 
 }
