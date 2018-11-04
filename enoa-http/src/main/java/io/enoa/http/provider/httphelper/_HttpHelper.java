@@ -112,7 +112,7 @@ class _HttpHelper implements Http {
       HttpExtExecutor.instance().handle(this.handlers, request);
 
     // do request
-    _HttpHelperConn conn = new _HttpHelperConn(request);
+    _HttpHelperConn conn = new _HttpHelperConn(this.config, request);
     HttpResponse response = conn.execute();
 
     // run reporters
@@ -131,7 +131,7 @@ class _HttpHelper implements Http {
       HttpExtExecutor.instance().handle(this.handlers, request);
 
     // do request
-    _HttpHelperConn conn = new _HttpHelperConn(request);
+    _HttpHelperConn conn = new _HttpHelperConn(this.config, request);
     // HttpResponse response =
     HttpResponse response = conn.chunked(chunk);
 

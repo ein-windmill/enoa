@@ -16,17 +16,22 @@
 package io.enoa.docker.command.docker.origin;
 
 import io.enoa.docker.dket.docker.DResp;
+import io.enoa.docker.dqp.DQR;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.docker.container.*;
 import io.enoa.docker.stream.DStream;
+import io.enoa.http.EoUrl;
 import io.enoa.http.Http;
 import io.enoa.http.protocol.HttpMethod;
+import io.enoa.http.protocol.HttpPara;
 import io.enoa.http.protocol.HttpResponse;
 import io.enoa.http.protocol.chunk.Chunk;
 import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.binary.EnoaBinary;
 import io.enoa.toolkit.text.TextKit;
+
+import java.util.Set;
 
 public class ETCPDockerContainer implements EOriginDockerContainer {
 
@@ -199,12 +204,21 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
   }
 
   @Override
-  public DResp attach(String id, DQPContainerAttach dqp) {
-    Http http = this.docker.http("containers", id, "attach")
-      .method(HttpMethod.POST);
-    if (dqp != null)
-      http.para(dqp.dqr().http());
-    HttpResponse response = http.emit();
+  public DResp attach(String id, DQPContainerAttach dqp, DStream<String> dstream) {
+    DQR dqr = dqp == null ? DQR.empty() : dqp.dqr();
+    Set<HttpPara> paras = dqr.http();
+    EoUrl url = this.docker.url("containers", id, "attach");
+    paras.forEach(para -> url.para(para.name(), para.value()));
+    Http http = this.docker.http(url)
+      .method(HttpMethod.POST)
+      .header("Upgrade", "tcp")
+      .header("Connection", "Upgrade")
+      .header("Content-Type", "text/aplin");
+    HttpResponse response = dstream == null ?
+      http.emit() :
+      http.chunk(Chunk.builder(bytes -> dstream.runner().run(EnoaBinary.create(bytes).string()))
+        .stopper(() -> dstream.stopper() == null ? Boolean.FALSE : dstream.stopper().stop())
+        .build());
     return DResp.create(response);
   }
 
@@ -213,6 +227,7 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
     HttpResponse response = this.docker.http(this.docker.url("containers", id, "wait").para("condition", condition))
       .method(HttpMethod.POST)
       .emit();
+//      .chunk(Chunk.builder(bytes -> System.out.println(EnoaBinary.create(bytes).string())).build());
     return DResp.create(response);
   }
 

@@ -25,12 +25,18 @@ import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.docker.container.DQPContainerUpdate;
 import io.enoa.docker.stream.DStream;
 import io.enoa.json.Json;
+import io.enoa.toolkit.EoConst;
+import io.enoa.toolkit.file.FileKit;
+import io.enoa.toolkit.path.PathKit;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.value.Void;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.nio.ByteBuffer;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -196,17 +202,17 @@ public class DockerContainerTest extends AbstractDockerTest {
   }
 
   @Test
-  public void attach() {
+  public void testAttach() {
     DRet<String> ret = Docker.container().attach("test",
       DQP.docker().container().attach()
         .stderr()
         .stdin()
         .stdout()
-        .stream()
+        .stream(),
+      DStream.<String>builder(System.out::println).build()
     );
     Assert.assertTrue(ret.ok());
-    String json = Json.toJson(ret.data());
-    System.out.println(json);
+    System.out.println(ret.data());
   }
 
   @Test
@@ -241,15 +247,20 @@ public class DockerContainerTest extends AbstractDockerTest {
 
   @Test
   public void testRun() {
-    String result = this.dockerrun();
+    Path tmp = PathKit.debugPath().resolve("_tmp");
+    String result = this.dockerrun(tmp);
+    FileKit.write(Paths.get("D:/tmp/run.txt"), ByteBuffer.wrap(result.getBytes(EoConst.CHARSET)));
     System.out.println(result);
+    FileKit.delete(tmp);
   }
 
   @Test
   public void testMu() {
+    Path tmp = PathKit.debugPath().resolve("_tmp");
     while (true) {
-      String result = this.dockerrun();
+      String result = this.dockerrun(tmp);
       System.out.println(result);
+      FileKit.delete(tmp);
       try {
         TimeUnit.SECONDS.sleep(1L);
       } catch (InterruptedException e) {
@@ -258,34 +269,27 @@ public class DockerContainerTest extends AbstractDockerTest {
     }
   }
 
-  private String dockerrun() {
-
-    DRet<String> ret = Docker.use()
-      .run("test",
-        DQP.docker().container().create()
-//          .detach()
-          .interactive()
-          .tty()
-          .rm()
-          .name("test")
-//          .volume("/data:/data")
-//          .volume("/opt:/opt")
-//          .volume("test:/testx")
-          .publish("999:800")
-          .publish("127.0.0.1:998:800")
-          .publish("942:942")
-          .env("ENV", "fa")
-          .env("NAME=kin")
-          .labels("label 0")
-//          .link("registry:f")
-          .image("alpine:3.8")
-          .cmd("ls")
-      );
+  private String dockerrun(Path path) {
+    DRet<String> ret = Docker.run("dockerrun",
+      DQP.docker().container().create()
+        .interactive()
+        .tty()
+        .rm()
+        .name("dockerrun")
+        .volume(TextKit.union(path.toString(), ":/git"))
+        .image("alpine/git")
+        .cmd("clone")
+        .cmd("https://gitee.com/panqingyun/E3D-Engine.git"),
+//        .cmd("https://github.com/fewensa/enoa.git"),
+      DStream.<String>builder(data -> {
+        System.out.println(data);
+      }).build());
     Assert.assertTrue(ret.ok());
     String tty = ret.data();
     if (TextKit.blanky(tty))
       throw new RuntimeException("No result");
     return tty;
   }
+
 
 }

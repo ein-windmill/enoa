@@ -187,7 +187,11 @@ public class EGenericDockerContainer {
   }
 
   public <T> DRet<T> attach(DIParser<T> parser, String id, DQPContainerAttach dqp) {
-    DResp origin = this.container.attach(id, dqp);
+    return this.attach(parser, id, dqp, null);
+  }
+
+  public <T> DRet<T> attach(DIParser<T> parser, String id, DQPContainerAttach dqp, DStream<String> dstream) {
+    DResp origin = this.container.attach(id, dqp, dstream);
     return parser.parse(this.config, origin);
   }
 

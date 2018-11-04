@@ -15,10 +15,14 @@
  */
 package io.enoa.http.protocol;
 
+import io.enoa.http.EoHttpConfig;
+
 import java.nio.charset.Charset;
 import java.util.List;
 
 public interface HttpResponse {
+
+  EoHttpConfig config();
 
   int code();
 

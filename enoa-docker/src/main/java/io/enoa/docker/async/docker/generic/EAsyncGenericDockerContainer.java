@@ -163,6 +163,10 @@ public class EAsyncGenericDockerContainer {
     return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.container.attach(parser, id, dqp));
   }
 
+  public <T> EnqueueAssetDocker<DRet<T>> attach(DIParser<T> parser, String id, DQPContainerAttach dqp, DStream<String> dstream) {
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.container.attach(parser, id, dqp, dstream));
+  }
+
   @Deprecated
   public EnqueueAssetDocker<DRet<Void>> ws(String id) {
     return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.container.ws(id));

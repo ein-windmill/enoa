@@ -16,6 +16,8 @@
 package io.enoa.docker;
 
 import io.enoa.docker.thr.DockerException;
+import io.enoa.http.EoHttp;
+import io.enoa.http.provider.httphelper.HttpHelperConfig;
 import io.enoa.json.EnoaJson;
 import io.enoa.json.EoJsonFactory;
 import io.enoa.promise.builder.PromiseBuilder;
@@ -39,6 +41,7 @@ public class DockerConfig implements Serializable {
   private final EnoaJson json;
   private final boolean failthrow;
   private final ExecutorService executor;
+  private final EoHttp http;
 
   private DockerConfig(Builder builder) {
     this.host = builder.host;
@@ -53,6 +56,11 @@ public class DockerConfig implements Serializable {
     this.json = builder.json.json();
     this.failthrow = builder.failthrow;
     this.executor = builder.executor;
+    this.http = builder.http;
+  }
+
+  public EoHttp http() {
+    return this.http;
   }
 
   public ExecutorService executor() {
@@ -117,16 +125,27 @@ public class DockerConfig implements Serializable {
     private EoJsonFactory json;
     private boolean failthrow;
     private ExecutorService executor;
+    private EoHttp http;
 
     public Builder() {
       this.version = "v1.35";
       this.executor = PromiseBuilder.executor().enqueue("Docker Dispatcher");
+      this.http = () -> EoHttp.def().http()
+        .config(new HttpHelperConfig.Builder()
+          .soTimeout(Integer.MAX_VALUE)
+          .chunktype("application/vnd.docker.raw-stream")
+          .build());
     }
 
     public DockerConfig build() {
       if (this.json == null)
         throw new DockerException(EnoaTipKit.message("eo.tip.docker.no_json"));
       return new DockerConfig(this);
+    }
+
+    public Builder http(EoHttp http) {
+      this.http = http;
+      return this;
     }
 
     public Builder executor(ExecutorService executor) {

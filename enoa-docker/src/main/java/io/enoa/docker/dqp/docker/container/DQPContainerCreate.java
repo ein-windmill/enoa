@@ -192,14 +192,14 @@ public class DQPContainerCreate implements DQP {
 
   public DQPContainerCreate env(String env) {
     if (this.env == null)
-      this.env = new HashSet<>();
+      this.env = new TreeSet<>();
     this.env.add(env);
     return this;
   }
 
   public DQPContainerCreate env(String name, String value) {
     if (this.env == null)
-      this.env = new HashSet<>();
+      this.env = new TreeSet<>();
     this.env.add(TextKit.union(name, "=", value));
     return this;
   }
@@ -216,7 +216,7 @@ public class DQPContainerCreate implements DQP {
 
   public DQPContainerCreate publish(String publish) {
     if (this.publish == null)
-      this.publish = new HashSet<>();
+      this.publish = new TreeSet<>();
     this.publish.add(publish);
     return this;
   }
@@ -233,7 +233,7 @@ public class DQPContainerCreate implements DQP {
 
   public DQPContainerCreate volume(String volume) {
     if (this.volume == null)
-      this.volume = new HashSet<>();
+      this.volume = new TreeSet<>();
     this.volume.add(volume);
     return this;
   }
@@ -245,7 +245,7 @@ public class DQPContainerCreate implements DQP {
 
   public DQPContainerCreate capadd(String capadd) {
     if (this.capadd == null)
-      this.capadd = new HashSet<>();
+      this.capadd = new TreeSet<>();
     this.capadd.add(capadd);
     return this;
   }
@@ -257,7 +257,7 @@ public class DQPContainerCreate implements DQP {
 
   public DQPContainerCreate capdrop(String capdrop) {
     if (this.capdrop == null)
-      this.capdrop = new HashSet<>();
+      this.capdrop = new TreeSet<>();
     this.capdrop.add(capdrop);
     return this;
   }
@@ -279,7 +279,7 @@ public class DQPContainerCreate implements DQP {
 
   public DQPContainerCreate device(String device) {
     if (this.device == null)
-      this.device = new HashSet<>();
+      this.device = new TreeSet<>();
     this.device.add(device);
     return this;
   }
@@ -291,7 +291,7 @@ public class DQPContainerCreate implements DQP {
 
   public DQPContainerCreate dns(String dns) {
     if (this.dns == null)
-      this.dns = new HashSet<>();
+      this.dns = new TreeSet<>();
     this.dns.add(dns);
     return this;
   }
@@ -303,7 +303,7 @@ public class DQPContainerCreate implements DQP {
 
   public DQPContainerCreate dnssearch(String dnssearch) {
     if (this.dnssearch == null)
-      this.dnssearch = new HashSet<>();
+      this.dnssearch = new TreeSet<>();
     this.dnssearch.add(dnssearch);
     return this;
   }
@@ -320,7 +320,7 @@ public class DQPContainerCreate implements DQP {
 
   public DQPContainerCreate envfile(String envfile) {
     if (this.envfile == null)
-      this.envfile = new HashSet<>();
+      this.envfile = new TreeSet<>();
     this.envfile.add(envfile);
     return this;
   }
@@ -332,7 +332,7 @@ public class DQPContainerCreate implements DQP {
 
   public DQPContainerCreate expose(String expose) {
     if (this.expose == null)
-      this.expose = new HashSet<>();
+      this.expose = new TreeSet<>();
     this.expose.add(expose);
     return this;
   }
@@ -344,7 +344,7 @@ public class DQPContainerCreate implements DQP {
 
   public DQPContainerCreate link(String link) {
     if (this.link == null)
-      this.link = new HashSet<>();
+      this.link = new TreeSet<>();
     this.link.add(link);
     return this;
   }
@@ -356,7 +356,7 @@ public class DQPContainerCreate implements DQP {
 
   public DQPContainerCreate lxcconf(String lxcconf) {
     if (this.lxcconf == null)
-      this.lxcconf = new HashSet<>();
+      this.lxcconf = new TreeSet<>();
     this.lxcconf.add(lxcconf);
     return this;
   }
@@ -410,7 +410,7 @@ public class DQPContainerCreate implements DQP {
 
   public DQPContainerCreate cmd(String cmd) {
     if (this.cmd == null)
-      this.cmd = new HashSet<>();
+      this.cmd = new TreeSet<>();
     this.cmd.add(cmd);
     return this;
   }
@@ -427,7 +427,7 @@ public class DQPContainerCreate implements DQP {
 
   public DQPContainerCreate groupadd(String groupadd) {
     if (this.groupadd == null)
-      this.groupadd = new HashSet<>();
+      this.groupadd = new TreeSet<>();
     this.groupadd.add(groupadd);
     return this;
   }
@@ -439,7 +439,7 @@ public class DQPContainerCreate implements DQP {
 
   public DQPContainerCreate dnsopt(String dnsopt) {
     if (this.dnsopt == null)
-      this.dnsopt = new HashSet<>();
+      this.dnsopt = new TreeSet<>();
     this.dnsopt.add(dnsopt);
     return this;
   }
@@ -495,7 +495,7 @@ public class DQPContainerCreate implements DQP {
 
   public DQPContainerCreate labels(String label) {
     if (this.labels == null)
-      this.labels = new HashSet<>();
+      this.labels = new TreeSet<>();
     this.labels.add(label);
     return this;
   }
@@ -555,7 +555,7 @@ public class DQPContainerCreate implements DQP {
 
   public DQPContainerCreate securityopt(String securityopt) {
     if (this.securityopt == null)
-      this.securityopt = new HashSet<>();
+      this.securityopt = new TreeSet<>();
     this.securityopt.add(securityopt);
     return this;
   }

@@ -25,7 +25,9 @@ import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.docker.container.DQPContainerCreate;
 import io.enoa.docker.parser.docker.DIParser;
+import io.enoa.docker.stream.DStream;
 import io.enoa.toolkit.text.TextKit;
+import io.enoa.toolkit.thread.TrdKit;
 import io.enoa.toolkit.value.Void;
 
 import java.util.concurrent.ExecutorService;
@@ -152,11 +154,11 @@ public class EnoaDockerImpl implements EoDocker {
   }
 
   @Override
-  public DRet<String> run(String name, DQPContainerCreate create, DQPResize resize) {
-    return this.run(name, create, resize, Boolean.FALSE);
+  public DRet<String> run(String name, DQPContainerCreate create, DStream<String> dstream, DQPResize resize) {
+    return this.run(name, create, dstream, resize, Boolean.FALSE);
   }
 
-  private DRet<String> run(String name, DQPContainerCreate create, DQPResize resize, boolean isretry) {
+  private DRet<String> run(String name, DQPContainerCreate create, DStream<String> dstream, DQPResize resize, boolean isretry) {
     ExecutorService executor = null;
     try {
       DRet<String> retping = this.system().ping();
@@ -189,18 +191,17 @@ public class EnoaDockerImpl implements EoDocker {
           } catch (InterruptedException e) {
             e.printStackTrace();
           }
-          return this.run(name, create, resize, Boolean.TRUE);
+          return this.run(name, create, dstream, resize, Boolean.TRUE);
         }
         return DRet.fail(retcreate.origin(), retcreate.message());
       }
       String id = retcreate.data().id();
 
-      AtomicBoolean waitattach = new AtomicBoolean();
-      waitattach.set(Boolean.FALSE);
-      AtomicBoolean waitnext = new AtomicBoolean();
-      waitnext.set(Boolean.FALSE);
+      AtomicBoolean waitattach = new AtomicBoolean(Boolean.FALSE);
+      AtomicBoolean waitnext = new AtomicBoolean(Boolean.FALSE);
 
       executor.execute(() -> {
+        TrdKit.name(Thread.currentThread(), "docker-wait");
         waitnext.set(Boolean.TRUE);
         DRet<ECWait> retwait = this.container().wait(id, autoremove ? "removed" : "next-exit");
         if (!retwait.ok()) {
@@ -215,23 +216,24 @@ public class EnoaDockerImpl implements EoDocker {
           DRet.fail(retstart.origin(), null);
       }
 
-      AtomicBoolean complete = new AtomicBoolean();
-      complete.set(Boolean.FALSE);
+      AtomicBoolean complete = new AtomicBoolean(Boolean.FALSE);
       AtomicReference<DRet<String>> result = new AtomicReference<>();
       executor.execute(() -> {
+        TrdKit.name(Thread.currentThread(), "docker-attach");
         waitattach.set(Boolean.TRUE);
         DRet<String> attach = this.container()
           .attach(id, DQP.docker().container().attach()
-            .stderr()
-            .stdin()
-            .stdout()
-            .stream()
-          );
+              .stderr()
+              .stdin()
+              .stream()
+              .stdout(),
+            dstream);
         result.set(attach);
         complete.set(Boolean.TRUE);
       });
 
       executor.execute(() -> {
+        TrdKit.name(Thread.currentThread(), "docker-start");
         while (!waitattach.get() && !waitnext.get()) {
         }
         try {

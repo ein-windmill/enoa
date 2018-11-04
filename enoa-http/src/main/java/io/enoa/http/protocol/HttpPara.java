@@ -18,6 +18,7 @@ package io.enoa.http.protocol;
 import io.enoa.http.kit.SafeURL;
 
 import java.nio.charset.Charset;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -42,6 +43,24 @@ public class HttpPara {
     this.value = value;
 //    this.value = value.replace("&", "&amp;");
     this.array = array;
+  }
+
+  public static String output(Collection<HttpPara> paras) {
+    return output(paras, Boolean.TRUE, Charset.forName("UTF-8"));
+  }
+
+  public static String output(Collection<HttpPara> paras, boolean traditional, Charset charset) {
+    StringBuilder text = new StringBuilder();
+    paras.forEach(para -> text.append(para.output(traditional, charset)).append("&"));
+    return text.deleteCharAt(text.length() - 1).toString();
+  }
+
+  public static String output(HttpPara para) {
+    return output(para, Boolean.TRUE, Charset.forName("UTF-8"));
+  }
+
+  public static String output(HttpPara para, boolean traditional, Charset charset) {
+    return para.output(traditional, charset);
   }
 
   public static Set<HttpPara> parse(String text) {

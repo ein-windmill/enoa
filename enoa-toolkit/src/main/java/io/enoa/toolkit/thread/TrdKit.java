@@ -13,18 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.http;
+package io.enoa.toolkit.thread;
 
-import java.util.Set;
+import io.enoa.toolkit.text.TextKit;
 
-public interface EoHttpConfig {
+public class TrdKit {
 
-  int connectionTimeout();
-
-  int soTimeout();
-
-  boolean debug();
-
-  Set<String> chunktype();
+  public static void name(Thread thread, String name) {
+    String oldname = thread.getName();
+    if (!oldname.startsWith("pool-")) {
+      thread.setName(name);
+      return;
+    }
+    int ix = oldname.lastIndexOf("-");
+    String newname = TextKit.union(name, "-", oldname.substring(ix + 1));
+    thread.setName(newname);
+  }
 
 }

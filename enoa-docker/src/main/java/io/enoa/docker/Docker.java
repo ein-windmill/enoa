@@ -22,6 +22,7 @@ import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.dket.docker.dockerinfo.EDockerInfo;
 import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.docker.container.DQPContainerCreate;
+import io.enoa.docker.stream.DStream;
 
 public class Docker {
 
@@ -128,6 +129,14 @@ public class Docker {
 
   public static DRet<String> run(String name, DQPContainerCreate create, DQPResize resize) {
     return use().run(name, create, resize);
+  }
+
+  public static DRet<String> run(String name, DQPContainerCreate create, DStream<String> dstream) {
+    return use().run(name, create, dstream);
+  }
+
+  public static DRet<String> run(String name, DQPContainerCreate create, DStream<String> dstream, DQPResize resize) {
+    return use().run(name, create, dstream, resize);
   }
 
 }

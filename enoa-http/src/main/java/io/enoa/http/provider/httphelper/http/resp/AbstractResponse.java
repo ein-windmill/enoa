@@ -15,6 +15,7 @@
  */
 package io.enoa.http.provider.httphelper.http.resp;
 
+import io.enoa.http.EoHttpConfig;
 import io.enoa.http.protocol.HttpCookie;
 import io.enoa.http.protocol.HttpResponse;
 import io.enoa.http.protocol.HttpResponseBody;
@@ -39,10 +40,12 @@ abstract class AbstractResponse implements HttpResponse {
   private Set<String> headerNames;
   private Map<String, HttpCookie> cookie;
   private String message;
+  private EoHttpConfig config;
 
   private InputStream stream;
 
-  AbstractResponse(HttpURLConnection conn, InputStream inputstream, Charset charset) {
+  AbstractResponse(EoHttpConfig config, HttpURLConnection conn, InputStream inputstream, Charset charset) {
+    this.config = config;
     this.url = conn.getURL();
     this.charset = charset;
 
@@ -106,6 +109,10 @@ abstract class AbstractResponse implements HttpResponse {
     this.cookie = Collections.unmodifiableMap(this.cookie);
   }
 
+  @Override
+  public EoHttpConfig config() {
+    return this.config;
+  }
 
   @Override
   public int code() {

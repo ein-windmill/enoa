@@ -83,7 +83,7 @@ public class EnoaTCPDocker implements OriginDocker {
   }
 
   protected Http http(EoUrl url) {
-    Http http = Http.request(url);
+    Http http = this.dockerconfig.http().http().url(url);
     if (this.dockerconfig.debug())
       http.reporter(IHttpReporter.def())
         .handler(IHttpHandler.def());

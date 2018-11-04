@@ -24,6 +24,7 @@ import io.enoa.docker.async.docker.origin.EAsyncOriginDocker;
 import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.dket.docker.dockerinfo.EDockerInfo;
 import io.enoa.docker.enqueue.EnqueueDocker;
+import io.enoa.docker.stream.DStream;
 
 public class AsyncDocker {
 
@@ -107,5 +108,13 @@ public class AsyncDocker {
 
   public EnqueueAssetDocker<DRet<String>> run(String name, DQPContainerCreate create, DQPResize resize) {
     return use().run(name, create, resize);
+  }
+
+  public EnqueueAssetDocker<DRet<String>> run(String name, DQPContainerCreate create, DStream<String> dstream) {
+    return use().run(name, create, dstream);
+  }
+
+  public EnqueueAssetDocker<DRet<String>> run(String name, DQPContainerCreate create, DStream<String> dstream, DQPResize resize) {
+    return use().run(name, create, dstream, resize);
   }
 }

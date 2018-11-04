@@ -165,6 +165,10 @@ public class EnoaDockerContainer {
     return this.container.attach(DIParser.string(), id, dqp);
   }
 
+  public DRet<String> attach(String id, DQPContainerAttach dqp, DStream<String> dstream) {
+    return this.container.attach(DIParser.string(), id, dqp, dstream);
+  }
+
   @Deprecated
   public DRet<Void> ws(String id) {
     throw new DockerException(EnoaTipKit.message("eo.tip.docker.notsupport"));

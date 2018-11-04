@@ -18,6 +18,7 @@ package io.enoa.http.provider.httphelper.conn;
 import io.enoa.http.protocol.HttpHeader;
 import io.enoa.http.protocol.HttpResponse;
 import io.enoa.http.protocol.chunk.Chunk;
+import io.enoa.http.provider.httphelper.HttpHelperConfig;
 import io.enoa.http.provider.httphelper.conn.ssl._HttpHelperSSL;
 import io.enoa.http.provider.httphelper.http.req._HttpHelperRequest;
 import io.enoa.http.provider.httphelper.http.resp._HttpHelperChunkedResponse;
@@ -39,8 +40,10 @@ public class _HttpHelperConn {
 
 
   private _HttpHelperRequest request;
+  private HttpHelperConfig config;
 
-  public _HttpHelperConn(_HttpHelperRequest request) {
+  public _HttpHelperConn(HttpHelperConfig config, _HttpHelperRequest request) {
+    this.config = config;
     this.request = request;
   }
 
@@ -155,7 +158,7 @@ public class _HttpHelperConn {
       throw new RuntimeException(e.getMessage(), e);
     }
     try (InputStream inputstream = this.inputstream(conn)) {
-      return new _HttpHelperResponse(conn, inputstream, this.request.charset());
+      return new _HttpHelperResponse(this.config, conn, inputstream, this.request.charset());
     } catch (IOException e) {
       throw new RuntimeException(e.getMessage(), e);
     } finally {
@@ -171,7 +174,7 @@ public class _HttpHelperConn {
       throw new RuntimeException(e.getMessage(), e);
     }
     try (InputStream inputstream = this.inputstream(conn)) {
-      return new _HttpHelperChunkedResponse(conn, inputstream, this.request.charset(), chunk);
+      return new _HttpHelperChunkedResponse(this.config, conn, inputstream, this.request.charset(), chunk);
     } catch (IOException e) {
       throw new RuntimeException(e.getMessage(), e);
     } finally {

@@ -24,6 +24,7 @@ import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.docker.container.DQPContainerCreate;
 import io.enoa.docker.enqueue.EnqueueAssetDocker;
 import io.enoa.docker.enqueue.EnqueueDocker;
+import io.enoa.docker.stream.DStream;
 
 public class EAsyncEnoaDocker implements _DockerConfigSupport {
 
@@ -128,6 +129,14 @@ public class EAsyncEnoaDocker implements _DockerConfigSupport {
 
   public EnqueueAssetDocker<DRet<String>> run(String name, DQPContainerCreate create, DQPResize resize) {
     return EnqueueDocker.asseterdocker(this._dockerconfig().executor(), () -> this.docker.run(name, create, resize));
+  }
+
+  public EnqueueAssetDocker<DRet<String>> run(String name, DQPContainerCreate create, DStream<String> dstream) {
+    return EnqueueDocker.asseterdocker(this._dockerconfig().executor(), () -> this.docker.run(name, create, dstream));
+  }
+
+  public EnqueueAssetDocker<DRet<String>> run(String name, DQPContainerCreate create, DStream<String> dstream, DQPResize resize) {
+    return EnqueueDocker.asseterdocker(this._dockerconfig().executor(), () -> this.docker.run(name, create, dstream, resize));
   }
 
 }

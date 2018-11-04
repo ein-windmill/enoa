@@ -15,6 +15,7 @@
  */
 package io.enoa.http.provider.httphelper.http.resp;
 
+import io.enoa.http.EoHttpConfig;
 import io.enoa.http.protocol.HttpResponseBody;
 
 import java.io.ByteArrayOutputStream;
@@ -24,28 +25,22 @@ import java.nio.charset.Charset;
 
 public class _HttpHelperResponse extends AbstractResponse {
 
-  public _HttpHelperResponse(HttpURLConnection conn, InputStream inputStream, Charset charset) {
-    super(conn, inputStream, charset);
-    super.extrabody(this.extra());
+  public _HttpHelperResponse(EoHttpConfig config, HttpURLConnection conn, InputStream inputStream, Charset charset) {
+    super(config, conn, inputStream, charset);
+    super.extrabody(extra(charset));
   }
 
-  //  @Override
-  //  protected HttpResponseBody extrabody(InputStream inputstream) throws IOException {
-  //
-  //  }
-
-
-  private _IBodyExtra extra() {
+  static _IBodyExtra extra(Charset charset) {
     return stream -> {
       try (ByteArrayOutputStream swap = new ByteArrayOutputStream()) {
-        byte[] buff = new byte[8129];
-        int rc = 0;
-        while ((rc = stream.read(buff, 0, 1000)) > 0) {
+        byte[] buff = new byte[2048];
+        int rc;
+        while ((rc = stream.read(buff)) != -1) {
           swap.write(buff, 0, rc);
         }
 
         byte[] bytes = swap.toByteArray();
-        return HttpResponseBody.create(bytes, super.charset());
+        return HttpResponseBody.create(bytes, charset);
       }
     };
   }

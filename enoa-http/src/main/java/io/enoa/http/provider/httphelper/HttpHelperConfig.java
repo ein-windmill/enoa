@@ -17,17 +17,23 @@ package io.enoa.http.provider.httphelper;
 
 import io.enoa.http.EoHttpConfig;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 public class HttpHelperConfig implements EoHttpConfig {
 
   private final int connectionTimeout;
   private final int soTimeout;
   private final boolean debug;
+  private final Set<String> chunktype;
 
 
   private HttpHelperConfig(Builder builder) {
     this.connectionTimeout = builder.connectionTimeout;
     this.soTimeout = builder.soTimeout;
     this.debug = builder.debug;
+    this.chunktype = builder.chunktype;
   }
 
   public HttpHelperConfig(EoHttpConfig config) {
@@ -49,10 +55,16 @@ public class HttpHelperConfig implements EoHttpConfig {
     return this.debug;
   }
 
+  @Override
+  public Set<String> chunktype() {
+    return this.chunktype == null ? Collections.emptySet() : this.chunktype;
+  }
+
   public static class Builder {
     private int connectionTimeout;
     private int soTimeout;
     private boolean debug;
+    private Set<String> chunktype;
 
 
     public Builder() {
@@ -65,6 +77,7 @@ public class HttpHelperConfig implements EoHttpConfig {
       this();
       this.connectionTimeout = config.connectionTimeout();
       this.soTimeout = config.soTimeout();
+      this.chunktype = config.chunktype();
     }
 
     public HttpHelperConfig build() {
@@ -90,5 +103,16 @@ public class HttpHelperConfig implements EoHttpConfig {
       return this;
     }
 
+    public Builder chunktype(String chunktype) {
+      if (this.chunktype == null)
+        this.chunktype = new HashSet<>();
+      this.chunktype.add(chunktype);
+      return this;
+    }
+
+    public Builder chunktype(Set<String> chunktype) {
+      this.chunktype = chunktype;
+      return this;
+    }
   }
 }

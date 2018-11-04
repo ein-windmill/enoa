@@ -17,7 +17,6 @@ package io.enoa.toolkit.file;
 
 import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.binary.EnoaBinary;
-import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.thr.EoException;
 
@@ -131,28 +130,23 @@ public class FileKit {
   }};
 
 
-  public static void delete(String file) {
-    delete(new File(file));
+  public static boolean delete(String file) {
+    return delete(new File(file));
   }
 
-  public static void delete(Path path) {
-    delete(path.toFile());
+  public static boolean delete(Path path) {
+    return delete(path.toFile());
   }
 
-  public static void delete(File file) {
+  public static boolean delete(File file) {
     try {
-      if (file.isFile()) {
-        file.delete();
-        return;
+      File[] fs = file.listFiles();
+      if (fs != null) {
+        for (File _f : fs) {
+          delete(_f);
+        }
       }
-      File[] files = file.listFiles();
-      if (CollectionKit.isEmpty(files)) {
-        file.delete();
-        return;
-      }
-      for (File f : files) {
-        delete(f);
-      }
+      return file.delete();
     } catch (Exception e) {
       throw new RuntimeException(e.getMessage(), e);
     }
@@ -198,7 +192,8 @@ public class FileKit {
     if (!Files.exists(path.getParent()))
       mkdirs(path.getParent());
 
-    try (FileOutputStream out = new FileOutputStream(path.toFile()); FileChannel channel = out.getChannel()) {
+    try (FileOutputStream out = new FileOutputStream(path.toFile());
+         FileChannel channel = out.getChannel()) {
       channel.write(bytes);
     } catch (IOException e) {
       throw new EoException(e.getMessage(), e);
