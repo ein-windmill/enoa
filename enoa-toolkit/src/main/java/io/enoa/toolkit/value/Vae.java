@@ -15,10 +15,20 @@
  */
 package io.enoa.toolkit.value;
 
+import io.enoa.toolkit.text.TextKit;
+
 public class Vae {
 
   public static <T> T nulldef(T origin, T def) {
     return origin == null ? def : origin;
+  }
+
+  public static <T> T blankdef(T origin, T def) {
+    boolean blank = false;
+    if (origin instanceof String) {
+      blank = TextKit.blanky((String) origin);
+    }
+    return origin == null || blank ? def : origin;
   }
 
 }

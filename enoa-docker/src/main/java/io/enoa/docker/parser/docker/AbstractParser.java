@@ -36,16 +36,21 @@ abstract class AbstractParser<T> implements DIParser<T> {
 
       throw new DockerException(EnoaTipKit.message("eo.tip.docker.serv_no_contenttype"));
     }
-    if (resp.code() >= 500)
-      return DRet.fail(resp, resp.string());
+//    if (resp.code() >= 500) {
+//      return DRet.fail(resp, resp.string());
+//    }
 
-    if (contenttype.equalsIgnoreCase("application/json") ||
-      contenttype.equalsIgnoreCase("text/plain")) {
+    if ("application/json".equalsIgnoreCase(contenttype) ||
+      "text/plain".equalsIgnoreCase(contenttype)) {
       String origin = resp.string();
       if (TextKit.blanky(origin))
         return DRet.ok(resp, this.ok(config, resp));
-      if (origin.charAt(0) != '{')
+
+      if (origin.charAt(0) != '{') {
+        if (resp.code() >= 400)
+          return DRet.fail(resp, resp.string());
         return DRet.ok(resp, this.ok(config, resp));
+      }
 
       Kv kv = config.json().parse(origin, Kv.class);
       if (kv.notNullValue("message"))
