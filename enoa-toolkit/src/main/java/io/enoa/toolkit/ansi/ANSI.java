@@ -48,11 +48,11 @@ public final class ANSI {
         continue;
       }
 
-      if (now == '[') {
-        if (reader.next() == '0' && reader.next() == 'm')
-          continue;
-        reader.back().back();
-      }
+//      if (now == '[') {
+//        if (reader.next() == '0' && reader.next() == 'm')
+//          continue;
+//        reader.back().back();
+//      }
 
       if (entry) {
         if (now == 'm') {
