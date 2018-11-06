@@ -174,6 +174,7 @@ public final class ANSI {
   private Map<Background, String> bgmap;
   private Map<Color, String> colormap;
   private boolean br;
+  private String cssname;
 
   public ANSI() {
     this.bodies = new ArrayList<>();
@@ -184,7 +185,7 @@ public final class ANSI {
   }
 
   public String html() {
-    return ANSIBody.html(this.bodies, this.bgmap, this.colormap, this.br);
+    return ANSIBody.html(this.bodies, this.bgmap, this.colormap, this.cssname, this.br);
   }
 
   public ANSI br() {
@@ -193,6 +194,11 @@ public final class ANSI {
 
   public ANSI br(boolean br) {
     this.br = br;
+    return this;
+  }
+
+  public ANSI cssname(String cssname) {
+    this.cssname = cssname;
     return this;
   }
 

@@ -91,7 +91,16 @@ class ANSIBody implements Serializable {
     return builder.toString();
   }
 
-  static String html(List<ANSIBody> bodies, Map<ANSI.Background, String> bgmap, Map<ANSI.Color, String> colormap, boolean br) {
+  private static String cssname(String basename, ANSI.Background background) {
+    return TextKit.union(basename == null ? "enoa-ansi-bg-" : basename, "-", background.name().toLowerCase());
+  }
+
+  public static String cssname(String basename, ANSI.Color color) {
+    return TextKit.union(basename == null ? "enoa-ansi-ft-" : basename, "-", color.name().toLowerCase());
+  }
+
+  static String html(List<ANSIBody> bodies, Map<ANSI.Background, String> bgmap, Map<ANSI.Color, String> colormap,
+                     String cssname, boolean br) {
     if (CollectionKit.isEmpty(bodies))
       return null;
     StringBuilder builder = new StringBuilder();
@@ -110,6 +119,8 @@ class ANSIBody implements Serializable {
         if (color == null) {
           _sr.insert(0, TextKit.union("<span style=\"background: ",
             bgcolor(bgmap, background),
+            "\" class=\"",
+            cssname(cssname, background),
             "\">"
           )).append("</span>");
           builder.append(_sr);
@@ -120,6 +131,8 @@ class ANSIBody implements Serializable {
           bgcolor(bgmap, background),
           "; color: ",
           ftcolor(colormap, color),
+          "\" class=\"",
+          cssname(cssname, background), " ", cssname(cssname, color),
           "\">"
         )).append("</span>");
         builder.append(_sr);
@@ -129,6 +142,8 @@ class ANSIBody implements Serializable {
 
       _sr.insert(0, TextKit.union("<span style=\"color: ",
         ftcolor(colormap, color),
+        "\" class=\"",
+        cssname(cssname, color),
         "\">"
       )).append("</span>");
       builder.append(_sr);
