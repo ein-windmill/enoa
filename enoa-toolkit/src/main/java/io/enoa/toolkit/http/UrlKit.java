@@ -16,8 +16,11 @@
 package io.enoa.toolkit.http;
 
 import io.enoa.toolkit.EoConst;
+import io.enoa.toolkit.convert.ConvertKit;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
+import io.enoa.toolkit.number.NumberKit;
 import io.enoa.toolkit.text.TextKit;
+import io.enoa.toolkit.text.TextReader;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -92,7 +95,7 @@ public class UrlKit {
   }
 
   public static String correct(String url) {
-    String temp = TextKit.lower(url);
+    String temp = TextKit.lower(TextKit.nospace(url));
     if (!temp.startsWith("http://") && !temp.startsWith("https://"))
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.toolkit.url_protocol_fail"));
 
@@ -103,10 +106,69 @@ public class UrlKit {
     return TextKit.union(protocol, "://", uri);
   }
 
-  public static String[] analysis(String url) {
+  public static String[] parts(String url) {
     int ix = url.indexOf("/", url.indexOf("//") + 2);
     String host = url.substring(0, ix),
       remain = url.substring(ix);
     return new String[]{host, remain};
   }
+
+  public static ARL analysis(String url) {
+    if (TextKit.blanky(url))
+      return null;
+    url = correct(url);
+    String skipcaseurl = url.toLowerCase();
+    ARL.Builder builder = new ARL.Builder();
+    ARL.Protocol protocol = skipcaseurl.startsWith("http://") ? ARL.Protocol.HTTP : ARL.Protocol.HTTPS;
+    int six = protocol == ARL.Protocol.HTTP ? 7 : 8;
+    TextReader reader = new TextReader(url);
+    StringBuilder host = new StringBuilder();
+    StringBuilder port = new StringBuilder();
+    int eix = 0;
+    boolean entryport = false;
+    while (reader.hasNext()) {
+      eix += 1;
+      while (six-- > 0) {
+        eix += 1;
+        reader.next();
+      }
+      char now = reader.next();
+      if (now == '/' || now == '?') {
+        if (now == '?')
+          eix -= 1;
+        break;
+      }
+      if (now == ':') {
+        entryport = true;
+        continue;
+      }
+      if (entryport) {
+        port.append(now);
+        continue;
+      }
+      host.append(now);
+    }
+    String remain = eix >= url.length() ? null : url.substring(eix);
+
+    String paras = null;
+    String path = remain;
+    if (remain != null && remain.contains("?")) {
+      int ix = remain.indexOf("?");
+      paras = remain.substring(ix + 1);
+      path = remain.substring(0, ix);
+    }
+
+    String _p = port.toString();
+    builder.protocol(protocol)
+      .host(host.toString())
+      .port(NumberKit.isNumber(_p) ? ConvertKit.integer(_p) : 80)
+      .remain(TextKit.blanky(remain) ? null : remain)
+      .path(TextKit.blanky(path) ? null : path)
+      .paras(TextKit.blanky(paras) ? null : paras);
+    host.delete(0, host.length());
+    port.delete(0, port.length());
+    return builder.build();
+  }
+
+
 }

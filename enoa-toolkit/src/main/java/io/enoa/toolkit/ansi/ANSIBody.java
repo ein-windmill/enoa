@@ -91,14 +91,6 @@ class ANSIBody implements Serializable {
     return builder.toString();
   }
 
-  private static String cssname(String basename, ANSI.Background background) {
-    return TextKit.union(basename == null ? "enoa-ansi-bg-" : basename, "-", background.name().toLowerCase());
-  }
-
-  public static String cssname(String basename, ANSI.Color color) {
-    return TextKit.union(basename == null ? "enoa-ansi-ft-" : basename, "-", color.name().toLowerCase());
-  }
-
   static String html(List<ANSIBody> bodies, Map<ANSI.Background, String> bgmap, Map<ANSI.Color, String> colormap,
                      String cssname, boolean br) {
     if (CollectionKit.isEmpty(bodies))
@@ -156,6 +148,14 @@ class ANSIBody implements Serializable {
     return html.replace("\n", "<br/>");
   }
 
+  private static String cssname(String basename, ANSI.Background background) {
+    return TextKit.union(basename == null ? "enoa-ansi-bg" : basename, "-", background.name().toLowerCase());
+  }
+
+  private static String cssname(String basename, ANSI.Color color) {
+    return TextKit.union(basename == null ? "enoa-ansi-ft" : basename, "-", color.name().toLowerCase());
+  }
+
   private static String bgcolor(Map<ANSI.Background, String> map, ANSI.Background background) {
     return map == null ?
       ColorHolder.bgmap.get(background) :
@@ -171,7 +171,6 @@ class ANSIBody implements Serializable {
         ColorHolder.colormap.get(color) :
         map.get(color));
   }
-
 
   static ANSIBody create(ANSI.Background background, ANSI.Color color, String text) {
     return new ANSIBody(background, color, text);

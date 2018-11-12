@@ -80,16 +80,16 @@ public class EPMRegistry {
     this.uninstall("main");
   }
 
-  public OriginRegistry origin(String name) {
+  OriginRegistry origin(String name) {
     OriginRegistry registry = this.origin.get(name);
     return registry;
   }
 
-  public OriginRegistry origin() {
+  OriginRegistry origin() {
     return this.origin("main");
   }
 
-  public GenericRegistry generic(String name) {
+  GenericRegistry generic(String name) {
     GenericRegistry geneic = this.generic.get(name);
     if (geneic != null)
       return geneic;
@@ -101,11 +101,11 @@ public class EPMRegistry {
     return geneic;
   }
 
-  public GenericRegistry generic() {
+  GenericRegistry generic() {
     return this.generic("main");
   }
 
-  public EoRegistry registry(String name) {
+  EoRegistry registry(String name) {
     EoRegistry registry = this.eo.get(name);
     if (registry != null)
       return registry;
@@ -117,12 +117,12 @@ public class EPMRegistry {
     return registry;
   }
 
-  public EoRegistry registry() {
+  EoRegistry registry() {
     return this.registry("main");
   }
 
 
-  public AsyncRegistry async(String name) {
+  AsyncRegistry async(String name) {
     AsyncRegistry registry = this.async.get(name);
     if (registry != null)
       return registry;
@@ -131,7 +131,7 @@ public class EPMRegistry {
     return registry;
   }
 
-  public AsyncRegistry async() {
+  AsyncRegistry async() {
     return this.async("main");
   }
 
