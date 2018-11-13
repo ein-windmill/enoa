@@ -161,7 +161,7 @@ public class UrlKit {
     String _p = port.toString();
     builder.protocol(protocol)
       .host(host.toString())
-      .port(NumberKit.isNumber(_p) ? ConvertKit.integer(_p) : 80)
+      .port(NumberKit.isNumber(_p) ? ConvertKit.integer(_p) : protocol == ARL.Protocol.HTTP ? 80 : 443)
       .remain(TextKit.blanky(remain) ? null : remain)
       .path(TextKit.blanky(path) ? null : path)
       .paras(TextKit.blanky(paras) ? null : paras);

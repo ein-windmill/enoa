@@ -15,6 +15,7 @@
  */
 package io.enoa.docker.parser;
 
+import io.enoa.toolkit.convert.ConvertKit;
 import io.enoa.toolkit.date.DateKit;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.value.EnoaValue;
@@ -31,6 +32,7 @@ public class __PEXtra {
       return Collections.emptyList();
     }
     return (List<String>) ((Collection) sarr).stream()
+      .map(sa -> ConvertKit.string(sa))
       .collect(Collectors.toCollection((Supplier<Collection<Object>>) () -> new LinkedList<>()));
   }
 
