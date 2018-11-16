@@ -205,6 +205,13 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
 
   @Override
   public DResp attach(String id, DQPContainerAttach dqp, DStream<String> dstream) {
+    // fixme sometimes attach will return value include stdin=1&stream=1&stdout=1&stderr=1 fix it.
+    /*
+  stdin=1&stream=1&stdout=1&stderr=1* [32mmaster[m
+  [31mremotes/origin/HEAD[m -> origin/master
+  [31mremotes/origin/dev[m
+  [31mremotes/origin/master[m
+     */
     DQR dqr = dqp == null ? DQR.empty() : dqp.dqr();
     Set<HttpPara> paras = dqr.http();
     EoUrl url = this.docker.url("containers", id, "attach");
@@ -216,7 +223,10 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
       .header("Content-Type", "text/aplin");
     HttpResponse response = dstream == null ?
       http.emit() :
-      http.chunk(Chunk.builder(bytes -> dstream.runner().run(EnoaBinary.create(bytes).string()))
+      http.chunk(Chunk.builder(bytes -> {
+        String string = EnoaBinary.create(bytes).string();
+        dstream.runner().run(string);
+      })
         .stopper(() -> dstream.stopper() == null ? Boolean.FALSE : dstream.stopper().stop())
         .build());
     return DResp.create(response);

@@ -39,7 +39,7 @@ public class UFile {
   /**
    * 上传文件原始文件名
    */
-  private final String originName;
+  private final String originname;
   /**
    * 零时文件名
    */
@@ -71,7 +71,7 @@ public class UFile {
 
   private UFile(Builder builder) {
     this.name = builder.name;
-    this.originName = builder.originName;
+    this.originname = builder.originname;
     this.filename = builder.filename;
     this.path = builder.path;
     this.binary = builder.binary;
@@ -84,8 +84,8 @@ public class UFile {
     return this.name;
   }
 
-  public String originName() {
-    return this.originName;
+  public String originname() {
+    return this.originname;
   }
 
   public String filename() {
@@ -174,7 +174,7 @@ public class UFile {
 
   public static class Builder {
     private String name;
-    private String originName;
+    private String originname;
     private String filename;
     private Path tmp;
     private Path path;
@@ -196,7 +196,7 @@ public class UFile {
     }
 
     public Builder originName(String originName) {
-      this.originName = originName;
+      this.originname = originName;
       return this;
     }
 
@@ -228,7 +228,7 @@ public class UFile {
   public String toString() {
     return "UFile{" +
       "name='" + name + '\'' +
-      ", originName='" + originName + '\'' +
+      ", originname='" + originname + '\'' +
       ", filename='" + filename + '\'' +
       (
         this.type == null ? "ERROR UFILE." :

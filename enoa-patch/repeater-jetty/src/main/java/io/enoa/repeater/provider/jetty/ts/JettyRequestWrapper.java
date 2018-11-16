@@ -78,15 +78,6 @@ class JettyRequestWrapper implements Request {
             this.ufiles.add(ufile.filename(filename).path(Paths.get(this.config.tmp().toString()).resolve(filename)).build());
           }
 
-//          String filename = rule.name(this.config.tmp(), originName);
-//          part.write(filename);
-////          File file = new File(String.format("%s%s%s", this.config.tmp(), File.separator, filename));
-//          this.ufiles.add(new UFile.Builder()
-//            .name(infos[0])
-//            .originName(originName)
-//            .filename(filename)
-//            .path(Paths.get(this.config.tmp().toString(), filename))
-//            .build());
         }
         this.ufiles = Collections.unmodifiableList(this.ufiles);
       } catch (IOException | ServletException e) {

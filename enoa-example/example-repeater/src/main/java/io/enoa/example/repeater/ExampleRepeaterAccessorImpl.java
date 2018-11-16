@@ -192,7 +192,7 @@ class ExampleRepeaterAccessorImpl implements EoxAccessor {
       List<Kv> ufs = new ArrayList<>();
       Arrays.stream(req.files()).forEach(ufile -> {
         Kv uf = Kv.by("name", this.filterJsonVal(ufile.name()))
-          .set("origin_name", this.filterJsonVal(ufile.originName()))
+          .set("origin_name", this.filterJsonVal(ufile.originname()))
           .set("filename", this.filterJsonVal(ufile.filename()))
           .set("path", this.filterJsonVal(ufile.path().toString()));
         ufs.add(uf);

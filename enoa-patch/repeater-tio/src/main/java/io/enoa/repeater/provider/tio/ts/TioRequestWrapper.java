@@ -93,21 +93,6 @@ class TioRequestWrapper extends EoxAbstractRequest {
           this.ufiles.add(ufile.filename(newname).path(newfilepath).build());
         }
 
-//        String newname = this.rule.name(this.config.tmp(), uf.getName());
-//        File newfile = new File(this.config.tmp().toString(), newname);
-//        OutputStream fileOut = new BufferedOutputStream(new FileOutputStream(newfile));
-//        byte[] data = uf.getData();
-//        fileOut.write(data, 0, data.length);
-//        fileOut.close();
-////        rmkeys.add(k);
-//        this.ufiles.add(
-//          new UFile.Builder()
-//            .name(k)
-//            .originName(uf.getName())
-//            .filename(newname)
-//            .path(Paths.get(newfile.toURI()))
-//            .build()
-//        );
       }
     }
     this.ufiles = Collections.unmodifiableList(this.ufiles);

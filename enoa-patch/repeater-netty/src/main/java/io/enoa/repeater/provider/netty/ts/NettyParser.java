@@ -96,19 +96,6 @@ class NettyParser {
                 ufiles.add(ufile.filename(newname).path(newfilepath).build());
               }
 
-//              //保存到磁盘
-//              String newname = rule.name(config.tmp(), originName);
-//              File file = new File(config.tmp().toString(), newname);
-//              fileUpload.renameTo(file);
-//              ufiles.add(
-//                new UFile.Builder()
-//                  .name(name)
-//                  .originName(originName)
-//                  .filename(newname)
-////                  .path(Paths.get(file.toURI()))
-//                  .path(config.tmp().resolve(newname))
-//                  .build()
-//              );
             }
             break;
           case InternalAttribute:
