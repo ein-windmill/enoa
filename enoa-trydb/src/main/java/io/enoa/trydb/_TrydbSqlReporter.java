@@ -18,8 +18,10 @@ package io.enoa.trydb;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.text.PadKit;
 import io.enoa.toolkit.text.TextKit;
+import io.enoa.toolkit.value.EnoaValue;
 
 import java.util.Arrays;
+import java.util.stream.Stream;
 
 class _TrydbSqlReporter implements ISqlReporter {
 
@@ -42,7 +44,18 @@ class _TrydbSqlReporter implements ISqlReporter {
     if (CollectionKit.notEmpty(paras)) {
       sb.append("\n");
       sb.append("PARAS ").append('(').append(mark).append(")=> ");
-      sb.append(Arrays.toString(paras));
+//      sb.append(Arrays.toString(paras));
+      sb.append(Arrays.toString(Stream.of(paras).map(para -> {
+        if (para == null)
+          return null;
+        String string = EnoaValue.with(para).string(null);
+        if (TextKit.blanky(string))
+          return null;
+        string = string.replace("\r", "\\r")
+          .replace("\n", "\\n")
+          .replace("\t", "\\t");
+        return string;
+      }).toArray(String[]::new)));
     }
     String _sql = sb.toString();
     System.out.println(_sql);

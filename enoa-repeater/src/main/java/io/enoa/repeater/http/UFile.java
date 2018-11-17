@@ -62,12 +62,17 @@ public class UFile {
   private final Type type;
 
 
+  private ExecutorService es;
+
   private enum Type {
     FILE,
     BINARY
   }
 
-  private static ExecutorService ES = Executors.newSingleThreadExecutor();
+  private static class Holder {
+    private static ExecutorService ES = Executors.newSingleThreadExecutor();
+  }
+
 
   private UFile(Builder builder) {
     this.name = builder.name;
@@ -79,6 +84,10 @@ public class UFile {
     this.tmp = builder.tmp;
   }
 
+  public UFile executor(ExecutorService es) {
+    this.es = es;
+    return this;
+  }
 
   public String name() {
     return this.name;
@@ -153,11 +162,11 @@ public class UFile {
   }
 
   public Future<Path> asyncMove(String to) throws EoException {
-    return this.asyncMove(ES, Paths.get(to));
+    return this.asyncMove(this.es == null ? Holder.ES : this.es, Paths.get(to));
   }
 
   public Future<Path> asyncMove(Path to) throws EoException {
-    return this.asyncMove(ES, to);
+    return this.asyncMove(this.es == null ? Holder.ES : this.es, to);
   }
 
   public void delete() {
