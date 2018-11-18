@@ -13,23 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.trydb.build;
+package io.enoa.toolkit.factory;
 
-import io.enoa.toolkit.bean.BeanKit;
-import io.enoa.toolkit.collection.CollectionKit;
-import io.enoa.trydb.TrydbConfig;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-class BeanBuilder<T> implements IRsBuilder<T> {
-  @Override
-  public List<T> build(ResultSet rs, Class<T> clazz, TrydbConfig config) throws SQLException {
-    List<Map> data = RsBuilder.build(rs, Map.class, config);
-    List<T> rets = BeanKit.reductionMaps(data, clazz, config.lister(), config.namecase(), false, config.ignorecase());
-    CollectionKit.clear(data);
-    return rets;
+public interface ListFactory extends CollectionFactory {
+
+  static ListFactory def() {
+    return ArrayList::new;
   }
+
+  @Override
+  <E> List<E> collection();
+
 }

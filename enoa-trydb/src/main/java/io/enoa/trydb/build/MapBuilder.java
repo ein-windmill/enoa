@@ -57,7 +57,7 @@ class MapBuilder implements IRsBuilder<Map> {
 
   @Override
   public List<Map> build(ResultSet rs, Class<Map> clazz, TrydbConfig config) throws SQLException {
-    List<Map> rets = new ArrayList<>();
+    List<Map> rets = config.lister().collection();
     ResultSetMetaData meta = rs.getMetaData();
     int cct = meta.getColumnCount();
     String[] names = new String[cct + 1];

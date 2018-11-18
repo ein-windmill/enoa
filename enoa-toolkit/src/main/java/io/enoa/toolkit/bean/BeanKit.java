@@ -18,6 +18,7 @@ package io.enoa.toolkit.bean;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.convert.ConvertKit;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
+import io.enoa.toolkit.factory.ListFactory;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.map.OKv;
 import io.enoa.toolkit.namecase.INameCase;
@@ -268,21 +269,37 @@ public class BeanKit {
   }
 
   public static <R> List<R> reductionMaps(List<Map> maps, Class<R> clazz) {
-    return reductionMaps(maps, clazz, NamecaseKit.namecase(NamecaseType.CASE_NONE), true, false);
+    return reductionMaps(maps, clazz, ListFactory.def(), NamecaseKit.namecase(NamecaseType.CASE_NONE), true, false);
   }
 
   public static <R> List<R> reductionMaps(List<Map> maps, Class<R> clazz, INameCase namecase) {
-    return reductionMaps(maps, clazz, namecase, true, false);
+    return reductionMaps(maps, clazz, ListFactory.def(), namecase, true, false);
   }
 
   public static <R> List<R> reductionMaps(List<Map> maps, Class<R> clazz, boolean skipError, boolean ignorecase) {
-    return reductionMaps(maps, clazz, NamecaseKit.namecase(NamecaseType.CASE_NONE), skipError, ignorecase);
+    return reductionMaps(maps, clazz, ListFactory.def(), NamecaseKit.namecase(NamecaseType.CASE_NONE), skipError, ignorecase);
   }
 
   public static <R> List<R> reductionMaps(List<Map> maps, Class<R> clazz, INameCase namecase, boolean skipError, boolean ignorecase) {
+    return reductionMaps(maps, clazz, ListFactory.def(), namecase, skipError, ignorecase);
+  }
+
+  public static <R> List<R> reductionMaps(List<Map> maps, Class<R> clazz, ListFactory lister) {
+    return reductionMaps(maps, clazz, lister, NamecaseKit.namecase(NamecaseType.CASE_NONE), true, false);
+  }
+
+  public static <R> List<R> reductionMaps(List<Map> maps, Class<R> clazz, ListFactory lister, INameCase namecase) {
+    return reductionMaps(maps, clazz, lister, namecase, true, false);
+  }
+
+  public static <R> List<R> reductionMaps(List<Map> maps, Class<R> clazz, ListFactory lister, boolean skipError, boolean ignorecase) {
+    return reductionMaps(maps, clazz, lister, NamecaseKit.namecase(NamecaseType.CASE_NONE), skipError, ignorecase);
+  }
+
+  public static <R> List<R> reductionMaps(List<Map> maps, Class<R> clazz, ListFactory lister, INameCase namecase, boolean skipError, boolean ignorecase) {
     if (maps == null)
       return Collections.emptyList();
-    List<R> rets = new ArrayList<>();
+    List<R> rets = lister.collection();
     maps.forEach(map -> rets.add(reductionMap(map, clazz, namecase, skipError, ignorecase)));
     return rets;
   }

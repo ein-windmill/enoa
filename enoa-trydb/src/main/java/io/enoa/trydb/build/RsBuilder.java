@@ -15,7 +15,6 @@
  */
 package io.enoa.trydb.build;
 
-import io.enoa.toolkit.namecase.INameCase;
 import io.enoa.trydb.TrydbConfig;
 
 import java.sql.ResultSet;
