@@ -48,6 +48,8 @@ public class EGatewayHandler implements GatewayHandler {
 
   @Override
   public Response handle(Request request, GData gateway) throws GatewayException {
+    gateway.reporters().forEach(reporter -> reporter.report(request));
+
     String uri = UriKit.correct(request.uri());
     if (!"/".equals(uri))
       uri = TextKit.union(uri, "/");

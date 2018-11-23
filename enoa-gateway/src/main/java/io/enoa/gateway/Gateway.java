@@ -86,6 +86,8 @@ public interface Gateway {
 
   Gateway mapping(Collection<GMapping> mappings);
 
+  Gateway reporter(IGatewayReporter reporter);
+
   void listen(String hostname, int port);
 
   void listen(int port);

@@ -50,6 +50,7 @@ class _EnoaGateway implements Gateway {
   private boolean cros;
   private List<Header> crosHeaders;
   private boolean interceptoption;
+  private List<IGatewayReporter> reporters;
 
   _EnoaGateway() {
     this.ssl = Boolean.FALSE;
@@ -232,6 +233,14 @@ class _EnoaGateway implements Gateway {
     return this;
   }
 
+  @Override
+  public Gateway reporter(IGatewayReporter reporter) {
+    if (this.reporters == null)
+      this.reporters = new ArrayList<>();
+    this.reporters.add(reporter);
+    return this;
+  }
+
 //  @Override
 //  public Gateway skip(String uri) {
 //    return this;
@@ -253,6 +262,7 @@ class _EnoaGateway implements Gateway {
       this.mappings == null ? CollectionKit.emptyArray(GMapping.class) : this.mappings.toArray(new GMapping[this.mappings.size()]),
       this.noauths == null ? CollectionKit.emptyArray(String.class) : this.noauths.toArray(new String[this.noauths.size()]),
       this.auths == null ? CollectionKit.emptyArray(GAuthData.class) : this.auths.toArray(new GAuthData[this.auths.size()]),
+      this.reporters == null ? Collections.emptyList() : this.reporters,
       this.cros,
       this.crosHeaders == null ? Collections.emptyList() : this.crosHeaders,
       this.capture

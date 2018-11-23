@@ -17,6 +17,7 @@ package io.enoa.gateway.data;
 
 
 import io.enoa.gateway.GErrorRenderFactory;
+import io.enoa.gateway.IGatewayReporter;
 import io.enoa.repeater.http.Header;
 
 import java.util.ArrayList;
@@ -33,14 +34,17 @@ public class GData {
   private final GErrorRenderFactory errorRenderFactory;
   private final List<Header> crosHeaders;
   private final List<Header> defaultCrosHeaders;
+  private final List<IGatewayReporter> reporters;
 
   public GData(boolean interceptoption,
                GMapping[] mappings,
                String[] noauths,
                GAuthData[] auths,
+               List<IGatewayReporter> reporters,
                boolean cros,
                List<Header> crosHeaders,
                GErrorRenderFactory errorRenderFactory) {
+    this.reporters = reporters;
     this.interceptoption = interceptoption;
     this.mappings = mappings;
     this.noauths = noauths;
@@ -59,6 +63,10 @@ public class GData {
         "Access-Control-Request-Method"
       })));
     }};
+  }
+
+  public List<IGatewayReporter> reporters() {
+    return reporters;
   }
 
   public boolean interceptoption() {
