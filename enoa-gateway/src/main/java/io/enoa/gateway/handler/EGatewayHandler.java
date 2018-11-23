@@ -32,6 +32,7 @@ import io.enoa.repeater.http.*;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.http.UriKit;
 import io.enoa.toolkit.text.TextKit;
+import io.enoa.toolkit.value.EnoaValue;
 
 import java.nio.ByteBuffer;
 import java.util.List;
@@ -65,7 +66,28 @@ public class EGatewayHandler implements GatewayHandler {
       }
       if (addcros) {
         List<Header> crosHeaders = CollectionKit.isEmpty(gateway.crosHeaders()) ? gateway.defaultCrosHeaders() : gateway.crosHeaders();
-        crosHeaders.forEach(builder::header);
+        crosHeaders.forEach(header -> {
+          if (header.name().equalsIgnoreCase("Access-Control-Allow-Origin")) {
+            Header.Builder hbu = header.newBuilder();
+            String origin = EnoaValue.with(request.header("origin")).string(request.header("x-origin"));
+            hbu.value(TextKit.blanky(origin) ? "*" : origin);
+            builder.header(hbu.build());
+            return;
+          }
+          if (header.name().equalsIgnoreCase("Access-Control-Allow-Headers")) {
+            String acrh = EnoaValue.with(request.header("Access-Control-Request-Headers"))
+              .string(request.header("X-Access-Control-Request-Headers"));
+            if (TextKit.blanky(acrh)) {
+              builder.header(header);
+              return;
+            }
+            Header.Builder hbu = header.newBuilder();
+            hbu.value(TextKit.union(header.value(), ",", acrh));
+            builder.header(hbu.build());
+            return;
+          }
+          builder.header(header);
+        });
       }
     }
 

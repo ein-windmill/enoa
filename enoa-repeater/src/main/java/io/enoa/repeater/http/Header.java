@@ -42,7 +42,7 @@ public class Header {
     return new Builder(this);
   }
 
-  private static class Builder {
+  public static class Builder {
     private String name;
     private String value;
 
