@@ -42,6 +42,12 @@ public interface Gateway {
 
   Gateway ssl(boolean ssl);
 
+  default Gateway interceptoption() {
+    return this.interceptoption(Boolean.TRUE);
+  }
+
+  Gateway interceptoption(boolean intercept);
+
   Gateway cros();
 
   Gateway cros(Header header);

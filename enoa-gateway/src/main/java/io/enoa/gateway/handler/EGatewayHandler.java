@@ -29,10 +29,12 @@ import io.enoa.http.protocol.enoa.IHttpHandler;
 import io.enoa.log.Log;
 import io.enoa.repeater.EoxConfig;
 import io.enoa.repeater.http.*;
+import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.http.UriKit;
 import io.enoa.toolkit.text.TextKit;
 
 import java.nio.ByteBuffer;
+import java.util.List;
 import java.util.Map;
 
 public class EGatewayHandler implements GatewayHandler {
@@ -55,12 +57,28 @@ public class EGatewayHandler implements GatewayHandler {
     if (mapping == null) {
       throw new RouteNotFoundException("Not found mapping -> {0}", uri);
     }
+    Response.Builder builder = new Response.Builder();
+    if (gateway.cros()) {
+      boolean addcros = true;
+      if (request.method() == Method.OPTIONS && !gateway.interceptoption()) {
+        addcros = false;
+      }
+      if (addcros) {
+        List<Header> crosHeaders = CollectionKit.isEmpty(gateway.crosHeaders()) ? gateway.defaultCrosHeaders() : gateway.crosHeaders();
+        crosHeaders.forEach(builder::header);
+      }
+    }
 
-    if (mapping.auth() != null && request.method() != Method.OPTIONS) {
+    if (request.method() == Method.OPTIONS && gateway.interceptoption()) {
+      builder.body(ResponseBody.create(""));
+      return builder.build();
+    }
+
+    if (mapping.auth() != null) {
       mapping.auth().auth(request);
     }
 
-    return this.call(request, uri, mapping);
+    return this.call(request, builder, uri, mapping);
   }
 
   private boolean noauths(String originUri, GData gateway) {
@@ -137,11 +155,12 @@ public class EGatewayHandler implements GatewayHandler {
    * 网关请求处理
    *
    * @param request   request
+   * @param builder   response builder
    * @param originUri 请求原始 uri
    * @param mapping   mappding 网关映射
    * @return Response
    */
-  private Response call(Request request, String originUri, GMapping mapping) {
+  private Response call(Request request, Response.Builder builder, String originUri, GMapping mapping) {
     String sourceUri = originUri.replace(mapping.source(), "/");
     sourceUri = UriKit.correct(sourceUri);
     String callUrl = TextKit.union(mapping.dest(), sourceUri);
@@ -202,7 +221,6 @@ public class EGatewayHandler implements GatewayHandler {
     HttpResponse resp = http.emit();
     this.clearRequest(request);
 
-    Response.Builder builder = new Response.Builder();
     builder.status(HttpStatus.of(resp.code()));
     for (String headerName : resp.headerNames()) {
       if (headerName == null)

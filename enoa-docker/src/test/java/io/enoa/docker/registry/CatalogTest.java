@@ -20,8 +20,10 @@ import io.enoa.docker.dket.registry.RRet;
 import io.enoa.docker.dket.registry.catalog.ECatalog;
 import io.enoa.json.Json;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public class CatalogTest extends AbstractRegistryTest {
 
   @Test
