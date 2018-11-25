@@ -20,6 +20,7 @@ import io.enoa.docker.command.docker._DockerConfigSupport;
 import io.enoa.docker.command.docker.eo.EoDocker;
 import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.dket.docker.dockerinfo.EDockerInfo;
+import io.enoa.docker.dket.docker.run.EDRun;
 import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.docker.container.DQPContainerCreate;
 import io.enoa.docker.enqueue.EnqueueAssetDocker;
@@ -123,19 +124,19 @@ public class EAsyncEnoaDocker implements _DockerConfigSupport {
     return this.volume;
   }
 
-  public EnqueueAssetDocker<DRet<String>> run(String name, DQPContainerCreate create) {
+  public EnqueueAssetDocker<DRet<EDRun>> run(String name, DQPContainerCreate create) {
     return EnqueueDocker.asseterdocker(this._dockerconfig().executor(), () -> this.docker.run(name, create));
   }
 
-  public EnqueueAssetDocker<DRet<String>> run(String name, DQPContainerCreate create, DQPResize resize) {
+  public EnqueueAssetDocker<DRet<EDRun>> run(String name, DQPContainerCreate create, DQPResize resize) {
     return EnqueueDocker.asseterdocker(this._dockerconfig().executor(), () -> this.docker.run(name, create, resize));
   }
 
-  public EnqueueAssetDocker<DRet<String>> run(String name, DQPContainerCreate create, DStream<String> dstream) {
+  public EnqueueAssetDocker<DRet<EDRun>> run(String name, DQPContainerCreate create, DStream<String> dstream) {
     return EnqueueDocker.asseterdocker(this._dockerconfig().executor(), () -> this.docker.run(name, create, dstream));
   }
 
-  public EnqueueAssetDocker<DRet<String>> run(String name, DQPContainerCreate create, DStream<String> dstream, DQPResize resize) {
+  public EnqueueAssetDocker<DRet<EDRun>> run(String name, DQPContainerCreate create, DStream<String> dstream, DQPResize resize) {
     return EnqueueDocker.asseterdocker(this._dockerconfig().executor(), () -> this.docker.run(name, create, dstream, resize));
   }
 

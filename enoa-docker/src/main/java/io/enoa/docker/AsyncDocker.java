@@ -15,6 +15,7 @@
  */
 package io.enoa.docker;
 
+import io.enoa.docker.dket.docker.run.EDRun;
 import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.docker.container.DQPContainerCreate;
 import io.enoa.docker.enqueue.EnqueueAssetDocker;
@@ -23,7 +24,6 @@ import io.enoa.docker.async.docker.generic.EAsyncGenericDocker;
 import io.enoa.docker.async.docker.origin.EAsyncOriginDocker;
 import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.dket.docker.dockerinfo.EDockerInfo;
-import io.enoa.docker.enqueue.EnqueueDocker;
 import io.enoa.docker.stream.DStream;
 
 public class AsyncDocker {
@@ -102,19 +102,19 @@ public class AsyncDocker {
     return use().volume();
   }
 
-  public EnqueueAssetDocker<DRet<String>> run(String name, DQPContainerCreate create) {
+  public EnqueueAssetDocker<DRet<EDRun>> run(String name, DQPContainerCreate create) {
     return use().run(name, create);
   }
 
-  public EnqueueAssetDocker<DRet<String>> run(String name, DQPContainerCreate create, DQPResize resize) {
+  public EnqueueAssetDocker<DRet<EDRun>> run(String name, DQPContainerCreate create, DQPResize resize) {
     return use().run(name, create, resize);
   }
 
-  public EnqueueAssetDocker<DRet<String>> run(String name, DQPContainerCreate create, DStream<String> dstream) {
+  public EnqueueAssetDocker<DRet<EDRun>> run(String name, DQPContainerCreate create, DStream<String> dstream) {
     return use().run(name, create, dstream);
   }
 
-  public EnqueueAssetDocker<DRet<String>> run(String name, DQPContainerCreate create, DStream<String> dstream, DQPResize resize) {
+  public EnqueueAssetDocker<DRet<EDRun>> run(String name, DQPContainerCreate create, DStream<String> dstream, DQPResize resize) {
     return use().run(name, create, dstream, resize);
   }
 }

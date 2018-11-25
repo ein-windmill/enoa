@@ -21,6 +21,7 @@ import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.dket.docker.common.ECreatedWithWarning;
 import io.enoa.docker.dket.docker.container.ECWait;
 import io.enoa.docker.dket.docker.dockerinfo.EDockerInfo;
+import io.enoa.docker.dket.docker.run.EDRun;
 import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.docker.container.DQPContainerCreate;
@@ -30,6 +31,7 @@ import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thread.TrdKit;
 import io.enoa.toolkit.value.Void;
 
+import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -154,11 +156,11 @@ public class EnoaDockerImpl implements EoDocker {
   }
 
   @Override
-  public DRet<String> run(String name, DQPContainerCreate create, DStream<String> dstream, DQPResize resize) {
+  public DRet<EDRun> run(String name, DQPContainerCreate create, DStream<String> dstream, DQPResize resize) {
     return this.run(name, create, dstream, resize, Boolean.FALSE);
   }
 
-  private DRet<String> run(String name, DQPContainerCreate create, DStream<String> dstream, DQPResize resize, boolean isretry) {
+  private DRet<EDRun> run(String name, DQPContainerCreate create, DStream<String> dstream, DQPResize resize, boolean isretry) {
     ExecutorService executor = null;
     try {
       DRet<String> retping = this.system().ping();
@@ -169,7 +171,6 @@ public class EnoaDockerImpl implements EoDocker {
         return DRet.fail(retping.origin(), retping.data());
       }
 
-      executor = Executors.newFixedThreadPool(3);
 
       boolean autoremove = create.autoremove();
       boolean isinteractive = create.isinteractive();
@@ -197,30 +198,53 @@ public class EnoaDockerImpl implements EoDocker {
       }
       String id = retcreate.data().id();
 
-      AtomicBoolean waitattach = new AtomicBoolean(Boolean.FALSE);
-      AtomicBoolean waitnext = new AtomicBoolean(Boolean.FALSE);
+      AtomicBoolean waitstart = new AtomicBoolean(Boolean.FALSE);
+      AtomicReference<DRet<ECWait>> waitret = new AtomicReference<>();
+      AtomicBoolean waitok = new AtomicBoolean(Boolean.TRUE);
+      AtomicBoolean attachok = new AtomicBoolean(Boolean.TRUE);
 
+      executor = Executors.newFixedThreadPool(3);
+      CyclicBarrier barrier = new CyclicBarrier(isdetach ? 2 : 3);
       executor.execute(() -> {
         TrdKit.name(Thread.currentThread(), "docker-wait");
-        waitnext.set(Boolean.TRUE);
+        waitstart.set(Boolean.TRUE);
         DRet<ECWait> retwait = this.container().wait(id, autoremove ? "removed" : "next-exit");
         if (!retwait.ok()) {
           System.err.println(TextKit.union("WAIT FAILD => ", id));
+        }
+        waitret.set(retwait);
+        try {
+          barrier.await();
+        } catch (Exception e) {
+          e.printStackTrace();
+          waitok.set(Boolean.FALSE);
         }
       });
 
       if (isdetach) {
         DRet<Void> retstart = this.container().start(id);
+        try {
+          barrier.wait();
+        } catch (Exception e) {
+          e.printStackTrace();
+          return DRet.fail(retstart.origin(), e.getMessage());
+        }
+        ECWait ecwait = waitret.get().data();
         return retstart.ok() ?
-          DRet.ok(retcreate.origin(), retcreate.data().id()) :
-          DRet.fail(retstart.origin(), null);
+          DRet.ok(retstart.origin(),
+            new EDRun.Builder()
+              .statuscode(ecwait.statuscode())
+              .error(ecwait.error())
+              .log(retstart.ok() ? retcreate.data().id() : null)
+              .build()) :
+          DRet.fail(retstart.origin(), retstart.message());
       }
 
-      AtomicBoolean complete = new AtomicBoolean(Boolean.FALSE);
-      AtomicReference<DRet<String>> result = new AtomicReference<>();
+      AtomicBoolean attachstart = new AtomicBoolean(Boolean.FALSE);
+      AtomicReference<DRet<String>> attachret = new AtomicReference<>();
       executor.execute(() -> {
         TrdKit.name(Thread.currentThread(), "docker-attach");
-        waitattach.set(Boolean.TRUE);
+        attachstart.set(Boolean.TRUE);
         DRet<String> attach = this.container()
           .attach(id, DQP.docker().container().attach()
               .stderr()
@@ -228,20 +252,26 @@ public class EnoaDockerImpl implements EoDocker {
               .stream()
               .stdout(),
             dstream);
-        result.set(attach);
-        complete.set(Boolean.TRUE);
+        attachret.set(attach);
+        try {
+          barrier.await();
+        } catch (Exception e) {
+          e.printStackTrace();
+          waitok.set(Boolean.FALSE);
+        }
       });
 
       executor.execute(() -> {
         TrdKit.name(Thread.currentThread(), "docker-start");
-        while (!waitattach.get() && !waitnext.get()) {
+        while (!waitstart.get() || !attachstart.get()) {
         }
         try {
           /*
+          fixme connection check
           Enoa http 以及後續的 unixsocket 不能提供連接已建立的通知,
           因此, 不能確定在 start 之前, wait 以及 attach 連接是否已建立,
           如果是還沒有建立連接的狀態下就 start, 會導致 attach 無法抓取到
-          tty 的記錄, 那麼這裏進行 100ms 的延遲, 精良避免這種情況的發生
+          tty 的記錄, 那麼這裏進行 100ms 的延遲, 尽量避免這種情況的發生
            */
           TimeUnit.MILLISECONDS.sleep(100);
         } catch (InterruptedException e) {
@@ -249,8 +279,8 @@ public class EnoaDockerImpl implements EoDocker {
         }
         DRet<Void> retstart = this.container().start(id);
         if (!retstart.ok()) {
-          result.set(DRet.fail(retstart.origin(), null));
-          complete.set(Boolean.TRUE);
+          attachret.set(DRet.fail(retstart.origin(), null));
+//          attachend.set(Boolean.TRUE);
           return;
         }
         if (resize != null) {
@@ -259,13 +289,38 @@ public class EnoaDockerImpl implements EoDocker {
       });
 
       long start = System.currentTimeMillis();
-      while (!complete.get()) {
+//      while (!attachend.get() || !waitend.get()) {
+//      }
+
+
+      try {
+        barrier.await();
+      } catch (Exception e) {
+        e.printStackTrace();
+        throw new RuntimeException(e.getMessage(), e);
       }
+
       long end = System.currentTimeMillis();
       if (this._dockerconfig().debug()) {
         System.out.println(TextKit.union("- Run pending time: ", end - start, "ms"));
       }
-      return result.get();
+      DRet<ECWait> ecwait = waitret.get();
+      DRet<String> ecattach = attachret.get();
+      ECWait ecwd = ecwait.data();
+      boolean ok = ecwait.ok() && ecattach.ok();
+      String message = ecwait.ok() ? ecattach.message() : ecwait.message();
+      ECWait wcwd = ecwait.data();
+      if (wcwd.statuscode() != 0) {
+        message = wcwd.error() == null ? message : wcwd.error().message();
+      }
+      EDRun edrun = new EDRun.Builder()
+        .log(ecattach.data())
+        .error(ecwd.error())
+        .statuscode(ecwd.statuscode())
+        .build();
+      return ok ?
+        DRet.ok(ecattach.origin(), edrun) :
+        DRet.fail(ecwait.ok() ? ecattach.origin() : ecwait.origin(), message);
     } finally {
       if (executor != null)
         executor.shutdown();

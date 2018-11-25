@@ -19,6 +19,7 @@ import io.enoa.docker.AbstractDockerTest;
 import io.enoa.docker.Docker;
 import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.dket.docker.dockerinfo.EDockerInfo;
+import io.enoa.docker.dket.docker.run.EDRun;
 import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.docker.container.DQPContainerCreate;
 import io.enoa.json.Json;
@@ -40,7 +41,7 @@ public class DockerTest extends AbstractDockerTest {
   }
 
 
-  private String gitbranch() {
+  private EDRun gitbranch() {
     String name = UUIDKit.next(false);
     DQPContainerCreate dqp = DQP.docker().container().create()
       .name(name)
@@ -48,19 +49,21 @@ public class DockerTest extends AbstractDockerTest {
       .interactive()
       .tty()
       .rm()
-      .volume("/anuz/tmp/preacher/asgh:/git")
+//      .volume("/anuz/tmp/preacher/asgh:/git")
+      .volume("/d/data/tmp/preacher/zheok:/git")
       .cmd("branch")
       .cmd("-a");
-    DRet<String> ret = Docker.run(name, dqp);
+    DRet<EDRun> ret = Docker.run(name, dqp);
     Assert.assertTrue(ret.ok());
     return ret.data();
   }
 
   @Test
   public void testRun() {
-//    String text = this.gitbranch();
+    EDRun edrun = this.gitbranch();
+    System.out.println(Json.toJson(edrun));
 //    Assert.assertFalse(text.contains("&"));
-    System.out.println("text".substring(4));
+//    System.out.println("text".substring(4));
   }
 
 }

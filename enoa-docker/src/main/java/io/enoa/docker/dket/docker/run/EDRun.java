@@ -13,39 +13,52 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.dket.docker.container;
+package io.enoa.docker.dket.docker.run;
 
 import io.enoa.docker.dket.AbstractDRRet;
+import io.enoa.docker.dket.docker.container.ECError;
 
-public class ECWait extends AbstractDRRet {
+public class EDRun extends AbstractDRRet {
 
   private final Integer statuscode;
+  private final String log;
   private final ECError error;
 
-  public ECWait(Builder builder) {
+  public EDRun(Builder builder) {
     this.statuscode = builder.statuscode;
+    this.log = builder.log;
     this.error = builder.error;
   }
 
   public Integer statuscode() {
-    return statuscode;
+    return this.statuscode;
+  }
+
+  public String log() {
+    return this.log;
   }
 
   public ECError error() {
-    return error;
+    return this.error;
   }
 
   public static class Builder {
 
     private Integer statuscode;
+    private String log;
     private ECError error;
 
-    public ECWait build() {
-      return new ECWait(this);
+    public EDRun build() {
+      return new EDRun(this);
     }
 
     public Builder statuscode(Integer statuscode) {
       this.statuscode = statuscode;
+      return this;
+    }
+
+    public Builder log(String log) {
+      this.log = log;
       return this;
     }
 
@@ -54,4 +67,5 @@ public class ECWait extends AbstractDRRet {
       return this;
     }
   }
+
 }

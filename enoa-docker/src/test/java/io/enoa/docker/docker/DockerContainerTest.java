@@ -21,6 +21,7 @@ import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.dket.docker.common.ECreatedWithWarning;
 import io.enoa.docker.dket.docker.container.*;
+import io.enoa.docker.dket.docker.run.EDRun;
 import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.docker.container.DQPContainerUpdate;
 import io.enoa.docker.stream.DStream;
@@ -270,7 +271,7 @@ public class DockerContainerTest extends AbstractDockerTest {
   }
 
   private String dockerrun(Path path) {
-    DRet<String> ret = Docker.run("dockerrun",
+    DRet<EDRun> ret = Docker.run("dockerrun",
       DQP.docker().container().create()
         .interactive()
         .tty()
@@ -281,11 +282,9 @@ public class DockerContainerTest extends AbstractDockerTest {
         .cmd("clone")
         .cmd("https://gitee.com/panqingyun/E3D-Engine.git"),
 //        .cmd("https://github.com/fewensa/enoa.git"),
-      DStream.<String>builder(data -> {
-        System.out.println(data);
-      }).build());
+      DStream.<String>builder(System.out::println).build());
     Assert.assertTrue(ret.ok());
-    String tty = ret.data();
+    String tty = ret.data().log();
     if (TextKit.blanky(tty))
       throw new RuntimeException("No result");
     return tty;

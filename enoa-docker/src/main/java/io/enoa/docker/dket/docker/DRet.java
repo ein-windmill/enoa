@@ -26,19 +26,32 @@ public class DRet<T> extends AbstractDRRet {
   private String message;
 
   public static <J> DRet<J> fail(DResp origin, String message) {
+    return fail(origin, message, null);
+  }
+
+  public static <J> DRet<J> fail(DResp origin, String message, J data) {
     return new Builder<J>()
       .ok(false)
       .origin(origin)
       .message(message)
+      .data(data)
       .build();
+  }
+
+  public static <J> DRet<J> fail(DRet<J> ret) {
+    return fail(ret.origin, ret.message, ret.data);
   }
 
   public static <J> DRet<J> ok(DResp origin, J data) {
     return new Builder<J>()
       .ok(true)
       .origin(origin)
-      .parser(data)
+      .data(data)
       .build();
+  }
+
+  public static <J> DRet<J> ok(DRet<J> ret) {
+    return ok(ret.origin, ret.data);
   }
 
   private DRet(Builder<T> builder) {
@@ -93,7 +106,7 @@ public class DRet<T> extends AbstractDRRet {
       return this;
     }
 
-    public Builder<K> parser(K data) {
+    public Builder<K> data(K data) {
       this.data = data;
       return this;
     }
