@@ -13,26 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.docker.registry;
+package io.enoa.gateway;
 
-import io.enoa.docker.Registry;
-import io.enoa.docker.dket.registry.RRet;
-import io.enoa.docker.dket.registry.catalog.ECatalog;
-import io.enoa.json.Json;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
+import io.enoa.repeater.http.Request;
 
-@Ignore
-public class CatalogTest extends AbstractRegistryTest {
+public interface IGatewayReporter {
 
-  @Test
-  public void testCatalog() {
-    RRet<ECatalog> ret = Registry._catalog();
-    Assert.assertTrue(ret.ok());
-    ECatalog data = ret.data();
-    String json = Json.toJson(data);
-    System.out.println(json);
-  }
+  void report(Request request);
 
 }

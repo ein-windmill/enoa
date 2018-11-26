@@ -22,35 +22,20 @@ import io.enoa.repeater.http.Header;
 import io.enoa.repeater.http.HttpStatus;
 import io.enoa.repeater.http.Request;
 import io.enoa.repeater.http.Response;
+import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.text.TextKit;
+import io.enoa.toolkit.value.EnoaValue;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RGatewayAccessor implements EoxAccessor {
 
-  private List<Header> DEF_CROS_HEADERS;
   private GatewayHandler handler;
   private GData gateway;
-  private boolean cros;
-  private List<Header> crosHeaders;
 
-  public RGatewayAccessor(GatewayHandler handler, GData gateway, boolean cros, List<Header> crosHeaders) {
+  public RGatewayAccessor(GatewayHandler handler, GData gateway) {
     this.handler = handler;
     this.gateway = gateway;
-    this.cros = cros;
-    this.crosHeaders = crosHeaders;
-    this.DEF_CROS_HEADERS = new ArrayList<Header>() {{
-      add(new Header("Access-Control-Allow-Origin", "*"));
-      add(new Header("Access-Control-Allow-Credentials", "true"));
-      add(new Header("Access-Control-Allow-Method", "GET,POST,PUT,PATCH,DELETE"));
-      add(new Header("Access-Control-Allow-Headers", String.join(",", new String[]{
-        "Content-Type",
-        "X-HTTP-Method-Override",
-        "Access-Control-Request-Headers",
-        "Access-Control-Request-Method"
-      })));
-    }};
   }
 
   @Override
@@ -60,11 +45,32 @@ public class RGatewayAccessor implements EoxAccessor {
     } catch (Exception e) {
       Response resp = gateway.errorRenderFactory()
         .renderError(HttpStatus.INTERNAL_ERROR, e);
-      if (!this.cros) {
+      if (!this.gateway.cros()) {
         return resp;
       }
       Response.Builder builder = resp.newBuilder();
-      this.crosHeaders().forEach(builder::header);
+      this.crosHeaders().forEach(header -> {
+        if (header.name().equalsIgnoreCase("Access-Control-Allow-Origin")) {
+          Header.Builder hbu = header.newBuilder();
+          String origin = EnoaValue.with(request.header("origin")).string(request.header("x-origin"));
+          hbu.value(TextKit.blanky(origin) ? "*" : origin);
+          builder.header(hbu.build());
+          return;
+        }
+        if (header.name().equalsIgnoreCase("Access-Control-Allow-Headers")) {
+          String acrh = EnoaValue.with(request.header("Access-Control-Request-Headers"))
+            .string(request.header("X-Access-Control-Request-Headers"));
+          if (TextKit.blanky(acrh)) {
+            builder.header(header);
+            return;
+          }
+          Header.Builder hbu = header.newBuilder();
+          hbu.value(TextKit.union(header.value(), ",", acrh));
+          builder.header(hbu.build());
+          return;
+        }
+        builder.header(header);
+      });
       String origin = request.header("origin");
       if (TextKit.blankn(origin))
         builder.header(new Header("Access-Control-Allow-Origin", origin));
@@ -74,9 +80,9 @@ public class RGatewayAccessor implements EoxAccessor {
 
 
   private List<Header> crosHeaders() {
-    if (this.crosHeaders != null)
-      return this.crosHeaders;
-    return this.DEF_CROS_HEADERS;
+    if (CollectionKit.isEmpty(this.gateway.crosHeaders()))
+      return this.gateway.crosHeaders();
+    return this.gateway.defaultCrosHeaders();
   }
 
 }
