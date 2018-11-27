@@ -279,7 +279,7 @@ public class EnoaDockerImpl implements EoDocker {
         }
         DRet<Void> retstart = this.container().start(id);
         if (!retstart.ok()) {
-          attachret.set(DRet.fail(retstart.origin(), null));
+          attachret.set(DRet.fail(retstart.origin(), retstart.message()));
 //          attachend.set(Boolean.TRUE);
           return;
         }
@@ -308,7 +308,7 @@ public class EnoaDockerImpl implements EoDocker {
       DRet<String> ecattach = attachret.get();
       ECWait ecwd = ecwait.data();
       boolean ok = ecwait.ok() && ecattach.ok();
-      String message = ecwait.ok() ? ecattach.message() : ecwait.message();
+      String message = ecattach.ok() ? ecwait.message() : ecattach.message();
       ECWait wcwd = ecwait.data();
       if (wcwd.statuscode() != 0) {
         message = wcwd.error() == null ? message : wcwd.error().message();
