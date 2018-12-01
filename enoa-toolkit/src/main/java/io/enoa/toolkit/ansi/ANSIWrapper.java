@@ -174,7 +174,7 @@ public class ANSIWrapper {
     if (TextKit.blanky(format))
       return CollectionKit.emptyArray(String.class);
     format = format.substring(1);
-    format = format.substring(0, format.length() - 1);
+    format = format.substring(0, format.endsWith(";m") ? format.length() - 2 : format.length() - 1);
     return format.split(";");
   }
 
