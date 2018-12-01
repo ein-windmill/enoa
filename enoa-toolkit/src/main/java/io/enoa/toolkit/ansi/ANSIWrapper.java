@@ -56,7 +56,7 @@ public class ANSIWrapper {
           }
 
 
-          StringBuilder format = new StringBuilder(9);
+          StringBuilder format = new StringBuilder(10);
           boolean right = false;
           int fix = -1;
           for (int i = 0; i < 10; i++) {
