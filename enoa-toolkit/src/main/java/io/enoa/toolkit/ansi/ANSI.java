@@ -31,8 +31,8 @@ public final class ANSI {
     return new ANSI();
   }
 
-  public static ANSIWrapper wrap(String text) {
-    return new ANSIWrapper(text);
+  public static ANSI wrap(String text) {
+    return ANSIWrapper.instance().ansis(text);
   }
 
   public static String down(String text) {
@@ -394,17 +394,6 @@ public final class ANSI {
   public ANSI background(String text, Background background) {
     return this.append(text, null, background);
   }
-
-  /*
-
-    BOLD(1),
-
-    UNDERLINE(4),
-
-    GRAY(5),
-
-    ANTI(7),
-   */
 
   public ANSI bold(String text, Color color, Background background) {
     return this.append(text, Style.BOLD, color, background);

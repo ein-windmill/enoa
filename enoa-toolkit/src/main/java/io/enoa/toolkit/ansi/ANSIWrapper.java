@@ -23,16 +23,27 @@ import io.enoa.toolkit.text.TextReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ANSIWrapper {
+class ANSIWrapper {
 
-  private String text;
+//  private String text;
+//
+//  ANSIWrapper(String text) {
+//    this.text = text;
+//  }
 
-  ANSIWrapper(String text) {
-    this.text = text;
+  private static class Holder {
+    private static final ANSIWrapper INSTANCE = new ANSIWrapper();
   }
 
-  private List<ANSIBody> bodies() {
-    TextReader reader = new TextReader(this.text);
+  static ANSIWrapper instance() {
+    return Holder.INSTANCE;
+  }
+
+  private ANSIWrapper() {
+  }
+
+  private List<ANSIBody> bodies(String ansitext) {
+    TextReader reader = new TextReader(ansitext);
     List<ANSIBody> bodies = new ArrayList<>();
     List<String> formats = new ArrayList<>();
     StringBuilder builder = new StringBuilder();
@@ -178,20 +189,9 @@ public class ANSIWrapper {
     return format.split(";");
   }
 
-  public ANSI ansis() {
-    return new ANSI(this.bodies());
+  ANSI ansis(String text) {
+    return new ANSI(this.bodies(text));
   }
 
-  public String html() {
-    return this.ansis().html();
-  }
 
-  public String text() {
-    return this.text;
-  }
-
-  @Override
-  public String toString() {
-    return this.text;
-  }
 }

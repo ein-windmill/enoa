@@ -68,27 +68,6 @@ class ANSIBody implements Serializable {
         return;
       }
 
-//      StringBuilder _sr = new StringBuilder(body.text);
-//      if (body.background != null) {
-//        if (body.color == null) {
-//          _sr.insert(0, TextKit.union("\u001B[", body.background.ix(), "m"))
-//            .append("\u001B[0m");
-//          builder.append(_sr);
-//          _sr.delete(0, _sr.length() - 1);
-//          return;
-//        }
-//        _sr.insert(0, TextKit.union("\u001B[", body.background.ix(), ";", body.color.ix(), "m"))
-//          .append("\u001B[0m");
-//        builder.append(_sr);
-//        _sr.delete(0, _sr.length() - 1);
-//        return;
-//      }
-//
-//      _sr.insert(0, TextKit.union("\u001B[", body.color.ix(), "m"))
-//        .append("\u001B[0m");
-//      builder.append(_sr);
-//      _sr.delete(0, _sr.length() - 1);
-
       StringBuilder _sr = new StringBuilder(body.text.length() + 20); // 15    \u001B[0;30;41m{text}\u001B[0m
       _sr.append("\u001B[");
       if (body.style != null) {
@@ -127,39 +106,6 @@ class ANSIBody implements Serializable {
       }
 
       StringBuilder _sr = new StringBuilder();
-//      if (background != null) {
-//        if (color == null) {
-//          _sr.insert(0, TextKit.union("<span style=\"background: ",
-//            bgcolor(bgmap, background),
-//            "\" class=\"",
-//            cssname(cssname, background),
-//            "\">"
-//          )).append("</span>");
-//          builder.append(_sr);
-//          _sr.delete(0, _sr.length() - 1);
-//          return;
-//        }
-//        _sr.insert(0, TextKit.union("<span style=\"background: ",
-//          bgcolor(bgmap, background),
-//          "; color: ",
-//          ftcolor(colormap, color),
-//          "\" class=\"",
-//          cssname(cssname, background), " ", cssname(cssname, color),
-//          "\">"
-//        )).append("</span>");
-//        builder.append(_sr);
-//        _sr.delete(0, _sr.length() - 1);
-//        return;
-//      }
-//
-//      _sr.insert(0, TextKit.union("<span style=\"color: ",
-//        ftcolor(colormap, color),
-//        "\" class=\"",
-//        cssname(cssname, color),
-//        "\">"
-//      )).append("</span>");
-//      builder.append(_sr);
-//      _sr.delete(0, _sr.length() - 1);
 
       _sr.append("<span");
       if (TextKit.blankn(cssname)) {

@@ -79,10 +79,9 @@ public class ANSITest {
     String string = this.ansi().string();
 //    System.out.println(string);
 //    System.out.println();
-    ANSIWrapper wrap = ANSI.wrap(string);
-    ANSI ansis = wrap.ansis();
-    System.out.println(ansis);
-    System.out.println(wrap.text());
+    ANSI wrap = ANSI.wrap(string);
+    System.out.println(wrap);
+    System.out.println(wrap.string());
     System.out.println(wrap.html());
   }
 
@@ -94,7 +93,7 @@ public class ANSITest {
       "drwxr-xr-x    2 root     root             0 Nov 28  2018 \u001b[1;34m.git\u001b[m\n" +
       "-rwxr-xr-x    1 root     root             9 Nov 28  2018 \u001b[1;32mREADME.md\u001b[m";
 
-    ANSI ansis = ANSI.wrap(text).ansis();
+    ANSI ansis = ANSI.wrap(text);
     System.out.println(ansis);
   }
 }
