@@ -23,6 +23,10 @@ public class ANSITest {
     return ANSI.up()
       .append("normal")
       .newline()
+      .underline("underline", ANSI.Color.GREEN)
+      .lf()
+      .bold("bold", ANSI.Color.BLACK, ANSI.Background.YELLOW)
+      .lf()
       .red("red")
       .lf()
       .green("green")
@@ -33,7 +37,9 @@ public class ANSITest {
       .lf()
       .white("white", ANSI.Background.BLACK)
       .lf()
-      .background("background", ANSI.Background.RED);
+      .background("background", ANSI.Background.RED)
+      .lf()
+      .append("fux", ANSI.Color.RED, ANSI.Background.WHITE);
   }
 
 
@@ -60,5 +66,35 @@ public class ANSITest {
     System.out.println(this.ansi().color(ANSI.Color.RED, "#b71c1c").html());
     System.out.println();
     System.out.println(this.ansi().color(ANSI.Color.RED, "#e57373").html());
+  }
+
+  @Test
+  public void testAnsi() {
+    String string = ANSI.up().append("Step => name", ANSI.Color.RED, ANSI.Background.BLACK).string();
+    System.out.println(string);
+  }
+
+  @Test
+  public void testWrap() {
+    String string = this.ansi().string();
+//    System.out.println(string);
+//    System.out.println();
+    ANSIWrapper wrap = ANSI.wrap(string);
+    ANSI ansis = wrap.ansis();
+    System.out.println(ansis);
+    System.out.println(wrap.text());
+    System.out.println(wrap.html());
+  }
+
+  @Test
+  public void testW2() {
+    String text =
+      "drwxr-xr-x    2 root     root             0 Nov 28  2018 \u001b[1;34m.\u001b[m\n" +
+      "drwxr-xr-x    1 root     root          4096 Nov 28 11:36 \u001b[1;34m..\u001b[m\n" +
+      "drwxr-xr-x    2 root     root             0 Nov 28  2018 \u001b[1;34m.git\u001b[m\n" +
+      "-rwxr-xr-x    1 root     root             9 Nov 28  2018 \u001b[1;32mREADME.md\u001b[m";
+
+    ANSI ansis = ANSI.wrap(text).ansis();
+    System.out.println(ansis);
   }
 }

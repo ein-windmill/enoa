@@ -31,6 +31,10 @@ public final class ANSI {
     return new ANSI();
   }
 
+  public static ANSIWrapper wrap(String text) {
+    return new ANSIWrapper(text);
+  }
+
   public static String down(String text) {
     StringBuilder builder = new StringBuilder(text.length());
     TextReader reader = new TextReader(text);
@@ -84,6 +88,40 @@ public final class ANSI {
 
   \033[Style;Font Color;Background colorm
    */
+
+  public enum Style implements IMarkIx {
+    NORMAL(0),
+
+    BOLD(1),
+
+    UNDERLINE(4),
+
+    GRAY(5),
+
+    ANTI(7),
+    //
+    ;
+    private final int ix;
+
+    Style(int ix) {
+      this.ix = ix;
+    }
+
+    @Override
+    public int ix() {
+      return this.ix;
+    }
+
+    public static Style of(Integer ix) {
+      if (ix == null)
+        return null;
+      for (Style style : Style.values()) {
+        if (style.ix == ix)
+          return style;
+      }
+      return null;
+    }
+  }
 
   public enum Background implements IMarkIx {
 
@@ -177,7 +215,11 @@ public final class ANSI {
   private String cssname;
 
   public ANSI() {
-    this.bodies = new ArrayList<>();
+    this(new ArrayList<>());
+  }
+
+  ANSI(List<ANSIBody> bodies) {
+    this.bodies = bodies;
   }
 
   public String string() {
@@ -220,6 +262,10 @@ public final class ANSI {
     return this.append(text, null, null);
   }
 
+  public ANSI append(String text, Style style) {
+    return this.append(text, style, null, null);
+  }
+
   public ANSI append(String text, Color color) {
     return this.append(text, color, null);
   }
@@ -229,8 +275,16 @@ public final class ANSI {
   }
 
   public ANSI append(String text, Color color, Background background) {
-    this.bodies.add(ANSIBody.create(background, color, text));
+    return this.append(text, null, color, background);
+  }
+
+  public ANSI append(String text, Style style, Color color, Background background) {
+    this.bodies.add(ANSIBody.create(style, background, color, text));
     return this;
+  }
+
+  public ANSI text(String text, Style style, Color color, Background background) {
+    return this.append(text, style, color, background);
   }
 
   public ANSI text(String text, Color color, Background background) {
@@ -340,6 +394,82 @@ public final class ANSI {
   public ANSI background(String text, Background background) {
     return this.append(text, null, background);
   }
+
+  /*
+
+    BOLD(1),
+
+    UNDERLINE(4),
+
+    GRAY(5),
+
+    ANTI(7),
+   */
+
+  public ANSI bold(String text, Color color, Background background) {
+    return this.append(text, Style.BOLD, color, background);
+  }
+
+  public ANSI bold(String text, Color color) {
+    return this.append(text, Style.BOLD, color, null);
+  }
+
+  public ANSI bold(String text, Background background) {
+    return this.append(text, Style.BOLD, null, background);
+  }
+
+  public ANSI bold(String text) {
+    return this.append(text, Style.BOLD, null, null);
+  }
+
+  public ANSI underline(String text, Color color, Background background) {
+    return this.append(text, Style.UNDERLINE, color, background);
+  }
+
+  public ANSI underline(String text, Color color) {
+    return this.append(text, Style.UNDERLINE, color, null);
+  }
+
+  public ANSI underline(String text, Background background) {
+    return this.append(text, Style.UNDERLINE, null, background);
+  }
+
+  public ANSI underline(String text) {
+    return this.append(text, null, null, null);
+  }
+
+  public ANSI gray(String text, Color color, Background background) {
+    return this.append(text, Style.GRAY, color, background);
+  }
+
+  public ANSI gray(String text, Color color) {
+    return this.append(text, Style.GRAY, color, null);
+  }
+
+  public ANSI gray(String text, Background background) {
+    return this.append(text, Style.GRAY, null, background);
+  }
+
+  public ANSI gray(String text) {
+    return this.append(text, Style.GRAY, null, null);
+  }
+
+  public ANSI anti(String text, Color color, Background background) {
+    return this.append(text, Style.ANTI, color, background);
+  }
+
+  public ANSI anti(String text, Color color) {
+    return this.append(text, Style.ANTI, color, null);
+  }
+
+  public ANSI anti(String text, Background background) {
+    return this.append(text, Style.ANTI, null, background);
+  }
+
+  public ANSI anti(String text) {
+    return this.append(text, Style.ANTI, null, null);
+  }
+
 
   @Override
   public String toString() {

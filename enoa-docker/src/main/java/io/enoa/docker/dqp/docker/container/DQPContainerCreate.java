@@ -24,7 +24,9 @@ import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.number.NumberKit;
 import io.enoa.toolkit.text.TextKit;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class DQPContainerCreate implements DQP {
@@ -40,33 +42,33 @@ public class DQPContainerCreate implements DQP {
   private List<String> attach;
   private String workdir;
   private Integer cpushares;
-  private Set<String> env;
+  private List<String> env;
   private Integer memory;
-  private Set<String> publish;
+  private List<String> publish;
   private String hostname;
-  private Set<String> volume;
-  private Set<String> capadd;
-  private Set<String> capdrop;
+  private List<String> volume;
+  private List<String> capadd;
+  private List<String> capdrop;
   private String cidfile;
   private String cpuset;
-  private Set<String> device;
-  private Set<String> dns;
-  private Set<String> dnssearch;
+  private List<String> device;
+  private List<String> dns;
+  private List<String> dnssearch;
   private String entrypoint;
-  private Set<String> envfile;
-  private Set<String> expose;
-  private Set<String> link;
-  private Set<String> lxcconf;
+  private List<String> envfile;
+  private List<String> expose;
+  private List<String> link;
+  private List<String> lxcconf;
   private String name;
   private String net;
   private Boolean privileged;
   private DRestart restart;
   private Boolean rm;
   private Boolean sigproxy;
-  private Set<String> cmd;
+  private List<String> cmd;
   private String image;
-  private Set<String> groupadd;
-  private Set<String> dnsopt;
+  private List<String> groupadd;
+  private List<String> dnsopt;
   private Boolean disablecontenttrust;
   private String cgroupparent;
   private Integer cpuperiod;
@@ -75,7 +77,7 @@ public class DQPContainerCreate implements DQP {
   private String cpusetmems;
   private String ipc;
   private Integer kernelmemory;
-  private Set<String> labels;
+  private List<String> labels;
   private String logdriver;
   private String logopt;
   private String macaddress;
@@ -84,7 +86,7 @@ public class DQPContainerCreate implements DQP {
   private Integer memoryswappiness;
   private Boolean oomkilldisable;
   private Boolean readonly;
-  private Set<String> securityopt;
+  private List<String> securityopt;
   private Integer shmsize;
   private String stopsignal;
   private Integer blkioweight;
@@ -196,19 +198,19 @@ public class DQPContainerCreate implements DQP {
     if (TextKit.blanky(env))
       return this;
     if (this.env == null)
-      this.env = new LinkedHashSet<>();
+      this.env = new ArrayList<>();
     this.env.add(env);
     return this;
   }
 
   public DQPContainerCreate env(String name, String value) {
     if (this.env == null)
-      this.env = new LinkedHashSet<>();
+      this.env = new ArrayList<>();
     this.env.add(TextKit.union(name, "=", value));
     return this;
   }
 
-  public DQPContainerCreate env(Set<String> env) {
+  public DQPContainerCreate env(List<String> env) {
     this.env = env;
     return this;
   }
@@ -222,12 +224,12 @@ public class DQPContainerCreate implements DQP {
     if (TextKit.blanky(publish))
       return this;
     if (this.publish == null)
-      this.publish = new LinkedHashSet<>();
+      this.publish = new ArrayList<>();
     this.publish.add(publish);
     return this;
   }
 
-  public DQPContainerCreate publish(Set<String> publish) {
+  public DQPContainerCreate publish(List<String> publish) {
     this.publish = publish;
     return this;
   }
@@ -241,12 +243,12 @@ public class DQPContainerCreate implements DQP {
     if (TextKit.blanky(volume))
       return this;
     if (this.volume == null)
-      this.volume = new LinkedHashSet<>();
+      this.volume = new ArrayList<>();
     this.volume.add(volume);
     return this;
   }
 
-  public DQPContainerCreate volume(Set<String> volume) {
+  public DQPContainerCreate volume(List<String> volume) {
     this.volume = volume;
     return this;
   }
@@ -255,12 +257,12 @@ public class DQPContainerCreate implements DQP {
     if (TextKit.blanky(capadd))
       return this;
     if (this.capadd == null)
-      this.capadd = new LinkedHashSet<>();
+      this.capadd = new ArrayList<>();
     this.capadd.add(capadd);
     return this;
   }
 
-  public DQPContainerCreate capadd(Set<String> capadd) {
+  public DQPContainerCreate capadd(List<String> capadd) {
     this.capadd = capadd;
     return this;
   }
@@ -269,12 +271,12 @@ public class DQPContainerCreate implements DQP {
     if (TextKit.blanky(capdrop))
       return this;
     if (this.capdrop == null)
-      this.capdrop = new LinkedHashSet<>();
+      this.capdrop = new ArrayList<>();
     this.capdrop.add(capdrop);
     return this;
   }
 
-  public DQPContainerCreate capdrop(Set<String> capdrop) {
+  public DQPContainerCreate capdrop(List<String> capdrop) {
     this.capdrop = capdrop;
     return this;
   }
@@ -293,12 +295,12 @@ public class DQPContainerCreate implements DQP {
     if (TextKit.blanky(device))
       return this;
     if (this.device == null)
-      this.device = new LinkedHashSet<>();
+      this.device = new ArrayList<>();
     this.device.add(device);
     return this;
   }
 
-  public DQPContainerCreate device(Set<String> device) {
+  public DQPContainerCreate device(List<String> device) {
     this.device = device;
     return this;
   }
@@ -307,12 +309,12 @@ public class DQPContainerCreate implements DQP {
     if (TextKit.blanky(dns))
       return this;
     if (this.dns == null)
-      this.dns = new LinkedHashSet<>();
+      this.dns = new ArrayList<>();
     this.dns.add(dns);
     return this;
   }
 
-  public DQPContainerCreate dns(Set<String> dns) {
+  public DQPContainerCreate dns(List<String> dns) {
     this.dns = dns;
     return this;
   }
@@ -321,12 +323,12 @@ public class DQPContainerCreate implements DQP {
     if (TextKit.blanky(dnssearch))
       return this;
     if (this.dnssearch == null)
-      this.dnssearch = new LinkedHashSet<>();
+      this.dnssearch = new ArrayList<>();
     this.dnssearch.add(dnssearch);
     return this;
   }
 
-  public DQPContainerCreate dnssearch(Set<String> dnssearch) {
+  public DQPContainerCreate dnssearch(List<String> dnssearch) {
     this.dnssearch = dnssearch;
     return this;
   }
@@ -340,12 +342,12 @@ public class DQPContainerCreate implements DQP {
     if (TextKit.blanky(envfile))
       return this;
     if (this.envfile == null)
-      this.envfile = new LinkedHashSet<>();
+      this.envfile = new ArrayList<>();
     this.envfile.add(envfile);
     return this;
   }
 
-  public DQPContainerCreate envfile(Set<String> envfile) {
+  public DQPContainerCreate envfile(List<String> envfile) {
     this.envfile = envfile;
     return this;
   }
@@ -354,12 +356,12 @@ public class DQPContainerCreate implements DQP {
     if (TextKit.blanky(expose))
       return this;
     if (this.expose == null)
-      this.expose = new LinkedHashSet<>();
+      this.expose = new ArrayList<>();
     this.expose.add(expose);
     return this;
   }
 
-  public DQPContainerCreate expose(Set<String> expose) {
+  public DQPContainerCreate expose(List<String> expose) {
     this.expose = expose;
     return this;
   }
@@ -368,12 +370,12 @@ public class DQPContainerCreate implements DQP {
     if (TextKit.blanky(link))
       return this;
     if (this.link == null)
-      this.link = new LinkedHashSet<>();
+      this.link = new ArrayList<>();
     this.link.add(link);
     return this;
   }
 
-  public DQPContainerCreate link(Set<String> link) {
+  public DQPContainerCreate link(List<String> link) {
     this.link = link;
     return this;
   }
@@ -382,12 +384,12 @@ public class DQPContainerCreate implements DQP {
     if (TextKit.blanky(lxcconf))
       return this;
     if (this.lxcconf == null)
-      this.lxcconf = new LinkedHashSet<>();
+      this.lxcconf = new ArrayList<>();
     this.lxcconf.add(lxcconf);
     return this;
   }
 
-  public DQPContainerCreate lxcconf(Set<String> lxcconf) {
+  public DQPContainerCreate lxcconf(List<String> lxcconf) {
     this.lxcconf = lxcconf;
     return this;
   }
@@ -438,12 +440,12 @@ public class DQPContainerCreate implements DQP {
     if (TextKit.blanky(cmd))
       return this;
     if (this.cmd == null)
-      this.cmd = new LinkedHashSet<>();
+      this.cmd = new ArrayList<>();
     this.cmd.add(cmd);
     return this;
   }
 
-  public DQPContainerCreate cmd(Set<String> cmd) {
+  public DQPContainerCreate cmd(List<String> cmd) {
     this.cmd = cmd;
     return this;
   }
@@ -457,12 +459,12 @@ public class DQPContainerCreate implements DQP {
     if (TextKit.blanky(groupadd))
       return this;
     if (this.groupadd == null)
-      this.groupadd = new LinkedHashSet<>();
+      this.groupadd = new ArrayList<>();
     this.groupadd.add(groupadd);
     return this;
   }
 
-  public DQPContainerCreate groupadd(Set<String> groupadd) {
+  public DQPContainerCreate groupadd(List<String> groupadd) {
     this.groupadd = groupadd;
     return this;
   }
@@ -471,12 +473,12 @@ public class DQPContainerCreate implements DQP {
     if (TextKit.blanky(dnsopt))
       return this;
     if (this.dnsopt == null)
-      this.dnsopt = new LinkedHashSet<>();
+      this.dnsopt = new ArrayList<>();
     this.dnsopt.add(dnsopt);
     return this;
   }
 
-  public DQPContainerCreate dnsopt(Set<String> dnsopt) {
+  public DQPContainerCreate dnsopt(List<String> dnsopt) {
     this.dnsopt = dnsopt;
     return this;
   }
@@ -529,12 +531,12 @@ public class DQPContainerCreate implements DQP {
     if (TextKit.blanky(label))
       return this;
     if (this.labels == null)
-      this.labels = new LinkedHashSet<>();
+      this.labels = new ArrayList<>();
     this.labels.add(label);
     return this;
   }
 
-  public DQPContainerCreate labels(Set<String> labels) {
+  public DQPContainerCreate labels(List<String> labels) {
     this.labels = labels;
     return this;
   }
@@ -591,13 +593,13 @@ public class DQPContainerCreate implements DQP {
     if (TextKit.blanky(securityopt))
       return this;
     if (this.securityopt == null)
-      this.securityopt = new LinkedHashSet<>();
+      this.securityopt = new ArrayList<>();
     this.securityopt.add(securityopt);
     return this;
   }
 
 
-  public DQPContainerCreate securityopt(Set<String> securityopt) {
+  public DQPContainerCreate securityopt(List<String> securityopt) {
     this.securityopt = securityopt;
     return this;
   }
@@ -660,7 +662,7 @@ public class DQPContainerCreate implements DQP {
   }
 
   private Kv exposed() {
-    Set<String> exposes = this.expose;
+    List<String> exposes = this.expose;
     if (exposes == null)
       return null;
     Kv kv = Kv.create();

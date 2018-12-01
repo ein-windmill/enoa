@@ -25,6 +25,7 @@ import java.util.Map;
 
 class ANSIBody implements Serializable {
 
+  private final ANSI.Style style;
   private final ANSI.Background background;
   private final ANSI.Color color;
   private final String text;
@@ -38,7 +39,7 @@ class ANSIBody implements Serializable {
       bgmap.put(ANSI.Background.BLACK, "rgb(45,45,45)");
       bgmap.put(ANSI.Background.RED, "rgb(244,67,54)");
       bgmap.put(ANSI.Background.GREEN, "rgb(76,175,80)");
-      bgmap.put(ANSI.Background.YELLOW, "rgb(255,235,59)");
+      bgmap.put(ANSI.Background.YELLOW, "rgb(187,187,0)");
       bgmap.put(ANSI.Background.BLUE, "rgb(33,150,243)");
       bgmap.put(ANSI.Background.MAGENTA, "rgb(194,24,91)");
       bgmap.put(ANSI.Background.CYAN, "rgb(139,195,74)");
@@ -47,7 +48,7 @@ class ANSIBody implements Serializable {
       colormap.put(ANSI.Color.BLACK, "rgb(45,45,45)");
       colormap.put(ANSI.Color.RED, "rgb(244,67,54)");
       colormap.put(ANSI.Color.GREEN, "rgb(76,175,80)");
-      colormap.put(ANSI.Color.YELLOW, "rgb(255,235,59)");
+      colormap.put(ANSI.Color.YELLOW, "rgb(187,187,0)");
       colormap.put(ANSI.Color.BLUE, "rgb(33,150,243)");
       colormap.put(ANSI.Color.MAGENTA, "rgb(194,24,91)");
       colormap.put(ANSI.Color.CYAN, "rgb(139,195,74)");
@@ -62,31 +63,49 @@ class ANSIBody implements Serializable {
 
     StringBuilder builder = new StringBuilder();
     bodies.forEach(body -> {
-      if (body.background == null && body.color == null) {
+      if (body.style == null && body.background == null && body.color == null) {
         builder.append(body.text);
         return;
       }
 
-      StringBuilder _sr = new StringBuilder(body.text);
-      if (body.background != null) {
-        if (body.color == null) {
-          _sr.insert(0, TextKit.union("\u001B[", body.background.ix(), "m"))
-            .append("\u001B[0m");
-          builder.append(_sr);
-          _sr.delete(0, _sr.length() - 1);
-          return;
-        }
-        _sr.insert(0, TextKit.union("\u001B[", body.background.ix(), ";", body.color.ix(), "m"))
-          .append("\u001B[0m");
-        builder.append(_sr);
-        _sr.delete(0, _sr.length() - 1);
-        return;
-      }
+//      StringBuilder _sr = new StringBuilder(body.text);
+//      if (body.background != null) {
+//        if (body.color == null) {
+//          _sr.insert(0, TextKit.union("\u001B[", body.background.ix(), "m"))
+//            .append("\u001B[0m");
+//          builder.append(_sr);
+//          _sr.delete(0, _sr.length() - 1);
+//          return;
+//        }
+//        _sr.insert(0, TextKit.union("\u001B[", body.background.ix(), ";", body.color.ix(), "m"))
+//          .append("\u001B[0m");
+//        builder.append(_sr);
+//        _sr.delete(0, _sr.length() - 1);
+//        return;
+//      }
+//
+//      _sr.insert(0, TextKit.union("\u001B[", body.color.ix(), "m"))
+//        .append("\u001B[0m");
+//      builder.append(_sr);
+//      _sr.delete(0, _sr.length() - 1);
 
-      _sr.insert(0, TextKit.union("\u001B[", body.color.ix(), "m"))
+      StringBuilder _sr = new StringBuilder(body.text.length() + 20); // 15    \u001B[0;30;41m{text}\u001B[0m
+      _sr.append("\u001B[");
+      if (body.style != null) {
+        _sr.append(body.style.ix()).append(';');
+      }
+      if (body.color != null) {
+        _sr.append(body.color.ix()).append(';');
+      }
+      if (body.background != null) {
+        _sr.append(body.background.ix()).append(';');
+      }
+      _sr.delete(_sr.length() - 1, _sr.length());
+      _sr.append('m')
+        .append(body.text)
         .append("\u001B[0m");
       builder.append(_sr);
-      _sr.delete(0, _sr.length() - 1);
+      _sr.delete(0, _sr.length());
     });
     return builder.toString();
   }
@@ -97,49 +116,122 @@ class ANSIBody implements Serializable {
       return null;
     StringBuilder builder = new StringBuilder();
     bodies.forEach(body -> {
+      ANSI.Style style = body.style;
       ANSI.Background background = body.background;
       ANSI.Color color = body.color;
       String text = body.text;
 
-      if (background == null && color == null) {
+      if (style == null && background == null && color == null) {
         builder.append(text);
         return;
       }
 
-      StringBuilder _sr = new StringBuilder(text);
-      if (background != null) {
-        if (color == null) {
-          _sr.insert(0, TextKit.union("<span style=\"background: ",
-            bgcolor(bgmap, background),
-            "\" class=\"",
-            cssname(cssname, background),
-            "\">"
-          )).append("</span>");
-          builder.append(_sr);
-          _sr.delete(0, _sr.length() - 1);
-          return;
-        }
-        _sr.insert(0, TextKit.union("<span style=\"background: ",
-          bgcolor(bgmap, background),
-          "; color: ",
-          ftcolor(colormap, color),
-          "\" class=\"",
-          cssname(cssname, background), " ", cssname(cssname, color),
-          "\">"
-        )).append("</span>");
-        builder.append(_sr);
-        _sr.delete(0, _sr.length() - 1);
-        return;
+      StringBuilder _sr = new StringBuilder();
+//      if (background != null) {
+//        if (color == null) {
+//          _sr.insert(0, TextKit.union("<span style=\"background: ",
+//            bgcolor(bgmap, background),
+//            "\" class=\"",
+//            cssname(cssname, background),
+//            "\">"
+//          )).append("</span>");
+//          builder.append(_sr);
+//          _sr.delete(0, _sr.length() - 1);
+//          return;
+//        }
+//        _sr.insert(0, TextKit.union("<span style=\"background: ",
+//          bgcolor(bgmap, background),
+//          "; color: ",
+//          ftcolor(colormap, color),
+//          "\" class=\"",
+//          cssname(cssname, background), " ", cssname(cssname, color),
+//          "\">"
+//        )).append("</span>");
+//        builder.append(_sr);
+//        _sr.delete(0, _sr.length() - 1);
+//        return;
+//      }
+//
+//      _sr.insert(0, TextKit.union("<span style=\"color: ",
+//        ftcolor(colormap, color),
+//        "\" class=\"",
+//        cssname(cssname, color),
+//        "\">"
+//      )).append("</span>");
+//      builder.append(_sr);
+//      _sr.delete(0, _sr.length() - 1);
+
+      _sr.append("<span");
+      if (TextKit.blankn(cssname)) {
+        _sr.append(" class=\"");
+        _sr.append(cssname).append(" ");
+        if (background != null)
+          _sr.append(cssname(cssname, background)).append(" ");
+        if (color != null)
+          _sr.append(cssname(cssname, color)).append(" ");
+        _sr.append("\"");
       }
 
-      _sr.insert(0, TextKit.union("<span style=\"color: ",
-        ftcolor(colormap, color),
-        "\" class=\"",
-        cssname(cssname, color),
-        "\">"
-      )).append("</span>");
+      _sr.append(" style=\"");
+      if (background != null) {
+        boolean defbg = true;
+        if (style != null) {
+          if (style == ANSI.Style.GRAY ||
+            style == ANSI.Style.ANTI) {
+            defbg = false;
+          }
+        }
+        if (defbg) {
+          _sr.append("background: ")
+            .append(bgcolor(bgmap, background))
+            .append(";");
+        }
+      }
+      if (color != null) {
+        boolean defcl = true;
+        if (style != null) {
+          if (style == ANSI.Style.ANTI) {
+            defcl = false;
+          }
+        }
+        if (defcl) {
+          _sr.append("color: ")
+            .append(ftcolor(colormap, color))
+            .append(";");
+        }
+      }
+      if (style != null) {
+        switch (style) {
+          case NORMAL:
+            _sr.append("font-style: normal");
+            break;
+          case BOLD:
+            _sr.append("font-weight: bold;");
+            break;
+          case GRAY:
+            _sr.append("background: #ccc;");
+            break;
+          case UNDERLINE:
+            _sr.append("text-decoration: underline;");
+            break;
+          case ANTI:
+            ANSI.Color acolor = color == null ? ANSI.Color.WHITE : color;
+            ANSI.Background acbg = background == null ? ANSI.Background.BLACK : background;
+            _sr.append("background: ")
+              .append(ftcolor(colormap, acolor))
+              .append(";")
+              .append("color: ")
+              .append(bgcolor(bgmap, acbg))
+              .append(";");
+            break;
+        }
+      }
+
+      _sr.append("\">")
+        .append(body.text)
+        .append("</span>");
       builder.append(_sr);
-      _sr.delete(0, _sr.length() - 1);
+      _sr.delete(0, _sr.length());
     });
     if (!br)
       return builder.toString();
@@ -172,11 +264,16 @@ class ANSIBody implements Serializable {
         map.get(color));
   }
 
-  static ANSIBody create(ANSI.Background background, ANSI.Color color, String text) {
-    return new ANSIBody(background, color, text);
+  static ANSIBody create(String text) {
+    return create(null, null, null, text);
   }
 
-  private ANSIBody(ANSI.Background background, ANSI.Color color, String text) {
+  static ANSIBody create(ANSI.Style style, ANSI.Background background, ANSI.Color color, String text) {
+    return new ANSIBody(style, background, color, text);
+  }
+
+  private ANSIBody(ANSI.Style style, ANSI.Background background, ANSI.Color color, String text) {
+    this.style = style;
     this.background = background;
     this.color = color;
     this.text = text;

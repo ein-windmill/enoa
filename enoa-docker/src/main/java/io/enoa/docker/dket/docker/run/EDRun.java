@@ -18,16 +18,24 @@ package io.enoa.docker.dket.docker.run;
 import io.enoa.docker.dket.AbstractDRRet;
 import io.enoa.docker.dket.docker.container.ECError;
 
+import java.util.List;
+
 public class EDRun extends AbstractDRRet {
 
   private final Integer statuscode;
   private final String log;
+  private final List<String> cmd;
   private final ECError error;
 
   public EDRun(Builder builder) {
     this.statuscode = builder.statuscode;
     this.log = builder.log;
     this.error = builder.error;
+    this.cmd = builder.cmd;
+  }
+
+  public List<String> cmd() {
+    return this.cmd;
   }
 
   public Integer statuscode() {
@@ -46,10 +54,16 @@ public class EDRun extends AbstractDRRet {
 
     private Integer statuscode;
     private String log;
+    private List<String> cmd;
     private ECError error;
 
     public EDRun build() {
       return new EDRun(this);
+    }
+
+    public Builder cmd(List<String> cmd) {
+      this.cmd = cmd;
+      return this;
     }
 
     public Builder statuscode(Integer statuscode) {

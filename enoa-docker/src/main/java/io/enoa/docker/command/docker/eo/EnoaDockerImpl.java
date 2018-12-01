@@ -27,16 +27,20 @@ import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.docker.container.DQPContainerCreate;
 import io.enoa.docker.parser.docker.DIParser;
 import io.enoa.docker.stream.DStream;
+import io.enoa.toolkit.convert.ConvertKit;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thread.TrdKit;
 import io.enoa.toolkit.value.Void;
 
+import java.util.*;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class EnoaDockerImpl implements EoDocker {
 
@@ -156,11 +160,11 @@ public class EnoaDockerImpl implements EoDocker {
   }
 
   @Override
-  public DRet<EDRun> run(String name, DQPContainerCreate create, DStream<String> dstream, DQPResize resize) {
-    return this.run(name, create, dstream, resize, Boolean.FALSE);
+  public DRet<EDRun> run(String name, DQPContainerCreate dqp, DStream<String> dstream, DQPResize resize) {
+    return this.run(name, dqp, dstream, resize, Boolean.FALSE);
   }
 
-  private DRet<EDRun> run(String name, DQPContainerCreate create, DStream<String> dstream, DQPResize resize, boolean isretry) {
+  private DRet<EDRun> run(String name, DQPContainerCreate dqp, DStream<String> dstream, DQPResize resize, boolean isretry) {
     ExecutorService executor = null;
     try {
       DRet<String> retping = this.system().ping();
@@ -172,12 +176,12 @@ public class EnoaDockerImpl implements EoDocker {
       }
 
 
-      boolean autoremove = create.autoremove();
-      boolean isinteractive = create.isinteractive();
-      boolean showtty = create.showtty();
-      boolean isdetach = create.isdetach();
+      boolean autoremove = dqp.autoremove();
+      boolean isinteractive = dqp.isinteractive();
+      boolean showtty = dqp.showtty();
+      boolean isdetach = dqp.isdetach();
 
-      DRet<ECreatedWithWarning> retcreate = this.container().create(name, create);
+      DRet<ECreatedWithWarning> retcreate = this.container().create(name, dqp);
       if (!retcreate.ok()) {
         String message = retcreate.message();
         if (!isretry && message.startsWith("Conflict. The container name") && message.contains("is already in use by container")) {
@@ -192,7 +196,7 @@ public class EnoaDockerImpl implements EoDocker {
           } catch (InterruptedException e) {
             e.printStackTrace();
           }
-          return this.run(name, create, dstream, resize, Boolean.TRUE);
+          return this.run(name, dqp, dstream, resize, Boolean.TRUE);
         }
         return DRet.fail(retcreate.origin(), retcreate.message());
       }
@@ -257,7 +261,7 @@ public class EnoaDockerImpl implements EoDocker {
           barrier.await();
         } catch (Exception e) {
           e.printStackTrace();
-          waitok.set(Boolean.FALSE);
+          attachok.set(Boolean.FALSE);
         }
       });
 
@@ -289,15 +293,15 @@ public class EnoaDockerImpl implements EoDocker {
       });
 
       long start = System.currentTimeMillis();
-//      while (!attachend.get() || !waitend.get()) {
-//      }
-
 
       try {
         barrier.await();
       } catch (Exception e) {
         e.printStackTrace();
         throw new RuntimeException(e.getMessage(), e);
+      }
+      if (!waitok.get() || !attachok.get()) {
+        return DRet.fail(null, "CyclicBarrier ERROR");
       }
 
       long end = System.currentTimeMillis();
@@ -313,10 +317,28 @@ public class EnoaDockerImpl implements EoDocker {
       if (wcwd.statuscode() != 0) {
         message = wcwd.error() == null ? message : wcwd.error().message();
       }
+      Object cmdo = dqp.dqr().value("Cmd").get();
+      List<String> cmds;
+      if (cmdo == null) {
+        cmds = Collections.emptyList();
+      } else {
+        if (cmdo instanceof String) {
+          cmds = new ArrayList<>(1);
+          cmds.add(ConvertKit.string(cmdo));
+        }
+        if (cmdo instanceof Collection) {
+          cmds = (List<String>) ((Collection) cmdo).stream()
+            .map(item -> ConvertKit.string(item))
+            .collect(Collectors.toList());
+        } else {
+          cmds = Collections.emptyList();
+        }
+      }
       EDRun edrun = new EDRun.Builder()
         .log(ecattach.data())
         .error(ecwd.error())
         .statuscode(ecwd.statuscode())
+        .cmd(cmds)
         .build();
       return ok ?
         DRet.ok(ecattach.origin(), edrun) :

@@ -82,6 +82,7 @@ class ChunkCaller {
           Byte b = this.queues.poll();
           if (b == '\r' || b == '\n') {
             byte[] bytes = temp.toByteArray();
+//            if (bytes.length > 0)
             this.chunk.runner().run(bytes);
             temp.reset();
             continue;

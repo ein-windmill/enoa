@@ -55,18 +55,18 @@ public interface EoDocker extends _DockerConfigSupport {
 
   EnoaDockerDistribution distribution();
 
-  default DRet<EDRun> run(String name, DQPContainerCreate create) {
-    return this.run(name, create, null, null);
+  default DRet<EDRun> run(String name, DQPContainerCreate dqp) {
+    return this.run(name, dqp, null, null);
   }
 
-  default DRet<EDRun> run(String name, DQPContainerCreate create, DQPResize resize) {
-    return this.run(name, create, null, resize);
+  default DRet<EDRun> run(String name, DQPContainerCreate dqp, DQPResize resize) {
+    return this.run(name, dqp, null, resize);
   }
 
-  default DRet<EDRun> run(String name, DQPContainerCreate create, DStream<String> dstream) {
-    return this.run(name, create, dstream, null);
+  default DRet<EDRun> run(String name, DQPContainerCreate dqp, DStream<String> dstream) {
+    return this.run(name, dqp, dstream, null);
   }
 
-  DRet<EDRun> run(String name, DQPContainerCreate create, DStream<String> dstream, DQPResize resize);
+  DRet<EDRun> run(String name, DQPContainerCreate dqp, DStream<String> dstream, DQPResize resize);
 
 }
