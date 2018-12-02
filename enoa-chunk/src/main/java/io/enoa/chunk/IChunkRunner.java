@@ -13,15 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.http.protocol.chunk;
+package io.enoa.chunk;
 
 @FunctionalInterface
-public interface IChunkStopper {
+public interface IChunkRunner<T> {
 
-  static IChunkStopper def() {
-    return () -> Boolean.FALSE;
-  }
-
-  boolean stop();
+  void run(T data);
 
 }

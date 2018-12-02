@@ -13,23 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.toolkit;
+package io.enoa.chunk;
 
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
+@FunctionalInterface
+public interface IChunkStopper {
 
-/**
- * enoa - io.enoa.toolkit
- */
-public interface EoConst {
+  static IChunkStopper def() {
+    return () -> Boolean.FALSE;
+  }
 
-  Charset CHARSET = StandardCharsets.UTF_8;
-
-  String DEF_FORMAT_DATE = "yyyy-MM-dd HH:mm:ss.SSS";
-
-  /**
-   * restful uri 识别符号
-   */
-  String RESTFUL_RECOGNIZE = ":";
+  boolean stop();
 
 }

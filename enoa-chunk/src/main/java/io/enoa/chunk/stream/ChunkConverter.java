@@ -13,11 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.http.protocol.chunk;
+package io.enoa.chunk.stream;
 
-@FunctionalInterface
-public interface IChunkRunner {
+public interface ChunkConverter<T> {
 
-  void run(byte[] bytes);
+  T convert(byte[] bytes);
 
 }

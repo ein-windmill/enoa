@@ -15,20 +15,17 @@
  */
 package io.enoa.docker.command.docker.origin;
 
+import io.enoa.chunk.stream.ChunkStream;
 import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dqp.DQR;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.docker.container.*;
-import io.enoa.docker.stream.DStream;
 import io.enoa.http.EoUrl;
 import io.enoa.http.Http;
 import io.enoa.http.protocol.HttpMethod;
 import io.enoa.http.protocol.HttpPara;
 import io.enoa.http.protocol.HttpResponse;
-import io.enoa.http.protocol.chunk.Chunk;
-import io.enoa.toolkit.EoConst;
-import io.enoa.toolkit.binary.EnoaBinary;
 import io.enoa.toolkit.text.TextKit;
 
 import java.util.Set;
@@ -109,12 +106,13 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
   }
 
   @Override
-  public DResp statistics(String id, DStream<String> dstream) {
-    Chunk.Builder builder = Chunk.builder(bytes -> dstream.runner().run(EnoaBinary.create(bytes, EoConst.CHARSET).string()))
-      .stopper(() -> dstream.stopper() == null ? Boolean.FALSE : dstream.stopper().stop());
+  public DResp statistics(String id, ChunkStream stream) {
+//    Chunk.Builder builder = Chunk.builder(bytes -> dstream.runner().run(EnoaBinary.create(bytes, EoConst.CHARSET).string()))
+//      .stopper(() -> dstream.stopper() == null ? Boolean.FALSE : dstream.stopper().stop());
     HttpResponse response = this.docker.http("containers", id, "stats")
       .para("stream", true)
-      .chunk(builder.build());
+//      .chunk(builder.build());
+      .chunk(stream.chunk());
     return DResp.create(response);
   }
 
@@ -204,7 +202,7 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
   }
 
   @Override
-  public DResp attach(String id, DQPContainerAttach dqp, DStream<String> dstream) {
+  public DResp attach(String id, DQPContainerAttach dqp, ChunkStream stream) {
     // fixme sometimes attach will return value include stdin=1&stream=1&stdout=1&stderr=1 fix it.
     /*
   stdin=1&stream=1&stdout=1&stderr=1* [32mmaster[m
@@ -221,14 +219,9 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
       .header("Upgrade", "tcp")
       .header("Connection", "Upgrade")
       .header("Content-Type", "text/aplin");
-    HttpResponse response = dstream == null ?
+    HttpResponse response = stream == null ?
       http.emit() :
-      http.chunk(Chunk.builder(bytes -> {
-        String string = EnoaBinary.create(bytes).string();
-        dstream.runner().run(string);
-      })
-        .stopper(() -> dstream.stopper() == null ? Boolean.FALSE : dstream.stopper().stop())
-        .build());
+      http.chunk(stream.chunk());
     return DResp.create(response);
   }
 

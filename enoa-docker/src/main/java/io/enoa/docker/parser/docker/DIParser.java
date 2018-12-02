@@ -35,11 +35,13 @@ import io.enoa.docker.dket.docker.secret.ESecret;
 import io.enoa.docker.dket.docker.service.EServiceUpdate;
 import io.enoa.docker.dket.docker.swarm.ESwarmInspect;
 import io.enoa.docker.dket.docker.swarm.ESwarmUnlockKey;
-import io.enoa.docker.dket.docker.system.*;
+import io.enoa.docker.dket.docker.system.EAuth;
+import io.enoa.docker.dket.docker.system.EMonitor;
+import io.enoa.docker.dket.docker.system.EYVersion;
+import io.enoa.docker.dket.docker.system.Edf;
 import io.enoa.docker.dket.docker.volume.EVolume;
 import io.enoa.docker.dket.docker.volume.EVolumeLs;
 import io.enoa.docker.dket.docker.volume.EVolumePrune;
-import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.binary.EnoaBinary;
 import io.enoa.toolkit.value.Void;
 
@@ -236,19 +238,19 @@ public interface DIParser<T> {
     return EDistributionParser.instance();
   }
 
-  /**
-   * only use not create dresp object
-   * <p>
-   * todo a better way
-   *
-   * @param config config
-   * @param text   text
-   * @return DRet
-   */
-  @Deprecated
-  default DRet<T> parse(DockerConfig config, String text) {
-    return this.parse(config, DResp.create(100, "application/json", text.getBytes(EoConst.CHARSET)));
-  }
+//  /**
+//   * only use not create dresp object
+//   * <p>
+//   * todo a better way
+//   *
+//   * @param config config
+//   * @param text   text
+//   * @return DRet
+//   */
+//  @Deprecated
+//  default DRet<T> parse(DockerConfig config, String text) {
+//    return this.parse(config, DResp.create(100, "application/json", text.getBytes(EoConst.CHARSET)));
+//  }
 
   DRet<T> parse(DockerConfig config, DResp resp);
 

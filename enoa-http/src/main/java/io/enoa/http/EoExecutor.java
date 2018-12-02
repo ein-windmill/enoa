@@ -16,7 +16,7 @@
 package io.enoa.http;
 
 import io.enoa.http.protocol.HttpPromise;
-import io.enoa.http.protocol.chunk.Chunk;
+import io.enoa.chunk.Chunk;
 
 public interface EoExecutor {
 

@@ -15,6 +15,7 @@
  */
 package io.enoa.docker.command.docker.eo;
 
+import io.enoa.chunk.stream.ChunkStream;
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.command.docker.generic.GenericDocker;
 import io.enoa.docker.dket.docker.DRet;
@@ -26,20 +27,21 @@ import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.docker.container.DQPContainerCreate;
 import io.enoa.docker.parser.docker.DIParser;
-import io.enoa.docker.stream.DStream;
 import io.enoa.toolkit.convert.ConvertKit;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thread.TrdKit;
 import io.enoa.toolkit.value.Void;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class EnoaDockerImpl implements EoDocker {
@@ -160,11 +162,11 @@ public class EnoaDockerImpl implements EoDocker {
   }
 
   @Override
-  public DRet<EDRun> run(String name, DQPContainerCreate dqp, DStream<String> dstream, DQPResize resize) {
-    return this.run(name, dqp, dstream, resize, Boolean.FALSE);
+  public DRet<EDRun> run(String name, DQPContainerCreate dqp, ChunkStream stream, DQPResize resize) {
+    return this.run(name, dqp, stream, resize, Boolean.FALSE);
   }
 
-  private DRet<EDRun> run(String name, DQPContainerCreate dqp, DStream<String> dstream, DQPResize resize, boolean isretry) {
+  private DRet<EDRun> run(String name, DQPContainerCreate dqp, ChunkStream stream, DQPResize resize, boolean isretry) {
     ExecutorService executor = null;
     try {
       DRet<String> retping = this.system().ping();
@@ -196,7 +198,7 @@ public class EnoaDockerImpl implements EoDocker {
           } catch (InterruptedException e) {
             e.printStackTrace();
           }
-          return this.run(name, dqp, dstream, resize, Boolean.TRUE);
+          return this.run(name, dqp, stream, resize, Boolean.TRUE);
         }
         return DRet.fail(retcreate.origin(), retcreate.message());
       }
@@ -255,7 +257,7 @@ public class EnoaDockerImpl implements EoDocker {
               .stdin()
               .stream()
               .stdout(),
-            dstream);
+            stream);
         attachret.set(attach);
         try {
           barrier.await();

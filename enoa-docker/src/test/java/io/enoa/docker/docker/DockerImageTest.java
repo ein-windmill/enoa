@@ -15,14 +15,14 @@
  */
 package io.enoa.docker.docker;
 
+import io.enoa.chunk.Chunk;
+import io.enoa.chunk.stream.ChunkStream;
 import io.enoa.docker.AbstractDockerTest;
 import io.enoa.docker.Docker;
-import io.enoa.docker.dqp.DQP;
-import io.enoa.docker.dqp.docker.image.*;
 import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.dket.docker.image.*;
-import io.enoa.docker.stream.DStream;
-import io.enoa.docker.stream.IDStreamRunner;
+import io.enoa.docker.dqp.DQP;
+import io.enoa.docker.dqp.docker.image.*;
 import io.enoa.json.Json;
 import io.enoa.toolkit.binary.EnoaBinary;
 import io.enoa.toolkit.file.FileKit;
@@ -58,7 +58,12 @@ public class DockerImageTest extends AbstractDockerTest {
 //    System.out.println();
 //    System.out.println("done===");
 
-    DRet<List<Kv>> ret = Docker.image().build(dockerfile, dqp, DStream.<Kv>builder(kv -> System.out.println(Json.toJson(kv))).build());
+//    DRet<List<Kv>> ret = Docker.image().build(dockerfile, dqp, DStream.<Kv>builder(kv -> System.out.println(Json.toJson(kv))).build());
+
+    DRet<List<Kv>> ret = Docker.image().build(dockerfile, dqp, () -> Chunk.builder(bytes -> {
+      Kv kv = Json.parse(EnoaBinary.create(bytes).string(), Kv.class);
+      System.out.println(kv);
+    }).build());
     Assert.assertTrue(ret.ok());
     String json = Json.toJson(ret.data());
     System.out.println(json);
@@ -167,7 +172,7 @@ public class DockerImageTest extends AbstractDockerTest {
   @Test
   public void testCreate() {
     Docker.image().create(DQPImageCreate.create().fromimage("docker.io/alpine").tag("3.8"),
-      DStream.<Kv>builder(data -> System.out.println(Json.toJson(data))).build());
+      ChunkStream.generic(bytes -> EnoaBinary.create(bytes).string(), text -> System.out.println(text)));
   }
 
 }

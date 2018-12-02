@@ -15,14 +15,14 @@
  */
 package io.enoa.docker.command.docker.eo;
 
+import io.enoa.chunk.stream.ChunkStream;
 import io.enoa.docker.command.docker.generic.EGenericDockerImage;
 import io.enoa.docker.command.docker.generic.GenericDocker;
+import io.enoa.docker.dket.docker.DRet;
+import io.enoa.docker.dket.docker.image.*;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.docker.image.*;
 import io.enoa.docker.parser.docker.DIParser;
-import io.enoa.docker.dket.docker.DRet;
-import io.enoa.docker.dket.docker.image.*;
-import io.enoa.docker.stream.DStream;
 import io.enoa.toolkit.binary.EnoaBinary;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.value.Void;
@@ -52,7 +52,7 @@ public class EnoaDockerImage {
     return this.image.build(dockerfile, dqp);
   }
 
-  public DRet<List<Kv>> build(String dockerfile, DQPImageBuild dqp, DStream<Kv> dstream) {
+  public DRet<List<Kv>> build(String dockerfile, DQPImageBuild dqp, ChunkStream dstream) {
     return this.image.build(dockerfile, dqp, dstream);
   }
 
@@ -68,11 +68,11 @@ public class EnoaDockerImage {
     return this.image.create(dqp, body);
   }
 
-  public DRet<List<Kv>> create(DQPImageCreate dqp, DStream<Kv> dstream) {
+  public DRet<List<Kv>> create(DQPImageCreate dqp, ChunkStream dstream) {
     return this.image.create(dqp, dstream);
   }
 
-  public DRet<List<Kv>> create(DQPImageCreate dqp, String body, DStream<Kv> dstream) {
+  public DRet<List<Kv>> create(DQPImageCreate dqp, String body, ChunkStream dstream) {
     return this.image.create(dqp, body, dstream);
   }
 
@@ -92,11 +92,11 @@ public class EnoaDockerImage {
     return this.image.push(id, dqp);
   }
 
-  public DRet<Void> push(String id, DStream<Kv> dstream) {
+  public DRet<Void> push(String id, ChunkStream dstream) {
     return this.image.push(id, dstream);
   }
 
-  public DRet<Void> push(String id, DQPImagePush dqp, DStream<Kv> dstream) {
+  public DRet<Void> push(String id, DQPImagePush dqp, ChunkStream dstream) {
     return this.image.push(id, dqp, dstream);
   }
 

@@ -15,6 +15,7 @@
  */
 package io.enoa.docker;
 
+import io.enoa.chunk.stream.ChunkStream;
 import io.enoa.docker.command.docker.eo.*;
 import io.enoa.docker.command.docker.generic.GenericDocker;
 import io.enoa.docker.command.docker.origin.OriginDocker;
@@ -23,7 +24,6 @@ import io.enoa.docker.dket.docker.dockerinfo.EDockerInfo;
 import io.enoa.docker.dket.docker.run.EDRun;
 import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.docker.container.DQPContainerCreate;
-import io.enoa.docker.stream.DStream;
 
 public class Docker {
 
@@ -37,6 +37,14 @@ public class Docker {
 
   public static EoDocker use() {
     return epm().docker();
+  }
+
+  public static DockerConfig _dockerconfig() {
+    return use()._dockerconfig();
+  }
+
+  public static DockerConfig _dockerconfig(String name) {
+    return use(name)._dockerconfig();
   }
 
   public static GenericDocker generic(String name) {
@@ -132,11 +140,11 @@ public class Docker {
     return use().run(name, create, resize);
   }
 
-  public static DRet<EDRun> run(String name, DQPContainerCreate create, DStream<String> dstream) {
+  public static DRet<EDRun> run(String name, DQPContainerCreate create, ChunkStream dstream) {
     return use().run(name, create, dstream);
   }
 
-  public static DRet<EDRun> run(String name, DQPContainerCreate create, DStream<String> dstream, DQPResize resize) {
+  public static DRet<EDRun> run(String name, DQPContainerCreate create, ChunkStream dstream, DQPResize resize) {
     return use().run(name, create, dstream, resize);
   }
 

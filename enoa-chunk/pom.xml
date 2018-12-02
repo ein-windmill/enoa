@@ -9,61 +9,10 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>enoa-docker</artifactId>
+  <artifactId>enoa-chunk</artifactId>
 
 
   <dependencies>
-
-    <dependency>
-      <groupId>io.enoa</groupId>
-      <artifactId>enoa-toolkit</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>io.enoa</groupId>
-      <artifactId>enoa-promise</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>io.enoa</groupId>
-      <artifactId>enoa-http</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>io.enoa</groupId>
-      <artifactId>enoa-chunk</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>io.enoa</groupId>
-      <artifactId>enoa-json</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-compress</artifactId>
-      <scope>provided</scope>
-      <optional>true</optional>
-    </dependency>
-
-    <!--
-        <dependency>
-          <groupId>com.github.jnr</groupId>
-          <artifactId>jnr-unixsocket</artifactId>
-        </dependency>
-    -->
-
-    <dependency>
-      <groupId>io.enoa</groupId>
-      <artifactId>enoa-json-fastjson</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>io.enoa</groupId>
-      <artifactId>enoa-json-gson</artifactId>
-      <scope>test</scope>
-    </dependency>
 
     <dependency>
       <groupId>junit</groupId>
@@ -72,6 +21,7 @@
     </dependency>
 
   </dependencies>
+
 
   <build>
     <resources>

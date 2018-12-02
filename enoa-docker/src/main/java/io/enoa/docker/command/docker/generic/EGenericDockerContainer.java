@@ -15,6 +15,7 @@
  */
 package io.enoa.docker.command.docker.generic;
 
+import io.enoa.chunk.stream.ChunkStream;
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.command.docker.origin.EOriginDockerContainer;
 import io.enoa.docker.command.docker.origin.OriginDocker;
@@ -24,8 +25,6 @@ import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.docker.container.*;
 import io.enoa.docker.parser.docker.DIParser;
-import io.enoa.docker.stream.DStream;
-import io.enoa.docker.stream.IDStreamRunner;
 import io.enoa.docker.thr.DockerException;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.value.Void;
@@ -105,11 +104,11 @@ public class EGenericDockerContainer {
     return parser.parse(this.config, origin);
   }
 
-  public <T> DRet<T> statistics(DIParser<T> parser, String id, DStream<DRet<T>> dstream) {
-    DStream<String> dst0 = DStream.builder((IDStreamRunner<String>) data -> dstream.runner().run(parser.parse(this.config, data)))
-      .stopper(dstream.stopper())
-      .build();
-    DResp origin = this.container.statistics(id, dst0);
+  public <T> DRet<T> statistics(DIParser<T> parser, String id, ChunkStream dstream) {
+//    DStream<String> dst0 = DStream.builder((IDStreamRunner<String>) data -> dstream.runner().run(parser.parse(this.config, data)))
+//      .stopper(dstream.stopper())
+//      .build();
+    DResp origin = this.container.statistics(id, dstream);
     return parser.parse(this.config, origin);
   }
 
@@ -190,7 +189,7 @@ public class EGenericDockerContainer {
     return this.attach(parser, id, dqp, null);
   }
 
-  public <T> DRet<T> attach(DIParser<T> parser, String id, DQPContainerAttach dqp, DStream<String> dstream) {
+  public <T> DRet<T> attach(DIParser<T> parser, String id, DQPContainerAttach dqp, ChunkStream dstream) {
     DResp origin = this.container.attach(id, dqp, dstream);
     return parser.parse(this.config, origin);
   }

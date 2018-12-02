@@ -15,15 +15,15 @@
  */
 package io.enoa.docker.command.docker.generic;
 
+import io.enoa.chunk.stream.ChunkStream;
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.command.docker.origin.EOriginDockerImage;
 import io.enoa.docker.command.docker.origin.OriginDocker;
+import io.enoa.docker.dket.docker.DResp;
+import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.docker.image.*;
 import io.enoa.docker.parser.docker.DIParser;
-import io.enoa.docker.dket.docker.DResp;
-import io.enoa.docker.dket.docker.DRet;
-import io.enoa.docker.stream.DStream;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.value.Void;
@@ -69,10 +69,8 @@ public class EGenericDockerImage {
     return this.linestolist(resp);
   }
 
-  public DRet<List<Kv>> build(String dockerfile, DQPImageBuild dqp, DStream<Kv> dstream) {
-    DStream<String> dst0 = DStream.<String>builder(text -> dstream.runner().run(this.config.json().parse(text, Kv.class)))
-      .stopper(dstream.stopper()).build();
-    DResp resp = this.image.build(dockerfile, dqp, dst0);
+  public DRet<List<Kv>> build(String dockerfile, DQPImageBuild dqp, ChunkStream stream) {
+    DResp resp = this.image.build(dockerfile, dqp, stream);
     return this.linestolist(resp);
   }
 
@@ -91,17 +89,13 @@ public class EGenericDockerImage {
     return this.linestolist(resp);
   }
 
-  public DRet<List<Kv>> create(DQPImageCreate dqp, DStream<Kv> dstream) {
-    DStream<String> dst0 = DStream.<String>builder(text -> dstream.runner().run(this.config.json().parse(text, Kv.class)))
-      .stopper(dstream.stopper()).build();
-    DResp resp = this.image.create(dqp, dst0);
+  public DRet<List<Kv>> create(DQPImageCreate dqp, ChunkStream dstream) {
+    DResp resp = this.image.create(dqp, dstream);
     return this.linestolist(resp);
   }
 
-  public DRet<List<Kv>> create(DQPImageCreate dqp, String body, DStream<Kv> dstream) {
-    DStream<String> dst0 = DStream.<String>builder(text -> dstream.runner().run(this.config.json().parse(text, Kv.class)))
-      .stopper(dstream.stopper()).build();
-    DResp resp = this.image.create(dqp, body, dst0);
+  public DRet<List<Kv>> create(DQPImageCreate dqp, String body, ChunkStream dstream) {
+    DResp resp = this.image.create(dqp, body, dstream);
     return this.linestolist(resp);
   }
 
@@ -124,14 +118,12 @@ public class EGenericDockerImage {
     return DIParser.voidx().parse(this.config, resp);
   }
 
-  public DRet<Void> push(String id, DStream<Kv> dstream) {
+  public DRet<Void> push(String id, ChunkStream dstream) {
     return this.push(id, null, dstream);
   }
 
-  public DRet<Void> push(String id, DQPImagePush dqp, DStream<Kv> dstream) {
-    DStream<String> dst0 = DStream.<String>builder(text -> dstream.runner().run(this.config.json().parse(text, Kv.class)))
-      .stopper(dstream.stopper()).build();
-    DResp resp = this.image.push(id, dqp, dst0);
+  public DRet<Void> push(String id, DQPImagePush dqp, ChunkStream stream) {
+    DResp resp = this.image.push(id, dqp, stream);
     return DIParser.voidx().parse(this.config, resp);
   }
 

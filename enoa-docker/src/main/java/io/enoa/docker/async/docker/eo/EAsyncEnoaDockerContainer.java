@@ -15,8 +15,7 @@
  */
 package io.enoa.docker.async.docker.eo;
 
-import io.enoa.docker.enqueue.EnqueueAssetDocker;
-import io.enoa.docker.enqueue.EnqueueDocker;
+import io.enoa.chunk.stream.ChunkStream;
 import io.enoa.docker.command.docker.eo.EnoaDockerContainer;
 import io.enoa.docker.command.docker.eo.EoDocker;
 import io.enoa.docker.dket.docker.DRet;
@@ -25,7 +24,8 @@ import io.enoa.docker.dket.docker.container.*;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.docker.container.*;
-import io.enoa.docker.stream.DStream;
+import io.enoa.docker.enqueue.EnqueueAssetDocker;
+import io.enoa.docker.enqueue.EnqueueDocker;
 import io.enoa.toolkit.value.Void;
 
 import java.util.List;
@@ -93,7 +93,7 @@ public class EAsyncEnoaDockerContainer {
     return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.container.statistics(id));
   }
 
-  public EnqueueAssetDocker<DRet<EStatistics>> statistics(String id, DStream<DRet<EStatistics>> dstream) {
+  public EnqueueAssetDocker<DRet<EStatistics>> statistics(String id, ChunkStream dstream) {
     return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.container.statistics(id, dstream));
   }
 
@@ -165,7 +165,7 @@ public class EAsyncEnoaDockerContainer {
     return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.container.attach(id, dqp));
   }
 
-  public EnqueueAssetDocker<DRet<String>> attach(String id, DQPContainerAttach dqp, DStream<String> dstream) {
+  public EnqueueAssetDocker<DRet<String>> attach(String id, DQPContainerAttach dqp, ChunkStream dstream) {
     return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.container.attach(id, dqp, dstream));
   }
 

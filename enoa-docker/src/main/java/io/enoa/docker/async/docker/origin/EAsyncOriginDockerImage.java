@@ -15,14 +15,14 @@
  */
 package io.enoa.docker.async.docker.origin;
 
-import io.enoa.docker.enqueue.EnqueueDocker;
-import io.enoa.docker.enqueue.EnqueueDoneargDocker;
+import io.enoa.chunk.stream.ChunkStream;
 import io.enoa.docker.command.docker.origin.EOriginDockerImage;
 import io.enoa.docker.command.docker.origin.OriginDocker;
 import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.docker.image.*;
-import io.enoa.docker.stream.DStream;
+import io.enoa.docker.enqueue.EnqueueDocker;
+import io.enoa.docker.enqueue.EnqueueDoneargDocker;
 
 public class EAsyncOriginDockerImage {
 
@@ -46,7 +46,7 @@ public class EAsyncOriginDockerImage {
     return EnqueueDocker.donearg(this.docker._dockerconfig().executor(), () -> this.image.build(dockerfile, dqp));
   }
 
-  public EnqueueDoneargDocker<DResp> build(String dockerfile, DQPImageBuild dqp, DStream<String> dstream) {
+  public EnqueueDoneargDocker<DResp> build(String dockerfile, DQPImageBuild dqp, ChunkStream dstream) {
     return EnqueueDocker.donearg(this.docker._dockerconfig().executor(), () -> this.image.build(dockerfile, dqp, dstream));
   }
 
@@ -62,11 +62,11 @@ public class EAsyncOriginDockerImage {
     return EnqueueDocker.donearg(this.docker._dockerconfig().executor(), () -> this.image.create(dqp, body));
   }
 
-  public EnqueueDoneargDocker<DResp> create(DQPImageCreate dqp, DStream<String> dstream) {
+  public EnqueueDoneargDocker<DResp> create(DQPImageCreate dqp, ChunkStream dstream) {
     return EnqueueDocker.donearg(this.docker._dockerconfig().executor(), () -> this.image.create(dqp, dstream));
   }
 
-  public EnqueueDoneargDocker<DResp> create(DQPImageCreate dqp, String body, DStream<String> dstream) {
+  public EnqueueDoneargDocker<DResp> create(DQPImageCreate dqp, String body, ChunkStream dstream) {
     return EnqueueDocker.donearg(this.docker._dockerconfig().executor(), () -> this.image.create(dqp, body, dstream));
   }
 
@@ -82,7 +82,7 @@ public class EAsyncOriginDockerImage {
     return EnqueueDocker.donearg(this.docker._dockerconfig().executor(), () -> this.image.push(id));
   }
 
-  public EnqueueDoneargDocker<DResp> push(String id, DStream<String> dstream) {
+  public EnqueueDoneargDocker<DResp> push(String id, ChunkStream dstream) {
     return EnqueueDocker.donearg(this.docker._dockerconfig().executor(), () -> this.image.push(id, dstream));
   }
 
@@ -90,7 +90,7 @@ public class EAsyncOriginDockerImage {
     return EnqueueDocker.donearg(this.docker._dockerconfig().executor(), () -> this.image.push(id, dqp));
   }
 
-  public EnqueueDoneargDocker<DResp> push(String id, DQPImagePush dqp, DStream<String> dstream) {
+  public EnqueueDoneargDocker<DResp> push(String id, DQPImagePush dqp, ChunkStream dstream) {
     return EnqueueDocker.donearg(this.docker._dockerconfig().executor(), () -> this.image.push(id, dqp, dstream));
   }
 

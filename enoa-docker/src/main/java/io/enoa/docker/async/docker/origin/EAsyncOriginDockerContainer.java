@@ -15,15 +15,15 @@
  */
 package io.enoa.docker.async.docker.origin;
 
-import io.enoa.docker.enqueue.EnqueueDocker;
-import io.enoa.docker.enqueue.EnqueueDoneargDocker;
+import io.enoa.chunk.stream.ChunkStream;
 import io.enoa.docker.command.docker.origin.EOriginDockerContainer;
 import io.enoa.docker.command.docker.origin.OriginDocker;
 import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.docker.container.*;
-import io.enoa.docker.stream.DStream;
+import io.enoa.docker.enqueue.EnqueueDocker;
+import io.enoa.docker.enqueue.EnqueueDoneargDocker;
 
 public class EAsyncOriginDockerContainer {
 
@@ -88,7 +88,7 @@ public class EAsyncOriginDockerContainer {
     return EnqueueDocker.donearg(this.docker._dockerconfig().executor(), () -> this.container.statistics(id));
   }
 
-  public EnqueueDoneargDocker<DResp> statistics(String id, DStream<String> dstream) {
+  public EnqueueDoneargDocker<DResp> statistics(String id, ChunkStream dstream) {
     return EnqueueDocker.donearg(this.docker._dockerconfig().executor(), () -> this.container.statistics(id, dstream));
   }
 
@@ -160,7 +160,7 @@ public class EAsyncOriginDockerContainer {
     return EnqueueDocker.donearg(this.docker._dockerconfig().executor(), () -> this.container.attach(id, dqp));
   }
 
-  public EnqueueDoneargDocker<DResp> attach(String id, DQPContainerAttach dqp, DStream<String> dstream) {
+  public EnqueueDoneargDocker<DResp> attach(String id, DQPContainerAttach dqp, ChunkStream dstream) {
     return EnqueueDocker.donearg(this.docker._dockerconfig().executor(), () -> this.container.attach(id, dqp, dstream));
   }
 

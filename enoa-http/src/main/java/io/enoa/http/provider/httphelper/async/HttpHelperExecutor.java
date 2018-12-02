@@ -19,7 +19,7 @@ import io.enoa.http.EoEmit;
 import io.enoa.http.EoExecutor;
 import io.enoa.http.EoUrl;
 import io.enoa.http.protocol.HttpPromise;
-import io.enoa.http.protocol.chunk.Chunk;
+import io.enoa.chunk.Chunk;
 import io.enoa.promise.builder.PromiseBuilder;
 
 import java.util.concurrent.ExecutorService;

@@ -15,20 +15,17 @@
  */
 package io.enoa.docker.command.docker.origin;
 
+import io.enoa.chunk.stream.ChunkStream;
+import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dqp.DQH;
 import io.enoa.docker.dqp.DQR;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.docker.image.*;
-import io.enoa.docker.dket.docker.DResp;
-import io.enoa.docker.stream.DStream;
 import io.enoa.docker.tar.DTar;
 import io.enoa.docker.thr.DockerException;
 import io.enoa.http.Http;
 import io.enoa.http.protocol.HttpMethod;
 import io.enoa.http.protocol.HttpResponse;
-import io.enoa.http.protocol.chunk.Chunk;
-import io.enoa.toolkit.EoConst;
-import io.enoa.toolkit.binary.EnoaBinary;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.text.TextKit;
 
@@ -51,7 +48,7 @@ public class ETCPDockerImage implements EOriginDockerImage {
   }
 
   @Override
-  public DResp build(String dockerfile, DQPImageBuild dqp, DStream<String> dstream) {
+  public DResp build(String dockerfile, DQPImageBuild dqp, ChunkStream stream) {
     if (dqp == null)
       throw new DockerException(EnoaTipKit.message("eo.tip.docker.lost_dqp"));
     DQR dqr = dqp.dqr();
@@ -60,11 +57,9 @@ public class ETCPDockerImage implements EOriginDockerImage {
       .para(dqr.http())
       .header(dqp.dqh().headers())
       .binary(DTar.cvf(dqr.value("dockerfile").string(), dockerfile).bytebuffer());
-    HttpResponse response = dstream == null ?
+    HttpResponse response = stream == null ?
       http.emit() :
-      http.chunk(Chunk.builder(bytes -> dstream.runner().run(EnoaBinary.create(bytes).string()))
-        .stopper(() -> dstream.stopper() == null ? Boolean.FALSE : dstream.stopper().stop())
-        .build());
+      http.chunk(stream.chunk());
     return DResp.create(response);
   }
 
@@ -77,7 +72,7 @@ public class ETCPDockerImage implements EOriginDockerImage {
   }
 
   @Override
-  public DResp create(DQPImageCreate dqp, String body, DStream<String> dstream) {
+  public DResp create(DQPImageCreate dqp, String body, ChunkStream stream) {
     Http http = this.docker.http("images/create")
       .method(HttpMethod.POST);
     if (dqp != null) {
@@ -91,11 +86,9 @@ public class ETCPDockerImage implements EOriginDockerImage {
     if (TextKit.blankn(body))
       http.raw(body);
 
-    HttpResponse response = dstream == null ?
+    HttpResponse response = stream == null ?
       http.emit() :
-      http.chunk(Chunk.builder(bytes -> dstream.runner().run(EnoaBinary.create(bytes).string()))
-        .stopper(() -> dstream.stopper() == null ? Boolean.FALSE : dstream.stopper().stop())
-        .build());
+      http.chunk(stream.chunk());
     return DResp.create(response);
   }
 
@@ -130,7 +123,7 @@ public class ETCPDockerImage implements EOriginDockerImage {
   }
 
   @Override
-  public DResp push(String id, DQPImagePush dqp, DStream<String> dstream) {
+  public DResp push(String id, DQPImagePush dqp, ChunkStream stream) {
     Http http = this.docker.http("images", id, "push")
       .method(HttpMethod.POST);
     if (dqp != null) {
@@ -141,11 +134,9 @@ public class ETCPDockerImage implements EOriginDockerImage {
       if (dqr != null)
         http.para(dqr.http());
     }
-    HttpResponse response = dstream == null ?
+    HttpResponse response = stream == null ?
       http.emit() :
-      http.chunk(Chunk.builder(bytes -> dstream.runner().run(EnoaBinary.create(bytes, EoConst.CHARSET).string()))
-        .stopper(() -> dstream.stopper() == null ? Boolean.FALSE : dstream.stopper().stop())
-        .build());
+      http.chunk(stream.chunk());
     return DResp.create(response);
   }
 

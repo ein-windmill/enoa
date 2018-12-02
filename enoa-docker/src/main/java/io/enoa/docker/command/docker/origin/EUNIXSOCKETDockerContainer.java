@@ -15,11 +15,11 @@
  */
 package io.enoa.docker.command.docker.origin;
 
+import io.enoa.chunk.stream.ChunkStream;
+import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.docker.container.*;
-import io.enoa.docker.dket.docker.DResp;
-import io.enoa.docker.stream.DStream;
 
 public class EUNIXSOCKETDockerContainer implements EOriginDockerContainer {
 
@@ -70,7 +70,7 @@ public class EUNIXSOCKETDockerContainer implements EOriginDockerContainer {
   }
 
   @Override
-  public DResp statistics(String id, DStream<String> dstream) {
+  public DResp statistics(String id, ChunkStream stream) {
     return null;
   }
 
@@ -120,7 +120,7 @@ public class EUNIXSOCKETDockerContainer implements EOriginDockerContainer {
   }
 
   @Override
-  public DResp attach(String id, DQPContainerAttach dqp, DStream<String> dstream) {
+  public DResp attach(String id, DQPContainerAttach dqp, ChunkStream stream) {
     return null;
   }
 

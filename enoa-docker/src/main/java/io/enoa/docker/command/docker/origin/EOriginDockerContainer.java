@@ -15,13 +15,15 @@
  */
 package io.enoa.docker.command.docker.origin;
 
+import io.enoa.chunk.stream.ChunkStream;
 import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.docker.container.*;
-import io.enoa.docker.stream.DStream;
 import io.enoa.docker.thr.DockerException;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
+
+//import io.enoa.docker.stream.DStream;
 
 public interface EOriginDockerContainer {
 
@@ -377,13 +379,13 @@ public interface EOriginDockerContainer {
    * <p>
    * If either precpu_stats.online_cpus or cpu_stats.online_cpus is nil then for compatibility with older daemons the length of the corresponding cpu_usage.percpu_usage array should be used.
    *
-   * @param id      string Required
-   *                <p>
-   *                ID or name of the container
-   * @param dstream DStream
+   * @param id     string Required
+   *               <p>
+   *               ID or name of the container
+   * @param stream stream
    * @return Dresp
    */
-  DResp statistics(String id, DStream<String> dstream);
+  DResp statistics(String id, ChunkStream stream);
 
   /**
    * @see #resize(String, DQPResize)
@@ -642,7 +644,7 @@ public interface EOriginDockerContainer {
     return this.attach(id, dqp, null);
   }
 
-  DResp attach(String id, DQPContainerAttach dqp, DStream<String> dstream);
+  DResp attach(String id, DQPContainerAttach dqp, ChunkStream stream);
 
   @Deprecated
   default Void ws(String id) {

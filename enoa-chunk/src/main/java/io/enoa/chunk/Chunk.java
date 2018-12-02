@@ -13,25 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.http.protocol.chunk;
+package io.enoa.chunk;
 
 import java.io.Serializable;
 
 public class Chunk implements Serializable {
 
-  private IChunkRunner runner;
+  private IChunkRunner<byte[]> runner;
   private IChunkStopper stopper;
+  private ChunkCaller caller;
 
-  public static Chunk.Builder builder(IChunkRunner runner) {
+  public static Chunk.Builder builder(IChunkRunner<byte[]> runner) {
     return new Builder(runner);
   }
 
   private Chunk(Builder builder) {
     this.runner = builder.runner;
     this.stopper = builder.stopper;
+    this.caller = new ChunkCaller(this);
   }
 
-  public IChunkRunner runner() {
+  public ChunkCaller caller() {
+    return this.caller;
+  }
+
+  public IChunkRunner<byte[]> runner() {
     return runner;
   }
 
@@ -40,10 +46,13 @@ public class Chunk implements Serializable {
   }
 
   public static class Builder {
-    private IChunkRunner runner;
+    private IChunkRunner<byte[]> runner;
     private IChunkStopper stopper;
 
-    public Builder(IChunkRunner runner) {
+    public Builder() {
+    }
+
+    public Builder(IChunkRunner<byte[]> runner) {
       this.runner = runner;
     }
 
@@ -51,7 +60,7 @@ public class Chunk implements Serializable {
       return new Chunk(this);
     }
 
-    public Builder runner(IChunkRunner runner) {
+    public Builder runner(IChunkRunner<byte[]> runner) {
       this.runner = runner;
       return this;
     }

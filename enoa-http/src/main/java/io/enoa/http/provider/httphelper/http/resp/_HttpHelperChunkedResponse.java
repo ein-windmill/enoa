@@ -15,9 +15,10 @@
  */
 package io.enoa.http.provider.httphelper.http.resp;
 
+import io.enoa.chunk.Chunk;
+import io.enoa.chunk.ChunkCaller;
 import io.enoa.http.EoHttpConfig;
 import io.enoa.http.protocol.HttpResponseBody;
-import io.enoa.http.protocol.chunk.Chunk;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -28,10 +29,6 @@ import java.util.Arrays;
 import java.util.Set;
 
 public class _HttpHelperChunkedResponse extends AbstractResponse {
-
-
-//  private static final byte R = (byte) '\r';
-//  private static final byte N = (byte) '\n';
 
   public _HttpHelperChunkedResponse(EoHttpConfig config, HttpURLConnection conn, InputStream inputstream, Charset charset, Chunk chunk) {
     super(config, conn, inputstream, charset);
@@ -63,7 +60,7 @@ public class _HttpHelperChunkedResponse extends AbstractResponse {
   }
 
   private HttpResponseBody chunkread(InputStream stream, Chunk chunk, Charset charset) throws IOException {
-    ChunkCaller caller = new ChunkCaller(chunk, charset);
+    ChunkCaller caller = chunk.caller();
     try (ByteArrayOutputStream swap = new ByteArrayOutputStream()) {
       byte[] buff = new byte[2048];
       int rc;

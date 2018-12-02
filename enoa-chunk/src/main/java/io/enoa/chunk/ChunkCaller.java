@@ -13,40 +13,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.http.provider.httphelper.http.resp;
+package io.enoa.chunk;
 
-import io.enoa.http.protocol.chunk.Chunk;
 
 import java.io.ByteArrayOutputStream;
-import java.nio.charset.Charset;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-class ChunkCaller {
+public class ChunkCaller {
 
-  private Charset charset;
   private Chunk chunk;
   private ExecutorService executor;
   private Queue<Byte> queues;
   private AtomicBoolean finish;
+  private boolean started;
 
-  ChunkCaller(Chunk chunk, Charset charset) {
+  ChunkCaller(Chunk chunk) {
     this.chunk = chunk;
-    this.charset = charset;
     this.queues = new ConcurrentLinkedDeque<>();
     this.finish = new AtomicBoolean(Boolean.FALSE);
+    this.started = false;
     this.executor = Executors.newSingleThreadExecutor();
-    this.run();
+//    this.run();
   }
 
-  void destroy() {
+  public void destroy() {
     this.finish.set(Boolean.TRUE);
   }
 
-  void call(byte[] bytes) {
+  public void call(byte[] bytes) {
+    if (!this.started) {
+      this.started = true;
+      this.run();
+    }
     for (byte b : bytes) {
       this.queues.offer(b);
     }

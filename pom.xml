@@ -85,6 +85,8 @@
     <module>enoa-typebuilder</module>
     <module>enoa-mq</module>
     <module>enoa-docker</module>
+    <module>enoa-shell</module>
+    <module>enoa-chunk</module>
   </modules>
 
 
@@ -536,6 +538,12 @@
       <dependency>
         <groupId>io.enoa</groupId>
         <artifactId>enoa-rabbitmq</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-chunk</artifactId>
         <version>${project.version}</version>
       </dependency>
 
