@@ -29,7 +29,7 @@ public class ChunkCaller {
   private ExecutorService executor;
   private Queue<Byte> queues;
   private AtomicBoolean finish;
-  private boolean started;
+  private volatile boolean started;
 
   ChunkCaller(Chunk chunk) {
     this.chunk = chunk;
