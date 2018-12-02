@@ -15,7 +15,7 @@
  */
 package io.enoa.docker.command.docker.origin;
 
-import io.enoa.chunk.stream.ChunkStream;
+import io.enoa.chunk.Chunk;
 import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dqp.DQR;
 import io.enoa.docker.dqp.common.DQPFilter;
@@ -106,13 +106,13 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
   }
 
   @Override
-  public DResp statistics(String id, ChunkStream stream) {
+  public DResp statistics(String id, Chunk chunk) {
 //    Chunk.Builder builder = Chunk.builder(bytes -> dstream.runner().run(EnoaBinary.create(bytes, EoConst.CHARSET).string()))
 //      .stopper(() -> dstream.stopper() == null ? Boolean.FALSE : dstream.stopper().stop());
     HttpResponse response = this.docker.http("containers", id, "stats")
       .para("stream", true)
 //      .chunk(builder.build());
-      .chunk(stream.chunk());
+      .chunk(chunk);
     return DResp.create(response);
   }
 
@@ -202,7 +202,7 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
   }
 
   @Override
-  public DResp attach(String id, DQPContainerAttach dqp, ChunkStream stream) {
+  public DResp attach(String id, DQPContainerAttach dqp, Chunk chunk) {
     // fixme sometimes attach will return value include stdin=1&stream=1&stdout=1&stderr=1 fix it.
     /*
   stdin=1&stream=1&stdout=1&stderr=1* [32mmaster[m
@@ -219,9 +219,9 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
       .header("Upgrade", "tcp")
       .header("Connection", "Upgrade")
       .header("Content-Type", "text/aplin");
-    HttpResponse response = stream == null ?
+    HttpResponse response = chunk == null ?
       http.emit() :
-      http.chunk(stream.chunk());
+      http.chunk(chunk);
     return DResp.create(response);
   }
 

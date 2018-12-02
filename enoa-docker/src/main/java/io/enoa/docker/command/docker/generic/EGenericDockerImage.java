@@ -15,7 +15,7 @@
  */
 package io.enoa.docker.command.docker.generic;
 
-import io.enoa.chunk.stream.ChunkStream;
+import io.enoa.chunk.Chunk;
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.command.docker.origin.EOriginDockerImage;
 import io.enoa.docker.command.docker.origin.OriginDocker;
@@ -69,8 +69,8 @@ public class EGenericDockerImage {
     return this.linestolist(resp);
   }
 
-  public DRet<List<Kv>> build(String dockerfile, DQPImageBuild dqp, ChunkStream stream) {
-    DResp resp = this.image.build(dockerfile, dqp, stream);
+  public DRet<List<Kv>> build(String dockerfile, DQPImageBuild dqp, Chunk chunk) {
+    DResp resp = this.image.build(dockerfile, dqp, chunk);
     return this.linestolist(resp);
   }
 
@@ -89,13 +89,13 @@ public class EGenericDockerImage {
     return this.linestolist(resp);
   }
 
-  public DRet<List<Kv>> create(DQPImageCreate dqp, ChunkStream dstream) {
-    DResp resp = this.image.create(dqp, dstream);
+  public DRet<List<Kv>> create(DQPImageCreate dqp, Chunk chunk) {
+    DResp resp = this.image.create(dqp, chunk);
     return this.linestolist(resp);
   }
 
-  public DRet<List<Kv>> create(DQPImageCreate dqp, String body, ChunkStream dstream) {
-    DResp resp = this.image.create(dqp, body, dstream);
+  public DRet<List<Kv>> create(DQPImageCreate dqp, String body, Chunk chunk) {
+    DResp resp = this.image.create(dqp, body, chunk);
     return this.linestolist(resp);
   }
 
@@ -118,12 +118,12 @@ public class EGenericDockerImage {
     return DIParser.voidx().parse(this.config, resp);
   }
 
-  public DRet<Void> push(String id, ChunkStream dstream) {
-    return this.push(id, null, dstream);
+  public DRet<Void> push(String id, Chunk chunk) {
+    return this.push(id, null, chunk);
   }
 
-  public DRet<Void> push(String id, DQPImagePush dqp, ChunkStream stream) {
-    DResp resp = this.image.push(id, dqp, stream);
+  public DRet<Void> push(String id, DQPImagePush dqp, Chunk chunk) {
+    DResp resp = this.image.push(id, dqp, chunk);
     return DIParser.voidx().parse(this.config, resp);
   }
 

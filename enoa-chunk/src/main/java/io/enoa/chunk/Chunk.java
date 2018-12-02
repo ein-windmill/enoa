@@ -16,6 +16,11 @@
 package io.enoa.chunk;
 
 import java.io.Serializable;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
+import java.nio.charset.StandardCharsets;
 
 public class Chunk implements Serializable {
 
@@ -25,6 +30,38 @@ public class Chunk implements Serializable {
 
   public static Chunk.Builder builder(IChunkRunner<byte[]> runner) {
     return new Builder(runner);
+  }
+
+  public static <RET> Chunk generic(IChunkConverter<RET> converter, IChunkRunner<RET> runner, IChunkStopper stopper) {
+    return builder(bytes -> runner.run(converter.convert(bytes))).stopper(stopper).build();
+  }
+
+  public static <RET> Chunk generic(IChunkConverter<RET> converter, IChunkRunner<RET> runner) {
+    return generic(converter, runner, IChunkStopper.def());
+  }
+
+  public static Chunk string(IChunkRunner<String> runner, Charset charset, IChunkStopper stopper) {
+    return builder(bytes -> runner.run(string(bytes, charset))).stopper(stopper).build();
+  }
+
+  public static Chunk string(IChunkRunner<String> runner, Charset charset) {
+    return string(runner, charset, IChunkStopper.def());
+  }
+
+  public static Chunk string(IChunkRunner<String> runner) {
+    return string(runner, StandardCharsets.UTF_8, IChunkStopper.def());
+  }
+
+  private static String string(byte[] bytes, Charset charset) {
+    CharsetDecoder decoder = charset.newDecoder();
+    ByteBuffer byteBuffer = ByteBuffer.wrap(bytes);
+    CharBuffer charBuffer = CharBuffer.allocate(byteBuffer.limit());
+    decoder.decode(byteBuffer, charBuffer, true);
+    charBuffer.flip();
+    String ret = charBuffer.toString();
+    charBuffer.clear();
+    byteBuffer.clear();
+    return ret;
   }
 
   private Chunk(Builder builder) {

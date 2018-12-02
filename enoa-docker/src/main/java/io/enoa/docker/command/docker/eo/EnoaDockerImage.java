@@ -15,7 +15,7 @@
  */
 package io.enoa.docker.command.docker.eo;
 
-import io.enoa.chunk.stream.ChunkStream;
+import io.enoa.chunk.Chunk;
 import io.enoa.docker.command.docker.generic.EGenericDockerImage;
 import io.enoa.docker.command.docker.generic.GenericDocker;
 import io.enoa.docker.dket.docker.DRet;
@@ -52,8 +52,8 @@ public class EnoaDockerImage {
     return this.image.build(dockerfile, dqp);
   }
 
-  public DRet<List<Kv>> build(String dockerfile, DQPImageBuild dqp, ChunkStream dstream) {
-    return this.image.build(dockerfile, dqp, dstream);
+  public DRet<List<Kv>> build(String dockerfile, DQPImageBuild dqp, Chunk chunk) {
+    return this.image.build(dockerfile, dqp, chunk);
   }
 
   public DRet<EIPrune> prunebuild() {
@@ -68,12 +68,12 @@ public class EnoaDockerImage {
     return this.image.create(dqp, body);
   }
 
-  public DRet<List<Kv>> create(DQPImageCreate dqp, ChunkStream dstream) {
-    return this.image.create(dqp, dstream);
+  public DRet<List<Kv>> create(DQPImageCreate dqp, Chunk chunk) {
+    return this.image.create(dqp, chunk);
   }
 
-  public DRet<List<Kv>> create(DQPImageCreate dqp, String body, ChunkStream dstream) {
-    return this.image.create(dqp, body, dstream);
+  public DRet<List<Kv>> create(DQPImageCreate dqp, String body, Chunk chunk) {
+    return this.image.create(dqp, body, chunk);
   }
 
   public DRet<EIInspect> inspect(String id) {
@@ -92,12 +92,12 @@ public class EnoaDockerImage {
     return this.image.push(id, dqp);
   }
 
-  public DRet<Void> push(String id, ChunkStream dstream) {
-    return this.image.push(id, dstream);
+  public DRet<Void> push(String id, Chunk chunk) {
+    return this.image.push(id, chunk);
   }
 
-  public DRet<Void> push(String id, DQPImagePush dqp, ChunkStream dstream) {
-    return this.image.push(id, dqp, dstream);
+  public DRet<Void> push(String id, DQPImagePush dqp, Chunk chunk) {
+    return this.image.push(id, dqp, chunk);
   }
 
   public DRet<Void> tag(String id, DQPImageTag dqp) {

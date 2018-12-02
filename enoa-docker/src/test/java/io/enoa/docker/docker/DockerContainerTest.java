@@ -15,7 +15,7 @@
  */
 package io.enoa.docker.docker;
 
-import io.enoa.chunk.stream.ChunkStream;
+import io.enoa.chunk.Chunk;
 import io.enoa.docker.AbstractDockerTest;
 import io.enoa.docker.Docker;
 import io.enoa.docker.dket.docker.DResp;
@@ -103,7 +103,7 @@ public class DockerContainerTest extends AbstractDockerTest {
 //      String json = Json.toJson(stats.data());
 //      System.out.println(json);
 //    }).build());
-    DRet<EStatistics> ret = Docker.container().statistics("nginx", ChunkStream.generic(
+    DRet<EStatistics> ret = Docker.container().statistics("nginx", Chunk.generic(
       bytes -> EnoaBinary.create(bytes).string(),
       System.out::println)
     );
@@ -215,7 +215,7 @@ public class DockerContainerTest extends AbstractDockerTest {
         .stdin()
         .stdout()
         .stream(),
-      ChunkStream.string(System.out::println)
+      Chunk.string(System.out::println)
     );
     Assert.assertTrue(ret.ok());
     System.out.println(ret.data());
@@ -287,7 +287,7 @@ public class DockerContainerTest extends AbstractDockerTest {
         .cmd("clone")
         .cmd("https://gitee.com/panqingyun/E3D-Engine.git"),
 //        .cmd("https://github.com/fewensa/enoa.git"),
-      ChunkStream.string(System.out::println));
+      Chunk.string(System.out::println));
     Assert.assertTrue(ret.ok());
     String tty = ret.data().log();
     if (TextKit.blanky(tty))

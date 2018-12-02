@@ -33,11 +33,7 @@ public class ChunkCaller {
 
   ChunkCaller(Chunk chunk) {
     this.chunk = chunk;
-    this.queues = new ConcurrentLinkedDeque<>();
-    this.finish = new AtomicBoolean(Boolean.FALSE);
     this.started = false;
-    this.executor = Executors.newSingleThreadExecutor();
-//    this.run();
   }
 
   public void destroy() {
@@ -47,6 +43,10 @@ public class ChunkCaller {
   public void call(byte[] bytes) {
     if (!this.started) {
       this.started = true;
+      this.queues = new ConcurrentLinkedDeque<>();
+      this.finish = new AtomicBoolean(Boolean.FALSE);
+      this.executor = Executors.newSingleThreadExecutor();
+
       this.run();
     }
     for (byte b : bytes) {

@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.chunk.stream;
+package io.enoa.chunk;
 
-public interface ChunkConverter<T> {
+public interface IChunkConverter<T> {
 
   T convert(byte[] bytes);
 

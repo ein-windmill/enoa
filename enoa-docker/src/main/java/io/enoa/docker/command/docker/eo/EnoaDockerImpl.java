@@ -15,7 +15,7 @@
  */
 package io.enoa.docker.command.docker.eo;
 
-import io.enoa.chunk.stream.ChunkStream;
+import io.enoa.chunk.Chunk;
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.command.docker.generic.GenericDocker;
 import io.enoa.docker.dket.docker.DRet;
@@ -162,11 +162,11 @@ public class EnoaDockerImpl implements EoDocker {
   }
 
   @Override
-  public DRet<EDRun> run(String name, DQPContainerCreate dqp, ChunkStream stream, DQPResize resize) {
-    return this.run(name, dqp, stream, resize, Boolean.FALSE);
+  public DRet<EDRun> run(String name, DQPContainerCreate dqp, Chunk chunk, DQPResize resize) {
+    return this.run(name, dqp, chunk, resize, Boolean.FALSE);
   }
 
-  private DRet<EDRun> run(String name, DQPContainerCreate dqp, ChunkStream stream, DQPResize resize, boolean isretry) {
+  private DRet<EDRun> run(String name, DQPContainerCreate dqp, Chunk chunk, DQPResize resize, boolean isretry) {
     ExecutorService executor = null;
     try {
       DRet<String> retping = this.system().ping();
@@ -198,7 +198,7 @@ public class EnoaDockerImpl implements EoDocker {
           } catch (InterruptedException e) {
             e.printStackTrace();
           }
-          return this.run(name, dqp, stream, resize, Boolean.TRUE);
+          return this.run(name, dqp, chunk, resize, Boolean.TRUE);
         }
         return DRet.fail(retcreate.origin(), retcreate.message());
       }
@@ -257,7 +257,7 @@ public class EnoaDockerImpl implements EoDocker {
               .stdin()
               .stream()
               .stdout(),
-            stream);
+            chunk);
         attachret.set(attach);
         try {
           barrier.await();

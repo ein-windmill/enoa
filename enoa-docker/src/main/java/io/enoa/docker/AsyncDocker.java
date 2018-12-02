@@ -15,7 +15,7 @@
  */
 package io.enoa.docker;
 
-import io.enoa.chunk.stream.ChunkStream;
+import io.enoa.chunk.Chunk;
 import io.enoa.docker.async.docker.eo.*;
 import io.enoa.docker.async.docker.generic.EAsyncGenericDocker;
 import io.enoa.docker.async.docker.origin.EAsyncOriginDocker;
@@ -110,11 +110,11 @@ public class AsyncDocker {
     return use().run(name, create, resize);
   }
 
-  public EnqueueAssetDocker<DRet<EDRun>> run(String name, DQPContainerCreate create, ChunkStream dstream) {
-    return use().run(name, create, dstream);
+  public EnqueueAssetDocker<DRet<EDRun>> run(String name, DQPContainerCreate create, Chunk chunk) {
+    return use().run(name, create, chunk);
   }
 
-  public EnqueueAssetDocker<DRet<EDRun>> run(String name, DQPContainerCreate create, ChunkStream dstream, DQPResize resize) {
-    return use().run(name, create, dstream, resize);
+  public EnqueueAssetDocker<DRet<EDRun>> run(String name, DQPContainerCreate create, Chunk chunk, DQPResize resize) {
+    return use().run(name, create, chunk, resize);
   }
 }

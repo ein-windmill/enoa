@@ -15,7 +15,7 @@
  */
 package io.enoa.docker.command.docker.eo;
 
-import io.enoa.chunk.stream.ChunkStream;
+import io.enoa.chunk.Chunk;
 import io.enoa.docker.command.docker.generic.EGenericDockerContainer;
 import io.enoa.docker.command.docker.generic.GenericDocker;
 import io.enoa.docker.dket.docker.DRet;
@@ -93,8 +93,8 @@ public class EnoaDockerContainer {
     return this.container.statistics(DIParser.statistics(), id);
   }
 
-  public DRet<EStatistics> statistics(String id, ChunkStream dstream) {
-    return this.container.statistics(DIParser.statistics(), id, dstream);
+  public DRet<EStatistics> statistics(String id, Chunk chunk) {
+    return this.container.statistics(DIParser.statistics(), id, chunk);
   }
 
   public DRet<Void> resize(String id) {
@@ -165,8 +165,8 @@ public class EnoaDockerContainer {
     return this.container.attach(DIParser.string(), id, dqp);
   }
 
-  public DRet<String> attach(String id, DQPContainerAttach dqp, ChunkStream dstream) {
-    return this.container.attach(DIParser.string(), id, dqp, dstream);
+  public DRet<String> attach(String id, DQPContainerAttach dqp, Chunk chunk) {
+    return this.container.attach(DIParser.string(), id, dqp, chunk);
   }
 
   @Deprecated

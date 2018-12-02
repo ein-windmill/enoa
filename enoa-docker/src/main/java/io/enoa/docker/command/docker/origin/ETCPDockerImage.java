@@ -15,7 +15,7 @@
  */
 package io.enoa.docker.command.docker.origin;
 
-import io.enoa.chunk.stream.ChunkStream;
+import io.enoa.chunk.Chunk;
 import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dqp.DQH;
 import io.enoa.docker.dqp.DQR;
@@ -48,7 +48,7 @@ public class ETCPDockerImage implements EOriginDockerImage {
   }
 
   @Override
-  public DResp build(String dockerfile, DQPImageBuild dqp, ChunkStream stream) {
+  public DResp build(String dockerfile, DQPImageBuild dqp, Chunk chunk) {
     if (dqp == null)
       throw new DockerException(EnoaTipKit.message("eo.tip.docker.lost_dqp"));
     DQR dqr = dqp.dqr();
@@ -57,9 +57,9 @@ public class ETCPDockerImage implements EOriginDockerImage {
       .para(dqr.http())
       .header(dqp.dqh().headers())
       .binary(DTar.cvf(dqr.value("dockerfile").string(), dockerfile).bytebuffer());
-    HttpResponse response = stream == null ?
+    HttpResponse response = chunk == null ?
       http.emit() :
-      http.chunk(stream.chunk());
+      http.chunk(chunk);
     return DResp.create(response);
   }
 
@@ -72,7 +72,7 @@ public class ETCPDockerImage implements EOriginDockerImage {
   }
 
   @Override
-  public DResp create(DQPImageCreate dqp, String body, ChunkStream stream) {
+  public DResp create(DQPImageCreate dqp, String body, Chunk chunk) {
     Http http = this.docker.http("images/create")
       .method(HttpMethod.POST);
     if (dqp != null) {
@@ -86,9 +86,9 @@ public class ETCPDockerImage implements EOriginDockerImage {
     if (TextKit.blankn(body))
       http.raw(body);
 
-    HttpResponse response = stream == null ?
+    HttpResponse response = chunk == null ?
       http.emit() :
-      http.chunk(stream.chunk());
+      http.chunk(chunk);
     return DResp.create(response);
   }
 
@@ -123,7 +123,7 @@ public class ETCPDockerImage implements EOriginDockerImage {
   }
 
   @Override
-  public DResp push(String id, DQPImagePush dqp, ChunkStream stream) {
+  public DResp push(String id, DQPImagePush dqp, Chunk chunk) {
     Http http = this.docker.http("images", id, "push")
       .method(HttpMethod.POST);
     if (dqp != null) {
@@ -134,9 +134,9 @@ public class ETCPDockerImage implements EOriginDockerImage {
       if (dqr != null)
         http.para(dqr.http());
     }
-    HttpResponse response = stream == null ?
+    HttpResponse response = chunk == null ?
       http.emit() :
-      http.chunk(stream.chunk());
+      http.chunk(chunk);
     return DResp.create(response);
   }
 

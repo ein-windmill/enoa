@@ -15,7 +15,7 @@
  */
 package io.enoa.docker.async.docker.generic;
 
-import io.enoa.chunk.stream.ChunkStream;
+import io.enoa.chunk.Chunk;
 import io.enoa.docker.command.docker.generic.EGenericDockerContainer;
 import io.enoa.docker.command.docker.generic.GenericDocker;
 import io.enoa.docker.dket.docker.DRet;
@@ -91,8 +91,8 @@ public class EAsyncGenericDockerContainer {
     return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.container.statistics(parser, id));
   }
 
-  public <T> EnqueueAssetDocker<DRet<T>> statistics(DIParser<T> parser, String id, ChunkStream dstream) {
-    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.container.statistics(parser, id, dstream));
+  public <T> EnqueueAssetDocker<DRet<T>> statistics(DIParser<T> parser, String id, Chunk chunk) {
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.container.statistics(parser, id, chunk));
   }
 
   public EnqueueAssetDocker<DRet<Void>> resize(String id) {
@@ -163,8 +163,8 @@ public class EAsyncGenericDockerContainer {
     return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.container.attach(parser, id, dqp));
   }
 
-  public <T> EnqueueAssetDocker<DRet<T>> attach(DIParser<T> parser, String id, DQPContainerAttach dqp, ChunkStream dstream) {
-    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.container.attach(parser, id, dqp, dstream));
+  public <T> EnqueueAssetDocker<DRet<T>> attach(DIParser<T> parser, String id, DQPContainerAttach dqp, Chunk chunk) {
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.container.attach(parser, id, dqp, chunk));
   }
 
   @Deprecated

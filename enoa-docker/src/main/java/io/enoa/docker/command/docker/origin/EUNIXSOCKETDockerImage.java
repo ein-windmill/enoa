@@ -15,7 +15,7 @@
  */
 package io.enoa.docker.command.docker.origin;
 
-import io.enoa.chunk.stream.ChunkStream;
+import io.enoa.chunk.Chunk;
 import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.docker.image.*;
@@ -34,7 +34,7 @@ public class EUNIXSOCKETDockerImage implements EOriginDockerImage {
   }
 
   @Override
-  public DResp build(String dockerfile, DQPImageBuild dqp, ChunkStream stream) {
+  public DResp build(String dockerfile, DQPImageBuild dqp, Chunk chunk) {
     return null;
   }
 
@@ -44,7 +44,7 @@ public class EUNIXSOCKETDockerImage implements EOriginDockerImage {
   }
 
   @Override
-  public DResp create(DQPImageCreate dqp, String body, ChunkStream stream) {
+  public DResp create(DQPImageCreate dqp, String body, Chunk chunk) {
     return null;
   }
 
@@ -59,7 +59,7 @@ public class EUNIXSOCKETDockerImage implements EOriginDockerImage {
   }
 
   @Override
-  public DResp push(String id, DQPImagePush dqp, ChunkStream stream) {
+  public DResp push(String id, DQPImagePush dqp, Chunk chunk) {
     return null;
   }
 

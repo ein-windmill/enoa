@@ -15,7 +15,7 @@
  */
 package io.enoa.docker.async.docker.eo;
 
-import io.enoa.chunk.stream.ChunkStream;
+import io.enoa.chunk.Chunk;
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.command.docker._DockerConfigSupport;
 import io.enoa.docker.command.docker.eo.EoDocker;
@@ -132,12 +132,12 @@ public class EAsyncEnoaDocker implements _DockerConfigSupport {
     return EnqueueDocker.asseterdocker(this._dockerconfig().executor(), () -> this.docker.run(name, create, resize));
   }
 
-  public EnqueueAssetDocker<DRet<EDRun>> run(String name, DQPContainerCreate create, ChunkStream dstream) {
-    return EnqueueDocker.asseterdocker(this._dockerconfig().executor(), () -> this.docker.run(name, create, dstream));
+  public EnqueueAssetDocker<DRet<EDRun>> run(String name, DQPContainerCreate create, Chunk chunk) {
+    return EnqueueDocker.asseterdocker(this._dockerconfig().executor(), () -> this.docker.run(name, create, chunk));
   }
 
-  public EnqueueAssetDocker<DRet<EDRun>> run(String name, DQPContainerCreate create, ChunkStream dstream, DQPResize resize) {
-    return EnqueueDocker.asseterdocker(this._dockerconfig().executor(), () -> this.docker.run(name, create, dstream, resize));
+  public EnqueueAssetDocker<DRet<EDRun>> run(String name, DQPContainerCreate create, Chunk chunk, DQPResize resize) {
+    return EnqueueDocker.asseterdocker(this._dockerconfig().executor(), () -> this.docker.run(name, create, chunk, resize));
   }
 
 }
