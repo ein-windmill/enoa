@@ -30,10 +30,12 @@ public class ChunkCaller {
   private Queue<Byte> queues;
   private AtomicBoolean finish;
   private volatile boolean started;
+  private volatile boolean changed;
 
   ChunkCaller(Chunk chunk) {
     this.chunk = chunk;
     this.started = false;
+    this.changed = false;
   }
 
   public void destroy() {
@@ -60,7 +62,7 @@ public class ChunkCaller {
       lix = oldname.lastIndexOf("-");
 
     String group = oldname.substring(fix + 1, lix);
-    thread.setName(chunk + "-" + group);
+    thread.setName(this.chunk + "-" + group);
   }
 
   private void run() {
@@ -78,18 +80,26 @@ public class ChunkCaller {
             break;
           }
 
-          if (this.queues.isEmpty())
+          if (this.queues.isEmpty()) {
+            this.changed = false;
             continue;
+          }
 
           Byte b = this.queues.poll();
           if (b == '\r' || b == '\n') {
             byte[] bytes = temp.toByteArray();
+            boolean empty = bytes.length == 0;
 //            if (bytes.length > 0)
+            // todo check empty bytes
+            if (empty && !this.changed) {
+              continue;
+            }
             this.chunk.runner().run(bytes);
             temp.reset();
             continue;
           }
           temp.write(b);
+          this.changed = true;
         }
       } catch (Exception e) {
         e.printStackTrace();
