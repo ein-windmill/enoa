@@ -18,7 +18,6 @@ package io.enoa.shell;
 import io.enoa.chunk.Chunk;
 
 import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.util.concurrent.*;
 
 public class EnoaShell implements Shell {
@@ -39,8 +38,10 @@ public class EnoaShell implements Shell {
       try (InputStream in = process.getInputStream();
            InputStream err = process.getErrorStream()) {
 
-        EShellReader outreader = new EShellReader(in, chunk);
-        EShellReader errreader = new EShellReader(err, chunk);
+        CyclicBarrier barrier = new CyclicBarrier(3);
+
+        EShellReader outreader = new EShellReader(in, chunk, barrier);
+        EShellReader errreader = new EShellReader(err, chunk, barrier);
         Thread outthread = new Thread(outreader);
         Thread errthread = new Thread(errreader);
         outthread.start();
@@ -58,11 +59,14 @@ public class EnoaShell implements Shell {
         System.out.println();
         System.out.println();
         System.out.println(exitCode);
-        System.out.println(new String(outreader.bytes(), Charset.forName("BIG5")));
-        System.out.println(new String(errreader.bytes(), Charset.forName("BIG5")));
+//        System.out.println(new String(outreader.bytes(), Charset.forName("BIG5")));
+//        System.out.println(new String(errreader.bytes(), Charset.forName("BIG5")));
 
         outthread.interrupt();
         errthread.interrupt();
+
+        barrier.await();
+        System.out.println(1);
       }
 
     } catch (Exception e) {

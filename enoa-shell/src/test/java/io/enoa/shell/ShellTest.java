@@ -17,7 +17,7 @@ public class ShellTest {
 
   @Test
   public void testExec() {
-    Shell.use().command("cmd.exe /C java -version", Chunk.string(System.out::println, Charset.forName("BIG5")));
+//    Shell.use().command("cmd.exe /C java -version", Chunk.string(System.out::println, Charset.forName("BIG5")));
     Shell.use().command("cmd.exe /C dir", Chunk.string(System.out::println, Charset.forName("BIG5")));
   }
 

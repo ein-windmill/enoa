@@ -20,9 +20,9 @@ import io.enoa.chunk.ChunkCaller;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.concurrent.CyclicBarrier;
 
 class EShellReader implements Runnable {
 
@@ -33,11 +33,13 @@ class EShellReader implements Runnable {
 
   private volatile boolean stopped;
   private ByteArrayOutputStream baos;
+  private CyclicBarrier barrier;
 
-  EShellReader(InputStream stream, Chunk chunk) {
+  EShellReader(InputStream stream, Chunk chunk, CyclicBarrier barrier) {
     this.stream = stream;
     this.stopped = false;
     this.chunk = chunk;
+    this.barrier = barrier;
   }
 
   @Override
@@ -53,10 +55,12 @@ class EShellReader implements Runnable {
         }
         this.baos.write(buff, 0, rc);
       }
+
+      this.barrier.await();
       if (caller == null)
         return;
       caller.destroy();
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
     } finally {
       this.stopped = true;
