@@ -18,6 +18,7 @@ package io.enoa.shell;
 import io.enoa.chunk.Chunk;
 
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.concurrent.*;
 
 public class EnoaShell implements Shell {
@@ -27,7 +28,8 @@ public class EnoaShell implements Shell {
     Integer.MAX_VALUE,
     3L,
     TimeUnit.SECONDS,
-    new SynchronousQueue<>());
+    new SynchronousQueue<>()
+  );
 
 
   @Override
@@ -54,6 +56,13 @@ public class EnoaShell implements Shell {
         int exitCode = executeFuture.get(5000, TimeUnit.MILLISECONDS);
 
 
+
+
+        barrier.await();
+
+//        outthread.interrupt();
+//        errthread.interrupt();
+
         System.out.println();
         System.out.println();
         System.out.println();
@@ -61,12 +70,6 @@ public class EnoaShell implements Shell {
         System.out.println(exitCode);
 //        System.out.println(new String(outreader.bytes(), Charset.forName("BIG5")));
 //        System.out.println(new String(errreader.bytes(), Charset.forName("BIG5")));
-
-        outthread.interrupt();
-        errthread.interrupt();
-
-        barrier.await();
-        System.out.println(1);
       }
 
     } catch (Exception e) {

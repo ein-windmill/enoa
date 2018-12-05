@@ -56,10 +56,10 @@ class EShellReader implements Runnable {
         this.baos.write(buff, 0, rc);
       }
 
+      if (caller != null)
+        caller.destroy();
+
       this.barrier.await();
-      if (caller == null)
-        return;
-      caller.destroy();
     } catch (Exception e) {
       e.printStackTrace();
     } finally {
