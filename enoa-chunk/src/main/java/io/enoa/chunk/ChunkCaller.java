@@ -18,9 +18,7 @@ package io.enoa.chunk;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedDeque;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ChunkCaller {
@@ -29,15 +27,12 @@ public class ChunkCaller {
   private ExecutorService executor;
   private Queue<Byte> queues;
   private AtomicBoolean finish;
-  private volatile boolean started;
   private volatile boolean changed;
 
   ChunkCaller(Chunk chunk) {
     this.chunk = chunk;
-    this.started = false;
     this.changed = false;
 
-    this.started = true;
     this.queues = new ConcurrentLinkedDeque<>();
     this.finish = new AtomicBoolean(Boolean.FALSE);
     this.executor = Executors.newSingleThreadExecutor();
@@ -50,14 +45,6 @@ public class ChunkCaller {
   }
 
   public void call(byte[] bytes) {
-//    if (!this.started) {
-//      this.started = true;
-//      this.queues = new ConcurrentLinkedDeque<>();
-//      this.finish = new AtomicBoolean(Boolean.FALSE);
-//      this.executor = Executors.newSingleThreadExecutor();
-//
-//      this.run();
-//    }
     for (byte b : bytes) {
       this.queues.offer(b);
     }
@@ -76,6 +63,7 @@ public class ChunkCaller {
     this.executor.execute(() -> {
       this.threadname(Thread.currentThread());
       try (ByteArrayOutputStream temp = new ByteArrayOutputStream()) {
+        boolean precr = false; //
         while (true) {
           if (this.finish.get() || this.chunk.stopper().stop()) {
             try {
@@ -94,19 +82,20 @@ public class ChunkCaller {
 
           Byte b = this.queues.poll();
           if (b == '\r' || b == '\n') {
-            byte[] bytes = temp.toByteArray();
-            boolean empty = bytes.length == 0;
-//            if (bytes.length > 0)
-            if (empty) {
-              int a = 0;
-            }
-            // todo check empty bytes
-            if (empty && !this.changed) {
+            if (b == '\r') {
+              precr = true;
               continue;
             }
-            this.chunk.runner().run(bytes);
-            temp.reset();
+
+            this.call(temp);
+            if (precr)
+              precr = false;
             continue;
+          } else {
+            if (precr) {
+              this.call(temp);
+              precr = false;
+            }
           }
           temp.write(b);
           this.changed = true;
@@ -117,37 +106,14 @@ public class ChunkCaller {
     });
   }
 
+  private void call(ByteArrayOutputStream temp) {
+    byte[] bytes = temp.toByteArray();
+    boolean empty = bytes.length == 0;
+    if (empty && !this.changed) {
+      return;
+    }
+    this.chunk.runner().run(bytes);
+    temp.reset();
+  }
 
-//  private Chunk chunk;
-//  private ExecutorService executor;
-//  private Queue<Byte> queues;
-//  private AtomicBoolean finish;
-//  private volatile boolean started;
-//  private volatile boolean changed;
-//  private ByteArrayOutputStream baos;
-//
-//
-//  ChunkCaller(Chunk chunk) {
-//    this.chunk = chunk;
-////    this.started = false;
-////    this.changed = false;
-////
-////    this.started = true;
-////    this.queues = new ConcurrentLinkedDeque<>();
-////    this.finish = new AtomicBoolean(Boolean.FALSE);
-////    this.executor = Executors.newSingleThreadExecutor();
-////
-////    this.listen();
-//    this.baos = new ByteArrayOutputStream();
-//  }
-//
-//  public void call(byte[] bytes) {
-//    this.baos.write(bytes, 0, bytes.length);
-//  }
-//
-//  private void listen() {
-//    this.executor.submit(() -> {
-//      this.baos
-//    });
-//  }
 }

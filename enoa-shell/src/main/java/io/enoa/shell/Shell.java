@@ -35,6 +35,14 @@ public interface Shell {
     this.command(command, null);
   }
 
-  void command(String command, Chunk chunk);
+  default void command(String... commands) {
+    this.command(commands, null);
+  }
+
+  default void command(String command, Chunk chunk) {
+    this.command(new String[]{command}, chunk);
+  }
+
+  void command(String[] commands, Chunk chunk);
 
 }

@@ -17,8 +17,7 @@ package io.enoa.shell;
 
 import io.enoa.chunk.Chunk;
 
-import java.io.InputStream;
-import java.nio.charset.Charset;
+import java.nio.file.Paths;
 import java.util.concurrent.*;
 
 public class EnoaShell implements Shell {
@@ -33,45 +32,29 @@ public class EnoaShell implements Shell {
 
 
   @Override
-  public void command(String command, Chunk chunk) {
+  public void command(String[] commands, Chunk chunk) {
     try {
-      final Process process = Runtime.getRuntime().exec(command);
-      process.getOutputStream().close();
-      try (InputStream in = process.getInputStream();
-           InputStream err = process.getErrorStream()) {
 
-        CyclicBarrier barrier = new CyclicBarrier(3);
+      CyclicBarrier barrier = new CyclicBarrier(2);
+      Process process = new ProcessBuilder(commands)
+//        .inheritIO()
+//        .directory(Paths.get("D:\\dev\\enoa\\enoa\\enoa-shell").toFile())
+        .redirectErrorStream(true)
+        .start();
+      EShellReader outreader = new EShellReader(process.getInputStream(), chunk, barrier);
+      Thread outhread = new Thread(outreader);
+      outhread.start();
 
-        EShellReader outreader = new EShellReader(in, chunk, barrier);
-        EShellReader errreader = new EShellReader(err, chunk, barrier);
-        Thread outthread = new Thread(outreader);
-        Thread errthread = new Thread(errreader);
-        outthread.start();
-        errthread.start();
+      barrier.await();
 
-        Future<Integer> executeFuture = executor.submit(() -> {
-          process.waitFor();
-          return process.exitValue();
-        });
-        int exitCode = executeFuture.get(5000, TimeUnit.MILLISECONDS);
+      Future<Integer> executeFuture = executor.submit((Callable<Integer>) process::waitFor);
+      int exitCode = executeFuture.get(5, TimeUnit.SECONDS);
+//      int exitCode = executeFuture.get();
+//      System.out.println(exitCode);
+//      String a = new String(outreader.bytes(), Charset.forName("BIG5"));
+//      System.out.println(a);
 
-
-
-
-        barrier.await();
-
-//        outthread.interrupt();
-//        errthread.interrupt();
-
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println(exitCode);
-//        System.out.println(new String(outreader.bytes(), Charset.forName("BIG5")));
-//        System.out.println(new String(errreader.bytes(), Charset.forName("BIG5")));
-      }
-
+      outhread.interrupt();
     } catch (Exception e) {
       throw new RuntimeException(e.getMessage(), e);
     }
