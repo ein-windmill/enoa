@@ -27,6 +27,11 @@
 
     <dependency>
       <groupId>io.enoa</groupId>
+      <artifactId>enoa-promise</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>io.enoa</groupId>
       <artifactId>enoa-chunk</artifactId>
     </dependency>
 

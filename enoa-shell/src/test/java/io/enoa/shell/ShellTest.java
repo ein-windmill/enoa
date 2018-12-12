@@ -7,6 +7,8 @@ import io.enoa.toolkit.path.PathKit;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.util.concurrent.TimeUnit;
+
 @Ignore
 public class ShellTest {
 
@@ -18,15 +20,35 @@ public class ShellTest {
 //    commands = new String[]{"cmd.exe", "/c", "mvn", "-X", "clean", "compile", "-Dmaven.test=true"};
 //    commands = new String[]{"cmd.exe", "/c", "echo", "%WORK_PATH%"};
 
-    ShellResult result = Shell.actuator()
+
+    ShellResult result0 = Shell.actuator()
       .command(commands)
       .chunk(Chunk.string(System.out::println, EoConst.CHARSET))
       .charset(EoConst.CHARSET)
+      .directory(PathKit.debugPath())
       .env("WORK_PATH", PathKit.debugPath().toString())
       .emit();
-    System.out.println(result.exitvalue());
-    System.out.println(result.string());
+    System.out.println(result0.exitvalue());
+    System.out.println(result0.string());
 
+
+    Shell.actuator()
+      .command(commands)
+      .chunk(Chunk.string(System.out::println, EoConst.CHARSET))
+      .charset(EoConst.CHARSET)
+      .directory(PathKit.debugPath())
+      .env("WORK_PATH", PathKit.debugPath().toString())
+      .enqueue()
+      .done(ret -> System.out.println(ret.string()))
+      .capture(Throwable::printStackTrace)
+      .always(() -> System.out.println("always"));
+
+
+    try {
+      TimeUnit.SECONDS.sleep(3L);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 
 }

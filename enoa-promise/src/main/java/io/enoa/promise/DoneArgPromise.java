@@ -17,6 +17,7 @@ package io.enoa.promise;
 
 import io.enoa.promise.arg.PromiseArg;
 import io.enoa.promise.arg.PromiseCapture;
+import io.enoa.promise.arg.PromiseVoid;
 
 public interface DoneArgPromise<PARA> extends EoPromise<DoneArgPromise> {
 
@@ -25,4 +26,6 @@ public interface DoneArgPromise<PARA> extends EoPromise<DoneArgPromise> {
   @Override
   DoneArgPromise<PARA> capture(PromiseCapture capture);
 
+  @Override
+  void always(PromiseVoid always);
 }

@@ -16,11 +16,13 @@
 package io.enoa.shell;
 
 import io.enoa.chunk.Chunk;
+import io.enoa.promise.DoneArgPromise;
 import io.enoa.shell.ret.ShellResult;
 
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
 
 public interface Shell {
 
@@ -45,6 +47,16 @@ public interface Shell {
   }
 
   ShellResult emit();
+
+  DoneArgPromise<ShellResult> enqueue();
+
+  default Shell original() {
+    return this.original(Boolean.TRUE);
+  }
+
+  Shell original(boolean original);
+
+  Shell executor(ExecutorService executor);
 
   default Shell command(String command) {
     return this.command(new String[]{command});

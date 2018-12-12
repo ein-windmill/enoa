@@ -26,6 +26,8 @@ import java.util.Arrays;
 
 public abstract class ShellResult implements Serializable {
 
+  public abstract String[] commands();
+
   public abstract int exitvalue();
 
   public abstract Charset charset();
@@ -52,12 +54,17 @@ public abstract class ShellResult implements Serializable {
     return this.binary(charset).string();
   }
 
-  public static ShellResult create(int exitvalue, byte[] bytes) {
-    return create(exitvalue, bytes, EoConst.CHARSET);
+  public static ShellResult create(String[] commands, int exitvalue, byte[] bytes) {
+    return create(commands, exitvalue, bytes, EoConst.CHARSET);
   }
 
-  public static ShellResult create(int exitvalue, byte[] bytes, Charset charset) {
+  public static ShellResult create(String[] commands, int exitvalue, byte[] bytes, Charset charset) {
     return new ShellResult() {
+      @Override
+      public String[] commands() {
+        return commands;
+      }
+
       @Override
       public int exitvalue() {
         return exitvalue;
