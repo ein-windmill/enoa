@@ -16,33 +16,49 @@
 package io.enoa.shell;
 
 import io.enoa.chunk.Chunk;
+import io.enoa.shell.ret.ShellResult;
+
+import java.nio.charset.Charset;
+import java.nio.file.Path;
+import java.util.Map;
 
 public interface Shell {
 
-  static EPMShell epm() {
-    return EPMShell.instance();
+  static Shell use(EoShell shell) {
+    return shell.shell();
   }
 
   static Shell use() {
-    return epm().use();
+    return use(EoShell.def());
   }
 
-  static Shell use(String name) {
-    return epm().use(name);
+  static Shell actuator() {
+    return use();
   }
 
-  default void command(String command) {
-    this.command(command, null);
+  static Shell actuator(String command) {
+    return use().command(command);
   }
 
-  default void command(String... commands) {
-    this.command(commands, null);
+  static Shell actuator(String... commands) {
+    return use().command(commands);
   }
 
-  default void command(String command, Chunk chunk) {
-    this.command(new String[]{command}, chunk);
+  ShellResult emit();
+
+  default Shell command(String command) {
+    return this.command(new String[]{command});
   }
 
-  void command(String[] commands, Chunk chunk);
+  Shell command(String... commands);
 
+  Shell charset(Charset charset);
+
+  Shell chunk(Chunk chunk);
+
+  Shell directory(Path directory);
+
+  Shell env(String name, String value);
+
+  Shell env(Map<String, String> env);
 }

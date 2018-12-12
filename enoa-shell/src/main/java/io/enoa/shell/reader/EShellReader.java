@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.shell;
+package io.enoa.shell.reader;
 
 import io.enoa.chunk.Chunk;
 import io.enoa.chunk.ChunkCaller;
@@ -24,7 +24,7 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.concurrent.CyclicBarrier;
 
-class EShellReader implements Runnable {
+public class EShellReader implements Runnable {
 
   private static final byte[] EMPTY = new byte[0];
 
@@ -35,7 +35,7 @@ class EShellReader implements Runnable {
   private ByteArrayOutputStream baos;
   private CyclicBarrier barrier;
 
-  EShellReader(InputStream stream, Chunk chunk, CyclicBarrier barrier) {
+  public EShellReader(InputStream stream, Chunk chunk, CyclicBarrier barrier) {
     this.stream = stream;
     this.stopped = false;
     this.chunk = chunk;

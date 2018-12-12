@@ -13,60 +13,56 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.toolkit.binary;
+package io.enoa.shell.ret;
 
 import io.enoa.toolkit.EoConst;
+import io.enoa.toolkit.binary.EnoaBinary;
 import io.enoa.toolkit.digest.DigestKit;
 
 import java.io.Serializable;
 import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
 import java.nio.charset.Charset;
-import java.nio.charset.CharsetDecoder;
 import java.util.Arrays;
 
-public abstract class EnoaBinary implements Serializable {
+public abstract class ShellResult implements Serializable {
 
-  private String string;
+  public abstract int exitvalue();
 
   public abstract Charset charset();
 
   public abstract byte[] bytes();
 
-  public String string(Charset charset) {
-    byte[] bytes = this.bytes();
-    if (bytes == null)
-      return null;
+  public ByteBuffer bytebuffer() {
+    return this.binary().bytebuffer();
+  }
 
-    if (this.string != null)
-      return this.string;
+  public EnoaBinary binary() {
+    return this.binary(this.charset());
+  }
 
-    CharsetDecoder decoder = charset.newDecoder();
-    ByteBuffer byteBuffer = ByteBuffer.wrap(bytes);
-    CharBuffer charBuffer = CharBuffer.allocate(byteBuffer.limit());
-    decoder.decode(byteBuffer, charBuffer, true);
-    charBuffer.flip();
-    String ret = charBuffer.toString();
-    charBuffer.clear();
-    byteBuffer.clear();
-    this.string = ret;
-    return ret;
+  public EnoaBinary binary(Charset charset) {
+    return EnoaBinary.create(this.bytes(), charset);
   }
 
   public String string() {
-    return this.string(this.charset());
+    return this.binary().string();
   }
 
-  public ByteBuffer bytebuffer() {
-    return ByteBuffer.wrap(this.bytes());
+  public String string(Charset charset) {
+    return this.binary(charset).string();
   }
 
-  public static EnoaBinary create(byte[] buffer) {
-    return create(buffer, EoConst.CHARSET);
+  public static ShellResult create(int exitvalue, byte[] bytes) {
+    return create(exitvalue, bytes, EoConst.CHARSET);
   }
 
-  public static EnoaBinary create(byte[] buffer, Charset charset) {
-    return new EnoaBinary() {
+  public static ShellResult create(int exitvalue, byte[] bytes, Charset charset) {
+    return new ShellResult() {
+      @Override
+      public int exitvalue() {
+        return exitvalue;
+      }
+
       @Override
       public Charset charset() {
         return charset;
@@ -74,7 +70,7 @@ public abstract class EnoaBinary implements Serializable {
 
       @Override
       public byte[] bytes() {
-        return buffer;
+        return bytes;
       }
     };
   }
@@ -89,7 +85,7 @@ public abstract class EnoaBinary implements Serializable {
     if (this == obj) return true;
     if (obj == null || getClass() != obj.getClass()) return false;
 
-    EnoaBinary that = (EnoaBinary) obj;
+    ShellResult that = (ShellResult) obj;
     return DigestKit.slowEquals(this.bytes(), that.bytes());
   }
 

@@ -13,30 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.toolkit;
+package io.enoa.shell.thr;
 
-import io.enoa.toolkit.sys.EnvKit;
+public class ShellException extends RuntimeException {
 
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
+  public ShellException() {
+    super();
+  }
 
-/**
- * enoa - io.enoa.toolkit
- */
-public interface EoConst {
+  public ShellException(String message) {
+    super(message);
+  }
 
-  Charset CHARSET = StandardCharsets.UTF_8;
+  public ShellException(String message, Throwable cause) {
+    super(message, cause);
+  }
 
-  /**
-   * os charset
-   */
-  Charset _CHARSET_OS = Charset.forName(EnvKit.string("sun.jnu.encoding"));
+  public ShellException(Throwable cause) {
+    super(cause);
+  }
 
-  String DEF_FORMAT_DATE = "yyyy-MM-dd HH:mm:ss.SSS";
-
-  /**
-   * restful uri 识别符号
-   */
-  String RESTFUL_RECOGNIZE = ":";
-
+  protected ShellException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    super(message, cause, enableSuppression, writableStackTrace);
+  }
 }

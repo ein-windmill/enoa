@@ -13,30 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.toolkit;
+package io.enoa.shell;
 
-import io.enoa.toolkit.sys.EnvKit;
+public interface EoShell {
 
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
+  static EoShell def() {
+    return EnoaShell::new;
+  }
 
-/**
- * enoa - io.enoa.toolkit
- */
-public interface EoConst {
-
-  Charset CHARSET = StandardCharsets.UTF_8;
-
-  /**
-   * os charset
-   */
-  Charset _CHARSET_OS = Charset.forName(EnvKit.string("sun.jnu.encoding"));
-
-  String DEF_FORMAT_DATE = "yyyy-MM-dd HH:mm:ss.SSS";
-
-  /**
-   * restful uri 识别符号
-   */
-  String RESTFUL_RECOGNIZE = ":";
+  Shell shell();
 
 }

@@ -16,48 +16,102 @@
 package io.enoa.shell;
 
 import io.enoa.chunk.Chunk;
+import io.enoa.shell.reader.EShellReader;
+import io.enoa.shell.ret.ShellResult;
+import io.enoa.toolkit.EoConst;
+import io.enoa.toolkit.collection.CollectionKit;
 
-import java.nio.file.Paths;
-import java.util.concurrent.*;
+import java.io.InputStream;
+import java.nio.charset.Charset;
+import java.nio.file.Path;
+import java.util.*;
+import java.util.concurrent.CyclicBarrier;
 
-public class EnoaShell implements Shell {
+class EnoaShell implements Shell {
 
-  private static ExecutorService executor = new ThreadPoolExecutor(
-    0,
-    Integer.MAX_VALUE,
-    3L,
-    TimeUnit.SECONDS,
-    new SynchronousQueue<>()
-  );
 
+  private List<String> commands;
+  private Chunk chunk;
+  private Path directory;
+  private Map<String, String> env;
+  private Charset charset;
+
+  EnoaShell() {
+    this.commands = new ArrayList<>();
+    this.charset = EoConst._CHARSET_OS;
+  }
 
   @Override
-  public void command(String[] commands, Chunk chunk) {
+  public ShellResult emit() {
     try {
-
       CyclicBarrier barrier = new CyclicBarrier(2);
-      Process process = new ProcessBuilder(commands)
-//        .inheritIO()
-//        .directory(Paths.get("D:\\dev\\enoa\\enoa\\enoa-shell").toFile())
-        .redirectErrorStream(true)
-        .start();
-      EShellReader outreader = new EShellReader(process.getInputStream(), chunk, barrier);
-      Thread outhread = new Thread(outreader);
-      outhread.start();
+      ProcessBuilder builder = new ProcessBuilder(this.commands)
+        .redirectErrorStream(true);
+      if (this.directory != null) {
+        builder.directory(this.directory.toFile());
+      }
+      if (this.env != null) {
+        builder.environment().putAll(this.env);
+      }
+      Process process = builder.start();
 
-      barrier.await();
+      try (InputStream is = process.getInputStream()) {
+        EShellReader outreader = new EShellReader(is, this.chunk, barrier);
+        Thread outhread = new Thread(outreader);
+        outhread.start();
 
-      Future<Integer> executeFuture = executor.submit((Callable<Integer>) process::waitFor);
-      int exitCode = executeFuture.get(5, TimeUnit.SECONDS);
-//      int exitCode = executeFuture.get();
-//      System.out.println(exitCode);
-//      String a = new String(outreader.bytes(), Charset.forName("BIG5"));
-//      System.out.println(a);
-
-      outhread.interrupt();
+        barrier.await();
+        int exitvalue = process.waitFor();
+        byte[] bytes = outreader.bytes();
+        outhread.interrupt();
+        return ShellResult.create(exitvalue, bytes, this.charset);
+      }
     } catch (Exception e) {
       throw new RuntimeException(e.getMessage(), e);
+    } finally {
+      CollectionKit.clear(this.commands);
+      CollectionKit.clear(this.env);
     }
+  }
+
+  @Override
+  public Shell command(String... commands) {
+    if (commands == null)
+      return this;
+    this.commands.addAll(Arrays.asList(commands));
+    return this;
+  }
+
+  @Override
+  public Shell charset(Charset charset) {
+    this.charset = charset;
+    return this;
+  }
+
+  @Override
+  public Shell chunk(Chunk chunk) {
+    this.chunk = chunk;
+    return this;
+  }
+
+  @Override
+  public Shell directory(Path directory) {
+    this.directory = directory;
+    return this;
+  }
+
+  @Override
+  public Shell env(String name, String value) {
+    if (this.env == null)
+      this.env = new HashMap<>();
+    this.env.put(name, value);
+    return this;
+  }
+
+  @Override
+  public Shell env(Map<String, String> env) {
+    this.env = env;
+    return this;
   }
 
 }

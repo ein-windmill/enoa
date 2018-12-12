@@ -1,31 +1,31 @@
 package io.enoa.shell;
 
 import io.enoa.chunk.Chunk;
-import org.junit.Before;
+import io.enoa.shell.ret.ShellResult;
+import io.enoa.toolkit.EoConst;
+import io.enoa.toolkit.path.PathKit;
 import org.junit.Ignore;
 import org.junit.Test;
-
-import java.nio.charset.Charset;
 
 @Ignore
 public class ShellTest {
 
-  @Before
-  public void ibe() {
-    Shell.epm().install(new EnoaShell());
-  }
-
   @Test
   public void testExec() {
-//    Shell.use().command("cmd.exe /C java -version", Chunk.string(System.out::println, Charset.forName("BIG5")));
     String[] commands = {"cmd.exe", "/C", "dir"};
 //    commands = new String[]{"cmd.exe", "/c", "git", "clone", "https://gitee.com/rushmore/zbus.git", "_tmp"};
     commands = new String[]{"cmd.exe", "/c", "curl", "-v", "cip.cc"};
 //    commands = new String[]{"cmd.exe", "/c", "mvn", "-X", "clean", "compile", "-Dmaven.test=true"};
+//    commands = new String[]{"cmd.exe", "/c", "echo", "%WORK_PATH%"};
 
-    Shell.use().command(commands, Chunk.string(text -> {
-      System.out.println(text);
-    }, Charset.forName("BIG5")));
+    ShellResult result = Shell.actuator()
+      .command(commands)
+      .chunk(Chunk.string(System.out::println, EoConst.CHARSET))
+      .charset(EoConst.CHARSET)
+      .env("WORK_PATH", PathKit.debugPath().toString())
+      .emit();
+    System.out.println(result.exitvalue());
+    System.out.println(result.string());
 
   }
 
