@@ -15,10 +15,10 @@
  */
 package io.enoa.docker.command.docker.origin;
 
+import io.enoa.chunk.Chunk;
+import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.docker.image.*;
-import io.enoa.docker.dket.docker.DResp;
-import io.enoa.docker.stream.DStream;
 
 public interface EOriginDockerImage {
 
@@ -37,7 +37,7 @@ public interface EOriginDockerImage {
   DResp list(DQPImageList dqp);
 
   /**
-   * @see #build(String, DQPImageBuild, DStream)
+   * @see #build(String, DQPImageBuild, io.enoa.chunk.Chunk)
    */
   default DResp build(String dockerfile, DQPImageBuild dqp) {
     return this.build(dockerfile, dqp, null);
@@ -59,10 +59,10 @@ public interface EOriginDockerImage {
    *
    * @param dqp        dqp
    * @param dockerfile dockerfile content
-   * @param dstream    chunk
+   * @param chunk      chunk
    * @return DResp
    */
-  DResp build(String dockerfile, DQPImageBuild dqp, DStream<String> dstream);
+  DResp build(String dockerfile, DQPImageBuild dqp, Chunk chunk);
 
   /**
    * Delete builder cache
@@ -79,8 +79,8 @@ public interface EOriginDockerImage {
     return this.create(dqp, body, null);
   }
 
-  default DResp create(DQPImageCreate dqp, DStream<String> dstream) {
-    return this.create(dqp, null, dstream);
+  default DResp create(DQPImageCreate dqp, Chunk chunk) {
+    return this.create(dqp, null, chunk);
   }
 
   /**
@@ -91,7 +91,7 @@ public interface EOriginDockerImage {
    * @param body request body
    * @return DResp
    */
-  DResp create(DQPImageCreate dqp, String body, DStream<String> dstream);
+  DResp create(DQPImageCreate dqp, String body, Chunk chunk);
 
 
   /**
@@ -123,8 +123,8 @@ public interface EOriginDockerImage {
     return this.push(id, null, null);
   }
 
-  default DResp push(String id, DStream<String> dstream) {
-    return this.push(id, null, dstream);
+  default DResp push(String id, Chunk chunk) {
+    return this.push(id, null, chunk);
   }
 
   default DResp push(String id, DQPImagePush dqp) {
@@ -146,7 +146,7 @@ public interface EOriginDockerImage {
    * @param dqp dqp
    * @return DResp
    */
-  DResp push(String id, DQPImagePush dqp, DStream<String> dstream);
+  DResp push(String id, DQPImagePush dqp, Chunk chunk);
 
   /**
    * Tag an image

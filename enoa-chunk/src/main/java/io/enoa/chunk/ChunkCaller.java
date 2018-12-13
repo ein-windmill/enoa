@@ -13,40 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.http.provider.httphelper.http.resp;
+package io.enoa.chunk;
 
-import io.enoa.http.protocol.chunk.Chunk;
 
 import java.io.ByteArrayOutputStream;
-import java.nio.charset.Charset;
 import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedDeque;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-class ChunkCaller {
+public class ChunkCaller {
 
-  private Charset charset;
   private Chunk chunk;
   private ExecutorService executor;
   private Queue<Byte> queues;
   private AtomicBoolean finish;
+  private volatile boolean changed;
 
-  ChunkCaller(Chunk chunk, Charset charset) {
+  ChunkCaller(Chunk chunk) {
     this.chunk = chunk;
-    this.charset = charset;
+    this.changed = false;
+
     this.queues = new ConcurrentLinkedDeque<>();
     this.finish = new AtomicBoolean(Boolean.FALSE);
     this.executor = Executors.newSingleThreadExecutor();
-    this.run();
+
+    this.listen();
   }
 
-  void destroy() {
+  public void destroy() {
     this.finish.set(Boolean.TRUE);
   }
 
-  void call(byte[] bytes) {
+  public void call(byte[] bytes) {
     for (byte b : bytes) {
       this.queues.offer(b);
     }
@@ -58,13 +56,14 @@ class ChunkCaller {
       lix = oldname.lastIndexOf("-");
 
     String group = oldname.substring(fix + 1, lix);
-    thread.setName(chunk + "-" + group);
+    thread.setName(this.chunk + "-" + group);
   }
 
-  private void run() {
+  private void listen() {
     this.executor.execute(() -> {
       this.threadname(Thread.currentThread());
       try (ByteArrayOutputStream temp = new ByteArrayOutputStream()) {
+        boolean precr = false; //
         while (true) {
           if (this.finish.get() || this.chunk.stopper().stop()) {
             try {
@@ -76,23 +75,45 @@ class ChunkCaller {
             break;
           }
 
-          if (this.queues.isEmpty())
+          if (this.queues.isEmpty()) {
+            this.changed = false;
             continue;
+          }
 
           Byte b = this.queues.poll();
           if (b == '\r' || b == '\n') {
-            byte[] bytes = temp.toByteArray();
-//            if (bytes.length > 0)
-            this.chunk.runner().run(bytes);
-            temp.reset();
+            if (b == '\r') {
+              precr = true;
+              continue;
+            }
+
+            this.call(temp);
+            if (precr)
+              precr = false;
             continue;
+          } else {
+            if (precr) {
+              this.call(temp);
+              precr = false;
+            }
           }
           temp.write(b);
+          this.changed = true;
         }
       } catch (Exception e) {
         e.printStackTrace();
       }
     });
+  }
+
+  private void call(ByteArrayOutputStream temp) {
+    byte[] bytes = temp.toByteArray();
+    boolean empty = bytes.length == 0;
+    if (empty && !this.changed) {
+      return;
+    }
+    this.chunk.runner().run(bytes);
+    temp.reset();
   }
 
 }

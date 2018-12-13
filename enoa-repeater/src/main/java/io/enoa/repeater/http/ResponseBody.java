@@ -31,10 +31,14 @@ public abstract class ResponseBody {
 
   public abstract long length();
 
-  public abstract ByteBuffer binary();
+  public abstract byte[] bytes();
 
-  public byte[] bytes() {
-    return this.binary().array();
+  public ByteBuffer buffer() {
+    return ByteBuffer.wrap(this.bytes());
+  }
+
+  public EnoaBinary binary() {
+    return EnoaBinary.create(this.bytes());
   }
 
   public static ResponseBody create(String content) {
@@ -52,27 +56,26 @@ public abstract class ResponseBody {
     if (path == null)
       throw new EoException(EnoaTipKit.message("eo.tip.repeater.resp_body_cant_null"));
     EnoaBinary ebinary = FileKit.read(path);
-    return create(ebinary.bytes());
+    byte[] bytes = ebinary.bytes();
+    return create(bytes);
   }
 
   public static ResponseBody create(byte[] bytes) {
-    return create(ByteBuffer.wrap(bytes));
-  }
-
-  public static ResponseBody create(ByteBuffer binary) {
-    if (binary == null)
+//    return create(ByteBuffer.wrap(bytes));
+    if (bytes == null)
       throw new EoException(EnoaTipKit.message("eo.tip.repeater.resp_body_cant_null"));
     return new ResponseBody() {
       @Override
       public long length() {
-        return binary.position();
+        return bytes.length;
       }
 
       @Override
-      public ByteBuffer binary() {
-        return binary;
+      public byte[] bytes() {
+        return bytes;
       }
     };
+
   }
 
   @Override

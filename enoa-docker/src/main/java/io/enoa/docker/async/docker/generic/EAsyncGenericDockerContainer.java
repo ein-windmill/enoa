@@ -15,16 +15,16 @@
  */
 package io.enoa.docker.async.docker.generic;
 
-import io.enoa.docker.enqueue.EnqueueAssetDocker;
-import io.enoa.docker.enqueue.EnqueueDocker;
+import io.enoa.chunk.Chunk;
 import io.enoa.docker.command.docker.generic.EGenericDockerContainer;
 import io.enoa.docker.command.docker.generic.GenericDocker;
 import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.common.DQPResize;
 import io.enoa.docker.dqp.docker.container.*;
+import io.enoa.docker.enqueue.EnqueueAssetDocker;
+import io.enoa.docker.enqueue.EnqueueDocker;
 import io.enoa.docker.parser.docker.DIParser;
-import io.enoa.docker.stream.DStream;
 import io.enoa.toolkit.value.Void;
 
 import java.util.List;
@@ -91,8 +91,8 @@ public class EAsyncGenericDockerContainer {
     return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.container.statistics(parser, id));
   }
 
-  public <T> EnqueueAssetDocker<DRet<T>> statistics(DIParser<T> parser, String id, DStream<DRet<T>> dstream) {
-    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.container.statistics(parser, id, dstream));
+  public <T> EnqueueAssetDocker<DRet<T>> statistics(DIParser<T> parser, String id, Chunk chunk) {
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.container.statistics(parser, id, chunk));
   }
 
   public EnqueueAssetDocker<DRet<Void>> resize(String id) {
@@ -163,8 +163,8 @@ public class EAsyncGenericDockerContainer {
     return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.container.attach(parser, id, dqp));
   }
 
-  public <T> EnqueueAssetDocker<DRet<T>> attach(DIParser<T> parser, String id, DQPContainerAttach dqp, DStream<String> dstream) {
-    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.container.attach(parser, id, dqp, dstream));
+  public <T> EnqueueAssetDocker<DRet<T>> attach(DIParser<T> parser, String id, DQPContainerAttach dqp, Chunk chunk) {
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.container.attach(parser, id, dqp, chunk));
   }
 
   @Deprecated

@@ -34,11 +34,15 @@ public abstract class EnoaBinary implements Serializable {
   public abstract byte[] bytes();
 
   public String string(Charset charset) {
+    byte[] bytes = this.bytes();
+    if (bytes == null)
+      return null;
+
     if (this.string != null)
       return this.string;
 
     CharsetDecoder decoder = charset.newDecoder();
-    ByteBuffer byteBuffer = ByteBuffer.wrap(this.bytes());
+    ByteBuffer byteBuffer = ByteBuffer.wrap(bytes);
     CharBuffer charBuffer = CharBuffer.allocate(byteBuffer.limit());
     decoder.decode(byteBuffer, charBuffer, true);
     charBuffer.flip();

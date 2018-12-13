@@ -15,15 +15,15 @@
  */
 package io.enoa.docker.async.docker.eo;
 
-import io.enoa.docker.enqueue.EnqueueAssetDocker;
-import io.enoa.docker.enqueue.EnqueueDocker;
+import io.enoa.chunk.Chunk;
 import io.enoa.docker.command.docker.eo.EnoaDockerImage;
 import io.enoa.docker.command.docker.eo.EoDocker;
 import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.dket.docker.image.*;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.docker.image.*;
-import io.enoa.docker.stream.DStream;
+import io.enoa.docker.enqueue.EnqueueAssetDocker;
+import io.enoa.docker.enqueue.EnqueueDocker;
 import io.enoa.toolkit.binary.EnoaBinary;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.value.Void;
@@ -53,8 +53,8 @@ public class EAsyncEnoaDockerImage {
     return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.build(dockerfile, dqp));
   }
 
-  public EnqueueAssetDocker<DRet<List<Kv>>> build(String dockerfile, DQPImageBuild dqp, DStream<Kv> dstream) {
-    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.build(dockerfile, dqp, dstream));
+  public EnqueueAssetDocker<DRet<List<Kv>>> build(String dockerfile, DQPImageBuild dqp, Chunk chunk) {
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.build(dockerfile, dqp, chunk));
   }
 
   public EnqueueAssetDocker<DRet<EIPrune>> prunebuild() {
@@ -69,12 +69,12 @@ public class EAsyncEnoaDockerImage {
     return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.create(dqp, body));
   }
 
-  public EnqueueAssetDocker<DRet<List<Kv>>> create(DQPImageCreate dqp, DStream<Kv> dstream) {
-    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.create(dqp, dstream));
+  public EnqueueAssetDocker<DRet<List<Kv>>> create(DQPImageCreate dqp, Chunk chunk) {
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.create(dqp, chunk));
   }
 
-  public EnqueueAssetDocker<DRet<List<Kv>>> create(DQPImageCreate dqp, String body, DStream<Kv> dstream) {
-    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.create(dqp, body, dstream));
+  public EnqueueAssetDocker<DRet<List<Kv>>> create(DQPImageCreate dqp, String body, Chunk chunk) {
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.create(dqp, body, chunk));
   }
 
   public EnqueueAssetDocker<DRet<EIInspect>> inspect(String id) {
@@ -93,12 +93,12 @@ public class EAsyncEnoaDockerImage {
     return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.push(id, dqp));
   }
 
-  public EnqueueAssetDocker<DRet<Void>> push(String id, DStream<Kv> dstream) {
-    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.push(id, dstream));
+  public EnqueueAssetDocker<DRet<Void>> push(String id, Chunk chunk) {
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.push(id, chunk));
   }
 
-  public EnqueueAssetDocker<DRet<Void>> push(String id, DQPImagePush dqp, DStream<Kv> dstream) {
-    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.push(id, dqp, dstream));
+  public EnqueueAssetDocker<DRet<Void>> push(String id, DQPImagePush dqp, Chunk chunk) {
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.push(id, dqp, chunk));
   }
 
   public EnqueueAssetDocker<DRet<Void>> tag(String id, DQPImageTag dqp) {

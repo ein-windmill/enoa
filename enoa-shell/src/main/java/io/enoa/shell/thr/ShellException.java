@@ -13,15 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.http.protocol.chunk;
+package io.enoa.shell.thr;
 
-@FunctionalInterface
-public interface IChunkStopper {
+public class ShellException extends RuntimeException {
 
-  static IChunkStopper def() {
-    return () -> Boolean.FALSE;
+  public ShellException() {
+    super();
   }
 
-  boolean stop();
+  public ShellException(String message) {
+    super(message);
+  }
 
+  public ShellException(String message, Throwable cause) {
+    super(message, cause);
+  }
+
+  public ShellException(Throwable cause) {
+    super(cause);
+  }
+
+  protected ShellException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    super(message, cause, enableSuppression, writableStackTrace);
+  }
 }

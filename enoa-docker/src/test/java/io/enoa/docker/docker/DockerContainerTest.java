@@ -15,6 +15,7 @@
  */
 package io.enoa.docker.docker;
 
+import io.enoa.chunk.Chunk;
 import io.enoa.docker.AbstractDockerTest;
 import io.enoa.docker.Docker;
 import io.enoa.docker.dket.docker.DResp;
@@ -24,9 +25,9 @@ import io.enoa.docker.dket.docker.container.*;
 import io.enoa.docker.dket.docker.run.EDRun;
 import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.docker.container.DQPContainerUpdate;
-import io.enoa.docker.stream.DStream;
 import io.enoa.json.Json;
 import io.enoa.toolkit.EoConst;
+import io.enoa.toolkit.binary.EnoaBinary;
 import io.enoa.toolkit.file.FileKit;
 import io.enoa.toolkit.path.PathKit;
 import io.enoa.toolkit.text.TextKit;
@@ -97,14 +98,18 @@ public class DockerContainerTest extends AbstractDockerTest {
 
   @Test
   public void testStatistics() {
-    DRet<EStatistics> ret = Docker.container().statistics("nginx", DStream.<DRet<EStatistics>>builder(stats -> {
-      Assert.assertTrue(stats.ok());
-      String json = Json.toJson(stats.data());
-      System.out.println(json);
-    }).build());
-//    Assert.assertTrue(ret.ok());
-//    String json = Json.toJson(ret.data());
-//    System.out.println(json);
+//    DRet<EStatistics> ret = Docker.container().statistics("nginx", DStream.<DRet<EStatistics>>builder(stats -> {
+//      Assert.assertTrue(stats.ok());
+//      String json = Json.toJson(stats.data());
+//      System.out.println(json);
+//    }).build());
+    DRet<EStatistics> ret = Docker.container().statistics("nginx", Chunk.generic(
+      bytes -> EnoaBinary.create(bytes).string(),
+      System.out::println)
+    );
+    Assert.assertTrue(ret.ok());
+    String json = Json.toJson(ret.data());
+    System.out.println(json);
   }
 
   @Test
@@ -210,7 +215,7 @@ public class DockerContainerTest extends AbstractDockerTest {
         .stdin()
         .stdout()
         .stream(),
-      DStream.<String>builder(System.out::println).build()
+      Chunk.string(System.out::println)
     );
     Assert.assertTrue(ret.ok());
     System.out.println(ret.data());
@@ -282,7 +287,7 @@ public class DockerContainerTest extends AbstractDockerTest {
         .cmd("clone")
         .cmd("https://gitee.com/panqingyun/E3D-Engine.git"),
 //        .cmd("https://github.com/fewensa/enoa.git"),
-      DStream.<String>builder(System.out::println).build());
+      Chunk.string(System.out::println));
     Assert.assertTrue(ret.ok());
     String tty = ret.data().log();
     if (TextKit.blanky(tty))

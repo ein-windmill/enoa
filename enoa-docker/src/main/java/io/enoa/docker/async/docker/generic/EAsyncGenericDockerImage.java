@@ -15,15 +15,15 @@
  */
 package io.enoa.docker.async.docker.generic;
 
-import io.enoa.docker.enqueue.EnqueueAssetDocker;
-import io.enoa.docker.enqueue.EnqueueDocker;
+import io.enoa.chunk.Chunk;
 import io.enoa.docker.command.docker.generic.EGenericDockerImage;
 import io.enoa.docker.command.docker.generic.GenericDocker;
 import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.docker.image.*;
+import io.enoa.docker.enqueue.EnqueueAssetDocker;
+import io.enoa.docker.enqueue.EnqueueDocker;
 import io.enoa.docker.parser.docker.DIParser;
-import io.enoa.docker.stream.DStream;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.value.Void;
 
@@ -52,8 +52,8 @@ public class EAsyncGenericDockerImage {
     return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.build(dockerfile, dqp));
   }
 
-  public EnqueueAssetDocker<DRet<List<Kv>>> build(String dockerfile, DQPImageBuild dqp, DStream<Kv> dstream) {
-    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.build(dockerfile, dqp, dstream));
+  public EnqueueAssetDocker<DRet<List<Kv>>> build(String dockerfile, DQPImageBuild dqp, Chunk chunk) {
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.build(dockerfile, dqp, chunk));
   }
 
   public <T> EnqueueAssetDocker<DRet<T>> prunebuild(DIParser<T> parser) {
@@ -68,12 +68,12 @@ public class EAsyncGenericDockerImage {
     return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.create(dqp, body));
   }
 
-  public EnqueueAssetDocker<DRet<List<Kv>>> create(DQPImageCreate dqp, DStream<Kv> dstream) {
-    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.create(dqp, dstream));
+  public EnqueueAssetDocker<DRet<List<Kv>>> create(DQPImageCreate dqp, Chunk chunk) {
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.create(dqp, chunk));
   }
 
-  public EnqueueAssetDocker<DRet<List<Kv>>> create(DQPImageCreate dqp, String body, DStream<Kv> dstream) {
-    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.create(dqp, body, dstream));
+  public EnqueueAssetDocker<DRet<List<Kv>>> create(DQPImageCreate dqp, String body, Chunk chunk) {
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.create(dqp, body, chunk));
   }
 
   public <T> EnqueueAssetDocker<DRet<T>> inspect(DIParser<T> parser, String id) {
@@ -92,12 +92,12 @@ public class EAsyncGenericDockerImage {
     return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.push(id, dqp));
   }
 
-  public EnqueueAssetDocker<DRet<Void>> push(String id, DStream<Kv> dstream) {
-    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.push(id, dstream));
+  public EnqueueAssetDocker<DRet<Void>> push(String id, Chunk chunk) {
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.push(id, chunk));
   }
 
-  public EnqueueAssetDocker<DRet<Void>> push(String id, DQPImagePush dqp, DStream<Kv> dstream) {
-    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.push(id, dqp, dstream));
+  public EnqueueAssetDocker<DRet<Void>> push(String id, DQPImagePush dqp, Chunk chunk) {
+    return EnqueueDocker.asseterdocker(this.docker._dockerconfig().executor(), () -> this.image.push(id, dqp, chunk));
   }
 
   public EnqueueAssetDocker<DRet<Void>> tag(String id, DQPImageTag dqp) {

@@ -225,8 +225,10 @@ class JettyRequestWrapper implements Request {
 
   @Override
   public String para(String name, String def) {
-    String val = this.para(name);
-    return ConvertKit.string(val, def, Boolean.TRUE);
+    String[] paras = this.paraValues(name);
+    if (CollectionKit.isEmpty(paras))
+      return def;
+    return ConvertKit.string(paras[0], def, Boolean.TRUE);
   }
 
   @Override
