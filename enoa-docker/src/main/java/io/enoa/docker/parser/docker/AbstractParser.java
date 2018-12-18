@@ -19,6 +19,7 @@ import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.thr.DockerException;
+import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.text.TextKit;
@@ -36,9 +37,10 @@ abstract class AbstractParser<T> implements DIParser<T> {
 
       throw new DockerException(EnoaTipKit.message("eo.tip.docker.serv_no_contenttype"));
     }
-//    if (resp.code() >= 500) {
-//      return DRet.fail(resp, resp.string());
-//    }
+
+    OkCheck okcheck = this.isok(config, resp);
+    if (!okcheck.ok)
+      return DRet.fail(resp, okcheck.message);
 
     if ("application/json".equalsIgnoreCase(contenttype) ||
       "text/plain".equalsIgnoreCase(contenttype)) {
@@ -53,13 +55,43 @@ abstract class AbstractParser<T> implements DIParser<T> {
       }
 
       Kv kv = config.json().parse(origin, Kv.class);
-      if (kv.notNullValue("message"))
-        return DRet.fail(resp, kv.string("message"));
-      return DRet.ok(resp, this.ok(config, resp));
+      try {
+        if (kv.notNullValue("message"))
+          return DRet.fail(resp, kv.string("message"));
+        return DRet.ok(resp, this.ok(config, resp));
+      } finally {
+        CollectionKit.clear(kv);
+      }
     }
+
     return DRet.ok(resp, this.ok(config, resp));
+  }
+
+  protected OkCheck isok(DockerConfig config, DResp resp) {
+    return OkCheck.OK;
   }
 
   public abstract T ok(DockerConfig config, DResp resp);
 
+  protected static class OkCheck {
+    private boolean ok;
+    private String message;
+
+    private OkCheck(boolean ok) {
+      this.ok = ok;
+    }
+
+    protected static OkCheck ok() {
+      return OK;
+    }
+
+    protected static OkCheck fail(String message) {
+      OkCheck oc = new OkCheck(false);
+      oc.message = message;
+      return oc;
+    }
+
+    private static final OkCheck OK = new OkCheck(true);
+
+  }
 }

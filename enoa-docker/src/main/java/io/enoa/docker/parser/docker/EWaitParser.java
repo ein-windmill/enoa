@@ -19,6 +19,7 @@ import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dket.docker.container.ECError;
 import io.enoa.docker.dket.docker.container.ECWait;
+import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.map.Kv;
 
 import java.util.Map;
@@ -34,6 +35,18 @@ class EWaitParser extends AbstractParser<ECWait> {
   }
 
   @Override
+  protected OkCheck isok(DockerConfig config, DResp resp) {
+    Kv kv = config.json().parse(resp.string(), Kv.class);
+    try {
+      if (kv.integer("StatusCode") != 0)
+        return OkCheck.fail(kv.string("Error"));
+      return OkCheck.ok();
+    } finally {
+      CollectionKit.clear(kv);
+    }
+  }
+
+  @Override
   public ECWait ok(DockerConfig config, DResp resp) {
     Kv kv = config.json().parse(resp.string(), Kv.class);
     ECWait.Builder builder = new ECWait.Builder()
@@ -45,6 +58,7 @@ class EWaitParser extends AbstractParser<ECWait> {
         .message(erm.string("Message"));
       builder.error(eb.build());
     }
+    CollectionKit.clear(kv);
     return builder.build();
   }
 }

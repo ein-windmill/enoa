@@ -314,11 +314,14 @@ public class EnoaDockerImpl implements EoDocker {
       DRet<String> ecattach = attachret.get();
       ECWait ecwd = ecwait.data();
       boolean ok = ecwait.ok() && ecattach.ok();
-      String message = ecattach.ok() ? ecwait.message() : ecattach.message();
-      ECWait wcwd = ecwait.data();
-      if (wcwd.statuscode() != 0) {
-        message = wcwd.error() == null ? message : wcwd.error().message();
-      }
+      if (!ok)
+        return DRet.fail(ecwait.ok() ? ecwait.origin() : ecattach.origin(), ecwait.ok() ? ecwait.message() : ecattach.message());
+
+//      String message = ecattach.ok() ? ecwait.message() : ecattach.message();
+//      ECWait wcwd = ecwait.data();
+//      if (wcwd.statuscode() != 0) {
+//        message = wcwd.error() == null ? message : wcwd.error().message();
+//      }
       Object cmdo = dqp.dqr().value("Cmd").get();
       List<String> cmds;
       if (cmdo == null) {
@@ -342,9 +345,7 @@ public class EnoaDockerImpl implements EoDocker {
         .statuscode(ecwd.statuscode())
         .cmd(cmds)
         .build();
-      return ok ?
-        DRet.ok(ecattach.origin(), edrun) :
-        DRet.fail(ecwait.ok() ? ecattach.origin() : ecwait.origin(), message);
+      return DRet.ok(ecattach.origin(), edrun);
     } finally {
       if (executor != null)
         executor.shutdown();
