@@ -17,7 +17,7 @@ package io.enoa.toolkit.ansi;
 
 import io.enoa.toolkit.mark.IMarkIx;
 import io.enoa.toolkit.text.TextReader;
-import io.enoa.toolkit.text.TextSeparator;
+import io.enoa.toolkit.text.LineBreak;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -311,20 +311,20 @@ public final class ANSI {
     return this.append(newline);
   }
 
-  public ANSI newline(TextSeparator newline) {
+  public ANSI newline(LineBreak newline) {
     return this.newline(newline.val());
   }
 
   public ANSI cr() {
-    return this.newline(TextSeparator.CR);
+    return this.newline(LineBreak.CR);
   }
 
   public ANSI lf() {
-    return this.newline(TextSeparator.LF);
+    return this.newline(LineBreak.LF);
   }
 
   public ANSI crlf() {
-    return this.newline(TextSeparator.CRLF);
+    return this.newline(LineBreak.CRLF);
   }
 
   public ANSI black(String text, Background background) {

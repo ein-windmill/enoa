@@ -17,7 +17,7 @@ package io.enoa.toolkit.text;
 
 import io.enoa.toolkit.mark.IMarkVal;
 
-public enum TextSeparator implements IMarkVal {
+public enum LineBreak implements IMarkVal {
 
   LF("\n"),
 
@@ -30,7 +30,7 @@ public enum TextSeparator implements IMarkVal {
 
   private final String val;
 
-  TextSeparator(String val) {
+  LineBreak(String val) {
     this.val = val;
   }
 
@@ -39,10 +39,10 @@ public enum TextSeparator implements IMarkVal {
     return this.val;
   }
 
-  public static TextSeparator of(String val) {
+  public static LineBreak of(String val) {
     if (val == null)
       return CRLF;
-    for (TextSeparator separator : TextSeparator.values()) {
+    for (LineBreak separator : LineBreak.values()) {
       if (separator.val.equalsIgnoreCase(val))
         return separator;
     }

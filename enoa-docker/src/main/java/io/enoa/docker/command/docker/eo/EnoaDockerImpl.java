@@ -230,7 +230,7 @@ public class EnoaDockerImpl implements EoDocker {
       if (isdetach) {
         DRet<Void> retstart = this.container().start(id);
         try {
-          barrier.wait();
+          barrier.await();
         } catch (Exception e) {
           e.printStackTrace();
           return DRet.fail(retstart.origin(), e.getMessage());

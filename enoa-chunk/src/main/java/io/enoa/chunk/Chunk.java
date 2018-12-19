@@ -33,7 +33,7 @@ public class Chunk implements Serializable {
   }
 
   public static <RET> Chunk generic(IChunkConverter<RET> converter, IChunkRunner<RET> runner, IChunkStopper stopper) {
-    return builder(bytes -> runner.run(converter.convert(bytes))).stopper(stopper).build();
+    return builder((bytes, linebreak) -> runner.run(converter.convert(bytes), linebreak)).stopper(stopper).build();
   }
 
   public static <RET> Chunk generic(IChunkConverter<RET> converter, IChunkRunner<RET> runner) {
@@ -41,7 +41,7 @@ public class Chunk implements Serializable {
   }
 
   public static Chunk string(IChunkRunner<String> runner, Charset charset, IChunkStopper stopper) {
-    return builder(bytes -> runner.run(string(bytes, charset))).stopper(stopper).build();
+    return builder((bytes, linebreak) -> runner.run(string(bytes, charset), linebreak)).stopper(stopper).build();
   }
 
   public static Chunk string(IChunkRunner<String> runner, Charset charset) {

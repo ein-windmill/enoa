@@ -15,6 +15,10 @@
  */
 package io.enoa.chunk;
 
+import io.enoa.toolkit.EoConst;
+import io.enoa.toolkit.binary.EnoaBinary;
+import io.enoa.toolkit.file.FileKit;
+import io.enoa.toolkit.path.PathKit;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -60,11 +64,24 @@ public class ChunkedTest {
       "\n"
       ;
 
-    Chunk chunk = Chunk.string(System.out::println);
+    Chunk chunk = Chunk.string((line, linebreak) -> System.out.println(line));
     ChunkCaller caller = chunk.caller();
 
-    caller.call(text.getBytes(Charset.forName("utf-8")));
+    caller.call(text.getBytes(EoConst.CHARSET));
 
+  }
+
+
+  @Test
+  public void testLinebreak() {
+    EnoaBinary binary = FileKit.read(PathKit.debugPath().resolve("src/test/resources/git_clone.txt"));
+    String text = binary.string();
+
+    Chunk chunk = Chunk.string((line, linebreak) -> System.out.println(line));
+    ChunkCaller caller = chunk.caller();
+
+    caller.call(text.getBytes(EoConst.CHARSET));
+    caller.destroy(Boolean.TRUE);
   }
 
 }

@@ -23,7 +23,7 @@ public class ShellTest {
 
     ShellResult result0 = Shell.actuator()
       .command(commands)
-      .chunk(Chunk.string(System.out::println, EoConst.CHARSET))
+      .chunk(Chunk.string((text, linebreak) -> System.out.println(text), EoConst.CHARSET))
       .charset(EoConst.CHARSET)
       .directory(PathKit.debugPath())
       .env("WORK_PATH", PathKit.debugPath().toString())
@@ -34,7 +34,7 @@ public class ShellTest {
 
     Shell.actuator()
       .command(commands)
-      .chunk(Chunk.string(System.out::println, EoConst.CHARSET))
+      .chunk(Chunk.string((text, linebreak) -> System.out.println(text), EoConst.CHARSET))
       .charset(EoConst.CHARSET)
       .directory(PathKit.debugPath())
       .env("WORK_PATH", PathKit.debugPath().toString())

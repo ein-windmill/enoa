@@ -59,7 +59,7 @@ public class DockerImageTest extends AbstractDockerTest {
 
 //    DRet<List<Kv>> ret = Docker.image().build(dockerfile, dqp, DStream.<Kv>builder(kv -> System.out.println(Json.toJson(kv))).build());
 
-    DRet<List<Kv>> ret = Docker.image().build(dockerfile, dqp, Chunk.builder(bytes -> {
+    DRet<List<Kv>> ret = Docker.image().build(dockerfile, dqp, Chunk.builder((bytes, linebreak) -> {
       Kv kv = Json.parse(EnoaBinary.create(bytes).string(), Kv.class);
       System.out.println(kv);
     }).build());
@@ -171,7 +171,7 @@ public class DockerImageTest extends AbstractDockerTest {
   @Test
   public void testCreate() {
     Docker.image().create(DQPImageCreate.create().fromimage("docker.io/alpine").tag("3.8"),
-      Chunk.generic(bytes -> EnoaBinary.create(bytes).string(), System.out::println));
+      Chunk.generic(bytes -> EnoaBinary.create(bytes).string(), (text, linebreak) -> System.out.println(text)));
   }
 
 }

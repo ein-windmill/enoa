@@ -18,6 +18,9 @@ package io.enoa.chunk;
 @FunctionalInterface
 public interface IChunkRunner<T> {
 
-  void run(T data);
+  default void run(T data) {
+    this.run(data, "\n");
+  }
 
+  void run(T data, String linebreak);
 }

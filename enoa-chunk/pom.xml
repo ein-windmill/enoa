@@ -20,6 +20,12 @@
       <scope>test</scope>
     </dependency>
 
+    <dependency>
+      <groupId>io.enoa</groupId>
+      <artifactId>enoa-toolkit</artifactId>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 
 
