@@ -112,6 +112,8 @@ public class ChunkCaller {
         }
 
         try {
+          // if last line, does not have line break symbol, do call last line.
+          this.call(temp, "\n");
           this.executor.shutdown();
           this.queues.clear();
         } catch (Exception e) {
