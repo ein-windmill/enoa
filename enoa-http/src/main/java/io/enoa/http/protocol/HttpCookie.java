@@ -112,8 +112,13 @@ public class HttpCookie {
 
     private static String domainToAscii(String input) {
       try {
+        boolean dotfirst = input.charAt(0) == '.';
+        if (input.charAt(0) == '.')
+          input = input.substring(1);
         String result = IDN.toASCII(input).toLowerCase(Locale.US);
         if (result.isEmpty()) return null;
+        if (dotfirst)
+          result = '.' + result;
         if (containsInvalidHostnameAsciiCodes(result)) {
           return null;
         }
