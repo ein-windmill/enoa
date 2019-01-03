@@ -52,15 +52,15 @@ public class SqlServerDialect implements IDialect {
     ) select * from query where rn between offset_start and offset_end
      */
 
-    long _offset1 = offset + size - 1;
-    psql = psql.replaceFirst("(?i)select(\\s+distinct\\s+)?", "$0 top(" + _offset1 + ") ");
+    long limit = offset + size;
+    psql = psql.replaceFirst("(?i)select(\\s+distinct\\s+)?", "$0 top(" + limit + ") ");
     StringBuilder builder = new StringBuilder();
     builder.append("with query as (\n");
     builder.append("  select inq.*, row_number() over (order by current_timestamp) as rn from (\n");
     builder.append("   ").append(psql);
     builder.append("  ) as inq\n");
     builder.append(") select * from query where rn between ");
-    builder.append(offset).append(" and ").append(_offset1);
+    builder.append(offset).append(" and ").append(limit);
     String sql = builder.toString();
     builder.delete(0, builder.length());
     return sql;
