@@ -60,7 +60,7 @@ public class SqlServerDialect implements IDialect {
     builder.append("   ").append(psql);
     builder.append("  ) as inq\n");
     builder.append(") select * from query where rn between ");
-    builder.append(offset).append(" and ").append(limit);
+    builder.append(offset + 1).append(" and ").append(limit);
     String sql = builder.toString();
     builder.delete(0, builder.length());
     return sql;
