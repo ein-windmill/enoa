@@ -62,6 +62,10 @@ public class HttpCookie {
     this.hostOnly = builder.hostOnly;
   }
 
+  public static Builder builder(String name, String value) {
+    return new Builder().name(name).value(value);
+  }
+
   public String name() {
     return name;
   }
