@@ -63,7 +63,12 @@ public class HttpPara {
     return para.output(traditional, charset);
   }
 
+  @Deprecated
   public static Set<HttpPara> parse(String text) {
+    return of(text);
+  }
+
+  public static Set<HttpPara> of(String text) {
     if (text == null || "".equals(text))
       return Collections.emptySet();
 

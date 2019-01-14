@@ -16,8 +16,7 @@
 package io.enoa.http.protocol;
 
 import java.net.IDN;
-import java.util.Date;
-import java.util.Locale;
+import java.util.*;
 
 public class HttpCookie {
 
@@ -60,6 +59,73 @@ public class HttpCookie {
     this.httpOnly = builder.httpOnly;
     this.persistent = builder.persistent;
     this.hostOnly = builder.hostOnly;
+  }
+
+//  public static Set<HttpCookie> of(String text) {
+//    if (text == null || "".equals(text))
+//      return Collections.emptySet();
+//    String[] lines = text.split("\n");
+//    Set<HttpCookie> rets = new HashSet<>(lines.length);
+//    for (String line : lines) {
+//      rets.add(single(line));
+//    }
+//    return rets;
+//  }
+
+  public static HttpCookie single(String text) {
+    if (text == null || "".equals(text))
+      return null;
+    String[] items = text.split(";");
+    Builder builder = new Builder();
+    for (String item : items) {
+      int eix = item.indexOf("=");
+//      if (eix == -1) {
+//        builder.name(item.trim());
+//        continue;
+//      }
+      String name = eix > -1 ? item.substring(0, eix).trim() : item.trim();
+      String value = null;
+      if (eix > -1) {
+        value = item.substring(eix + 1).trim();
+      }
+      switch (name.toLowerCase()) {
+        case "max-age":
+          builder.expires(0);
+          break;
+        case "expires":
+//          try {
+//            if (value != null) {
+//              int expires = Integer.parseInt(value);
+//              builder.expires(expires);
+//            }
+//          } catch (Exception ignored) {
+//          }
+          // todo parse expires
+          break;
+        case "domain":
+          if (value != null)
+            builder.domain(value);
+          break;
+        case "path":
+          if (value != null)
+            builder.path(value);
+          break;
+        case "secure":
+          builder.secure();
+          break;
+        case "httponly":
+          builder.httpOnly();
+          break;
+        default:
+          if (value != null) {
+            builder.name(name);
+            builder.value(value);
+          }
+          break;
+      }
+    }
+
+    return builder.build();
   }
 
   public String name() {
