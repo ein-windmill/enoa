@@ -16,7 +16,8 @@
 package io.enoa.http.protocol;
 
 import java.net.IDN;
-import java.util.*;
+import java.util.Date;
+import java.util.Locale;
 
 public class HttpCookie {
 
@@ -126,6 +127,10 @@ public class HttpCookie {
     }
 
     return builder.build();
+  }
+
+  public static Builder builder(String name, String value) {
+    return new Builder().name(name).value(value);
   }
 
   public String name() {
