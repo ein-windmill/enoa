@@ -32,9 +32,10 @@ class EnoaSolrImpl implements EoSolr {
   }
 
   private Http http() {
-    if (this.http == null)
-      this.http = Http.request();
-    return this.http;
+//    if (this.http == null)
+//      this.http = Http.request();
+//    return this.http;
+    return this.config.http();
   }
 
   @Override
