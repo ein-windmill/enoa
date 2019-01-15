@@ -33,6 +33,13 @@ public class TextReader<S extends TextReader> {
     return new TextReader(text);
   }
 
+  public S reset() {
+    this.line = 1;
+    this.position = 0;
+    this.cursor = 0;
+    return (S) this;
+  }
+
   /**
    * 當前字符
    *
