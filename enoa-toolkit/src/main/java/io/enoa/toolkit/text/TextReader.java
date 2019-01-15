@@ -15,7 +15,7 @@
  */
 package io.enoa.toolkit.text;
 
-public class TextReader<S extends TextReader> {
+public class TextReader {
 
   private String text;
   private int len;
@@ -33,11 +33,11 @@ public class TextReader<S extends TextReader> {
     return new TextReader(text);
   }
 
-  public S reset() {
+  public TextReader reset() {
     this.line = 1;
     this.position = 0;
     this.cursor = 0;
-    return (S) this;
+    return this;
   }
 
   /**
@@ -81,12 +81,12 @@ public class TextReader<S extends TextReader> {
     return this.cursor;
   }
 
-  public S back() {
+  public TextReader back() {
     if (this.position == 0)
-      return (S) this;
+      return this;
     this.position -= 1;
     this.cursor -= 1;
-    return (S) this;
+    return this;
   }
 
   public boolean hasNext() {
