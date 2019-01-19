@@ -35,6 +35,7 @@ class EnoaSolrImpl implements EoSolr {
 //    if (this.http == null)
 //      this.http = Http.request();
 //    return this.http;
+    // fixme wait next pull
     return this.config.http();
   }
 
