@@ -20,11 +20,11 @@ import io.enoa.http.Http;
 import io.enoa.index.solr.action.select.SSelect;
 import io.enoa.index.solr.action.update.SUpdate;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
+import io.enoa.toolkit.text.TextKit;
 
 class EnoaSolrImpl implements EoSolr {
 
   private SolrConfig config;
-  private String core;
   private Http http;
 
   EnoaSolrImpl(SolrConfig config) {
@@ -32,10 +32,9 @@ class EnoaSolrImpl implements EoSolr {
   }
 
   private Http http() {
-//    if (this.http == null)
-//      this.http = Http.request();
-//    return this.http;
-    return this.config.http();
+    if (this.http == null)
+      this.http = this.config.http();
+    return this.http;
   }
 
   @Override
@@ -46,7 +45,6 @@ class EnoaSolrImpl implements EoSolr {
 
   @Override
   public EoSolrOperate core(String core) {
-    this.core = core;
     return new EoSolrOperate() {
       @Override
       public SSelect select() {
@@ -60,6 +58,11 @@ class EnoaSolrImpl implements EoSolr {
         if (core == null)
           throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.solr.core_null"));
         return new SUpdate(http(), config, core);
+      }
+
+      @Override
+      public String toString() {
+        return TextKit.union("HOST: ", config.host(), "; CORE: ", core);
       }
     };
   }
