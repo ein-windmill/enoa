@@ -20,7 +20,6 @@ import io.enoa.http.Http;
 import io.enoa.index.solr.action.select.SSelect;
 import io.enoa.index.solr.action.update.SUpdate;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
-import io.enoa.toolkit.text.TextKit;
 
 class EnoaSolrImpl implements EoSolr {
 
@@ -58,11 +57,6 @@ class EnoaSolrImpl implements EoSolr {
         if (core == null)
           throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.solr.core_null"));
         return new SUpdate(http(), config, core);
-      }
-
-      @Override
-      public String toString() {
-        return TextKit.union("HOST: ", config.host(), "; CORE: ", core);
       }
     };
   }
