@@ -51,6 +51,9 @@ public class Header {
       this.value = header.value;
     }
 
+    public Builder() {
+    }
+
     public Header build() {
       return new Header(this);
     }
