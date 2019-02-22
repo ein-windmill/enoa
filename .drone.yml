@@ -1,7 +1,33 @@
-pipeline:
-  build:
-    image: maven:3.6-alpine
+#pipeline:
+#  build:
+#    image: maven:3.6-alpine
+#    commands:
+#      - mvn clean package -Dmaven.test.skip=true
+
+
+---
+kind: pipeline
+name: build
+
+steps:
+  - name: install
+    image: alpine
     commands:
-      - mvn clean package -Dmaven.test.skip=true
+      - ls /
 
+trigger:
+  branch:
+    - dev
 
+---
+kind: pipeline
+
+steps:
+  - name: package
+    image: alpine
+    commands:
+      - ls /dev
+
+trigger:
+  branch:
+    - dev
