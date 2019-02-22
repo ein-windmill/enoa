@@ -39,6 +39,6 @@ steps:
 volumes:
   - name: m2
     host:
-      path: /data/mount/m2
+      path: /tmp
 
 
