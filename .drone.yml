@@ -7,7 +7,7 @@
 
 ---
 kind: pipeline
-name: build
+name: master_pipe
 
 steps:
   - name: install
@@ -21,6 +21,7 @@ trigger:
 
 ---
 kind: pipeline
+name: dev_pipe
 
 steps:
   - name: package
