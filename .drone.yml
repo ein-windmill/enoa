@@ -13,6 +13,9 @@ steps:
 
   - name: deploy
     image: maven:3.6-alpine
+    volumes:
+      - name: m2
+        path: /root/.m2
     commands:
       - mvn clean package -Dmaven.test.skip=true
     when:
@@ -21,9 +24,21 @@ steps:
 
 
   - name: install
-    image: alpine:3.8
+    image: maven:3.6-alpine
+    volumes:
+      - name: m2
+        path: /root/.m2
     commands:
-      - ls /dev
+      - mvn clean install -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
     when:
       branch:
         - dev
+
+
+
+volumes:
+  - name: m2
+    host:
+      path: /data/mount/m2
+
+
