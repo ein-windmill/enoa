@@ -5,30 +5,25 @@
 #      - mvn clean package -Dmaven.test.skip=true
 
 
----
 kind: pipeline
-name: master_pipe
+name: default
 
 steps:
+
+
   - name: install
-    image: alpine
+    image: alpine:3.8
     commands:
       - ls /
+    when:
+      branch:
+        - master
 
-trigger:
-  branch:
-    - dev
 
----
-kind: pipeline
-name: dev_pipe
-
-steps:
-  - name: package
-    image: alpine
+  - name: install
+    image: alpine:3.8
     commands:
       - ls /dev
-
-trigger:
-  branch:
-    - dev
+    when:
+      branch:
+        - dev
