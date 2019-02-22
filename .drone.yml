@@ -10,7 +10,7 @@ name: default
 
 steps:
 
-
+  ## todo deploy mode
   - name: deploy
     image: maven:3.6-alpine
     volumes:
