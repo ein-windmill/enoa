@@ -1,0 +1,1110 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hant" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Http 客戶端 · Enoa 使用者指南</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="fewensa">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchors/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="database.html" />
+    
+    
+    <link rel="prev" href="promise.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="輸入並搜尋" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../habit/">
+            
+                <a href="../habit/">
+            
+                    
+                    習慣
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../habit/epm.html">
+            
+                <a href="../habit/epm.html">
+            
+                    
+                    EPM && USE
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    地基
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="toolkit.html">
+            
+                <a href="toolkit.html">
+            
+                    
+                    工具包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="promise.html">
+            
+                <a href="promise.html">
+            
+                    
+                    Promise
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3.3" data-path="http.html">
+            
+                <a href="http.html">
+            
+                    
+                    Http 客戶端
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="database.html">
+            
+                <a href="database.html">
+            
+                    
+                    資料庫
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="template.html">
+            
+                <a href="template.html">
+            
+                    
+                    模板
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="firetpl.html">
+            
+                <a href="firetpl.html">
+            
+                    
+                    Firetpl
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.7" data-path="trydb.html">
+            
+                <a href="trydb.html">
+            
+                    
+                    Trydb
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.8" data-path="logger.html">
+            
+                <a href="logger.html">
+            
+                    
+                    日誌
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.9" data-path="serialization.html">
+            
+                <a href="serialization.html">
+            
+                    
+                    序列化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.10" data-path="typebuilder.html">
+            
+                <a href="typebuilder.html">
+            
+                    
+                    Typebuilder
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.11" data-path="json.html">
+            
+                <a href="json.html">
+            
+                    
+                    Json
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.12" data-path="redis.html">
+            
+                <a href="redis.html">
+            
+                    
+                    Redis
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.13" data-path="eml.html">
+            
+                <a href="eml.html">
+            
+                    
+                    Eml
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.14" data-path="solr.html">
+            
+                <a href="solr.html">
+            
+                    
+                    Solr
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.15" data-path="rabbitmq.html">
+            
+                <a href="rabbitmq.html">
+            
+                    
+                    RabbitMQ
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.16" data-path="rpc.html">
+            
+                <a href="rpc.html">
+            
+                    
+                    Rpc
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../repeater/">
+            
+                <a href="../repeater/">
+            
+                    
+                    Repeater
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../repeater/provider.html">
+            
+                <a href="../repeater/provider.html">
+            
+                    
+                    提供者
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../repeater/config.html">
+            
+                <a href="../repeater/config.html">
+            
+                    
+                    配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../repeater/accessor.html">
+            
+                <a href="../repeater/accessor.html">
+            
+                    
+                    訪問器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../repeater/capture.html">
+            
+                <a href="../repeater/capture.html">
+            
+                    
+                    異常攔截
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../repeater/upload.html">
+            
+                <a href="../repeater/upload.html">
+            
+                    
+                    檔案上傳
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../repeater/other.html">
+            
+                <a href="../repeater/other.html">
+            
+                    
+                    其他
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../yosart/">
+            
+                <a href="../yosart/">
+            
+                    
+                    Yosart
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../yosart/standard.html">
+            
+                <a href="../yosart/standard.html">
+            
+                    
+                    標準
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../yosart/func.html">
+            
+                <a href="../yosart/func.html">
+            
+                    
+                    方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../yosart/config.html">
+            
+                <a href="../yosart/config.html">
+            
+                    
+                    配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../yosart/plugin.html">
+            
+                <a href="../yosart/plugin.html">
+            
+                    
+                    外掛
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../yosart/ext.html">
+            
+                <a href="../yosart/ext.html">
+            
+                    
+                    擴充套件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.6" data-path="../yosart/beforeampampafter.html">
+            
+                <a href="../yosart/beforeampampafter.html">
+            
+                    
+                    啟動回撥
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.7" data-path="../yosart/renderer.html">
+            
+                <a href="../yosart/renderer.html">
+            
+                    
+                    渲染輔助工具
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.8" data-path="../yosart/example.html">
+            
+                <a href="../yosart/example.html">
+            
+                    
+                    案例
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../gateway/">
+            
+                <a href="../gateway/">
+            
+                    
+                    Gateway
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../gateway/func.html">
+            
+                <a href="../gateway/func.html">
+            
+                    
+                    方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../gateway/cros.html">
+            
+                <a href="../gateway/cros.html">
+            
+                    
+                    跨域
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../gateway/auth.html">
+            
+                <a href="../gateway/auth.html">
+            
+                    
+                    授權
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../gateway/mapping.html">
+            
+                <a href="../gateway/mapping.html">
+            
+                    
+                    對映
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="../gateway/example.html">
+            
+                <a href="../gateway/example.html">
+            
+                    
+                    案例
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../thanks/">
+            
+                <a href="../thanks/">
+            
+                    
+                    鳴謝
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本書使用 GitBook 釋出
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Http 客戶端</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="http-client"><a name="http-client" class="plugin-anchor" href="#http-client"><i class="fa fa-link" aria-hidden="true"></i></a>Http Client</h1>
+<h2 id="pom"><a name="pom" class="plugin-anchor" href="#pom"><i class="fa fa-link" aria-hidden="true"></i></a>POM</h2>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.enoa<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>enoa-http<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.6-beta.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+</code></pre>
+<p>Http &#x5BA2;&#x6236;&#x7AEF;, &#x9810;&#x8A2D;&#x63A1;&#x7528; Java &#x63D0;&#x4F9B;&#x7684; HttpURLConnection &#x9032;&#x884C;&#x8CC7;&#x6E90;&#x8ACB;&#x6C42;. &#x53EF;&#x4EE5;&#x7B2C;&#x4E09;&#x65B9; Http &#x5BA2;&#x6236;&#x7AEF;&#x5BE6;&#x73FE;, &#x4E0D;&#x904E; Enoa &#x5C1A;&#x672A;&#x63D0;&#x4F9B;&#x5176;&#x4ED6;&#x7B2C;&#x4E09;&#x65B9;&#x5BE6;&#x73FE;. Http Client &#x6240;&#x6709;&#x63D0;&#x4F9B;&#x7684;&#x4ECB;&#x9762;&#x5B97;&#x65E8;&#x662F;&#x5118;&#x91CF;&#x7C21;&#x55AE;&#x6613;&#x65BC;&#x7406;&#x89E3;&#x7684;&#x65B9;&#x5F0F;&#x53BB;&#x5448;&#x73FE;, &#x548C;&#x73FE;&#x5B58;&#x65BC; Java &#x4E2D;&#x7684;&#x5176;&#x4ED6;&#x6846;&#x67B6;&#x6709;&#x5F88;&#x5927;&#x7684;&#x4E0D;&#x540C;, &#x50B3;&#x7D71;&#x7684; Http Client &#x6703;&#x9700;&#x8981;&#x9032;&#x884C;&#x5F88;&#x591A;&#x8B8A;&#x6578;&#x7684;&#x9810;&#x8A2D;&#x5B9A;, &#x4F8B;&#x5982; Header, Request Body &#x7B49;&#x7B49;, &#x5728; Enoa Http Client &#x4E2D;&#x4E0D;&#x9700;&#x8981;, &#x4E00;&#x5207;&#x90FD;&#x662F;&#x93C8;&#x5F0F; API, &#x7121;&#x9700;&#x5916;&#x90E8;&#x5B9A;&#x7FA9;, &#x7121;&#x9700;&#x77AD;&#x89E3;&#x5F88;&#x591A;&#x985E;.
+Http Client &#x5BE6;&#x969B;&#x4E0A;&#x6C92;&#x6709;&#x5B8C;&#x5168;&#x7684;&#x9075;&#x5B88; Http &#x5354;&#x8B70;, &#x6700;&#x660E;&#x986F;&#x7684;&#x6848;&#x4F8B;&#x662F; GET &#x8ACB;&#x6C42;&#x5141;&#x8A31; Body(raw) &#x7684;&#x5B58;&#x5728;, &#x6A19;&#x6E96;&#x7684; Http &#x5354;&#x8B70;&#x4E2D;&#x4E26;&#x4E0D;&#x5EFA;&#x8B70;&#x9019;&#x9EBC;&#x4F7F;&#x7528;, &#x6709;&#x5169;&#x500B;&#x56E0;&#x7D20;&#x5C0E;&#x81F4;&#x4E86;&#x9019;&#x500B;&#x7D50;&#x679C;&#x7684;&#x5B58;&#x5728;, &#x9996;&#x5148;, &#x6309;&#x7167;&#x6A19;&#x6E96;&#x78BA;&#x5BE6;&#x662F;&#x4E0D;&#x5EFA;&#x8B70; GET &#x8ACB;&#x6C42;&#x652F;&#x63F4; Body(raw), &#x4F46;&#x662F;, &#x5354;&#x8B70;&#x672C;&#x8EAB;&#x5176;&#x5BE6;&#x662F;&#x652F;&#x63F4;&#x7684;, Enoa &#x53EA;&#x662F;&#x539F;&#x59CB;&#x9AD4;&#x73FE;&#x800C;&#x5DF2;; &#x5176;&#x6B21;, &#x90E8;&#x5206; Http &#x4ECB;&#x9762;&#x5176;&#x5BE6;&#x662F;&#x5B58;&#x5728; GET &#x8ACB;&#x6C42;&#x5B58;&#x653E; Body &#x7684;&#x60C5;&#x6CC1;, &#x8457;&#x540D;&#x7684;&#x6848;&#x4F8B;&#x662F; Elasticsearch</p>
+<p>Elasticsearch Query <sup><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-query.html" target="_blank">Source</a></sup></p>
+<pre><code class="lang-bash">curl -X GET <span class="hljs-string">&quot;localhost:9200/_search&quot;</span> -H <span class="hljs-string">&apos;Content-Type: application/json&apos;</span> <span class="hljs-_">-d</span><span class="hljs-string">&apos;
+{
+  &quot;query&quot; : {
+    &quot;term&quot; : { &quot;user&quot; : &quot;kimchy&quot; }
+  }
+}
+&apos;</span>
+</code></pre>
+<p>&#x5982;&#x679C;&#x6309;&#x7167; Http &#x6A19;&#x6E96;&#x5354;&#x8B70;, &#x4E0D;&#x5141;&#x8A31; GET &#x8ACB;&#x6C42;&#x5305;&#x542B; Body(raw), &#x5247;&#x6703;&#x5C0E;&#x81F4;&#x5F8C;&#x7E8C;&#x5DE5;&#x4F5C;&#x7121;&#x6CD5;&#x958B;&#x5C55;. &#x4F46;&#x662F;&#x4E0D;&#x7528;&#x64D4;&#x5FC3;, &#x9664;&#x4E86;&#x9019;&#x4E9B;&#x9700;&#x8981;&#x7279;&#x6B8A;&#x8655;&#x7406;&#x7684;&#x672A;&#x5168;&#x90E8;&#x9075;&#x5B88;&#x5354;&#x8B70;, &#x5176;&#x4ED6;&#x90E8;&#x5206;&#x5747;&#x6309;&#x7167;&#x6A19;&#x6E96; Http &#x5354;&#x8B70;&#x9032;&#x884C; (Enoa Http Client &#x4ECB;&#x9762;&#x7121;&#x6CD5;&#x4FDD;&#x8B49;&#x7B2C;&#x4E09;&#x65B9;&#x5BE6;&#x73FE;&#x662F;&#x5426;&#x540C;&#x6A23;&#x4FDD;&#x6301;&#x6B64;&#x7279;&#x6027;).</p>
+<h2 id="&#x4F7F;&#x7528;&#x65B9;&#x6CD5;"><a name="&#x4F7F;&#x7528;&#x65B9;&#x6CD5;" class="plugin-anchor" href="#&#x4F7F;&#x7528;&#x65B9;&#x6CD5;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x4F7F;&#x7528;&#x65B9;&#x6CD5;</h2>
+<h2 id="get"><a name="get" class="plugin-anchor" href="#get"><i class="fa fa-link" aria-hidden="true"></i></a>GET</h2>
+<pre><code class="lang-java">HttpResponse resp = Http.request(<span class="hljs-string">&quot;https://httpbin.org/get&quot;</span>)
+  .method(HttpMethod.GET)
+  .para(<span class="hljs-string">&quot;id&quot;</span>, <span class="hljs-string">&quot;1&quot;</span>)
+  .para(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;Jack&quot;</span>)
+  .header(<span class="hljs-string">&quot;user-agent&quot;</span>, <span class="hljs-string">&quot;Mozilla/5.0 firefox 54&quot;</span>)
+  .header(<span class="hljs-string">&quot;origin&quot;</span>, <span class="hljs-string">&quot;http://localhost:100&quot;</span>)
+  .emit();
+</code></pre>
+<h2 id="post"><a name="post" class="plugin-anchor" href="#post"><i class="fa fa-link" aria-hidden="true"></i></a>POST</h2>
+<pre><code class="lang-java">HttpResponse resp = Http.request(EoUrl.with(<span class="hljs-string">&quot;https://httpbin.org&quot;</span>).subpath(<span class="hljs-string">&quot;post&quot;</span>).para(<span class="hljs-string">&quot;id&quot;</span>, <span class="hljs-number">1</span>))
+  .method(HttpMethod.POST)
+  .para(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;Jack&quot;</span>)
+  .cookie(<span class="hljs-string">&quot;SESSID&quot;</span>, <span class="hljs-string">&quot;session&quot;</span>)
+  .emit();
+</code></pre>
+<p>EoUrl &#x4E2D;&#x7684; para &#x65B9;&#x6CD5;&#x65B0;&#x589E;&#x7684;&#x5F15;&#x6578;&#x5C07;&#x6703;&#x4EE5; GET &#x5F62;&#x5F0F;&#x50B3;&#x9001;, &#x800C; Http &#x4E2D;&#x7684; para &#x65B9;&#x6CD5;&#x65B0;&#x589E;&#x7684;&#x5F15;&#x6578;&#x6703;&#x4EE5; POST &#x50B3;&#x9001;.</p>
+<h2 id="put"><a name="put" class="plugin-anchor" href="#put"><i class="fa fa-link" aria-hidden="true"></i></a>PUT</h2>
+<pre><code class="lang-java">HttpResponse resp = Http.request(HttpMethod.PUT, EoUrl.with(<span class="hljs-string">&quot;https://httpbin.org&quot;</span>).subpath(<span class="hljs-string">&quot;put&quot;</span>))
+  .para(<span class="hljs-string">&quot;id&quot;</span>, <span class="hljs-number">1</span>)
+  .para(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;Jack&quot;</span>)
+  .emit();
+</code></pre>
+<h2 id="raw"><a name="raw" class="plugin-anchor" href="#raw"><i class="fa fa-link" aria-hidden="true"></i></a>RAW</h2>
+<pre><code class="lang-java">HttpResponse resp = Http.request(HttpMethod.POST, EoUrl.with(<span class="hljs-string">&quot;https://httpbin.org/post?id=1&quot;</span>))
+  .raw(<span class="hljs-string">&quot;{\&quot;name\&quot;: \&quot;Jack\&quot;}&quot;</span>, <span class="hljs-string">&quot;application/json&quot;</span>)
+  .para(<span class="hljs-string">&quot;ts&quot;</span>, <span class="hljs-number">1537713494767</span>)
+  .emit();
+</code></pre>
+<p>para &#x65B9;&#x6CD5;&#x65B0;&#x589E;&#x7684;&#x5F15;&#x6578;&#x5C07;&#x6703;&#x52A0;&#x5165;&#x5230; GET &#x5F15;&#x6578;&#x4E2D;</p>
+<h2 id="upload"><a name="upload" class="plugin-anchor" href="#upload"><i class="fa fa-link" aria-hidden="true"></i></a>UPLOAD</h2>
+<pre><code class="lang-java">HttpResponse resp = Http.request(<span class="hljs-string">&quot;https://httpbin.org/post?id=1&quot;</span>)
+  .method(HttpMethod.POST)
+  .para(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;Jack&quot;</span>)
+  .para(<span class="hljs-string">&quot;file&quot;</span>, Paths.get(EnvKit.string(<span class="hljs-string">&quot;os.name&quot;</span>).toLowerCase().contains(<span class="hljs-string">&quot;win&quot;</span>) ? <span class="hljs-string">&quot;c:\\windows\\system32\\cmd.exe&quot;</span> : <span class="hljs-string">&quot;/usr/bin/ls&quot;</span>))
+  .emit();
+</code></pre>
+<p>URL &#x4E2D;&#x5F15;&#x6578;&#x4EE5; GET &#x65B9;&#x5F0F;&#x50B3;&#x9001;, Http para &#x65B9;&#x6CD5;&#x5F15;&#x6578;&#x4EE5; <code>multipart/form-data</code> &#x50B3;&#x9001;.</p>
+<h2 id="binary"><a name="binary" class="plugin-anchor" href="#binary"><i class="fa fa-link" aria-hidden="true"></i></a>BINARY</h2>
+<pre><code class="lang-java">HttpResponse resp = Http.request(EoUrl.with(<span class="hljs-string">&quot;https://httpbin.org&quot;</span>).subpath(<span class="hljs-string">&quot;post&quot;</span>))
+  .method(HttpMethod.POST)
+  .contentType(<span class="hljs-string">&quot;application/octet-stream&quot;</span>)
+  .para(<span class="hljs-string">&quot;id&quot;</span>, <span class="hljs-number">1</span>)
+  .para(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;Jack&quot;</span>)
+  .binary(<span class="hljs-string">&quot;Hello World&quot;</span>.getBytes())
+  .emit();
+</code></pre>
+<p>binary &#x6A21;&#x5F0F;, para &#x5F15;&#x6578;&#x5C07;&#x6703;&#x4EE5; GET &#x5F62;&#x5F0F;&#x8ACB;&#x6C42;</p>
+<h2 id="array"><a name="array" class="plugin-anchor" href="#array"><i class="fa fa-link" aria-hidden="true"></i></a>ARRAY</h2>
+<pre><code class="lang-java">HttpResponse resp = Http.request(HttpMethod.POST, <span class="hljs-string">&quot;https://httpbin.org/post?id=1&quot;</span>)
+  .traditional(<span class="hljs-keyword">false</span>)
+  .para(<span class="hljs-string">&quot;array&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]{<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>})
+  .emit();
+</code></pre>
+<p>&#x4F9D;&#x64DA;&#x8ACB;&#x6C42;&#x578B;&#x5225;&#x4E0D;&#x540C;, GET &#x5C07;&#x6703;&#x628A;&#x5F15;&#x6578;&#x653E;&#x5165;&#x5728; Url &#x4E2D;, &#x800C;&#x5176;&#x4ED6;&#x5247;&#x5728; Request Body &#x4E2D;, traditional &#x662F;&#x5426;&#x50B3;&#x7D71;&#x6A21;&#x5F0F;, &#x5982;&#x679C;&#x8A2D;&#x5B9A;&#x70BA; false, &#x5247;&#x6703;&#x5728;&#x5F15;&#x6578;&#x540D;&#x589E;&#x52A0; [].
+&#x4F8B;&#x5982;&#x9019;&#x500B;&#x8ACB;&#x6C42;, &#x5BE6;&#x969B;&#x8ACB;&#x6C42;&#x7684;&#x8CC7;&#x6599;&#x70BA;:
+array[]=0&amp;array[]=1&amp;array[]=2</p>
+<h2 id="auth"><a name="auth" class="plugin-anchor" href="#auth"><i class="fa fa-link" aria-hidden="true"></i></a>AUTH</h2>
+<pre><code class="lang-java">HttpResponse resp = Http.request(<span class="hljs-string">&quot;https://httpbin.org/get&quot;</span>)
+  .para(<span class="hljs-string">&quot;id&quot;</span>, <span class="hljs-string">&quot;1&quot;</span>)
+  .auth(<span class="hljs-keyword">new</span> BasicAuth(<span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-string">&quot;passwd&quot;</span>))
+<span class="hljs-comment">// .auth(new BearerAuth(&quot;token&quot;))</span>
+<span class="hljs-comment">// .auth(new OAuth2(&quot;token&quot;))</span>
+  .emit();
+</code></pre>
+<p>&#x53D7;&#x652F;&#x63F4;&#x7684;&#x6388;&#x6B0A;&#x898B; <a href="https://github.com/fewensa/enoa/tree/master/enoa-http/src/main/java/io/enoa/http/auth" target="_blank">auth</a>, &#x5982;&#x679C;&#x6709;&#x7279;&#x6B8A;&#x7684;&#x6388;&#x6B0A;&#x65B9;&#x5F0F;, &#x8ACB;&#x5BE6;&#x73FE; <a href="https://github.com/fewensa/enoa/blob/master/enoa-http/src/main/java/io/enoa/http/HttpAuth.java" title="HttpAuth.java" target="_blank">HttpAuth</a> &#x4ECB;&#x9762;.</p>
+<h2 id="proxy"><a name="proxy" class="plugin-anchor" href="#proxy"><i class="fa fa-link" aria-hidden="true"></i></a>PROXY</h2>
+<pre><code class="lang-java">HttpResponse resp = Http.request(<span class="hljs-string">&quot;http://cip.cc&quot;</span>)
+  .proxy(<span class="hljs-keyword">new</span> SocketProxy(<span class="hljs-string">&quot;127.0.0.1&quot;</span>, <span class="hljs-number">2310</span>))
+  .header(<span class="hljs-string">&quot;user-agent&quot;</span>, <span class="hljs-string">&quot;curl/7.57.0&quot;</span>)
+  .emit();
+</code></pre>
+<p>&#x53D7;&#x652F;&#x63F4;&#x7684;&#x4EE3;&#x7406;&#x65B9;&#x5F0F; <a href="https://github.com/fewensa/enoa/blob/master/enoa-http/src/main/java/io/enoa/http/proxy/TcpProxy.java" title="TcpProxy.java" target="_blank">TcpProxy</a>, <a href="https://github.com/fewensa/enoa/blob/master/enoa-http/src/main/java/io/enoa/http/proxy/SocketProxy.java" title="SocketProxy.java" target="_blank">SocketProxy</a>, &#x5982;&#x679C;&#x6709;&#x7279;&#x6B8A;&#x7684;&#x4EE3;&#x7406;&#x65B9;&#x5F0F;, &#x8ACB;&#x5BE6;&#x73FE; <a href="https://github.com/fewensa/enoa/blob/master/enoa-http/src/main/java/io/enoa/http/proxy/HttpProxy.java" title="HttpProxy.java" target="_blank">HttpProxy</a> &#x4ECB;&#x9762;.</p>
+<h2 id="enqueue"><a name="enqueue" class="plugin-anchor" href="#enqueue"><i class="fa fa-link" aria-hidden="true"></i></a>ENQUEUE</h2>
+<pre><code class="lang-java">Http.request(EoUrl.with(<span class="hljs-string">&quot;https://httpbin.org&quot;</span>).subpath(<span class="hljs-string">&quot;get&quot;</span>))
+  .method(HttpMethod.GET)
+  .enqueue()
+  .ok(resp -&gt; <span class="hljs-keyword">this</span>.print(<span class="hljs-string">&quot;enqueue ok&quot;</span>, resp))
+  .error(resp -&gt; <span class="hljs-keyword">this</span>.print(<span class="hljs-string">&quot;enqueue fail&quot;</span>, resp))
+  .then(HttpResponse::body)
+  .then(HttpResponseBody::bytes)
+  .&lt;<span class="hljs-keyword">byte</span>[]&gt;then(body -&gt; EnoaBinary.create(body, EoConst.CHARSET).string())
+  .&lt;String&gt;valid(TextKit::blankn)
+  .&lt;String&gt;valid(data -&gt; data.length() &gt; <span class="hljs-number">30</span>)
+  .execute(System.out::println)
+  .fail(System.err::println)
+  .capture(System.err::println)
+  .always(() -&gt; System.out.println(<span class="hljs-string">&quot;finally&quot;</span>));
+</code></pre>
+<p>&#x975E;&#x540C;&#x6B65;&#x8ACB;&#x6C42;, &#x547C;&#x53EB;<code>enqueue</code> &#x65B9;&#x6CD5;&#x5C07;&#x9032;&#x5165;&#x975E;&#x540C;&#x6B65;&#x6A21;&#x5F0F;, &#x95DC;&#x65BC;&#x975E;&#x540C;&#x6B65;&#x8ACB;&#x6C42;&#x5F8C;&#x7684;&#x5404;&#x500B;&#x65B9;&#x6CD5;, &#x53C3;&#x7167;&#x4EE5;&#x4E0B;&#x6D41;&#x7A0B;&#x5716;&#x7406;&#x89E3;:</p>
+<pre><code class="lang-flow">st=&gt;start: enqueue
+e=&gt;end: always
+ok=&gt;operation: ok
+error=&gt;operation: error
+then0=&gt;operation: then
+execute=&gt;operation: execute
+fail=&gt;operation: fail
+capture=&gt;operation: capture
+always=&gt;operation: always
+valid=&gt;operation: valid
+continue=&gt;operation: continue
+hasvalid=&gt;condition: has valid
+hascapture=&gt;condition: has exception
+hasthen=&gt;condition: has then
+validret=&gt;condition: true or false
+isok=&gt;condition: yes or no
+
+
+st-&gt;isok-&gt;continue-&gt;hasthen-&gt;then0-&gt;hasthen-&gt;hasvalid-&gt;valid-&gt;validret-&gt;execute-&gt;hascapture-&gt;always
+validret(yes)-&gt;hasvalid
+validret(no)-&gt;fail-&gt;hascapture
+hasvalid(yes)-&gt;valid
+hasvalid(no)-&gt;execute
+hascapture(yes)-&gt;capture-&gt;always
+hascapture(no)-&gt;always
+isok(yes)-&gt;ok-&gt;continue
+isok(no)-&gt;error-&gt;continue
+hasthen(yes)-&gt;then0
+hasthen(no)-&gt;hasvalid
+</code></pre>
+<p>&#x53D7;&#x9650;&#x65BC;&#x6D41;&#x7A0B;&#x5716;&#x7684;&#x8868;&#x9054;&#x5F62;&#x5F0F;&#x4EE5;&#x53CA;&#x7BC7;&#x5E45;&#x7684;&#x554F;&#x984C;, &#x8A72;&#x5716;&#x4E2D;&#x6709;&#x90E8;&#x5206;&#x932F;&#x8AA4;, capture &#x4E26;&#x975E;&#x662F;&#x6700;&#x5F8C;&#x4E00;&#x6B65;&#x6AA2;&#x67E5;, &#x800C;&#x662F;&#x9032;&#x5165; enqueue &#x4E4B;&#x5F8C;&#x7684;&#x4EFB;&#x4F55;&#x4E00;&#x6B65;&#x932F;&#x8AA4;&#x90FD;&#x6703;&#x9032;&#x5165;&#x5230; capture &#x7136;&#x5F8C;&#x9032;&#x5165; always, &#x53E6;&#x5916;, &#x56E0;&#x70BA; execute &#x4EE5;&#x53CA; fail &#x90FD;&#x662F;&#x652F;&#x63F4;&#x591A;&#x500B;&#x7684;, &#x56E0;&#x6B64;&#x4E5F;&#x6703;&#x4E00;&#x76F4;&#x6AA2;&#x67E5;&#x662F;&#x5426;&#x547C;&#x53EB;&#x5B8C;&#x7562;, &#x624D;&#x6703;&#x9032;&#x5165;&#x5230;&#x4E0B;&#x4E00;&#x500B;&#x6D41;&#x7A0B;.</p>
+<p>&#x8A72;&#x5716;&#x7528;&#x6587;&#x5B57;&#x53EF;&#x4EE5;&#x8868;&#x9054;&#x70BA;:</p>
+<ol>
+<li>&#x9996;&#x5148;&#x6839;&#x64DA;&#x97FF;&#x61C9;&#x7684;&#x7D50;&#x679C;&#x5224;&#x65B7;&#x72C0;&#x614B;&#x662F;&#x5426;&#x70BA; 20x, &#x5982;&#x679C;&#x662F;, &#x547C;&#x53EB; ok &#x5426;&#x5247;&#x547C;&#x53EB; error(&#x9019;&#x88E1;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F; ok error &#x4E26;&#x975E;&#x662F;&#x5FC5;&#x9808;&#x7684;, &#x800C;&#x4E14;&#x5C31;&#x7B97;&#x5931;&#x6557;&#x4E5F;&#x4E0D;&#x6703;&#x5F71;&#x97FF;&#x5F8C;&#x9762;&#x7684;&#x65B9;&#x6CD5;&#x547C;&#x53EB;, &#x50C5;&#x50C5;&#x662F;&#x7528;&#x4F86;&#x505A;&#x8CC7;&#x6599;&#x6A19;&#x8A18;&#x7B49;&#x4F5C;&#x7528;, &#x8996;&#x5BE6;&#x969B;&#x60C5;&#x6CC1;&#x770B;&#x662F;&#x5426;&#x4F7F;&#x7528;);</li>
+<li>&#x63A5;&#x8457;&#x5224;&#x65B7;&#x662F;&#x5426;&#x6709; then &#x9032;&#x884C;&#x8CC7;&#x6599;&#x8F49;&#x63DB;, &#x5982;&#x679C;&#x6709;&#x5247;&#x9010;&#x500B;&#x547C;&#x53EB; then;</li>
+<li>&#x5224;&#x5B9A;&#x662F;&#x5426;&#x6709; valid, &#x5982;&#x679C;&#x6709;&#x9010;&#x500B;&#x547C;&#x53EB; valid &#x9032;&#x884C;&#x8CC7;&#x6599;&#x6821;&#x9A57;, &#x6821;&#x9A57;&#x5B8C;&#x6210;&#x4E26;&#x5168;&#x90E8;&#x901A;&#x904E;&#x5F8C;&#x9032;&#x5165; execute, &#x5176;&#x4E2D;&#x6709;&#x4EFB;&#x4F55;&#x4E00;&#x500B;&#x6821;&#x9A57;&#x5931;&#x6557;&#x5C07;&#x9032;&#x5165; fail; &#x5982;&#x679C;&#x6C92;&#x6709;, &#x5247;&#x76F4;&#x63A5;&#x9032;&#x5165; execute;</li>
+<li>&#x7121;&#x8AD6;&#x524D;&#x9762;&#x7684;&#x7D50;&#x679C;&#x5982;&#x4F55;&#x6700;&#x5F8C;&#x9032;&#x5165; always</li>
+<li>capture &#x5C07;&#x6703;&#x76E3;&#x63A7;&#x4E0A;&#x9762;&#x9664;&#x4E86; always &#x4EE5;&#x5916;&#x7684;&#x6240;&#x6709;&#x6B65;&#x9A5F;, &#x662F;&#x5426;&#x4E1F;&#x64F2;&#x7570;&#x5E38;, &#x4E26;&#x4E14;&#x6700;&#x7D42;&#x6703;&#x9032;&#x5165;&#x5230; always</li>
+</ol>
+<p>&#x6CDB;&#x578B;&#x6CE8;&#x610F;:</p>
+<pre><code class="lang-java">.then(HttpResponse::body) <span class="hljs-comment">// type HttpResponseBody</span>
+.then(HttpResponseBody::bytes) <span class="hljs-comment">// type byte[]</span>
+.&lt;<span class="hljs-keyword">byte</span>[]&gt;then(body -&gt; EnoaBinary.create(body, EoConst.CHARSET).string()) <span class="hljs-comment">// type string</span>
+.&lt;String&gt;valid(TextKit::blankn)
+.&lt;String&gt;valid(data -&gt; data.length() &gt; <span class="hljs-number">30</span>)
+</code></pre>
+<p>&#x53EF;&#x4EE5;&#x5F9E;&#x4E0A;&#x9762;&#x7684;&#x7A0B;&#x5F0F;&#x78BC;&#x4E2D;&#x770B;&#x51FA;, then &#x4EE5;&#x53CA; valid &#x90FD;&#x9700;&#x8981;&#x6307;&#x660E;&#x6CDB;&#x578B;, &#x5426;&#x5247;&#x5F15;&#x6578;&#x4E2D;&#x5C07;&#x7121;&#x6CD5;&#x9032;&#x884C;&#x578B;&#x5225;&#x8B58;&#x5225;, &#x56E0;&#x70BA; then &#x7684;&#x4F5C;&#x7528;&#x5C31;&#x662F;&#x9032;&#x884C;&#x8CC7;&#x6599;&#x578B;&#x5225;&#x8F49;&#x63DB;, &#x7576; then &#x5C07;&#x524D;&#x4E00;&#x500B;&#x6578;&#x64DA;&#x7684;&#x578B;&#x5225;&#x8F49;&#x63DB;&#x4E86;, &#x5F8C;&#x9762;&#x7684;&#x6BCF;&#x4E00;&#x6B65;&#x578B;&#x5225;&#x5C07;&#x6703;&#x8F49;&#x8B8A;&#x70BA;&#x524D;&#x4E00;&#x500B; then &#x8F49;&#x63DB;&#x5F8C;&#x7684;&#x578B;&#x5225;, &#x76F4;&#x5230;&#x6700;&#x5F8C;&#x4E00;&#x500B; then</p>
+<p>&#x5BE6;&#x969B;&#x4F7F;&#x7528;, &#x9019;&#x4E9B; Promise &#x65B9;&#x6CD5;, &#x4E26;&#x4E0D;&#x662F;&#x6BCF;&#x500B;&#x90FD;&#x9700;&#x8981;, &#x4E00;&#x500B;&#x6BD4;&#x8F03;&#x5E38;&#x898B;&#x7684;&#x6848;&#x4F8B;:</p>
+<pre><code class="lang-java">Http.request(EoUrl.with(<span class="hljs-string">&quot;https://httpbin.org/get&quot;</span>))
+  .enqueue()
+  .&lt;HttpResponse&gt;then(resp -&gt; resp.body().string())
+  .&lt;Kv&gt;then(body -&gt; Json.parse(body, Kv.class))
+  .&lt;Kv&gt;execute(kv -&gt; System.out.println(kv.string(<span class="hljs-string">&quot;url&quot;</span>)))
+  .capture(System.err::println)
+  .always(() -&gt; System.out.println(<span class="hljs-string">&quot;finally&quot;</span>));
+</code></pre>
+<h2 id="encode"><a name="encode" class="plugin-anchor" href="#encode"><i class="fa fa-link" aria-hidden="true"></i></a>ENCODE</h2>
+<pre><code class="lang-java">Http.request(EoUrl.with(<span class="hljs-string">&quot;https://httpbin.org&quot;</span>).subpath(<span class="hljs-string">&quot;get&quot;</span>))
+  .method(HttpMethod.GET)
+  .charset(Charset.forName(<span class="hljs-string">&quot;UTF-8&quot;</span>))
+  .encode()
+  .para(<span class="hljs-string">&quot;k0&quot;</span>, <span class="hljs-string">&quot;&#x5B78;&quot;</span>)
+  .para(<span class="hljs-string">&quot;k0&quot;</span>, <span class="hljs-string">&quot;&#x3042;&quot;</span>)
+  .para(<span class="hljs-string">&quot;k1&quot;</span>, <span class="hljs-string">&quot;A&quot;</span>)
+  .emit();
+</code></pre>
+<p>&#x5C0D; URL &#x4EE5;&#x53CA;&#x5F15;&#x6578;&#x9032;&#x884C;&#x7DE8;&#x78BC;, &#x6B64;&#x8655;&#x8ACB;&#x6C42;&#x7684;&#x5BE6;&#x969B;&#x9023;&#x7D50;&#x70BA;:</p>
+<pre><code class="lang-text">https://httpbin.org/get?k0=%E5%AD%B8&amp;k0=%E3%81%82&amp;k1=A
+</code></pre>
+<h2 id="url"><a name="url" class="plugin-anchor" href="#url"><i class="fa fa-link" aria-hidden="true"></i></a>URL</h2>
+<pre><code class="lang-java">EoUrl url = EoUrl.with(<span class="hljs-string">&quot;https://example.com/enoa&quot;</span>)
+  .traditional(<span class="hljs-keyword">false</span>)
+  .encode()
+  .subpath(<span class="hljs-string">&quot;manage&quot;</span>)
+  .subpath(<span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-string">&quot;login&quot;</span>)
+  .para(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;Jack&quot;</span>)
+  .para(<span class="hljs-string">&quot;password&quot;</span>, <span class="hljs-string">&quot;password&quot;</span>)
+  .para(<span class="hljs-string">&quot;array&quot;</span>, <span class="hljs-number">0</span>)
+  .para(<span class="hljs-string">&quot;array&quot;</span>, <span class="hljs-string">&quot;1&quot;</span>)
+  .para(<span class="hljs-string">&quot;array&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]{<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>})
+  .para(<span class="hljs-string">&quot;collection&quot;</span>, <span class="hljs-keyword">new</span> HashSet&lt;Integer&gt;() {{
+    add(<span class="hljs-number">0</span>);
+    add(<span class="hljs-number">1</span>);
+    add(<span class="hljs-number">2</span>);
+  }});
+</code></pre>
+<p>Enoa &#x63D0;&#x4F9B;&#x4E86;&#x5FEB;&#x901F;&#x5EFA;&#x7ACB; Url &#x7684;&#x4ECB;&#x9762;, EoUrl &#x7684;&#x529F;&#x80FD;&#x975E;&#x5E38;&#x8C50;&#x5BCC;, &#x4E0A;&#x65B9;&#x7A0B;&#x5F0F;&#x78BC;&#x6700;&#x7D42;&#x5C07;&#x6703;&#x751F;&#x6210;&#x7684;&#x9023;&#x7D50;&#x70BA;:</p>
+<pre><code class="lang-text">https://example.com/enoa/manage/user/login?array[]=2&amp;array[]=3&amp;array[]=4&amp;array[]=5&amp;collection[]=0&amp;name=Jack&amp;password=password&amp;array[]=0&amp;array[]=1&amp;collection[]=2&amp;collection[]=1
+</code></pre>
+<h2 id="config"><a name="config" class="plugin-anchor" href="#config"><i class="fa fa-link" aria-hidden="true"></i></a>config</h2>
+<p>&#x8ACB;&#x6C42;&#x8A2D;&#x5B9A;&#x5C08;&#x6848;, &#x8D85;&#x6642;&#x6642;&#x9593;&#x7B49;&#x76F8;&#x95DC;&#x8A2D;&#x5B9A;, Http &#x63D0;&#x4F9B;&#x7684;&#x4ECB;&#x9762; <a href="https://github.com/fewensa/enoa/blob/master/enoa-http/src/main/java/io/enoa/http/EoHttpConfig.java" title="EoHttpConfig.java" target="_blank">EoHttpConfig</a> &#x50C5;&#x6709;&#x4E09;&#x9805;&#x8A2D;&#x5B9A;:</p>
+<ul>
+<li>connectionTimeout</li>
+<li>soTimeout</li>
+<li>debug</li>
+</ul>
+<p>&#x5177;&#x9AD4;&#x7531;&#x5BE6;&#x73FE;&#x8005;&#x81EA;&#x5DF1;&#x63D0;&#x4F9B;, &#x4F8B;&#x5982;&#x9810;&#x8A2D;&#x7684; <a href="https://github.com/fewensa/enoa/blob/master/enoa-http/src/main/java/io/enoa/http/provider/httphelper/HttpHelperConfig.java" title="HttpHelperConfig.java" target="_blank">HttpHelperConfig</a></p>
+<p>&#x8ACB;&#x6C42;&#x4E2D;&#x5982;&#x679C;&#x8981;&#x8A2D;&#x5B9A;&#x5B9A;&#x7FA9;&#x914D;&#x7F6E;, &#x901A;&#x904E; <code>config</code> &#x65B9;&#x6CD5;&#x5373;&#x53EF;</p>
+<pre><code class="lang-java">Http.request(<span class="hljs-string">&quot;http://httpbin.org/get&quot;</span>)
+  .config(<span class="hljs-keyword">new</span> HttpHelperConfig.Builder().connectionTimeout(<span class="hljs-number">100</span>).build())
+  .emit();
+</code></pre>
+<h2 id="httprequest"><a name="httprequest" class="plugin-anchor" href="#httprequest"><i class="fa fa-link" aria-hidden="true"></i></a>HttpRequest</h2>
+<p>Http &#x4E2D;&#x5B58;&#x5728; HttpRequest &#x4ECB;&#x9762;, &#x50C5;&#x9650;&#x65BC; Http &#x5167;&#x90E8;&#x4F7F;&#x7528;, &#x4F7F;&#x7528;&#x8005;&#x901A;&#x5E38;&#x4E0D;&#x9700;&#x8981;&#x81EA;&#x5DF1;&#x5EFA;&#x7ACB;&#x4E5F;&#x7121;&#x6CD5;&#x76F4;&#x63A5;&#x7DAD;&#x8B77; HttpRequest; &#x4F46;&#x662F;&#x4ECD;&#x7136;&#x6709;&#x6A5F;&#x6703;&#x7372;&#x5F97; HttpRequest, &#x901A;&#x904E; <a href="#handler-ampamp-reporter">handler</a> &#x5373;&#x53EF;. &#x4E0D;&#x904E;&#x7121;&#x6CD5;&#x5C0D;&#x5176;&#x9032;&#x884C;&#x4FEE;&#x6539;, &#x53EA;&#x80FD;&#x5920;&#x67E5;&#x95B1;.</p>
+<ul>
+<li>version
+Http request version</li>
+<li>url
+&#x8ACB;&#x6C42;&#x9023;&#x7D50;</li>
+<li>method
+Http request method</li>
+<li>headers
+&#x8ACB;&#x6C42;&#x982D;</li>
+<li>body
+&#x8ACB;&#x6C42;&#x9AD4;</li>
+<li>config
+&#x8ACB;&#x6C42;&#x76F8;&#x95DC;&#x914D;&#x7F6E;, &#x5305;&#x62EC;&#x8D85;&#x6642;&#x6642;&#x9593;&#x7B49;.</li>
+<li>charset
+&#x5B57;&#x5143;&#x7DE8;&#x78BC;</li>
+<li>proxy
+&#x4EE3;&#x7406;&#x8CC7;&#x8A0A;</li>
+</ul>
+<h2 id="httpresponse"><a name="httpresponse" class="plugin-anchor" href="#httpresponse"><i class="fa fa-link" aria-hidden="true"></i></a>HttpResponse</h2>
+<p>HttpResponse &#x7684;&#x65B9;&#x6CD5;&#x76F8;&#x5C0D;&#x8F03;&#x591A;.</p>
+<ul>
+<li>code
+Http response code</li>
+<li>version
+Http version</li>
+<li>ok
+Response code &#x5728; 20x &#x5340;&#x9593;&#x8FD4;&#x56DE; true, &#x5426;&#x5247; false</li>
+<li>uri
+Request uri</li>
+<li>url
+Request url</li>
+<li>protocol
+HTTP or HTTPS</li>
+<li>host
+Request host</li>
+<li>charset
+&#x5B57;&#x5143;&#x7DE8;&#x78BC;</li>
+<li>message
+Response message</li>
+<li>isRedirect
+&#x97FF;&#x61C9;&#x662F;&#x5426;&#x91CD;&#x5B9A;&#x5411;</li>
+<li>cookieNames
+&#x6240;&#x6709; Cookie &#x540D;&#x7A31;</li>
+<li>cookieObject
+&#x7372;&#x53D6;&#x55AE;&#x500B; Cookie Object</li>
+<li>cookie
+&#x7372;&#x53D6;&#x55AE;&#x500B; Cookie String &#x503C;</li>
+<li>headerNames
+&#x6240;&#x6709; Response Header &#x540D;&#x7A31;</li>
+<li>header
+&#x7372;&#x53D6;&#x55AE;&#x500B; Header &#x503C;</li>
+<li>headers
+&#x7372;&#x53D6;&#x9663;&#x5217; Header &#x503C;</li>
+<li>body
+&#x97FF;&#x61C9;&#x9AD4;</li>
+<li>clear
+&#x6E05;&#x9664; Response</li>
+</ul>
+<p>&#x8457;&#x91CD;&#x8AAA;&#x660E; body, body &#x65B9;&#x6CD5;, &#x8FD4;&#x56DE;&#x7684;&#x662F; HttpResponseBody &#x7269;&#x4EF6;, &#x8A72;&#x7269;&#x4EF6;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x7372;&#x53D6;&#x97FF;&#x61C9;&#x9AD4;&#x7684; byte[], &#x6216;&#x8005;&#x76F4;&#x63A5;&#x8F49;&#x63DB;&#x70BA; string.</p>
+<pre><code class="lang-java">HttpResponse resp = Http.with(<span class="hljs-string">&quot;https://httpbin.org/get&quot;</span>).emit();
+HttpResponseBody body = resp.body();
+<span class="hljs-keyword">byte</span>[] bytes = body.bytes(); <span class="hljs-comment">// bytes body</span>
+String string = body.string(); <span class="hljs-comment">// string body</span>
+</code></pre>
+<h2 id="handler--reporter"><a name="handler--reporter" class="plugin-anchor" href="#handler--reporter"><i class="fa fa-link" aria-hidden="true"></i></a>handler &amp;&amp; reporter</h2>
+<p>Http &#x63D0;&#x4F9B;&#x4E86; handler &#x4EE5;&#x53CA; reporter &#x65B9;&#x6CD5;, handler &#x7528;&#x65BC;&#x6355;&#x7372; request, reporter &#x7528;&#x65BC;&#x6355;&#x7372; response, &#x9019;&#x5169;&#x500B;&#x65B9;&#x6CD5;&#x90FD;&#x662F;&#x975E;&#x540C;&#x6B65;&#x9032;&#x884C;&#x7684;. &#x5728;&#x5BE6;&#x969B;&#x4F7F;&#x7528;&#x4E2D;, &#x53EF;&#x901A;&#x904E;&#x9019;&#x5169;&#x500B;&#x65B9;&#x6CD5;&#x505A;&#x984D;&#x5916;&#x7684;&#x4E8B;&#x60C5;. &#x95DC;&#x65BC; reporter &#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;, &#x5982;&#x679C;&#x5916;&#x90E8;&#x547C;&#x53EB;&#x4E86; response.clear() &#x6216;&#x8005;&#x662F; reporter &#x4E2D;&#x547C;&#x53EB;&#x4E86; clear &#x90FD;&#x6709;&#x53EF;&#x80FD;&#x6703;&#x5C0E;&#x81F4;&#x5C0D;&#x65B9;&#x4E1F;&#x5931; response &#x4E2D;&#x7684;&#x8CC7;&#x6599;.</p>
+<pre><code class="lang-java">Http.request(EoUrl.with(<span class="hljs-string">&quot;https://httpbin.org&quot;</span>).subpath(<span class="hljs-string">&quot;get&quot;</span>))
+  .handler(System.out::println) <span class="hljs-comment">//async</span>
+  .reporter(System.out::println) <span class="hljs-comment">// async</span>
+  .emit();
+</code></pre>
+<h2 id="third-party"><a name="third-party" class="plugin-anchor" href="#third-party"><i class="fa fa-link" aria-hidden="true"></i></a>Third party</h2>
+<p>Http &#x652F;&#x63F4;&#x7B2C;&#x4E09;&#x65B9; Http Client &#x6846;&#x67B6;, &#x4F46;&#x662F; Enoa &#x4E2D;&#x6C92;&#x6709;&#x9032;&#x884C;&#x5BE6;&#x73FE;, &#x5982;&#x679C;&#x60F3;&#x8981;&#x4F7F;&#x7528;&#x7B2C;&#x4E09;&#x65B9;&#x5BE6;&#x73FE;, &#x53EF;&#x901A;&#x904E;&#x5BE6;&#x73FE; <a href="https://github.com/fewensa/enoa/blob/master/enoa-http/src/main/java/io/enoa/http/Http.java" title="EoHttp.java" target="_blank">EoHttp</a> &#x4ECB;&#x9762;, &#x4F86;&#x7372;&#x53D6;&#x4E00;&#x500B; Http &#x4F8B;&#x9805;.</p>
+<p>e.g.</p>
+<pre><code class="lang-java">Http.use(<span class="hljs-keyword">new</span> HttpHelperProvider())
+  .url(EoUrl.with(<span class="hljs-string">&quot;https://httpbin.org&quot;</span>).subpath(<span class="hljs-string">&quot;get&quot;</span>))
+  .emit();
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="promise.html" class="navigation navigation-prev " aria-label="Previous page: Promise">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="database.html" class="navigation navigation-next " aria-label="Next page: 資料庫">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Http 客戶端","level":"1.3.3","depth":2,"next":{"title":"資料庫","level":"1.3.4","depth":2,"path":"foundation/database.md","ref":"foundation/database.md","articles":[]},"previous":{"title":"Promise","level":"1.3.2","depth":2,"path":"foundation/promise.md","ref":"foundation/promise.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","fontsettings","sharing","lunr","search","highlight","livereload","ga"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"search":{},"lunr":{"ignoreSpecialCharacters":false,"maxIndexSize":1000000},"fontsettings":{"family":"sans","size":2,"theme":"white"},"highlight":{},"ga":{"configuration":"auto","token":"UA-112957311-1"},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","author":"fewensa","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Enoa 使用者指南","language":"zh-hant","gitbook":"*","description":"Enoa 使用者指南"},"file":{"path":"foundation/http.md","mtime":"2018-09-28T07:44:28.069Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-10-08T06:36:53.775Z"},"basePath":"..","book":{"language":"zh-tw"}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-ga/plugin.js"></script>
+        
+    
+
+    </body>
+</html>
+

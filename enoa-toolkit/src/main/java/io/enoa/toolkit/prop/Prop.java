@@ -25,7 +25,7 @@ import java.util.Properties;
 import java.util.Set;
 
 /**
- * @see https://github.com/jfinal/jfinal/blob/master/src/main/java/com/jfinal/kit/Prop.java
+ * https://github.com/jfinal/jfinal/blob/master/src/main/java/com/jfinal/kit/Prop.java
  * <p>
  * enoa - io.enoa.toolkit.prop
  */

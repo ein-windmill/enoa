@@ -1,0 +1,924 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Redis · Enoa 使用者指南</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="fewensa">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchors/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="eml.html" />
+    
+    
+    <link rel="prev" href="json.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../habit/">
+            
+                <a href="../habit/">
+            
+                    
+                    习惯
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../habit/epm.html">
+            
+                <a href="../habit/epm.html">
+            
+                    
+                    EPM && USE
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    地基
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="toolkit.html">
+            
+                <a href="toolkit.html">
+            
+                    
+                    工具包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="promise.html">
+            
+                <a href="promise.html">
+            
+                    
+                    Promise
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="http.html">
+            
+                <a href="http.html">
+            
+                    
+                    Http 客户端
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="database.html">
+            
+                <a href="database.html">
+            
+                    
+                    数据库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="template.html">
+            
+                <a href="template.html">
+            
+                    
+                    模板
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="firetpl.html">
+            
+                <a href="firetpl.html">
+            
+                    
+                    Firetpl
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.7" data-path="trydb.html">
+            
+                <a href="trydb.html">
+            
+                    
+                    Trydb
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.8" data-path="logger.html">
+            
+                <a href="logger.html">
+            
+                    
+                    日志
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.9" data-path="serialization.html">
+            
+                <a href="serialization.html">
+            
+                    
+                    序列化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.10" data-path="typebuilder.html">
+            
+                <a href="typebuilder.html">
+            
+                    
+                    Typebuilder
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.11" data-path="json.html">
+            
+                <a href="json.html">
+            
+                    
+                    Json
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3.12" data-path="redis.html">
+            
+                <a href="redis.html">
+            
+                    
+                    Redis
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.13" data-path="eml.html">
+            
+                <a href="eml.html">
+            
+                    
+                    Eml
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.14" data-path="solr.html">
+            
+                <a href="solr.html">
+            
+                    
+                    Solr
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.15" data-path="rabbitmq.html">
+            
+                <a href="rabbitmq.html">
+            
+                    
+                    RabbitMQ
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.16" data-path="rpc.html">
+            
+                <a href="rpc.html">
+            
+                    
+                    Rpc
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../repeater/">
+            
+                <a href="../repeater/">
+            
+                    
+                    Repeater
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../repeater/provider.html">
+            
+                <a href="../repeater/provider.html">
+            
+                    
+                    提供者
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../repeater/config.html">
+            
+                <a href="../repeater/config.html">
+            
+                    
+                    配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../repeater/accessor.html">
+            
+                <a href="../repeater/accessor.html">
+            
+                    
+                    访问器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../repeater/capture.html">
+            
+                <a href="../repeater/capture.html">
+            
+                    
+                    异常拦截
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../repeater/upload.html">
+            
+                <a href="../repeater/upload.html">
+            
+                    
+                    文件上传
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../repeater/other.html">
+            
+                <a href="../repeater/other.html">
+            
+                    
+                    其他
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../yosart/">
+            
+                <a href="../yosart/">
+            
+                    
+                    Yosart
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../yosart/standard.html">
+            
+                <a href="../yosart/standard.html">
+            
+                    
+                    标准
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../yosart/func.html">
+            
+                <a href="../yosart/func.html">
+            
+                    
+                    方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../yosart/config.html">
+            
+                <a href="../yosart/config.html">
+            
+                    
+                    配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../yosart/plugin.html">
+            
+                <a href="../yosart/plugin.html">
+            
+                    
+                    插件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../yosart/ext.html">
+            
+                <a href="../yosart/ext.html">
+            
+                    
+                    扩展
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.6" data-path="../yosart/beforeampampafter.html">
+            
+                <a href="../yosart/beforeampampafter.html">
+            
+                    
+                    启动回调
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.7" data-path="../yosart/renderer.html">
+            
+                <a href="../yosart/renderer.html">
+            
+                    
+                    渲染辅助工具
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.8" data-path="../yosart/example.html">
+            
+                <a href="../yosart/example.html">
+            
+                    
+                    案例
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../gateway/">
+            
+                <a href="../gateway/">
+            
+                    
+                    Gateway
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../gateway/func.html">
+            
+                <a href="../gateway/func.html">
+            
+                    
+                    方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../gateway/cros.html">
+            
+                <a href="../gateway/cros.html">
+            
+                    
+                    跨域
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../gateway/auth.html">
+            
+                <a href="../gateway/auth.html">
+            
+                    
+                    授权
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../gateway/mapping.html">
+            
+                <a href="../gateway/mapping.html">
+            
+                    
+                    映射
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="../gateway/example.html">
+            
+                <a href="../gateway/example.html">
+            
+                    
+                    案例
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../thanks/">
+            
+                <a href="../thanks/">
+            
+                    
+                    鸣谢
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Redis</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="redis"><a name="redis" class="plugin-anchor" href="#redis"><i class="fa fa-link" aria-hidden="true"></i></a>Redis</h1>
+<h2 id="pom"><a name="pom" class="plugin-anchor" href="#pom"><i class="fa fa-link" aria-hidden="true"></i></a>POM</h2>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.enoa<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>nosql-redis<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.6-beta.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+</code></pre>
+<p>Redis &#x9879;&#x76EE;&#x662F;&#x5BF9; Jedis &#x8FDB;&#x884C;&#x7684;&#x518D;&#x6B21;&#x5C01;&#x88C5;, &#x63D0;&#x4F9B;&#x4E86;&#x66F4;&#x52A0;&#x597D;&#x7528;&#x7684;&#x63A5;&#x53E3;.</p>
+<h2 id="epm"><a name="epm" class="plugin-anchor" href="#epm"><i class="fa fa-link" aria-hidden="true"></i></a>EPM</h2>
+<p>Redis &#x4F7F;&#x7528; EPM &#x8FDB;&#x884C;&#x521D;&#x59CB;&#x5316;, &#x652F;&#x6301;&#x591A;&#x4E2A;&#x5B9E;&#x4F8B;. &#x540C;&#x65F6;&#x8981;&#x6C42;&#x63D0;&#x4F9B;&#x4E00;&#x4E2A; <a href="#Serialization">Serialization</a>, &#x7528;&#x4E8E;&#x5BF9;&#x8C61;&#x7684;&#x5E8F;&#x5217;&#x5316;, &#x9ED8;&#x8BA4;&#x4F7F;&#x7528;&#x7684;&#x662F; JdkSerializeProvider.</p>
+<h3 id="simple"><a name="simple" class="plugin-anchor" href="#simple"><i class="fa fa-link" aria-hidden="true"></i></a>simple</h3>
+<pre><code class="lang-java"><span class="hljs-comment">// install redis instance with name &apos;main&apos; and use jdk serialize</span>
+Redis.epm().install(<span class="hljs-string">&quot;localhost&quot;</span>, <span class="hljs-number">6379</span>, <span class="hljs-keyword">new</span> JdkSerializeProvider());
+<span class="hljs-comment">// install redis instance with name &apos;other&apos; and use jdk serialize</span>
+Redis.epm().install(<span class="hljs-string">&quot;other&quot;</span>, <span class="hljs-string">&quot;localhost&quot;</span>, <span class="hljs-number">6379</span>);
+</code></pre>
+<h3 id="sentinel"><a name="sentinel" class="plugin-anchor" href="#sentinel"><i class="fa fa-link" aria-hidden="true"></i></a>sentinel</h3>
+<pre><code class="lang-java"><span class="hljs-comment">// install redis sentinel instance with name &apos;sentinel&apos; and use jdk serialize</span>
+RedisSentinelConfig config = <span class="hljs-keyword">new</span> RedisSentinelConfig.Builder()
+  .name(<span class="hljs-string">&quot;sentinel&quot;</span>)
+  .database(<span class="hljs-number">1</span>)
+  .passwd(<span class="hljs-string">&quot;passwd&quot;</span>)
+  .soTimeout(<span class="hljs-number">1000</span>)
+  .masterName(<span class="hljs-string">&quot;master&quot;</span>)
+  .sentinels(<span class="hljs-keyword">new</span> HashSet&lt;String&gt;() {{
+    add(<span class="hljs-string">&quot;192.168.1.19:63790&quot;</span>);
+    add(<span class="hljs-string">&quot;192.168.1.20:63791&quot;</span>);
+    add(<span class="hljs-string">&quot;192.168.1.21:63792&quot;</span>);
+    add(<span class="hljs-string">&quot;192.168.1.22:63793&quot;</span>);
+  }})
+  .build();
+Redis.epm().install(config, <span class="hljs-keyword">new</span> JdkSerializeProvider());
+</code></pre>
+<h3 id="use"><a name="use" class="plugin-anchor" href="#use"><i class="fa fa-link" aria-hidden="true"></i></a>use</h3>
+<pre><code class="lang-java">Redis.use(); <span class="hljs-comment">// use main instance</span>
+Redis.use(<span class="hljs-string">&quot;main&quot;</span>); <span class="hljs-comment">// use main instance</span>
+Redis.use(<span class="hljs-string">&quot;sentinel&quot;</span>); <span class="hljs-comment">// use sentinel instance</span>
+</code></pre>
+<h2 id="run"><a name="run" class="plugin-anchor" href="#run"><i class="fa fa-link" aria-hidden="true"></i></a>run</h2>
+<p>Redis &#x5728;&#x6269;&#x5C55; Jedis &#x65F6;&#x65B0;&#x589E;&#x4E86; <code>run</code> &#x65B9;&#x6CD5;, &#x6539;&#x65B9;&#x6CD5;&#x662F; Redis &#x7EC4;&#x4EF6;&#x6240;&#x6709;&#x65B9;&#x6CD5;&#x6700;&#x7EC8;&#x6267;&#x884C;&#x7684;&#x65B9;&#x6CD5;, <code>run</code> &#x53EF;&#x4EE5;&#x83B7;&#x53D6;&#x5230;&#x521D;&#x59CB;&#x5316; Redis &#x662F;&#x521B;&#x5EFA;&#x7684; Jedis &#x5BF9;&#x8C61;, &#x901A;&#x8FC7;&#x6B64;&#x5BF9;&#x8C61;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x64CD;&#x4F5C; Jedis.</p>
+<pre><code class="lang-java">String ret = Redis.run(<span class="hljs-keyword">new</span> EoRedisRunner() {
+  <span class="hljs-meta">@Override</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">run</span><span class="hljs-params">(Jedis jedis, EoSerializer serializer)</span> </span>{
+    <span class="hljs-keyword">return</span> jedis.get(<span class="hljs-string">&quot;key&quot;</span>);
+  }
+});
+</code></pre>
+<p>&#x5F53;&#x7136;, &#x4E5F;&#x53EF;&#x4EE5;&#x7528; Java 8 &#x53CA;&#x4EE5;&#x4E0A;&#x7248;&#x672C;&#x63D0;&#x4F9B;&#x7684; Lambda &#x8868;&#x8FBE;&#x5F0F;&#x6765;&#x4E66;&#x5199;.</p>
+<pre><code class="lang-java">String ret = Redis.run((jedis, serializer) -&gt; jedis.get(<span class="hljs-string">&quot;key&quot;</span>));
+</code></pre>
+<p>run &#x65B9;&#x6CD5;&#x8981;&#x6C42;&#x63D0;&#x4F9B;&#x4E00;&#x4E2A; EoRedisRunner &#x63A5;&#x53E3;&#x7684;&#x5B9E;&#x73B0;&#x7C7B;, &#x8BE5;&#x5B9E;&#x73B0;&#x7C7B;&#x7684; run &#x65B9;&#x6CD5;&#x662F;&#x6700;&#x7EC8;&#x6267;&#x884C;&#x7684;&#x65B9;&#x6CD5;, &#x4F1A;&#x4F20;&#x9012;&#x4E24;&#x4E2A;&#x53C2;&#x6570;, <code>jedis</code> &#x4EE5;&#x53CA; <code>serializer</code>, jedis &#x4FBF;&#x662F;&#x521D;&#x59CB;&#x5316;&#x65F6;&#x521B;&#x5EFA;&#x7684; jedis &#x5BF9;&#x8C61;, serializer &#x662F;&#x521D;&#x59CB;&#x5316;&#x662F;&#x63D0;&#x4F9B;&#x7684;&#x5E8F;&#x5217;&#x5316;&#x5BF9;&#x8C61;.</p>
+<p>&#x8FD9;&#x91CC;&#x8981;&#x8BF4;&#x660E;&#x7684;&#x662F;, &#x6240;&#x6709;&#x5728; run &#x65B9;&#x6CD5;&#x4E2D;&#x6267;&#x884C;&#x7684;&#x4EE3;&#x7801;&#x65E0;&#x9700;&#x8C03;&#x7528; <code>jedis.close()</code>, &#x8FD9;&#x7531; Redis &#x7EC4;&#x4EF6;&#x5B9E;&#x73B0;&#x4E86;. &#x5305;&#x62EC;&#x6240;&#x6709; Redis &#x63D0;&#x4F9B;&#x7684;&#x65B9;&#x6CD5;, &#x90FD;&#x4F1A;&#x81EA;&#x52A8; close; &#x4F46;&#x662F;&#x6709;&#x4E00;&#x4E2A;&#x60C5;&#x51B5;&#x4F8B;&#x5916;, &#x5C31;&#x662F;&#x4F7F;&#x7528;&#x8005;&#x4E3B;&#x52A8;&#x5728; Redis &#x7EC4;&#x4EF6;&#x4E2D;&#x83B7;&#x53D6; Jedis &#x5BF9;&#x8C61;, &#x90A3;&#x4E48;&#x8FD9;&#x4E2A;&#x5BF9;&#x8C61;&#x5C31;&#x7531;&#x4F7F;&#x7528;&#x8005;&#x8FDB;&#x884C;&#x91CA;&#x653E;, &#x8FD9;&#x662F;&#x5408;&#x7406;&#x7684;.</p>
+<p>&#x9700;&#x8981;&#x4E3B;&#x52A8;&#x91CA;&#x653E; Jedis &#x7684;&#x60C5;&#x51B5;:</p>
+<pre><code class="lang-java">Jedis jedis = Redis.jedis();
+jedis.set(<span class="hljs-string">&quot;key&quot;</span>, <span class="hljs-string">&quot;jedis&quot;</span>);
+<span class="hljs-comment">// if not use run interface, jedis need do close()</span>
+jedis.close();
+</code></pre>
+<h2 id="string"><a name="string" class="plugin-anchor" href="#string"><i class="fa fa-link" aria-hidden="true"></i></a>string</h2>
+<pre><code class="lang-java">Redis.set(<span class="hljs-string">&quot;key&quot;</span>, <span class="hljs-string">&quot;val0&quot;</span>);
+Redis.append(<span class="hljs-string">&quot;key&quot;</span>, <span class="hljs-string">&quot;-val1&quot;</span>);
+Redis.get(<span class="hljs-string">&quot;key&quot;</span>);
+</code></pre>
+<p>&#x548C; Redis &#x4E2D;&#x63D0;&#x4F9B;&#x7684;&#x5176;&#x4ED6;&#x65B9;&#x6CD5;&#x4E0D;&#x540C;&#x7684;&#x662F;, Redis string &#x76F8;&#x5173;&#x65B9;&#x6CD5;, &#x50CF;&#x662F; <code>set</code>, <code>get</code> &#x53EA;&#x5141;&#x8BB8;&#x7ED9;&#x4E88; String &#x7C7B;&#x578B;&#x7684;&#x503C;; &#x8FD9;&#x662F;&#x56E0;&#x4E3A; <code>set</code>, <code>get</code>, <code>append</code> &#x662F;&#x4E3A; String &#x800C;&#x8BBE;&#x8BA1;&#x7684;, &#x5B98;&#x65B9;&#x7684; Jedis &#x4E5F;&#x662F;&#x5982;&#x6B64;, &#x56E0;&#x6B64; Enoa &#x4E5F;&#x662F;&#x5982;&#x6B64;&#x5B9E;&#x73B0;. &#x5F53;&#x7136;&#x5B9E;&#x9645;&#x4E0A;, <code>set</code>, <code>get</code> &#x8FD9;&#x4E9B;&#x65B9;&#x6CD5;&#x662F;&#x652F;&#x6301;&#x4F20;&#x9012; Object &#x503C;&#x7684;, &#x5728; Jedis &#x4E2D;&#x662F;&#x5DF2; byte[] &#x5F62;&#x5F0F;&#x53D1;&#x9001; <code>public String set(final byte[] key, final byte[] value)</code>. &#x56E0;&#x6B64; Redis &#x7EC4;&#x4EF6;&#x4E5F;&#x662F;&#x652F;&#x6301;&#x7684;; &#x4F7F;&#x7528; run &#x65B9;&#x6CD5;, &#x76F4;&#x63A5;&#x83B7;&#x53D6; Jedis &#x8C03;&#x7528; set bytes &#x7684;&#x65B9;&#x6CD5;. </p>
+<pre><code class="lang-java">Map&lt;String, String&gt; data = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
+data.put(<span class="hljs-string">&quot;key0&quot;</span>, <span class="hljs-string">&quot;val0&quot;</span>);
+<span class="hljs-comment">// set object</span>
+Redis.run((jedis, serializer) -&gt; jedis.set(SafeEncoder.encode(<span class="hljs-string">&quot;key&quot;</span>), serializer.serialize(data)));
+<span class="hljs-comment">// get object</span>
+Map&lt;String, String&gt; newData = Redis.run((jedis, serializer) -&gt; serializer.reduction(jedis.get(SafeEncoder.encode(<span class="hljs-string">&quot;key&quot;</span>))));
+</code></pre>
+<h2 id="hash"><a name="hash" class="plugin-anchor" href="#hash"><i class="fa fa-link" aria-hidden="true"></i></a>hash</h2>
+<pre><code class="lang-java">Redis.hset(<span class="hljs-string">&quot;hash&quot;</span>, <span class="hljs-string">&quot;f0&quot;</span>, <span class="hljs-string">&quot;v0&quot;</span>);
+Redis.hset(<span class="hljs-string">&quot;hash&quot;</span>, <span class="hljs-string">&quot;f1&quot;</span>, <span class="hljs-string">&quot;v1&quot;</span>);
+
+Boolean ef0 = Redis.hexists(<span class="hljs-string">&quot;hash&quot;</span>, <span class="hljs-string">&quot;f0&quot;</span>);
+Boolean ef1 = Redis.hexists(<span class="hljs-string">&quot;hash&quot;</span>, <span class="hljs-string">&quot;f1&quot;</span>);
+Boolean ef2 = Redis.hexists(<span class="hljs-string">&quot;hash&quot;</span>, <span class="hljs-string">&quot;f2&quot;</span>);
+
+Map&lt;String, String&gt; hgetall = Redis.hgetall(<span class="hljs-string">&quot;hash&quot;</span>);
+
+String f0 = Redis.hget(<span class="hljs-string">&quot;hash&quot;</span>, <span class="hljs-string">&quot;f0&quot;</span>);
+</code></pre>
+<h2 id="list"><a name="list" class="plugin-anchor" href="#list"><i class="fa fa-link" aria-hidden="true"></i></a>list</h2>
+<pre><code class="lang-java">Redis.lpush(<span class="hljs-string">&quot;list&quot;</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>);
+
+Long len = Redis.llen(<span class="hljs-string">&quot;list&quot;</span>);
+
+List&lt;Object&gt; lrange = Redis.lrange(<span class="hljs-string">&quot;list&quot;</span>, <span class="hljs-number">0</span>, -<span class="hljs-number">1</span>);
+</code></pre>
+<h2 id="set"><a name="set" class="plugin-anchor" href="#set"><i class="fa fa-link" aria-hidden="true"></i></a>set</h2>
+<pre><code class="lang-java">Redis.sadd(<span class="hljs-string">&quot;key&quot;</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>);
+
+Long ret = Redis.srem(<span class="hljs-string">&quot;key&quot;</span>, <span class="hljs-number">0</span>, <span class="hljs-number">4</span>);
+
+Set&lt;Object&gt; smembers = Redis.smembers(<span class="hljs-string">&quot;key&quot;</span>);
+</code></pre>
+<h2 id="sort"><a name="sort" class="plugin-anchor" href="#sort"><i class="fa fa-link" aria-hidden="true"></i></a>sort</h2>
+<pre><code class="lang-java">Redis.zadd(<span class="hljs-string">&quot;sort_set&quot;</span>, <span class="hljs-number">0.2</span>D, <span class="hljs-number">5</span>);
+Redis.zadd(<span class="hljs-string">&quot;sort_set&quot;</span>, <span class="hljs-number">0.2</span>D, <span class="hljs-number">4</span>);
+Redis.zadd(<span class="hljs-string">&quot;sort_set&quot;</span>, <span class="hljs-number">0.2</span>D, <span class="hljs-number">2</span>);
+
+Set&lt;Object&gt; zrange = Redis.zrange(<span class="hljs-string">&quot;sort_set&quot;</span>, <span class="hljs-number">0</span>, -<span class="hljs-number">1</span>);
+</code></pre>
+<h2 id="&#x5176;&#x4ED6;"><a name="&#x5176;&#x4ED6;" class="plugin-anchor" href="#&#x5176;&#x4ED6;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5176;&#x4ED6;</h2>
+<p>&#x8FD9;&#x91CC;&#x5217;&#x51FA;&#x7684;&#x53EA;&#x662F;&#x90E8;&#x5206;&#x65B9;&#x6CD5;; &#x9700;&#x8981;&#x77E5;&#x9053;&#x7684;&#x662F;, &#x53EA;&#x8981;&#x662F; Jedis &#x4E2D;&#x63D0;&#x4F9B;&#x7684;&#x65B9;&#x6CD5;, Redis &#x7EC4;&#x4EF6;&#x90FD;&#x6709;&#x5B9E;&#x73B0;, &#x5982;&#x679C;&#x53D1;&#x73B0;&#x6709;&#x6CA1;&#x88AB;&#x5B9E;&#x73B0;&#x7684; Jedis &#x65B9;&#x6CD5;, &#x53EF;&#x4EE5;&#x901A;&#x8FC7; run &#x65B9;&#x6CD5;&#x83B7;&#x53D6; Jedis &#x8C03;&#x7528;.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="json.html" class="navigation navigation-prev " aria-label="Previous page: Json">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="eml.html" class="navigation navigation-next " aria-label="Next page: Eml">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Redis","level":"1.3.12","depth":2,"next":{"title":"Eml","level":"1.3.13","depth":2,"path":"foundation/eml.md","ref":"foundation/eml.md","articles":[]},"previous":{"title":"Json","level":"1.3.11","depth":2,"path":"foundation/json.md","ref":"foundation/json.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","fontsettings","sharing","lunr","search","highlight","livereload","ga"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"search":{},"lunr":{"ignoreSpecialCharacters":false,"maxIndexSize":1000000},"fontsettings":{"family":"sans","size":2,"theme":"white"},"highlight":{},"ga":{"configuration":"auto","token":"UA-112957311-1"},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","author":"fewensa","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Enoa 使用者指南","language":"zh-hans","gitbook":"*","description":"Enoa 使用者指南"},"file":{"path":"foundation/redis.md","mtime":"2018-09-28T04:23:36.477Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-10-08T06:36:53.775Z"},"basePath":"..","book":{"language":"zh-cn"}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-ga/plugin.js"></script>
+        
+    
+
+    </body>
+</html>
+

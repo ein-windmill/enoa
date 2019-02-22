@@ -1,0 +1,927 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hant" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Solr · Enoa 使用者指南</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="fewensa">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchors/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="rabbitmq.html" />
+    
+    
+    <link rel="prev" href="eml.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="輸入並搜尋" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../habit/">
+            
+                <a href="../habit/">
+            
+                    
+                    習慣
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../habit/epm.html">
+            
+                <a href="../habit/epm.html">
+            
+                    
+                    EPM && USE
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    地基
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="toolkit.html">
+            
+                <a href="toolkit.html">
+            
+                    
+                    工具包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="promise.html">
+            
+                <a href="promise.html">
+            
+                    
+                    Promise
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="http.html">
+            
+                <a href="http.html">
+            
+                    
+                    Http 客戶端
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="database.html">
+            
+                <a href="database.html">
+            
+                    
+                    資料庫
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="template.html">
+            
+                <a href="template.html">
+            
+                    
+                    模板
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="firetpl.html">
+            
+                <a href="firetpl.html">
+            
+                    
+                    Firetpl
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.7" data-path="trydb.html">
+            
+                <a href="trydb.html">
+            
+                    
+                    Trydb
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.8" data-path="logger.html">
+            
+                <a href="logger.html">
+            
+                    
+                    日誌
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.9" data-path="serialization.html">
+            
+                <a href="serialization.html">
+            
+                    
+                    序列化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.10" data-path="typebuilder.html">
+            
+                <a href="typebuilder.html">
+            
+                    
+                    Typebuilder
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.11" data-path="json.html">
+            
+                <a href="json.html">
+            
+                    
+                    Json
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.12" data-path="redis.html">
+            
+                <a href="redis.html">
+            
+                    
+                    Redis
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.13" data-path="eml.html">
+            
+                <a href="eml.html">
+            
+                    
+                    Eml
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3.14" data-path="solr.html">
+            
+                <a href="solr.html">
+            
+                    
+                    Solr
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.15" data-path="rabbitmq.html">
+            
+                <a href="rabbitmq.html">
+            
+                    
+                    RabbitMQ
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.16" data-path="rpc.html">
+            
+                <a href="rpc.html">
+            
+                    
+                    Rpc
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../repeater/">
+            
+                <a href="../repeater/">
+            
+                    
+                    Repeater
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../repeater/provider.html">
+            
+                <a href="../repeater/provider.html">
+            
+                    
+                    提供者
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../repeater/config.html">
+            
+                <a href="../repeater/config.html">
+            
+                    
+                    配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../repeater/accessor.html">
+            
+                <a href="../repeater/accessor.html">
+            
+                    
+                    訪問器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../repeater/capture.html">
+            
+                <a href="../repeater/capture.html">
+            
+                    
+                    異常攔截
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../repeater/upload.html">
+            
+                <a href="../repeater/upload.html">
+            
+                    
+                    檔案上傳
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../repeater/other.html">
+            
+                <a href="../repeater/other.html">
+            
+                    
+                    其他
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../yosart/">
+            
+                <a href="../yosart/">
+            
+                    
+                    Yosart
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../yosart/standard.html">
+            
+                <a href="../yosart/standard.html">
+            
+                    
+                    標準
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../yosart/func.html">
+            
+                <a href="../yosart/func.html">
+            
+                    
+                    方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../yosart/config.html">
+            
+                <a href="../yosart/config.html">
+            
+                    
+                    配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../yosart/plugin.html">
+            
+                <a href="../yosart/plugin.html">
+            
+                    
+                    外掛
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../yosart/ext.html">
+            
+                <a href="../yosart/ext.html">
+            
+                    
+                    擴充套件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.6" data-path="../yosart/beforeampampafter.html">
+            
+                <a href="../yosart/beforeampampafter.html">
+            
+                    
+                    啟動回撥
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.7" data-path="../yosart/renderer.html">
+            
+                <a href="../yosart/renderer.html">
+            
+                    
+                    渲染輔助工具
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.8" data-path="../yosart/example.html">
+            
+                <a href="../yosart/example.html">
+            
+                    
+                    案例
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../gateway/">
+            
+                <a href="../gateway/">
+            
+                    
+                    Gateway
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../gateway/func.html">
+            
+                <a href="../gateway/func.html">
+            
+                    
+                    方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../gateway/cros.html">
+            
+                <a href="../gateway/cros.html">
+            
+                    
+                    跨域
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../gateway/auth.html">
+            
+                <a href="../gateway/auth.html">
+            
+                    
+                    授權
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../gateway/mapping.html">
+            
+                <a href="../gateway/mapping.html">
+            
+                    
+                    對映
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="../gateway/example.html">
+            
+                <a href="../gateway/example.html">
+            
+                    
+                    案例
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../thanks/">
+            
+                <a href="../thanks/">
+            
+                    
+                    鳴謝
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本書使用 GitBook 釋出
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Solr</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="solr"><a name="solr" class="plugin-anchor" href="#solr"><i class="fa fa-link" aria-hidden="true"></i></a>Solr</h1>
+<h2 id="pom"><a name="pom" class="plugin-anchor" href="#pom"><i class="fa fa-link" aria-hidden="true"></i></a>POM</h2>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.enoa<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>index-solr<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.6-beta.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+</code></pre>
+<p>Solr &#x5143;&#x4EF6;&#x63D0;&#x4F9B;&#x4E00;&#x500B;&#x57FA;&#x65BC; Http api &#x7684; Solr &#x5BA2;&#x6236;&#x7AEF;, &#x65BC;&#x5B98;&#x65B9;&#x63D0;&#x4F9B;&#x7684; SolrJ &#x76F8;&#x6BD4;, &#x4F7F;&#x7528;&#x66F4;&#x7C21;&#x55AE;, &#x4E5F;&#x5B8C;&#x5168;&#x7B26;&#x5408; Solr Web &#x6BB5;&#x5B8C;&#x5168;&#x76F8;&#x540C;&#x7684;&#x4ECB;&#x9762;.</p>
+<p>:::warning
+&#x90E8;&#x5206;&#x4ECB;&#x9762;&#x6CE8;&#x610F;: Solr &#x7684;&#x6C92;&#x500B;&#x4ECB;&#x9762;&#x90FD;&#x8981;&#x6C42;&#x63D0;&#x4F9B;&#x4E00;&#x500B; Core name, 1.6 &#x4E2D;&#x7684; EoSolr &#x4ECB;&#x9762;, &#x5C07; core &#x7684;&#x8A2D;&#x7F6E;&#x65BC; select update &#x653E;&#x7F6E;&#x65BC;&#x4E00;&#x8D77;, &#x56E0;&#x6B64;&#x5728;&#x4F7F;&#x7528;&#x7684;&#x904E;&#x7A0B;&#x4E2D;&#x53EF;&#x80FD;&#x6703;&#x9020;&#x6210;&#x4E0D;&#x826F;&#x7684;&#x4F7F;&#x7528;&#x7FD2;&#x6163;, &#x56E0;&#x6B64;&#x5728;&#x4E0B;&#x4E00;&#x500B;&#x7248;&#x672C;&#x4E2D;, EoSolr &#x4E2D;&#x5254;&#x9664;&#x4E86; select &#x4EE5;&#x53CA; update, &#x53EA;&#x6709;&#x8A2D;&#x5B9A;&#x4E86; core &#x4E4B;&#x5F8C;&#x624D;&#x53EF;&#x9032;&#x884C; select, update, &#x4F7F;&#x7528;&#x7A0B;&#x5F0F;&#x78BC;&#x4E0D;&#x6703;&#x6709;&#x592A;&#x5927;&#x7684;&#x66F4;&#x6539;; &#x5982;&#x679C;&#x4F60;&#x4F7F;&#x7528;&#x4E86; http &#x65B9;&#x6CD5;&#x4F86;&#x81EA;&#x5B9A;&#x7FA9;&#x8A2D;&#x5B9A;&#x4E00;&#x500B; http &#x63D0;&#x4F9B;&#x8005;, &#x90A3;&#x9EBC;&#x5C31;&#x9700;&#x8981;&#x6CE8;&#x610F;, &#x4E0D;&#x8981;&#x5728; 1.6 &#x4E2D;&#x547C;&#x53EB;&#x4E86; core &#x4E4B;&#x5F8C;&#x518D;&#x547C;&#x53EB; http, &#x9019;&#x5728;&#x4E0B;&#x4E00;&#x500B;&#x7248;&#x672C;&#x4E2D;&#x5C07;&#x4E0D;&#x6703;&#x53D7;&#x5230;&#x652F;&#x63F4;, &#x56E0;&#x6B64;&#x9700;&#x8981;&#x5148;&#x547C;&#x53EB; http &#x5728;&#x8A2D;&#x5B9A; core &#x5373;&#x53EF;&#x5728;&#x4E0B;&#x6B21;&#x5347;&#x7D1A;&#x662F;&#x4E0D;&#x7528;&#x4F5C;&#x51FA;&#x6539;&#x52D5;.
+:::</p>
+<h2 id="epm"><a name="epm" class="plugin-anchor" href="#epm"><i class="fa fa-link" aria-hidden="true"></i></a>EPM</h2>
+<p>Solr &#x4F7F;&#x7528; EPM &#x9032;&#x884C;&#x7BA1;&#x7406;, &#x4E26;&#x4E14;&#x652F;&#x63F4;&#x591A;&#x500B;&#x4F8B;&#x9805;.</p>
+<pre><code class="lang-java"><span class="hljs-comment">// install solr instance with name &apos;main&apos;</span>
+Solr.epm().install(<span class="hljs-keyword">new</span> SolrConfig.Builder()
+  .host(<span class="hljs-string">&quot;http://localhost:7000/solr&quot;</span>)
+  .build());
+
+<span class="hljs-comment">// install solr instance with name &apos;other&apos;</span>
+Solr.epm().install(<span class="hljs-string">&quot;other&quot;</span>, <span class="hljs-keyword">new</span> SolrConfig.Builder()
+  .host(<span class="hljs-string">&quot;http://localhost:7000/solr&quot;</span>)
+  .build());
+</code></pre>
+<p>&#x4F7F;&#x7528;</p>
+<pre><code class="lang-java">Solr.use(); <span class="hljs-comment">// get solr instance with name &apos;main&apos;</span>
+Solr.use(<span class="hljs-string">&quot;main&quot;</span>); <span class="hljs-comment">// get solr instance with name &apos;main&apos;</span>
+Solr.use(<span class="hljs-string">&quot;other&quot;</span>); <span class="hljs-comment">// get solr instance with name &apos;other&apos;</span>
+</code></pre>
+<h2 id="http"><a name="http" class="plugin-anchor" href="#http"><i class="fa fa-link" aria-hidden="true"></i></a>http</h2>
+<p>Solr &#x5143;&#x4EF6;&#x662F;&#x4E00;&#x500B;&#x57FA;&#x65BC; http &#x7684;&#x5BA2;&#x6236;&#x7AEF;, http &#x4F7F;&#x7528;&#x7684;&#x662F; Enoa &#x63D0;&#x4F9B;&#x7684; http &#x5143;&#x4EF6;, &#x9810;&#x8A2D;&#x4F7F;&#x7528; HttpURLConnection, &#x5982;&#x679C;&#x60F3;&#x8981;&#x66F4;&#x6539;, &#x53EF;&#x547C;&#x53EB; http &#x65B9;&#x6CD5;&#x9032;&#x884C;&#x66F4;&#x6539;. &#x8A72;&#x65B9;&#x6CD5;&#x8981;&#x6C42;&#x63D0;&#x4F9B;&#x4E00;&#x500B; EoUrl, &#x5F8C;&#x9762;&#x6703;&#x6839;&#x64DA;&#x9019;&#x500B;&#x4ECB;&#x9762;&#x62FF;&#x53D6;&#x4E00;&#x500B;&#x53EF;&#x7528;&#x7684; Http &#x5143;&#x4EF6;.</p>
+<p>&#x540C;&#x6642;, &#x81EA;&#x5B9A;&#x7FA9; Http &#x9084;&#x6709;&#x53E6;&#x5916;&#x4E00;&#x500B;&#x4F5C;&#x7528;, Http &#x5143;&#x4EF6;&#x63D0;&#x4F9B;&#x4E86; <a href="#handler-ampamp-reporter">handler-ampamp-reporter</a> &#x529F;&#x80FD;, &#x8A72;&#x529F;&#x80FD;&#x53EF;&#x4EE5;&#x7528;&#x4F86;&#x5217;&#x5370;&#x8ACB;&#x6C42;&#x4EE5;&#x53CA;&#x97FF;&#x61C9;&#x7684;&#x5167;&#x5BB9;, &#x53EF;&#x4EE5;&#x81EA;&#x5B9A;&#x7FA9;&#x4E00;&#x500B; Http &#x7528;&#x4F86;&#x8F38;&#x51FA;&#x8ACB;&#x6C42; Solr &#x4F3A;&#x670D;&#x5668;, &#x4EE5;&#x53CA;&#x5F9E; Solr &#x4F3A;&#x670D;&#x5668;&#x97FF;&#x61C9;&#x7684;&#x5167;&#x5BB9;, &#x9032;&#x884C;&#x9664;&#x932F;.</p>
+<p>e.g. of handler &amp;&amp; reporter</p>
+<pre><code class="lang-java">Solr.use().http(() -&gt; Http.use()
+  .handler(IHttpHandler.def())
+  .reporter(System.out::println));
+</code></pre>
+<p>&#x7576;&#x52A0;&#x5165;&#x9019;&#x6A23;&#x7684;&#x8A2D;&#x5B9A;&#x5F8C;, &#x8ACB;&#x6C42; Solr &#x6642;, &#x6703;&#x5728;&#x63A7;&#x5236;&#x6AAF;&#x8F38;&#x51FA; Request &#x4EE5;&#x53CA; Response &#x7684;&#x539F;&#x59CB;&#x8CC7;&#x8A0A;.</p>
+<h2 id="select"><a name="select" class="plugin-anchor" href="#select"><i class="fa fa-link" aria-hidden="true"></i></a>select</h2>
+<p>select &#x63D0;&#x4F9B;&#x7684;&#x65B9;&#x6CD5;&#x540D;&#x65BC; Solr web &#x63A7;&#x5236;&#x6AAF;&#x4E2D;&#x7684;&#x540D;&#x7A31;&#x5B8C;&#x6210;&#x76F8;&#x540C;, &#x4F8B;&#x5982;: <code>q</code>, <code>fq</code>, <code>rows</code> &#x7B49;&#x7B49;, &#x53EA;&#x8981;&#x7528;&#x904E; Solr &#x63A7;&#x5236;&#x6AAF;, &#x90A3;&#x9EBC;&#x5C0D;&#x65BC;&#x4F7F;&#x7528;&#x6B64;&#x5143;&#x4EF6;&#x5C07;&#x6703;&#x6709;&#x5F88;&#x5927;&#x7684;&#x5E6B;&#x52A9;.</p>
+<h3 id="&#x7372;&#x53D6;&#x97FF;&#x61C9;&#x5167;&#x5BB9;"><a name="&#x7372;&#x53D6;&#x97FF;&#x61C9;&#x5167;&#x5BB9;" class="plugin-anchor" href="#&#x7372;&#x53D6;&#x97FF;&#x61C9;&#x5167;&#x5BB9;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x7372;&#x53D6;&#x97FF;&#x61C9;&#x5167;&#x5BB9;</h3>
+<pre><code class="lang-java">String body = Solr.core(<span class="hljs-string">&quot;barcode&quot;</span>)
+  .select()
+  .fq(Fq.create(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;Abc&quot;</span>))
+  .rows(<span class="hljs-number">2</span>)
+  .emit();
+</code></pre>
+<h3 id="&#x7372;&#x53D6;-httpresponse"><a name="&#x7372;&#x53D6;-httpresponse" class="plugin-anchor" href="#&#x7372;&#x53D6;-httpresponse"><i class="fa fa-link" aria-hidden="true"></i></a>&#x7372;&#x53D6; HttpResponse</h3>
+<pre><code class="lang-java">HttpResponse resp = Solr.core(<span class="hljs-string">&quot;barcode&quot;</span>)
+  .select()
+  .fq(Fq.create(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;Abc&quot;</span>))
+  .rows(<span class="hljs-number">2</span>)
+  .emit(resp -&gt; resp);
+</code></pre>
+<h3 id="&#x8A0A;&#x606F;&#x9AD4;&#x8F49;&#x63DB;"><a name="&#x8A0A;&#x606F;&#x9AD4;&#x8F49;&#x63DB;" class="plugin-anchor" href="#&#x8A0A;&#x606F;&#x9AD4;&#x8F49;&#x63DB;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x8A0A;&#x606F;&#x9AD4;&#x8F49;&#x63DB;</h3>
+<pre><code class="lang-java">SRet&lt;Barcode&gt; ret = Solr.core(<span class="hljs-string">&quot;barcode&quot;</span>)
+  .select()
+  .fq(Fq.create(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;Abc&quot;</span>))
+  .rows(<span class="hljs-number">2</span>)
+  .sort(Sort.create(<span class="hljs-string">&quot;ctime&quot;</span>, OrderBy.DESC))
+  .emit(SParser.json(Barcode.class));
+</code></pre>
+<h3 id="sparser"><a name="sparser" class="plugin-anchor" href="#sparser"><i class="fa fa-link" aria-hidden="true"></i></a>SParser</h3>
+<p>&#x4E0A;&#x65B9;&#x7684;&#x6848;&#x4F8B;&#x4E2D;, &#x5DF2;&#x7D93;&#x53EF;&#x4EE5;&#x770B;&#x51FA;, &#x547C;&#x53EB;&#x7684;&#x65B9;&#x6CD5;&#x65BC; Solr web &#x4E2D;&#x63D0;&#x4F9B;&#x7684;&#x662F;&#x5B8C;&#x5168;&#x76F8;&#x540C;&#x7684;. &#x9019;&#x88E1;&#x8981;&#x8AAA;&#x660E;&#x4E00;&#x4E0B; Sparser, &#x56E0;&#x70BA;&#x4F7F;&#x7528; Http &#x8ACB;&#x6C42;, emit &#x50B3;&#x9001;&#x8ACB;&#x6C42;&#x4E4B;&#x5F8C;, &#x8FD4;&#x56DE;&#x7684;&#x662F; <code>HttpResponse</code> &#x7269;&#x4EF6;, &#x56E0;&#x6B64;, emit &#x65B9;&#x6CD5;&#x63D0;&#x4F9B;&#x4E00;&#x500B;&#x5F15;&#x6578;, &#x8981;&#x6C42;&#x50B3;&#x5165; SParser &#x4ECB;&#x9762;, &#x7528;&#x65BC;&#x5C0D; HttpResponse &#x9032;&#x884C;&#x8F49;&#x63DB;&#x6210;&#x76EE;&#x6A19;&#x7269;&#x4EF6;, Solr &#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x500B;&#x7C21;&#x55AE;&#x7684;&#x5BE6;&#x73FE;, SParser &#x6709;&#x5E7E;&#x500B;&#x975C;&#x614B;&#x65B9;&#x6CD5;&#x7528;&#x65BC;&#x7C21;&#x55AE;&#x7684;&#x9084;&#x539F;.
+&#x7576;&#x7136; SParser &#x63D0;&#x4F9B;&#x7684;&#x8CC7;&#x6599;&#x8F49;&#x63DB;&#x4E0D;&#x4E00;&#x5B9A;&#x5B8C;&#x5168;&#x7B26;&#x5408;&#x4F60;&#x7684;&#x9700;&#x6C42;, &#x56E0;&#x6B64;&#x4F60;&#x53EF;&#x4EE5;&#x81EA;&#x5DF1;&#x5EFA;&#x7ACB;&#x4E00;&#x500B;&#x8F49;&#x63DB;&#x985E;.</p>
+<pre><code class="lang-java">.emit(resp -&gt; resp.body().string()); <span class="hljs-comment">// &#x5C07;&#x8FD4;&#x56DE;&#x97FF;&#x61C9;&#x9AD4;</span>
+</code></pre>
+<h3 id="&#x5176;&#x4ED6;"><a name="&#x5176;&#x4ED6;" class="plugin-anchor" href="#&#x5176;&#x4ED6;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5176;&#x4ED6;</h3>
+<p>&#x9810;&#x8A2D;&#x7684; emit &#x65B9;&#x6CD5;, &#x8FD4;&#x56DE;&#x97FF;&#x61C9;&#x9AD4;, &#x4F46;&#x662F;&#x5728;&#x5F8C;&#x7E8C;&#x7684;&#x7248;&#x672C;&#x4E2D;, &#x8003;&#x616E;&#x5230;&#x66F4;&#x52A0;&#x5B8C;&#x5584;&#x7684;&#x63A7;&#x5236;, &#x6703;&#x4F5C;&#x51FA;&#x6539;&#x8B8A;, &#x76F4;&#x63A5;&#x8FD4;&#x56DE; HttpResponse, &#x5982;&#x679C;&#x7576;&#x524D;&#x7248;&#x672C;&#x6709;&#x4F7F;&#x7528; <code>.emit()</code> &#x65B9;&#x6CD5;, &#x5347;&#x7D1A;&#x53EF;&#x901A;&#x904E; <code>.emit(resp -&gt; resp.body().string())</code> &#x66FF;&#x63DB;.</p>
+<h2 id="update"><a name="update" class="plugin-anchor" href="#update"><i class="fa fa-link" aria-hidden="true"></i></a>update</h2>
+<pre><code class="lang-java">SRet&lt;Void&gt; ret = Solr.core(<span class="hljs-string">&quot;stest&quot;</span>)
+  .update()
+  .overwrite(<span class="hljs-keyword">true</span>)
+  .commitWithin(<span class="hljs-number">1000</span>)
+  .wt(Wt.JSON)
+  .body(Json.toJson(<span class="hljs-keyword">new</span> ArrayList&lt;Kv&gt;(){{
+    add(Kv.cretee().set(<span class="hljs-string">&quot;id&quot;</span>, <span class="hljs-number">1</span>).set(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;Jack&quot;</span>));
+    add(Kv.create().set(<span class="hljs-string">&quot;id&quot;</span>, <span class="hljs-number">2</span>).set(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;Tom&quot;</span>));
+  }}))
+  .emit(SParser.json());
+</code></pre>
+<h2 id="&#x975E;&#x540C;&#x6B65;&#x64CD;&#x4F5C;"><a name="&#x975E;&#x540C;&#x6B65;&#x64CD;&#x4F5C;" class="plugin-anchor" href="#&#x975E;&#x540C;&#x6B65;&#x64CD;&#x4F5C;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x975E;&#x540C;&#x6B65;&#x64CD;&#x4F5C;</h2>
+<p>Solr &#x5143;&#x4EF6;&#x652F;&#x63F4;&#x975E;&#x540C;&#x6B65;&#x64CD;&#x4F5C;, &#x57FA;&#x65BC; <a href="#Promise">Promise</a>, &#x4F7F;&#x7528; <code>DoneArgPromise</code> &#x56E0;&#x6B64;&#x53D7;&#x652F;&#x63F4;&#x7684;&#x65B9;&#x6CD5;&#x5305;&#x62EC;:</p>
+<ul>
+<li>done</li>
+<li>capture</li>
+<li>always</li>
+</ul>
+<h3 id="select-enqueue"><a name="select-enqueue" class="plugin-anchor" href="#select-enqueue"><i class="fa fa-link" aria-hidden="true"></i></a>select enqueue</h3>
+<pre><code class="lang-java">Solr.core(<span class="hljs-string">&quot;barcode&quot;</span>)
+  .select()
+  .fq(Fq.create(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;Abc&quot;</span>))
+  .rows(<span class="hljs-number">2</span>)
+  .enqueue()
+  .done(System.out::println)
+  .capture(Throwable::printStackTrace)
+  .always(() -&gt; System.out.println(<span class="hljs-string">&quot;always&quot;</span>));
+</code></pre>
+<h3 id="update-enqueue"><a name="update-enqueue" class="plugin-anchor" href="#update-enqueue"><i class="fa fa-link" aria-hidden="true"></i></a>update enqueue</h3>
+<pre><code class="lang-java">Solr.core(<span class="hljs-string">&quot;stest&quot;</span>)
+  .update()
+  .body(Json.toJson(<span class="hljs-keyword">new</span> ArrayList&lt;Kv&gt;(){{
+    add(Kv.cretee().set(<span class="hljs-string">&quot;id&quot;</span>, <span class="hljs-number">1</span>).set(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;Jack&quot;</span>));
+    add(Kv.create().set(<span class="hljs-string">&quot;id&quot;</span>, <span class="hljs-number">2</span>).set(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;Tom&quot;</span>));
+  }}))
+  .enqueue()
+  .done(System.out::println)
+  .capture(Throwable::printStackTrace)
+  .always(() -&gt; System.out.println(<span class="hljs-string">&quot;always&quot;</span>));
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="eml.html" class="navigation navigation-prev " aria-label="Previous page: Eml">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="rabbitmq.html" class="navigation navigation-next " aria-label="Next page: RabbitMQ">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Solr","level":"1.3.14","depth":2,"next":{"title":"RabbitMQ","level":"1.3.15","depth":2,"path":"foundation/rabbitmq.md","ref":"foundation/rabbitmq.md","articles":[]},"previous":{"title":"Eml","level":"1.3.13","depth":2,"path":"foundation/eml.md","ref":"foundation/eml.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","fontsettings","sharing","lunr","search","highlight","livereload","ga"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"search":{},"lunr":{"ignoreSpecialCharacters":false,"maxIndexSize":1000000},"fontsettings":{"family":"sans","size":2,"theme":"white"},"highlight":{},"ga":{"configuration":"auto","token":"UA-112957311-1"},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","author":"fewensa","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Enoa 使用者指南","language":"zh-hant","gitbook":"*","description":"Enoa 使用者指南"},"file":{"path":"foundation/solr.md","mtime":"2018-09-28T07:44:33.798Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-10-08T06:36:53.775Z"},"basePath":"..","book":{"language":"zh-tw"}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-ga/plugin.js"></script>
+        
+    
+
+    </body>
+</html>
+

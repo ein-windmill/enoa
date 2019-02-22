@@ -148,6 +148,8 @@
     <version-snakeyaml>1.9</version-snakeyaml>
     <version-jbcrypt>0.4</version-jbcrypt>
 
+    <version-snowflake>1.0.0</version-snowflake>
+
     <version-nanohttpd>2.3.1</version-nanohttpd>
     <version-jetty>[9.4.11.v20180605,)</version-jetty>
     <version-netty>4.1.32.Final</version-netty>
@@ -167,6 +169,7 @@
     <version-java-scan>v2.1.0</version-java-scan>
     <version-fastclasspathscanner>2.18.1</version-fastclasspathscanner>
     <version-email>1.4.7</version-email>
+
 
     <version-amqp>[5.4.0,)</version-amqp>
     <version-unixsocket>0.19</version-unixsocket>
@@ -922,6 +925,11 @@
           <artifactId>maven-gpg-plugin</artifactId>
           <version>${version-plugin-gpg}</version>
         </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>${version-plugin-javadoc}</version>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
@@ -961,15 +969,16 @@
             <version>${version-plugin-javadoc}</version>
             <executions>
               <execution>
+                <id>attach-javadocs</id>
                 <phase>package</phase>
                 <goals>
                   <goal>jar</goal>
                 </goals>
+                <configuration>
+                  <additionalOptions>-Xdoclint:none</additionalOptions>
+                </configuration>
               </execution>
             </executions>
-            <configuration>
-              <skip>true</skip>
-            </configuration>
           </plugin>
           <!-- GPG -->
           <plugin>
@@ -985,9 +994,11 @@
                 </goals>
               </execution>
             </executions>
+            <!--
             <configuration>
               <skip>true</skip>
             </configuration>
+            -->
           </plugin>
         </plugins>
       </build>

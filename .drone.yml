@@ -1,7 +1,43 @@
-pipeline:
-  build:
+#pipeline:
+#  build:
+#    image: maven:3.6-alpine
+#    commands:
+#      - mvn clean package -Dmaven.test.skip=true
+
+
+kind: pipeline
+name: default
+
+steps:
+
+  ## todo deploy mode
+  - name: deploy
     image: maven:3.6-alpine
+    volumes:
+      - name: m2
+        path: /root/.m2
     commands:
       - mvn clean package -Dmaven.test.skip=true
+    when:
+      branch:
+        - master
 
+
+  - name: install
+    image: maven:3.6-alpine
+    volumes:
+      - name: m2
+        path: /root/.m2
+    commands:
+      - mvn clean install -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
+    when:
+      branch:
+        - dev
+
+
+
+volumes:
+  - name: m2
+    host:
+      path: /data/mount/m2
 
