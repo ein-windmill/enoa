@@ -2,6 +2,6 @@ pipeline:
   build:
     image: maven:3.6-alpine
     commands:
-      - mvn clean package
+      - mvn clean package -Dmaven.test.skip=true
 
 
