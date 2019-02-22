@@ -3,6 +3,8 @@
 ENOA
 ===============
 
+![Build Status](https://drone.0u0.me/api/badges/fewensa/enoa/status.svg)
+
 ![ENOA](./enoa.svg)
 
 
