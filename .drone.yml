@@ -12,9 +12,9 @@ steps:
 
 
   - name: deploy
-    image: alpine:3.8
+    image: maven:3.6-alpine
     commands:
-      - ls /
+      - mvn clean package -Dmaven.test.skip=true
     when:
       branch:
         - master
