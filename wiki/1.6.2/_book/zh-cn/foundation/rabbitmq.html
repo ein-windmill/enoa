@@ -1,0 +1,859 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>RabbitMQ · Enoa 使用者指南</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="fewensa">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchors/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="rpc.html" />
+    
+    
+    <link rel="prev" href="solr.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../habit/">
+            
+                <a href="../habit/">
+            
+                    
+                    习惯
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../habit/epm.html">
+            
+                <a href="../habit/epm.html">
+            
+                    
+                    EPM && USE
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    地基
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="toolkit.html">
+            
+                <a href="toolkit.html">
+            
+                    
+                    工具包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="promise.html">
+            
+                <a href="promise.html">
+            
+                    
+                    Promise
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="http.html">
+            
+                <a href="http.html">
+            
+                    
+                    Http 客户端
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="database.html">
+            
+                <a href="database.html">
+            
+                    
+                    数据库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="template.html">
+            
+                <a href="template.html">
+            
+                    
+                    模板
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="firetpl.html">
+            
+                <a href="firetpl.html">
+            
+                    
+                    Firetpl
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.7" data-path="trydb.html">
+            
+                <a href="trydb.html">
+            
+                    
+                    Trydb
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.8" data-path="logger.html">
+            
+                <a href="logger.html">
+            
+                    
+                    日志
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.9" data-path="serialization.html">
+            
+                <a href="serialization.html">
+            
+                    
+                    序列化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.10" data-path="typebuilder.html">
+            
+                <a href="typebuilder.html">
+            
+                    
+                    Typebuilder
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.11" data-path="json.html">
+            
+                <a href="json.html">
+            
+                    
+                    Json
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.12" data-path="redis.html">
+            
+                <a href="redis.html">
+            
+                    
+                    Redis
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.13" data-path="eml.html">
+            
+                <a href="eml.html">
+            
+                    
+                    Eml
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.14" data-path="solr.html">
+            
+                <a href="solr.html">
+            
+                    
+                    Solr
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3.15" data-path="rabbitmq.html">
+            
+                <a href="rabbitmq.html">
+            
+                    
+                    RabbitMQ
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.16" data-path="rpc.html">
+            
+                <a href="rpc.html">
+            
+                    
+                    Rpc
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../repeater/">
+            
+                <a href="../repeater/">
+            
+                    
+                    Repeater
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../repeater/provider.html">
+            
+                <a href="../repeater/provider.html">
+            
+                    
+                    提供者
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../repeater/config.html">
+            
+                <a href="../repeater/config.html">
+            
+                    
+                    配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../repeater/accessor.html">
+            
+                <a href="../repeater/accessor.html">
+            
+                    
+                    访问器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../repeater/capture.html">
+            
+                <a href="../repeater/capture.html">
+            
+                    
+                    异常拦截
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../repeater/upload.html">
+            
+                <a href="../repeater/upload.html">
+            
+                    
+                    文件上传
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../repeater/other.html">
+            
+                <a href="../repeater/other.html">
+            
+                    
+                    其他
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../yosart/">
+            
+                <a href="../yosart/">
+            
+                    
+                    Yosart
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../yosart/standard.html">
+            
+                <a href="../yosart/standard.html">
+            
+                    
+                    标准
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../yosart/func.html">
+            
+                <a href="../yosart/func.html">
+            
+                    
+                    方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../yosart/config.html">
+            
+                <a href="../yosart/config.html">
+            
+                    
+                    配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../yosart/plugin.html">
+            
+                <a href="../yosart/plugin.html">
+            
+                    
+                    插件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../yosart/ext.html">
+            
+                <a href="../yosart/ext.html">
+            
+                    
+                    扩展
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.6" data-path="../yosart/beforeampampafter.html">
+            
+                <a href="../yosart/beforeampampafter.html">
+            
+                    
+                    启动回调
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.7" data-path="../yosart/renderer.html">
+            
+                <a href="../yosart/renderer.html">
+            
+                    
+                    渲染辅助工具
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.8" data-path="../yosart/example.html">
+            
+                <a href="../yosart/example.html">
+            
+                    
+                    案例
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../gateway/">
+            
+                <a href="../gateway/">
+            
+                    
+                    Gateway
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../gateway/func.html">
+            
+                <a href="../gateway/func.html">
+            
+                    
+                    方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../gateway/cros.html">
+            
+                <a href="../gateway/cros.html">
+            
+                    
+                    跨域
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../gateway/auth.html">
+            
+                <a href="../gateway/auth.html">
+            
+                    
+                    授权
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../gateway/mapping.html">
+            
+                <a href="../gateway/mapping.html">
+            
+                    
+                    映射
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="../gateway/example.html">
+            
+                <a href="../gateway/example.html">
+            
+                    
+                    案例
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../thanks/">
+            
+                <a href="../thanks/">
+            
+                    
+                    鸣谢
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >RabbitMQ</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="rabbitmq"><a name="rabbitmq" class="plugin-anchor" href="#rabbitmq"><i class="fa fa-link" aria-hidden="true"></i></a>RabbitMQ</h1>
+<h2 id="pom"><a name="pom" class="plugin-anchor" href="#pom"><i class="fa fa-link" aria-hidden="true"></i></a>POM</h2>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.enoa<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>enoa-rabbitmq<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.6-beta.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+</code></pre>
+<h2 id="epm"><a name="epm" class="plugin-anchor" href="#epm"><i class="fa fa-link" aria-hidden="true"></i></a>EPM</h2>
+<p>Rabbit &#x7EC4;&#x4EF6;&#x4F7F;&#x7528; EPM &#x8FDB;&#x884C;&#x7BA1;&#x7406;, &#x4E14;&#x652F;&#x6301;&#x591A;&#x4E2A;&#x5B9E;&#x4F8B;.</p>
+<pre><code class="lang-java"><span class="hljs-comment">// install rabbit instance with name &apos;main&apos;</span>
+Rabbit.epm().install(<span class="hljs-keyword">new</span> RabbitConfig.Builder()
+  .address(<span class="hljs-string">&quot;localhost&quot;</span>, <span class="hljs-number">5672</span>)
+  .name(<span class="hljs-string">&quot;main&quot;</span>)
+  .user(<span class="hljs-string">&quot;tmp&quot;</span>)
+  .passwd(<span class="hljs-string">&quot;passwd&quot;</span>)
+  .virtualHost(<span class="hljs-string">&quot;/&quot;</span>)
+  .build());
+</code></pre>
+<p>&#x4F7F;&#x7528;</p>
+<pre><code class="lang-java">Rabbit.use(); <span class="hljs-comment">// get rabbit instance with name &apos;main&apos;</span>
+Rabbit.use(<span class="hljs-string">&quot;main&quot;</span>); <span class="hljs-comment">// get rabbit instance with name &apos;main&apos;</span>
+Rabbit.use(<span class="hljs-string">&quot;other&quot;</span>); <span class="hljs-comment">// get rabbit instance with name &apos;other&apos;</span>
+</code></pre>
+<h2 id="&#x4F7F;&#x7528;"><a name="&#x4F7F;&#x7528;" class="plugin-anchor" href="#&#x4F7F;&#x7528;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x4F7F;&#x7528;</h2>
+<h3 id="&#x58F0;&#x660E;"><a name="&#x58F0;&#x660E;" class="plugin-anchor" href="#&#x58F0;&#x660E;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x58F0;&#x660E;</h3>
+<pre><code class="lang-java">Rabbit.queueDeclare(<span class="hljs-string">&quot;test&quot;</span>, <span class="hljs-keyword">false</span>, <span class="hljs-keyword">false</span>, <span class="hljs-keyword">false</span>, <span class="hljs-keyword">null</span>);
+</code></pre>
+<h3 id="&#x6D88;&#x8D39;"><a name="&#x6D88;&#x8D39;" class="plugin-anchor" href="#&#x6D88;&#x8D39;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6D88;&#x8D39;</h3>
+<pre><code class="lang-java">Rabbit.basicConsume(<span class="hljs-string">&quot;test&quot;</span>, <span class="hljs-keyword">true</span>, <span class="hljs-keyword">new</span> DefaultConsumer(Rabbit.channel()) {
+  <span class="hljs-meta">@Override</span>
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">handleDelivery</span><span class="hljs-params">(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, <span class="hljs-keyword">byte</span>[] body)</span> </span>{
+    String message = <span class="hljs-keyword">new</span> String(body, Charset.forName(<span class="hljs-string">&quot;UTF-8&quot;</span>));
+    System.out.println(TextKit.format(<span class="hljs-string">&quot;Received &apos;{0}&apos;&quot;</span>, message));
+  }
+});
+</code></pre>
+<h3 id="&#x53D1;&#x9001;"><a name="&#x53D1;&#x9001;" class="plugin-anchor" href="#&#x53D1;&#x9001;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x53D1;&#x9001;</h3>
+<pre><code class="lang-java">String message = <span class="hljs-string">&quot;Hello World!&quot;</span>;
+Rabbit.basicPublish(<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;test&quot;</span>, <span class="hljs-keyword">null</span>, message.getBytes(Charset.forName(<span class="hljs-string">&quot;UTF-8&quot;</span>)));
+System.out.println(TextKit.format(<span class="hljs-string">&quot;Sent &apos;{0}&apos;&quot;</span>, message));
+</code></pre>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="solr.html" class="navigation navigation-prev " aria-label="Previous page: Solr">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="rpc.html" class="navigation navigation-next " aria-label="Next page: Rpc">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"RabbitMQ","level":"1.3.15","depth":2,"next":{"title":"Rpc","level":"1.3.16","depth":2,"path":"foundation/rpc.md","ref":"foundation/rpc.md","articles":[]},"previous":{"title":"Solr","level":"1.3.14","depth":2,"path":"foundation/solr.md","ref":"foundation/solr.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","fontsettings","sharing","lunr","search","highlight","livereload","ga"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"search":{},"lunr":{"ignoreSpecialCharacters":false,"maxIndexSize":1000000},"fontsettings":{"family":"sans","size":2,"theme":"white"},"highlight":{},"ga":{"configuration":"auto","token":"UA-112957311-1"},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","author":"fewensa","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Enoa 使用者指南","language":"zh-hans","gitbook":"*","description":"Enoa 使用者指南"},"file":{"path":"foundation/rabbitmq.md","mtime":"2018-09-28T04:23:36.410Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-10-08T06:36:53.775Z"},"basePath":"..","book":{"language":"zh-cn"}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-ga/plugin.js"></script>
+        
+    
+
+    </body>
+</html>
+

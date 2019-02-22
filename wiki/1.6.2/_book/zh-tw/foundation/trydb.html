@@ -1,0 +1,1144 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hant" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Trydb · Enoa 使用者指南</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="fewensa">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchors/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="logger.html" />
+    
+    
+    <link rel="prev" href="firetpl.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="輸入並搜尋" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../habit/">
+            
+                <a href="../habit/">
+            
+                    
+                    習慣
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../habit/epm.html">
+            
+                <a href="../habit/epm.html">
+            
+                    
+                    EPM && USE
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    地基
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="toolkit.html">
+            
+                <a href="toolkit.html">
+            
+                    
+                    工具包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="promise.html">
+            
+                <a href="promise.html">
+            
+                    
+                    Promise
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="http.html">
+            
+                <a href="http.html">
+            
+                    
+                    Http 客戶端
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="database.html">
+            
+                <a href="database.html">
+            
+                    
+                    資料庫
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="template.html">
+            
+                <a href="template.html">
+            
+                    
+                    模板
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="firetpl.html">
+            
+                <a href="firetpl.html">
+            
+                    
+                    Firetpl
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3.7" data-path="trydb.html">
+            
+                <a href="trydb.html">
+            
+                    
+                    Trydb
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.8" data-path="logger.html">
+            
+                <a href="logger.html">
+            
+                    
+                    日誌
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.9" data-path="serialization.html">
+            
+                <a href="serialization.html">
+            
+                    
+                    序列化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.10" data-path="typebuilder.html">
+            
+                <a href="typebuilder.html">
+            
+                    
+                    Typebuilder
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.11" data-path="json.html">
+            
+                <a href="json.html">
+            
+                    
+                    Json
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.12" data-path="redis.html">
+            
+                <a href="redis.html">
+            
+                    
+                    Redis
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.13" data-path="eml.html">
+            
+                <a href="eml.html">
+            
+                    
+                    Eml
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.14" data-path="solr.html">
+            
+                <a href="solr.html">
+            
+                    
+                    Solr
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.15" data-path="rabbitmq.html">
+            
+                <a href="rabbitmq.html">
+            
+                    
+                    RabbitMQ
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.16" data-path="rpc.html">
+            
+                <a href="rpc.html">
+            
+                    
+                    Rpc
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../repeater/">
+            
+                <a href="../repeater/">
+            
+                    
+                    Repeater
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../repeater/provider.html">
+            
+                <a href="../repeater/provider.html">
+            
+                    
+                    提供者
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../repeater/config.html">
+            
+                <a href="../repeater/config.html">
+            
+                    
+                    配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../repeater/accessor.html">
+            
+                <a href="../repeater/accessor.html">
+            
+                    
+                    訪問器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../repeater/capture.html">
+            
+                <a href="../repeater/capture.html">
+            
+                    
+                    異常攔截
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../repeater/upload.html">
+            
+                <a href="../repeater/upload.html">
+            
+                    
+                    檔案上傳
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../repeater/other.html">
+            
+                <a href="../repeater/other.html">
+            
+                    
+                    其他
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../yosart/">
+            
+                <a href="../yosart/">
+            
+                    
+                    Yosart
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../yosart/standard.html">
+            
+                <a href="../yosart/standard.html">
+            
+                    
+                    標準
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../yosart/func.html">
+            
+                <a href="../yosart/func.html">
+            
+                    
+                    方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../yosart/config.html">
+            
+                <a href="../yosart/config.html">
+            
+                    
+                    配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../yosart/plugin.html">
+            
+                <a href="../yosart/plugin.html">
+            
+                    
+                    外掛
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../yosart/ext.html">
+            
+                <a href="../yosart/ext.html">
+            
+                    
+                    擴充套件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.6" data-path="../yosart/beforeampampafter.html">
+            
+                <a href="../yosart/beforeampampafter.html">
+            
+                    
+                    啟動回撥
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.7" data-path="../yosart/renderer.html">
+            
+                <a href="../yosart/renderer.html">
+            
+                    
+                    渲染輔助工具
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.8" data-path="../yosart/example.html">
+            
+                <a href="../yosart/example.html">
+            
+                    
+                    案例
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../gateway/">
+            
+                <a href="../gateway/">
+            
+                    
+                    Gateway
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../gateway/func.html">
+            
+                <a href="../gateway/func.html">
+            
+                    
+                    方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../gateway/cros.html">
+            
+                <a href="../gateway/cros.html">
+            
+                    
+                    跨域
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../gateway/auth.html">
+            
+                <a href="../gateway/auth.html">
+            
+                    
+                    授權
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../gateway/mapping.html">
+            
+                <a href="../gateway/mapping.html">
+            
+                    
+                    對映
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="../gateway/example.html">
+            
+                <a href="../gateway/example.html">
+            
+                    
+                    案例
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../thanks/">
+            
+                <a href="../thanks/">
+            
+                    
+                    鳴謝
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本書使用 GitBook 釋出
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Trydb</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="trydb"><a name="trydb" class="plugin-anchor" href="#trydb"><i class="fa fa-link" aria-hidden="true"></i></a>Trydb</h1>
+<h2 id="pom"><a name="pom" class="plugin-anchor" href="#pom"><i class="fa fa-link" aria-hidden="true"></i></a>POM</h2>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.enoa<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>enoa-trydb<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.6-beta.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+</code></pre>
+<p>Trydb &#x662F;&#x7531; Enoa &#x6240;&#x63D0;&#x4F9B;&#x7684;&#x4E00;&#x500B;&#x6578;&#x64DA;&#x5EAB;&#x64CD;&#x4F5C;&#x6846;&#x67B6;, &#x5C0F;&#x5DE7;&#x5FEB;&#x6377;, &#x652F;&#x63F4; Sql &#x6A21;&#x677F;&#x5316;&#x7BA1;&#x7406;, &#x652F;&#x63F4;&#x975E;&#x540C;&#x6B65;&#x8CC7;&#x6599;&#x5EAB;&#x64CD;&#x4F5C;.
+&#x958B;&#x767C; Trydb &#x7684;&#x539F;&#x56E0;&#x662F;, &#x73FE;&#x6709;&#x7684;&#x90E8;&#x5206;&#x8CC7;&#x6599;&#x5EAB;&#x64CD;&#x4F5C;&#x6846;&#x67B6;, &#x6709;&#x7684;&#x914D;&#x7F6E;&#x7E41;&#x7463;&#x4E14;&#x6548;&#x7387;&#x4E0D;&#x9AD8;, &#x90E8;&#x5206;&#x63D0;&#x4F9B;&#x7684; API &#x76F8;&#x5C0D;&#x8F03;&#x50B3;&#x7D71;&#x6216;&#x76F8;&#x5C0D;&#x8907;&#x96DC;&#x904E;&#x591A;&#x5197;&#x9918;; &#x5148;&#x4F86;&#x770B;&#x770B; Trydb &#x5982;&#x4F55;&#x4F7F;&#x7528;.</p>
+<h2 id="epm"><a name="epm" class="plugin-anchor" href="#epm"><i class="fa fa-link" aria-hidden="true"></i></a>EPM</h2>
+<p>&#x4F7F;&#x7528; Trydb &#x65BC;&#x5176;&#x4ED6; Enoa &#x7684;&#x5C08;&#x6848;&#x4E00;&#x6A23;, &#x63D0;&#x4F9B;&#x4E00;&#x500B;&#x6578;&#x64DA;&#x5EAB;&#x64CD;&#x4F5C;&#x7684;&#x914D;&#x7F6E;&#x6A94;, &#x4F7F;&#x7528; epm &#x9032;&#x884C;&#x5B89;&#x88DD;&#x5373;&#x53EF;.</p>
+<pre><code class="lang-java"><span class="hljs-comment">// install trydb with name &apos;main&apos;</span>
+TrydbConfig config = <span class="hljs-keyword">new</span> TrydbConfig.Builder()
+  .name(<span class="hljs-string">&quot;main&quot;</span>)
+  .debug(<span class="hljs-keyword">true</span>)
+  .ds(DS)
+  .showSql()
+  .dialect(<span class="hljs-keyword">new</span> PostgreSQLDialect())
+  .template(<span class="hljs-keyword">new</span> EnjoyFiretpl(PathKit.debugPath().resolve(<span class="hljs-string">&quot;src/test/resources/sqls&quot;</span>), <span class="hljs-string">&quot;template.sql&quot;</span>, <span class="hljs-keyword">true</span>))
+  .build();
+Trydb.epm().install(config);
+
+<span class="hljs-comment">// use main trydb</span>
+Trydb.use(); <span class="hljs-comment">//</span>
+Trydb.use(<span class="hljs-string">&quot;main&quot;</span>); <span class="hljs-comment">//</span>
+</code></pre>
+<h2 id="trydbconfig"><a name="trydbconfig" class="plugin-anchor" href="#trydbconfig"><i class="fa fa-link" aria-hidden="true"></i></a>TrydbConfig</h2>
+<p>TrydbConfig &#x662F; Trydb &#x555F;&#x52D5;&#x7684;&#x5FC5;&#x9808;&#x8981;&#x7D20;, &#x4F86;&#x770B;&#x770B;&#x5176;&#x4E2D;&#x7684;&#x914D;&#x7F6E;.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Must</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>No</td>
+<td>main</td>
+<td>Instance name</td>
+</tr>
+<tr>
+<td>debug</td>
+<td>No</td>
+<td>false</td>
+<td>debug mode</td>
+</tr>
+<tr>
+<td>ds</td>
+<td>Yes</td>
+<td></td>
+<td>datasource</td>
+</tr>
+<tr>
+<td>dialect</td>
+<td>Yes</td>
+<td></td>
+<td>db dialect</td>
+</tr>
+<tr>
+<td>level</td>
+<td>Yes</td>
+<td>4</td>
+<td>tx level</td>
+</tr>
+<tr>
+<td>reporter</td>
+<td>No</td>
+<td></td>
+<td>sql reporter</td>
+</tr>
+<tr>
+<td>namecase</td>
+<td>No</td>
+<td>UNDERLINE</td>
+<td>namecase</td>
+</tr>
+<tr>
+<td>template</td>
+<td>No</td>
+<td></td>
+<td>template sql</td>
+</tr>
+</tbody>
+</table>
+<p>Trydb &#x4E5F;&#x652F;&#x63F4;&#x591A;&#x500B;&#x4F8B;&#x9805;, &#x4F9D;&#x64DA;&#x9019;&#x88E1;&#x7684; name &#x9032;&#x884C;&#x5340;&#x5206;, debug &#x662F;&#x5426;&#x958B;&#x767C;&#x8005;&#x6A21;&#x5F0F;, level &#x4E8B;&#x7269;&#x7D1A;&#x5225;, &#x65BC; JDBC &#x4E8B;&#x7269;&#x7D1A;&#x5225;&#x76F8;&#x540C;. &#x914D;&#x7F6E;&#x88E1;&#x9762;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x6709;&#x4E09;&#x9805;, reporter, template &#x4EE5;&#x53CA; showSql;</p>
+<ul>
+<li>reporter
+&#x5F59;&#x5831;&#x914D;&#x7F6E;, &#x9019;&#x88E1;&#x7684;&#x5F59;&#x5831;&#x8981;&#x6C42;&#x4E00;&#x500B; <code>ISqlReporter</code> &#x4ECB;&#x9762;, &#x6B64;&#x914D;&#x7F6E;&#x5C07;&#x6703;&#x5728;&#x63D0;&#x4EA4;&#x8CC7;&#x6599;&#x5EAB;&#x4E4B;&#x524D;&#x5C07;&#x6700;&#x7D42;&#x547C;&#x53EB;&#x7684; sql &#x8A9E;&#x53E5;&#x4EE5;&#x53CA;&#x5F15;&#x6578;&#x547C;&#x53EB;&#x6B64;&#x914D;&#x7F6E;&#x50B3;&#x5165;&#x7684; <code>ISqlReporter</code> &#x4ECB;&#x9762;</li>
+<li>template
+Trydb &#x652F;&#x63F4;&#x5F9E;&#x6A21;&#x677F;&#x7372;&#x53D6; Sql, &#x9019;&#x88E1;&#x914D;&#x7F6E;&#x7684;&#x4FBF;&#x662F;&#x6A21;&#x677F;&#x7684;&#x914D;&#x7F6E;, &#x9700;&#x8981;&#x7D66;&#x4E00;&#x500B; <code>Firetpl</code> &#x4ECB;&#x9762;, &#x6240;&#x6709;&#x7684; Sql &#x5C07;&#x6703;&#x5F9E; template &#x4E2D;&#x7372;&#x53D6;.</li>
+<li>showSql
+&#x57F7;&#x884C;&#x904E;&#x7A0B;&#x4E2D;&#x662F;&#x5426;&#x5217;&#x5370; Sql, &#x5BE6;&#x8CEA;&#x4E0A; showSql &#x6703;&#x5F80; reporter &#x4E2D;&#x5BEB;&#x5165;&#x4E00;&#x500B; Trydb &#x63D0;&#x4F9B;&#x7684;&#x9810;&#x8A2D;&#x5F59;&#x5831;&#x985E; <a href="https://github.com/fewensa/enoa/blob/master/enoa-trydb/src/main/java/io/enoa/trydb/_TrydbSqlReporter.java" title="_TrydbSqlReporter.java" target="_blank">_TrydbSqlReporter</a></li>
+</ul>
+<p>&#x81F3;&#x65BC;&#x4E0D;&#x540C;&#x7684;&#x4F8B;&#x9805;&#x4F7F;&#x7528;, &#x6839;&#x64DA; TrydbConfig &#x4E2D;&#x63D0;&#x4F9B;&#x7684;&#x540D;&#x7A31;:</p>
+<pre><code class="lang-java">Trydb.use(); <span class="hljs-comment">// use main</span>
+Trydb.use(<span class="hljs-string">&quot;pgsql&quot;</span>); <span class="hljs-comment">// use pgsql</span>
+Trydb.template(<span class="hljs-string">&quot;pgsql&quot;</span>); use pgsql on template mode
+</code></pre>
+<h2 id="find"><a name="find" class="plugin-anchor" href="#find"><i class="fa fa-link" aria-hidden="true"></i></a>find</h2>
+<p>find &#x65B9;&#x6CD5;&#x7528;&#x65BC;&#x8CC7;&#x6599;&#x5EAB;&#x5217;&#x8868;&#x67E5;&#x8A62;, &#x8FD4;&#x56DE; List&lt;<a href="#Kv">Kv</a>&gt; &#x578B;&#x5225;&#x8CC7;&#x6599;</p>
+<pre><code class="lang-java">List&lt;Kv&gt; kvs = Trydb.find(<span class="hljs-string">&quot;select * from t_binary&quot;</span>);
+</code></pre>
+<h2 id="first"><a name="first" class="plugin-anchor" href="#first"><i class="fa fa-link" aria-hidden="true"></i></a>first</h2>
+<p>first &#x65B9;&#x6CD5;, &#x67E5;&#x8A62;&#x7B2C;&#x4E00;&#x689D;&#x8A18;&#x9304;, &#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x662F;, first &#x8FD4;&#x56DE;&#x7684;&#x7B2C;&#x4E00;&#x689D;&#x662F; Sql &#x8A9E;&#x53E5;&#x8FD4;&#x56DE;&#x5F8C;&#x7684;&#x7B2C;&#x4E00;&#x689D;, &#x56E0;&#x6B64;&#x7121;&#x8AD6;&#x547C;&#x53EB; Sql &#x8A9E;&#x53E5;&#x5F8C;, &#x8FD4;&#x56DE;&#x7684;&#x662F;&#x591A;&#x5C11;&#x689D;&#x8A18;&#x9304;, &#x6700;&#x7D42;&#x53EA;&#x53D6;&#x7B2C;&#x4E00;&#x689D;; &#x5EFA;&#x8B70;&#x5728;&#x4F7F;&#x7528;&#x7684;&#x904E;&#x7A0B;&#x4E2D;, &#x70BA;&#x4E86;&#x6548;&#x80FD;&#x8003;&#x616E;, &#x53EF;&#x4EE5;&#x5728; Sql &#x4E2D;&#x9650;&#x5B9A;&#x53EA;&#x8FD4;&#x56DE;&#x4E00;&#x689D;&#x8A18;&#x9304;(&#x4F8B;&#x5982;&#x5728; Mysql &#x4E2D;&#x4F7F;&#x7528; <code>limit 1</code>); &#x8FD4;&#x56DE; Kv &#x578B;&#x5225;&#x8CC7;&#x6599;.</p>
+<pre><code class="lang-java">Kv kv = Trydb.first(<span class="hljs-string">&quot;select * from t_binary limit 1&quot;</span>);
+</code></pre>
+<h2 id="beans"><a name="beans" class="plugin-anchor" href="#beans"><i class="fa fa-link" aria-hidden="true"></i></a>beans</h2>
+<p>beans &#x65B9;&#x6CD5;&#x65BC; find &#x65B9;&#x6CD5;&#x985E;&#x4F3C;, &#x8FD4;&#x56DE;&#x7684;&#x662F; List &#x96C6;&#x5408;, &#x4E0D;&#x540C;&#x7684;&#x662F;, beans &#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x8FD4;&#x56DE;&#x7684;&#x8CC7;&#x6599;&#x578B;&#x5225;&#x5C07;&#x578B;&#x5225;&#x8F49;&#x63DB;&#x70BA;&#x6307;&#x5B9A;&#x7684;&#x5BE6;&#x9AD4;&#x985E;, &#x800C;&#x4E0D;&#x662F; Kv.</p>
+<pre><code class="lang-java">List&lt;EBinary&gt; beans = Trydb.beans(<span class="hljs-string">&quot;select * from t_binary&quot;</span>, EBinary.class);
+</code></pre>
+<h2 id="bean"><a name="bean" class="plugin-anchor" href="#bean"><i class="fa fa-link" aria-hidden="true"></i></a>bean</h2>
+<p>&#x540C;&#x6A23;&#x7684;, bean &#x6240;&#x5C0D;&#x61C9;&#x7684;&#x662F; first &#x65B9;&#x6CD5;, &#x8FD4;&#x56DE;&#x55AE;&#x689D;&#x8A18;&#x9304;&#x7684;&#x5BE6;&#x9AD4;&#x985E;.</p>
+<pre><code class="lang-java">EBinary bean = Trydb.bean(<span class="hljs-string">&quot;select * from t_binary limit 1&quot;</span>, EBinary.class);
+</code></pre>
+<h2 id="update"><a name="update" class="plugin-anchor" href="#update"><i class="fa fa-link" aria-hidden="true"></i></a>update</h2>
+<p>update &#x65B9;&#x6CD5;, &#x7528;&#x65BC;&#x57F7;&#x884C; Sql &#x4E2D;&#x7684; <code>update</code>, <code>delete</code>, <code>insert</code> &#x8A9E;&#x53E5;, &#x6C92;&#x6709;&#x55AE;&#x7368;&#x65B0;&#x589E; delete, insert &#x662F;&#x56E0;&#x70BA;, delete &#x4EE5;&#x53CA; insert &#x5BE6;&#x969B;&#x4E5F;&#x662F;&#x4FEE;&#x6539;&#x64CD;&#x4F5C;, &#x56E0;&#x6B64;&#x53EF;&#x901A;&#x7528; update &#x65B9;&#x6CD5;.
+update &#x547C;&#x53EB;&#x5F8C;&#x6703;&#x8FD4;&#x56DE;&#x57F7;&#x884C; Sql &#x5F8C;&#x7684;&#x8CC7;&#x6599;&#x5F71;&#x97FF;&#x884C;&#x6578;.</p>
+<p>:::warning
+&#x7279;&#x5225;&#x8AAA;&#x660E;: update &#x65B9;&#x6CD5;&#x7528;&#x65BC;&#x57F7;&#x884C; <code>insert</code> &#x8A9E;&#x53E5;&#x6642;, &#x4E0D;&#x652F;&#x63F4;&#x7372;&#x53D6;&#x8868;&#x7684;&#x81EA;&#x589E; ID &#x503C;. &#x70BA;&#x4EC0;&#x9EBC;?
+<a href="https://www.clever-cloud.com/blog/engineering/2015/05/20/why-auto-increment-is-a-terrible-idea/" target="_blank">Why Auto Increment Is A Terrible Idea</a></p>
+<p>&#x53EF;&#x4EE5;&#x66FF;&#x63DB;&#x7684;&#x65B9;&#x6848;&#x5176;&#x5BE6;&#x5F88;&#x591A;, &#x6BD4;&#x5982; <a href="#SnowflakeKit">SnowflakeKit</a>
+:::</p>
+<pre><code class="lang-java"><span class="hljs-keyword">byte</span>[] bytes = {<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>};
+Trydb.update(<span class="hljs-string">&quot;insert into t_binary (id, bin) values (?, ?)&quot;</span>, <span class="hljs-number">1</span>, bytes);
+Trydb.update(<span class="hljs-string">&quot;update t_binary set bin=? where id=?&quot;</span>, <span class="hljs-keyword">new</span> Object[]{bytes, <span class="hljs-number">1</span>});
+Trydb.update(<span class="hljs-string">&quot;delete from t_binary where id=?&quot;</span>, <span class="hljs-number">1</span>);
+</code></pre>
+<h2 id="pagekv"><a name="pagekv" class="plugin-anchor" href="#pagekv"><i class="fa fa-link" aria-hidden="true"></i></a>pagekv</h2>
+<p>pagekv &#x7528;&#x65BC;&#x8CC7;&#x6599;&#x5206;&#x9801;&#x67E5;&#x8A62;, &#x4E26;&#x8FD4;&#x56DE; Page\<kv> &#x7269;&#x4EF6;; pagekv &#x6709;&#x56DB;&#x500B;&#x5F15;&#x6578;:</kv></p>
+<ol>
+<li>pn
+&#x7576;&#x524D;&#x9801;&#x78BC;</li>
+<li>ps
+&#x6BCF;&#x9801;&#x8CC7;&#x6599;&#x91CF;</li>
+<li>sql
+sql</li>
+<li>paras/map
+&#x53EF;&#x9078;&#x9805;, sql &#x4F54;&#x4F4D;&#x7B26;&#x8655;&#x7406;, &#x652F;&#x63F4;&#x9663;&#x5217;&#x6216; map &#x578B;, map &#x578B;&#x53EA;&#x6709;&#x7528;&#x65BC;&#x6A21;&#x677F;&#x6642;&#x624D;&#x53EF;&#x4F7F;&#x7528;.</li>
+</ol>
+<pre><code class="lang-java">Page&lt;Kv&gt; pkv0 = Trydb.pagekv(<span class="hljs-number">3</span>, <span class="hljs-number">1</span>, <span class="hljs-string">&quot;select * from t_binary&quot;</span>);
+</code></pre>
+<p>&#x4F86;&#x770B;&#x4E00;&#x4E0B; Page &#x7269;&#x4EF6;. Page &#x4E2D;&#x5305;&#x542B;&#x5982;&#x4E0B;&#x6B04;&#x4F4D;</p>
+<ul>
+<li>pageNumber
+&#x7576;&#x524D;&#x9801;&#x78BC;</li>
+<li>pageSize
+&#x4E00;&#x9801;&#x8CC7;&#x6599;&#x5927;&#x5C0F;</li>
+<li>totalPage
+&#x7E3D;&#x5171;&#x591A;&#x5C11;&#x9801;</li>
+<li>offset
+&#x5206;&#x9801;&#x904A;&#x6A19;&#x504F;&#x79FB;&#x503C;</li>
+<li>totalRow
+&#x7E3D;&#x5171;&#x591A;&#x5C11;&#x8CC7;&#x6599;</li>
+<li>rows
+&#x7576;&#x524D;&#x9801;&#x8CC7;&#x6599;</li>
+</ul>
+<p>:::info
+Page &#x7269;&#x4EF6;&#x662F;&#x4E00;&#x500B;&#x5B58;&#x5728; Getter Setter &#x65B9;&#x6CD5;&#x7684;&#x7269;&#x4EF6;, &#x4E0A;&#x8FF0;&#x7684;&#x6240;&#x6709;&#x6B04;&#x4F4D;&#x5747;&#x53EF;&#x901A;&#x904E; get set &#x65B9;&#x6CD5;&#x9032;&#x884C;&#x8A2D;&#x5B9A;; &#x662F;&#x7684;, &#x9019;&#x4E26;&#x4E0D;&#x7B26;&#x5408; Enoa &#x7684;&#x7FD2;&#x6163;, &#x4F46;&#x9019;&#x662F;&#x4E00;&#x500B;&#x59A5;&#x5354;&#x7684;&#x7D50;&#x679C;, &#x56E0;&#x70BA; Page &#x7269;&#x4EF6;&#x5C07;&#x6703;&#x6709;&#x5F88;&#x9AD8;&#x7684;&#x6A5F;&#x7387;&#x7528;&#x65BC;&#x548C;&#x5916;&#x90E8;&#x4E92;&#x52D5;, &#x90A3;&#x9EBC;&#x5982;&#x679C;&#x4E0D;&#x9019;&#x9EBC;&#x505A;&#x5C31;&#x6709;&#x53EF;&#x80FD;&#x6703;&#x5C0E;&#x81F4;&#x7121;&#x6CD5;&#x89E3;&#x6790;&#x7684;&#x554F;&#x984C;.
+:::</p>
+<h2 id="page"><a name="page" class="plugin-anchor" href="#page"><i class="fa fa-link" aria-hidden="true"></i></a>page</h2>
+<p>page &#x65B9;&#x6CD5;&#x65BC; pagekv &#x76F8;&#x4F3C;, &#x540C;&#x6A23;&#x662F;&#x9032;&#x884C;&#x5206;&#x9801;&#x67E5;&#x8A62;, &#x4E0D;&#x540C;&#x7684;&#x662F;&#x652F;&#x63F4;&#x81EA;&#x5B9A;&#x7FA9;&#x8FD4;&#x56DE;&#x7684;&#x8CC7;&#x6599;&#x578B;&#x5225;.</p>
+<pre><code class="lang-java">Page&lt;EBinary&gt; pkv3 = Trydb.page(<span class="hljs-number">3</span>, <span class="hljs-number">1</span>, <span class="hljs-string">&quot;select * from t_binary&quot;</span>, EBinary.class);
+</code></pre>
+<h2 id="tx"><a name="tx" class="plugin-anchor" href="#tx"><i class="fa fa-link" aria-hidden="true"></i></a>tx</h2>
+<p>&#x4E8B;&#x7269;&#x7BA1;&#x7406;. &#x4F7F;&#x7528;&#x8005;&#x7121;&#x9700;&#x9032;&#x884C;&#x5B8C;&#x5099;&#x7684;&#x4E8B;&#x7269;&#x64CD;&#x4F5C;&#x7A0B;&#x5F0F;&#x78BC;, &#x53EA;&#x9700;&#x8981;&#x5728;&#x547C;&#x53EB; tx &#x65B9;&#x6CD5;&#x662F;&#x8FD4;&#x56DE;&#x4E00;&#x500B; boolean &#x503C;&#x544A;&#x77E5;&#x662F;&#x5426;&#x6210;&#x529F;, &#x5982;&#x679C;&#x6210;&#x529F;&#x81EA;&#x52D5;&#x9032;&#x884C; commit &#x5426;&#x5247;&#x6703;&#x9032;&#x884C; rollback;</p>
+<pre><code class="lang-java">Trydb.tx(() -&gt; Trydb.update(<span class="hljs-string">&quot;delete from t_binary where id=?&quot;</span>, <span class="hljs-number">1</span>) != <span class="hljs-number">0</span>);
+</code></pre>
+<p>&#x4E00;&#x500B;&#x76F8;&#x5C0D;&#x8F03;&#x8907;&#x96DC;&#x7684;&#x6848;&#x4F8B; <a href="https://github.com/fewensa/enoa/blob/master/enoa-example/example-trydb/src/test/java/io/enoa/example/trydb/TrydbTest.java" title="TrydbTest.java" target="_blank">TrydbTest</a>: </p>
+<pre><code class="lang-java"><span class="hljs-meta">@Test</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">tx0</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-keyword">this</span>.first();
+  <span class="hljs-keyword">this</span>.updateBin(<span class="hljs-number">4</span>);
+  <span class="hljs-keyword">boolean</span> ret = Trydb.tx(() -&gt; {
+    <span class="hljs-keyword">this</span>.first();
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.tx1();
+<span class="hljs-comment">//    return true;</span>
+  });
+  <span class="hljs-keyword">this</span>.first();
+  Log.debug(<span class="hljs-string">&quot;TX RET: {}&quot;</span>, ret);
+}
+
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">tx1</span><span class="hljs-params">()</span> </span>{
+  <span class="hljs-keyword">this</span>.first();
+  <span class="hljs-keyword">return</span> Trydb.tx(() -&gt; {
+    <span class="hljs-keyword">this</span>.first();
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.updateBin(<span class="hljs-number">5</span>);
+  });
+}
+</code></pre>
+<h2 id="elegant"><a name="elegant" class="plugin-anchor" href="#elegant"><i class="fa fa-link" aria-hidden="true"></i></a>elegant</h2>
+<p>elegant &#x6A21;&#x5F0F;&#x70BA;&#x70BA;&#x4E86;&#x8B93; Trydb &#x5BEB;&#x51FA;&#x512A;&#x96C5;&#x7A0B;&#x5F0F;&#x78BC;&#x7684;&#x6A21;&#x5F0F;, &#x5176;&#x6240;&#x64C1;&#x6709;&#x7684;&#x529F;&#x80FD;&#x65BC;&#x4E0A;&#x8FF0;&#x6240;&#x8AAA;&#x660E;&#x7684;&#x4E00;&#x6A23;&#x7684;, &#x53EA;&#x662F;&#x548C; bean &#x76F8;&#x95DC;&#x7684;&#x65B9;&#x6CD5;&#x547C;&#x53EB;&#x65B9;&#x5F0F;&#x6709;&#x6240;&#x6539;&#x8B8A;, &#x5C07;&#x5BE6;&#x9AD4; class &#x55AE;&#x9AD4;&#x63D0;&#x53D6;&#x51FA;&#x4F86;&#x63D0;&#x524D;&#x8A2D;&#x5B9A;; &#x4E4B;&#x6240;&#x4EE5;&#x6709;&#x6B64;&#x6A21;&#x5F0F;, &#x662F;&#x56E0;&#x70BA; Trydb &#x7684;&#x65B9;&#x6CD5;&#x5747;&#x662F;&#x975C;&#x614B;&#x65B9;&#x6CD5;, &#x5982;&#x679C;&#x55AE;&#x7368;&#x8A2D;&#x5B9A;&#x6703;&#x6709;&#x57F7;&#x884C;&#x7DD2;&#x5B89;&#x5168;&#x554F;&#x984C;, &#x6B64;&#x6A21;&#x5F0F;&#x662F;&#x4EE5;&#x89E3;&#x6C7A;&#x57F7;&#x884C;&#x7DD2;&#x5B89;&#x5168;&#x554F;&#x984C;&#x7684;&#x512A;&#x96C5;&#x5C55;&#x73FE;&#x5F62;&#x5F0F;. &#x4E0D;&#x904E;&#x76F8;&#x61C9;&#x7684;, &#x6548;&#x80FD;&#x80AF;&#x5B9A;&#x6703;&#x4F4E;&#x65BC;&#x6B63;&#x5E38;&#x4F7F;&#x7528;&#x7684;&#x65B9;&#x5F0F;.</p>
+<pre><code class="lang-java">List&lt;EBinary&gt; beans2 = Trydb.elegant()
+  .target(EBinary.class)
+  .beans(<span class="hljs-string">&quot;select * from t_binary&quot;</span>);
+</code></pre>
+<pre><code class="lang-java">EBinary bean1 = Trydb.elegant()
+  .target(EBinary.class)
+  .bean(<span class="hljs-string">&quot;select * from t_binary&quot;</span>);
+</code></pre>
+<h2 id="template"><a name="template" class="plugin-anchor" href="#template"><i class="fa fa-link" aria-hidden="true"></i></a>template</h2>
+<p>Trydb &#x85C9;&#x52A9;&#x65BC; <a href="#Firetpl">Firetpl</a> &#x5BE6;&#x73FE;&#x57FA;&#x65BC;&#x6A21;&#x677F;&#x7684; Sql &#x7BA1;&#x7406;&#x7B56;&#x7565;, &#x53EF;&#x4EE5;&#x5C07; Sql &#x525D;&#x96E2;&#x8655; Java &#x7A0B;&#x5F0F;&#x78BC;&#x4F7F;&#x7528;&#x6A94;&#x6848;&#x6216;&#x8005;&#x5176;&#x4ED6;&#x65B9;&#x5F0F;&#x9032;&#x884C;&#x7BA1;&#x7406;, &#x958B;&#x555F; template &#x6A21;&#x5F0F;, &#x9700;&#x8981;&#x5728;&#x555F;&#x52D5; Trydb &#x6642;&#x914D;&#x7F6E; template, &#x63D0;&#x4F9B;&#x4E00;&#x500B; Firetpl &#x6A21;&#x677F;, &#x7136;&#x5F8C;&#x4F7F;&#x7528; <code>Trydb.template</code> &#x9032;&#x5165; template &#x6A21;&#x5F0F;&#x5373;&#x53EF;.</p>
+<pre><code class="lang-java">List&lt;Kv&gt; kvs = Trydb.template(<span class="hljs-string">&quot;main&quot;</span>)
+  .find(<span class="hljs-string">&quot;Binary.list&quot;</span>, paras);
+</code></pre>
+<p>&#x5177;&#x9AD4;&#x6A21;&#x677F;&#x5982;&#x4F55;&#x5B58;&#x653E;, &#x53C3;&#x7167;&#x6240;&#x4F7F;&#x7528; Firetpl &#x6587;&#x4EF6;. Trydb &#x63D0;&#x4F9B;&#x5F15;&#x6578;&#x4EE5; Map &#x50B3;&#x9001;&#x81F3; Firetpl, &#x5982;&#x4F55;&#x4F7F;&#x7528;, &#x4E5F;&#x53C3;&#x7167; Firetpl &#x6587;&#x4EF6;.</p>
+<h2 id="async"><a name="async" class="plugin-anchor" href="#async"><i class="fa fa-link" aria-hidden="true"></i></a>async</h2>
+<p>Trydb &#x652F;&#x63F4;&#x975E;&#x540C;&#x6B65;&#x7684;&#x8CC7;&#x6599;&#x5EAB;&#x64CD;&#x4F5C;, &#x4E26;&#x4E14;&#x652F;&#x63F4; <a href="#Promise">Promise</a>, &#x547C;&#x53EB; async &#x65B9;&#x6CD5;&#x5247;&#x6703;&#x9032;&#x5165;&#x975E;&#x540C;&#x6B65;&#x6A21;&#x5F0F;.</p>
+<pre><code class="lang-java">Trydb.async()
+  .find(<span class="hljs-string">&quot;select * from t_binary&quot;</span>)
+  .enqueue()
+  .done(System.out::println)
+  .capture(System.out::println)
+  .always(() -&gt; System.out.println(<span class="hljs-string">&quot;always&quot;</span>));
+
+Trydb.async()
+  .bean(<span class="hljs-string">&quot;select * from t_binary&quot;</span>, EBinary.class)
+  .enqueue()
+  .done(System.out::println)
+  .capture(System.out::println)
+  .always(() -&gt; System.out.println(<span class="hljs-string">&quot;always&quot;</span>));
+
+Trydb.use()
+  .async()
+  .find(<span class="hljs-string">&quot;select * from t_binary&quot;</span>)
+  .enqueue()
+  .done(System.out::println)
+  .capture(System.out::println)
+  .always(() -&gt; System.out.println(<span class="hljs-string">&quot;always&quot;</span>));
+
+Trydb.elegant()
+  .async()
+  .bean(<span class="hljs-string">&quot;select * from t_binary&quot;</span>)
+  .enqueue()
+  .done(System.out::println)
+  .capture(System.out::println)
+  .always(() -&gt; System.out.println(<span class="hljs-string">&quot;always&quot;</span>));
+
+Trydb.template()
+  .async()
+  .find(<span class="hljs-string">&quot;Binary.list&quot;</span>)
+  .enqueue()
+  .done(System.out::println)
+  .capture(System.out::println)
+  .always(() -&gt; System.out.println(<span class="hljs-string">&quot;always&quot;</span>));
+</code></pre>
+<p>Trydb &#x9078;&#x7528;&#x7684; Promise &#x662F; DoneArgPromise, &#x56E0;&#x6B64;&#x53D7;&#x652F;&#x63F4;&#x7684; Promise &#x65B9;&#x6CD5;&#x6709;</p>
+<ul>
+<li>done</li>
+<li>capture</li>
+<li>always</li>
+</ul>
+<p>:::warning
+elegant &#x6A21;&#x5F0F;&#x975E;&#x540C;&#x6B65;&#x9700;&#x8981;&#x4E86;&#x89E3;, &#x56E0;&#x70BA;&#x5EFA;&#x7ACB; Promise &#x5F8C;, &#x4F7F;&#x7528; target &#x65B9;&#x6CD5;&#x50B3;&#x5165;&#x7684;&#x578B;&#x5225;&#x7121;&#x6CD5;&#x5E36;&#x5165;&#x5230; Promise &#x6CDB;&#x578B;&#x4E2D;, &#x5C0E;&#x81F4; async &#x4E4B;&#x5F8C;&#x7121;&#x6CD5;&#x8B58;&#x5225; target &#x7684;&#x578B;&#x5225;, &#x56E0;&#x6B64; elegant &#x975E;&#x540C;&#x6B65;&#x64CD;&#x4F5C;&#x5F8C;&#x7121;&#x6CD5;&#x6B63;&#x78BA;&#x8B58;&#x5225;&#x6CDB;&#x578B;.
+:::</p>
+<h2 id="trysql"><a name="trysql" class="plugin-anchor" href="#trysql"><i class="fa fa-link" aria-hidden="true"></i></a>Trysql</h2>
+<p>Trydb &#x63D0;&#x4F9B;&#x4E00;&#x500B;&#x751F;&#x6210; Sql &#x7684;&#x5DE5;&#x5177; <a href="https://github.com/fewensa/enoa/blob/master/enoa-trydb/src/main/java/io/enoa/trydb/tsql/Trysql.java" title="Trysql.java" target="_blank">Trysql</a>, &#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x751F;&#x6210; Sql &#x8A9E;&#x53E5;, &#x6B64;&#x5916;, &#x5982;&#x679C;&#x914D;&#x7F6E;&#x4E86; Firetpl, Trysql &#x9084;&#x53EF;&#x4EE5;&#x5F9E;&#x6A21;&#x677F;&#x4E2D;&#x7372;&#x53D6; Sql.</p>
+<p>e.g.</p>
+<pre><code class="lang-java"><span class="hljs-comment">/*
+select id, name, age, &quot;key&quot; from user
+where name like &apos;Ja%&apos; and ctime &gt; &apos;2019-09-01&apos; and age &lt;= 20;
+ */</span>
+Trysql.select()
+  .dialect(<span class="hljs-keyword">new</span> PostgreSQLDialect())
+  .table(<span class="hljs-string">&quot;user&quot;</span>)
+  .column(<span class="hljs-string">&quot;id&quot;</span>, <span class="hljs-string">&quot;name&quot;</span>)
+  .column(<span class="hljs-string">&quot;age&quot;</span>, <span class="hljs-string">&quot;key&quot;</span>)
+  .where()
+  .relation(TSqlRelation.AND)
+  .cond(<span class="hljs-string">&quot;name&quot;</span>, TSqlCond.LIKE, <span class="hljs-string">&quot;Ja%&quot;</span>)
+  .cond(<span class="hljs-string">&quot;ctime&quot;</span>, TSqlCond.GT, <span class="hljs-string">&quot;2019-09-01&quot;</span>)
+  .cond(<span class="hljs-string">&quot;age&quot;</span>, TSqlCond.LTE, <span class="hljs-number">20</span>)
+  .end()
+  .sql();
+
+<span class="hljs-comment">/*
+insert into user (id, name, age) values 
+(1, &apos;xiaoming&apos;, 23),
+(2, &apos;xiaoqiang&apos;, 12);
+ */</span>
+Trysql.insert()
+  .table(<span class="hljs-string">&quot;user&quot;</span>)
+  .dialect(<span class="hljs-keyword">new</span> PostgreSQLDialect())
+  .multiple()
+  .column(<span class="hljs-string">&quot;id&quot;</span>, <span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;age&quot;</span>)
+  .value(<span class="hljs-number">1</span>, <span class="hljs-string">&quot;xiaoming&quot;</span>, <span class="hljs-number">23</span>)
+  .value(<span class="hljs-number">2</span>, <span class="hljs-string">&quot;xiaoqiang&quot;</span>, <span class="hljs-number">12</span>)
+  .sql();
+
+<span class="hljs-comment">/*
+update user set name=&apos;Tom\&apos;v&apos;, age=19
+where ctime &gt; &apos;2019-01-02&apos; and stat in (1)
+and type in (1, 2, 3, null)
+and category in (&apos;C1&apos;, null, &apos;C2&apos;) and col0 is null
+and col1 is not null;
+ */</span>
+Trysql.update(<span class="hljs-string">&quot;user&quot;</span>)
+  .dialect(<span class="hljs-keyword">new</span> PostgreSQLDialect())
+  .set(<span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;Tom&apos;v&quot;</span>)
+  .set(<span class="hljs-string">&quot;age&quot;</span>, <span class="hljs-number">19</span>)
+  .where()
+  .cond(<span class="hljs-string">&quot;ctime&quot;</span>, TSqlCond.GT, <span class="hljs-string">&quot;2019-01-02&quot;</span>)
+  .cond(<span class="hljs-string">&quot;stat&quot;</span>, TSqlCond.IN, <span class="hljs-number">1</span>)
+  .in(<span class="hljs-string">&quot;type&quot;</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-keyword">null</span>)
+  .in(<span class="hljs-string">&quot;category&quot;</span>, <span class="hljs-string">&quot;C1&quot;</span>, <span class="hljs-keyword">null</span>, <span class="hljs-string">&quot;C2&quot;</span>)
+  .isnull(<span class="hljs-string">&quot;col0&quot;</span>)
+  .isnotnull(<span class="hljs-string">&quot;col1&quot;</span>)
+  .end()
+  .sql();
+
+<span class="hljs-comment">/*
+delete from user where id = 1;
+ */</span>
+Trysql.delete()
+  .table(<span class="hljs-string">&quot;user&quot;</span>)
+  .where()
+  .cond(<span class="hljs-string">&quot;id&quot;</span>, TSqlCond.EQ, <span class="hljs-number">1</span>)
+  .end()
+  .sql();
+
+Trysql.tsql(<span class="hljs-string">&quot;main&quot;</span>, <span class="hljs-string">&quot;Binary.list&quot;</span>);
+</code></pre>
+<p>&#x7136;&#x800C;, &#x5FC5;&#x9808;&#x8981;&#x8AAA;&#x660E;&#x7684;&#x662F;, &#x4E8B;&#x5BE6;&#x4E0A; Trysql &#x9084;&#x5C1A;&#x4E0D;&#x5B8C;&#x5584;, &#x751F;&#x6210;&#x7684; Sql &#x53EF;&#x80FD;&#x4E0D;&#x76E1;&#x5165;&#x4EBA;&#x610F;, &#x6B64;&#x5916;, &#x9019;&#x7A2E;&#x751F;&#x6210;&#x65B9;&#x5F0F;&#x5BEB;&#x51FA;&#x4F86;&#x7684; Sql &#x53EF;&#x80FD;&#x6BD4;&#x76F4;&#x63A5;&#x5BEB; Sql &#x8A9E;&#x53E5;&#x9084;&#x8981;&#x8907;&#x96DC;, &#x56E0;&#x6B64;&#x4E0D;&#x5EFA;&#x8B70;&#x4F7F;&#x7528;. Trysql &#x4E4B;&#x6240;&#x4EE5;&#x5B58;&#x5728;, &#x662F;&#x70BA;&#x4E86;&#x547C;&#x53EB; Firetpl &#x5F9E;&#x6A21;&#x677F;&#x4E2D;&#x63D0;&#x53D6; Sql, &#x800C;&#x5176;&#x4ED6;&#x7684;&#x65B9;&#x6CD5;, select update &#x9019;&#x4E9B;, &#x90FD;&#x662F;&#x9644;&#x52A0;&#x7522;&#x54C1;, &#x56E0;&#x6B64;&#x4E26;&#x4E0D;&#x5B8C;&#x5168;&#x597D;&#x7528;; &#x90E8;&#x5206;&#x65B9;&#x6CD5;&#x5176;&#x5BE6;&#x662F;&#x88AB;&#x6A19;&#x8A18;&#x70BA; Deprecated.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="firetpl.html" class="navigation navigation-prev " aria-label="Previous page: Firetpl">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="logger.html" class="navigation navigation-next " aria-label="Next page: 日誌">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Trydb","level":"1.3.7","depth":2,"next":{"title":"日誌","level":"1.3.8","depth":2,"path":"foundation/logger.md","ref":"foundation/logger.md","articles":[]},"previous":{"title":"Firetpl","level":"1.3.6","depth":2,"path":"foundation/firetpl.md","ref":"foundation/firetpl.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","fontsettings","sharing","lunr","search","highlight","livereload","ga"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"search":{},"lunr":{"ignoreSpecialCharacters":false,"maxIndexSize":1000000},"fontsettings":{"family":"sans","size":2,"theme":"white"},"highlight":{},"ga":{"configuration":"auto","token":"UA-112957311-1"},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","author":"fewensa","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Enoa 使用者指南","language":"zh-hant","gitbook":"*","description":"Enoa 使用者指南"},"file":{"path":"foundation/trydb.md","mtime":"2018-09-28T07:44:35.647Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-10-08T06:36:53.775Z"},"basePath":"..","book":{"language":"zh-tw"}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-ga/plugin.js"></script>
+        
+    
+
+    </body>
+</html>
+

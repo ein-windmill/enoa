@@ -1,0 +1,1035 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hant" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>資料庫 · Enoa 使用者指南</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="fewensa">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchors/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="template.html" />
+    
+    
+    <link rel="prev" href="http.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="輸入並搜尋" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../habit/">
+            
+                <a href="../habit/">
+            
+                    
+                    習慣
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../habit/epm.html">
+            
+                <a href="../habit/epm.html">
+            
+                    
+                    EPM && USE
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    地基
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="toolkit.html">
+            
+                <a href="toolkit.html">
+            
+                    
+                    工具包
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="promise.html">
+            
+                <a href="promise.html">
+            
+                    
+                    Promise
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="http.html">
+            
+                <a href="http.html">
+            
+                    
+                    Http 客戶端
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.3.4" data-path="database.html">
+            
+                <a href="database.html">
+            
+                    
+                    資料庫
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="template.html">
+            
+                <a href="template.html">
+            
+                    
+                    模板
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="firetpl.html">
+            
+                <a href="firetpl.html">
+            
+                    
+                    Firetpl
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.7" data-path="trydb.html">
+            
+                <a href="trydb.html">
+            
+                    
+                    Trydb
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.8" data-path="logger.html">
+            
+                <a href="logger.html">
+            
+                    
+                    日誌
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.9" data-path="serialization.html">
+            
+                <a href="serialization.html">
+            
+                    
+                    序列化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.10" data-path="typebuilder.html">
+            
+                <a href="typebuilder.html">
+            
+                    
+                    Typebuilder
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.11" data-path="json.html">
+            
+                <a href="json.html">
+            
+                    
+                    Json
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.12" data-path="redis.html">
+            
+                <a href="redis.html">
+            
+                    
+                    Redis
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.13" data-path="eml.html">
+            
+                <a href="eml.html">
+            
+                    
+                    Eml
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.14" data-path="solr.html">
+            
+                <a href="solr.html">
+            
+                    
+                    Solr
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.15" data-path="rabbitmq.html">
+            
+                <a href="rabbitmq.html">
+            
+                    
+                    RabbitMQ
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.16" data-path="rpc.html">
+            
+                <a href="rpc.html">
+            
+                    
+                    Rpc
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../repeater/">
+            
+                <a href="../repeater/">
+            
+                    
+                    Repeater
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../repeater/provider.html">
+            
+                <a href="../repeater/provider.html">
+            
+                    
+                    提供者
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../repeater/config.html">
+            
+                <a href="../repeater/config.html">
+            
+                    
+                    配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../repeater/accessor.html">
+            
+                <a href="../repeater/accessor.html">
+            
+                    
+                    訪問器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../repeater/capture.html">
+            
+                <a href="../repeater/capture.html">
+            
+                    
+                    異常攔截
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../repeater/upload.html">
+            
+                <a href="../repeater/upload.html">
+            
+                    
+                    檔案上傳
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../repeater/other.html">
+            
+                <a href="../repeater/other.html">
+            
+                    
+                    其他
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../yosart/">
+            
+                <a href="../yosart/">
+            
+                    
+                    Yosart
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../yosart/standard.html">
+            
+                <a href="../yosart/standard.html">
+            
+                    
+                    標準
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../yosart/func.html">
+            
+                <a href="../yosart/func.html">
+            
+                    
+                    方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../yosart/config.html">
+            
+                <a href="../yosart/config.html">
+            
+                    
+                    配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../yosart/plugin.html">
+            
+                <a href="../yosart/plugin.html">
+            
+                    
+                    外掛
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../yosart/ext.html">
+            
+                <a href="../yosart/ext.html">
+            
+                    
+                    擴充套件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.6" data-path="../yosart/beforeampampafter.html">
+            
+                <a href="../yosart/beforeampampafter.html">
+            
+                    
+                    啟動回撥
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.7" data-path="../yosart/renderer.html">
+            
+                <a href="../yosart/renderer.html">
+            
+                    
+                    渲染輔助工具
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.8" data-path="../yosart/example.html">
+            
+                <a href="../yosart/example.html">
+            
+                    
+                    案例
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../gateway/">
+            
+                <a href="../gateway/">
+            
+                    
+                    Gateway
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../gateway/func.html">
+            
+                <a href="../gateway/func.html">
+            
+                    
+                    方法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../gateway/cros.html">
+            
+                <a href="../gateway/cros.html">
+            
+                    
+                    跨域
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../gateway/auth.html">
+            
+                <a href="../gateway/auth.html">
+            
+                    
+                    授權
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../gateway/mapping.html">
+            
+                <a href="../gateway/mapping.html">
+            
+                    
+                    對映
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.5" data-path="../gateway/example.html">
+            
+                <a href="../gateway/example.html">
+            
+                    
+                    案例
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="../thanks/">
+            
+                <a href="../thanks/">
+            
+                    
+                    鳴謝
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本書使用 GitBook 釋出
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >資料庫</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="database"><a name="database" class="plugin-anchor" href="#database"><i class="fa fa-link" aria-hidden="true"></i></a>Database</h1>
+<h2 id="pom"><a name="pom" class="plugin-anchor" href="#pom"><i class="fa fa-link" aria-hidden="true"></i></a>POM</h2>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.enoa<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>enoa-db<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.6-beta.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+</code></pre>
+<p>Database &#x5C08;&#x6848;&#x6574;&#x5408;&#x4E86;&#x73FE;&#x6709;&#x7684;&#x8CC7;&#x6599;&#x5EAB;&#x64CD;&#x4F5C;&#x6846;&#x67B6;&#x4EE5;&#x53CA;&#x8CC7;&#x6599;&#x5EAB;&#x9023;&#x7DDA;&#x6C60;, &#x4F7F;&#x7528;&#x6642;&#x9032;&#x884C;&#x81EA;&#x7531;&#x7D44;&#x5408;&#x5373;&#x53EF;.</p>
+<h2 id="&#x9023;&#x7DDA;&#x6C60;"><a name="&#x9023;&#x7DDA;&#x6C60;" class="plugin-anchor" href="#&#x9023;&#x7DDA;&#x6C60;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x9023;&#x7DDA;&#x6C60;</h2>
+<p>&#x76EE;&#x524D;&#x652F;&#x63F4;&#x7684;&#x9023;&#x7DDA;&#x6C60;&#x6709;:</p>
+<ul>
+<li>c3p0</li>
+<li>druid</li>
+<li>hikaricp</li>
+</ul>
+<blockquote>
+<p>&#x4E0D;&#x540C;&#x7684;&#x9023;&#x7DDA;&#x6C60;, &#x4E26;&#x975E;&#x5728;&#x540C;&#x4E00;&#x500B;&#x5C08;&#x6848;&#x4E2D;, &#x800C;&#x662F;&#x55AE;&#x7368;&#x62C6;&#x958B;&#x4F7F;&#x7528;&#x7684;.</p>
+</blockquote>
+<h2 id="c3p0"><a name="c3p0" class="plugin-anchor" href="#c3p0"><i class="fa fa-link" aria-hidden="true"></i></a>c3p0</h2>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.enoa<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>enoa-ds-c3p0<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.6-beta.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+</code></pre>
+<pre><code class="lang-java">EnoaDs ds = <span class="hljs-keyword">new</span> C3p0Provider().datasource(
+  <span class="hljs-keyword">new</span> C3p0Config.Builder()
+    .driver(<span class="hljs-string">&quot;com.mysql.jdbc.Driver&quot;</span>)
+    .url(<span class="hljs-string">&quot;jdbc:mysql://localhost:3306/test&quot;</span>)
+    .user(<span class="hljs-string">&quot;root&quot;</span>)
+    .passwd(<span class="hljs-string">&quot;pwd&quot;</span>)
+    .build()
+  );
+DataSource dataSource = ds.open();
+</code></pre>
+<h2 id="druid"><a name="druid" class="plugin-anchor" href="#druid"><i class="fa fa-link" aria-hidden="true"></i></a>druid</h2>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.enoa<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>enoa-ds-druid<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.6-beta.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+</code></pre>
+<pre><code class="lang-java">EnoaDs ds = <span class="hljs-keyword">new</span> DruidProvider().datasource(
+  <span class="hljs-keyword">new</span> DruidConfig.Builder()
+    .driver(<span class="hljs-string">&quot;com.mysql.jdbc.Driver&quot;</span>)
+    .url(<span class="hljs-string">&quot;jdbc:mysql://localhost:3306/test&quot;</span>)
+    .user(<span class="hljs-string">&quot;root&quot;</span>)
+    .passwd(<span class="hljs-string">&quot;pwd&quot;</span>)
+    .build()
+  );
+DataSource dataSource = ds.open();
+</code></pre>
+<h2 id="hikaricp"><a name="hikaricp" class="plugin-anchor" href="#hikaricp"><i class="fa fa-link" aria-hidden="true"></i></a>hikaricp</h2>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.enoa<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>enoa-ds-hikaricp<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.6-beta.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+</code></pre>
+<pre><code class="lang-java">EnoaDs ds = <span class="hljs-keyword">new</span> HikariCpProvider().datasource(
+  <span class="hljs-keyword">new</span> HikariCpConfig.Builder()
+    .driver(<span class="hljs-string">&quot;com.mysql.jdbc.Driver&quot;</span>)
+    .url(<span class="hljs-string">&quot;jdbc:mysql://localhost:3306/test&quot;</span>)
+    .user(<span class="hljs-string">&quot;root&quot;</span>)
+    .passwd(<span class="hljs-string">&quot;pwd&quot;</span>)
+    .build()
+  );
+DataSource dataSource = ds.open();
+</code></pre>
+<h2 id="&#x8CC7;&#x6599;&#x5EAB;&#x64CD;&#x4F5C;"><a name="&#x8CC7;&#x6599;&#x5EAB;&#x64CD;&#x4F5C;" class="plugin-anchor" href="#&#x8CC7;&#x6599;&#x5EAB;&#x64CD;&#x4F5C;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x8CC7;&#x6599;&#x5EAB;&#x64CD;&#x4F5C;</h2>
+<p>&#x8CC7;&#x6599;&#x5EAB;&#x64CD;&#x4F5C;&#x76EE;&#x524D;&#x652F;&#x63F4;:</p>
+<ul>
+<li>ActiveRecord</li>
+<li>BeetlSQL</li>
+<li>Mybatis</li>
+<li>Trydb</li>
+</ul>
+<blockquote>
+<p>&#x4E0D;&#x540C;&#x7684;&#x8CC7;&#x6599;&#x5EAB;&#x64CD;&#x4F5C;&#x6846;&#x67B6;, &#x4E26;&#x975E;&#x5728;&#x540C;&#x4E00;&#x500B;&#x5C08;&#x6848;&#x4E2D;, &#x800C;&#x662F;&#x55AE;&#x7368;&#x62C6;&#x958B;&#x4F7F;&#x7528;&#x7684;.</p>
+</blockquote>
+<p>:::warning
+&#x56E0;&#x5404;&#x8CC7;&#x6599;&#x64CD;&#x4F5C;&#x6846;&#x67B6;&#x4E0D;&#x540C;, &#x7121;&#x6CD5;&#x4F7F;&#x7528;&#x7D71;&#x4E00;&#x7684;&#x7279;&#x6027;, db &#x5C08;&#x6848;&#x4E2D;&#x6C92;&#x6709;&#x63D0;&#x4F9B; epm() &#x65B9;&#x6CD5;&#x9032;&#x884C;&#x521D;&#x59CB;&#x5316;, &#x800C;&#x662F;&#x4F7F;&#x7528; EPMDb &#x985E;&#x9032;&#x884C;&#x521D;&#x59CB;&#x5316;.
+:::</p>
+<p>:::info
+&#x4E0B;&#x65B9;&#x6709;&#x95DC;&#x8CC7;&#x6599;&#x5EAB;&#x64CD;&#x4F5C;&#x7684;&#x7A0B;&#x5F0F;&#x78BC;, &#x7BC7;&#x5E45;&#x539F;&#x56E0;, &#x8CC7;&#x6599;&#x5EAB;&#x9023;&#x7DDA;&#x6C60;&#x90E8;&#x5206;&#x8B8A;&#x6578;&#x6B64;&#x8655;&#x5B9A;&#x7FA9;. &#x7A0B;&#x5F0F;&#x78BC;&#x4E2D;&#x4E0D;&#x518D;&#x9AD4;&#x73FE;</p>
+<pre><code class="lang-java">EoDsFactory DS = <span class="hljs-keyword">new</span> C3p0Provider();
+
+EoDsConfig DSCONFIG = <span class="hljs-keyword">new</span> C3p0Config.Builder()
+  .driver(<span class="hljs-string">&quot;com.mysql.jdbc.Driver&quot;</span>)
+  .url(<span class="hljs-string">&quot;jdbc:mysql://localhost:3306/test&quot;</span>)
+  .user(<span class="hljs-string">&quot;root&quot;</span>)
+  .passwd(<span class="hljs-string">&quot;pwd&quot;</span>)
+  .build()
+</code></pre>
+<p>:::</p>
+<h2 id="activerecord"><a name="activerecord" class="plugin-anchor" href="#activerecord"><i class="fa fa-link" aria-hidden="true"></i></a>ActiveRecord</h2>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.enoa<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>enoa-db-activerecord<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.6-beta.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+</code></pre>
+<pre><code class="lang-java">EoDbConfig dbc1 = <span class="hljs-keyword">new</span> ActiveRecordConfig.Builder()
+  .baseSqlTemplatePath(PathKit.path(<span class="hljs-string">&quot;activerecord&quot;</span>).toString())
+  .sqlTemplate(<span class="hljs-string">&quot;template.sql&quot;</span>)
+  .dialect(<span class="hljs-keyword">new</span> MysqlDialect())
+  .ds(DS, DSCONFIG)
+  .build();
+EPMDb.install(<span class="hljs-keyword">new</span> ActiveRecordProvider(), dbc1);
+List&lt;Record&gt; rets1 = Db.find(Db.getSql(<span class="hljs-string">&quot;User.list&quot;</span>));
+</code></pre>
+<p>resources/activerecord/template.sql</p>
+<pre><code class="lang-text">#namespace(&apos;User&apos;)
+ #include(&apos;user.sql&apos;)
+#end
+</code></pre>
+<p>resources/activerecord/user.sql</p>
+<pre><code class="lang-text">#sql(&apos;list&apos;)
+select * from t_user
+#end
+</code></pre>
+<h2 id="beetlsql"><a name="beetlsql" class="plugin-anchor" href="#beetlsql"><i class="fa fa-link" aria-hidden="true"></i></a>BeetlSQL</h2>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.enoa<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>enoa-db-beetlsql<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.6-beta.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+</code></pre>
+<pre><code class="lang-java">EoDbConfig dbc1 = <span class="hljs-keyword">new</span> BeetlSQLConfig.Builder()
+  .load(<span class="hljs-string">&quot;/beetl&quot;</span>)
+  .ds(DS, DSCONFIG)
+  .style(<span class="hljs-keyword">new</span> MySqlStyle())
+  .build();
+EPMDb.install(<span class="hljs-keyword">new</span> BeetlSQLProvider(), dbc1);
+List&lt;Map&gt; rets = BeetlSQLKit.select(<span class="hljs-string">&quot;User.list&quot;</span>, Map.class);
+</code></pre>
+<p>resources/beetl/User.md</p>
+<pre><code class="lang-text">list
+===
+select * from t_user
+</code></pre>
+<h2 id="mybatis"><a name="mybatis" class="plugin-anchor" href="#mybatis"><i class="fa fa-link" aria-hidden="true"></i></a>Mybatis</h2>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.enoa<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>enoa-db-mybatis<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.6-beta.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+</code></pre>
+<pre><code class="lang-java">EoDbConfig dbc1 = <span class="hljs-keyword">new</span> MybatisConfig.Builder()
+  .scan(<span class="hljs-string">&quot;io.enoa.db.mapper&quot;</span>, BaseMapper.class)
+  .mapper(PathKit.path(<span class="hljs-string">&quot;mybatis&quot;</span>).toString())
+  .suffix(<span class="hljs-string">&quot;xml&quot;</span>)
+  .ds(DS, DSCONFIG)
+  .build();
+EPMDb.install(<span class="hljs-keyword">new</span> MybatisProvider(), dbc1);
+List&lt;Map&gt; rets1 = MybatisKit.with(UserMapper.class).list();
+</code></pre>
+<p>BaseMapper.java</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">BaseMapper</span> </span>{
+}
+</code></pre>
+<p>UserMapper.java</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">UserMapper</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">BaseMapper</span> </span>{
+  <span class="hljs-function">List&lt;Map&gt; <span class="hljs-title">list</span><span class="hljs-params">()</span></span>;
+}
+</code></pre>
+<p>resources/mybatis/user.xml</p>
+<pre><code class="lang-xml"><span class="php"><span class="hljs-meta">&lt;?</span>xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span> <span class="hljs-meta">?&gt;</span></span>
+<span class="hljs-meta">&lt;!DOCTYPE mapper PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot; &quot;mybatis-3-mapper.dtd&quot; &gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">mapper</span> <span class="hljs-attr">namespace</span>=<span class="hljs-string">&quot;io.enoa.db.mapper.UserMapper&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;list&quot;</span> <span class="hljs-attr">resultType</span>=<span class="hljs-string">&quot;java.util.Map&quot;</span>&gt;</span>
+    select * from t_user
+  <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">mapper</span>&gt;</span>
+</code></pre>
+<h2 id="trydb"><a name="trydb" class="plugin-anchor" href="#trydb"><i class="fa fa-link" aria-hidden="true"></i></a>Trydb</h2>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.enoa<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>enoa-db-trydb<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.6-beta.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+</code></pre>
+<pre><code class="lang-java">EoDbConfig dbc1 = <span class="hljs-keyword">new</span> EoTrydbConfig.Builder()
+  .debug(<span class="hljs-keyword">true</span>)
+  .dialect(<span class="hljs-keyword">new</span> io.enoa.trydb.dialect.MysqlDialect())
+  .showSql()
+  .ds(DS, DSCONFIG)
+  .build();
+EPMDb.install(<span class="hljs-keyword">new</span> TrydbProvider(), dbc1);
+List&lt;Kv&gt; rets0 = Trydb.find(<span class="hljs-string">&quot;select * from t_user&quot;</span>);
+</code></pre>
+<h2 id="&#x5176;&#x4ED6;"><a name="&#x5176;&#x4ED6;" class="plugin-anchor" href="#&#x5176;&#x4ED6;"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5176;&#x4ED6;</h2>
+<p>&#x9664;&#x4E86; Enoa &#x63D0;&#x4F9B;&#x7684;&#x9019;&#x4E9B;, &#x4F7F;&#x7528;&#x8005;&#x4E5F;&#x53EF;&#x4EE5;&#x81EA;&#x5DF1;&#x5BE6;&#x73FE;, DB &#x5143;&#x4EF6;&#x5BE6;&#x73FE; <code>EoDbFactory</code> &#x4ECB;&#x9762;, DS &#x5143;&#x4EF6;&#x5BE6;&#x73FE; <code>EoDsFactory</code> &#x4ECB;&#x9762;.
+Enoa &#x7684; DB &#x5143;&#x4EF6;&#x90FD;&#x652F;&#x63F4;&#x591A;&#x500B;&#x6578;&#x64DA;&#x6E90;&#x64CD;&#x4F5C;, &#x4EE5; Mybatis &#x70BA;&#x4F8B;:</p>
+<pre><code class="lang-java">EoDbConfig dbc1 = <span class="hljs-keyword">new</span> MybatisConfig.Builder()
+  .scan(<span class="hljs-string">&quot;io.enoa.db.mapper&quot;</span>, BaseMapper.class)
+  .mapper(PathKit.path(<span class="hljs-string">&quot;mybatis&quot;</span>).toString())
+  .suffix(<span class="hljs-string">&quot;xml&quot;</span>)
+  .ds(DS, DSCONFIG)
+  .build();
+EPMDb.install(<span class="hljs-keyword">new</span> MybatisProvider(), dbc1);
+List&lt;Map&gt; rets1 = MybatisKit.with(UserMapper.class).list();
+
+EoDbConfig dbc2 = <span class="hljs-keyword">new</span> MybatisConfig.Builder()
+  .scan(<span class="hljs-string">&quot;io.enoa.db.mapper&quot;</span>, BaseMapper.class)
+  .mapper(PathKit.path(<span class="hljs-string">&quot;mybatis&quot;</span>).toString())
+  .suffix(<span class="hljs-string">&quot;xml&quot;</span>)
+  .name(<span class="hljs-string">&quot;pgsql&quot;</span>)
+  .ds(DS, DSCONFIG)
+  .build();
+EPMDb.install(<span class="hljs-keyword">new</span> MybatisProvider(), dbc2);
+List&lt;Map&gt; rets2 = MybatisKit.use(<span class="hljs-string">&quot;pgsql&quot;</span>).with(UserMapper.class).list();
+</code></pre>
+<p>&#x95DC;&#x9375;&#x9EDE;&#x5728;&#x65BC;&#x5EFA;&#x7ACB; <code>EoDbConfig</code> &#x6642;, &#x7D66;&#x4E88;&#x7684; name, &#x5728;&#x4F7F;&#x7528;&#x6642;, &#x7372;&#x53D6;&#x76F8;&#x61C9;&#x7684; name &#x5373;&#x53EF;.</p>
+<p>&#x95DC;&#x65BC; Datasource &#x4E00;&#x500B; DB &#x64CD;&#x4F5C;&#x6846;&#x67B6;&#x7684;&#x8A2D;&#x5B9A;&#x4EE5;&#x53CA;&#x4F7F;&#x7528;, Enoa &#x5B8C;&#x5168;&#x63D0;&#x4F9B;&#x65BC;&#x539F;&#x6846;&#x67B6;&#x5B8C;&#x5168;&#x76F8;&#x540C;&#x7684;&#x914D;&#x7F6E;&#x9032;&#x884C;, &#x6C92;&#x6709;&#x505A;&#x4EFB;&#x4F55;&#x6539;&#x8B8A;. Enoa &#x6240;&#x505A;&#x7684;&#x53EA;&#x662F;&#x7D71;&#x4E00;&#x4E86;&#x5404;&#x500B;&#x6846;&#x67B6;&#x4EE5;&#x76F8;&#x540C;&#x7684;&#x65B9;&#x5F0F;&#x5448;&#x73FE;&#x51FA;&#x4F86;.</p>
+<p>&#x9019;&#x88E1;&#x5217;&#x51FA;&#x7684;&#x7A0B;&#x5F0F;&#x78BC;&#x53EF;&#x5728; <a href="https://github.com/fewensa/enoa/tree/master/enoa-example/example-db" target="_blank">example-db</a> &#x53D6;&#x5F97;.</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="http.html" class="navigation navigation-prev " aria-label="Previous page: Http 客戶端">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="template.html" class="navigation navigation-next " aria-label="Next page: 模板">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"資料庫","level":"1.3.4","depth":2,"next":{"title":"模板","level":"1.3.5","depth":2,"path":"foundation/template.md","ref":"foundation/template.md","articles":[]},"previous":{"title":"Http 客戶端","level":"1.3.3","depth":2,"path":"foundation/http.md","ref":"foundation/http.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","fontsettings","sharing","lunr","search","highlight","livereload","ga"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"search":{},"lunr":{"ignoreSpecialCharacters":false,"maxIndexSize":1000000},"fontsettings":{"family":"sans","size":2,"theme":"white"},"highlight":{},"ga":{"configuration":"auto","token":"UA-112957311-1"},"sharing":{"all":["facebook","google","twitter","weibo","instapaper"],"facebook":true,"google":false,"instapaper":false,"twitter":true,"vk":false,"weibo":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","author":"fewensa","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Enoa 使用者指南","language":"zh-hant","gitbook":"*","description":"Enoa 使用者指南"},"file":{"path":"foundation/database.md","mtime":"2018-09-28T07:44:26.427Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-10-08T06:36:53.775Z"},"basePath":"..","book":{"language":"zh-tw"}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-ga/plugin.js"></script>
+        
+    
+
+    </body>
+</html>
+
