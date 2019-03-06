@@ -15,30 +15,29 @@
  */
 package io.enoa.promise.builder;
 
-public class PromiseBuilder {
+public class _PromiseBuilder {
 
-  private PromiseBuilder() {
+
+  private static class Holder {
+    private static final _PromiseBuilder INSTANCE = new _PromiseBuilder();
   }
 
-  public static EPXEnoaPromiseExecutorBuilder executor() {
+  public static _PromiseBuilder instance() {
+    return Holder.INSTANCE;
+  }
+
+  private _PromiseBuilder() {
+  }
+
+  public EPXEnoaPromiseExecutorBuilder executor() {
     return EPXEnoaPromiseExecutorBuilder.instance();
   }
 
-  /**
-   * Default promise builder
-   * @deprecated use def()
-   * @return EPEoPromiseBuilder
-   */
-  @Deprecated
-  public static EPEoPromiseBuilder eo() {
-    return def();
-  }
-
-  public static EPEoPromiseBuilder def() {
+  public EPEoPromiseBuilder def() {
     return new EPEoPromiseBuilder();
   }
 
-  public static EPDonePromiseBuilder done() {
+  public EPDonePromiseBuilder done() {
     return new EPDonePromiseBuilder();
   }
 
@@ -47,19 +46,20 @@ public class PromiseBuilder {
    *
    * @return EPDoneArgPromiseBuilder
    */
-  public static <T> EPDoneArgPromiseBuilder<T> donearg() {
+  public <T> EPDoneArgPromiseBuilder<T> donearg() {
     return new EPDoneArgPromiseBuilder<>();
   }
 
   /**
    * then promise builder
+   *
    * @return EPThenPromiseBuilder
    */
-  public static EPThenPromiseBuilder then() {
+  public EPThenPromiseBuilder then() {
     return new EPThenPromiseBuilder();
   }
 
-  public static <T> EPAssetPromiseBuilder<T> asset() {
+  public <T> EPAssetPromiseBuilder<T> asset() {
     return new EPAssetPromiseBuilder<>();
   }
 

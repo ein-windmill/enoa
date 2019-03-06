@@ -19,7 +19,7 @@ import io.enoa.docker.thr.RegistryException;
 import io.enoa.http.EoHttp;
 import io.enoa.json.EnoaJson;
 import io.enoa.json.EoJsonFactory;
-import io.enoa.promise.builder.PromiseBuilder;
+import io.enoa.promise.Promise;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 
 import java.io.Serializable;
@@ -102,7 +102,7 @@ public class RegistryConfig implements Serializable {
       this.dockerhub = Boolean.FALSE;
       this.http = EoHttp.def();
       this.version = "v2";
-      this.executor = PromiseBuilder.executor().enqueue("Registry Dispatcher");
+      this.executor = Promise.builder().executor().enqueue("Registry Dispatcher");
     }
 
     public RegistryConfig build() {

@@ -19,7 +19,7 @@ import io.enoa.http.protocol.HttpResponse;
 import io.enoa.index.solr.parser.SParser;
 import io.enoa.promise.DoneArgPromise;
 import io.enoa.promise.builder.EPDoneArgPromiseBuilder;
-import io.enoa.promise.builder.PromiseBuilder;
+import io.enoa.promise.Promise;
 import io.enoa.toolkit.collection.CollectionKit;
 
 public interface _SolrAction {
@@ -35,7 +35,7 @@ public interface _SolrAction {
   <T> T emit(SParser<T> parser);
 
   default <T> DoneArgPromise<T> enqueue(SParser<T> parser) {
-    EPDoneArgPromiseBuilder<T> builder = PromiseBuilder.donearg();
+    EPDoneArgPromiseBuilder<T> builder = Promise.builder().donearg();
     SActionExecutor.select().execute(() -> {
       try {
         T ret = this.emit(parser);

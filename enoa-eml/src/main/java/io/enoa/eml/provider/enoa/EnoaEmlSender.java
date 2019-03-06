@@ -27,7 +27,7 @@ import io.enoa.promise.DonePromise;
 import io.enoa.promise.arg.PromiseCapture;
 import io.enoa.promise.arg.PromiseVoid;
 import io.enoa.promise.builder.EPDonePromiseBuilder;
-import io.enoa.promise.builder.PromiseBuilder;
+import io.enoa.promise.Promise;
 import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.binary.EnoaBinary;
 import io.enoa.toolkit.collection.CollectionKit;
@@ -50,8 +50,8 @@ import java.util.concurrent.ExecutorService;
 class EnoaEmlSender implements EmlSender {
 
 
-  private static ExecutorService EXEC_REPORTS = PromiseBuilder.executor().enqueue("EnoaEmail Report Dispatcher");
-  private static ExecutorService EXEC_ENQUEUE = PromiseBuilder.executor().enqueue("EnoaEmail Enqueue Dispatcher");
+  private static ExecutorService EXEC_REPORTS = Promise.builder().executor().enqueue("EnoaEmail Report Dispatcher");
+  private static ExecutorService EXEC_ENQUEUE = Promise.builder().executor().enqueue("EnoaEmail Enqueue Dispatcher");
 
   private Charset charset;
   private MailPerson from;
@@ -244,7 +244,7 @@ class EnoaEmlSender implements EmlSender {
 
   @Override
   public DonePromise enqueue() {
-    EPDonePromiseBuilder builder = PromiseBuilder.done();
+    EPDonePromiseBuilder builder = Promise.builder().done();
     EXEC_ENQUEUE.execute(() -> {
       String oldName = Thread.currentThread().getName();
       Thread.currentThread().setName(TextKit.union("ENOA-EMAIL-SENDER-ENQUEUE-", oldName));

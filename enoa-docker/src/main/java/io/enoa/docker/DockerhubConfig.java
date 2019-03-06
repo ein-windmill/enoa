@@ -19,7 +19,7 @@ import io.enoa.docker.thr.DockerhubException;
 import io.enoa.http.EoHttp;
 import io.enoa.json.EnoaJson;
 import io.enoa.json.EoJsonFactory;
-import io.enoa.promise.builder.PromiseBuilder;
+import io.enoa.promise.Promise;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 
 import java.util.concurrent.ExecutorService;
@@ -63,7 +63,7 @@ public class DockerhubConfig {
     public Builder() {
       this.context = "https://hub.docker.com/v2/";
       this.http = EoHttp.def();
-      this.executor = PromiseBuilder.executor().enqueue("Dockerhub Dispatcher");
+      this.executor = Promise.builder().executor().enqueue("Dockerhub Dispatcher");
     }
 
     public DockerhubConfig build() {

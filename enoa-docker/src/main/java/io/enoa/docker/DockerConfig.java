@@ -20,7 +20,7 @@ import io.enoa.http.EoHttp;
 import io.enoa.http.provider.httphelper.HttpHelperConfig;
 import io.enoa.json.EnoaJson;
 import io.enoa.json.EoJsonFactory;
-import io.enoa.promise.builder.PromiseBuilder;
+import io.enoa.promise.Promise;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 
 import java.io.Serializable;
@@ -129,7 +129,7 @@ public class DockerConfig implements Serializable {
 
     public Builder() {
       this.version = "v1.35";
-      this.executor = PromiseBuilder.executor().enqueue("Docker Dispatcher");
+      this.executor = Promise.builder().executor().enqueue("Docker Dispatcher");
       this.http = () -> EoHttp.def().http()
         .config(new HttpHelperConfig.Builder()
           .soTimeout(Integer.MAX_VALUE)

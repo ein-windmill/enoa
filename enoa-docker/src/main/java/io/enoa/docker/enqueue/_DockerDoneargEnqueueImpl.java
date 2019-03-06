@@ -22,7 +22,7 @@ import io.enoa.promise.arg.PromiseCapture;
 import io.enoa.promise.arg.PromiseVoid;
 import io.enoa.promise.async.AsyncRunner;
 import io.enoa.promise.builder.EPDoneArgPromiseBuilder;
-import io.enoa.promise.builder.PromiseBuilder;
+import io.enoa.promise.Promise;
 import io.enoa.toolkit.collection.CollectionKit;
 
 import java.util.concurrent.ExecutorService;
@@ -39,7 +39,7 @@ class _DockerDoneargEnqueueImpl<T> implements EnqueueDoneargDocker<T> {
 
   @Override
   public DockerDoneargPromise<T> enqueue() {
-    EPDoneArgPromiseBuilder<T> donearg = PromiseBuilder.donearg();
+    EPDoneArgPromiseBuilder<T> donearg = Promise.builder().donearg();
     this.executor.execute(() -> {
       try {
         String oldName = Thread.currentThread().getName();

@@ -21,7 +21,7 @@ import io.enoa.promise.AssetPromise;
 import io.enoa.promise.arg.*;
 import io.enoa.promise.async.AsyncRunner;
 import io.enoa.promise.builder.EPAssetPromiseBuilder;
-import io.enoa.promise.builder.PromiseBuilder;
+import io.enoa.promise.Promise;
 
 import java.util.concurrent.ExecutorService;
 
@@ -37,7 +37,7 @@ class _DockerhubAssetEnqueueImpl<PARA> implements EnqueueAssetDocker<HRet<PARA>>
 
   @Override
   public DockerAssetPromise<HRet<PARA>> enqueue() {
-    EPAssetPromiseBuilder<HRet<PARA>> builder = PromiseBuilder.asset();
+    EPAssetPromiseBuilder<HRet<PARA>> builder = Promise.builder().asset();
     this.executor.execute(new _EnqueueThread(builder, this.runner));
     AssetPromise<HRet<PARA>> promise = builder.build();
     return new DockerAssetPromise<HRet<PARA>>() {

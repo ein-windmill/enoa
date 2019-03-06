@@ -21,7 +21,7 @@ import io.enoa.promise.arg.PromiseArg;
 import io.enoa.promise.arg.PromiseCapture;
 import io.enoa.promise.arg.PromiseVoid;
 import io.enoa.promise.builder.EPDoneArgPromiseBuilder;
-import io.enoa.promise.builder.PromiseBuilder;
+import io.enoa.promise.Promise;
 import io.enoa.shell.reader.EShellReader;
 import io.enoa.shell.ret.ShellResult;
 import io.enoa.toolkit.EoConst;
@@ -53,7 +53,7 @@ class EnoaShell implements Shell {
   }
 
   private static class ExecutorHolder {
-    private static final ExecutorService EXECUTOR_SERVICE = PromiseBuilder.executor().enqueue("shell-enqueue");
+    private static final ExecutorService EXECUTOR_SERVICE = Promise.builder().executor().enqueue("shell-enqueue");
   }
 
   private ExecutorService executor() {
@@ -129,7 +129,7 @@ class EnoaShell implements Shell {
 
   @Override
   public DoneArgPromise<ShellResult> enqueue() {
-    EPDoneArgPromiseBuilder<ShellResult> builder = PromiseBuilder.donearg();
+    EPDoneArgPromiseBuilder<ShellResult> builder = Promise.builder().donearg();
     this.executor().execute(() -> {
       try {
         ShellResult ret = this.emit();
