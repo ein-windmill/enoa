@@ -15,18 +15,18 @@
  */
 package io.enoa.promise.builder;
 
-public class _PromiseBuilder {
+public class EnoaPromiseBuilder {
 
 
   private static class Holder {
-    private static final _PromiseBuilder INSTANCE = new _PromiseBuilder();
+    private static final EnoaPromiseBuilder INSTANCE = new EnoaPromiseBuilder();
   }
 
-  public static _PromiseBuilder instance() {
+  public static EnoaPromiseBuilder instance() {
     return Holder.INSTANCE;
   }
 
-  private _PromiseBuilder() {
+  private EnoaPromiseBuilder() {
   }
 
   public EPXEnoaPromiseExecutorBuilder executor() {

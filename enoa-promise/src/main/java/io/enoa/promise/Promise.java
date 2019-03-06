@@ -16,12 +16,12 @@
 package io.enoa.promise;
 
 
-import io.enoa.promise.builder._PromiseBuilder;
+import io.enoa.promise.builder.EnoaPromiseBuilder;
 
 public interface Promise {
 
-  static _PromiseBuilder builder() {
-    return _PromiseBuilder.instance();
+  static EnoaPromiseBuilder builder() {
+    return EnoaPromiseBuilder.instance();
   }
 
 }
