@@ -15,13 +15,18 @@
  */
 package io.enoa.promise.arg;
 
-import io.enoa.promise.Promise;
+class _DEF_PROMISE_VOID implements PromiseVoid {
 
-@FunctionalInterface
-public interface PromiseVoid extends Promise {
+  private static class Holder {
+    private static final _DEF_PROMISE_VOID INSTANCE = new _DEF_PROMISE_VOID();
+  }
 
-  PromiseVoid EMPTY = _DEF_PROMISE_VOID.instance();
+  static _DEF_PROMISE_VOID instance() {
+    return Holder.INSTANCE;
+  }
 
-  void execute();
+  @Override
+  public void execute() {
 
+  }
 }

@@ -19,7 +19,6 @@ import io.enoa.promise.EoPromise;
 import io.enoa.promise.arg.PromiseCapture;
 import io.enoa.promise.arg.PromiseVoid;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -35,7 +34,7 @@ public class EPEoPromiseBuilder {
   }
 
   public PromiseVoid always() {
-    return this.always;
+    return this.always == null ? PromiseVoid.EMPTY : this.always;
   }
 
   public EoPromise build() {

@@ -35,7 +35,6 @@ public class EPDonePromiseBuilder extends EPEoPromiseBuilder {
 
   private List<PromiseVoid> dones;
 
-
   public List<PromiseVoid> dones() {
     return this.dones == null ? Collections.emptyList() : this.dones;
   }
