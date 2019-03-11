@@ -33,6 +33,10 @@ public class EnoaPromiseBuilder {
     return EPXEnoaPromiseExecutorBuilder.instance();
   }
 
+  public EPXEnoaPromiseHandleBuilder handler() {
+    return EPXEnoaPromiseHandleBuilder.instance();
+  }
+
   public EPEoPromiseBuilder def() {
     return new EPEoPromiseBuilder();
   }

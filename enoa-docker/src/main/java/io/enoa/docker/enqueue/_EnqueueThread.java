@@ -15,15 +15,9 @@
  */
 package io.enoa.docker.enqueue;
 
-import io.enoa.promise.arg.PromiseArg;
-import io.enoa.promise.arg.PromiseBool;
-import io.enoa.promise.arg.PromiseCapture;
-import io.enoa.promise.arg.PromiseThen;
+import io.enoa.promise.Promise;
 import io.enoa.promise.async.AsyncRunner;
 import io.enoa.promise.builder.EPAssetPromiseBuilder;
-import io.enoa.toolkit.collection.CollectionKit;
-
-import java.util.List;
 
 class _EnqueueThread implements Runnable {
 
@@ -37,49 +31,55 @@ class _EnqueueThread implements Runnable {
 
   @Override
   public void run() {
-    try {
-      String oldName = Thread.currentThread().getName();
-      Object ret = this.runner.run();
+//    try {
+//      String oldName = Thread.currentThread().getName();
+//      Object ret = this.runner.run();
+//
+//      List<PromiseBool> assets = builder.assets();
+//      boolean pass = Boolean.TRUE;
+//      for (PromiseBool asset : assets) {
+//        boolean asret = asset.execute(ret);
+//        if (asret)
+//          continue;
+//        pass = Boolean.FALSE;
+//        break;
+//      }
+//      if (!pass) {
+//        List<PromiseArg> failthrows = builder.failthrows();
+//        for (PromiseArg failthrow : failthrows) {
+//          failthrow.execute(ret);
+//        }
+//        return;
+//      }
+//
+//      Object tmp = ret;
+//      List<PromiseThen> thens = builder.thens();
+//      for (PromiseThen then : thens) {
+//        tmp = then.execute(tmp);
+//      }
+//
+//      List<PromiseArg> executes = builder.executes();
+//      for (PromiseArg execute : executes) {
+//        execute.execute(tmp);
+//      }
+//    } catch (Exception e) {
+//      List<PromiseCapture> captures = builder.captures();
+//      if (CollectionKit.isEmpty(captures)) {
+//        e.printStackTrace();
+//        return;
+//      }
+//      for (PromiseCapture capture : captures) {
+//        capture.execute(e);
+//      }
+//    } finally {
+//      if (builder.always() != null)
+//        builder.always().execute();
+//    }
 
-      List<PromiseBool> assets = builder.assets();
-      boolean pass = Boolean.TRUE;
-      for (PromiseBool asset : assets) {
-        boolean asret = asset.execute(ret);
-        if (asret)
-          continue;
-        pass = Boolean.FALSE;
-        break;
-      }
-      if (!pass) {
-        List<PromiseArg> failthrows = builder.failthrows();
-        for (PromiseArg failthrow : failthrows) {
-          failthrow.execute(ret);
-        }
-        return;
-      }
 
-      Object tmp = ret;
-      List<PromiseThen> thens = builder.thens();
-      for (PromiseThen then : thens) {
-        tmp = then.execute(tmp);
-      }
+//    String oldName = Thread.currentThread().getName();
+    Object ret = this.runner.run();
+    Promise.builder().handler().handleAsset(this.builder, ret);
 
-      List<PromiseArg> executes = builder.executes();
-      for (PromiseArg execute : executes) {
-        execute.execute(tmp);
-      }
-    } catch (Exception e) {
-      List<PromiseCapture> captures = builder.captures();
-      if (CollectionKit.isEmpty(captures)) {
-        e.printStackTrace();
-        return;
-      }
-      for (PromiseCapture capture : captures) {
-        capture.execute(e);
-      }
-    } finally {
-      if (builder.always() != null)
-        builder.always().execute();
-    }
   }
 }

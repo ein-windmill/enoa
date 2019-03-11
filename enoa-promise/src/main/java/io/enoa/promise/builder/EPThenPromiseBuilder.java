@@ -31,7 +31,7 @@ public class EPThenPromiseBuilder extends EPEoPromiseBuilder {
   private EPEoPromiseBuilder oe;
 
   private List<PromiseThen> thens;
-  private List<PromiseArg> executes;
+  private List<PromiseArg> executers;
 
   EPThenPromiseBuilder() {
     this.oe = new EPEoPromiseBuilder();
@@ -41,8 +41,8 @@ public class EPThenPromiseBuilder extends EPEoPromiseBuilder {
     return this.thens == null ? Collections.emptyList() : this.thens;
   }
 
-  public List<PromiseArg> executes() {
-    return this.executes == null ? Collections.emptyList() : this.executes;
+  public List<PromiseArg> executers() {
+    return this.executers == null ? Collections.emptyList() : this.executers;
   }
 
   @Override
@@ -69,9 +69,9 @@ public class EPThenPromiseBuilder extends EPEoPromiseBuilder {
 
       @Override
       public <T> ThenPromise execute(PromiseArg<T> arg) {
-        if (executes == null)
-          executes = new LinkedList<>();
-        executes.add(arg);
+        if (executers == null)
+          executers = new LinkedList<>();
+        executers.add(arg);
         return this;
       }
 

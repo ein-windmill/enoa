@@ -48,8 +48,8 @@ public class EPAssetPromiseBuilder<PARA> extends EPThenPromiseBuilder {
   }
 
   @Override
-  public List<PromiseArg> executes() {
-    return this.oe.executes();
+  public List<PromiseArg> executers() {
+    return this.oe.executers();
   }
 
   @Override
