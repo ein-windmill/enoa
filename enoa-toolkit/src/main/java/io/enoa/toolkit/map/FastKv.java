@@ -23,7 +23,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Map;
 
-public interface FastKv<S extends Map> extends Map<String, Object> {
+public interface FastKv<S extends Map> extends _Map {
 
   default S set(String key, Object value) {
     this.put(key, value);
@@ -36,11 +36,6 @@ public interface FastKv<S extends Map> extends Map<String, Object> {
     this.putAll(map);
     return (S) this;
   }
-
-//  default S set(FastKv kv) {
-//    this.putAll(kv);
-//    return (S) this;
-//  }
 
   default S delete(String key) {
     this.remove(key);
@@ -193,4 +188,5 @@ public interface FastKv<S extends Map> extends Map<String, Object> {
   default boolean notNullValue(String key) {
     return !this.nullValue(key);
   }
+
 }

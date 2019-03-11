@@ -17,7 +17,6 @@ package io.enoa.toolkit.map;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * OKv (Ordered Key Value)
@@ -30,24 +29,22 @@ import java.util.Optional;
  * User user = user.findFirst(getSqlPara("find", para));
  */
 @SuppressWarnings({"serial", "rawtypes", "unchecked"})
-public class OKv extends LinkedHashMap<String, Object> implements FastKv<OKv> {
-
-  private boolean skipcase;
-
-  public OKv() {
-    super();
-  }
+public class OKv extends Kv {
 
   public OKv(int initialCapacity, float loadFactor) {
-    super(initialCapacity, loadFactor);
+    super(new LinkedHashMap<>(initialCapacity, loadFactor));
   }
 
   public OKv(int initialCapacity) {
-    super(initialCapacity);
+    super(new LinkedHashMap<>(initialCapacity));
   }
 
-  public OKv(int initialCapacity, float loadFactor, boolean accessOrder) {
-    super(initialCapacity, loadFactor, accessOrder);
+  public OKv(Map<? extends String, ?> map) {
+    super(new LinkedHashMap<>(map));
+  }
+
+  public OKv() {
+    this(new LinkedHashMap<>());
   }
 
   public static OKv by(String key, Object value) {
@@ -70,31 +67,35 @@ public class OKv extends LinkedHashMap<String, Object> implements FastKv<OKv> {
     return new OKv(initialCapacity);
   }
 
-  public static OKv create(int initialCapacity, float loadFactor, boolean accessOrder) {
-    return new OKv(initialCapacity, loadFactor, accessOrder);
-  }
 
-  public Kv kv() {
-    return Kv.by(this);
-  }
-
-  public OKv skipcase() {
-    return this.skipcase(Boolean.TRUE);
-  }
-
-  public OKv skipcase(boolean skip) {
-    this.skipcase = skip;
+  @Override
+  public OKv set(String key, Object value) {
+    super.set(key, value);
     return this;
   }
 
   @Override
-  public Object get(Object key) {
-    if (!this.skipcase)
-      return super.get(key);
-
-    Optional<String> first = this.keySet().stream()
-      .filter(k -> k.equalsIgnoreCase(key.toString()))
-      .findFirst();
-    return first.map(super::get).orElse(null);
+  public OKv set(Map<String, ?> map) {
+    super.set(map);
+    return this;
   }
+
+  @Override
+  public OKv delete(String key) {
+    super.delete(key);
+    return this;
+  }
+
+  @Override
+  public OKv skipcase() {
+    super.skipcase();
+    return this;
+  }
+
+  @Override
+  public OKv skipcase(boolean skip) {
+    super.skipcase(skip);
+    return this;
+  }
+
 }

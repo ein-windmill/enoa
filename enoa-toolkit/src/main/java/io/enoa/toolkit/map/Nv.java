@@ -18,6 +18,7 @@ package io.enoa.toolkit.map;
 import io.enoa.toolkit.value.EnoaValue;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Nv implements Serializable {
 
@@ -66,7 +67,7 @@ public class Nv implements Serializable {
     Nv nv = (Nv) o;
 
     if (!name.equals(nv.name)) return false;
-    return value != null ? value.equals(nv.value) : nv.value == null;
+    return Objects.equals(value, nv.value);
   }
 
   @Override
