@@ -17,11 +17,30 @@ public class EPXEnoaPromiseHandleBuilder {
   private EPXEnoaPromiseHandleBuilder() {
   }
 
+  public void handleAlways(EPEoPromiseBuilder builder) {
+    if (builder.always() != null)
+      builder.always().execute();
+  }
+
+  public void handleAlways(EPAssetPromiseBuilder builder) {
+    this.handleAlways((EPEoPromiseBuilder) builder);
+  }
+
+  public void handleAlways(EPDoneArgPromiseBuilder builder) {
+    this.handleAlways((EPEoPromiseBuilder) builder);
+  }
+
+  public void handleAlways(EPDonePromiseBuilder builder) {
+    this.handleAlways((EPEoPromiseBuilder) builder);
+  }
+
+  public void handleAlways(EPThenPromiseBuilder builder) {
+    this.handleAlways((EPEoPromiseBuilder) builder);
+  }
 
   public void handleCapture(EPEoPromiseBuilder builder, Throwable throwable) {
     builder.captures().forEach(capture -> capture.execute(throwable));
-    if (builder.always() != null)
-      builder.always().execute();
+    handleAlways(builder);
   }
 
   public void handleCapture(EPAssetPromiseBuilder builder, Throwable throwable) {
