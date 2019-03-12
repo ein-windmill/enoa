@@ -31,7 +31,7 @@ public class EnoaValue implements Serializable {
 
   public static final EnoaValue NULL = EnoaValue.with(null);
 
-  private EnoaValue(Object value) {
+  protected EnoaValue(Object value) {
     this.value = value;
   }
 
