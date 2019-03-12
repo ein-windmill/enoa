@@ -15,10 +15,8 @@
  */
 package io.enoa.promise.arg;
 
-import io.enoa.promise.Promise;
-
 @FunctionalInterface
-public interface PromiseArg<T> extends Promise {
+public interface PromiseArg<T> extends Arg {
 
   void execute(T result);
 

@@ -15,10 +15,8 @@
  */
 package io.enoa.promise.arg;
 
-import io.enoa.promise.Promise;
-
 @FunctionalInterface
-public interface PromiseBool<T> extends Promise {
+public interface PromiseBool<T> extends Arg {
 
   boolean execute(T data);
 

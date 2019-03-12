@@ -15,10 +15,8 @@
  */
 package io.enoa.promise.arg;
 
-import io.enoa.promise.Promise;
-
 @FunctionalInterface
-public interface PromiseVoid extends Promise {
+public interface PromiseVoid extends Arg {
 
   PromiseVoid EMPTY = _DEF_PROMISE_VOID.instance();
 
