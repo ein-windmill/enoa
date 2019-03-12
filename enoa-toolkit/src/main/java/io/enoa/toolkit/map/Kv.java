@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @SuppressWarnings({"serial", "rawtypes", "unchecked"})
-public class Kv implements FastKv<Kv> {
+public class Kv implements EoMap<Kv> {
 
   private Map<String, Object> map;
 

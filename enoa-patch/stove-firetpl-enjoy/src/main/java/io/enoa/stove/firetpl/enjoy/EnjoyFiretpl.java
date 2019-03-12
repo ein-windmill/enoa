@@ -65,6 +65,9 @@ public class EnjoyFiretpl implements Firetpl {
 
   @Override
   public FireBody render(String name, Map<String, ?> para) {
+    if (para == null) {
+      return this.render(name);
+    }
     SectionPara sp = this.section.getSectionPara(name, para);
     if (sp == null)
       throw new StoveException("Template name not found => " + name);

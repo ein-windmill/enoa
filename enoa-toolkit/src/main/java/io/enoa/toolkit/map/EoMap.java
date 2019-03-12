@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
-interface _Map extends Map<String, Object> {
+public interface EoMap<S extends Map> extends Map<String, Object>, FastKv {
 
 
   Map<String, Object> map();
@@ -53,6 +53,55 @@ interface _Map extends Map<String, Object> {
     return this.map().containsValue(value);
   }
 
+  @Override
+  default Object origin(String key) {
+    return this.get(key);
+  }
+
+  default S set(String key, Object value) {
+    this.put(key, value);
+    return (S) this;
+  }
+
+  default S set(Map<String, ?> map) {
+    if (map == null)
+      return (S) this;
+    this.putAll(map);
+    return (S) this;
+  }
+
+  default S delete(String key) {
+    this.remove(key);
+    return (S) this;
+  }
+
+
+  /**
+   * 是否存在当前 key
+   */
+  default boolean exists(String key) {
+    return this.containsKey(key);
+  }
+
+  /**
+   * 值是否为 null
+   *
+   * @param key 键
+   * @return boolean
+   */
+  default boolean nullValue(String key) {
+    return this.get(key) == null;
+  }
+
+  /**
+   * 值是否不为 null
+   *
+   * @param key 键
+   * @return boolean
+   */
+  default boolean notNullValue(String key) {
+    return !this.nullValue(key);
+  }
 
 
 }

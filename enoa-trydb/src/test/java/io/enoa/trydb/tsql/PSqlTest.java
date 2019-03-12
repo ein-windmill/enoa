@@ -15,6 +15,8 @@
  */
 package io.enoa.trydb.tsql;
 
+import io.enoa.trydb.Trydb;
+import io.enoa.trydb.TrydbConfig;
 import io.enoa.trydb.tsql.psql.IPSql;
 import org.junit.Test;
 
@@ -36,6 +38,10 @@ public class PSqlTest {
     System.out.println(IPSql.subquery().psql(sql));
     System.out.println(IPSql.sqlfrom().psql(sql));
 
+////    Trydb.update()
+//    Trydb.template().update()
+//
+//    Trydb.epm().install(new TrydbConfig());
   }
 
 }

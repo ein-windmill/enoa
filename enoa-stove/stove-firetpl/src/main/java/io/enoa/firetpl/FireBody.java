@@ -55,11 +55,12 @@ public interface FireBody extends StoveBody {
       public String toString() {
         StringBuilder ret = new StringBuilder();
         ret.append(this.tpl());
-        if (this.paras() == null || this.paras().length == 0)
+        Object[] paras = this.paras();
+        if (paras == null || paras.length == 0)
           return ret.toString();
 
         ret.append("       ----> [");
-        ret.append(String.join(",", Arrays.stream(this.paras()).map(Object::toString).collect(Collectors.toList())));
+        ret.append(Arrays.stream(paras).map(Object::toString).collect(Collectors.joining(",")));
         ret.append("]");
         return ret.toString();
       }

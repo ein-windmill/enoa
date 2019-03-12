@@ -15,9 +15,9 @@
  */
 package io.enoa.toolkit.ret;
 
-import io.enoa.toolkit.map.FastKv;
+import io.enoa.toolkit.map.EoMap;
 
-public interface EoRet extends Ret, FastKv<EoRet> {
+public interface EoRet extends Ret, EoMap<EoRet> {
 
   static ERetBuilder builder() {
     return new ERetBuilder();
