@@ -56,7 +56,7 @@ abstract class AbstractParser<T> implements DIParser<T> {
 
       Kv kv = config.json().parse(origin, Kv.class);
       try {
-        if (kv.notNullValue("message"))
+        if (TextKit.blankn(kv.string("message")))
           return DRet.fail(resp, kv.string("message"));
         return DRet.ok(resp, this.ok(config, resp));
       } finally {

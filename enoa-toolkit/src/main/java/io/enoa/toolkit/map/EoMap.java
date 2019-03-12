@@ -83,25 +83,5 @@ public interface EoMap<S extends Map> extends Map<String, Object>, FastKv {
     return this.containsKey(key);
   }
 
-  /**
-   * 值是否为 null
-   *
-   * @param key 键
-   * @return boolean
-   */
-  default boolean nullValue(String key) {
-    return this.get(key) == null;
-  }
-
-  /**
-   * 值是否不为 null
-   *
-   * @param key 键
-   * @return boolean
-   */
-  default boolean notNullValue(String key) {
-    return !this.nullValue(key);
-  }
-
 
 }

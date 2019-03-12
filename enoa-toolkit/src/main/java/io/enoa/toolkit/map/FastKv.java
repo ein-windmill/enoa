@@ -144,8 +144,5 @@ public interface FastKv {
 
   boolean exists(String key);
 
-  boolean nullValue(String key);
-
-  boolean notNullValue(String key);
 
 }
