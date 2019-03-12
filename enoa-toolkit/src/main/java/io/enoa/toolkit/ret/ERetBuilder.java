@@ -18,6 +18,7 @@ package io.enoa.toolkit.ret;
 import io.enoa.toolkit.map.Kv;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 public class ERetBuilder {
@@ -108,6 +109,10 @@ public class ERetBuilder {
       return first.map(super::get).orElse(null);
     }
 
+    @Override
+    public Map<String, Object> map() {
+      return this;
+    }
   }
 
 }

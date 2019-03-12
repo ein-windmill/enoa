@@ -20,24 +20,26 @@ import java.util.Map;
 import java.util.Optional;
 
 @SuppressWarnings({"serial", "rawtypes", "unchecked"})
-public class Kv extends HashMap<String, Object> implements FastKv<Kv> {
+public class Kv implements FastKv<Kv> {
+
+  private Map<String, Object> map;
 
   private boolean skipcase;
 
-  public Kv() {
-    super();
-  }
-
   public Kv(int initialCapacity, float loadFactor) {
-    super(initialCapacity, loadFactor);
+    this.map = new HashMap<>(initialCapacity, loadFactor);
   }
 
   public Kv(int initialCapacity) {
-    super(initialCapacity);
+    this.map = new HashMap<>(initialCapacity);
   }
 
-  private Kv(Map<? extends String, ?> m) {
-    super(m);
+  public Kv(Map<? extends String, ?> map) {
+    this.map = (Map<String, Object>) map;
+  }
+
+  public Kv() {
+    this(new HashMap<>());
   }
 
   public static Kv by(Map<String, ?> map) {
@@ -60,9 +62,13 @@ public class Kv extends HashMap<String, Object> implements FastKv<Kv> {
     return new Kv(initialCapacity, loadFactor);
   }
 
-  public OKv okv() {
-    return OKv.by(this);
+  public static Kv create(Map<? extends String, ?> map) {
+    return new Kv(map);
   }
+
+//  public OKv okv() {
+//    return OKv.by(this);
+//  }
 
   public Kv skipcase() {
     return this.skipcase(Boolean.TRUE);
@@ -74,13 +80,19 @@ public class Kv extends HashMap<String, Object> implements FastKv<Kv> {
   }
 
   @Override
+  public Map<String, Object> map() {
+    return this.map;
+  }
+
+  @Override
   public Object get(Object key) {
     if (!this.skipcase)
-      return super.get(key);
+      return this.map.get(key);
 
     Optional<String> first = this.keySet().stream()
       .filter(k -> k.equalsIgnoreCase(key.toString()))
       .findFirst();
-    return first.map(super::get).orElse(null);
+    return first.map(k -> this.map.get(k)).orElse(null);
   }
+
 }
