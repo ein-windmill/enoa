@@ -13,7 +13,6 @@
   <packaging>pom</packaging>
   <modules>
     <module>stove-api</module>
-    <module>enoa-eosh</module>
     <module>stove-template</module>
     <module>stove-firetpl</module>
   </modules>

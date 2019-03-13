@@ -18,8 +18,13 @@ public class EPXEnoaPromiseHandleBuilder {
   }
 
   public void handleAlways(EPEoPromiseBuilder builder) {
-    if (builder.always() != null)
+    if (builder.always() == null)
+      return;
+    try {
       builder.always().execute();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   public void handleAlways(EPAssetPromiseBuilder builder) {
@@ -39,7 +44,14 @@ public class EPXEnoaPromiseHandleBuilder {
   }
 
   public void handleCapture(EPEoPromiseBuilder builder, Throwable throwable) {
-    builder.captures().forEach(capture -> capture.execute(throwable));
+    for (PromiseCapture capture : builder.captures()) {
+      try {
+        capture.execute(throwable);
+      } catch (Exception e) {
+        e.printStackTrace();
+        break;
+      }
+    }
     handleAlways(builder);
   }
 
@@ -60,15 +72,35 @@ public class EPXEnoaPromiseHandleBuilder {
   }
 
   public <T> void handleDoneArg(EPDoneArgPromiseBuilder<T> builder, T result) {
-    builder.dones().forEach(done -> done.execute(result));
-    if (builder.always() != null)
-      builder.always().execute();
+    boolean needalways = true;
+    for (PromiseArg<T> done : builder.dones()) {
+      try {
+        done.execute(result);
+      } catch (Exception e) {
+        this.handleCapture(builder, e);
+        needalways = false;
+        break;
+      }
+    }
+    if (!needalways)
+      return;
+    this.handleAlways(builder);
   }
 
   public void handleDone(EPDonePromiseBuilder builder) {
-    builder.dones().forEach(PromiseVoid::execute);
-    if (builder.always() != null)
-      builder.always().execute();
+    boolean needalways = true;
+    for (PromiseVoid done : builder.dones()) {
+      try {
+        done.execute();
+      } catch (Exception e) {
+        this.handleCapture(builder, e);
+        needalways = false;
+        break;
+      }
+    }
+    if (!needalways)
+      return;
+    this.handleAlways(builder);
   }
 
   public void handleThen(EPThenPromiseBuilder builder, Object result) {
@@ -83,7 +115,14 @@ public class EPXEnoaPromiseHandleBuilder {
         executer.execute(result);
       }
     } catch (Exception e) {
-      builder.captures().forEach(capture -> capture.execute(e));
+      for (PromiseCapture capture : builder.captures()) {
+        try {
+          capture.execute(e);
+        } catch (Exception ex) {
+          ex.printStackTrace();
+          break;
+        }
+      }
     } finally {
       if (builder.always() != null)
         builder.always().execute();
@@ -120,7 +159,12 @@ public class EPXEnoaPromiseHandleBuilder {
     } catch (Exception e) {
       List<PromiseCapture> captures = builder.captures();
       for (PromiseCapture capture : captures) {
-        capture.execute(e);
+        try {
+          capture.execute(e);
+        } catch (Exception ex) {
+          ex.printStackTrace();
+          break;
+        }
       }
     } finally {
       if (builder.always() != null)

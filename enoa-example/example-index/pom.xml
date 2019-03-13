@@ -41,11 +41,6 @@
     </dependency>
 
     <dependency>
-      <groupId>com.github.ikidou</groupId>
-      <artifactId>TypeBuilder</artifactId>
-    </dependency>
-
-    <dependency>
       <groupId>io.enoa</groupId>
       <artifactId>index-solr</artifactId>
     </dependency>

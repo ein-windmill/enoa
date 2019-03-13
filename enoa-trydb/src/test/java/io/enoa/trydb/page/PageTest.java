@@ -1,8 +1,8 @@
 package io.enoa.trydb.page;
 
-import ikidou.reflect.TypeBuilder;
 import io.enoa.json.Json;
 import io.enoa.json.provider.fastjson.FastjsonProvider;
+import io.enoa.typebuilder.TypeBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -35,7 +35,7 @@ public class PageTest {
     String data = Json.toJson(page);
     System.out.println(data);
 
-    Page<Integer> p1 = Json.parse(data, TypeBuilder.newInstance(Page.class).addTypeParam(E0.class).build());
+    Page<Integer> p1 = Json.parse(data, TypeBuilder.with(Page.class).type(E0.class).build());
     System.out.println(p1);
 
   }

@@ -66,8 +66,8 @@
     </dependency>
 
     <dependency>
-      <groupId>com.github.ikidou</groupId>
-      <artifactId>TypeBuilder</artifactId>
+      <groupId>io.enoa</groupId>
+      <artifactId>enoa-typebuilder</artifactId>
       <scope>test</scope>
     </dependency>
 

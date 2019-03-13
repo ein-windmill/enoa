@@ -174,12 +174,6 @@
       <artifactId>fastjson</artifactId>
     </dependency>
 
-
-    <dependency>
-      <groupId>io.enoa</groupId>
-      <artifactId>yosart-plugin-conf</artifactId>
-    </dependency>
-
     <dependency>
       <groupId>org.eclipse.jgit</groupId>
       <artifactId>org.eclipse.jgit</artifactId>

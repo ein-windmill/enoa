@@ -40,11 +40,6 @@
       <artifactId>enoa-json-jackson</artifactId>
     </dependency>
 
-    <dependency>
-      <groupId>com.github.ikidou</groupId>
-      <artifactId>TypeBuilder</artifactId>
-    </dependency>
-
   </dependencies>
 
   <build>

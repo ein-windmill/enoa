@@ -28,7 +28,6 @@ public class ORNvTest {
     Nv nv = Nv.create("nv.name", "nv.value");
     String json = JSON.toJSONString(nv);
 
-//    Type type = TypeBuilder.newInstance(Nv.class).addTypeParam(String.class).build();
     Nv znv = JSON.parseObject(json, Nv.class);
     System.out.println(znv);
   }

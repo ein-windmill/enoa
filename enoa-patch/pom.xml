@@ -23,7 +23,6 @@
     <module>repeater-tio</module>
     <module>repeater-tomcat</module>
     <module>yosart-plugin-json</module>
-    <module>yosart-plugin-conf</module>
     <module>yosart-plugin-db</module>
     <module>yosart-plugin-ioc</module>
     <module>yosart-plugin-redis</module>

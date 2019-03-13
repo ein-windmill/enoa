@@ -43,30 +43,12 @@ public class TypeBuilder {
     return new TypeBuilder(raw, parent);
   }
 
-  /**
-   * @param raw class
-   * @return TypeBuilder
-   * @deprecated use {@link #subtype(Class)}
-   */
-  @Deprecated
-  public TypeBuilder beginSubType(Class raw) {
-    return this.subtype(raw);
-  }
 
-  /**
-   * @return TypeBuilder
-   * @deprecated use {@link #end()}
-   */
-  @Deprecated
-  public TypeBuilder endSubtype() {
-    return this.end();
-  }
-
-  public TypeBuilder subtype(Class raw) {
+  public TypeBuilder subType(Class raw) {
     return with(raw, this);
   }
 
-  public TypeBuilder end() {
+  public TypeBuilder endSubType() {
     if (parent == null) {
       throw new TypeException("expect subtype() before end()");
     }
