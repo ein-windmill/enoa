@@ -86,6 +86,7 @@ public class ERetBuilder {
       if (kv.isEmpty())
         return resp;
       resp.data(kv);
+      resp.message(this.string("message"));
       return resp;
     }
 
