@@ -3,7 +3,7 @@
 ENOA
 ===============
 
-![Build Status](https://drone.0u0.me/api/badges/fewensa/enoa/status.svg)
+[![Build Status](https://drone.0u0.me/api/badges/fewensa/enoa/status.svg)](https://drone.0u0.me/fewensa/enoa)
 
 ![ENOA](./enoa.svg)
 
