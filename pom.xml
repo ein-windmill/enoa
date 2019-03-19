@@ -925,7 +925,7 @@
   <!-- profiles -->
   <profiles>
     <profile>
-      <id>sonatype</id>
+      <id>release</id>
       <properties>
         <gpg.executable>gpg2</gpg.executable>
         <gpg.useagent>true</gpg.useagent>
@@ -982,9 +982,6 @@
                 </goals>
               </execution>
             </executions>
-            <configuration>
-              <skip>true</skip>
-            </configuration>
           </plugin>
         </plugins>
       </build>
