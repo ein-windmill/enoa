@@ -8,19 +8,26 @@ kind: pipeline
 name: maven_center
 
 ## todo deploy maven center
+# /root/.gnupg/
 steps:
   - name: deploy
     image: maven:3.6-alpine
     volumes:
       - name: m2
         path: /root/.m2
+      - name: gpg
+        path: /root/.gnupg
     commands:
-      - mvn clean deploy -Dmaven.test.skip=true
+      - apk add gnupg
+      - mvn clean deploy -D maven.test.skip=true -P release
 
 volumes:
   - name: m2
     host:
       path: /data/mount/m2
+  - name: gpg
+    host:
+      path: /root/.gnupg
 
 trigger:
   branch:
@@ -37,7 +44,7 @@ steps:
       - name: m2
         path: /root/.m2
     commands:
-      - mvn clean install -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
+      - mvn clean install -D maven.test.skip=true -D maven.javadoc.skip=true -D gpg.skip=true
 
 volumes:
   - name: m2
