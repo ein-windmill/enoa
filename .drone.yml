@@ -27,7 +27,7 @@ volumes:
       path: /data/mount/m2
   - name: gpg
     host:
-      path: /root/.gnupg
+      path: /data/gnupg
 
 trigger:
   branch:
