@@ -3,5 +3,5 @@
 #
 #
 
-docker build --rm -t yosart-simple:1.7-snapshot -f src/main/docker/Dockerfile .
+docker build --rm -t yosart-simple:1.7.0-beta -f src/main/docker/Dockerfile .
 
