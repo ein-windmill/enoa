@@ -15,7 +15,7 @@ steps:
       - name: m2
         path: /root/.m2
     commands:
-      - mvn clean package -Dmaven.test.skip=true
+      - mvn clean deploy -Dmaven.test.skip=true
 
 volumes:
   - name: m2
