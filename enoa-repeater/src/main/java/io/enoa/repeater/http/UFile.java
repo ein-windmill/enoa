@@ -39,7 +39,7 @@ public class UFile {
   /**
    * 上传文件原始文件名
    */
-  private final String originName;
+  private final String originname;
   /**
    * 零时文件名
    */
@@ -62,16 +62,21 @@ public class UFile {
   private final Type type;
 
 
+  private ExecutorService es;
+
   private enum Type {
     FILE,
     BINARY
   }
 
-  private static ExecutorService ES = Executors.newSingleThreadExecutor();
+  private static class Holder {
+    private static ExecutorService ES = Executors.newSingleThreadExecutor();
+  }
+
 
   private UFile(Builder builder) {
     this.name = builder.name;
-    this.originName = builder.originName;
+    this.originname = builder.originname;
     this.filename = builder.filename;
     this.path = builder.path;
     this.binary = builder.binary;
@@ -79,13 +84,17 @@ public class UFile {
     this.tmp = builder.tmp;
   }
 
+  public UFile executor(ExecutorService es) {
+    this.es = es;
+    return this;
+  }
 
   public String name() {
     return this.name;
   }
 
-  public String originName() {
-    return this.originName;
+  public String originname() {
+    return this.originname;
   }
 
   public String filename() {
@@ -153,11 +162,11 @@ public class UFile {
   }
 
   public Future<Path> asyncMove(String to) throws EoException {
-    return this.asyncMove(ES, Paths.get(to));
+    return this.asyncMove(this.es == null ? Holder.ES : this.es, Paths.get(to));
   }
 
   public Future<Path> asyncMove(Path to) throws EoException {
-    return this.asyncMove(ES, to);
+    return this.asyncMove(this.es == null ? Holder.ES : this.es, to);
   }
 
   public void delete() {
@@ -174,7 +183,7 @@ public class UFile {
 
   public static class Builder {
     private String name;
-    private String originName;
+    private String originname;
     private String filename;
     private Path tmp;
     private Path path;
@@ -196,7 +205,7 @@ public class UFile {
     }
 
     public Builder originName(String originName) {
-      this.originName = originName;
+      this.originname = originName;
       return this;
     }
 
@@ -228,7 +237,7 @@ public class UFile {
   public String toString() {
     return "UFile{" +
       "name='" + name + '\'' +
-      ", originName='" + originName + '\'' +
+      ", originname='" + originname + '\'' +
       ", filename='" + filename + '\'' +
       (
         this.type == null ? "ERROR UFILE." :

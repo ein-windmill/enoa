@@ -1,0 +1,80 @@
+
+
+strace -e write -o /tmp/docker.strace -s 10000 -fdocker run -it --rm --name test -v /data:/data -v /opt:/opt -v test:/testx -p 999:800 -p 942:942 -e "ENV=fa" -e "NAME=kin" alpine ls
+
+
+2050  write(3, "GET /_ping HTTP/1.1\r\nHost: docker\r\nUser-Agent: Docker-Client/18.09.0-ce-tp5 (linux)\r\n\r\n", 87) = 87
+2050  write(3, "POST /v1.39/containers/create?name=test HTTP/1.1\r\nHost: docker\r\nUser-Agent: Docker-Client/18.09.0-ce-tp5 (linux)\r\nContent-Length: 1646\r\nContent-Type: application/json\r\n\r\n{\"Hostname\":\"\",\"Domainname\":\"\",\"User\":\"\",\"AttachStdin\":true,\"AttachStdout\":true,\"AttachStderr\":true,\"ExposedPorts\":{\"800/tcp\":{},\"942/tcp\":{}},\"Tty\":true,\"OpenStdin\":true,\"StdinOnce\":true,\"Env\":[\"ENV=fa\",\"NAME=kin\"],\"Cmd\":[\"ls\"],\"Image\":\"alpine\",\"Volumes\":{},\"WorkingDir\":\"\",\"Entrypoint\":null,\"OnBuild\":null,\"Labels\":{},\"HostConfig\":{\"Binds\":[\"/data:/data\",\"/opt:/opt\",\"test:/testx\"],\"ContainerIDFile\":\"\",\"LogConfig\":{\"Type\":\"\",\"Config\":{}},\"NetworkMode\":\"default\",\"PortBindings\":{\"800/tcp\":[{\"HostIp\":\"\",\"HostPort\":\"999\"}],\"942/tcp\":[{\"HostIp\":\"\",\"HostPort\":\"942\"}]},\"RestartPolicy\":{\"Name\":\"no\",\"MaximumRetryCount\":0},\"AutoRemove\":true,\"VolumeDriver\":\"\",\"VolumesFrom\":null,\"CapAdd\":null,\"CapDrop\":null,\"Dns\":[],\"DnsOptions\":[],\"DnsSearch\":[],\"ExtraHosts\":null,\"GroupAdd\":null,\"IpcMode\":\"\",\"Cgroup\":\"\",\"Links\":null,\"OomScoreAdj\":0,\"PidMode\":\"\",\"Privileged\":false,\"PublishAllPorts\":false,\"ReadonlyRootfs\":false,\"SecurityOpt\":null,\"UTSMode\":\"\",\"UsernsMode\":\"\",\"ShmSize\":0,\"ConsoleSize\":[0,0],\"Isolation\":\"\",\"CpuShares\":0,\"Memory\":0,\"NanoCpus\":0,\"CgroupParent\":\"\",\"BlkioWeight\":0,\"BlkioWeightDevice\":[],\"BlkioDeviceReadBps\":null,\"BlkioDeviceWriteBps\":null,\"BlkioDeviceReadIOps\":null,\"BlkioDeviceWriteIOps\":null,\"CpuPeriod\":0,\"CpuQuota\":0,\"CpuRealtimePeriod\":0,\"CpuRealtimeRuntime\":0,\"CpusetCpus\":\"\",\"CpusetMems\":\"\",\"Devices\":[],\"DeviceCgroupRules\":null,\"DiskQuota\":0,\"KernelMemory\":0,\"MemoryReservation\":0,\"MemorySwap\":0,\"MemorySwappiness\":-1,\"OomKillDisable\":false,\"PidsLimit\":0,\"Ulimits\":null,\"CpuCount\":0,\"CpuPercent\":0,\"IOMaximumIOps\":0,\"IOMaximumBandwidth\":0,\"MaskedPaths\":null,\"ReadonlyPaths\":null},\"NetworkingConfig\":{\"EndpointsConfig\":{}}}\n", 1816) = 1816
+2050  write(5, "POST /v1.39/containers/e3a181140be737c7ef1f78db88afbd1ca98a49bf571974b4611d85b90834c028/attach?stderr=1&stdin=1&stdout=1&stream=1 HTTP/1.1\r\nHost: \r\nUser-Agent: Docker-Client/18.09.0-ce-tp5 (linux)\r\nContent-Length: 0\r\nConnection: Upgrade\r\nContent-Type: text/plain\r\nUpgrade: tcp\r\n\r\n", 280) = 280
+2050  write(3, "POST /v1.39/containers/e3a181140be737c7ef1f78db88afbd1ca98a49bf571974b4611d85b90834c028/wait?condition=removed HTTP/1.1\r\nHost: docker\r\nUser-Agent: Docker-Client/18.09.0-ce-tp5 (linux)\r\nContent-Length: 0\r\nContent-Type: text/plain\r\n\r\n", 232) = 232
+2053  write(1, "", 0)                   = 0
+2053  write(6, "POST /v1.39/containers/e3a181140be737c7ef1f78db88afbd1ca98a49bf571974b4611d85b90834c028/start HTTP/1.1\r\nHost: docker\r\nUser-Agent: Docker-Client/18.09.0-ce-tp5 (linux)\r\nContent-Length: 0\r\nContent-Type: text/plain\r\n\r\n", 215) = 215
+2053  write(1, "\33[1;34mbin\33[m    \33[1;34mdev\33[m    \33[1;34mhome\33[m   \33[1;34mmedia\33[m  \33[1;34mopt\33[m    \33[1;34mroot\33[m   \33[1;34msbin\33[m   \33[1;34msys\33[m    \33[1;34mtmp\33[m    \33[1;34mvar\33[m\r\n\33[1;34mdata\33[m   \33[1;34metc\33[m    \33[1;34mlib\33[m    \33[1;34mmnt\33[m    \33[1;34mproc\33[m   \33[1;34mrun\33[m    \33[1;34msrv\33[m    \33[1;34mtestx\33[m  \33[1;34musr\33[m\r\n", 319) = 319
+2053  write(6, "POST /v1.39/containers/e3a181140be737c7ef1f78db88afbd1ca98a49bf571974b4611d85b90834c028/resize?h=73&w=269 HTTP/1.1\r\nHost: docker\r\nUser-Agent: Docker-Client/18.09.0-ce-tp5 (linux)\r\nContent-Length: 0\r\nContent-Type: text/plain\r\n\r\n", 227) = 227
+2052  +++ exited with 0 +++
+2051  +++ exited with 0 +++
+2050  +++ exited with 0 +++
+2049  +++ exited with 0 +++
+2048  +++ exited with 0 +++
+2053  +++ exited with 0 +++
+2047  +++ exited with 0 +++
+2046  +++ exited with 0 +++
+
+
+
+strace -e write -o /tmp/docker.strace -s 10000 -fdocker run -dit --rm --name test -v /data:/data -v /opt:/opt -v test:/testx -p 999:800 -p 998:800 -p 942:942 -e "ENV=fa" -e "NAME=kin" -l "a:bbbbbbbbbbbbbbb" --link registry:f  alpine ls
+
+
+2182  write(3, "GET /_ping HTTP/1.1\r\nHost: docker\r\nUser-Agent: Docker-Client/18.09.0-ce-tp5 (linux)\r\n\r\n", 87) = 87
+2182  write(3, "POST /v1.39/containers/create?name=test HTTP/1.1\r\nHost: docker\r\nUser-Agent: Docker-Client/18.09.0-ce-tp5 (linux)\r\nContent-Length: 1713\r\nContent-Type: application/json\r\n\r\n{\"Hostname\":\"\",\"Domainname\":\"\",\"User\":\"\",\"AttachStdin\":false,\"AttachStdout\":false,\"AttachStderr\":false,\"ExposedPorts\":{\"800/tcp\":{},\"942/tcp\":{}},\"Tty\":true,\"OpenStdin\":true,\"StdinOnce\":false,\"Env\":[\"NAME=kin\",\"ENV=fa\"],\"Cmd\":[\"ls\"],\"Image\":\"alpine\",\"Volumes\":{},\"WorkingDir\":\"\",\"Entrypoint\":null,\"OnBuild\":null,\"Labels\":{\"a:bbbbbbbbbbbbbbb\":\"\"},\"HostConfig\":{\"Binds\":[\"test:/testx\",\"/data:/data\",\"/opt:/opt\"],\"ContainerIDFile\":\"\",\"LogConfig\":{\"Type\":\"\",\"Config\":{}},\"NetworkMode\":\"default\",\"PortBindings\":{\"800/tcp\":[{\"HostIp\":\"\",\"HostPort\":\"999\"},{\"HostIp\":\"\",\"HostPort\":\"998\"}],\"942/tcp\":[{\"HostIp\":\"\",\"HostPort\":\"942\"}]},\"RestartPolicy\":{\"Name\":\"no\",\"MaximumRetryCount\":0},\"AutoRemove\":true,\"VolumeDriver\":\"\",\"VolumesFrom\":null,\"CapAdd\":null,\"CapDrop\":null,\"Dns\":[],\"DnsOptions\":[],\"DnsSearch\":[],\"ExtraHosts\":null,\"GroupAdd\":null,\"IpcMode\":\"\",\"Cgroup\":\"\",\"Links\":[\"registry:f\"],\"OomScoreAdj\":0,\"PidMode\":\"\",\"Privileged\":false,\"PublishAllPorts\":false,\"ReadonlyRootfs\":false,\"SecurityOpt\":null,\"UTSMode\":\"\",\"UsernsMode\":\"\",\"ShmSize\":0,\"ConsoleSize\":[0,0],\"Isolation\":\"\",\"CpuShares\":0,\"Memory\":0,\"NanoCpus\":0,\"CgroupParent\":\"\",\"BlkioWeight\":0,\"BlkioWeightDevice\":[],\"BlkioDeviceReadBps\":null,\"BlkioDeviceWriteBps\":null,\"BlkioDeviceReadIOps\":null,\"BlkioDeviceWriteIOps\":null,\"CpuPeriod\":0,\"CpuQuota\":0,\"CpuRealtimePeriod\":0,\"CpuRealtimeRuntime\":0,\"CpusetCpus\":\"\",\"CpusetMems\":\"\",\"Devices\":[],\"DeviceCgroupRules\":null,\"DiskQuota\":0,\"KernelMemory\":0,\"MemoryReservation\":0,\"MemorySwap\":0,\"MemorySwappiness\":-1,\"OomKillDisable\":false,\"PidsLimit\":0,\"Ulimits\":null,\"CpuCount\":0,\"CpuPercent\":0,\"IOMaximumIOps\":0,\"IOMaximumBandwidth\":0,\"MaskedPaths\":null,\"ReadonlyPaths\":null},\"NetworkingConfig\":{\"EndpointsConfig\":{}}}\n", 1883) = 1883
+2182  write(3, "POST /v1.39/containers/539d84964b025e7d6d30c07b05eac687ad87847a55e1cab28594a3a8a0954797/wait?condition=removed HTTP/1.1\r\nHost: docker\r\nUser-Agent: Docker-Client/18.09.0-ce-tp5 (linux)\r\nContent-Length: 0\r\nContent-Type: text/plain\r\n\r\n", 232) = 232
+2182  write(1, "539d84964b025e7d6d30c07b05eac687ad87847a55e1cab28594a3a8a0954797\n", 65) = 65
+2182  write(5, "POST /v1.39/containers/539d84964b025e7d6d30c07b05eac687ad87847a55e1cab28594a3a8a0954797/start HTTP/1.1\r\nHost: docker\r\nUser-Agent: Docker-Client/18.09.0-ce-tp5 (linux)\r\nContent-Length: 0\r\nContent-Type: text/plain\r\n\r\n", 215) = 215
+2182  +++ exited with 0 +++
+2181  +++ exited with 0 +++
+2180  +++ exited with 0 +++
+2179  +++ exited with 0 +++
+2178  +++ exited with 0 +++
+
+
+
+strace -e write -o /tmp/docker.strace -s 10000 -fdocker run -it --name test -v /data:/data -v /opt:/opt -v test:/testx -p 999:800 -p 942:942 -e "ENV=fa" -e "NAME=kin" alpine ls
+
+2330  write(3, "GET /_ping HTTP/1.1\r\nHost: docker\r\nUser-Agent: Docker-Client/18.09.0-ce-tp5 (linux)\r\n\r\n", 87) = 87
+2330  write(3, "POST /v1.39/containers/create?name=test HTTP/1.1\r\nHost: docker\r\nUser-Agent: Docker-Client/18.09.0-ce-tp5 (linux)\r\nContent-Length: 1647\r\nContent-Type: application/json\r\n\r\n{\"Hostname\":\"\",\"Domainname\":\"\",\"User\":\"\",\"AttachStdin\":true,\"AttachStdout\":true,\"AttachStderr\":true,\"ExposedPorts\":{\"800/tcp\":{},\"942/tcp\":{}},\"Tty\":true,\"OpenStdin\":true,\"StdinOnce\":true,\"Env\":[\"ENV=fa\",\"NAME=kin\"],\"Cmd\":[\"ls\"],\"Image\":\"alpine\",\"Volumes\":{},\"WorkingDir\":\"\",\"Entrypoint\":null,\"OnBuild\":null,\"Labels\":{},\"HostConfig\":{\"Binds\":[\"/data:/data\",\"/opt:/opt\",\"test:/testx\"],\"ContainerIDFile\":\"\",\"LogConfig\":{\"Type\":\"\",\"Config\":{}},\"NetworkMode\":\"default\",\"PortBindings\":{\"800/tcp\":[{\"HostIp\":\"\",\"HostPort\":\"999\"}],\"942/tcp\":[{\"HostIp\":\"\",\"HostPort\":\"942\"}]},\"RestartPolicy\":{\"Name\":\"no\",\"MaximumRetryCount\":0},\"AutoRemove\":false,\"VolumeDriver\":\"\",\"VolumesFrom\":null,\"CapAdd\":null,\"CapDrop\":null,\"Dns\":[],\"DnsOptions\":[],\"DnsSearch\":[],\"ExtraHosts\":null,\"GroupAdd\":null,\"IpcMode\":\"\",\"Cgroup\":\"\",\"Links\":null,\"OomScoreAdj\":0,\"PidMode\":\"\",\"Privileged\":false,\"PublishAllPorts\":false,\"ReadonlyRootfs\":false,\"SecurityOpt\":null,\"UTSMode\":\"\",\"UsernsMode\":\"\",\"ShmSize\":0,\"ConsoleSize\":[0,0],\"Isolation\":\"\",\"CpuShares\":0,\"Memory\":0,\"NanoCpus\":0,\"CgroupParent\":\"\",\"BlkioWeight\":0,\"BlkioWeightDevice\":[],\"BlkioDeviceReadBps\":null,\"BlkioDeviceWriteBps\":null,\"BlkioDeviceReadIOps\":null,\"BlkioDeviceWriteIOps\":null,\"CpuPeriod\":0,\"CpuQuota\":0,\"CpuRealtimePeriod\":0,\"CpuRealtimeRuntime\":0,\"CpusetCpus\":\"\",\"CpusetMems\":\"\",\"Devices\":[],\"DeviceCgroupRules\":null,\"DiskQuota\":0,\"KernelMemory\":0,\"MemoryReservation\":0,\"MemorySwap\":0,\"MemorySwappiness\":-1,\"OomKillDisable\":false,\"PidsLimit\":0,\"Ulimits\":null,\"CpuCount\":0,\"CpuPercent\":0,\"IOMaximumIOps\":0,\"IOMaximumBandwidth\":0,\"MaskedPaths\":null,\"ReadonlyPaths\":null},\"NetworkingConfig\":{\"EndpointsConfig\":{}}}\n", 1817) = 1817
+2330  write(5, "POST /v1.39/containers/307d667cfc00ff4ede45c79949cd7a44c7b11ffaaa0056c71b82cc32a9eac183/attach?stderr=1&stdin=1&stdout=1&stream=1 HTTP/1.1\r\nHost: \r\nUser-Agent: Docker-Client/18.09.0-ce-tp5 (linux)\r\nContent-Length: 0\r\nConnection: Upgrade\r\nContent-Type: text/plain\r\nUpgrade: tcp\r\n\r\n", 280) = 280
+2330  write(3, "POST /v1.39/containers/307d667cfc00ff4ede45c79949cd7a44c7b11ffaaa0056c71b82cc32a9eac183/wait?condition=next-exit HTTP/1.1\r\nHost: docker\r\nUser-Agent: Docker-Client/18.09.0-ce-tp5 (linux)\r\nContent-Length: 0\r\nContent-Type: text/plain\r\n\r\n", 234) = 234
+2333  write(1, "", 0)                   = 0
+2333  write(6, "POST /v1.39/containers/307d667cfc00ff4ede45c79949cd7a44c7b11ffaaa0056c71b82cc32a9eac183/start HTTP/1.1\r\nHost: docker\r\nUser-Agent: Docker-Client/18.09.0-ce-tp5 (linux)\r\nContent-Length: 0\r\nContent-Type: text/plain\r\n\r\n", 215) = 215
+2333  write(1, "\33[1;34mbin\33[m    \33[1;34mdev\33[m    \33[1;34mhome\33[m   \33[1;34mmedia\33[m  \33[1;34mopt\33[m    \33[1;34mroot\33[m   \33[1;34msbin\33[m   \33[1;34msys\33[m    \33[1;34mtmp\33[m    \33[1;34mvar\33[m\r\n\33[1;34mdata\33[m   \33[1;34metc\33[m    \33[1;34mlib\33[m    \33[1;34mmnt\33[m    \33[1;34mproc\33[m   \33[1;34mrun\33[m    \33[1;34msrv\33[m    \33[1;34mtestx\33[m  \33[1;34musr\33[m\r\n", 319) = 319
+2333  write(6, "POST /v1.39/containers/307d667cfc00ff4ede45c79949cd7a44c7b11ffaaa0056c71b82cc32a9eac183/resize?h=73&w=269 HTTP/1.1\r\nHost: docker\r\nUser-Agent: Docker-Client/18.09.0-ce-tp5 (linux)\r\nContent-Length: 0\r\nContent-Type: text/plain\r\n\r\n", 227) = 227
+2332  +++ exited with 0 +++
+2331  +++ exited with 0 +++
+2330  +++ exited with 0 +++
+2329  +++ exited with 0 +++
+2328  +++ exited with 0 +++
+2333  +++ exited with 0 +++
+2327  +++ exited with 0 +++
+2326  +++ exited with 0 +++
+
+
+
+
+
+
+strace -e write -o /tmp/docker.strace -s 10000 -f docker run -dit --name test -v /data:/data -v /opt:/opt -v test:/testx -p 999:800 -p 998:800 -p 942:942 -e "ENV=fa" -e "NAME=kin" -l "a:bbbbbbbbbbbbbbb" --link registry:f  alpine ls
+
+
+2613  write(3, "GET /_ping HTTP/1.1\r\nHost: docker\r\nUser-Agent: Docker-Client/18.09.0-ce-tp5 (linux)\r\n\r\n", 87) = 87
+2613  write(3, "POST /v1.39/containers/create?name=test HTTP/1.1\r\nHost: docker\r\nUser-Agent: Docker-Client/18.09.0-ce-tp5 (linux)\r\nContent-Length: 1714\r\nContent-Type: application/json\r\n\r\n{\"Hostname\":\"\",\"Domainname\":\"\",\"User\":\"\",\"AttachStdin\":false,\"AttachStdout\":false,\"AttachStderr\":false,\"ExposedPorts\":{\"800/tcp\":{},\"942/tcp\":{}},\"Tty\":true,\"OpenStdin\":true,\"StdinOnce\":false,\"Env\":[\"ENV=fa\",\"NAME=kin\"],\"Cmd\":[\"ls\"],\"Image\":\"alpine\",\"Volumes\":{},\"WorkingDir\":\"\",\"Entrypoint\":null,\"OnBuild\":null,\"Labels\":{\"a:bbbbbbbbbbbbbbb\":\"\"},\"HostConfig\":{\"Binds\":[\"/opt:/opt\",\"test:/testx\",\"/data:/data\"],\"ContainerIDFile\":\"\",\"LogConfig\":{\"Type\":\"\",\"Config\":{}},\"NetworkMode\":\"default\",\"PortBindings\":{\"800/tcp\":[{\"HostIp\":\"\",\"HostPort\":\"999\"},{\"HostIp\":\"\",\"HostPort\":\"998\"}],\"942/tcp\":[{\"HostIp\":\"\",\"HostPort\":\"942\"}]},\"RestartPolicy\":{\"Name\":\"no\",\"MaximumRetryCount\":0},\"AutoRemove\":false,\"VolumeDriver\":\"\",\"VolumesFrom\":null,\"CapAdd\":null,\"CapDrop\":null,\"Dns\":[],\"DnsOptions\":[],\"DnsSearch\":[],\"ExtraHosts\":null,\"GroupAdd\":null,\"IpcMode\":\"\",\"Cgroup\":\"\",\"Links\":[\"registry:f\"],\"OomScoreAdj\":0,\"PidMode\":\"\",\"Privileged\":false,\"PublishAllPorts\":false,\"ReadonlyRootfs\":false,\"SecurityOpt\":null,\"UTSMode\":\"\",\"UsernsMode\":\"\",\"ShmSize\":0,\"ConsoleSize\":[0,0],\"Isolation\":\"\",\"CpuShares\":0,\"Memory\":0,\"NanoCpus\":0,\"CgroupParent\":\"\",\"BlkioWeight\":0,\"BlkioWeightDevice\":[],\"BlkioDeviceReadBps\":null,\"BlkioDeviceWriteBps\":null,\"BlkioDeviceReadIOps\":null,\"BlkioDeviceWriteIOps\":null,\"CpuPeriod\":0,\"CpuQuota\":0,\"CpuRealtimePeriod\":0,\"CpuRealtimeRuntime\":0,\"CpusetCpus\":\"\",\"CpusetMems\":\"\",\"Devices\":[],\"DeviceCgroupRules\":null,\"DiskQuota\":0,\"KernelMemory\":0,\"MemoryReservation\":0,\"MemorySwap\":0,\"MemorySwappiness\":-1,\"OomKillDisable\":false,\"PidsLimit\":0,\"Ulimits\":null,\"CpuCount\":0,\"CpuPercent\":0,\"IOMaximumIOps\":0,\"IOMaximumBandwidth\":0,\"MaskedPaths\":null,\"ReadonlyPaths\":null},\"NetworkingConfig\":{\"EndpointsConfig\":{}}}\n", 1884) = 1884
+2613  write(3, "POST /v1.39/containers/f7fd5f444a8c497fee62471773fbdc499f44e38f1529a04db31625c1dde017bb/wait?condition=next-exit HTTP/1.1\r\nHost: docker\r\nUser-Agent: Docker-Client/18.09.0-ce-tp5 (linux)\r\nContent-Length: 0\r\nContent-Type: text/plain\r\n\r\n", 234) = 234
+2613  write(1, "f7fd5f444a8c497fee62471773fbdc499f44e38f1529a04db31625c1dde017bb\n", 65) = 65
+2613  write(5, "POST /v1.39/containers/f7fd5f444a8c497fee62471773fbdc499f44e38f1529a04db31625c1dde017bb/start HTTP/1.1\r\nHost: docker\r\nUser-Agent: Docker-Client/18.09.0-ce-tp5 (linux)\r\nContent-Length: 0\r\nContent-Type: text/plain\r\n\r\n", 215) = 215
+2613  +++ exited with 0 +++
+2612  +++ exited with 0 +++
+2611  +++ exited with 0 +++
+2610  +++ exited with 0 +++
+2609  +++ exited with 0 +++
+
+
+

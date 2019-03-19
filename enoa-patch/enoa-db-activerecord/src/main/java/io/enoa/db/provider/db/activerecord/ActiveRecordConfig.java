@@ -67,7 +67,7 @@ public class ActiveRecordConfig implements EoDbConfig {
   }
 
   @Override
-  public EoDsConfig dsConfig() {
+  public EoDsConfig dsconfig() {
     return this.dsConfig;
   }
 

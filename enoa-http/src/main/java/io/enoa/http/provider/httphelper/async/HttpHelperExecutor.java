@@ -19,7 +19,8 @@ import io.enoa.http.EoEmit;
 import io.enoa.http.EoExecutor;
 import io.enoa.http.EoUrl;
 import io.enoa.http.protocol.HttpPromise;
-import io.enoa.promise.builder.PromiseBuilder;
+import io.enoa.chunk.Chunk;
+import io.enoa.promise.Promise;
 
 import java.util.concurrent.ExecutorService;
 
@@ -37,15 +38,15 @@ public class HttpHelperExecutor implements EoExecutor {
 
   private ExecutorService executorService() {
     if (executorService == null) {
-      executorService = PromiseBuilder.executor().enqueue("HttpHelper Dispatcher", false);
+      executorService = Promise.builder().executor().enqueue("HttpHelper Dispatcher", false);
     }
     return executorService;
   }
 
   @Override
-  public HttpPromise enqueue(EoUrl url, EoEmit emit) {
+  public HttpPromise enqueue(EoUrl url, EoEmit emit, Chunk chunk) {
     HttpHelperPromiseBuilder hpb = new HttpHelperPromiseBuilder();
-    this.executorService().execute(new HttpHelperAsync(url, emit, hpb));
+    this.executorService().execute(new HttpHelperAsync(url, emit, hpb, chunk));
     return hpb.build();
   }
 }

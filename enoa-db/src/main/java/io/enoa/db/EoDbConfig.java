@@ -23,6 +23,6 @@ public interface EoDbConfig {
 
   EoDsFactory ds();
 
-  EoDsConfig dsConfig();
+  EoDsConfig dsconfig();
 
 }

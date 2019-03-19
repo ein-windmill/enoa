@@ -15,6 +15,7 @@
  */
 package io.enoa.trydb.async;
 
+import io.enoa.promise.async.AsyncRunner;
 import io.enoa.trydb.promise.TrydbPromise;
 
 public interface EnqueueTrydb<T> {

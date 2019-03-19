@@ -29,7 +29,7 @@ public class OriginNameRule implements EoxNameRuleFactory {
   public String name(Path path, String originName) {
     String folder = path.toString();
     folder = folder.endsWith(File.separator) ? folder.substring(0, folder.length() - 1) : folder;
-//    String fname = String.format("%s%s%s", folder, File.separator, originName);
+//    String fname = String.format("%s%s%s", folder, File.separator, originname);
     String fname = TextKit.union(folder, File.separator, originName);
     if (!FileKit.exists(fname))
       return originName;

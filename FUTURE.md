@@ -19,9 +19,15 @@ This article will document some plans/changes in future releases.
 
 ### Added
 
+- Add EPThenPromiseBuilder
+- Add ds factory datasource
+- Add docker client
+
 ### Changed
 
 - Add elasticsearch support
+- Rename promise builder
+- Deprecated ds factory dataSource
 
 ### Removed
 

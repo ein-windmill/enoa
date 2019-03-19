@@ -19,6 +19,7 @@ import io.enoa.example.index.entity.Barcode;
 import io.enoa.http.EoUrl;
 import io.enoa.http.Http;
 import io.enoa.http.protocol.HttpMethod;
+import io.enoa.http.protocol.HttpResponse;
 import io.enoa.http.protocol.enoa.IHttpHandler;
 import io.enoa.index.solr.Solr;
 import io.enoa.index.solr.SolrConfig;
@@ -26,7 +27,6 @@ import io.enoa.index.solr.cqp.Fq;
 import io.enoa.index.solr.cqp.OrderBy;
 import io.enoa.index.solr.cqp.Sort;
 import io.enoa.index.solr.cqp.Wt;
-import io.enoa.index.solr.parser.JsonParser;
 import io.enoa.index.solr.parser.SParser;
 import io.enoa.index.solr.ret.SRet;
 import io.enoa.json.Json;
@@ -44,8 +44,8 @@ import java.util.List;
 public class SolrExample {
 
   private void selectWithHttpInfo() {
-    SRet<Barcode> ret = Solr.core("barcode")
-      .http(() -> Http.use().handler(IHttpHandler.def()).reporter(System.out::println))
+    SRet<Barcode> ret = Solr.http(() -> Http.use().handler(IHttpHandler.def()).reporter(System.out::println))
+      .core("barcode")
       .select()
       .fq(Fq.create("name", "药"))
       .rows(2)
@@ -61,19 +61,19 @@ public class SolrExample {
       .fq(Fq.create("name", "药"))
       .rows(2)
       .sort(Sort.create("ctime", OrderBy.DESC))
-      .emit(JsonParser.create(Barcode.class));
+      .emit(SParser.json(Barcode.class));
 
     System.out.println(Json.toJson(ret));
     System.out.println("=====================> testSelect");
   }
 
   private void defaultParserSelect() {
-    String ret = Solr.core("barcode")
+    HttpResponse ret = Solr.core("barcode")
       .select()
       .fq(Fq.create("name", "药"))
       .rows(2)
       .emit();
-    System.out.println(ret);
+    System.out.println(ret.body());
     System.out.println("=====================> defaultParserSelect");
   }
 
@@ -89,14 +89,14 @@ public class SolrExample {
   }
 
   private void testUpdate() {
-    SRet<Void> ret = Solr.core("stest")
-      .http(() -> Http.use().handler(IHttpHandler.def()).reporter(System.out::println))
+    SRet<Void> ret = Solr.http(() -> Http.use().handler(IHttpHandler.def()).reporter(System.out::println))
+      .core("stest")
       .update()
       .overwrite(true)
       .commitWithin(1000)
       .wt(Wt.JSON)
       .body(Json.toJson(this.kvs(20)))
-      .emit(JsonParser.create());
+      .emit(SParser.none());
 
     System.out.println(ret);
     System.out.println("=====================> testUpdate");

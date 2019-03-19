@@ -17,7 +17,7 @@ package io.enoa.index.solr.parser;
 
 import io.enoa.http.protocol.HttpResponse;
 
-public class OriginParser implements SParser<String> {
+class OriginParser implements SParser<String> {
 
   private static class Holder {
     private static final OriginParser INSTANCE = new OriginParser();

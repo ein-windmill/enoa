@@ -83,7 +83,7 @@ class OyRequestWrapper implements YoRequest {
   @Override
   public String variable(String name, String def) {
     if (this.variable == null)
-      return null;
+      return def;
     Object value = this.variable.value(name);
     return ConvertKit.string(value, def);
   }

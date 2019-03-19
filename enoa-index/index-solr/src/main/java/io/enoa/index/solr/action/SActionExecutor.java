@@ -15,18 +15,18 @@
  */
 package io.enoa.index.solr.action;
 
-import io.enoa.promise.builder.PromiseBuilder;
+import io.enoa.promise.Promise;
 
 import java.util.concurrent.ExecutorService;
 
 public class SActionExecutor {
 
   private static class Holder0 {
-    private static ExecutorService ES = PromiseBuilder.executor().enqueue("Solr select");
+    private static ExecutorService ES = Promise.builder().executor().enqueue("Solr select");
   }
 
   private static class Holder1 {
-    private static ExecutorService ES = PromiseBuilder.executor().enqueue("Solr update");
+    private static ExecutorService ES = Promise.builder().executor().enqueue("Solr update");
   }
 
   public static ExecutorService select() {

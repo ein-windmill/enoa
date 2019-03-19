@@ -19,8 +19,9 @@ import io.enoa.promise.DoneArgPromise;
 import io.enoa.promise.arg.PromiseArg;
 import io.enoa.promise.arg.PromiseCapture;
 import io.enoa.promise.arg.PromiseVoid;
-import io.enoa.promise.builder.EGraenodPromiseBuilder;
-import io.enoa.promise.builder.PromiseBuilder;
+import io.enoa.promise.async.AsyncRunner;
+import io.enoa.promise.builder.EPDoneArgPromiseBuilder;
+import io.enoa.promise.Promise;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.trydb.promise.TrydbPromise;
 
@@ -29,7 +30,7 @@ import java.util.concurrent.ExecutorService;
 class _DefaultTrydbEnqueueImpl<T> implements EnqueueTrydb<T> {
 
   private static class Holder {
-    private static final ExecutorService TRYDB_ENQUEUE = PromiseBuilder.executor().enqueue("Trydb Dispatcher");
+    private static final ExecutorService TRYDB_ENQUEUE = Promise.builder().executor().enqueue("Trydb Dispatcher");
   }
 
   private AsyncRunner<T> executor;
@@ -40,7 +41,7 @@ class _DefaultTrydbEnqueueImpl<T> implements EnqueueTrydb<T> {
 
   @Override
   public TrydbPromise<T> enqueue() {
-    EGraenodPromiseBuilder<T> donearg = PromiseBuilder.donearg();
+    EPDoneArgPromiseBuilder<T> donearg = Promise.builder().donearg();
     Holder.TRYDB_ENQUEUE.execute(() -> {
       try {
         String oldName = Thread.currentThread().getName();

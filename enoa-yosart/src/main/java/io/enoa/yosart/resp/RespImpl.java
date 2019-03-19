@@ -18,6 +18,9 @@ package io.enoa.yosart.resp;
 import io.enoa.repeater.http.*;
 import io.enoa.toolkit.collection.CollectionKit;
 
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,8 +59,8 @@ class RespImpl extends RendererImpl implements Resp {
 
   @Override
   public Response end() {
-    if (!this.changed && this.response != null)
-      return this.response;
+//    if (!this.changed && this.response != null)
+//      return this.response;
 
     Response.Builder builder = super.builder();
     if (builder == null)

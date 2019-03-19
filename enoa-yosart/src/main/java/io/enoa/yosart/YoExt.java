@@ -25,6 +25,7 @@ public interface YoExt {
     /**
      * after boot
      */
+    @Deprecated
     BOOT_END(false),
     /**
      * router mapping

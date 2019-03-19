@@ -21,9 +21,11 @@ public class NamecaseKitTest {
 
   @Test
   public void testNamecase() {
-    System.out.println(NamecaseKit.camelcaselower("a_bv_d"));
-    System.out.println(NamecaseKit.camelcaseupper("a_bv_d"));
-    System.out.println(NamecaseKit.underline("ABvD"));
+    System.out.println(NamecaseKit.nonecase("HelloWorld"));
+    System.out.println(NamecaseKit.underline("HelloWorld"));
+    System.out.println(NamecaseKit.camelcaselower("HelloWorld"));
+    System.out.println(NamecaseKit.camelcaseupper("helloWorld"));
+    System.out.println(NamecaseKit.convert("HelloWorld", origin -> origin.replace("o", "e")));
   }
 
 }

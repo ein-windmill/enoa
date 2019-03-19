@@ -34,6 +34,7 @@ public class AoNumberValid extends AoObjectValid<AoNumberValid> {
     super(request, valid, name);
     this.request = request;
     this.greenlight = valid.greenlight;
+    this.valueMode = valid.valueMode;
     this.name = name;
     this.verifyIsNumber = false;
   }

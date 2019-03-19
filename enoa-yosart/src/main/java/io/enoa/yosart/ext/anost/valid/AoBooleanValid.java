@@ -39,7 +39,12 @@ public class AoBooleanValid extends AoObjectValid<AoBooleanValid> {
     if (!super.verified)
       super.blank(mark, message);
     String val = super.value(this.name, this.valueMode);
-    if ("1".equals(val) || "0".equals(val) || "true".equalsIgnoreCase(val) || "false".equalsIgnoreCase(val))
+    if ("1".equals(val) ||
+      "0".equals(val) ||
+      "1.0".equals(val) ||
+      "0.0".equals(val) ||
+      "true".equalsIgnoreCase(val) ||
+      "false".equalsIgnoreCase(val))
       return this;
     throw new ValidException(mark, message);
   }

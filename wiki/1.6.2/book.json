@@ -1,0 +1,22 @@
+{
+  "title": "Enoa User Guide",
+  "description": "Enoa User Guide",
+  "author": "fewensa",
+  "language": "en",
+  "plugins": [
+    "anchors",
+    "fontsettings",
+    "sharing",
+    "lunr",
+    "search",
+    "highlight",
+    "livereload",
+    "ga"
+  ],
+  "pluginsConfig": {
+    "ga": {
+      "token": "UA-112957311-1"
+    }
+  }
+}
+

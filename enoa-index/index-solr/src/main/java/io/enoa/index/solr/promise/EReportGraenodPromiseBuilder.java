@@ -5,8 +5,8 @@
 //import io.enoa.promise.arg.PromiseArg;
 //import io.enoa.promise.arg.PromiseCapture;
 //import io.enoa.promise.arg.PromiseVoid;
-//import io.enoa.promise.builder.EGraenodPromiseBuilder;
-//import io.enoa.promise.builder.PromiseBuilder;
+//import io.enoa.promise.builder.EPDoneArgPromiseBuilder;
+//import io.enoa.promise.Promise;
 //
 //import java.util.ArrayList;
 //import java.util.Collections;
@@ -15,10 +15,10 @@
 //@Deprecated
 //public class EReportGraenodPromiseBuilder<T> {
 //
-//  private EGraenodPromiseBuilder<T> egp;
+//  private EPDoneArgPromiseBuilder<T> egp;
 //
 //  public EReportGraenodPromiseBuilder() {
-//    this.egp = PromiseBuilder.donearg();
+//    this.egp = Promise.builder().donearg();
 //  }
 //
 //  private List<ISolrReporter> reporters;

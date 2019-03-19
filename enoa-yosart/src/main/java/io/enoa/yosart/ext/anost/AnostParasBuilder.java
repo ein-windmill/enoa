@@ -109,13 +109,29 @@ class AnostParasBuilder {
 
   private Object parseArray(boolean isArray, YoRequest request, Parameter parameter, Class<?> type, ParaVal pval) {
 
+//    Class<?> componentType = type.getComponentType();
+
+    // ident component type
+    Class<?> componentType;
+    try {
+      if (isArray) {
+        componentType = type.getComponentType();
+      } else {
+        Type ptype = parameter.getParameterizedType();
+        ParameterizedType parameterizedType = (ParameterizedType) ptype;
+        Type[] argTypes = parameterizedType.getActualTypeArguments();
+        componentType = (Class<?>) argTypes[0];
+      }
+    } catch (Exception e) {
+      throw new RuntimeException(e.getMessage(), e);
+    }
+
     String[] vals = request.paraValues(pval.name);
     if (CollectionKit.isEmpty(vals))
-      return CollectionKit.emptyArray(Object.class);
+      return CollectionKit.emptyArray(componentType);
 
     // 數組解析
     if (isArray) {
-      Class<?> componentType = type.getComponentType();
       Object ret = Array.newInstance(componentType, vals.length);
       for (int i = vals.length; i-- > 0; ) {
         Array.set(ret, i, ConvertKit.to(vals[i], componentType));
@@ -127,16 +143,6 @@ class AnostParasBuilder {
     Collection colecs;
     try {
       colecs = this.newCollection(type);
-    } catch (Exception e) {
-      throw new RuntimeException(e.getMessage(), e);
-    }
-
-    Class<?> componentType;
-    try {
-      Type ptype = parameter.getParameterizedType();
-      ParameterizedType parameterizedType = (ParameterizedType) ptype;
-      Type[] argTypes = parameterizedType.getActualTypeArguments();
-      componentType = (Class<?>) argTypes[0];
     } catch (Exception e) {
       throw new RuntimeException(e.getMessage(), e);
     }
@@ -273,14 +279,16 @@ class AnostParasBuilder {
     if (CollectionKit.isEmpty(pas))
       return Collections.emptyList();
 
-    pvals = pas.stream()
-      .map(p ->
-        new ParaVal(
-          p.index() == -1 ? null : p.index(),
-          TextKit.blanky(p.value()) ? null : p.value(),
-          TextKit.blanky(p.def()) ? null : p.def(),
-          TextKit.blanky(p.format()) ? null : p.format())
-      ).collect(Collectors.toList());
+    if (pas != null) {
+      pvals = pas.stream()
+        .map(p ->
+          new ParaVal(
+            p.index() == -1 ? null : p.index(),
+            TextKit.blanky(p.value()) ? null : p.value(),
+            TextKit.blanky(p.def()) ? null : p.def(),
+            TextKit.blanky(p.format()) ? null : p.format())
+        ).collect(Collectors.toList());
+    }
 
     PVALS.put(resource.hashName(), pvals);
     return pvals;

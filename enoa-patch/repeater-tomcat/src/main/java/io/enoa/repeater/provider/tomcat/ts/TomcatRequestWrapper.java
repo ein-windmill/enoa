@@ -81,17 +81,6 @@ class TomcatRequestWrapper implements Request {
             this.ufiles.add(ufile.filename(filename).path(Paths.get(this.config.tmp().toString()).resolve(filename)).build());
           }
 
-
-//          String filename = rule.name(this.config.tmp(), originName);
-////          String tmpfile = String.format("%s%s%s", this.config.tmp(), File.separator, filename);
-//          String tmpfile = TextKit.union(this.config.tmp().toString(), File.separator, filename);
-//          part.write(tmpfile);
-//          this.ufiles.add(new UFile.Builder()
-//            .name(infos[0])
-//            .originName(originName)
-//            .filename(filename)
-//            .path(Paths.get(tmpfile))
-//            .build());
         }
         this.ufiles = Collections.unmodifiableList(this.ufiles);
       } catch (IOException | ServletException e) {
@@ -239,8 +228,10 @@ class TomcatRequestWrapper implements Request {
 
   @Override
   public String para(String name, String def) {
-    String val = this.para(name);
-    return ConvertKit.string(val, def, Boolean.TRUE);
+    String[] paras = this.paraValues(name);
+    if (CollectionKit.isEmpty(paras))
+      return def;
+    return ConvertKit.string(paras[0], def, Boolean.TRUE);
   }
 
   @Override

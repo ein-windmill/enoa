@@ -22,8 +22,19 @@ import io.enoa.json.EoJsonFactory;
  * enoa - io.enoa.json.provider.gson
  */
 public class GsonProvider implements EoJsonFactory {
+
+  private Gsonfig gsonfig;
+
+  public GsonProvider() {
+    this(new Gsonfig.Builder().build());
+  }
+
+  public GsonProvider(Gsonfig gsonfig) {
+    this.gsonfig = gsonfig;
+  }
+
   @Override
   public EnoaJson json() {
-    return _Gson.instance();
+    return _Gson.instance().gsonfig(this.gsonfig);
   }
 }

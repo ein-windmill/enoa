@@ -15,18 +15,17 @@
  */
 package io.enoa.trydb.build;
 
-import io.enoa.toolkit.namecase.INameCase;
+import io.enoa.trydb.TrydbConfig;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 class DefaultBuilder<T> implements IRsBuilder<T> {
 
   @Override
-  public List<T> build(ResultSet rs, Class<T> clazz, INameCase namecase) throws SQLException {
-    List result = new ArrayList();
+  public List<T> build(ResultSet rs, Class<T> clazz, TrydbConfig config) throws SQLException {
+    List result = config.lister().collection();
     int colAmount = rs.getMetaData().getColumnCount();
 
     if (colAmount == 1) {

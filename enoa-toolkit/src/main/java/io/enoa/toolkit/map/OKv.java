@@ -29,9 +29,22 @@ import java.util.Map;
  * User user = user.findFirst(getSqlPara("find", para));
  */
 @SuppressWarnings({"serial", "rawtypes", "unchecked"})
-public class OKv extends LinkedHashMap<String, Object> implements FastKv<OKv> {
+public class OKv extends Kv {
+
+  public OKv(int initialCapacity, float loadFactor) {
+    super(new LinkedHashMap<>(initialCapacity, loadFactor));
+  }
+
+  public OKv(int initialCapacity) {
+    super(new LinkedHashMap<>(initialCapacity));
+  }
+
+  public OKv(Map<? extends String, ?> map) {
+    super(new LinkedHashMap<>(map));
+  }
 
   public OKv() {
+    this(new LinkedHashMap<>());
   }
 
   public static OKv by(String key, Object value) {
@@ -46,8 +59,43 @@ public class OKv extends LinkedHashMap<String, Object> implements FastKv<OKv> {
     return new OKv();
   }
 
-  public Kv kv() {
-    return Kv.by(this);
+  public static OKv create(int initialCapacity, float loadFactor) {
+    return new OKv(initialCapacity, loadFactor);
+  }
+
+  public static OKv create(int initialCapacity) {
+    return new OKv(initialCapacity);
+  }
+
+
+  @Override
+  public OKv set(String key, Object value) {
+    super.set(key, value);
+    return this;
+  }
+
+  @Override
+  public OKv set(Map<String, ?> map) {
+    super.set(map);
+    return this;
+  }
+
+  @Override
+  public OKv delete(String key) {
+    super.delete(key);
+    return this;
+  }
+
+  @Override
+  public OKv skipcase() {
+    super.skipcase();
+    return this;
+  }
+
+  @Override
+  public OKv skipcase(boolean skip) {
+    super.skipcase(skip);
+    return this;
   }
 
 }

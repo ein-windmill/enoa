@@ -42,6 +42,12 @@ public interface Gateway {
 
   Gateway ssl(boolean ssl);
 
+  default Gateway interceptoption() {
+    return this.interceptoption(Boolean.TRUE);
+  }
+
+  Gateway interceptoption(boolean intercept);
+
   Gateway cros();
 
   Gateway cros(Header header);
@@ -79,6 +85,8 @@ public interface Gateway {
   Gateway mapping(GMapping[] mappings);
 
   Gateway mapping(Collection<GMapping> mappings);
+
+  Gateway reporter(IGatewayReporter reporter);
 
   void listen(String hostname, int port);
 

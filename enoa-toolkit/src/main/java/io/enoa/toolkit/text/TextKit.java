@@ -257,6 +257,8 @@ public class TextKit {
   public static String format(String message, Object... formats) {
     if (message == null)
       return null;
+    if (CollectionKit.isEmpty(formats))
+      return message;
     StringBuilder msg = new StringBuilder();
     StringBuilder ixb = new StringBuilder();
     boolean fillMode = false;

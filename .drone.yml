@@ -1,16 +1,14 @@
-#pipeline:
-#  build:
-#    image: maven:3.6-alpine
-#    commands:
-#      - mvn clean package -Dmaven.test.skip=true
 
-
+---
 kind: pipeline
 name: default
 
-steps:
+---
+kind: pipeline
+name: maven_center
 
-  ## todo deploy mode
+## todo deploy maven center
+steps:
   - name: deploy
     image: maven:3.6-alpine
     volumes:
@@ -18,11 +16,21 @@ steps:
         path: /root/.m2
     commands:
       - mvn clean package -Dmaven.test.skip=true
-    when:
-      branch:
-        - master
 
+volumes:
+  - name: m2
+    host:
+      path: /data/mount/m2
 
+trigger:
+  branch:
+    - master
+
+---
+kind: pipeline
+name: install_local
+
+steps:
   - name: install
     image: maven:3.6-alpine
     volumes:
@@ -30,14 +38,51 @@ steps:
         path: /root/.m2
     commands:
       - mvn clean install -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
-    when:
-      branch:
-        - dev
-
-
 
 volumes:
   - name: m2
     host:
       path: /data/mount/m2
+
+trigger:
+  branch:
+    - dev
+
+
+#---
+#kind: pipeline
+#name: default
+#
+#steps:
+#
+#  ## xtodo deploy mode
+#  - name: deploy
+#    image: maven:3.6-alpine
+#    volumes:
+#      - name: m2
+#        path: /root/.m2
+#    commands:
+#      - mvn clean package -Dmaven.test.skip=true
+#    when:
+#      branch:
+#        - master
+#
+#
+#  - name: install
+#    image: maven:3.6-alpine
+#    volumes:
+#      - name: m2
+#        path: /root/.m2
+#    commands:
+#      - mvn clean install -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
+#    when:
+#      branch:
+#        - dev
+#
+#
+#
+#volumes:
+#  - name: m2
+#    host:
+#      path: /data/mount/m2
 

@@ -15,10 +15,8 @@
  */
 package io.enoa.promise.arg;
 
-import io.enoa.promise.Promise;
-
 @FunctionalInterface
-public interface PromiseCapture extends Promise {
+public interface PromiseCapture extends PromiseArg<Throwable> {
 
   void execute(Throwable e);
 

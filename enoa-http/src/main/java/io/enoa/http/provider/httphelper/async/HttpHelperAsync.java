@@ -18,6 +18,7 @@ package io.enoa.http.provider.httphelper.async;
 import io.enoa.http.EoEmit;
 import io.enoa.http.EoUrl;
 import io.enoa.http.protocol.HttpResponse;
+import io.enoa.chunk.Chunk;
 import io.enoa.promise.arg.PromiseArg;
 import io.enoa.promise.arg.PromiseBool;
 import io.enoa.promise.arg.PromiseThen;
@@ -27,12 +28,14 @@ class HttpHelperAsync implements Runnable {
   private final EoEmit emit;
   private final String name;
   private final HttpHelperPromiseBuilder promise;
+  private final Chunk chunk;
 
-  HttpHelperAsync(EoUrl url, EoEmit emit, HttpHelperPromiseBuilder promise) {
+  HttpHelperAsync(EoUrl url, EoEmit emit, HttpHelperPromiseBuilder promise, Chunk chunk) {
     String utx = url.end();
     this.name = utx.substring(0, utx.length() < 70 ? utx.length() : 70).concat("...");
     this.emit = emit;
     this.promise = promise;
+    this.chunk = chunk;
   }
 
   @Override
@@ -40,7 +43,7 @@ class HttpHelperAsync implements Runnable {
     String oldName = Thread.currentThread().getName();
     Thread.currentThread().setName(this.name);
     try {
-      HttpResponse resp = this.emit.emit();
+      HttpResponse resp = this.chunk == null ? this.emit.emit() : this.emit.chunk(this.chunk);
 
       int code = resp.code();
       if (this.promise.oks() != null && code < 400)

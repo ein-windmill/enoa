@@ -16,7 +16,10 @@
 package io.enoa.log.kit;
 
 import io.enoa.log.Log;
+import io.enoa.log.provider.jdk.JdkLogProvider;
+import io.enoa.log.provider.slf4j.Slf4JLogProvider;
 import org.junit.Test;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by ein on 2017/8/14.
@@ -31,14 +34,14 @@ public class LogTest {
     Log.warn("Warn log");
     Log.error("Error log");
     Log.debug(Log.name());
-    Log.use("TEST");
+    Log.use("TEST").debug("test");
     Log.debug("============");
     Log.debug("Debug log");
     Log.info("Info log");
     Log.warn("Warn log");
     Log.error("Error log");
     Log.debug(Log.name());
-    Log.use(LogTest.class);
+    Log.use(LogTest.class).debug("Log test");
     Log.debug("============");
     Log.debug("Debug log");
     Log.info("Info log");
@@ -46,6 +49,7 @@ public class LogTest {
     Log.error("Error log");
     Log.debug(Log.name());
 
+    Log.epm().install(new Slf4JLogProvider());
 
 //    EMgrLog.instance().loggerFactory(new JdkLogProvider());
 //    Log.debug("TEST JDK");

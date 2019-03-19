@@ -16,9 +16,14 @@
 package io.enoa.http;
 
 import io.enoa.http.protocol.HttpPromise;
+import io.enoa.chunk.Chunk;
 
 public interface EoExecutor {
 
-  HttpPromise enqueue(EoUrl url, EoEmit emit);
+  default HttpPromise enqueue(EoUrl url, EoEmit emit) {
+    return this.enqueue(url, emit, null);
+  }
+
+  HttpPromise enqueue(EoUrl url, EoEmit emit, Chunk chunk);
 
 }

@@ -6,7 +6,7 @@
 
   <groupId>io.enoa</groupId>
   <artifactId>enoa</artifactId>
-  <version>1.6-beta.2</version>
+  <version>1.7.0-beta</version>
   <packaging>pom</packaging>
 
   <name>Enoa</name>
@@ -64,8 +64,6 @@
     <module>enoa-json</module>
     <module>enoa-http</module>
     <module>enoa-xml</module>
-    <module>enoa-doc</module>
-    <module>enoa-conf</module>
     <module>enoa-repeater</module>
     <module>enoa-template</module>
     <module>enoa-example</module>
@@ -84,6 +82,9 @@
     <module>enoa-index</module>
     <module>enoa-typebuilder</module>
     <module>enoa-mq</module>
+    <module>enoa-docker</module>
+    <module>enoa-shell</module>
+    <module>enoa-chunk</module>
   </modules>
 
 
@@ -108,22 +109,22 @@
     <version-plugin-release>2.3.2</version-plugin-release>
 
 
-    <version-logback>1.1.2</version-logback>
+    <version-logback>1.2.3</version-logback>
     <version-log4j>1.2.17</version-log4j>
-    <version-log4j2>2.8.2</version-log4j2>
-    <vension-slf4j>1.7.12</vension-slf4j>
+    <version-log4j2>2.11.1</version-log4j2>
+    <vension-slf4j>1.7.25</vension-slf4j>
     <version-junit>4.12</version-junit>
 
-    <version-fastjson>1.2.36</version-fastjson>
-    <version-gson>2.8.1</version-gson>
-    <version-jackson>2.9.0</version-jackson>
-    <version-typebuilder>1.0</version-typebuilder>
+    <version-fastjson>1.2.49</version-fastjson>
+    <version-gson>2.8.5</version-gson>
+    <version-jackson>2.9.6</version-jackson>
+    <!--<version-typebuilder>1.0</version-typebuilder>-->
 
     <version-okhttp>3.5.0</version-okhttp>
     <version-httpclient>4.5.3</version-httpclient>
 
-    <version-druid>1.1.2</version-druid>
-    <version-hikaricp>2.6.3</version-hikaricp>
+    <version-druid>1.1.11</version-druid>
+    <version-hikaricp>3.2.0</version-hikaricp>
     <version-c3p0>0.9.5.2</version-c3p0>
     <version-jdbc-pgsql>42.1.4</version-jdbc-pgsql>
     <version-jdbc-mysql>6.0.6</version-jdbc-mysql>
@@ -148,8 +149,8 @@
     <version-snowflake>1.0.0</version-snowflake>
 
     <version-nanohttpd>2.3.1</version-nanohttpd>
-    <version-jetty>9.4.8.v20171121</version-jetty>
-    <version-netty>4.1.29.Final</version-netty>
+    <version-jetty>[9.4.11.v20180605,)</version-jetty>
+    <version-netty>4.1.32.Final</version-netty>
     <version-tio-http>0.0.5-tio-http</version-tio-http>
     <version-tomcat>9.0.0.M13</version-tomcat>
 
@@ -168,18 +169,14 @@
     <version-email>1.4.7</version-email>
 
 
-    <version-amqp>5.3.0</version-amqp>
+    <version-amqp>[5.4.0,)</version-amqp>
+    <version-unixsocket>0.19</version-unixsocket>
+    <version-commons-compress>1.18</version-commons-compress>
   </properties>
 
 
   <dependencyManagement>
     <dependencies>
-
-      <dependency>
-        <groupId>io.enoa</groupId>
-        <artifactId>enoa-doc</artifactId>
-        <version>${project.version}</version>
-      </dependency>
 
       <dependency>
         <groupId>io.enoa</groupId>
@@ -207,12 +204,6 @@
 
       <dependency>
         <groupId>io.enoa</groupId>
-        <artifactId>enoa-eosh</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>io.enoa</groupId>
         <artifactId>stove-api</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -226,12 +217,6 @@
       <dependency>
         <groupId>io.enoa</groupId>
         <artifactId>enoa-xml</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>io.enoa</groupId>
-        <artifactId>enoa-conf</artifactId>
         <version>${project.version}</version>
       </dependency>
 
@@ -359,12 +344,6 @@
 
       <dependency>
         <groupId>io.enoa</groupId>
-        <artifactId>yosart-plugin-eml</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>io.enoa</groupId>
         <artifactId>nosql-redis</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -384,6 +363,12 @@
       <dependency>
         <groupId>io.enoa</groupId>
         <artifactId>enoa-trydb</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-typebuilder</artifactId>
         <version>${project.version}</version>
       </dependency>
 
@@ -546,6 +531,12 @@
       </dependency>
 
       <dependency>
+        <groupId>io.enoa</groupId>
+        <artifactId>enoa-chunk</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
         <groupId>ch.qos.logback</groupId>
         <artifactId>logback-core</artifactId>
         <version>${version-logback}</version>
@@ -618,11 +609,13 @@
       </dependency>
 
       <!--TypeBuild Test-->
+<!--
       <dependency>
         <groupId>com.github.ikidou</groupId>
         <artifactId>TypeBuilder</artifactId>
         <version>${version-typebuilder}</version>
       </dependency>
+-->
 
       <dependency>
         <groupId>com.squareup.okhttp3</groupId>
@@ -847,6 +840,17 @@
         <version>${version-amqp}</version>
       </dependency>
 
+      <dependency>
+        <groupId>com.github.jnr</groupId>
+        <artifactId>jnr-unixsocket</artifactId>
+        <version>${version-unixsocket}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-compress</artifactId>
+        <version>${version-commons-compress}</version>
+      </dependency>
 
     </dependencies>
   </dependencyManagement>
@@ -978,6 +982,9 @@
                 </goals>
               </execution>
             </executions>
+            <configuration>
+              <skip>true</skip>
+            </configuration>
           </plugin>
         </plugins>
       </build>

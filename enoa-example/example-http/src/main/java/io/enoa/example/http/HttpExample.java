@@ -24,9 +24,9 @@ import io.enoa.http.protocol.HttpResponseBody;
 import io.enoa.http.provider.httphelper.HttpHelperProvider;
 import io.enoa.http.provider.httphelper.async.HttpHelperExecutor;
 import io.enoa.http.proxy.HttpProxy;
-import io.enoa.http.proxy.SocketProxy;
 import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.binary.EnoaBinary;
+import io.enoa.toolkit.sys.EnvKit;
 import io.enoa.toolkit.text.TextKit;
 
 import java.nio.file.Paths;
@@ -92,7 +92,7 @@ public class HttpExample {
     HttpResponse resp = Http.request(this.url + "/post?k1=v1")
       .method(HttpMethod.POST)
       .para("k1", "v2")
-      .para("f1", Paths.get(System.getProperty("os.name").toLowerCase().contains("win") ? "c:\\windows\\system32\\cmd.exe" : "/usr/bin/ls"))
+      .para("f1", Paths.get(EnvKit.string("os.name").toLowerCase().contains("win") ? "c:\\windows\\system32\\cmd.exe" : "/usr/bin/ls"))
       .emit();
     this.print("upload", resp);
   }
@@ -130,6 +130,7 @@ public class HttpExample {
       .method(HttpMethod.GET)
       .executor(HttpHelperExecutor.instance())
       .traditional(false)
+      .charset(EoConst.CHARSET)
       .encode()
       .para("k0", "學")
       .para("k0", "文")
@@ -175,13 +176,13 @@ public class HttpExample {
   }
 
   private void url() {
-    EoUrl url = EoUrl.with("http://example.com")
+    EoUrl url = EoUrl.with("https://example.com/enoa")
       .traditional(false)
       .encode()
       .subpath("manage")
       .subpath("user", "login")
-      .para("arg0", "v0")
-      .para("arg1", "v1")
+      .para("name", "Jack")
+      .para("password", "password")
       .para("array", 0)
       .para("array", "1")
       .para("array", new int[]{2, 3, 4, 5})
@@ -192,6 +193,19 @@ public class HttpExample {
       }});
 
     System.out.println(url.end());
+  }
+
+  private void hrt() {
+    Http.request(EoUrl.with("https://httpbin.org").subpath("get"))
+//      .handler(System.out::println)
+      .reporter(System.out::println)
+      .method(HttpMethod.GET)
+      .charset(EoConst.CHARSET)
+      .encode()
+      .para("k0", "學")
+      .para("k0", "あ")
+      .para("k1", "A")
+      .emit();
   }
 
   public static void main(String[] args) {
@@ -207,8 +221,9 @@ public class HttpExample {
     example.binary();
     example.auth();
     example.with();
-    example.proxy(new SocketProxy("127.0.0.1", 2310));
+//    example.proxy(new SocketProxy("127.0.0.1", 2310));
     example.url();
+    example.hrt();
     System.out.println("FINAL");
   }
 

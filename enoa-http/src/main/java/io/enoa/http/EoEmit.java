@@ -16,9 +16,16 @@
 package io.enoa.http;
 
 import io.enoa.http.protocol.HttpResponse;
+import io.enoa.chunk.Chunk;
 
 public interface EoEmit {
 
   HttpResponse emit();
+
+//  default HttpResponse chunk() {
+//    return this.chunk(null);
+//  }
+
+  HttpResponse chunk(Chunk chunk);
 
 }

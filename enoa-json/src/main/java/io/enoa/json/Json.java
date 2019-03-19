@@ -36,6 +36,11 @@ public class Json {
     return epm().json().toJson(object);
   }
 
+  public static String toJson(Object object, String datePattern) {
+//    return EMgrJson.json().toJson(object);
+    return epm().json().toJson(object, datePattern);
+  }
+
   public static <T> T parse(String json, Class<T> type) {
 //    return EMgrJson.json().parse(json, type);
     return epm().json().parse(json, type);

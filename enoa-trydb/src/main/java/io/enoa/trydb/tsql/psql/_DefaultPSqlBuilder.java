@@ -15,7 +15,9 @@
  */
 package io.enoa.trydb.tsql.psql;
 
+import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.text.TextKit;
+import io.enoa.trydb.thr.TrysqlException;
 
 import java.util.regex.Pattern;
 
@@ -56,18 +58,18 @@ class _DefaultPSqlBuilder {
     }
 
 
-    private static IPSql SUBQUERY = sql -> {
+    private static final IPSql SUBQUERY = sql -> {
       String _sql0 = rmEndSymbol(sql);
       String _sql1 = TextKit.union("select count(1) from (", _sql0, ") as t");
       return PSql.create(_sql1, sql);
     };
 
 
-    private static IPSql SQLFROM = sql -> {
+    private static final IPSql SQLFROM = sql -> {
       String _sql0 = rmEndSymbol(sql);
       int fix = fix(_sql0);
       if (fix == -1)
-        return null;
+        throw new TrysqlException(EnoaTipKit.message("eo.tip.trydb.sql_illegal", sql));
 
       String _from = _sql0.substring(fix);
       _from = ORDER_BY_PATTERN.matcher(_from).replaceAll("");

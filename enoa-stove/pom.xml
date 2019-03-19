@@ -5,7 +5,7 @@
   <parent>
     <artifactId>enoa</artifactId>
     <groupId>io.enoa</groupId>
-    <version>1.6-beta.2</version>
+    <version>1.7.0-beta</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
@@ -13,7 +13,6 @@
   <packaging>pom</packaging>
   <modules>
     <module>stove-api</module>
-    <module>enoa-eosh</module>
     <module>stove-template</module>
     <module>stove-firetpl</module>
   </modules>

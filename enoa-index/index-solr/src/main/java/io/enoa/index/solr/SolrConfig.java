@@ -15,17 +15,21 @@
  */
 package io.enoa.index.solr;
 
+import io.enoa.http.EoHttp;
+import io.enoa.http.Http;
+import io.enoa.http.HttpAuth;
+
 public class SolrConfig {
 
   private final String host;
-  private final String user;
-  private final String passwd;
+  private final EoHttp http;
+  private final HttpAuth auth;
   private final boolean debug;
 
-  public SolrConfig(Builder builder) {
+  private SolrConfig(Builder builder) {
     this.host = builder.host;
-    this.user = builder.user;
-    this.passwd = builder.passwd;
+    this.auth = builder.auth;
+    this.http = builder.http;
     this.debug = builder.debug;
   }
 
@@ -33,30 +37,39 @@ public class SolrConfig {
     return host;
   }
 
-  public String user() {
-    return user;
-  }
-
-  public String passwd() {
-    return passwd;
+  public HttpAuth auth() {
+    return auth;
   }
 
   public boolean debug() {
     return debug;
   }
 
+  public Http http() {
+    Http http = this.http.http();
+    if (this.auth != null)
+      http.auth(this.auth);
+    return http;
+  }
+
   public static class Builder {
     private String host;
-    private String user;
-    private String passwd;
+    private EoHttp http;
+    private HttpAuth auth;
     private boolean debug;
 
     public Builder() {
       this.debug = Boolean.FALSE;
+      this.http = EoHttp.def();
     }
 
     public SolrConfig build() {
       return new SolrConfig(this);
+    }
+
+    public Builder http(EoHttp http) {
+      this.http = http;
+      return this;
     }
 
     public Builder host(String host) {
@@ -64,13 +77,8 @@ public class SolrConfig {
       return this;
     }
 
-    public Builder user(String user) {
-      this.user = user;
-      return this;
-    }
-
-    public Builder passwd(String passwd) {
-      this.passwd = passwd;
+    public Builder auth(HttpAuth auth) {
+      this.auth = auth;
       return this;
     }
 

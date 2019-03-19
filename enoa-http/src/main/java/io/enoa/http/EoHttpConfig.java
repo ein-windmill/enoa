@@ -15,6 +15,8 @@
  */
 package io.enoa.http;
 
+import java.util.Set;
+
 public interface EoHttpConfig {
 
   int connectionTimeout();
@@ -22,5 +24,7 @@ public interface EoHttpConfig {
   int soTimeout();
 
   boolean debug();
+
+  Set<String> chunktype();
 
 }

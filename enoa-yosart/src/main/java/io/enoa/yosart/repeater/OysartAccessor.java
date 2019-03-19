@@ -110,8 +110,10 @@ public class OysartAccessor implements EoxAccessor {
       }
       int i = 0;
       for (UFile ufile : ufiles) {
-        sb.append(ufile.name()).append("='{'");
+        sb.append(ufile.name()).append("={");
         sb.append("filename: ").append(ufile.filename());
+        sb.append(", ");
+        sb.append("originname: ").append(ufile.originname());
         sb.append(", ");
         sb.append("path: ").append(ufile.path());
         sb.append("}");

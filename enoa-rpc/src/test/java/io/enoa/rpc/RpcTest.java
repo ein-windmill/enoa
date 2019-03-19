@@ -16,7 +16,6 @@
 package io.enoa.rpc;
 
 import com.alibaba.fastjson.JSON;
-import ikidou.reflect.TypeBuilder;
 import io.enoa.http.EoUrl;
 import io.enoa.http.protocol.HttpMethod;
 import io.enoa.json.provider.fastjson.FastjsonProvider;
@@ -26,6 +25,7 @@ import io.enoa.rpc.entity.Result;
 import io.enoa.rpc.http.HttpRpcPromise;
 import io.enoa.rpc.http.HttpRpcResult;
 import io.enoa.toolkit.map.Kv;
+import io.enoa.typebuilder.TypeBuilder;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -62,8 +62,9 @@ public class RpcTest {
       .emit(Kv.class);
     System.out.println(ret1.result());
 
+
     HttpRpcResult<Result<List<Area>>> ret2 = Rpc.http("publib", "/area/lst")
-      .emit(TypeBuilder.newInstance(Result.class).beginSubType(List.class).addTypeParam(Area.class).endSubType().build());
+      .emit(TypeBuilder.with(Result.class).subType(List.class).type(Area.class).endSubType().build());
     System.out.println(ret2.result());
 
     HttpRpcResult<byte[]> ret3 = Rpc.http("passport", "/avatar/1").emit((body, type) -> body.bytes());
@@ -85,7 +86,7 @@ public class RpcTest {
       .done(System.out::println);
 
     HttpRpcPromise<Result<List<Area>>> ret2 = Rpc.http("publib", "/area/lst")
-      .enqueue(TypeBuilder.newInstance(Result.class).beginSubType(List.class).addTypeParam(Area.class).endSubType().build());
+      .enqueue(TypeBuilder.with(Result.class).subType(List.class).type(Area.class).endSubType().build());
     ret2.done(System.out::println);
 
     Rpc.http("passport", "/avatar/1").enqueue((body, type) -> body.bytes())
@@ -105,7 +106,7 @@ public class RpcTest {
     a0.add("4");
     String s = JSON.toJSONString(a0);
 
-    List<String> a1 = JSON.parseObject(s, TypeBuilder.newInstance(List.class).addTypeParam(String.class).build());
+    List<String> a1 = JSON.parseObject(s, TypeBuilder.with(List.class).type(String.class).build());
     System.out.println(a1);
 
   }

@@ -15,6 +15,8 @@
  */
 package io.enoa.index.solr;
 
+import io.enoa.http.EoHttp;
+
 public class Solr {
 
   public static EPMSolr epm() {
@@ -30,7 +32,11 @@ public class Solr {
     return use("main");
   }
 
-  public static EoSolr core(String core) {
+  public static EoSolr http(EoHttp http) {
+    return use().http(http);
+  }
+
+  public static EoSolrOperate core(String core) {
     return use().core(core);
   }
 

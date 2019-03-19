@@ -43,17 +43,16 @@ public class TypeBuilder {
     return new TypeBuilder(raw, parent);
   }
 
-  public TypeBuilder beginSubType(Class raw) {
+
+  public TypeBuilder subType(Class raw) {
     return with(raw, this);
   }
 
   public TypeBuilder endSubType() {
     if (parent == null) {
-      throw new TypeException("expect beginSubType() before endSubType()");
+      throw new TypeException("expect subtype() before end()");
     }
-
     parent.type(getType());
-
     return parent;
   }
 
@@ -93,7 +92,7 @@ public class TypeBuilder {
 
   public Type build() {
     if (parent != null) {
-      throw new TypeException("expect endSubType() before build()");
+      throw new TypeException("expect end() before build()");
     }
 
     return getType();

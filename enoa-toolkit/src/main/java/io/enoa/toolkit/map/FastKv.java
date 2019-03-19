@@ -21,33 +21,10 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.Map;
 
-public interface FastKv<S extends Map> extends Map<String, Object> {
+public interface FastKv {
 
-  default S set(String key, Object value) {
-    this.put(key, value);
-    return (S) this;
-  }
-
-  default S set(Map<String, ?> map) {
-    this.putAll(map);
-    return (S) this;
-  }
-
-//  default S set(FastKv kv) {
-//    this.putAll(kv);
-//    return (S) this;
-//  }
-
-  default S delete(String key) {
-    this.remove(key);
-    return (S) this;
-  }
-
-  default Object origin(String key) {
-    return this.get(key);
-  }
+  Object origin(String key);
 
   default EnoaValue value(String key) {
     return EnoaValue.with(this.origin(key));
@@ -165,30 +142,7 @@ public interface FastKv<S extends Map> extends Map<String, Object> {
     return this.value(key).timestamp();
   }
 
-  /**
-   * 是否存在当前 key
-   */
-  default boolean exists(String key) {
-    return this.containsKey(key);
-  }
+  boolean exists(String key);
 
-  /**
-   * 值是否为 null
-   *
-   * @param key 键
-   * @return boolean
-   */
-  default boolean nullValue(String key) {
-    return this.get(key) == null;
-  }
 
-  /**
-   * 值是否不为 null
-   *
-   * @param key 键
-   * @return boolean
-   */
-  default boolean notNullValue(String key) {
-    return !this.nullValue(key);
-  }
 }

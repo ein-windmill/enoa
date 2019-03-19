@@ -15,6 +15,10 @@
  */
 package io.enoa.http.protocol;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 public class HttpHeader {
 
   private final String name;
@@ -27,6 +31,31 @@ public class HttpHeader {
       throw new IllegalArgumentException("Header value con not be null.");
     this.name = name;
     this.value = value;
+  }
+
+  public static Set<HttpHeader> of(String text) {
+    if (text == null || "".equals(text))
+      return Collections.emptySet();
+
+    String[] lines = text.split("\n");
+    Set<HttpHeader> headers = new HashSet<>(lines.length);
+    for (String line : lines) {
+      int qix = line.indexOf(":");
+      int eix = line.indexOf("=");
+      if (qix == -1 && eix == -1)
+        continue;
+
+      String name, value;
+      if (qix != -1) {
+        name = line.substring(0, qix);
+        value = line.substring(qix + 1);
+      } else {
+        name = line.substring(0, eix);
+        value = line.substring(eix + 1);
+      }
+      headers.add(new HttpHeader(name, value));
+    }
+    return headers;
   }
 
   public String name() {

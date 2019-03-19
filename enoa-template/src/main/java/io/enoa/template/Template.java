@@ -29,4 +29,12 @@ public class Template {
     return epm().engine();
   }
 
+  public static EnoaTemplate template(String viewName) {
+    return use().template(viewName);
+  }
+
+  public static Object originEngine() {
+    return use().originEngine();
+  }
+
 }

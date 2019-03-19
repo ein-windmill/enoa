@@ -15,10 +15,8 @@
  */
 package io.enoa.promise.arg;
 
-import io.enoa.promise.Promise;
-
 @FunctionalInterface
-public interface PromiseThen<R, T> extends Promise {
+public interface PromiseThen<R, T> extends Arg {
 
   R execute(T body);
 

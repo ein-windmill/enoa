@@ -20,81 +20,89 @@ import java.util.List;
 
 public class Page<T> implements Serializable {
 
-  private int pageNumber;
-  private int pageSize;
-  private int totalPage;
+  private int pn;
+  private int ps;
+  // total page
+  private int tpg;
   private long offset;
-  private long totalRow;
+  // total rows
+  private long trw;
   private List<T> rows;
 
   public Page() {
   }
 
   public Page(int pageNumber, int pageSize, int totalPage, long offset, long totalRow, List<T> rows) {
-    this.pageNumber = pageNumber;
-    this.pageSize = pageSize;
-    this.totalPage = totalPage;
-    this.totalRow = totalRow;
+    this.pn = pageNumber;
+    this.ps = pageSize;
+    this.tpg = totalPage;
+    this.trw = totalRow;
     this.rows = rows;
     this.offset = offset;
   }
 
-  public int getPageNumber() {
-    return pageNumber;
+  public int getPn() {
+    return pn;
   }
 
-  public void setPageNumber(int pageNumber) {
-    this.pageNumber = pageNumber;
+  public Page<T> setPn(int pn) {
+    this.pn = pn;
+    return this;
   }
 
-  public int getPageSize() {
-    return pageSize;
+  public int getPs() {
+    return ps;
   }
 
-  public void setPageSize(int pageSize) {
-    this.pageSize = pageSize;
+  public Page<T> setPs(int ps) {
+    this.ps = ps;
+    return this;
   }
 
-  public int getTotalPage() {
-    return totalPage;
+  public int getTpg() {
+    return tpg;
   }
 
-  public void setTotalPage(int totalPage) {
-    this.totalPage = totalPage;
-  }
-
-  public long getTotalRow() {
-    return totalRow;
-  }
-
-  public void setTotalRow(long totalRow) {
-    this.totalRow = totalRow;
-  }
-
-  public List<T> getRows() {
-    return rows;
-  }
-
-  public void setRows(List<T> rows) {
-    this.rows = rows;
+  public Page<T> setTpg(int tpg) {
+    this.tpg = tpg;
+    return this;
   }
 
   public long getOffset() {
     return offset;
   }
 
-  public void setOffset(long offset) {
+  public Page<T> setOffset(long offset) {
     this.offset = offset;
+    return this;
+  }
+
+  public long getTrw() {
+    return trw;
+  }
+
+  public Page<T> setTrw(long trw) {
+    this.trw = trw;
+    return this;
+  }
+
+  public List<T> getRows() {
+    return rows;
+  }
+
+  public Page<T> setRows(List<T> rows) {
+    this.rows = rows;
+    return this;
   }
 
   @Override
   public String toString() {
     return "Page{" +
-      "pageNumber=" + pageNumber +
-      ", pageSize=" + pageSize +
-      ", totalPage=" + totalPage +
+      "pn=" + pn +
+      ", ps=" + ps +
+      ", tpg=" + tpg +
       ", offset=" + offset +
-      ", totalRow=" + totalRow +
+      ", trw=" + trw +
       ", rows=" + rows +
       '}';
   }

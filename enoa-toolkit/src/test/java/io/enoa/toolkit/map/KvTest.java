@@ -6,9 +6,9 @@ public class KvTest {
 
   @Test
   public void testKv() {
-    Kv kv = Kv.create();
+    Kv kv = Kv.create().skipcase(Boolean.TRUE);
     kv.set("a", "b");
-    System.out.println(kv);
+    System.out.println(kv.string("A"));
   }
 
 }

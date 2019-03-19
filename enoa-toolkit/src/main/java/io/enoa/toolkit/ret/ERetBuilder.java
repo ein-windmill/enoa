@@ -18,6 +18,8 @@ package io.enoa.toolkit.ret;
 import io.enoa.toolkit.map.Kv;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 public class ERetBuilder {
 
@@ -57,6 +59,9 @@ public class ERetBuilder {
   }
 
   private static class EoRetImpl extends HashMap<String, Object> implements EoRet {
+
+    private boolean skipcase;
+
     @Override
     public boolean ok() {
       return this.bool("stat");
@@ -81,7 +86,33 @@ public class ERetBuilder {
       if (kv.isEmpty())
         return resp;
       resp.data(kv);
+      resp.message(this.string("message"));
       return resp;
+    }
+
+    public EoRet skipcase() {
+      return this.skipcase(Boolean.TRUE);
+    }
+
+    public EoRet skipcase(boolean skip) {
+      this.skipcase = skip;
+      return this;
+    }
+
+    @Override
+    public Object get(Object key) {
+      if (!this.skipcase)
+        return super.get(key);
+
+      Optional<String> first = this.keySet().stream()
+        .filter(k -> k.equalsIgnoreCase(key.toString()))
+        .findFirst();
+      return first.map(super::get).orElse(null);
+    }
+
+    @Override
+    public Map<String, Object> map() {
+      return this;
     }
   }
 

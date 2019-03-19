@@ -42,13 +42,16 @@ public class Header {
     return new Builder(this);
   }
 
-  private static class Builder {
+  public static class Builder {
     private String name;
     private String value;
 
     private Builder(Header header) {
       this.name = header.name;
       this.value = header.value;
+    }
+
+    public Builder() {
     }
 
     public Header build() {

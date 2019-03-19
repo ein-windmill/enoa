@@ -16,6 +16,8 @@
 package io.enoa.trydb;
 
 import io.enoa.firetpl.Firetpl;
+import io.enoa.toolkit.factory.ListFactory;
+import io.enoa.toolkit.factory.MapFactory;
 import io.enoa.toolkit.namecase.INameCase;
 import io.enoa.toolkit.namecase.NamecaseKit;
 import io.enoa.toolkit.namecase.NamecaseType;
@@ -23,6 +25,8 @@ import io.enoa.trydb.dialect.IDialect;
 import io.enoa.trydb.tx.TxLevel;
 
 import javax.sql.DataSource;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 public class TrydbConfig {
 
@@ -35,6 +39,9 @@ public class TrydbConfig {
   private final ISqlReporter reporter;
   private final INameCase namecase;
   private final Firetpl sqltemplate;
+  private final boolean ignorecase;
+  private final ListFactory lister;
+  private final MapFactory maper;
 
 
   private TrydbConfig(Builder builder) {
@@ -46,6 +53,21 @@ public class TrydbConfig {
     this.reporter = builder.report;
     this.namecase = builder.namecase;
     this.sqltemplate = builder.sqltemplate;
+    this.ignorecase = builder.ignorecase;
+    this.lister = builder.lister;
+    this.maper = builder.maper;
+  }
+
+  public ListFactory lister() {
+    return this.lister;
+  }
+
+  public MapFactory maper() {
+    return this.maper;
+  }
+
+  public boolean ignorecase() {
+    return this.ignorecase;
   }
 
   public String name() {
@@ -89,20 +111,45 @@ public class TrydbConfig {
     private ISqlReporter report;
     private INameCase namecase;
     private Firetpl sqltemplate;
+    private boolean ignorecase;
+    private ListFactory lister;
+    private MapFactory maper;
 
     public Builder() {
       this.name = "main";
       this.level = TxLevel.REPEATABLE_READ;
-      this.debug = false;
+      this.debug = Boolean.FALSE;
       this.namecase = NamecaseKit.namecase(NamecaseType.CASE_UNDERLINE);
+      this.ignorecase = Boolean.FALSE;
+      this.lister = LinkedList::new;
+      this.maper = HashMap::new;
     }
 
     public TrydbConfig build() {
       return new TrydbConfig(this);
     }
 
+    public Builder lister(ListFactory lister) {
+      this.lister = lister;
+      return this;
+    }
+
+    public Builder maper(MapFactory maper) {
+      this.maper = maper;
+      return this;
+    }
+
     public Builder name(String name) {
       this.name = name;
+      return this;
+    }
+
+    public Builder ignorecase() {
+      return this.ignorecase(Boolean.TRUE);
+    }
+
+    public Builder ignorecase(boolean ignorecase) {
+      this.ignorecase = ignorecase;
       return this;
     }
 

@@ -16,7 +16,6 @@
 package io.enoa.example.email;
 
 import io.enoa.eml.*;
-import io.enoa.eml.provider.enoa.EnoaEmlSession;
 import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.digest.UUIDKit;
 import io.enoa.toolkit.path.PathKit;
@@ -27,8 +26,8 @@ public class EmlExample {
   private String email = "a****b@****.com";
   private String passwd = "********";
 
-  private EoEmlSession sesssender() {
-    EmlConfig config = new EmlConfig.Builder()
+  private void ibe() {
+    EmlConfig sconf = new EmlConfig.Builder()
 //      .skipError()
 //      .debug()
       .ssl()
@@ -38,11 +37,11 @@ public class EmlExample {
       .host("smtp.****.com")
       .port(465)
       .build();
-    return new EnoaEmlSession(config);
-  }
+    Eml.epm().install("sender", sconf);
 
-  private EoEmlSession sessreceiver() {
-    EmlConfig config = new EmlConfig.Builder()
+
+
+    EmlConfig rconf = new EmlConfig.Builder()
 //      .skipError()
 //      .debug()
       .ssl()
@@ -55,11 +54,19 @@ public class EmlExample {
       .other("mail.pop3.socketFactory.fallback", "false")
       .other("mail.pop3.socketFactory.port", "995")
       .build();
-    return new EnoaEmlSession(config);
+    Eml.epm().install("receiver", rconf);
   }
 
+//  private EoEmlSession sesssender() {
+//    return new EnoaEmlSession(config);
+//  }
+
+//  private EoEmlSession sessreceiver() {
+//    return new EnoaEmlSession(config);
+//  }
+
   private void send(boolean async) {
-    EmlSender sender = Eml.with(this.sesssender())
+    EmlSender sender = Eml.use("sender")
       .sender()
       .charset(EoConst.CHARSET)
       .richtext()
@@ -69,7 +76,7 @@ public class EmlExample {
       .subject(TextKit.union("SUBJECT -> ", UUIDKit.next()))
       .body("<h1>BODY</h1>")
       .attachment(PathKit.debugPath().resolve("file/attachment.txt"))
-      .reporter(stream -> System.out.println("FROM -> " + stream))
+      .reporter(stream -> System.out.println("FROM -> " + stream.from()))
       .reporter(stream -> System.out.println("TO -> " + stream.tos()))
       .reporter(stream -> System.out.println("REQ BODY -> " + stream.req().string()))
       .reporter(stream -> System.out.println("EML -> " + stream.eml().string()))
@@ -89,8 +96,8 @@ public class EmlExample {
       .always(() -> System.out.println("Always echo.."));
   }
 
-  private void receive() {
-    Eml.with(this.sessreceiver())
+  private void receiver() {
+    Eml.use("receiver")
       .receiver(EmlProtocol.POP3)
       .inbox()
       .handle(stream -> {
@@ -102,9 +109,10 @@ public class EmlExample {
   public static void main(String[] args) {
     try {
       EmlExample example = new EmlExample();
+      example.ibe();
       example.send(false);
       example.send(true);
-//      example.receive();
+//      example.receiver();
     } catch (Exception e) {
       e.printStackTrace();
     }

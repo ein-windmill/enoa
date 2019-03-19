@@ -27,7 +27,7 @@ class _Trydb extends EnoaDb {
 
   _Trydb(EoTrydbConfig config) {
     this.config = config;
-    this.ds = this.config.ds().dataSource(this.config.dsConfig());
+    this.ds = this.config.ds().datasource(this.config.dsconfig());
   }
 
   @Override
@@ -36,6 +36,7 @@ class _Trydb extends EnoaDb {
       .name(this.config.name())
       .debug(this.config.debug())
       .ds(this.ds.open())
+      .ignorecase(this.config.ignorecase())
       .dialect(this.config.dialect())
       .txlevel(this.config.txlevel())
       .namecase(this.config.namecase())

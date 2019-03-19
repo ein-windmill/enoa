@@ -5,7 +5,7 @@
   <parent>
     <artifactId>enoa</artifactId>
     <groupId>io.enoa</groupId>
-    <version>1.6-beta.2</version>
+    <version>1.7.0-beta</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>enoa-example</artifactId>
@@ -28,5 +28,16 @@
     <module>example-mq</module>
   </modules>
 
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>

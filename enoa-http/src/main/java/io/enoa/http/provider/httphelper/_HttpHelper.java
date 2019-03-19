@@ -17,6 +17,7 @@ package io.enoa.http.provider.httphelper;
 
 import io.enoa.http.*;
 import io.enoa.http.protocol.*;
+import io.enoa.chunk.Chunk;
 import io.enoa.http.protocol.enoa.IHttpHandler;
 import io.enoa.http.protocol.enoa.IHttpReporter;
 import io.enoa.http.provider.httphelper.async.HttpHelperExecutor;
@@ -63,7 +64,7 @@ class _HttpHelper implements Http {
     this.method = HttpMethod.GET;
     this.charset = Charset.forName("UTF-8");
     this.headers = new HashSet<>();
-    this.headers.add(new HttpHeader("User-Agent", "Mozilla/5.0 Enoa/1.6-beta.2 HttpHelper/4.0"));
+    this.headers.add(new HttpHeader("User-Agent", "Mozilla/5.0 Enoa/1.7.0-beta HttpHelper/4.0"));
     this.executor = HttpHelperExecutor.instance();
   }
 
@@ -76,11 +77,12 @@ class _HttpHelper implements Http {
     return ret;
   }
 
-  @Override
-  public HttpResponse emit() {
+
+  private _HttpHelperRequest readyrequest() {
     if (this.config == null)
       this.config = new HttpHelperConfig.Builder().build();
-
+    if (this.config.debug())
+      this.handler(IHttpHandler.def());
 
     RequestBuilder builder = new RequestBuilder();
     builder.method = this.method;
@@ -98,17 +100,42 @@ class _HttpHelper implements Http {
     builder.headers = this.headers;
     builder.formDatas = this.formDatas;
     builder.config = this.config;
+    return builder.build();
+  }
 
-    _HttpHelperRequest request = builder.build();
+  @Override
+  public HttpResponse emit() {
+    _HttpHelperRequest request = this.readyrequest();
 
-    if (this.config.debug())
-      this.handler(IHttpHandler.def());
-
+    // run handlers
     if (this.handlers != null)
       HttpExtExecutor.instance().handle(this.handlers, request);
 
-    _HttpHelperConn conn = new _HttpHelperConn(request);
+    // do request
+    _HttpHelperConn conn = new _HttpHelperConn(this.config, request);
     HttpResponse response = conn.execute();
+
+    // run reporters
+    if (this.reporters != null)
+      HttpExtExecutor.instance().report(this.reporters, response);
+
+    return response;
+  }
+
+  @Override
+  public HttpResponse chunk(Chunk chunk) {
+    _HttpHelperRequest request = this.readyrequest();
+
+    // run handlers
+    if (this.handlers != null)
+      HttpExtExecutor.instance().handle(this.handlers, request);
+
+    // do request
+    _HttpHelperConn conn = new _HttpHelperConn(this.config, request);
+    // HttpResponse response =
+    HttpResponse response = conn.chunked(chunk);
+
+    // run reporters
     if (this.reporters != null)
       HttpExtExecutor.instance().report(this.reporters, response);
 
@@ -121,6 +148,11 @@ class _HttpHelper implements Http {
       throw new IllegalArgumentException("executor == null");
     this.executor = executor;
     return this;
+  }
+
+  @Override
+  public HttpPromise enqueue(Chunk chunk) {
+    return this.executor.enqueue(this.url, this, chunk);
   }
 
   @Override

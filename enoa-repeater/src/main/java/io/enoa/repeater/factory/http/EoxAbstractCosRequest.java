@@ -115,14 +115,6 @@ public abstract class EoxAbstractCosRequest extends EoxAbstractRequest {
               .filename(newname)
               .path(Paths.get(config.tmp().toString()).resolve(newname)).build());
           }
-//          this.ufiles.add(
-//            new UFile.Builder()
-//              .name(name)
-//              .filename(filePart.getFileName())
-//              .originName(originName)
-//              .path(Paths.get(config.tmp().toString(), newname))
-//              .build()
-//          );
         }
       }
       // fixme check

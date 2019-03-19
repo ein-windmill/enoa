@@ -30,7 +30,7 @@ public class TypeBuilderTest {
     Type type = TypeBuilder
       .with(HashMap.class)
       .type(String.class)
-      .beginSubType(List.class)
+      .subType(List.class)
       .type(CharSequence.class)
       .endSubType()
       .build();

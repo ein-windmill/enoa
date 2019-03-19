@@ -25,4 +25,10 @@ public class EnvKitTest {
     System.out.println(EnvKit.string("java.io.tmpdir"));
   }
 
+  @Test
+  public void testOsName() {
+    String os = EnvKit.string("os.name");
+    System.out.println(os);
+  }
+
 }

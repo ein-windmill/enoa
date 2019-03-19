@@ -24,7 +24,6 @@ import io.enoa.toolkit.eo.tip.EnoaTipKit;
 class EnoaSolrImpl implements EoSolr {
 
   private SolrConfig config;
-  private String core;
   private Http http;
 
   EnoaSolrImpl(SolrConfig config) {
@@ -33,7 +32,7 @@ class EnoaSolrImpl implements EoSolr {
 
   private Http http() {
     if (this.http == null)
-      this.http = Http.request();
+      this.http = this.config.http();
     return this.http;
   }
 
@@ -44,23 +43,36 @@ class EnoaSolrImpl implements EoSolr {
   }
 
   @Override
-  public EoSolr core(String core) {
-    this.core = core;
-    return this;
+  public EoSolrOperate core(String core) {
+    return new EoSolrOperate() {
+      @Override
+      public SSelect select() {
+        if (core == null)
+          throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.solr.core_null"));
+        return new SSelect(http(), config, core);
+      }
+
+      @Override
+      public SUpdate update() {
+        if (core == null)
+          throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.solr.core_null"));
+        return new SUpdate(http(), config, core);
+      }
+    };
   }
 
-  @Override
-  public SSelect select() {
-    if (this.core == null)
-      throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.solr.core_null"));
-    return new SSelect(this.http(), this.config, this.core);
-  }
-
-  @Override
-  public SUpdate update() {
-    if (this.core == null)
-      throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.solr.core_null"));
-    return new SUpdate(this.http(), this.config, this.core);
-  }
+//  @Override
+//  public SSelect select() {
+//    if (this.core == null)
+//      throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.solr.core_null"));
+//    return new SSelect(this.http(), this.config, this.core);
+//  }
+//
+//  @Override
+//  public SUpdate update() {
+//    if (this.core == null)
+//      throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.solr.core_null"));
+//    return new SUpdate(this.http(), this.config, this.core);
+//  }
 
 }

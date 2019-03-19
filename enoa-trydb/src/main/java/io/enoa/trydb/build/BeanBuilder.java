@@ -17,7 +17,7 @@ package io.enoa.trydb.build;
 
 import io.enoa.toolkit.bean.BeanKit;
 import io.enoa.toolkit.collection.CollectionKit;
-import io.enoa.toolkit.namecase.INameCase;
+import io.enoa.trydb.TrydbConfig;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,9 +26,9 @@ import java.util.Map;
 
 class BeanBuilder<T> implements IRsBuilder<T> {
   @Override
-  public List<T> build(ResultSet rs, Class<T> clazz, INameCase namecase) throws SQLException {
-    List<Map> data = RsBuilder.build(rs, Map.class, namecase);
-    List<T> rets = BeanKit.reductionMaps(data, clazz, namecase, false);
+  public List<T> build(ResultSet rs, Class<T> clazz, TrydbConfig config) throws SQLException {
+    List<Map> data = RsBuilder.build(rs, Map.class, config);
+    List<T> rets = BeanKit.reductionMaps(data, clazz, config.lister(), config.namecase(), false, config.ignorecase());
     CollectionKit.clear(data);
     return rets;
   }

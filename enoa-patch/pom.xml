@@ -5,7 +5,7 @@
   <parent>
     <artifactId>enoa</artifactId>
     <groupId>io.enoa</groupId>
-    <version>1.6-beta.2</version>
+    <version>1.7.0-beta</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
@@ -23,11 +23,9 @@
     <module>repeater-tio</module>
     <module>repeater-tomcat</module>
     <module>yosart-plugin-json</module>
-    <module>yosart-plugin-conf</module>
     <module>yosart-plugin-db</module>
     <module>yosart-plugin-ioc</module>
     <module>yosart-plugin-redis</module>
-    <module>yosart-plugin-eml</module>
     <module>yosart-ext-render-template</module>
     <module>yosart-ext-yemgr</module>
     <module>yosart-ext-sess</module>

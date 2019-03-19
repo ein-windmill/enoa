@@ -19,7 +19,7 @@ import io.enoa.http.protocol.HttpResponse;
 import io.enoa.http.protocol.enoa.HttpRequest;
 import io.enoa.http.protocol.enoa.IHttpHandler;
 import io.enoa.http.protocol.enoa.IHttpReporter;
-import io.enoa.promise.builder.PromiseBuilder;
+import io.enoa.promise.Promise;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -38,7 +38,7 @@ class HttpExtExecutor {
 
   private ExecutorService executorService() {
     if (executorService == null) {
-      executorService = PromiseBuilder.executor().enqueue("HttpHelper Ext Dispatcher", false);
+      executorService = Promise.builder().executor().enqueue("HttpHelper Ext Dispatcher", false);
     }
     return executorService;
   }

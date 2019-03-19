@@ -128,14 +128,14 @@ class RequestBuilder {
       return;
     String ck = String.join("; ", this.cookies.stream().map(c -> c.name().concat("=").concat(c.value())).collect(Collectors.toSet()));
     HttpHeader ahr = this.header("cookie");
-    if (ahr != null)
-      ck = ahr.value().concat("; ").concat(ck);
-    this.cookies.clear();
-
     if (ahr != null) {
-      this.headers.add(new HttpHeader(ahr.name(), ck));
+      ck = ahr.value().concat("; ").concat(ck);
       this.headers.remove(ahr);
+    } else {
+      ahr = new HttpHeader("Cookie", ck);
     }
+    this.cookies.clear();
+    this.headers.add(new HttpHeader(ahr.name(), ck));
   }
 
   private void buildConfig() {

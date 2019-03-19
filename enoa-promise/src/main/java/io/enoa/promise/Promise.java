@@ -15,5 +15,13 @@
  */
 package io.enoa.promise;
 
+
+import io.enoa.promise.builder.EnoaPromiseBuilder;
+
 public interface Promise {
+
+  static EnoaPromiseBuilder builder() {
+    return EnoaPromiseBuilder.instance();
+  }
+
 }

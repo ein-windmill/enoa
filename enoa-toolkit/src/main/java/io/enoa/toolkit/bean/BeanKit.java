@@ -16,7 +16,9 @@
 package io.enoa.toolkit.bean;
 
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.convert.ConvertKit;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
+import io.enoa.toolkit.factory.ListFactory;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.map.OKv;
 import io.enoa.toolkit.namecase.INameCase;
@@ -162,49 +164,61 @@ public class BeanKit {
   }
 
   public static <R> R reductionMap(Map map, Class<R> clazz) {
-    return reductionMap(map, clazz, NamecaseKit.namecase(NamecaseType.CASE_NONE), true);
+    return reductionMap(map, clazz, NamecaseKit.namecase(NamecaseType.CASE_NONE), true, false);
   }
 
-  public static <R> R reductionMap(Map map, Class<R> clazz, boolean skipError) {
-    return reductionMap(map, clazz, NamecaseKit.namecase(NamecaseType.CASE_NONE), skipError);
+  public static <R> R reductionMap(Map map, Class<R> clazz, boolean skipError, boolean ignorecase) {
+    return reductionMap(map, clazz, NamecaseKit.namecase(NamecaseType.CASE_NONE), skipError, ignorecase);
   }
 
   public static <R> R reductionMap(Map map, Class<R> clazz, INameCase namecase) {
-    return reductionMap(map, clazz, namecase, true);
+    return reductionMap(map, clazz, namecase, true, false);
   }
 
-  public static <R> R reductionMap(Map map, Class<R> clazz, INameCase namecase, boolean skipError) {
-    if (map == null)
+  public static <R> R reductionMap(Map mapx, Class<R> clazz, INameCase namecase, boolean skipError, boolean ignorecase) {
+    if (mapx == null)
       return null;
     if (clazz == null)
       return null;
+    Map _m;
+    if (ignorecase) {
+      _m = new HashMap(mapx.size());
+      mapx.forEach((key, val) -> {
+        _m.put(key == null ? null : key.toString().toUpperCase(), val);
+      });
+    } else {
+      _m = mapx;
+    }
 
     R ret = ReflectKit.newInstance(clazz);
     Method[] methods = clazz.getMethods();
     for (Method method : methods) {
+      if (method.getParameterCount() != 1)
+        continue;
       String name = method.getName();
-      Object val = map.get(name);
+      Object val = _m.get(ignorecase ? TextKit.upper(name) : name);
       if (val == null) {
         if (!name.startsWith("set"))
           continue;
         name = TextKit.lowerFirst(name.substring(3));
-        val = map.get(name);
+        val = _m.get(ignorecase ? TextKit.upper(name) : name);
         if (val == null) {
-          val = map.get(namecase.convert(name));
+          val = _m.get(namecase.convert(ignorecase ? TextKit.upper(name) : name));
           if (val == null)
             continue;
         }
       }
 
       try {
-        if (val instanceof Number) {
-          Class<?>[] pts = method.getParameterTypes();
-          if (CollectionKit.isEmpty(pts))
-            throw new IllegalArgumentException("NOT FOUND ARGUMENTS");
-          method.invoke(ret, NumberKit.to((Number) val, pts[0]));
-        } else {
-          method.invoke(ret, val);
-        }
+//        if (val instanceof Number) {
+//          Class<?>[] pts = method.getParameterTypes();
+//          if (CollectionKit.isEmpty(pts))
+//            throw new IllegalArgumentException("NOT FOUND ARGUMENTS");
+//          method.invoke(ret, NumberKit.to((Number) val, pts[0]));
+//        } else {
+//          method.invoke(ret, val);
+//        }
+        invoke(method, ret, val);
       } catch (IllegalArgumentException e) {
         if (skipError) {
           continue;
@@ -222,26 +236,71 @@ public class BeanKit {
         throw new RuntimeException(e.getMessage(), e);
       }
     }
+    CollectionKit.clear(_m);
     return ret;
   }
 
+  private static void invoke(Method method, Object object, Object val) throws Exception {
+    Class<?> clazz = method.getParameterTypes()[0];
+    if (Boolean.class.isAssignableFrom(clazz)) {
+      if (val instanceof Boolean) {
+        method.invoke(object, val);
+        return;
+      }
+      if (val instanceof Number) {
+        method.invoke(object, ConvertKit.bool((Number) val));
+        return;
+      }
+      if (val instanceof String) {
+        method.invoke(object, ConvertKit.bool((String) val));
+        return;
+      }
+    }
+
+    if (val instanceof Number) {
+      Class<?>[] pts = method.getParameterTypes();
+      if (CollectionKit.isEmpty(pts))
+        throw new IllegalArgumentException("NOT FOUND ARGUMENTS");
+      method.invoke(object, NumberKit.to((Number) val, pts[0]));
+      return;
+    }
+
+    method.invoke(object, val);
+  }
+
   public static <R> List<R> reductionMaps(List<Map> maps, Class<R> clazz) {
-    return reductionMaps(maps, clazz, NamecaseKit.namecase(NamecaseType.CASE_NONE), true);
+    return reductionMaps(maps, clazz, ListFactory.def(), NamecaseKit.namecase(NamecaseType.CASE_NONE), true, false);
   }
 
   public static <R> List<R> reductionMaps(List<Map> maps, Class<R> clazz, INameCase namecase) {
-    return reductionMaps(maps, clazz, namecase, true);
+    return reductionMaps(maps, clazz, ListFactory.def(), namecase, true, false);
   }
 
-  public static <R> List<R> reductionMaps(List<Map> maps, Class<R> clazz, boolean skipError) {
-    return reductionMaps(maps, clazz, NamecaseKit.namecase(NamecaseType.CASE_NONE), skipError);
+  public static <R> List<R> reductionMaps(List<Map> maps, Class<R> clazz, boolean skipError, boolean ignorecase) {
+    return reductionMaps(maps, clazz, ListFactory.def(), NamecaseKit.namecase(NamecaseType.CASE_NONE), skipError, ignorecase);
   }
 
-  public static <R> List<R> reductionMaps(List<Map> maps, Class<R> clazz, INameCase namecase, boolean skipError) {
+  public static <R> List<R> reductionMaps(List<Map> maps, Class<R> clazz, INameCase namecase, boolean skipError, boolean ignorecase) {
+    return reductionMaps(maps, clazz, ListFactory.def(), namecase, skipError, ignorecase);
+  }
+
+  public static <R> List<R> reductionMaps(List<Map> maps, Class<R> clazz, ListFactory lister) {
+    return reductionMaps(maps, clazz, lister, NamecaseKit.namecase(NamecaseType.CASE_NONE), true, false);
+  }
+
+  public static <R> List<R> reductionMaps(List<Map> maps, Class<R> clazz, ListFactory lister, INameCase namecase) {
+    return reductionMaps(maps, clazz, lister, namecase, true, false);
+  }
+
+  public static <R> List<R> reductionMaps(List<Map> maps, Class<R> clazz, ListFactory lister, boolean skipError, boolean ignorecase) {
+    return reductionMaps(maps, clazz, lister, NamecaseKit.namecase(NamecaseType.CASE_NONE), skipError, ignorecase);
+  }
+
+  public static <R> List<R> reductionMaps(List<Map> maps, Class<R> clazz, ListFactory lister, INameCase namecase, boolean skipError, boolean ignorecase) {
     if (maps == null)
       return Collections.emptyList();
-    List<R> rets = new ArrayList<>();
-    maps.forEach(map -> rets.add(reductionMap(map, clazz, namecase, skipError)));
+    List<R> rets = lister.collection();
+    maps.forEach(map -> rets.add(reductionMap(map, clazz, namecase, skipError, ignorecase)));
     return rets;
   }
 

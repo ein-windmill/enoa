@@ -18,10 +18,19 @@ package io.enoa.db;
 public interface EoDsFactory {
 
   /**
+   *
+   * @deprecated use datasource, will remove in version 1.8
+   */
+  @Deprecated
+  default EnoaDs dataSource(EoDsConfig config) {
+    return this.datasource(config);
+  }
+
+  /**
    * get data source
    *
    * @return EnoaDs
    */
-  EnoaDs dataSource(EoDsConfig config);
+  EnoaDs datasource(EoDsConfig config);
 
 }

@@ -15,14 +15,22 @@
  */
 package io.enoa.toolkit;
 
+import io.enoa.toolkit.sys.EnvKit;
+
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /**
  * enoa - io.enoa.toolkit
  */
 public interface EoConst {
 
-  Charset CHARSET = Charset.forName("UTF-8");
+  Charset CHARSET = StandardCharsets.UTF_8;
+
+  /**
+   * os charset
+   */
+  Charset _CHARSET_OS = Charset.forName(EnvKit.string("sun.jnu.encoding"));
 
   String DEF_FORMAT_DATE = "yyyy-MM-dd HH:mm:ss.SSS";
 

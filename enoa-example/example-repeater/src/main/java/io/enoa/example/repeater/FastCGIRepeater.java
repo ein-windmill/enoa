@@ -16,7 +16,8 @@
 package io.enoa.example.repeater;
 
 import io.enoa.repeater.Repeater;
-import io.enoa.repeater.provider.fastcgi.server.FastCGIPrivoder;
+import io.enoa.repeater.factory.error.EoxErrorRenderFactory;
+import io.enoa.repeater.provider.fastcgi.server.FastCGIProvider;
 
 public class FastCGIRepeater extends AbstractRepeaterExample {
 
@@ -27,9 +28,10 @@ public class FastCGIRepeater extends AbstractRepeaterExample {
 
   @Override
   protected void start() {
-    Repeater.createServer(new FastCGIPrivoder())
+    Repeater.createServer(new FastCGIProvider())
       .accessor(super.accessor())
       .log(super.log())
+      .capture(EoxErrorRenderFactory.def())
       .config(super.config())
       .listen(PORT);
   }

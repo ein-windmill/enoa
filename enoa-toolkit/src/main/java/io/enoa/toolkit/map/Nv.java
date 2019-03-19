@@ -17,12 +17,13 @@ package io.enoa.toolkit.map;
 
 import io.enoa.toolkit.value.EnoaValue;
 
-import java.util.HashMap;
+import java.io.Serializable;
+import java.util.Objects;
 
-public class Nv extends HashMap<String, Object> {
+public class Nv implements Serializable {
 
-//  private String name;
-//  private T value;
+  private String name;
+  private Object value;
 
   private Nv() {
   }
@@ -40,44 +41,39 @@ public class Nv extends HashMap<String, Object> {
     return new Nv(name, value);
   }
 
-  private EnoaValue get(String key) {
-    return EnoaValue.with(super.get(key));
-  }
-
   public String name() {
-    return this.get("name").as();
+    return this.name;
   }
 
   public Nv name(String name) {
-    super.put("name", name);
+    this.name = name;
     return this;
   }
 
   public EnoaValue value() {
-    return this.get("value");
+    return EnoaValue.with(this.value);
   }
 
   public Nv value(Object value) {
-    super.put("value", value);
+    this.value = value;
     return this;
   }
 
-//  @Override
-//  public int hashCode() {
-//    int result = 17;
-//    result = this.name == null ? 0 : 31 * result + this.name.hashCode();
-//    result = this.name == null ? 0 : 31 * result + this.value.hashCode();
-//    return result;
-//  }
-//
-//  @Override
-//  public boolean equals(Object obj) {
-//    if (!(obj instanceof Nv))
-//      return false;
-//    if (this == obj)
-//      return true;
-//    Nv that = (Nv) obj;
-//    return this.name == null ? that.name == null : this.name.equals(that.name)
-//      && this.value == null ? that.value == null : this.value.equals(that.value);
-//  }
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    Nv nv = (Nv) o;
+
+    if (!name.equals(nv.name)) return false;
+    return Objects.equals(value, nv.value);
+  }
+
+  @Override
+  public int hashCode() {
+    int result = name.hashCode();
+    result = 31 * result + (value != null ? value.hashCode() : 0);
+    return result;
+  }
 }

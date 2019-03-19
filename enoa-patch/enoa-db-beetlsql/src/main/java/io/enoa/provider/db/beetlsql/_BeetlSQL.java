@@ -26,7 +26,7 @@ class _BeetlSQL extends EnoaDb {
 
   _BeetlSQL(BeetlSQLConfig config) {
     this.config = config;
-    this.ds = this.config.ds().dataSource(this.config.dsConfig());
+    this.ds = this.config.ds().datasource(this.config.dsconfig());
   }
 
   @Override

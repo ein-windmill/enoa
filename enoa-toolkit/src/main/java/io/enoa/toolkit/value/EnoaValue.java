@@ -31,12 +31,16 @@ public class EnoaValue implements Serializable {
 
   public static final EnoaValue NULL = EnoaValue.with(null);
 
-  private EnoaValue(Object value) {
+  protected EnoaValue(Object value) {
     this.value = value;
   }
 
   public static EnoaValue with(Object value) {
     return new EnoaValue(value);
+  }
+
+  public Object get() {
+    return this.origin();
   }
 
   public Object origin() {

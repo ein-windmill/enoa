@@ -15,6 +15,7 @@
  */
 package io.enoa.eml;
 
+import io.enoa.eml.provider.enoa.EnoaEmlProvider;
 import io.enoa.eml.provider.enoa.EnoaEmlSession;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 
@@ -44,7 +45,20 @@ public class EPMEml {
   public void install(String name, EmlConfig config) {
     if (this.emlMap.containsKey(name))
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.email.name_exists", name));
-    this.emlMap.put(name, Eml.with(new EnoaEmlSession(config)));
+//    this.emlMap.put(name, Eml.with(new EnoaEmlSession(config)));
+    this.emlMap.put(name, new EnoaEmlProvider(new EnoaEmlSession(config)));
+  }
+
+  public void uninstall(String name) {
+    this.emlMap.remove(name);
+  }
+
+  public void uninstall() {
+    this.uninstall("main");
+  }
+
+  public void clear() {
+    this.emlMap.clear();
   }
 
   public Eml eml() {
