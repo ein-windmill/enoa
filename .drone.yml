@@ -19,6 +19,7 @@ steps:
         path: /root/.gnupg
     commands:
       - apk add gnupg
+      - mvn verify
       - mvn clean deploy -D maven.test.skip=true -P release
 
 volumes:
