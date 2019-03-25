@@ -87,11 +87,11 @@ public class TextReader {
     int _position = this.position;
     int _cursor = this.cursor;
     int _line = this.line;
-    StringBuilder builder = new StringBuilder();
     while (true) {
-      if (this.back().peek() == '\n' || this.position == 0)
+      if (this.back().peek() == '\n' || this.position == 0 || this.cursor == 0)
         break;
     }
+    StringBuilder builder = new StringBuilder();
     while (this.hasNext()) {
       char ch = this.next();
       if (ch == '\n')
@@ -111,6 +111,9 @@ public class TextReader {
       return this;
 
     char peek = this.peek();
+    if (peek == (char) -1) {
+      return this;
+    }
 
     if (peek != '\n') {
       this.position -= 1;
@@ -151,6 +154,6 @@ public class TextReader {
       " POSITION: ", this.position, ',',
       " LINE: ", this.line, ',',
       " CURSOR: ", this.cursor, ',',
-      " TEXT => ", this.text);
+      " TEXT => ", this.text.replace("\n", "\\n").replace("\r", "\\r").replace("\b", "\\b"));
   }
 }
