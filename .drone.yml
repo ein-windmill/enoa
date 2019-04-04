@@ -3,6 +3,51 @@
 kind: pipeline
 name: default
 
+
+steps:
+  - name: sync_push
+    image: alpine/git:1.0.7
+    environment:
+      REPO_REMOTE: https://github.com/fewensa/enoa.git
+    volumes:
+      - name: git_credentials
+        path: /root/.git-credentials
+      - name: git_config
+        path: /root/.gitconfig
+    when:
+      event:
+        - push
+    commands:
+      - git remote add github $REPO_REMOTE
+      - git push github $DRONE_BRANCH
+
+  - name: sync_tag
+    image: alpine/git:1.0.7
+    environment:
+      REPO_REMOTE: https://github.com/fewensa/enoa.git
+    volumes:
+      - name: git_credentials
+        path: /root/.git-credentials
+      - name: git_config
+        path: /root/.gitconfig
+    when:
+      event:
+        - tag
+    commands:
+      - git remote add github $REPO_REMOTE
+      - git fetch origin
+      - git push github $DRONE_TAG
+
+volumes:
+  - name: git_credentials
+    host:
+      path: /data/mount/git/.git-credentials
+  - name: git_config
+    host:
+      path: /data/mount/git/.gitconfig
+
+
+
 ---
 kind: pipeline
 name: maven_center
@@ -28,8 +73,8 @@ volumes:
       path: /data/gnupg
 
 trigger:
-  branch:
-    - master
+  event:
+    - tag
 
 ---
 kind: pipeline
@@ -50,8 +95,8 @@ volumes:
       path: /data/mount/m2
 
 trigger:
-  branch:
-    - dev
+  event:
+    - push
 
 
 #---
