@@ -48,6 +48,8 @@ public class TextReader {
   public char peek() {
     if (this.position - 1 >= this.len)
       return (char) -1;
+    if (this.position == 0)
+      return (char) -1;
     return this.text.charAt(this.position - 1);
   }
 
@@ -81,11 +83,60 @@ public class TextReader {
     return this.cursor;
   }
 
+  public String thisLine() {
+    int _position = this.position;
+    int _cursor = this.cursor;
+    int _line = this.line;
+    while (true) {
+      if (this.back().peek() == '\n' || this.position == 0 || this.cursor == 0)
+        break;
+    }
+    StringBuilder builder = new StringBuilder();
+    while (this.hasNext()) {
+      char ch = this.next();
+      if (ch == '\n')
+        break;
+      builder.append(ch);
+    }
+    this.position = _position;
+    this.cursor = _cursor;
+    this.line = _line;
+    String lineText = builder.toString();
+    builder.delete(0, builder.length());
+    return lineText;
+  }
+
   public TextReader back() {
     if (this.position == 0)
       return this;
+
+    char peek = this.peek();
+    if (peek == (char) -1) {
+      return this;
+    }
+
+    if (peek != '\n') {
+      this.position -= 1;
+      this.cursor -= 1;
+      return this;
+    }
     this.position -= 1;
-    this.cursor -= 1;
+    this.line -=1;
+
+    int _position = this.position;
+    int _line = this.line;
+
+    int distance = 0;
+    while (true) {
+      char ch = this.back().peek();
+      if (ch == '\n' || ch == (char) -1) {
+        break;
+      }
+      distance += 1;
+    }
+    this.position = _position;
+    this.line = _line;
+    this.cursor = distance + 1;
     return this;
   }
 
@@ -103,6 +154,6 @@ public class TextReader {
       " POSITION: ", this.position, ',',
       " LINE: ", this.line, ',',
       " CURSOR: ", this.cursor, ',',
-      " TEXT => ", this.text);
+      " TEXT => ", this.text.replace("\n", "\\n").replace("\r", "\\r").replace("\b", "\\b"));
   }
 }
