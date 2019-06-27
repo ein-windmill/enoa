@@ -5,4 +5,4 @@
 
 ./build.sh
 
-docker run --rm -it --name yosart -p 9102:9102 yosart:1.7.2-rc
+docker run --rm -it --name yosart -p 9102:9102 yosart:1.7.3-snapshot

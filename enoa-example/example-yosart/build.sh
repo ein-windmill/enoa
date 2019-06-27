@@ -3,5 +3,5 @@
 #
 #
 
-docker build --rm -t yosart:1.7.2-rc -f src/main/docker/Dockerfile .
+docker build --rm -t yosart:1.7.3-snapshot -f src/main/docker/Dockerfile .
 
