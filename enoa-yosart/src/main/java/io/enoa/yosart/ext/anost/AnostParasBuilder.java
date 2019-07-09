@@ -127,8 +127,16 @@ class AnostParasBuilder {
     }
 
     String[] vals = request.paraValues(pval.name);
-    if (CollectionKit.isEmpty(vals))
-      return CollectionKit.emptyArray(componentType);
+    if (CollectionKit.isEmpty(vals)) {
+      if (isArray) {
+        return CollectionKit.emptyArray(componentType);
+      }
+      try {
+        return this.newCollection(type);
+      } catch (Exception e) {
+        throw new RuntimeException(e.getMessage(), e);
+      }
+    }
 
     // 數組解析
     if (isArray) {
