@@ -238,11 +238,11 @@ public final class NumberKit {
       return (T) to(0, to);
 
     if (to.equals(Integer.class)) {
-      if (trimmed.contains("."))
-        trimmed = trimmed.substring(0, trimmed.indexOf("."));
+      trimmed = trimmedNoDot(trimmed);
       return (T) (HexKit.isHexNumber(trimmed) ? Integer.decode(trimmed) : Integer.valueOf(trimmed));
     }
     if (to.equals(Long.class)) {
+      trimmed = trimmedNoDot(trimmed);
       return (T) (HexKit.isHexNumber(trimmed) ? Long.decode(trimmed) : Long.valueOf(trimmed));
     }
     if (to.equals(Float.class)) {
@@ -255,17 +255,27 @@ public final class NumberKit {
       return (T) new BigDecimal(trimmed);
     }
     if (to.equals(Short.class)) {
+      trimmed = trimmedNoDot(trimmed);
       return (T) (HexKit.isHexNumber(trimmed) ? Short.decode(trimmed) : Short.valueOf(trimmed));
     }
     if (to.equals(BigInteger.class)) {
+      trimmed = trimmedNoDot(trimmed);
       return (T) (HexKit.isHexNumber(trimmed) ? decodeBigInteger(trimmed) : new BigInteger(trimmed));
     }
     if (to.equals(Byte.class)) {
+      trimmed = trimmedNoDot(trimmed);
       return (T) (HexKit.isHexNumber(trimmed) ? Byte.decode(trimmed) : Byte.valueOf(trimmed));
     }
     throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.toolkit.number_str_to_cant", text, to.getName()));
   }
 
+  private static String trimmedNoDot(String text) {
+    if (TextKit.blanky(text))
+      return "0";
+    if (text.contains("."))
+      text = text.substring(0, text.indexOf("."));
+    return TextKit.blanky(text) ? "0" : text;
+  }
 
   public static Integer integer(Number number) {
     return (Integer) to(number, Integer.class);
