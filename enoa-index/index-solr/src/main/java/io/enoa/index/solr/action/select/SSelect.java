@@ -278,7 +278,7 @@ public class SSelect implements _SolrAction {
 
   @Override
   public <T> T emit(SParser<T> parser) {
-    this.http.method(HttpMethod.GET)
+    this.http.method(HttpMethod.POST)
       .url(EoUrl.with(this.config.host()).subpath(this.core).subpath("select"))
       .charset(EoConst.CHARSET)
       .encode();

@@ -237,6 +237,10 @@ public class CollectionKit {
       return Collections.emptyList();
     if (parts == 0)
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.toolkit.collection_parts_num_zero"));
+    if (colls.size() <= parts)
+      return new ArrayList<List<T>>(){{
+        add(new ArrayList<>(colls));
+      }};
 
     List<List<T>> rets = new ArrayList<>();
     List<T> items = new ArrayList<>();
