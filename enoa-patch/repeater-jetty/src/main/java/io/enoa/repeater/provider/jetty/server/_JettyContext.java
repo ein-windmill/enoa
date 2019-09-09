@@ -75,7 +75,7 @@ class _JettyContext extends AbstractHandler {
     if ("default".equals(vendor)) {
       if (multipartConfigElement == null)
         multipartConfigElement = new MultipartConfigElement(this.config.tmp().toString());
-      request.setAttribute(Request.__MULTIPART_CONFIG_ELEMENT, multipartConfigElement);
+      request.setAttribute(Request.MULTIPART_CONFIG_ELEMENT, multipartConfigElement);
     }
 
     try {
