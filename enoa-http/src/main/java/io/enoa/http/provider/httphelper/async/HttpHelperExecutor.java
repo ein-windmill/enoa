@@ -15,11 +15,11 @@
  */
 package io.enoa.http.provider.httphelper.async;
 
+import io.enoa.chunk.Chunk;
 import io.enoa.http.EoEmit;
 import io.enoa.http.EoExecutor;
 import io.enoa.http.EoUrl;
 import io.enoa.http.protocol.HttpPromise;
-import io.enoa.chunk.Chunk;
 import io.enoa.promise.Promise;
 
 import java.util.concurrent.ExecutorService;
@@ -36,7 +36,7 @@ public class HttpHelperExecutor implements EoExecutor {
 
   private ExecutorService executorService;
 
-  private ExecutorService executorService() {
+  protected ExecutorService executorService() {
     if (executorService == null) {
       executorService = Promise.builder().executor().enqueue("HttpHelper Dispatcher", false);
     }
