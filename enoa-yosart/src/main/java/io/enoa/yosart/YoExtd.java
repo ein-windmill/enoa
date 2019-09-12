@@ -126,8 +126,10 @@ class YoExtd {
     while (eiterator.hasNext()) {
       YoExt yet = eiterator.next();
       // renew same extension
-      if (yet.getClass().getName().equals(ext.getClass().getName()))
+      if (yet.getClass().getName().equals(ext.getClass().getName())) {
         eiterator.remove();
+        continue;
+      }
 
       if (ext instanceof YmRenderExt) {
         if (!(yet instanceof YmRenderExt))
