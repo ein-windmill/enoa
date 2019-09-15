@@ -15,9 +15,8 @@
  */
 package io.enoa.yosart.ext.anost.valid;
 
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.mark.IMark;
-import io.enoa.toolkit.number.NumberKit;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.yosart.ext.anost.valid.ivalid.IRowValid;
 import io.enoa.yosart.kernel.http.YoRequest;
 
@@ -153,7 +152,7 @@ public class AoArrayValid extends AoObjectValid<AoArrayValid> {
       super.blank(mark, message);
 
     this.blankMember(mark, message);
-    return this.row(NumberKit::isNumber, mark, message);
+    return this.row(Is::number, mark, message);
   }
 
   public AoArrayValid numberArray(int mark, String message) throws ValidException {
@@ -205,7 +204,7 @@ public class AoArrayValid extends AoObjectValid<AoArrayValid> {
     if (!super.verified)
       super.blank(mark, message);
 
-    return this.row(TextKit::blankn, mark, message);
+    return this.row(Is::truthy, mark, message);
   }
 
   public AoArrayValid blankMember(int mark, String message) throws ValidException {
