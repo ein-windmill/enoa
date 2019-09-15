@@ -20,8 +20,8 @@ import io.enoa.docker.dket.dockerhub.HRet;
 import io.enoa.docker.dket.registry.RResp;
 import io.enoa.http.protocol.HttpResponse;
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
-import io.enoa.toolkit.text.TextKit;
 
 abstract class AbstractDockerhubParser<T> implements HIParser<T> {
 
@@ -30,7 +30,7 @@ abstract class AbstractDockerhubParser<T> implements HIParser<T> {
     if (resp == null)
       return HRet.nullx();
     String string = resp.string();
-    if (TextKit.isBlank(string))
+    if (Is.not().truthy(string))
       return HRet.nullx();
     HttpResponse response = resp.response();
     if (!response.header("content-type").contains("json"))
