@@ -15,6 +15,7 @@
  */
 package io.enoa.toolkit.number;
 
+import io.enoa.toolkit.is.Is;
 import org.junit.Test;
 
 import java.math.BigDecimal;
