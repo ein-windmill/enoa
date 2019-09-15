@@ -19,6 +19,7 @@ import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dket.docker.container.EProcesses;
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
 
 import java.util.Collection;
@@ -36,13 +37,13 @@ class EProcessParser extends AbstractParser<EProcesses> {
   @Override
   public EProcesses ok(DockerConfig config, DResp resp) {
     Kv kv = config.json().parse(resp.string(), Kv.class);
-    if (CollectionKit.isEmpty(kv))
+    if (Is.empty(kv))
       return null;
     EProcesses.Builder builder = new EProcesses.Builder();
     Collection<String> titles = kv.as("Titles");
     builder.titles(titles.toArray(new String[titles.size()]));
 //    Collection processes = kv.as("Processes");
-//    if (CollectionKit.isEmpty(processes))
+//    if (Is.empty(processes))
 //      return builder.build();
 
 //    List<String[]> pcs = new ArrayList<>(processes.size());

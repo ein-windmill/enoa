@@ -17,13 +17,13 @@ package io.enoa.docker.enqueue;
 
 import io.enoa.docker.promise.DockerDoneargPromise;
 import io.enoa.promise.DoneArgPromise;
+import io.enoa.promise.Promise;
 import io.enoa.promise.arg.PromiseArg;
 import io.enoa.promise.arg.PromiseCapture;
 import io.enoa.promise.arg.PromiseVoid;
 import io.enoa.promise.async.AsyncRunner;
 import io.enoa.promise.builder.EPDoneArgPromiseBuilder;
-import io.enoa.promise.Promise;
-import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 
 import java.util.concurrent.ExecutorService;
 
@@ -44,11 +44,11 @@ class _DockerDoneargEnqueueImpl<T> implements EnqueueDoneargDocker<T> {
       try {
         String oldName = Thread.currentThread().getName();
         T ret = this.runner.run();
-        if (CollectionKit.isEmpty(donearg.dones()))
+        if (Is.empty(donearg.dones()))
           return;
         donearg.dones().forEach(done -> done.execute(ret));
       } catch (Exception e) {
-        if (CollectionKit.isEmpty(donearg.captures())) {
+        if (Is.empty(donearg.captures())) {
           e.printStackTrace();
           return;
         }

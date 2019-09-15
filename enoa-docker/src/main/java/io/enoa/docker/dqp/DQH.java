@@ -17,6 +17,7 @@ package io.enoa.docker.dqp;
 
 import io.enoa.http.protocol.HttpHeader;
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Nv;
 
 import java.util.Collection;
@@ -55,7 +56,7 @@ public class DQH {
   }
 
   public DQH add(Collection<Nv> nvs) {
-    if (CollectionKit.isEmpty(nvs))
+    if (Is.empty(nvs))
       return this;
     this.nvs.addAll(nvs);
     return this;
@@ -68,7 +69,7 @@ public class DQH {
   public DQH add(DQH dqh) {
     if (dqh == null)
       return this;
-    if (CollectionKit.isEmpty(dqh.nvs))
+    if (Is.empty(dqh.nvs))
       return this;
     return this.add(dqh.nvs);
   }
@@ -83,7 +84,7 @@ public class DQH {
   }
 
   public Set<HttpHeader> headers() {
-    if (CollectionKit.isEmpty(this.nvs))
+    if (Is.empty(this.nvs))
       return Collections.emptySet();
     return this.nvs.stream().map(nv -> new HttpHeader(nv.name(), nv.value().string())).collect(Collectors.toSet());
   }

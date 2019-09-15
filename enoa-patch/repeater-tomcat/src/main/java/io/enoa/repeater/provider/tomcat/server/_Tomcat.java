@@ -20,8 +20,8 @@ import io.enoa.repeater.EoxConfig;
 import io.enoa.repeater.factory.provider.EoxProviderFactory;
 import io.enoa.repeater.factory.server.RepeaterServer;
 import io.enoa.toolkit.file.FileKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.sys.EnvKit;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thr.EoException;
 import org.apache.catalina.Context;
 import org.apache.catalina.startup.Tomcat;
@@ -39,18 +39,18 @@ class _Tomcat implements RepeaterServer {
   @Override
   public void listen(String hostname, int port, boolean ssl, EoxConfig config, EoxProviderFactory factory) {
     Tomcat tomcat = new Tomcat();
-    if (TextKit.blankn(hostname))
+    if (Is.truthy(hostname))
       tomcat.setHostname(hostname);
     tomcat.setPort(port);
 
     String docBase = null;
-    if (TextKit.blankn(config.other().string("doc_base")) ||
-      TextKit.blankn(config.other().string("docBase"))) {
+    if (Is.truthy(config.other().string("doc_base")) ||
+      Is.truthy(config.other().string("docBase"))) {
       docBase = config.other().string("doc_base");
-      if (TextKit.blanky(docBase))
+      if (Is.not().truthy(docBase))
         config.other().string("docBase");
     }
-    if (TextKit.blanky(docBase))
+    if (Is.not().truthy(docBase))
       docBase = config.tmp().toString();
     if (docBase == null)
       docBase = EnvKit.string("java.io.tmpdir");

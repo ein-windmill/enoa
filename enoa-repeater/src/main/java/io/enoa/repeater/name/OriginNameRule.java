@@ -18,6 +18,7 @@ package io.enoa.repeater.name;
 import io.enoa.repeater.factory.name.EoxNameRuleFactory;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.file.FileKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thr.EoException;
 
@@ -40,7 +41,7 @@ public class OriginNameRule implements EoxNameRuleFactory {
     while (i < 99999) {
 //      String newName = String.format("%s-%d", leftName, i);
       String newName = TextKit.union(leftName, "-", i);
-      if (TextKit.blankn(suffix)) {
+      if (Is.truthy(suffix)) {
 //        newName = newName.concat(".").concat(suffix);
         newName = TextKit.union(newName, ".", suffix);
       }

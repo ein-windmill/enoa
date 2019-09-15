@@ -15,12 +15,12 @@
  */
 package io.enoa.docker.async.docker.eo;
 
-import io.enoa.docker.enqueue.EnqueueAssetDocker;
-import io.enoa.docker.enqueue.EnqueueDocker;
 import io.enoa.docker.command.docker.eo.EnoaDockerDistribution;
 import io.enoa.docker.command.docker.eo.EoDocker;
 import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.dket.docker.distribution.EDistribution;
+import io.enoa.docker.enqueue.EnqueueAssetDocker;
+import io.enoa.docker.enqueue.EnqueueDocker;
 
 public class EAsyncEnoaDockerDistribution {
 

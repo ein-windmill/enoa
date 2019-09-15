@@ -21,8 +21,8 @@ import io.enoa.repeater.http.Cookie;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.digest.UUIDKit;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thr.EoException;
 import io.enoa.yosart.kernel.http.Session;
 import io.enoa.yosart.kernel.http.YoRequest;
@@ -77,7 +77,7 @@ class RedisSessionImpl implements Session {
       builder.secure();
     if (this.httpOnly)
       builder.httpOnly();
-    if (TextKit.blankn(this.domain))
+    if (Is.truthy(this.domain))
       builder.domain(this.domain);
     if (this.hostOnly)
       builder.hostOnlyDomain(this.domain);
@@ -89,7 +89,7 @@ class RedisSessionImpl implements Session {
   @Override
   public String[] names() {
     String sessVal = this._value == null ? this.request.cookie(this.sessKey) : this._value;
-    if (TextKit.blanky(sessVal)) {
+    if (Is.not().truthy(sessVal)) {
       Log.warn(EnoaTipKit.message("eo.tip.ext.sess.session_404", this.sessKey));
       return CollectionKit.emptyArray(String.class);
     }
@@ -100,7 +100,7 @@ class RedisSessionImpl implements Session {
   @Override
   public <T> T get(String name) {
     String sessVal = this._value == null ? this.request.cookie(this.sessKey) : this._value;
-    if (TextKit.blanky(sessVal)) {
+    if (Is.not().truthy(sessVal)) {
       Log.warn(EnoaTipKit.message("eo.tip.ext.sess.session_404", this.sessKey));
       return null;
     }
@@ -111,7 +111,7 @@ class RedisSessionImpl implements Session {
   @Override
   public Session rm(String name) {
     String sessVal = this._value == null ? this.request.cookie(this.sessKey) : this._value;
-    if (TextKit.blanky(sessVal))
+    if (Is.not().truthy(sessVal))
       throw new EoException(EnoaTipKit.message("eo.tip.ext.sess.session_404", this.sessKey));
     Kv data = this.redis.hget(this.sessKey, sessVal);
     data.remove(name);
@@ -124,7 +124,7 @@ class RedisSessionImpl implements Session {
     if (this._value == null)
       this._value = this.request.cookie(this.sessKey);
 
-    if (TextKit.blanky(this._value))
+    if (Is.not().truthy(this._value))
       this._value = UUIDKit.next(false);
     Kv data = this.redis.hget(this.sessKey, this._value);
     if (data == null) {

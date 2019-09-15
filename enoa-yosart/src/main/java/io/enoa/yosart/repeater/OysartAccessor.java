@@ -24,8 +24,8 @@ import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.date.DateKit;
 import io.enoa.toolkit.http.UriKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.sys.ThrowableKit;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.yosart.Oysart;
 import io.enoa.yosart.YoConfig;
 import io.enoa.yosart.YoExt;
@@ -69,7 +69,7 @@ public class OysartAccessor implements EoxAccessor {
     OysartTip.message("Context: {0}", request.context());
 
     Map<String, String[]> paraMap = request.paraMap();
-    if (CollectionKit.notEmpty(paraMap)) {
+    if (Is.not().empty(paraMap)) {
       StringBuilder sb = new StringBuilder();
       sb.append("Paras:   ");
       Set<String> names = paraMap.keySet();
@@ -94,7 +94,7 @@ public class OysartAccessor implements EoxAccessor {
     if (body != null) {
       try {
         String data = body.string();
-        if (TextKit.blankn(data)) {
+        if (Is.truthy(data)) {
           OysartTip.message("Body:    {0}", data);
         }
       } catch (Exception e) {
@@ -102,7 +102,7 @@ public class OysartAccessor implements EoxAccessor {
       }
     }
     UFile[] ufiles = request.files();
-    if (CollectionKit.notEmpty(ufiles)) {
+    if (Is.not().empty(ufiles)) {
       StringBuilder sb = new StringBuilder();
       sb.append("Files:   ");
       if (ufiles.length > 1) {

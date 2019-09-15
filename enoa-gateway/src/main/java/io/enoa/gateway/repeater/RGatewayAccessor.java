@@ -22,7 +22,7 @@ import io.enoa.repeater.http.Header;
 import io.enoa.repeater.http.HttpStatus;
 import io.enoa.repeater.http.Request;
 import io.enoa.repeater.http.Response;
-import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.value.EnoaValue;
 
@@ -53,14 +53,14 @@ public class RGatewayAccessor implements EoxAccessor {
         if (header.name().equalsIgnoreCase("Access-Control-Allow-Origin")) {
           Header.Builder hbu = header.newBuilder();
           String origin = EnoaValue.with(request.header("origin")).string(request.header("x-origin"));
-          hbu.value(TextKit.blanky(origin) ? "*" : origin);
+          hbu.value(Is.not().truthy(origin) ? "*" : origin);
           builder.header(hbu.build());
           return;
         }
         if (header.name().equalsIgnoreCase("Access-Control-Allow-Headers")) {
           String acrh = EnoaValue.with(request.header("Access-Control-Request-Headers"))
             .string(request.header("X-Access-Control-Request-Headers"));
-          if (TextKit.blanky(acrh)) {
+          if (Is.not().truthy(acrh)) {
             builder.header(header);
             return;
           }
@@ -72,7 +72,7 @@ public class RGatewayAccessor implements EoxAccessor {
         builder.header(header);
       });
       String origin = request.header("origin");
-      if (TextKit.blankn(origin))
+      if (Is.truthy(origin))
         builder.header(new Header("Access-Control-Allow-Origin", origin));
       return builder.build();
     }
@@ -80,7 +80,7 @@ public class RGatewayAccessor implements EoxAccessor {
 
 
   private List<Header> crosHeaders() {
-    if (CollectionKit.isEmpty(this.gateway.crosHeaders()))
+    if (Is.empty(this.gateway.crosHeaders()))
       return this.gateway.crosHeaders();
     return this.gateway.defaultCrosHeaders();
   }

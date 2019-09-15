@@ -21,6 +21,7 @@ import io.enoa.docker.dket.docker.common.EDriver;
 import io.enoa.docker.dket.docker.swarm.*;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.date.DateKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
 
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ class ESwarmInspectParser extends AbstractParser<ESwarmInspect> {
   @Override
   public ESwarmInspect ok(DockerConfig config, DResp resp) {
     Kv kv = config.json().parse(resp.string(), Kv.class);
-    if (CollectionKit.isEmpty(kv))
+    if (Is.empty(kv))
       return null;
     ESwarmInspect.Builder builder = new ESwarmInspect.Builder()
       .id(kv.string("ID"))

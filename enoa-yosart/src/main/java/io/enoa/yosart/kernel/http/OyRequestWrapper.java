@@ -19,6 +19,7 @@ import io.enoa.repeater.http.*;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.convert.ConvertKit;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.value.EnoaValue;
 import io.enoa.yosart.Oysart;
@@ -123,7 +124,7 @@ class OyRequestWrapper implements YoRequest {
       header.set(name, this.header(name));
     }
     Map<String, String[]> paraMap = this.paraMap();
-    if (CollectionKit.notEmpty(paraMap)) {
+    if (Is.not().empty(paraMap)) {
       Kv para = Kv.create();
       paraMap.forEach((k, v) -> {
         if (v.length == 1) {
@@ -149,7 +150,7 @@ class OyRequestWrapper implements YoRequest {
       .set("url", this.url())
       .set("header", header)
       .set("variable", variable);
-    if (CollectionKit.notEmpty(this.files()))
+    if (Is.not().empty(this.files()))
       this.data.set("files", this.files());
     return this.data;
   }

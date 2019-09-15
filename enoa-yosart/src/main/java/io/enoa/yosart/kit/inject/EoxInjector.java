@@ -18,6 +18,7 @@ package io.enoa.yosart.kit.inject;
 
 import io.enoa.repeater.http.Request;
 import io.enoa.toolkit.convert.ConvertKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.sys.ReflectKit;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thr.EoException;
@@ -49,7 +50,7 @@ public class EoxInjector {
         continue;
 
       String attrName = TextKit.lowerFirst(methodName.substring(3));
-      String paraName = TextKit.blanky(beanName) ? attrName : TextKit.union(beanName, ".", attrName);
+      String paraName = Is.not().truthy(beanName) ? attrName : TextKit.union(beanName, ".", attrName);
 
       String paraValue = request.para(paraName, null);
       if (paraValue == null)

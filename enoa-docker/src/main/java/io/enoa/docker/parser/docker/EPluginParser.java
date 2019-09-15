@@ -5,6 +5,7 @@ import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dket.docker.common.EUser;
 import io.enoa.docker.dket.docker.plugin.*;
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ class EPluginParser extends AbstractParser<EPlugin> {
 
 
   EPlugin plugin(Kv kv) {
-    if (CollectionKit.isEmpty(kv))
+    if (Is.empty(kv))
       return null;
     EPlugin.Builder builder = new EPlugin.Builder()
       .id(kv.string("ID"))
@@ -236,7 +237,7 @@ class EPluginParser extends AbstractParser<EPlugin> {
 
 
   private EPluginMount mount(Kv kv) {
-    if (CollectionKit.isEmpty(kv))
+    if (Is.empty(kv))
       return null;
     EPluginMount.Builder builder = new EPluginMount.Builder()
       .name(kv.string("Name"))
@@ -250,7 +251,7 @@ class EPluginParser extends AbstractParser<EPlugin> {
   }
 
   private EPluginDevice device(Kv kv) {
-    if (CollectionKit.isEmpty(kv))
+    if (Is.empty(kv))
       return null;
     EPluginDevice.Builder builder = new EPluginDevice.Builder()
       .name(kv.string("Name"))

@@ -17,8 +17,8 @@ package io.enoa.toolkit.convert;
 
 import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.number.NumberKit;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thr.EoException;
 import io.enoa.toolkit.value.Vae;
 
@@ -50,12 +50,12 @@ public class ConvertKit {
 
     String _string = obj.toString();
     return checkblank ?
-      TextKit.blanky(_string) ? def : _string
+      Is.not().truthy(_string) ? def : _string
       : _string;
   }
 
   public static Number number(String text, Number def) {
-    return TextKit.blanky(text) ? def : NumberKit.to(text, Number.class);
+    return Is.not().truthy(text) ? def : NumberKit.to(text, Number.class);
   }
 
   public static Number number(String text) {
@@ -76,7 +76,7 @@ public class ConvertKit {
   }
 
   public static Integer integer(String text, Integer def) {
-    return TextKit.blanky(text) ? def : NumberKit.integer(text);
+    return Is.not().truthy(text) ? def : NumberKit.integer(text);
   }
 
   public static Integer integer(Number number, Integer def) {
@@ -93,7 +93,7 @@ public class ConvertKit {
   }
 
   public static Long longer(String text, Long def) {
-    return TextKit.blanky(text) ? def : NumberKit.longer(text);
+    return Is.not().truthy(text) ? def : NumberKit.longer(text);
   }
 
   public static Long longer(Number number, Long def) {
@@ -110,7 +110,7 @@ public class ConvertKit {
   }
 
   public static Double doubler(String text, Double def) {
-    return TextKit.blanky(text) ? def : NumberKit.doubler(text);
+    return Is.not().truthy(text) ? def : NumberKit.doubler(text);
   }
 
   public static Double doubler(Number number, Double def) {
@@ -123,7 +123,7 @@ public class ConvertKit {
   }
 
   public static Float floater(String text, Float def) {
-    return TextKit.blanky(text) ? def : NumberKit.floater(text);
+    return Is.not().truthy(text) ? def : NumberKit.floater(text);
   }
 
   public static Float floater(String text) {
@@ -140,7 +140,7 @@ public class ConvertKit {
   }
 
   public static Short shorter(String text, Short def) {
-    return TextKit.blanky(text) ? def : NumberKit.shorter(text);
+    return Is.not().truthy(text) ? def : NumberKit.shorter(text);
   }
 
   public static Short shorter(String text) {
@@ -157,7 +157,7 @@ public class ConvertKit {
   }
 
   public static BigInteger bigint(String text, BigInteger def) {
-    return TextKit.blanky(text) ? def : NumberKit.bigint(text);
+    return Is.not().truthy(text) ? def : NumberKit.bigint(text);
   }
 
   public static BigInteger bigint(String text) {
@@ -174,7 +174,7 @@ public class ConvertKit {
   }
 
   public static BigDecimal bigdecimal(String text, BigDecimal def) {
-    return TextKit.blanky(text) ? def : NumberKit.bigdecimal(text);
+    return Is.not().truthy(text) ? def : NumberKit.bigdecimal(text);
   }
 
   public static BigDecimal bigdecimal(String text) {
@@ -195,7 +195,7 @@ public class ConvertKit {
   }
 
   public static Boolean bool(String text, Boolean def) {
-    if (TextKit.blanky(text))
+    if (Is.not().truthy(text))
       return def;
     text = text.trim().toLowerCase();
     if ("1".equals(text) || "true".equals(text))
@@ -225,7 +225,7 @@ public class ConvertKit {
 
   public static Date date(String text, String format, Date def) {
     try {
-      if (TextKit.blanky(text))
+      if (Is.not().truthy(text))
         return def;
       return new java.text.SimpleDateFormat(format).parse(text.trim());
     } catch (ParseException e) {

@@ -16,7 +16,7 @@
 package io.enoa.toolkit.sys;
 
 
-import io.enoa.toolkit.text.TextKit;
+import io.enoa.toolkit.is.Is;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -105,7 +105,7 @@ public class JavaKeyword {
   }
 
   public JavaKeyword add(String keyword) {
-    if (TextKit.blankn(keyword)) {
+    if (Is.truthy(keyword)) {
       set.add(keyword);
     }
     return this;

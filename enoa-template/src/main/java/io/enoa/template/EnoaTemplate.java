@@ -16,6 +16,7 @@
 package io.enoa.template;
 
 import io.enoa.template.compressor.EoCompressorFactory;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.text.TextKit;
 
 /**
@@ -37,7 +38,7 @@ public abstract class EnoaTemplate implements _Template {
   }
 
   protected String fillView(String view, String suffix) {
-    if (TextKit.blanky(suffix))
+    if (Is.not().truthy(suffix))
       return this.patchView(view);
 //    if (view.endsWith(String.format(".%s", suffix)))
     if (view.endsWith(TextKit.union(".", suffix)))

@@ -19,6 +19,7 @@ import io.enoa.stove.template.ast.tree.Ast;
 import io.enoa.stove.template.thr.StoveException;
 import io.enoa.stove.template.thr.SyntaxException;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.number.NumberKit;
 import io.enoa.toolkit.text.TextKit;
 
@@ -101,7 +102,7 @@ class VarValueArray {
 //        throw new SyntaxException("语法错误 获取数组值错误 => `{0}` line =>{1}", ast.code(), ast.start());
 //      }
       if (!slove) {
-        if (!NumberKit.isDigit(TextKit.nospace(String.valueOf(c))))
+        if (!Is.digit(TextKit.nospace(String.valueOf(c))))
           throw new SyntaxException("语法错误 数组取值只可为数字 => `{0}` line =>{1}", ast.code(), ast.start());
       }
     }

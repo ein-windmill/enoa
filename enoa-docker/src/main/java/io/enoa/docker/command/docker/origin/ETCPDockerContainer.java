@@ -26,7 +26,7 @@ import io.enoa.http.Http;
 import io.enoa.http.protocol.HttpMethod;
 import io.enoa.http.protocol.HttpPara;
 import io.enoa.http.protocol.HttpResponse;
-import io.enoa.toolkit.text.TextKit;
+import io.enoa.toolkit.is.Is;
 
 import java.util.Set;
 
@@ -69,7 +69,7 @@ public class ETCPDockerContainer implements EOriginDockerContainer {
   @Override
   public DResp top(String id, String para) {
     Http http = this.docker.http("containers", id, "top");
-    if (TextKit.blankn(para))
+    if (Is.truthy(para))
       http.para("ps_args", para);
     HttpResponse response = http.emit();
     return DResp.create(response);

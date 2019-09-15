@@ -19,6 +19,7 @@ import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dket.docker.system.EAuth;
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
 
 class EAuthParser extends AbstractParser<EAuth> {
@@ -34,7 +35,7 @@ class EAuthParser extends AbstractParser<EAuth> {
   @Override
   public EAuth ok(DockerConfig config, DResp resp) {
     Kv kv = config.json().parse(resp.string(), Kv.class);
-    if (CollectionKit.isEmpty(kv))
+    if (Is.empty(kv))
       return null;
     EAuth.Builder builder = new EAuth.Builder()
       .status(kv.string("Status"))

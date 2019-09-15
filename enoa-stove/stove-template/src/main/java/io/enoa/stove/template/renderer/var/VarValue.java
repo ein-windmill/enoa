@@ -20,8 +20,8 @@ import io.enoa.stove.template.StoveConfig;
 import io.enoa.stove.template.ast.tree.Ast;
 import io.enoa.stove.template.pipeline.Pipeline;
 import io.enoa.stove.template.thr.SyntaxException;
-import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.convert.ConvertKit;
+import io.enoa.toolkit.is.Is;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +66,7 @@ public class VarValue {
   }
 
   private String parse(SPM spm, Ast ast, StoveConfig config, List<VarBlock> blocks, Map<String, ?> attr) {
-    if (CollectionKit.isEmpty(blocks))
+    if (Is.empty(blocks))
       return null;
 
     VarBlock first = blocks.get(0);
@@ -208,7 +208,7 @@ public class VarValue {
       var = text.substring(0, dix);
     }
     Pipeline pipeline = Pipeline.parse(var, config.tokenPipeline());
-    if (CollectionKit.notEmpty(pipeline.pipelines()))
+    if (Is.not().empty(pipeline.pipelines()))
       _val = this.parsePipeline(spm, config, ast, _val, pipeline.pipelines());
     return _val == null ? def : _val;
   }
@@ -243,7 +243,7 @@ public class VarValue {
   private Object cond3Value(SPM spm, Ast ast, StoveConfig config, VarBlock block, Map<String, ?> attr) {
     Object _val = null;
     List<VarBlock> blocks0 = this.analysis(ast, block.code());
-    if (CollectionKit.isEmpty(blocks0))
+    if (Is.empty(blocks0))
       return null;
 
     VarBlock bck0 = blocks0.get(0);

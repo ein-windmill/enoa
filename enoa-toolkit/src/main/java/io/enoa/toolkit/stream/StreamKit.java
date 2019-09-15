@@ -16,7 +16,7 @@
 package io.enoa.toolkit.stream;
 
 import io.enoa.toolkit.binary.EnoaBinary;
-import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.thr.EoCloseException;
 
 import java.io.Closeable;
@@ -37,7 +37,7 @@ public class StreamKit {
   private static final byte[] empty = new byte[0];
 
   public static String string(byte[] bytes, Charset charset) {
-    if (CollectionKit.isEmpty(bytes))
+    if (Is.empty(bytes))
       return null;
     return EnoaBinary.create(bytes, charset).string();
   }

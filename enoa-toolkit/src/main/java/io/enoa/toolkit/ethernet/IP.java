@@ -15,8 +15,8 @@
  */
 package io.enoa.toolkit.ethernet;
 
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.mark.IMarkIx;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.text.TextReader;
 
 public class IP {
@@ -35,7 +35,7 @@ public class IP {
 
 
   public static IP create(Version version, String text) {
-    if (TextKit.blanky(text))
+    if (Is.not().truthy(text))
       return null;
     TextReader reader = new TextReader(text);
     StringBuilder ipb = new StringBuilder(text.length()),

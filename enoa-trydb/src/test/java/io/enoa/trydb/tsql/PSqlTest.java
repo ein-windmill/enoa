@@ -15,8 +15,6 @@
  */
 package io.enoa.trydb.tsql;
 
-import io.enoa.trydb.Trydb;
-import io.enoa.trydb.TrydbConfig;
 import io.enoa.trydb.tsql.psql.IPSql;
 import org.junit.Test;
 

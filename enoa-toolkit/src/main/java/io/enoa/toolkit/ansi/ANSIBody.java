@@ -15,7 +15,7 @@
  */
 package io.enoa.toolkit.ansi;
 
-import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.text.TextKit;
 
 import java.io.Serializable;
@@ -58,7 +58,7 @@ class ANSIBody implements Serializable {
 
 
   static String string(List<ANSIBody> bodies) {
-    if (CollectionKit.isEmpty(bodies))
+    if (Is.empty(bodies))
       return null;
 
     StringBuilder builder = new StringBuilder();
@@ -91,7 +91,7 @@ class ANSIBody implements Serializable {
 
   static String html(List<ANSIBody> bodies, Map<ANSI.Background, String> bgmap, Map<ANSI.Color, String> colormap,
                      String cssname, boolean br) {
-    if (CollectionKit.isEmpty(bodies))
+    if (Is.empty(bodies))
       return null;
     StringBuilder builder = new StringBuilder();
     bodies.forEach(body -> {
@@ -108,7 +108,7 @@ class ANSIBody implements Serializable {
       StringBuilder _sr = new StringBuilder();
 
       _sr.append("<span");
-      if (TextKit.blankn(cssname)) {
+      if (Is.truthy(cssname)) {
         _sr.append(" class=\"");
         _sr.append(cssname).append(" ");
         if (background != null)

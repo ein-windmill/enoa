@@ -15,7 +15,7 @@
  */
 package io.enoa.yosart.ext.anost;
 
-import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.yosart.ext.anost.hook.IHook;
 
 import java.util.ArrayList;
@@ -88,7 +88,7 @@ public class AnostHookMgr {
    * @return AnostHookMgr
    */
   public AnostHookMgr unload(Class<? extends IHook> unload, Mode mode, String... uris) {
-    if (CollectionKit.isEmpty(uris))
+    if (Is.empty(uris))
       return this;
     for (String uri : uris) {
       this.unload(unload, mode, uri);

@@ -21,9 +21,8 @@ import io.enoa.repeater.EoxAccessor;
 import io.enoa.repeater.EoxConfig;
 import io.enoa.repeater.Repeater;
 import io.enoa.repeater.http.*;
-import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
-import io.enoa.toolkit.text.TextKit;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,7 +38,7 @@ class ExampleRepeaterAccessorImpl implements EoxAccessor {
   @Override
   public Response access(Request request) {
     String error = request.para("error");
-    if (TextKit.blankn(error)) {
+    if (Is.truthy(error)) {
       return this.respError(request.paraToInt("error"));
     }
     String body = "It works!";
@@ -48,7 +47,7 @@ class ExampleRepeaterAccessorImpl implements EoxAccessor {
       switch (request.method()) {
         case GET:
           String type = request.para("type");
-          boolean showJson = TextKit.blankn(type) && type.equalsIgnoreCase("json");
+          boolean showJson = Is.truthy(type) && type.equalsIgnoreCase("json");
           contentType = showJson ?
             "application/json; charset=" + this.config.charset().displayName() :
             "text/html; charset=" + this.config.charset().displayName();
@@ -102,7 +101,7 @@ class ExampleRepeaterAccessorImpl implements EoxAccessor {
     sb.append(String.format(kvh, "Method", req.method()));
     sb.append(String.format(kvh, "Context", req.context()));
     sb.append(String.format(kvh, "URI", req.uri()));
-    sb.append(String.format(kvh, "URL", TextKit.blanky(req.url()) ? req.url() : req.url().replace("&", "&amp;")));
+    sb.append(String.format(kvh, "URL", Is.not().truthy(req.url()) ? req.url() : req.url().replace("&", "&amp;")));
     sb.append("<p><span class=\"name\">Cookies<span><ul>");
     for (Cookie cookie : req.cookies()) {
       sb.append("<li><span class=\"name\">").append(cookie.name()).append("</span>")
@@ -115,7 +114,7 @@ class ExampleRepeaterAccessorImpl implements EoxAccessor {
         .append("<span class=\"value\">").append(req.header(name)).append("</span>");
     }
     sb.append("</ul>");
-    if (CollectionKit.notEmpty(req.paraNames())) {
+    if (Is.not().empty(req.paraNames())) {
       sb.append("<p><span class=\"name\">Paras<span><ul>");
       Stream.of(req.paraNames()).forEach(name -> {
         sb.append("<li>");
@@ -146,7 +145,7 @@ class ExampleRepeaterAccessorImpl implements EoxAccessor {
   }
 
   private String filterJsonVal(String str) {
-    if (TextKit.blanky(str))
+    if (Is.not().truthy(str))
       return str;
     return str.replaceAll("\\\\", "\\\\\\\\")
       .replaceAll("\"", "\\\\\"")
@@ -161,17 +160,17 @@ class ExampleRepeaterAccessorImpl implements EoxAccessor {
       .set("uri", this.filterJsonVal(req.uri()))
       .set("url", this.filterJsonVal(req.url()));
 
-    if (CollectionKit.notEmpty(req.cookies())) {
+    if (Is.not().empty(req.cookies())) {
       Kv ck = Kv.create();
       Arrays.stream(req.cookies()).forEach(cookie -> ck.set(cookie.name(), this.filterJsonVal(cookie.value())));
       data.set("cookies", ck);
     }
-    if (CollectionKit.notEmpty(req.headerNames())) {
+    if (Is.not().empty(req.headerNames())) {
       Kv hd = Kv.create();
       Arrays.stream(req.headerNames()).forEach(name -> hd.set(name, this.filterJsonVal(req.header(name))));
       data.set("headers", hd);
     }
-    if (CollectionKit.notEmpty(req.paraNames())) {
+    if (Is.not().empty(req.paraNames())) {
       Kv paras = Kv.create();
       Arrays.stream(req.paraNames()).forEach(name -> {
         String[] vals = req.paraValues(name);
@@ -188,7 +187,7 @@ class ExampleRepeaterAccessorImpl implements EoxAccessor {
       String content = req.body().string();
       data.set("body", content);
     }
-    if (CollectionKit.notEmpty(req.files())) {
+    if (Is.not().empty(req.files())) {
       List<Kv> ufs = new ArrayList<>();
       Arrays.stream(req.files()).forEach(ufile -> {
         Kv uf = Kv.by("name", this.filterJsonVal(ufile.name()))

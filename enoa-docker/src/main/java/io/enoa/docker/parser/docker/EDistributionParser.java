@@ -21,6 +21,7 @@ import io.enoa.docker.dket.docker.distribution.EDescriptor;
 import io.enoa.docker.dket.docker.distribution.EDistribution;
 import io.enoa.docker.dket.docker.node.EPlatform;
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
 
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ class EDistributionParser extends AbstractParser<EDistribution> {
   @Override
   public EDistribution ok(DockerConfig config, DResp resp) {
     Kv kv = config.json().parse(resp.string(), Kv.class);
-    if (CollectionKit.isEmpty(kv))
+    if (Is.empty(kv))
       return null;
     EDistribution.Builder builder = new EDistribution.Builder()
       .descriptor(this.descriptor(kv));

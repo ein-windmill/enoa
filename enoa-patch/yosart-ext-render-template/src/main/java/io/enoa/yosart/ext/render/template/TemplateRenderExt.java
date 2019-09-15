@@ -22,10 +22,10 @@ import io.enoa.template.EoEngineConfig;
 import io.enoa.template.EoTemplateFactory;
 import io.enoa.template.compressor.EoCompressorFactory;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.path.PathKit;
 import io.enoa.toolkit.random.RandomKit;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.yosart.Oysart;
 import io.enoa.yosart.kernel.ext.YmRenderExt;
 import io.enoa.yosart.kernel.render.YoRender;
@@ -53,9 +53,9 @@ public class TemplateRenderExt implements YmRenderExt {
   public TemplateRenderExt(EoTemplateFactory factory, String basePath, String suffix) {
     if (factory == null)
       throw new OyExtException(EnoaTipKit.message("eo.tip.ext.render.template_factory_null"));
-    if (TextKit.blanky(basePath))
+    if (Is.not().truthy(basePath))
       Log.warn(EnoaTipKit.message("eo.tip.ext.render.template_base_path_null"));
-    this.basePath = TextKit.blanky(basePath) ? PathKit.path().toString() : basePath;
+    this.basePath = Is.not().truthy(basePath) ? PathKit.path().toString() : basePath;
     this.compress = false;
     this.factory = factory;
     this.suffix = suffix;
@@ -66,10 +66,10 @@ public class TemplateRenderExt implements YmRenderExt {
       throw new OyExtException(EnoaTipKit.message("eo.tip.ext.render.template_factory_null"));
     if (compressorFactory == null)
       throw new OyExtException(EnoaTipKit.message("eo.tip.ext.render.template_compressor_null"));
-    if (TextKit.blanky(basePath))
+    if (Is.not().truthy(basePath))
       Log.warn(EnoaTipKit.message("eo.tip.ext.render.template_base_path_null"));
     this.factory = factory;
-    this.basePath = TextKit.blanky(basePath) ? PathKit.path().toString() : basePath;
+    this.basePath = Is.not().truthy(basePath) ? PathKit.path().toString() : basePath;
     this.compressorFactory = compressorFactory;
     this.compress = true;
     this.suffix = suffix;

@@ -16,8 +16,8 @@
 package io.enoa.docker.command.registry.generic;
 
 import io.enoa.docker.command.registry._RegistryConfigSupport;
-import io.enoa.docker.parser.registry.RIParser;
 import io.enoa.docker.dket.registry.RRet;
+import io.enoa.docker.parser.registry.RIParser;
 
 public interface GenericRegistry extends _RegistryConfigSupport {
 

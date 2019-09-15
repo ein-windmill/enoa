@@ -15,8 +15,8 @@
  */
 package io.enoa.toolkit.convert;
 
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.number.NumberKit;
-import io.enoa.toolkit.text.TextKit;
 
 class _ByteConverter implements IConverter<Byte, String> {
 
@@ -28,7 +28,7 @@ class _ByteConverter implements IConverter<Byte, String> {
 
   @Override
   public Byte convert(String origin) {
-    if (TextKit.blanky(origin) && this.primitive)
+    if (Is.not().truthy(origin) && this.primitive)
       return (byte) 0;
     return NumberKit.to(origin, Byte.class);
   }

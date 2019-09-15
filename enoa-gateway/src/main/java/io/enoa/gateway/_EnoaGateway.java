@@ -30,6 +30,7 @@ import io.enoa.repeater.factory.server.RepeaterServerFactory;
 import io.enoa.repeater.http.Header;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.text.TextKit;
 
 import java.util.ArrayList;
@@ -147,7 +148,7 @@ class _EnoaGateway implements Gateway {
   public Gateway auth(GatewayAuth auth, String... uris) {
     if (auth == null)
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.gateway.auth_null"));
-    if (CollectionKit.isEmpty(uris))
+    if (Is.empty(uris))
       return this;
 
     if (this.auths == null)
@@ -217,7 +218,7 @@ class _EnoaGateway implements Gateway {
 
   @Override
   public Gateway mapping(GMapping[] mappings) {
-    if (CollectionKit.isEmpty(mappings))
+    if (Is.empty(mappings))
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.gateway.mapping_null"));
     for (GMapping mapping : mappings) {
       this.mapping(mapping);
@@ -227,7 +228,7 @@ class _EnoaGateway implements Gateway {
 
   @Override
   public Gateway mapping(Collection<GMapping> mappings) {
-    if (CollectionKit.isEmpty(mappings))
+    if (Is.empty(mappings))
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.gateway.mapping_null"));
     mappings.forEach(this::mapping);
     return this;

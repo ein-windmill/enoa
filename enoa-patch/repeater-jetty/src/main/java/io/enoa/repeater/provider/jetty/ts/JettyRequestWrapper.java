@@ -22,6 +22,7 @@ import io.enoa.toolkit.alg.UnitConvKit;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.convert.ConvertKit;
 import io.enoa.toolkit.file.FileKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.stream.StreamKit;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thr.EoException;
@@ -46,9 +47,9 @@ class JettyRequestWrapper implements Request {
     this.config = config;
 
     String contentType = this.header("content-type");
-    if (TextKit.blankn(contentType))
+    if (Is.truthy(contentType))
       contentType = contentType.toLowerCase();
-    if (TextKit.blankn(contentType) && contentType.startsWith("multipart/form-data")) {
+    if (Is.truthy(contentType) && contentType.startsWith("multipart/form-data")) {
       try {
         String clength = this.header("content-length");
         Long contentLength = Long.parseLong(clength);
@@ -59,7 +60,7 @@ class JettyRequestWrapper implements Request {
 
         for (Part part : this.request.getParts()) {
           String[] infos = this.partInfo(part);
-          if (CollectionKit.isEmpty(infos) || infos.length != 2)
+          if (Is.empty(infos) || infos.length != 2)
             continue;
           String originName = infos[1];
 
@@ -129,7 +130,7 @@ class JettyRequestWrapper implements Request {
   @Override
   public String url() {
     String qs = this.request.getQueryString();
-    if (TextKit.blanky(qs))
+    if (Is.not().truthy(qs))
       return this.request.getRequestURL().toString();
 //    return String.format("%s?%s", this.request.getRequestURL().toString(), qs);
     return TextKit.union(this.request.getRequestURL().toString(), "?", qs);
@@ -155,7 +156,7 @@ class JettyRequestWrapper implements Request {
       return this.cookies;
 
     javax.servlet.http.Cookie[] cookies = this.request.getCookies();
-    if (CollectionKit.isEmpty(cookies))
+    if (Is.empty(cookies))
       return CollectionKit.emptyArray(Cookie.class);
 
     this.cookies = Stream.of(cookies)
@@ -192,7 +193,7 @@ class JettyRequestWrapper implements Request {
   @Override
   public Integer cookieToInt(String name, Integer def) {
     String val = this.cookie(name);
-    if (TextKit.blanky(val))
+    if (Is.not().truthy(val))
       return def;
     return ConvertKit.integer(val);
   }
@@ -200,7 +201,7 @@ class JettyRequestWrapper implements Request {
   @Override
   public Long cookieToLong(String name, Long def) {
     String val = this.cookie(name);
-    if (TextKit.blanky(val))
+    if (Is.not().truthy(val))
       return def;
     return ConvertKit.longer(val);
   }
@@ -226,7 +227,7 @@ class JettyRequestWrapper implements Request {
   @Override
   public String para(String name, String def) {
     String[] paras = this.paraValues(name);
-    if (CollectionKit.isEmpty(paras))
+    if (Is.empty(paras))
       return def;
     return ConvertKit.string(paras[0], def, Boolean.TRUE);
   }
@@ -346,7 +347,7 @@ class JettyRequestWrapper implements Request {
   @Override
   public UFile[] files() {
     String contentType = this.header("content-type");
-    if (TextKit.blanky(contentType) || !contentType.startsWith("multipart/form-data"))
+    if (Is.not().truthy(contentType) || !contentType.startsWith("multipart/form-data"))
       return CollectionKit.emptyArray(UFile.class);
     return this.ufiles.toArray(new UFile[this.ufiles.size()]);
   }
@@ -354,7 +355,7 @@ class JettyRequestWrapper implements Request {
   @Override
   public UFile[] files(String name) {
     UFile[] files = this.files();
-    if (CollectionKit.isEmpty(files))
+    if (Is.empty(files))
       return CollectionKit.emptyArray(UFile.class);
     return Arrays.stream(files).filter(f -> f.name().equals(name)).toArray(UFile[]::new);
   }
@@ -362,7 +363,7 @@ class JettyRequestWrapper implements Request {
   @Override
   public UFile file(String name) {
     UFile[] files = this.files(name);
-    if (CollectionKit.isEmpty(files))
+    if (Is.empty(files))
       return null;
     return files[0];
   }

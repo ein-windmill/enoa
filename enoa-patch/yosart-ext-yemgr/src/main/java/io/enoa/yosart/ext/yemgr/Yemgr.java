@@ -18,7 +18,7 @@ package io.enoa.yosart.ext.yemgr;
 import io.enoa.repeater.http.HttpStatus;
 import io.enoa.repeater.http.Response;
 import io.enoa.template.EnoaEngine;
-import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.yosart.Oysart;
@@ -62,7 +62,7 @@ class Yemgr extends YoRouter {
       .add("/mounts", this::mounts);
 
     List<YdMount> mounts = OyMountd.mounts();
-    if (CollectionKit.isEmpty(mounts))
+    if (Is.empty(mounts))
       return;
     mounts.forEach(m -> {
 //      String uri = String.format("/mounts/%s", m.uri().startsWith("/") ? m.uri().substring(1, m.uri().length()) : m.uri());

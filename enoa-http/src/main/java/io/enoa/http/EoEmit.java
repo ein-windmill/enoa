@@ -15,8 +15,8 @@
  */
 package io.enoa.http;
 
-import io.enoa.http.protocol.HttpResponse;
 import io.enoa.chunk.Chunk;
+import io.enoa.http.protocol.HttpResponse;
 
 public interface EoEmit {
 

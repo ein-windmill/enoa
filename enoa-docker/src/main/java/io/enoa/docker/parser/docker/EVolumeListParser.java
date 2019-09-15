@@ -20,6 +20,7 @@ import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dket.docker.volume.EVolume;
 import io.enoa.docker.dket.docker.volume.EVolumeLs;
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
 
 import java.util.*;
@@ -37,7 +38,7 @@ class EVolumeListParser extends AbstractParser<EVolumeLs> {
   @Override
   public EVolumeLs ok(DockerConfig config, DResp resp) {
     Kv kv = config.json().parse(resp.string(), Kv.class);
-    if (CollectionKit.isEmpty(kv))
+    if (Is.empty(kv))
       return null;
     EVolumeLs.Builder builder = new EVolumeLs.Builder()
       .warnings(AEExtra.stringarray(kv, "Warnings"))

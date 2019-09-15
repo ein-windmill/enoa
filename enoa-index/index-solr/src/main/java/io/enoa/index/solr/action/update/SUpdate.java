@@ -24,7 +24,7 @@ import io.enoa.index.solr.action._SolrAction;
 import io.enoa.index.solr.cqp.Wt;
 import io.enoa.index.solr.parser.SParser;
 import io.enoa.toolkit.EoConst;
-import io.enoa.toolkit.text.TextKit;
+import io.enoa.toolkit.is.Is;
 
 public class SUpdate implements _SolrAction {
 
@@ -90,7 +90,7 @@ public class SUpdate implements _SolrAction {
   @Override
   public <T> T emit(SParser<T> parser) {
 
-    if (TextKit.blanky(this.body))
+    if (Is.not().truthy(this.body))
       return null;
 
     this.http.method(HttpMethod.POST)

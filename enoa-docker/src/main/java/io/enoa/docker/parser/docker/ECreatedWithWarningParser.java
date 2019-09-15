@@ -19,6 +19,7 @@ import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dket.docker.common.ECreatedWithWarning;
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
 
 class ECreatedWithWarningParser extends AbstractParser<ECreatedWithWarning> {
@@ -34,7 +35,7 @@ class ECreatedWithWarningParser extends AbstractParser<ECreatedWithWarning> {
   @Override
   public ECreatedWithWarning ok(DockerConfig config, DResp resp) {
     Kv kv = config.json().parse(resp.string(), Kv.class);
-    if (CollectionKit.isEmpty(kv))
+    if (Is.empty(kv))
       return null;
     ECreatedWithWarning.Builder builder = new ECreatedWithWarning.Builder()
       .id(kv.string("Id"))

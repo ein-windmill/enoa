@@ -15,8 +15,8 @@
  */
 package io.enoa.docker.dket.mark;
 
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.mark.IMarkVal;
-import io.enoa.toolkit.text.TextKit;
 
 public enum DRestart implements IMarkVal {
 
@@ -38,7 +38,7 @@ public enum DRestart implements IMarkVal {
   }
 
   public static DRestart of(String val) {
-    if (TextKit.blanky(val))
+    if (Is.not().truthy(val))
       return NO;
     for (DRestart restart : DRestart.values()) {
       if (restart.val.equalsIgnoreCase(val))

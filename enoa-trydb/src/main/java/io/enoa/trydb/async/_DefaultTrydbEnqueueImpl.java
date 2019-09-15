@@ -16,13 +16,13 @@
 package io.enoa.trydb.async;
 
 import io.enoa.promise.DoneArgPromise;
+import io.enoa.promise.Promise;
 import io.enoa.promise.arg.PromiseArg;
 import io.enoa.promise.arg.PromiseCapture;
 import io.enoa.promise.arg.PromiseVoid;
 import io.enoa.promise.async.AsyncRunner;
 import io.enoa.promise.builder.EPDoneArgPromiseBuilder;
-import io.enoa.promise.Promise;
-import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.trydb.promise.TrydbPromise;
 
 import java.util.concurrent.ExecutorService;
@@ -47,11 +47,11 @@ class _DefaultTrydbEnqueueImpl<T> implements EnqueueTrydb<T> {
         String oldName = Thread.currentThread().getName();
 //        Thread.currentThread().setName(TextKit.union("ENOA-TRYDB-ENQUEUE-", oldName));
         T ret = this.executor.run();
-        if (CollectionKit.isEmpty(donearg.dones()))
+        if (Is.empty(donearg.dones()))
           return;
         donearg.dones().forEach(done -> done.execute(ret));
       } catch (Exception e) {
-        if (CollectionKit.isEmpty(donearg.captures())) {
+        if (Is.empty(donearg.captures())) {
           e.printStackTrace();
           return;
         }

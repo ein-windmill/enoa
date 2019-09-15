@@ -17,7 +17,7 @@ package io.enoa.template.provider.beetl;
 
 import io.enoa.template.EnoaTemplate;
 import io.enoa.template.EoEngineConfig;
-import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import org.beetl.core.GroupTemplate;
 import org.beetl.core.Template;
 
@@ -46,7 +46,7 @@ class _BeetlTemplate extends EnoaTemplate {
   @Override
   public String render(Map<?, ?> data) {
     Template template = this.engine.getTemplate(super.fillView(this.viewName, this.config.suffix()));
-    if (CollectionKit.notEmpty(data)) {
+    if (Is.not().empty(data)) {
       for (Object key : data.keySet()) {
         template.binding(key.toString(), data.get(key));
       }

@@ -20,6 +20,7 @@ import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dket.docker.exec.EExecInspect;
 import io.enoa.docker.dket.docker.exec.EProcessConfig;
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
 
 import java.util.Map;
@@ -38,7 +39,7 @@ class EExecInspectParser extends AbstractParser<EExecInspect> {
   @Override
   public EExecInspect ok(DockerConfig config, DResp resp) {
     Kv kv = config.json().parse(resp.string(), Kv.class);
-    if (CollectionKit.isEmpty(kv))
+    if (Is.empty(kv))
       return null;
     EExecInspect.Builder builder = new EExecInspect.Builder()
       .canremove(kv.bool("CanRemove"))

@@ -15,8 +15,6 @@
  */
 package io.enoa.docker.async.docker.eo;
 
-import io.enoa.docker.enqueue.EnqueueAssetDocker;
-import io.enoa.docker.enqueue.EnqueueDocker;
 import io.enoa.docker.command.docker.eo.EnoaDockerSwarm;
 import io.enoa.docker.command.docker.eo.EoDocker;
 import io.enoa.docker.dket.docker.DRet;
@@ -25,6 +23,8 @@ import io.enoa.docker.dket.docker.swarm.ESwarmUnlockKey;
 import io.enoa.docker.dqp.docker.swarm.DQPSwarmJoin;
 import io.enoa.docker.dqp.docker.swarm.DQPSwarmUnlock;
 import io.enoa.docker.dqp.docker.swarm.DQPSwarmUpdate;
+import io.enoa.docker.enqueue.EnqueueAssetDocker;
+import io.enoa.docker.enqueue.EnqueueDocker;
 import io.enoa.toolkit.value.Void;
 
 public class EAsyncEnoaDockerSwarm {

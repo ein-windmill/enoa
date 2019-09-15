@@ -18,9 +18,9 @@ package io.enoa.yosart;
 import io.enoa.repeater.EoxConfig;
 import io.enoa.repeater.Repeater;
 import io.enoa.repeater.http.Method;
-import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.http.UriKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.sys.EnvKit;
 import io.enoa.toolkit.thr.EoException;
 import io.enoa.yosart.kernel.data.YdAssets;
@@ -104,7 +104,7 @@ class YosartImpl extends YasartImpl {
       throw new EoException(EnoaTipKit.message("eo.tip.yosart.ext_not_router", ext.name(), ext.getClass().getName()));
 
     // register routers
-    if (CollectionKit.notEmpty(this.routerRegisters)) {
+    if (Is.not().empty(this.routerRegisters)) {
       builder.resources(OyResourced.yo().reg(this.routerRegisters));
     }
 

@@ -22,7 +22,7 @@ import io.enoa.repeater.http.Cookie;
 import io.enoa.repeater.http.Request;
 import io.enoa.repeater.http.Response;
 import io.enoa.repeater.provider.tio.server.plus._RepeaterTioRequest;
-import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.thr.EoException;
 import org.tio.http.common.HttpRequest;
 import org.tio.http.common.HttpResponse;
@@ -60,7 +60,7 @@ public class TioTranslateProvider implements RepeaterTranslateFactory<_RepeaterT
 
     oresp.setBody(resp.body().bytes(), this.packet);
 
-    if (CollectionKit.notEmpty(resp.cookies()))
+    if (Is.not().empty(resp.cookies()))
       for (Cookie cookie : resp.cookies())
         oresp.addHeader("Set-Cookie", cookie.toString());
 

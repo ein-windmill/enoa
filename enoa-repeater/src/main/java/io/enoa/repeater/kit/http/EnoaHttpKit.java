@@ -18,6 +18,7 @@ package io.enoa.repeater.kit.http;
 import io.enoa.repeater.http.Cookie;
 import io.enoa.repeater.http.Request;
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.text.TextKit;
 
 import java.util.ArrayList;
@@ -34,12 +35,12 @@ public class EnoaHttpKit {
    * @return Map
    */
   public static Map<String, List<String>> parsePara(String text) {
-    if (TextKit.blanky(text))
+    if (Is.not().truthy(text))
       return null;
     String urlPara = text;
     if (text.contains("?")) {
       urlPara = urlPara.substring(text.indexOf("?") + 1);
-      if (TextKit.blanky(urlPara))
+      if (Is.not().truthy(urlPara))
         return null;
     }
     String[] paraItems = urlPara.split("&");
@@ -51,10 +52,10 @@ public class EnoaHttpKit {
         continue;
       String name = paraItem.substring(0, eqIx),
         value = paraItem.substring(eqIx + 1);
-      if (TextKit.blanky(name) || TextKit.blanky(value))
+      if (Is.not().truthy(name) || Is.not().truthy(value))
         continue;
       List<String> pval = urlp.get(name);
-      if (CollectionKit.notEmpty(pval)) {
+      if (Is.not().empty(pval)) {
         pval.add(value);
         continue;
       }
@@ -66,20 +67,20 @@ public class EnoaHttpKit {
   }
 
   public static Cookie[] parseCookie(String cookieStr) {
-    if (TextKit.blanky(cookieStr))
+    if (Is.not().truthy(cookieStr))
       return CollectionKit.emptyArray(Cookie.class);
     List<Cookie> cookies = new ArrayList<>();
     String[] cks = cookieStr.split(";");
     for (String ck : cks) {
       String[] cnvs = ck.split("=");
-      if (CollectionKit.isEmpty(cnvs))
+      if (Is.empty(cnvs))
         continue;
       if (cnvs.length != 2)
         continue;
       String name = cnvs[0], value = cnvs[1];
-      if (TextKit.blanky(name))
+      if (Is.not().truthy(name))
         continue;
-      if (TextKit.blanky(value))
+      if (Is.not().truthy(value))
         continue;
       cookies.add(new Cookie.Builder().name(TextKit.nospace(name)).value(TextKit.nospace(value)).build());
     }
@@ -88,13 +89,13 @@ public class EnoaHttpKit {
 
   public static String parseIp(Request request) {
     String ip = request.header("x-forwarded-for");
-    if (TextKit.blankn(ip) && !"unknown".equalsIgnoreCase(ip))
+    if (Is.truthy(ip) && !"unknown".equalsIgnoreCase(ip))
       return ip;
     ip = request.header("Proxy-Client-IP");
-    if (TextKit.blankn(ip) && !"unknown".equalsIgnoreCase(ip))
+    if (Is.truthy(ip) && !"unknown".equalsIgnoreCase(ip))
       return ip;
     ip = request.header("WL-Proxy-Client-IP");
-    if (TextKit.blankn(ip) && !"unknown".equalsIgnoreCase(ip))
+    if (Is.truthy(ip) && !"unknown".equalsIgnoreCase(ip))
       return ip;
     return null;
   }

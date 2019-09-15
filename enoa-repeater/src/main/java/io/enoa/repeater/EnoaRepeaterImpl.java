@@ -26,8 +26,8 @@ import io.enoa.repeater.factory.ts.RepeaterTranslateFactory;
 import io.enoa.repeater.kit.tip.RepeaterTip;
 import io.enoa.repeater.name.OriginNameRule;
 import io.enoa.toolkit.http.UriKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
-import io.enoa.toolkit.text.TextKit;
 
 class EnoaRepeaterImpl implements Repeater {
 
@@ -139,7 +139,7 @@ class EnoaRepeaterImpl implements Repeater {
       this.ssl ? "https" : "http",
       hostname == null ? "localhost" : hostname,
       port,
-      TextKit.blanky(this.config.context()) ?
+      Is.not().truthy(this.config.context()) ?
         ("/".equals(this.config.context()) ? "" : this.config.context()) :
         (this.config.context().startsWith("/") ? this.config.context().substring(1, this.config.context().length()) :
           this.config.context())

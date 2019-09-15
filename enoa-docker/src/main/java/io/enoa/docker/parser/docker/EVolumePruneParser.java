@@ -4,6 +4,7 @@ import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dket.docker.volume.EVolumePrune;
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
 
 class EVolumePruneParser extends AbstractParser<EVolumePrune> {
@@ -19,7 +20,7 @@ class EVolumePruneParser extends AbstractParser<EVolumePrune> {
   @Override
   public EVolumePrune ok(DockerConfig config, DResp resp) {
     Kv kv = config.json().parse(resp.string(), Kv.class);
-    if (CollectionKit.isEmpty(kv))
+    if (Is.empty(kv))
       return null;
     EVolumePrune.Builder builder = new EVolumePrune.Builder()
       .spacereclaimed(kv.integer("SpaceReclaimed"))

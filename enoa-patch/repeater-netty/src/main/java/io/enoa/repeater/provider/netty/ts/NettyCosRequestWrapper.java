@@ -26,8 +26,8 @@ import io.enoa.repeater.kit.http.EnoaHttpKit;
 import io.enoa.repeater.provider.netty.server.plus._RepeaterNettyRequest;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.convert.ConvertKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.stream.StreamKit;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thr.EoException;
 import io.netty.buffer.ByteBufInputStream;
 import io.netty.handler.codec.http.HttpHeaders;
@@ -59,9 +59,9 @@ class NettyCosRequestWrapper extends EoxAbstractCosRequest {
     this.inputStream = new ByteBufInputStream(request.content());
 
     String contentType = this.header("content-type");
-    if (TextKit.blankn(contentType))
+    if (Is.truthy(contentType))
       contentType = contentType.toLowerCase();
-    if (TextKit.blankn(contentType) && contentType.startsWith("multipart/form-data"))
+    if (Is.truthy(contentType) && contentType.startsWith("multipart/form-data"))
       super.handleUpload(this.inputStream, config, rule);
   }
 
@@ -103,9 +103,9 @@ class NettyCosRequestWrapper extends EoxAbstractCosRequest {
       return this.body;
 
     String contentType = this.header("content-type");
-    if (TextKit.blankn(contentType))
+    if (Is.truthy(contentType))
       contentType = contentType.toLowerCase();
-    if (TextKit.blankn(contentType) && contentType.startsWith("multipart/form-data"))
+    if (Is.truthy(contentType) && contentType.startsWith("multipart/form-data"))
       return null;
     try {
       byte[] binary = StreamKit.bytes(this.inputStream);
@@ -169,7 +169,7 @@ class NettyCosRequestWrapper extends EoxAbstractCosRequest {
   @Override
   public String para(String name, String def) {
     String[] paras = this.paraValues(name);
-    if (CollectionKit.isEmpty(paras))
+    if (Is.empty(paras))
       return def;
     return ConvertKit.string(paras[0], def, Boolean.TRUE);
   }
@@ -212,7 +212,7 @@ class NettyCosRequestWrapper extends EoxAbstractCosRequest {
       return super.mapListToArray(ret);
     }
     String contentType = this.header("content-type");
-    if (TextKit.blanky(contentType))
+    if (Is.not().truthy(contentType))
       return super.mapListToArray(ret);
 
     contentType = contentType.toLowerCase();
@@ -228,7 +228,7 @@ class NettyCosRequestWrapper extends EoxAbstractCosRequest {
       RequestBody rb = this.body();
       if (rb != null)
         body = rb.string();
-      if (TextKit.blankn(body)) {
+      if (Is.truthy(body)) {
         Map<String, List<String>> bodyParas;
         try {
           bodyParas = EnoaHttpKit.parsePara(URLDecoder.decode(body, this.config.charset().name()));
@@ -245,7 +245,7 @@ class NettyCosRequestWrapper extends EoxAbstractCosRequest {
   @Override
   public String[] paraNames() {
     Map<String, String[]> paraMap = this.paraMap();
-    if (CollectionKit.isEmpty(paraMap))
+    if (Is.empty(paraMap))
       return CollectionKit.emptyArray(String.class);
     Set<String> paras = paraMap.keySet();
     return paras.toArray(new String[paras.size()]);
@@ -254,7 +254,7 @@ class NettyCosRequestWrapper extends EoxAbstractCosRequest {
   @Override
   public String[] paraValues(String name) {
     Map<String, String[]> paraMap = this.paraMap();
-    if (CollectionKit.isEmpty(paraMap))
+    if (Is.empty(paraMap))
       return CollectionKit.emptyArray(String.class);
     return paraMap.get(name);
   }

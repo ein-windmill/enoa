@@ -15,10 +15,10 @@
  */
 package io.enoa.http.provider.httphelper.async;
 
+import io.enoa.chunk.Chunk;
 import io.enoa.http.EoEmit;
 import io.enoa.http.EoUrl;
 import io.enoa.http.protocol.HttpResponse;
-import io.enoa.chunk.Chunk;
 import io.enoa.promise.arg.PromiseArg;
 import io.enoa.promise.arg.PromiseBool;
 import io.enoa.promise.arg.PromiseThen;

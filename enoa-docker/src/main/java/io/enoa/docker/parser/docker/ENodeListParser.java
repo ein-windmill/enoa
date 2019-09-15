@@ -4,6 +4,7 @@ import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dket.docker.node.ENode;
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ class ENodeListParser extends AbstractParser<List<ENode>> {
   @Override
   public List<ENode> ok(DockerConfig config, DResp resp) {
     List<Kv> kvs = config.json().parseArray(resp.string(), Kv.class);
-    if (CollectionKit.isEmpty(kvs))
+    if (Is.empty(kvs))
       return Collections.emptyList();
     List<ENode> rets = new ArrayList<>(kvs.size());
     kvs.forEach(kv -> rets.add(ENodeParser.instance().node(kv)));

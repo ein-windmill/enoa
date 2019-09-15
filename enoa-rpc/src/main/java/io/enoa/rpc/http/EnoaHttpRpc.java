@@ -24,8 +24,8 @@ import io.enoa.http.proxy.HttpProxy;
 import io.enoa.rpc.TcpRpc;
 import io.enoa.rpc.parser.IRpcParser;
 import io.enoa.rpc.thr.RpcException;
-import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
+import io.enoa.toolkit.is.Is;
 
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
@@ -48,7 +48,7 @@ public class EnoaHttpRpc implements TcpRpc {
     this.http = Http.use(http)
       .url(EoUrl.with(url.end()).subpath(api));
     Set<HttpHeader> headers = _HttpRpcRegister.instance().headers(name);
-    if (CollectionKit.isEmpty(headers))
+    if (Is.empty(headers))
       return;
     this.http.header(headers);
   }

@@ -15,7 +15,7 @@
  */
 package io.enoa.toolkit.eo.tip;
 
-import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.prop.Prop;
 import io.enoa.toolkit.sys.OSKit;
 import io.enoa.toolkit.text.TextKit;
@@ -57,25 +57,25 @@ class _EnoaTip implements Serializable {
   }
 
   private String format(String text, Object... args) {
-    if (TextKit.blanky(text))
+    if (Is.not().truthy(text))
       return text;
-    if (CollectionKit.isEmpty(args))
+    if (Is.empty(args))
       return text;
     Object[] fags = Stream.of(args).map(o -> o == null ? null : o.toString()).toArray(Object[]::new);
     return TextKit.format(text, fags);
   }
 
   String message(String key, Object... args) {
-    if (TextKit.blanky(key))
+    if (Is.not().truthy(key))
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.toolkit.tip_key_not_null"));
 
 //    String tip = this.prop.get(String.format("%s.%s", key, OSKit.language()));
     String tip = this.prop.get(TextKit.union(key, ".", OSKit.language()));
-    if (TextKit.blankn(tip))
+    if (Is.truthy(tip))
       return format(tip, args);
 
     tip = this.prop.get(key.concat(".default"));
-    if (TextKit.blankn(tip))
+    if (Is.truthy(tip))
       return format(tip, args);
 
     return String.format("Not found message key: `%s`", key);

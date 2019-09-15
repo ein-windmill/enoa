@@ -17,7 +17,7 @@ package io.enoa.yosart.kernel.http;
 
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
-import io.enoa.toolkit.text.TextKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.thr.EoException;
 
 import java.util.HashMap;
@@ -39,7 +39,7 @@ public class PathVariable {
   }
 
   public Object value(String name) {
-    if (TextKit.blanky(name))
+    if (Is.not().truthy(name))
       return null;
     return this.var.get(name);
   }
@@ -69,7 +69,7 @@ public class PathVariable {
     }
 
     public Builder set(String name, Object value) {
-      if (TextKit.blanky(name))
+      if (Is.not().truthy(name))
         throw new EoException(EnoaTipKit.message("eo.tip.yosart.path_var_name_not_null"));
       this.var.put(name, value);
       return this;

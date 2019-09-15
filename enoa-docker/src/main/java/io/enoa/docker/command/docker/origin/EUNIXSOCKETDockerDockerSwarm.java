@@ -15,8 +15,8 @@
  */
 package io.enoa.docker.command.docker.origin;
 
-import io.enoa.docker.dqp.docker.swarm.DQPSwarmUpdate;
 import io.enoa.docker.dket.docker.DResp;
+import io.enoa.docker.dqp.docker.swarm.DQPSwarmUpdate;
 
 public class EUNIXSOCKETDockerDockerSwarm implements EOriginDockerSwarm {
 

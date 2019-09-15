@@ -15,8 +15,8 @@
  */
 package io.enoa.toolkit.http;
 
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.mark.IMarkVal;
-import io.enoa.toolkit.text.TextKit;
 
 public class ARL {
 
@@ -40,7 +40,7 @@ public class ARL {
     }
 
     public static Protocol of(String text) {
-      if (TextKit.blanky(text))
+      if (Is.not().truthy(text))
         return null;
       for (Protocol protocol : Protocol.values()) {
         if (protocol.val.equalsIgnoreCase(text))

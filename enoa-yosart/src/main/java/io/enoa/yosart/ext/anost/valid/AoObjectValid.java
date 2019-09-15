@@ -15,8 +15,8 @@
  */
 package io.enoa.yosart.ext.anost.valid;
 
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.mark.IMark;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.yosart.kernel.http.YoRequest;
 
 public class AoObjectValid<T extends AoObjectValid> {
@@ -42,7 +42,7 @@ public class AoObjectValid<T extends AoObjectValid> {
       return target;
 
     String value = this.request.para(target);
-    if (TextKit.blankn(value))
+    if (Is.truthy(value))
       return value;
     value = this.request.variable(target);
     return value;
@@ -54,7 +54,7 @@ public class AoObjectValid<T extends AoObjectValid> {
       return (T) this;
     if (this.name == null)
       throw new ValidException(mark, message);
-    if (TextKit.blanky(this.value(this.name, this.valueMode)))
+    if (Is.not().truthy(this.value(this.name, this.valueMode)))
       throw new ValidException(mark, message);
     this.verified = true;
     return (T) this;

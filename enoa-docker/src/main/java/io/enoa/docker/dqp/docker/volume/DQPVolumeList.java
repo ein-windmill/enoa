@@ -44,7 +44,7 @@ public class DQPVolumeList extends DQPFilter<DQPVolumeList> {
   @Override
   public DQR dqr() {
 //    DQR dqr = DQR.create();
-//    if (CollectionKit.notEmpty(this.filters))
+//    if (Is.not().empty(this.filters))
 //      dqr.put("filters", Json.toJson(this.filters));
 //    return dqr;
     return super.dqr();

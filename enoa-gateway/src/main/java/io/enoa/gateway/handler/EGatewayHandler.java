@@ -29,8 +29,8 @@ import io.enoa.http.protocol.enoa.IHttpHandler;
 import io.enoa.log.Log;
 import io.enoa.repeater.EoxConfig;
 import io.enoa.repeater.http.*;
-import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.http.UriKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.value.EnoaValue;
 
@@ -67,19 +67,19 @@ public class EGatewayHandler implements GatewayHandler {
         addcros = false;
       }
       if (addcros) {
-        List<Header> crosHeaders = CollectionKit.isEmpty(gateway.crosHeaders()) ? gateway.defaultCrosHeaders() : gateway.crosHeaders();
+        List<Header> crosHeaders = Is.empty(gateway.crosHeaders()) ? gateway.defaultCrosHeaders() : gateway.crosHeaders();
         crosHeaders.forEach(header -> {
           if (header.name().equalsIgnoreCase("Access-Control-Allow-Origin")) {
             Header.Builder hbu = header.newBuilder();
             String origin = EnoaValue.with(request.header("origin")).string(request.header("x-origin"));
-            hbu.value(TextKit.blanky(origin) ? "*" : origin);
+            hbu.value(Is.not().truthy(origin) ? "*" : origin);
             builder.header(hbu.build());
             return;
           }
           if (header.name().equalsIgnoreCase("Access-Control-Allow-Headers")) {
             String acrh = EnoaValue.with(request.header("Access-Control-Request-Headers"))
               .string(request.header("X-Access-Control-Request-Headers"));
-            if (TextKit.blanky(acrh)) {
+            if (Is.not().truthy(acrh)) {
               builder.header(header);
               return;
             }
@@ -193,7 +193,7 @@ public class EGatewayHandler implements GatewayHandler {
     Http http = Http.request(callUrl);
 
     String contentType = request.header("content-type");
-    if (TextKit.blankn(contentType)) {
+    if (Is.truthy(contentType)) {
       contentType = contentType.toLowerCase();
 
       // http body 請求
@@ -234,7 +234,7 @@ public class EGatewayHandler implements GatewayHandler {
       }
     }
     String origin = request.header("origin");
-    if (TextKit.blankn(origin))
+    if (Is.truthy(origin))
       http.header("x-origin", origin);
 
     http.method(HttpMethod.of(request.method().name()));

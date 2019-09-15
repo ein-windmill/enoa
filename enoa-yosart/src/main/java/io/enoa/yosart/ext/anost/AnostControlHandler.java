@@ -20,8 +20,8 @@ import io.enoa.repeater.http.Cookie;
 import io.enoa.repeater.http.HttpStatus;
 import io.enoa.repeater.http.Method;
 import io.enoa.repeater.http.Response;
-import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.sys.ReflectKit;
 import io.enoa.toolkit.thr.EoException;
 import io.enoa.yosart.YoConfig;
@@ -106,7 +106,7 @@ class AnostControlHandler extends AbstractAnostHandler {
     Object funcRet;
     try {
       Parameter[] paras = resource.paras();
-      if (CollectionKit.isEmpty(paras)) {
+      if (Is.empty(paras)) {
         funcRet = func.invoke(ctl);
       } else {
         Object[] funcArgs = this.parasBuilder.build(request, resp, resource);

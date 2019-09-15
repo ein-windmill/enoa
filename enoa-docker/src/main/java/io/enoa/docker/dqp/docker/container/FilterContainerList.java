@@ -18,7 +18,7 @@ package io.enoa.docker.dqp.docker.container;
 import io.enoa.docker.dqp.DBack;
 import io.enoa.docker.dqp.DQR;
 import io.enoa.json.Json;
-import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
 
 import java.util.ArrayList;
@@ -100,7 +100,7 @@ public class FilterContainerList implements DBack<DQPContainerList> {
   }
 
   public FilterContainerList ancestor(String ancestor) {
-    if (CollectionKit.isEmpty(this.ancestor))
+    if (Is.empty(this.ancestor))
       this.ancestor = new ArrayList<>();
     this.ancestor.add(ancestor);
     return this;
@@ -112,7 +112,7 @@ public class FilterContainerList implements DBack<DQPContainerList> {
   }
 
   public FilterContainerList before(String before) {
-    if (CollectionKit.isEmpty(this.before))
+    if (Is.empty(this.before))
       this.before = new ArrayList<>();
     this.before.add(before);
     return this;
@@ -124,7 +124,7 @@ public class FilterContainerList implements DBack<DQPContainerList> {
   }
 
   public FilterContainerList expose(String expose) {
-    if (CollectionKit.isEmpty(this.expose))
+    if (Is.empty(this.expose))
       this.expose = new ArrayList<>();
     this.expose.add(expose);
     return this;
@@ -136,7 +136,7 @@ public class FilterContainerList implements DBack<DQPContainerList> {
   }
 
   public FilterContainerList exited(Integer exited) {
-    if (CollectionKit.isEmpty(this.exited))
+    if (Is.empty(this.exited))
       this.exited = new ArrayList<>();
     this.exited.add(exited);
     return this;
@@ -148,7 +148,7 @@ public class FilterContainerList implements DBack<DQPContainerList> {
   }
 
   public FilterContainerList health(String health) {
-    if (CollectionKit.isEmpty(this.health))
+    if (Is.empty(this.health))
       this.health = new ArrayList<>();
     this.health.add(health);
     return this;
@@ -160,7 +160,7 @@ public class FilterContainerList implements DBack<DQPContainerList> {
   }
 
   public FilterContainerList id(String id) {
-    if (CollectionKit.isEmpty(this.id))
+    if (Is.empty(this.id))
       this.id = new ArrayList<>();
     this.id.add(id);
     return this;
@@ -172,7 +172,7 @@ public class FilterContainerList implements DBack<DQPContainerList> {
   }
 
   public FilterContainerList isolation(String isolation) {
-    if (CollectionKit.isEmpty(this.isolation))
+    if (Is.empty(this.isolation))
       this.isolation = new ArrayList<>();
     this.isolation.add(isolation);
     return this;
@@ -184,7 +184,7 @@ public class FilterContainerList implements DBack<DQPContainerList> {
   }
 
   public FilterContainerList istask(Boolean istask) {
-    if (CollectionKit.isEmpty(this.istask))
+    if (Is.empty(this.istask))
       this.istask = new ArrayList<>();
     this.istask.add(istask);
     return this;
@@ -196,7 +196,7 @@ public class FilterContainerList implements DBack<DQPContainerList> {
   }
 
   public FilterContainerList label(String label) {
-    if (CollectionKit.isEmpty(this.label))
+    if (Is.empty(this.label))
       this.label = new ArrayList<>();
     this.label.add(label);
     return this;
@@ -208,7 +208,7 @@ public class FilterContainerList implements DBack<DQPContainerList> {
   }
 
   public FilterContainerList name(String name) {
-    if (CollectionKit.isEmpty(this.name))
+    if (Is.empty(this.name))
       this.name = new ArrayList<>();
     this.name.add(name);
     return this;
@@ -220,7 +220,7 @@ public class FilterContainerList implements DBack<DQPContainerList> {
   }
 
   public FilterContainerList network(String network) {
-    if (CollectionKit.isEmpty(this.network))
+    if (Is.empty(this.network))
       this.network = new ArrayList<>();
     this.network.add(network);
     return this;
@@ -232,7 +232,7 @@ public class FilterContainerList implements DBack<DQPContainerList> {
   }
 
   public FilterContainerList publish(String publish) {
-    if (CollectionKit.isEmpty(this.publish))
+    if (Is.empty(this.publish))
       this.publish = new ArrayList<>();
     this.publish.add(publish);
     return this;
@@ -244,7 +244,7 @@ public class FilterContainerList implements DBack<DQPContainerList> {
   }
 
   public FilterContainerList since(String since) {
-    if (CollectionKit.isEmpty(this.since))
+    if (Is.empty(this.since))
       this.since = new ArrayList<>();
     this.since.add(since);
     return this;
@@ -256,7 +256,7 @@ public class FilterContainerList implements DBack<DQPContainerList> {
   }
 
   public FilterContainerList status(String status) {
-    if (CollectionKit.isEmpty(this.status))
+    if (Is.empty(this.status))
       this.status = new ArrayList<>();
     this.status.add(status);
     return this;
@@ -268,7 +268,7 @@ public class FilterContainerList implements DBack<DQPContainerList> {
   }
 
   public FilterContainerList volume(String volume) {
-    if (CollectionKit.isEmpty(this.volume))
+    if (Is.empty(this.volume))
       this.volume = new ArrayList<>();
     this.volume.add(volume);
     return this;
@@ -286,35 +286,35 @@ public class FilterContainerList implements DBack<DQPContainerList> {
 
   DQR dqr() {
     Kv kv = Kv.create();
-    if (CollectionKit.notEmpty(this.ancestor))
+    if (Is.not().empty(this.ancestor))
       kv.set("ancestor", this.ancestor);
-    if (CollectionKit.notEmpty(this.before))
+    if (Is.not().empty(this.before))
       kv.set("before", this.before);
-    if (CollectionKit.notEmpty(this.expose))
+    if (Is.not().empty(this.expose))
       kv.set("expose", this.expose);
-    if (CollectionKit.notEmpty(this.exited))
+    if (Is.not().empty(this.exited))
       kv.set("exited", this.exited.stream().map(Object::toString).collect(Collectors.toList()));
-    if (CollectionKit.notEmpty(this.health))
+    if (Is.not().empty(this.health))
       kv.set("health", this.health);
-    if (CollectionKit.notEmpty(this.id))
+    if (Is.not().empty(this.id))
       kv.set("id", this.id);
-    if (CollectionKit.notEmpty(this.isolation))
+    if (Is.not().empty(this.isolation))
       kv.set("isolation", this.isolation);
-    if (CollectionKit.notEmpty(this.istask))
+    if (Is.not().empty(this.istask))
       kv.set("is-task", this.istask.stream().map(Object::toString).collect(Collectors.toList()));
-    if (CollectionKit.notEmpty(this.label))
+    if (Is.not().empty(this.label))
       kv.set("label", this.label);
-    if (CollectionKit.notEmpty(this.name))
+    if (Is.not().empty(this.name))
       kv.set("name", this.name);
-    if (CollectionKit.notEmpty(this.network))
+    if (Is.not().empty(this.network))
       kv.set("network", this.network);
-    if (CollectionKit.notEmpty(this.publish))
+    if (Is.not().empty(this.publish))
       kv.set("publish", this.publish);
-    if (CollectionKit.notEmpty(this.since))
+    if (Is.not().empty(this.since))
       kv.set("since", this.since);
-    if (CollectionKit.notEmpty(this.status))
+    if (Is.not().empty(this.status))
       kv.set("status", this.status);
-    if (CollectionKit.notEmpty(this.volume))
+    if (Is.not().empty(this.volume))
       kv.set("volume", this.volume);
     String json = Json.toJson(kv);
     kv.clear();

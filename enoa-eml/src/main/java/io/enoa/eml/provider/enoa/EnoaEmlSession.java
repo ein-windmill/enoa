@@ -79,7 +79,7 @@ public class EnoaEmlSession implements EoEmlSession {
       return;
     this.config.prop().forEach(prop::put);
 //    this.config.prop().forEach((k, v) -> {
-//      if (TextKit.blanky(k))
+//      if (Is.not().truthy(k))
 //        return;
 //      if (!k.startsWith(TextKit.union("mail.", protocol.val())))
 //        return;

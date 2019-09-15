@@ -17,17 +17,17 @@ package io.enoa.shell;
 
 import io.enoa.chunk.Chunk;
 import io.enoa.promise.DoneArgPromise;
+import io.enoa.promise.Promise;
 import io.enoa.promise.arg.PromiseArg;
 import io.enoa.promise.arg.PromiseCapture;
 import io.enoa.promise.arg.PromiseVoid;
 import io.enoa.promise.builder.EPDoneArgPromiseBuilder;
-import io.enoa.promise.Promise;
 import io.enoa.shell.reader.EShellReader;
 import io.enoa.shell.ret.ShellResult;
 import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.sys.EnvKit;
-import io.enoa.toolkit.text.TextKit;
 
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -61,14 +61,14 @@ class EnoaShell implements Shell {
   }
 
   private List<String> commands() {
-    if (CollectionKit.isEmpty(this.commands))
+    if (Is.empty(this.commands))
       return this.commands;
 
     if (this.original)
       return this.commands;
 
     String os = EnvKit.string("os.name");
-    if (TextKit.blanky(os))
+    if (Is.not().truthy(os))
       return this.commands;
 
     os = os.toLowerCase();
@@ -94,7 +94,7 @@ class EnoaShell implements Shell {
     try {
       CyclicBarrier barrier = new CyclicBarrier(2);
       List<String> commands = this.commands();
-      if (CollectionKit.isEmpty(commands))
+      if (Is.empty(commands))
         return ShellResult.create(CollectionKit.emptyArray(String.class), -1, new byte[0]);
 
       ProcessBuilder builder = new ProcessBuilder(commands)
@@ -134,7 +134,7 @@ class EnoaShell implements Shell {
       try {
         ShellResult ret = this.emit();
         List<PromiseArg<ShellResult>> dones = builder.dones();
-        if (CollectionKit.notEmpty(dones)) {
+        if (Is.not().empty(dones)) {
           dones.forEach(done -> done.execute(ret));
         }
       } catch (Exception e) {

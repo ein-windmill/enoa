@@ -17,7 +17,7 @@ package io.enoa.docker.dqp.docker.container;
 
 import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.DQR;
-import io.enoa.toolkit.text.TextKit;
+import io.enoa.toolkit.is.Is;
 
 public class DQPContainerStart implements DQP {
 
@@ -44,7 +44,7 @@ public class DQPContainerStart implements DQP {
   @Override
   public DQR dqr() {
     DQR dqr = DQR.create();
-    if (TextKit.blankn(this.detachkeys))
+    if (Is.truthy(this.detachkeys))
       dqr.put("detachKeys", this.detachkeys);
     return dqr;
   }

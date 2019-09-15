@@ -22,7 +22,7 @@ import io.enoa.rpc.Rpc;
 import io.enoa.rpc.parser.IRpcParser;
 import io.enoa.rpc.parser.ResponseType;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
-import io.enoa.toolkit.text.TextKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.thr.EoException;
 
 import java.lang.reflect.Type;
@@ -40,7 +40,7 @@ class HttpRpcHandler {
 
   static <T> T handle(HttpResponse response, Type type) {
     String contentType = response.header("content-type");
-    if (TextKit.blanky(contentType))
+    if (Is.not().truthy(contentType))
       return null;
     if (contentType.contains("application/json")) {
       HttpResponseBody body = response.body();

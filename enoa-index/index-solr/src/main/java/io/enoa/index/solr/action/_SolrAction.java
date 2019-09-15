@@ -18,9 +18,9 @@ package io.enoa.index.solr.action;
 import io.enoa.http.protocol.HttpResponse;
 import io.enoa.index.solr.parser.SParser;
 import io.enoa.promise.DoneArgPromise;
-import io.enoa.promise.builder.EPDoneArgPromiseBuilder;
 import io.enoa.promise.Promise;
-import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.promise.builder.EPDoneArgPromiseBuilder;
+import io.enoa.toolkit.is.Is;
 
 public interface _SolrAction {
 
@@ -40,11 +40,11 @@ public interface _SolrAction {
       try {
         T ret = this.emit(parser);
 
-        if (CollectionKit.isEmpty(builder.dones()))
+        if (Is.empty(builder.dones()))
           return;
         builder.dones().forEach(done -> done.execute(ret));
       } catch (Exception e) {
-        if (CollectionKit.isEmpty(builder.captures()))
+        if (Is.empty(builder.captures()))
           return;
         builder.captures().forEach(capture -> capture.execute(e));
       } finally {

@@ -24,7 +24,7 @@ import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.docker.image.*;
 import io.enoa.docker.parser.docker.DIParser;
-import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.value.Void;
 
@@ -47,7 +47,7 @@ public class EGenericDockerImage {
 
   private DRet<List<Kv>> linestolist(DResp origin) {
     String[] lines = origin.string().split("\n");
-    if (CollectionKit.isEmpty(lines))
+    if (Is.empty(lines))
       return DRet.ok(origin, Collections.emptyList());
     List<Kv> kvs = Stream.of(lines)
       .map(line -> this.config.json().parse(line, Kv.class))

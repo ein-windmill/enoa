@@ -17,7 +17,7 @@ package io.enoa.stove.template.renderer.var;
 
 import io.enoa.stove.template.ast.tree.Ast;
 import io.enoa.stove.template.thr.StoveException;
-import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.number.NumberKit;
 import io.enoa.toolkit.text.TextKit;
 
@@ -86,8 +86,8 @@ class VarValueObject {
   private Object callMethod(Method method, Object source, String senArg, Map<String, ?> attr) throws Exception {
     Class<?>[] ptypes = method.getParameterTypes();
     List<Object> args = new ArrayList<>();
-    if (CollectionKit.notEmpty(ptypes)) {
-      if (TextKit.blanky(senArg))
+    if (Is.not().empty(ptypes)) {
+      if (Is.not().truthy(senArg))
         throw new IllegalArgumentException("调用方法参数错误 => " + Arrays.toString(ptypes));
       String[] targs = senArg.split(",");
       if (ptypes.length != targs.length)
@@ -107,7 +107,7 @@ class VarValueObject {
           args.add(targ);
           continue;
         }
-        if (NumberKit.isNumber(targ)) {
+        if (Is.number(targ)) {
           if (!ptype.isAssignableFrom(Number.class))
             throw new IllegalArgumentException("参数类型错误 => " + ptype);
           args.add(NumberKit.to(targ, ptype));

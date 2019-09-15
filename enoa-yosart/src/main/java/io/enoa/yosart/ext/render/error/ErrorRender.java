@@ -20,9 +20,9 @@ import io.enoa.repeater.http.HttpStatus;
 import io.enoa.repeater.http.Request;
 import io.enoa.repeater.http.ResponseBody;
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.sys.ThrowableKit;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.yosart.Oysart;
 import io.enoa.yosart.kernel.render.YoRender;
 
@@ -70,7 +70,7 @@ class ErrorRender implements YoRender {
 
   @Override
   public String contentType() {
-    return TextKit.blanky(this.contentType) ? this.defContentType : this.contentType;
+    return Is.not().truthy(this.contentType) ? this.defContentType : this.contentType;
   }
 
   @Override
@@ -122,11 +122,11 @@ class ErrorRender implements YoRender {
         "</html>",
       this.charset.name(),
       this.stat == null ? HttpStatus.INTERNAL_ERROR.code() : this.stat.code(),
-      TextKit.blanky(title) ? "" : "-> ".concat(title),
+      Is.not().truthy(title) ? "" : "-> ".concat(title),
       this.stat == null ? HttpStatus.INTERNAL_ERROR.code() : this.stat.code(),
       Oysart.version(),
-      TextKit.blanky(title) ? "" : "<br><br><article>-> ".concat(title).concat("</article>"),
-      TextKit.blanky(body.toString()) ? "" : "<hr/><div class=\"body\">".concat(body.toString()).concat("</div>")
+      Is.not().truthy(title) ? "" : "<br><br><article>-> ".concat(title).concat("</article>"),
+      Is.not().truthy(body.toString()) ? "" : "<hr/><div class=\"body\">".concat(body.toString()).concat("</div>")
     );
   }
 

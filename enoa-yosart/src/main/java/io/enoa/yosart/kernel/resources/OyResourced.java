@@ -20,6 +20,7 @@ import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.http.UriKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.text.PadKit;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thr.EoException;
@@ -123,7 +124,7 @@ public class OyResourced {
     if (message.length() < 70)
       message = PadKit.rpad(message, " ", 70 - message.length());
 
-    message = message.concat(String.format(" %s", CollectionKit.isEmpty(methods) ?
+    message = message.concat(String.format(" %s", Is.empty(methods) ?
       "[ALL]" : "[".concat(String.join(", ", Stream.of(methods).map(Enum::name).collect(Collectors.toSet()))).concat("]")));
 
     if (message.length() < 95)
@@ -192,7 +193,7 @@ public class OyResourced {
       for (OyResource resource : resources) {
         Method[] regMethods = resource.methods();
         // 如果當前註冊的 uri 以及 已註冊的 uri 都不存在 method, 則判定重複
-        if (CollectionKit.isEmpty(methods) || CollectionKit.isEmpty(regMethods))
+        if (Is.empty(methods) || Is.empty(regMethods))
           return true;
 
         // 如果當前註冊的 uri method 存在與 已註冊的相同 uri 的 method 則判斷重複
@@ -210,14 +211,14 @@ public class OyResourced {
   }
 
   private String mergeUri(String uri0, String uri1) {
-    if (TextKit.blanky(uri0) || "/".equals(uri0))
+    if (Is.not().truthy(uri0) || "/".equals(uri0))
       return uri1;
-    if (TextKit.blanky(uri1) || "/".equals(uri1))
+    if (Is.not().truthy(uri1) || "/".equals(uri1))
       return uri0;
 
     uri0 = UriKit.correct(uri0);
     uri1 = UriKit.correct(uri1);
-    if (TextKit.blanky(uri1))
+    if (Is.not().truthy(uri1))
       return uri0;
     return uri0.concat(uri1);
   }
@@ -231,7 +232,7 @@ public class OyResourced {
     Method[] methods = method == null ? CollectionKit.emptyArray(Method.class) : new Method[]{method};
     if (this.exists(uri, methods))
       throw new EoException(EnoaTipKit.message("eo.tip.yosart.resource_reg_uri_already_reg", uri,
-        CollectionKit.isEmpty(methods) ? "ALL" : String.join(", ", Stream.of(methods).map(Enum::name).collect(Collectors.toSet())),
+        Is.empty(methods) ? "ALL" : String.join(", ", Stream.of(methods).map(Enum::name).collect(Collectors.toSet())),
         action.getClass().getName()));
 
     java.lang.reflect.Method func;
@@ -267,21 +268,21 @@ public class OyResourced {
       if (action == null) {
         methodUri = methodName;
       } else {
-        if (CollectionKit.notEmpty(action.method()))
+        if (Is.not().empty(action.method()))
           httpMethods = Arrays.stream(action.method()).collect(Collectors.toList());
-        methodUri = TextKit.blanky(action.uri()) && TextKit.blanky(action.value()) ? null :
-          (TextKit.blanky(action.uri()) ? action.value() : action.uri());
+        methodUri = Is.not().truthy(action.uri()) && Is.not().truthy(action.value()) ? null :
+          (Is.not().truthy(action.uri()) ? action.value() : action.uri());
         if (methodUri == null)
           methodUri = methodName;
       }
-      if (TextKit.blankn(methodUri)) {
+      if (Is.truthy(methodUri)) {
         methodUri = UriKit.correct(methodUri);
         methodUri = methodUri.endsWith("/index") ? methodUri.substring(0, methodUri.lastIndexOf("/index")) : methodUri;
         newUri.append(methodUri);
       }
       if (this.exists(newUri.toString(), httpMethods.toArray(new Method[httpMethods.size()])))
         throw new EoException(EnoaTipKit.message("eo.tip.yosart.resource_reg_uri_already_reg", newUri.toString(),
-          CollectionKit.isEmpty(httpMethods) ? "ALL" : String.join(", ", httpMethods.stream().map(Enum::name).collect(Collectors.toSet())),
+          Is.empty(httpMethods) ? "ALL" : String.join(", ", httpMethods.stream().map(Enum::name).collect(Collectors.toSet())),
           control.getName()));
 
 

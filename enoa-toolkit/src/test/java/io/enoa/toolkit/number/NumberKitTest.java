@@ -40,7 +40,7 @@ public class NumberKitTest {
   @Test
   public void isNumber() {
     String text = "-4.3";
-    boolean ret = NumberKit.isNumber(text);
+    boolean ret = Is.number(text);
     System.out.println(ret);
   }
 

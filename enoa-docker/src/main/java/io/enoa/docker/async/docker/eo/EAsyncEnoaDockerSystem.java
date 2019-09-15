@@ -15,8 +15,6 @@
  */
 package io.enoa.docker.async.docker.eo;
 
-import io.enoa.docker.enqueue.EnqueueAssetDocker;
-import io.enoa.docker.enqueue.EnqueueDocker;
 import io.enoa.docker.command.docker.eo.EnoaDockerSystem;
 import io.enoa.docker.command.docker.eo.EoDocker;
 import io.enoa.docker.dket.docker.DRet;
@@ -27,6 +25,8 @@ import io.enoa.docker.dket.docker.system.EYVersion;
 import io.enoa.docker.dket.docker.system.Edf;
 import io.enoa.docker.dqp.docker.system.DQPMonitor;
 import io.enoa.docker.dqp.docker.system.DQPSystemAuth;
+import io.enoa.docker.enqueue.EnqueueAssetDocker;
+import io.enoa.docker.enqueue.EnqueueDocker;
 
 public class EAsyncEnoaDockerSystem {
 

@@ -21,8 +21,8 @@ import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.convert.ConvertKit;
 import io.enoa.toolkit.date.DateKit;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.number.NumberKit;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.yosart.ext.anost.para.Para;
 import io.enoa.yosart.ext.anost.para.Paras;
 import io.enoa.yosart.kernel.http.YoRequest;
@@ -75,7 +75,7 @@ class AnostParasBuilder {
    */
   private String parseValue(YoRequest request, ParaVal pval) {
     String val = request.para(pval.name);
-    if (TextKit.blankn(val))
+    if (Is.truthy(val))
       return val;
     val = request.variable(pval.name);
     return val == null ? pval.def : val;
@@ -127,7 +127,7 @@ class AnostParasBuilder {
     }
 
     String[] vals = request.paraValues(pval.name);
-    if (CollectionKit.isEmpty(vals)) {
+    if (Is.empty(vals)) {
       if (isArray) {
         return CollectionKit.emptyArray(componentType);
       }
@@ -161,7 +161,7 @@ class AnostParasBuilder {
     }
     if (File.class.isAssignableFrom(componentType)) {
       UFile[] ufiles = request.files(pval.name);
-      if (CollectionKit.isEmpty(ufiles))
+      if (Is.empty(ufiles))
         return colecs;
       for (UFile ufile : ufiles) {
         colecs.add(ufile.file());
@@ -284,7 +284,7 @@ class AnostParasBuilder {
       pas.add(para);
     }
 
-    if (CollectionKit.isEmpty(pas))
+    if (Is.empty(pas))
       return Collections.emptyList();
 
     if (pas != null) {
@@ -292,9 +292,9 @@ class AnostParasBuilder {
         .map(p ->
           new ParaVal(
             p.index() == -1 ? null : p.index(),
-            TextKit.blanky(p.value()) ? null : p.value(),
-            TextKit.blanky(p.def()) ? null : p.def(),
-            TextKit.blanky(p.format()) ? null : p.format())
+            Is.not().truthy(p.value()) ? null : p.value(),
+            Is.not().truthy(p.def()) ? null : p.def(),
+            Is.not().truthy(p.format()) ? null : p.format())
         ).collect(Collectors.toList());
     }
 
@@ -316,7 +316,7 @@ class AnostParasBuilder {
     }
 
     private ParaVal(Integer ix, String name, String def, String format) {
-      if (TextKit.nully(name))
+      if (Is.not().truthy(name))
         throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.yosart.ext.anost.paras_val_name_null"));
       this.ix = ix;
       this.name = name;

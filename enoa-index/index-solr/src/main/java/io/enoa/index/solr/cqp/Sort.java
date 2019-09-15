@@ -16,6 +16,7 @@
 package io.enoa.index.solr.cqp;
 
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.text.TextKit;
 
 import java.io.Serializable;
@@ -26,7 +27,7 @@ public class Sort implements Serializable {
   private OrderBy order;
 
   public Sort(String field, OrderBy order) {
-    if (TextKit.blanky(field))
+    if (Is.not().truthy(field))
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.solr.cqp_sort_field_null"));
     if (order == null)
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.solr.cqp_sort_order_null"));

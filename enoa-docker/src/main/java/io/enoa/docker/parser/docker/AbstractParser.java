@@ -21,8 +21,8 @@ import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.thr.DockerException;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
-import io.enoa.toolkit.text.TextKit;
 
 abstract class AbstractParser<T> implements DIParser<T> {
 
@@ -45,7 +45,7 @@ abstract class AbstractParser<T> implements DIParser<T> {
     if ("application/json".equalsIgnoreCase(contenttype) ||
       "text/plain".equalsIgnoreCase(contenttype)) {
       String origin = resp.string();
-      if (TextKit.blanky(origin))
+      if (Is.not().truthy(origin))
         return DRet.ok(resp, this.ok(config, resp));
 
       if (origin.charAt(0) != '{') {
@@ -56,7 +56,7 @@ abstract class AbstractParser<T> implements DIParser<T> {
 
       Kv kv = config.json().parse(origin, Kv.class);
       try {
-        if (TextKit.blankn(kv.string("message")))
+        if (Is.truthy(kv.string("message")))
           return DRet.fail(resp, kv.string("message"));
         return DRet.ok(resp, this.ok(config, resp));
       } finally {

@@ -19,6 +19,7 @@ import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dket.docker.image.EICommit;
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
 
 class EImageCommitParser extends AbstractParser<EICommit> {
@@ -34,7 +35,7 @@ class EImageCommitParser extends AbstractParser<EICommit> {
   @Override
   public EICommit ok(DockerConfig config, DResp resp) {
     Kv kv = config.json().parse(resp.string(), Kv.class);
-    if (CollectionKit.isEmpty(kv))
+    if (Is.empty(kv))
       return null;
     EICommit.Builder builder = new EICommit.Builder()
       .id(kv.string("id"));

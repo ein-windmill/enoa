@@ -16,11 +16,8 @@
 package io.enoa.yosart.resp;
 
 import io.enoa.repeater.http.*;
-import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 
-import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,12 +67,12 @@ class RespImpl extends RendererImpl implements Resp {
     if (this.stat != null) {
       builder.status(this.stat);
     }
-    if (CollectionKit.notEmpty(this.cookies)) {
+    if (Is.not().empty(this.cookies)) {
       for (Cookie cookie : this.cookies) {
         builder.cookie(cookie);
       }
     }
-    if (CollectionKit.notEmpty(this.headers)) {
+    if (Is.not().empty(this.headers)) {
       for (Header header : this.headers) {
         builder.header(header.name(), header.value());
       }

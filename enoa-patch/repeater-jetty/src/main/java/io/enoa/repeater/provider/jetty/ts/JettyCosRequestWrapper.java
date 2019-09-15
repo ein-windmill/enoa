@@ -24,6 +24,7 @@ import io.enoa.repeater.http.Request;
 import io.enoa.repeater.http.RequestBody;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.convert.ConvertKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.stream.StreamKit;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thr.EoException;
@@ -47,9 +48,9 @@ class JettyCosRequestWrapper extends EoxAbstractCosRequest {
 
     // 鉴定是文件上传才进行解析, 不阻挡 post data 解析
     String contentType = this.header("content-type");
-    if (TextKit.blankn(contentType))
+    if (Is.truthy(contentType))
       contentType = contentType.toLowerCase();
-    if (TextKit.blankn(contentType) && contentType.startsWith("multipart/form-data"))
+    if (Is.truthy(contentType) && contentType.startsWith("multipart/form-data"))
       super.handleUpload(request.getInputStream(), config, rule);
   }
 
@@ -77,7 +78,7 @@ class JettyCosRequestWrapper extends EoxAbstractCosRequest {
   @Override
   public String url() {
     String qs = this.request.getQueryString();
-    if (TextKit.blanky(qs))
+    if (Is.not().truthy(qs))
       return this.request.getRequestURL().toString();
 //    return String.format("%s?%s", this.request.getRequestURL().toString(), qs);
     return TextKit.union(this.request.getRequestURL().toString(), "?", qs);
@@ -90,9 +91,9 @@ class JettyCosRequestWrapper extends EoxAbstractCosRequest {
         return this.body;
 
       String contentType = this.header("content-type");
-      if (TextKit.blankn(contentType))
+      if (Is.truthy(contentType))
         contentType = contentType.toLowerCase();
-      if (TextKit.blankn(contentType) && contentType.startsWith("multipart/form-data"))
+      if (Is.truthy(contentType) && contentType.startsWith("multipart/form-data"))
         return null;
 
       byte[] binary = StreamKit.bytes(this.request.getInputStream());
@@ -109,7 +110,7 @@ class JettyCosRequestWrapper extends EoxAbstractCosRequest {
       return this.cookies;
 
     javax.servlet.http.Cookie[] cookies = this.request.getCookies();
-    if (CollectionKit.isEmpty(cookies))
+    if (Is.empty(cookies))
       return CollectionKit.emptyArray(Cookie.class);
     this.cookies = Stream.of(cookies)
       .map(c -> {
@@ -145,7 +146,7 @@ class JettyCosRequestWrapper extends EoxAbstractCosRequest {
   @Override
   public Integer cookieToInt(String name, Integer def) {
     String val = this.cookie(name);
-    if (TextKit.blanky(val))
+    if (Is.not().truthy(val))
       return def;
     return ConvertKit.integer(val);
   }
@@ -153,7 +154,7 @@ class JettyCosRequestWrapper extends EoxAbstractCosRequest {
   @Override
   public Long cookieToLong(String name, Long def) {
     String val = this.cookie(name);
-    if (TextKit.blanky(val))
+    if (Is.not().truthy(val))
       return def;
     return ConvertKit.longer(val);
   }
@@ -179,7 +180,7 @@ class JettyCosRequestWrapper extends EoxAbstractCosRequest {
   @Override
   public String para(String name, String def) {
     String[] paras = this.paraValues(name);
-    if (CollectionKit.isEmpty(paras))
+    if (Is.empty(paras))
       return def;
     return ConvertKit.string(paras[0], def, Boolean.TRUE);
   }
@@ -220,7 +221,7 @@ class JettyCosRequestWrapper extends EoxAbstractCosRequest {
   @Override
   public String[] paraNames() {
     Map<String, String[]> paraMap = this.paraMap();
-    if (CollectionKit.isEmpty(paraMap))
+    if (Is.empty(paraMap))
       return CollectionKit.emptyArray(String.class);
     Set<String> paras = paraMap.keySet();
     return paras.toArray(new String[paras.size()]);
@@ -229,7 +230,7 @@ class JettyCosRequestWrapper extends EoxAbstractCosRequest {
   @Override
   public String[] paraValues(String name) {
     Map<String, String[]> paraMap = this.paraMap();
-    if (CollectionKit.isEmpty(paraMap))
+    if (Is.empty(paraMap))
       return CollectionKit.emptyArray(String.class);
     return paraMap.get(name);
   }

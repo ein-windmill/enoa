@@ -18,7 +18,7 @@ package io.enoa.toolkit.http;
 import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.convert.ConvertKit;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
-import io.enoa.toolkit.number.NumberKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.text.TextReader;
 
@@ -114,7 +114,7 @@ public class UrlKit {
   }
 
   public static ARL analysis(String url) {
-    if (TextKit.blanky(url))
+    if (Is.not().truthy(url))
       return null;
     url = correct(url);
     String skipcaseurl = url.toLowerCase();
@@ -161,10 +161,10 @@ public class UrlKit {
     String _p = port.toString();
     builder.protocol(protocol)
       .host(host.toString())
-      .port(NumberKit.isNumber(_p) ? ConvertKit.integer(_p) : protocol == ARL.Protocol.HTTP ? 80 : 443)
-      .remain(TextKit.blanky(remain) ? null : remain)
-      .path(TextKit.blanky(path) ? null : path)
-      .paras(TextKit.blanky(paras) ? null : paras);
+      .port(Is.number(_p) ? ConvertKit.integer(_p) : protocol == ARL.Protocol.HTTP ? 80 : 443)
+      .remain(Is.not().truthy(remain) ? null : remain)
+      .path(Is.not().truthy(path) ? null : path)
+      .paras(Is.not().truthy(paras) ? null : paras);
     host.delete(0, host.length());
     port.delete(0, port.length());
     return builder.build();

@@ -16,8 +16,8 @@
 package io.enoa.toolkit.ansi;
 
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.number.NumberKit;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.text.TextReader;
 
 import java.util.ArrayList;
@@ -146,7 +146,7 @@ class ANSIWrapper {
     for (String item : items) {
       if (item.length() != 1)
         continue;
-      if (!NumberKit.isDigit(item))
+      if (!Is.digit(item))
         continue;
       return ANSI.Style.of(NumberKit.integer(item));
     }
@@ -160,7 +160,7 @@ class ANSIWrapper {
         continue;
       if (item.charAt(0) == '3')
         continue;
-      if (!NumberKit.isDigit(item))
+      if (!Is.digit(item))
         continue;
       return ANSI.Background.of(NumberKit.integer(item));
     }
@@ -174,7 +174,7 @@ class ANSIWrapper {
         continue;
       if (item.charAt(0) == '4')
         continue;
-      if (!NumberKit.isDigit(item))
+      if (!Is.digit(item))
         continue;
       return ANSI.Color.of(NumberKit.integer(item));
     }
@@ -182,7 +182,7 @@ class ANSIWrapper {
   }
 
   private String[] items(String format) {
-    if (TextKit.blanky(format))
+    if (Is.not().truthy(format))
       return CollectionKit.emptyArray(String.class);
     format = format.substring(1);
     format = format.substring(0, format.endsWith(";m") ? format.length() - 2 : format.length() - 1);

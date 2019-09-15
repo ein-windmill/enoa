@@ -19,8 +19,7 @@ import com.jfinal.template.Engine;
 import io.enoa.template.EnoaEngine;
 import io.enoa.template.EnoaTemplate;
 import io.enoa.template.EoEngineConfig;
-import io.enoa.toolkit.collection.CollectionKit;
-import io.enoa.toolkit.text.TextKit;
+import io.enoa.toolkit.is.Is;
 
 import java.util.stream.Stream;
 
@@ -41,7 +40,7 @@ class _EnjoyEngine extends EnoaEngine {
 
     this.engine.setBaseTemplatePath(cfg.viewPath());
     this.engine.setDevMode(cfg.debug());
-    if (TextKit.blankn(cfg.datePattern()))
+    if (Is.truthy(cfg.datePattern()))
       this.engine.setDatePattern(cfg.datePattern());
 
     this.engine.setEncoding(cfg.charset().name());
@@ -55,26 +54,26 @@ class _EnjoyEngine extends EnoaEngine {
 
 
     this.engine.setWriterBufferSize(cfg.bufferSize());
-    if (CollectionKit.notEmpty(cfg.sharedFunctionSources()))
+    if (Is.not().empty(cfg.sharedFunctionSources()))
       cfg.sharedFunctionSources().forEach(f -> this.engine.addSharedFunction(f));
 
-    if (CollectionKit.notEmpty(cfg.sharedFunctionString()))
+    if (Is.not().empty(cfg.sharedFunctionString()))
       Stream.of(cfg.sharedFunctionString()).forEach(f -> this.engine.addSharedFunction(f));
 
-    if (CollectionKit.notEmpty(cfg.directives()))
+    if (Is.not().empty(cfg.directives()))
       Stream.of(cfg.directives()).forEach(d -> this.engine.addDirective(d.name(), d.clazz()));
 
-    if (CollectionKit.notEmpty(cfg.sharedMethods()))
+    if (Is.not().empty(cfg.sharedMethods()))
       Stream.of(cfg.sharedMethods()).forEach(s -> this.engine.addSharedMethod(s));
 
-    if (CollectionKit.notEmpty(cfg.sharedObjects()))
+    if (Is.not().empty(cfg.sharedObjects()))
       Stream.of(cfg.sharedObjects()).forEach(s -> this.engine.addSharedObject(s.name(), s.value()));
 //    this.engine.addSharedFunctionByString();
 //
 //    if (cfg.sharedObjectName() != null && cfg.sharedObjectValue() != null)
 //    this.engine.addSharedObject(cfg.sharedObjectName(), config);
 
-    if (CollectionKit.notEmpty(cfg.sharedStaticMethods()))
+    if (Is.not().empty(cfg.sharedStaticMethods()))
       Stream.of(cfg.sharedStaticMethods()).forEach(s -> this.engine.addSharedStaticMethod(s));
 
     this.template = new _EnjoyTemplate(this.engine, cfg);

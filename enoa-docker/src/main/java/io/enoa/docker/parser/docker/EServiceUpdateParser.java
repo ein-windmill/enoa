@@ -19,6 +19,7 @@ import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dket.docker.service.EServiceUpdate;
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
 
 class EServiceUpdateParser extends AbstractParser<EServiceUpdate> {
@@ -33,7 +34,7 @@ class EServiceUpdateParser extends AbstractParser<EServiceUpdate> {
   @Override
   public EServiceUpdate ok(DockerConfig config, DResp resp) {
     Kv kv = config.json().parse(resp.string(), Kv.class);
-    if (CollectionKit.isEmpty(kv))
+    if (Is.empty(kv))
       return null;
     EServiceUpdate.Builder builder = new EServiceUpdate.Builder()
       .warning(kv.string("Warning"));

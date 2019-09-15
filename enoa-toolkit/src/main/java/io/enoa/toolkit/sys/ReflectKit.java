@@ -15,7 +15,7 @@
  */
 package io.enoa.toolkit.sys;
 
-import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thr.EoReflectException;
 
@@ -53,7 +53,7 @@ public class ReflectKit {
     sb.append(method.getName());
     sb.append("(");
     Parameter[] paras = method.getParameters();
-    if (CollectionKit.notEmpty(paras)) {
+    if (Is.not().empty(paras)) {
       int i = 0;
       for (Parameter para : paras) {
         sb.append(para.getName()).append("::").append(para.getType().getName());

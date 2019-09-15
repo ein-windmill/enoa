@@ -16,8 +16,8 @@
 package io.enoa.yosart.ext.anost;
 
 import io.enoa.repeater.http.Method;
-import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.http.UriKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.sys.ReflectKit;
 import io.enoa.yosart.ext.anost.hook.Hook;
 import io.enoa.yosart.ext.anost.hook.HookException;
@@ -63,7 +63,7 @@ class AnostHookRunner {
     /*
     優先添加全局 hook
      */
-    CACHE_OPTIONS = CollectionKit.isEmpty(hookMgr.globalLoads()) ? new ArrayList<>() : new ArrayList<>(hookMgr.globalLoads());
+    CACHE_OPTIONS = Is.empty(hookMgr.globalLoads()) ? new ArrayList<>() : new ArrayList<>(hookMgr.globalLoads());
 
     /*
     优先加入规则配置 Hook
@@ -100,7 +100,7 @@ class AnostHookRunner {
     /*
     优先执行全局 Hook
      */
-    if (CollectionKit.notEmpty(hookMgr.globalLoads())) {
+    if (Is.not().empty(hookMgr.globalLoads())) {
       ihooks.addAll(hookMgr.globalLoads());
     }
 
@@ -115,7 +115,7 @@ class AnostHookRunner {
     Hook hook = resource.func().getAnnotation(Hook.class);
     if (hook != null) {
       Class<? extends IHook>[] ihookClazz = hook.value();
-      if (CollectionKit.notEmpty(ihookClazz)) {
+      if (Is.not().empty(ihookClazz)) {
         for (Class<? extends IHook> clazz : ihookClazz) {
           IHook annohook = ReflectKit.newInstance(clazz);
           ihooks.add(annohook);
@@ -140,7 +140,7 @@ class AnostHookRunner {
   private void loadHooks(YoRequest request, AnostHookMgr hookMgr, List<IHook> rets) {
     String uri = UriKit.rmcontext(request.context(), request.uri());
     List<HookLoad> loads = hookMgr.loads();
-    if (CollectionKit.isEmpty(loads))
+    if (Is.empty(loads))
       return;
 
     loads.forEach(load -> {
@@ -165,16 +165,16 @@ class AnostHookRunner {
 
   private void unloadGlobalHooks(AnostHookMgr hookMgr, List<IHook> rets) {
     List<Class<? extends IHook>> hks = hookMgr.globalUnloads();
-    if (CollectionKit.isEmpty(hks))
+    if (Is.empty(hks))
       return;
     hks.forEach(hk -> this.clearHook(hk, rets));
   }
 
   private void unloadHooks(YoRequest request, AnostHookMgr hookMgr, List<IHook> rets) {
-    if (CollectionKit.isEmpty(rets))
+    if (Is.empty(rets))
       return;
     List<HookUnload> unloads = hookMgr.unloads();
-    if (CollectionKit.isEmpty(unloads))
+    if (Is.empty(unloads))
       return;
     String uri = UriKit.rmcontext(request.context(), request.uri());
 

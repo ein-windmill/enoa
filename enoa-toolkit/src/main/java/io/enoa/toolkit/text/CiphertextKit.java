@@ -16,6 +16,7 @@
 package io.enoa.toolkit.text;
 
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
+import io.enoa.toolkit.is.Is;
 
 import java.util.Arrays;
 
@@ -49,7 +50,7 @@ public class CiphertextKit {
   }
 
   public static String left(String text, int len, String placeholder) {
-    if (TextKit.nully(placeholder))
+    if (Is.nullx(placeholder))
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.toolkit.str_ciphertext_placeholder_null"));
     return encrypt(Direction.LEFT, text, len, placeholder.charAt(0));
   }
@@ -63,7 +64,7 @@ public class CiphertextKit {
   }
 
   public static String right(String text, int len, String placeholder) {
-    if (TextKit.nully(placeholder))
+    if (Is.nullx(placeholder))
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.toolkit.str_ciphertext_placeholder_null"));
     return encrypt(Direction.RIGHT, text, len, placeholder.charAt(0));
   }
@@ -77,7 +78,7 @@ public class CiphertextKit {
   }
 
   public static String middle(String text, int len, String placeholder) {
-    if (TextKit.nully(placeholder))
+    if (Is.nullx(placeholder))
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.toolkit.str_ciphertext_placeholder_null"));
     return encrypt(Direction.MIDDLE, text, len, placeholder.charAt(0));
   }

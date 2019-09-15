@@ -15,13 +15,14 @@
  */
 package io.enoa.docker.parser.docker;
 
-import io.enoa.docker.parser.__PEXtra;
 import io.enoa.docker.dket.docker.common.ETLSInfo;
 import io.enoa.docker.dket.docker.container.*;
 import io.enoa.docker.dket.docker.dockerinfo.ERuntimes;
 import io.enoa.docker.dket.docker.swarm.EVersion;
+import io.enoa.docker.parser.__PEXtra;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.date.DateKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
 
 import java.util.*;
@@ -58,7 +59,7 @@ class AEExtra extends __PEXtra {
     if (!(hostconfig instanceof Map))
       return null;
     Kv hgm = Kv.by((Map) hostconfig);
-    if (CollectionKit.isEmpty(hgm))
+    if (Is.empty(hgm))
       return null;
     EHostConfig.Builder hcgb = new EHostConfig.Builder()
       .maximumiops(hgm.integer("MaximumIOps"))

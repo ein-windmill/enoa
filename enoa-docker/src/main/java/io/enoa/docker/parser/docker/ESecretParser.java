@@ -22,6 +22,7 @@ import io.enoa.docker.dket.docker.secret.ESecret;
 import io.enoa.docker.dket.docker.secret.ESecretSpec;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.date.DateKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
 
 import java.util.Map;
@@ -45,7 +46,7 @@ class ESecretParser extends AbstractParser<ESecret> {
   }
 
   ESecret secret(Kv kv) {
-    if (CollectionKit.isEmpty(kv))
+    if (Is.empty(kv))
       return null;
     ESecret.Builder builder = new ESecret.Builder()
       .id(kv.string("ID"))

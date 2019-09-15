@@ -25,8 +25,8 @@ import io.enoa.toolkit.alg.UnitConvKit;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.convert.ConvertKit;
 import io.enoa.toolkit.file.FileKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.stream.StreamKit;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thr.EoException;
 import io.netty.buffer.ByteBufInputStream;
 import io.netty.handler.codec.http.HttpHeaders;
@@ -62,9 +62,9 @@ class NettyRequestWrapper extends EoxAbstractRequest {
     this.inputStream = new ByteBufInputStream(request.content());
 
     String contentType = this.header("content-type");
-    if (TextKit.blankn(contentType))
+    if (Is.truthy(contentType))
       contentType = contentType.toLowerCase();
-    if (TextKit.blankn(contentType) && contentType.startsWith("multipart/form-data")) {
+    if (Is.truthy(contentType) && contentType.startsWith("multipart/form-data")) {
 
       String clength = this.header("content-length");
       Long contentLength = Long.parseLong(clength);
@@ -122,9 +122,9 @@ class NettyRequestWrapper extends EoxAbstractRequest {
       return this.body;
 
     String contentType = this.header("content-type");
-    if (TextKit.blankn(contentType))
+    if (Is.truthy(contentType))
       contentType = contentType.toLowerCase();
-    if (TextKit.blankn(contentType) && contentType.startsWith("multipart/form-data"))
+    if (Is.truthy(contentType) && contentType.startsWith("multipart/form-data"))
       return null;
     try {
       byte[] binary = StreamKit.bytes(this.inputStream);
@@ -188,7 +188,7 @@ class NettyRequestWrapper extends EoxAbstractRequest {
   @Override
   public String para(String name, String def) {
     String[] paras = this.paraValues(name);
-    if (CollectionKit.isEmpty(paras))
+    if (Is.empty(paras))
       return def;
     return ConvertKit.string(paras[0], def, Boolean.TRUE);
   }
@@ -231,7 +231,7 @@ class NettyRequestWrapper extends EoxAbstractRequest {
       return super.mapListToArray(ret);
     }
     String contentType = this.header("content-type");
-    if (TextKit.blanky(contentType))
+    if (Is.not().truthy(contentType))
       return super.mapListToArray(ret);
 
     contentType = contentType.toLowerCase();
@@ -247,7 +247,7 @@ class NettyRequestWrapper extends EoxAbstractRequest {
       RequestBody rb = this.body();
       if (rb != null)
         body = rb.string();
-      if (TextKit.blankn(body)) {
+      if (Is.truthy(body)) {
         Map<String, List<String>> bodyParas;
         try {
           bodyParas = EnoaHttpKit.parsePara(URLDecoder.decode(body, this.config.charset().name()));
@@ -264,7 +264,7 @@ class NettyRequestWrapper extends EoxAbstractRequest {
   @Override
   public String[] paraNames() {
     Map<String, String[]> paraMap = this.paraMap();
-    if (CollectionKit.isEmpty(paraMap))
+    if (Is.empty(paraMap))
       return CollectionKit.emptyArray(String.class);
     Set<String> paras = paraMap.keySet();
     return paras.toArray(new String[paras.size()]);
@@ -273,7 +273,7 @@ class NettyRequestWrapper extends EoxAbstractRequest {
   @Override
   public String[] paraValues(String name) {
     Map<String, String[]> paraMap = this.paraMap();
-    if (CollectionKit.isEmpty(paraMap))
+    if (Is.empty(paraMap))
       return CollectionKit.emptyArray(String.class);
     return paraMap.get(name);
   }
@@ -333,7 +333,7 @@ class NettyRequestWrapper extends EoxAbstractRequest {
   @Override
   public UFile file(String name) {
     UFile[] files = this.files(name);
-    if (CollectionKit.isEmpty(files))
+    if (Is.empty(files))
       return null;
     return files[0];
   }

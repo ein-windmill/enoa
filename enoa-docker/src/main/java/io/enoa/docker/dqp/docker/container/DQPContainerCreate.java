@@ -20,8 +20,8 @@ import io.enoa.docker.dket.mark.DRestart;
 import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.DQR;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
-import io.enoa.toolkit.number.NumberKit;
 import io.enoa.toolkit.text.TextKit;
 
 import java.util.ArrayList;
@@ -167,7 +167,7 @@ public class DQPContainerCreate implements DQP {
   }
 
   public DQPContainerCreate attach(String attach) {
-    if (TextKit.blanky(attach))
+    if (Is.not().truthy(attach))
       return this;
     if (this.attach == null)
       this.attach = new ArrayList<>();
@@ -195,7 +195,7 @@ public class DQPContainerCreate implements DQP {
   }
 
   public DQPContainerCreate env(String env) {
-    if (TextKit.blanky(env))
+    if (Is.not().truthy(env))
       return this;
     if (this.env == null)
       this.env = new ArrayList<>();
@@ -221,7 +221,7 @@ public class DQPContainerCreate implements DQP {
   }
 
   public DQPContainerCreate publish(String publish) {
-    if (TextKit.blanky(publish))
+    if (Is.not().truthy(publish))
       return this;
     if (this.publish == null)
       this.publish = new ArrayList<>();
@@ -240,7 +240,7 @@ public class DQPContainerCreate implements DQP {
   }
 
   public DQPContainerCreate volume(String volume) {
-    if (TextKit.blanky(volume))
+    if (Is.not().truthy(volume))
       return this;
     if (this.volume == null)
       this.volume = new ArrayList<>();
@@ -254,7 +254,7 @@ public class DQPContainerCreate implements DQP {
   }
 
   public DQPContainerCreate capadd(String capadd) {
-    if (TextKit.blanky(capadd))
+    if (Is.not().truthy(capadd))
       return this;
     if (this.capadd == null)
       this.capadd = new ArrayList<>();
@@ -268,7 +268,7 @@ public class DQPContainerCreate implements DQP {
   }
 
   public DQPContainerCreate capdrop(String capdrop) {
-    if (TextKit.blanky(capdrop))
+    if (Is.not().truthy(capdrop))
       return this;
     if (this.capdrop == null)
       this.capdrop = new ArrayList<>();
@@ -292,7 +292,7 @@ public class DQPContainerCreate implements DQP {
   }
 
   public DQPContainerCreate device(String device) {
-    if (TextKit.blanky(device))
+    if (Is.not().truthy(device))
       return this;
     if (this.device == null)
       this.device = new ArrayList<>();
@@ -306,7 +306,7 @@ public class DQPContainerCreate implements DQP {
   }
 
   public DQPContainerCreate dns(String dns) {
-    if (TextKit.blanky(dns))
+    if (Is.not().truthy(dns))
       return this;
     if (this.dns == null)
       this.dns = new ArrayList<>();
@@ -320,7 +320,7 @@ public class DQPContainerCreate implements DQP {
   }
 
   public DQPContainerCreate dnssearch(String dnssearch) {
-    if (TextKit.blanky(dnssearch))
+    if (Is.not().truthy(dnssearch))
       return this;
     if (this.dnssearch == null)
       this.dnssearch = new ArrayList<>();
@@ -339,7 +339,7 @@ public class DQPContainerCreate implements DQP {
   }
 
   public DQPContainerCreate envfile(String envfile) {
-    if (TextKit.blanky(envfile))
+    if (Is.not().truthy(envfile))
       return this;
     if (this.envfile == null)
       this.envfile = new ArrayList<>();
@@ -353,7 +353,7 @@ public class DQPContainerCreate implements DQP {
   }
 
   public DQPContainerCreate expose(String expose) {
-    if (TextKit.blanky(expose))
+    if (Is.not().truthy(expose))
       return this;
     if (this.expose == null)
       this.expose = new ArrayList<>();
@@ -367,7 +367,7 @@ public class DQPContainerCreate implements DQP {
   }
 
   public DQPContainerCreate link(String link) {
-    if (TextKit.blanky(link))
+    if (Is.not().truthy(link))
       return this;
     if (this.link == null)
       this.link = new ArrayList<>();
@@ -381,7 +381,7 @@ public class DQPContainerCreate implements DQP {
   }
 
   public DQPContainerCreate lxcconf(String lxcconf) {
-    if (TextKit.blanky(lxcconf))
+    if (Is.not().truthy(lxcconf))
       return this;
     if (this.lxcconf == null)
       this.lxcconf = new ArrayList<>();
@@ -437,7 +437,7 @@ public class DQPContainerCreate implements DQP {
   }
 
   public DQPContainerCreate cmd(String cmd) {
-    if (TextKit.blanky(cmd))
+    if (Is.not().truthy(cmd))
       return this;
     if (this.cmd == null)
       this.cmd = new ArrayList<>();
@@ -456,7 +456,7 @@ public class DQPContainerCreate implements DQP {
   }
 
   public DQPContainerCreate groupadd(String groupadd) {
-    if (TextKit.blanky(groupadd))
+    if (Is.not().truthy(groupadd))
       return this;
     if (this.groupadd == null)
       this.groupadd = new ArrayList<>();
@@ -470,7 +470,7 @@ public class DQPContainerCreate implements DQP {
   }
 
   public DQPContainerCreate dnsopt(String dnsopt) {
-    if (TextKit.blanky(dnsopt))
+    if (Is.not().truthy(dnsopt))
       return this;
     if (this.dnsopt == null)
       this.dnsopt = new ArrayList<>();
@@ -528,7 +528,7 @@ public class DQPContainerCreate implements DQP {
   }
 
   public DQPContainerCreate labels(String label) {
-    if (TextKit.blanky(label))
+    if (Is.not().truthy(label))
       return this;
     if (this.labels == null)
       this.labels = new ArrayList<>();
@@ -590,7 +590,7 @@ public class DQPContainerCreate implements DQP {
   }
 
   public DQPContainerCreate securityopt(String securityopt) {
-    if (TextKit.blanky(securityopt))
+    if (Is.not().truthy(securityopt))
       return this;
     if (this.securityopt == null)
       this.securityopt = new ArrayList<>();
@@ -769,10 +769,10 @@ public class DQPContainerCreate implements DQP {
       String key, host = null, port;
       int six = right.indexOf("/");
       if (six != -1) {
-        if (!NumberKit.isNumber(right.substring(0, six)))
+        if (!Is.number(right.substring(0, six)))
           throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.docker.container_ill_port", right));
       } else {
-        if (!NumberKit.isNumber(right))
+        if (!Is.number(right))
           throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.docker.container_ill_port", right));
       }
       key = six != -1 ? right : TextKit.union(right, "/tcp");
@@ -784,7 +784,7 @@ public class DQPContainerCreate implements DQP {
         host = left.substring(0, qix);
         port = left.substring(qix + 1);
       }
-      if (!NumberKit.isNumber(port))
+      if (!Is.number(port))
         throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.docker.container_ill_port", port));
 
       Kv rel = Kv.create()

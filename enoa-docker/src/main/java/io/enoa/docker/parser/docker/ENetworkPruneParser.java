@@ -19,6 +19,7 @@ import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dket.docker.network.ENetworPrune;
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
 
 class ENetworkPruneParser extends AbstractParser<ENetworPrune> {
@@ -34,7 +35,7 @@ class ENetworkPruneParser extends AbstractParser<ENetworPrune> {
   @Override
   public ENetworPrune ok(DockerConfig config, DResp resp) {
     Kv kv = config.json().parse(resp.string(), Kv.class);
-    if (CollectionKit.isEmpty(kv))
+    if (Is.empty(kv))
       return null;
     ENetworPrune.Builder builder = new ENetworPrune.Builder()
       .networksdeleted(AEExtra.stringarray(kv, "NetworksDeleted"));

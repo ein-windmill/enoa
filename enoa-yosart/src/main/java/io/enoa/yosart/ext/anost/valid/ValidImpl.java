@@ -15,7 +15,7 @@
  */
 package io.enoa.yosart.ext.anost.valid;
 
-import io.enoa.toolkit.text.TextKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.yosart.ext.anost.valid.ivalid.ISpecialValid;
 import io.enoa.yosart.kernel.http.YoRequest;
 
@@ -36,7 +36,7 @@ class ValidImpl implements Valid {
   public AoExistsValid exists(String name) {
     ValidImpl valid = new ValidImpl(this.request);
     String val = this.valueMode ? name : valid.object(name).value(name, false);
-    valid.greenlight = TextKit.blanky(val);
+    valid.greenlight = Is.not().truthy(val);
     valid.valueMode = this.valueMode;
     return new AoExistsValid(valid, name);
   }

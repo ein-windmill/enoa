@@ -15,8 +15,8 @@
  */
 package io.enoa.yosart.ext.anost.valid;
 
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.mark.IMark;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.yosart.kernel.http.YoRequest;
 
 public class AoFieldValid extends AoObjectValid<AoFieldValid> {
@@ -63,7 +63,7 @@ public class AoFieldValid extends AoObjectValid<AoFieldValid> {
     if (this.greenlight)
       return this;
     String val = super.value(this.name, this.valueMode);
-    boolean selfNull = TextKit.blanky(val);
+    boolean selfNull = Is.not().truthy(val);
     if (otherNames == null && selfNull)
       throw new ValidException(mark, message);
     boolean[] needs = new boolean[otherNames == null ? 1 : otherNames.length + 1];
@@ -72,7 +72,7 @@ public class AoFieldValid extends AoObjectValid<AoFieldValid> {
       int i = 0;
       for (String otherName : otherNames) {
         String oval = super.value(otherName, this.valueMode);
-        needs[i + 1] = TextKit.blanky(oval);
+        needs[i + 1] = Is.not().truthy(oval);
       }
     }
     for (boolean need : needs)
@@ -121,10 +121,10 @@ public class AoFieldValid extends AoObjectValid<AoFieldValid> {
   public AoFieldValid together(String[] otherNames, IMark mark, String message) throws ValidException {
     if (this.greenlight)
       return this;
-    if (TextKit.blanky(super.value(this.name, this.valueMode)))
+    if (Is.not().truthy(super.value(this.name, this.valueMode)))
       throw new ValidException(mark, message);
     for (String otherName : otherNames)
-      if (TextKit.blanky(super.value(otherName, this.valueMode)))
+      if (Is.not().truthy(super.value(otherName, this.valueMode)))
         throw new ValidException(mark, message);
     return this;
   }

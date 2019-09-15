@@ -51,7 +51,7 @@ public class JsonPlugin implements YoPlugin {
   @Override
   public boolean start() throws OyPluginException {
 //    EMgrJson.defJsonFactory(this.factory);
-//    if (TextKit.blankn(this.datePattern))
+//    if (Is.truthy(this.datePattern))
 //      EMgrJson.defDatePattern(this.datePattern);
     Json.epm().install(this.factory);
     return true;

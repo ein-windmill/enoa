@@ -16,6 +16,7 @@
 package io.enoa.toolkit.collection;
 
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.thr.EoException;
 
 import java.lang.reflect.Array;
@@ -65,45 +66,45 @@ public class CollectionKit {
     return EMPTY_INTS;
   }
 
-  public static <E> Boolean isEmpty(Collection<E> collection) {
-    return collection == null || collection.isEmpty();
-  }
-
-  public static <K, V> Boolean isEmpty(Map<K, V> map) {
-    return map == null || map.isEmpty();
-  }
-
-  public static Boolean isEmpty(Object[] objects) {
-    return objects == null || objects.length == 0;
-  }
-
-  public static Boolean isEmpty(byte[] objects) {
-    return objects == null || objects.length == 0;
-  }
-
-  public static Boolean isEmpty(int[] objects) {
-    return objects == null || objects.length == 0;
-  }
-
-  public static <E> Boolean notEmpty(Collection<E> collection) {
-    return !CollectionKit.isEmpty(collection);
-  }
-
-  public static <K, V> Boolean notEmpty(Map<K, V> map) {
-    return !CollectionKit.isEmpty(map);
-  }
-
-  public static Boolean notEmpty(Object[] objects) {
-    return !CollectionKit.isEmpty(objects);
-  }
-
-  public static Boolean notEmpty(byte[] objects) {
-    return !CollectionKit.isEmpty(objects);
-  }
-
-  public static Boolean notEmpty(int[] objects) {
-    return !CollectionKit.isEmpty(objects);
-  }
+//  public static <E> Boolean isEmpty(Collection<E> collection) {
+//    return collection == null || collection.isEmpty();
+//  }
+//
+//  public static <K, V> Boolean isEmpty(Map<K, V> map) {
+//    return map == null || map.isEmpty();
+//  }
+//
+//  public static Boolean isEmpty(Object[] objects) {
+//    return objects == null || objects.length == 0;
+//  }
+//
+//  public static Boolean isEmpty(byte[] objects) {
+//    return objects == null || objects.length == 0;
+//  }
+//
+//  public static Boolean isEmpty(int[] objects) {
+//    return objects == null || objects.length == 0;
+//  }
+//
+//  public static <E> Boolean notEmpty(Collection<E> collection) {
+//    return !Is.empty(collection);
+//  }
+//
+//  public static <K, V> Boolean notEmpty(Map<K, V> map) {
+//    return !Is.empty(map);
+//  }
+//
+//  public static Boolean notEmpty(Object[] objects) {
+//    return !Is.empty(objects);
+//  }
+//
+//  public static Boolean notEmpty(byte[] objects) {
+//    return !Is.empty(objects);
+//  }
+//
+//  public static Boolean notEmpty(int[] objects) {
+//    return !Is.empty(objects);
+//  }
 
   public static String[] distinct(String[] arrs) {
     return Arrays.stream(arrs).distinct().toArray(String[]::new);
@@ -121,10 +122,10 @@ public class CollectionKit {
   }
 
   public static byte[] merge(byte[] bytes0, byte[] bytes1) {
-    if (isEmpty(bytes0))
-      return isEmpty(bytes1) ? emptyBytes() : bytes1;
-    if (isEmpty(bytes1))
-      return isEmpty(bytes0) ? emptyBytes() : bytes0;
+    if (Is.empty(bytes0))
+      return Is.empty(bytes1) ? emptyBytes() : bytes1;
+    if (Is.empty(bytes1))
+      return Is.empty(bytes0) ? emptyBytes() : bytes0;
     byte[] rets = new byte[bytes0.length + bytes1.length];
     System.arraycopy(bytes0, 0, rets, 0, bytes0.length);
     System.arraycopy(bytes1, 0, rets, bytes0.length, bytes1.length);
@@ -207,7 +208,7 @@ public class CollectionKit {
    * @return List
    */
   public static <T> List<List<T>> split(Collection<T> colls, int size) {
-    if (isEmpty(colls))
+    if (Is.empty(colls))
       return Collections.emptyList();
 
     List<List<T>> rets = new ArrayList<>();
@@ -233,12 +234,12 @@ public class CollectionKit {
    * @return List
    */
   public static <T> List<List<T>> parts(Collection<T> colls, int parts) {
-    if (isEmpty(colls))
+    if (Is.empty(colls))
       return Collections.emptyList();
     if (parts == 0)
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.toolkit.collection_parts_num_zero"));
     if (colls.size() <= parts)
-      return new ArrayList<List<T>>(){{
+      return new ArrayList<List<T>>() {{
         add(new ArrayList<>(colls));
       }};
 

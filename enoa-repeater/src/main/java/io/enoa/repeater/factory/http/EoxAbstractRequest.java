@@ -17,6 +17,7 @@ package io.enoa.repeater.factory.http;
 
 import io.enoa.repeater.http.Request;
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -26,7 +27,7 @@ import java.util.stream.Stream;
 public abstract class EoxAbstractRequest implements Request {
 
   protected Map<String, String[]> mapListToArray(Map<String, List<String>> map) {
-    if (CollectionKit.isEmpty(map))
+    if (Is.empty(map))
       return null;
     Map<String, String[]> ret = new HashMap<>();
     map.forEach((k, v) -> ret.put(k, v.toArray(new String[v.size()])));
@@ -34,7 +35,7 @@ public abstract class EoxAbstractRequest implements Request {
   }
 
   protected Map<String, List<String>> mapArrayToList(Map<String, String[]> map) {
-    if (CollectionKit.isEmpty(map))
+    if (Is.empty(map))
       return null;
     Map<String, List<String>> ret = new HashMap<>();
     map.forEach((k, v) -> ret.put(k, Stream.of(v).collect(Collectors.toList())));
@@ -43,9 +44,9 @@ public abstract class EoxAbstractRequest implements Request {
 
   protected Map<String, List<String>> mergeMap(Map<String, List<String>> map1, Map<String, List<String>> map2) {
 
-    if (CollectionKit.isEmpty(map1))
+    if (Is.empty(map1))
       return new ConcurrentHashMap<>(map2);
-    if (CollectionKit.isEmpty(map2))
+    if (Is.empty(map2))
       return map1;
 
     Map<String, List<String>> nm1 = new ConcurrentHashMap<>(map1),

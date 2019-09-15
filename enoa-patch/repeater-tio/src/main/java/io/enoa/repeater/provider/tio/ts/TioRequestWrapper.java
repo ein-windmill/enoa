@@ -26,7 +26,7 @@ import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.convert.ConvertKit;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.file.FileKit;
-import io.enoa.toolkit.text.TextKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.thr.EoException;
 import org.tio.http.common.UploadFile;
 
@@ -50,7 +50,7 @@ class TioRequestWrapper extends EoxAbstractRequest {
     this.config = config;
     this.rule = rule;
     String contentType = this.header("content-type");
-    if (TextKit.blankn(contentType) && contentType.startsWith("multipart/form-data"))
+    if (Is.truthy(contentType) && contentType.startsWith("multipart/form-data"))
       this.handleUpload();
   }
 
@@ -68,7 +68,7 @@ class TioRequestWrapper extends EoxAbstractRequest {
       throw new EoException(EnoaTipKit.message("eo.tip.repeater.upload_exceed_length", contentLength, this.config.maxUploadSize()));
 
     Map<String, Object[]> params = this.request.getParams();
-    if (CollectionKit.isEmpty(params))
+    if (Is.empty(params))
       return;
 
 //    List<String> rmkeys = new ArrayList<>();
@@ -140,7 +140,7 @@ class TioRequestWrapper extends EoxAbstractRequest {
       return this.cookies;
 
     List<org.tio.http.common.Cookie> cookies = this.request.getCookies();
-    if (CollectionKit.isEmpty(cookies))
+    if (Is.empty(cookies))
       return CollectionKit.emptyArray(Cookie.class);
     List<Cookie> rets = new ArrayList<>();
     for (org.tio.http.common.Cookie cookie : cookies) {
@@ -200,7 +200,7 @@ class TioRequestWrapper extends EoxAbstractRequest {
   @Override
   public String para(String name, String def) {
     String[] paras = this.paraValues(name);
-    if (CollectionKit.isEmpty(paras))
+    if (Is.empty(paras))
       return def;
     return ConvertKit.string(paras[0], def, Boolean.TRUE);
   }
@@ -237,10 +237,10 @@ class TioRequestWrapper extends EoxAbstractRequest {
 
     Map<String, Object[]> paras = this.request.getParams();
     String contentType = this.header("content-type");
-    if (TextKit.blankn(contentType))
+    if (Is.truthy(contentType))
       contentType = contentType.toLowerCase();
 
-    if (paras == null && TextKit.blankn(contentType) && !contentType.startsWith("multipart/form-data"))
+    if (paras == null && Is.truthy(contentType) && !contentType.startsWith("multipart/form-data"))
       return null;
 
     Map<String, String[]> rets = new HashMap<>();
@@ -248,14 +248,14 @@ class TioRequestWrapper extends EoxAbstractRequest {
     // tio 在 文件上传或请求体提交时无法解析 url 参数, 此处进行分析进行合并
     Map<String, List<String>> urlPara = EnoaHttpKit.parsePara(this.url());
 
-    if (paras != null && TextKit.blankn(contentType) && contentType.startsWith("multipart/form-data")) {
+    if (paras != null && Is.truthy(contentType) && contentType.startsWith("multipart/form-data")) {
       for (String k : paras.keySet()) {
         Object[] vos = paras.get(k);
         String[] vals = Stream.of(vos)
           .filter(v -> v != null && !(v instanceof UploadFile))
           .map(Object::toString)
           .toArray(String[]::new);
-        if (CollectionKit.notEmpty(vals))
+        if (Is.not().empty(vals))
           rets.put(k, vals);
       }
       rets = super.paraMap(super.mapArrayToList(rets), urlPara);
@@ -271,10 +271,10 @@ class TioRequestWrapper extends EoxAbstractRequest {
           .filter(Objects::nonNull)
           .map(Object::toString)
           .toArray(String[]::new);
-        if (CollectionKit.notEmpty(vals))
+        if (Is.not().empty(vals))
           rets.put(k, vals);
       }
-      if (TextKit.blankn(contentType) && !contentType.startsWith("application/x-www-form-urlencoded")) {
+      if (Is.truthy(contentType) && !contentType.startsWith("application/x-www-form-urlencoded")) {
         rets = super.paraMap(super.mapArrayToList(rets), urlPara);
         CollectionKit.clear(urlPara);
         this.paraMap = rets;
@@ -291,7 +291,7 @@ class TioRequestWrapper extends EoxAbstractRequest {
   @Override
   public String[] paraNames() {
     Map<String, String[]> paraMap = this.paraMap();
-    if (CollectionKit.isEmpty(paraMap))
+    if (Is.empty(paraMap))
       return CollectionKit.emptyArray(String.class);
     Set<String> paras = paraMap.keySet();
     return paras.toArray(new String[paras.size()]);
@@ -300,7 +300,7 @@ class TioRequestWrapper extends EoxAbstractRequest {
   @Override
   public String[] paraValues(String name) {
     Map<String, String[]> paraMap = this.paraMap();
-    if (CollectionKit.isEmpty(paraMap))
+    if (Is.empty(paraMap))
       return CollectionKit.emptyArray(String.class);
     return paraMap.get(name);
   }
@@ -381,7 +381,7 @@ class TioRequestWrapper extends EoxAbstractRequest {
   @Override
   public UFile[] files() {
     String contentType = this.header("content-type");
-    if (TextKit.blanky(contentType) || !contentType.startsWith("multipart/form-data"))
+    if (Is.not().truthy(contentType) || !contentType.startsWith("multipart/form-data"))
       return CollectionKit.emptyArray(UFile.class);
     return this.ufiles.toArray(new UFile[this.ufiles.size()]);
   }
@@ -394,7 +394,7 @@ class TioRequestWrapper extends EoxAbstractRequest {
   @Override
   public UFile file(String name) {
     UFile[] files = this.files(name);
-    if (CollectionKit.isEmpty(files))
+    if (Is.empty(files))
       return null;
     return files[0];
   }

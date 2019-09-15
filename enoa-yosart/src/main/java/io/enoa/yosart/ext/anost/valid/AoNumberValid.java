@@ -16,8 +16,8 @@
 package io.enoa.yosart.ext.anost.valid;
 
 import io.enoa.toolkit.convert.ConvertKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.mark.IMark;
-import io.enoa.toolkit.number.NumberKit;
 import io.enoa.yosart.kernel.http.YoRequest;
 
 import java.util.Arrays;
@@ -45,7 +45,7 @@ public class AoNumberValid extends AoObjectValid<AoNumberValid> {
 //    if (!super.verified)
     super.blank(mark, message);
     String val = super.value(this.name, this.valueMode);
-    if (!NumberKit.isNumber(val))
+    if (!Is.number(val))
       throw new ValidException(mark, message);
 
     this.verifyIsNumber = true;
@@ -83,7 +83,9 @@ public class AoNumberValid extends AoObjectValid<AoNumberValid> {
     if (!this.verifyIsNumber)
       this.is(mark, message);
     String val = super.value(this.name, this.valueMode);
-    if (!NumberKit.isDigit(val, negative))
+    if (Is.not().digit(val))
+      throw new ValidException(mark, message);
+    if (!negative && ConvertKit.number(val).longValue() < 0)
       throw new ValidException(mark, message);
     return this;
   }

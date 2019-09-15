@@ -19,7 +19,7 @@ import fi.iki.elonen.NanoHTTPD;
 import io.enoa.repeater.http.Cookie;
 import io.enoa.repeater.http.Header;
 import io.enoa.repeater.http.Response;
-import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 
 import java.io.ByteArrayInputStream;
 import java.util.List;
@@ -47,7 +47,7 @@ class RepeaterNanoHTTPDResponse extends NanoHTTPD.Response {
       .forEach(h -> super.addHeader(h.name(), h.value()));
 
     Cookie[] cookies = this.resp.cookies();
-    if (CollectionKit.isEmpty(cookies)) {
+    if (Is.empty(cookies)) {
       return;
     }
     for (Cookie cookie : cookies) {

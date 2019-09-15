@@ -15,9 +15,9 @@
  */
 package io.enoa.http.provider.httphelper;
 
+import io.enoa.chunk.Chunk;
 import io.enoa.http.*;
 import io.enoa.http.protocol.*;
-import io.enoa.chunk.Chunk;
 import io.enoa.http.protocol.enoa.IHttpHandler;
 import io.enoa.http.protocol.enoa.IHttpReporter;
 import io.enoa.http.provider.httphelper.async.HttpHelperExecutor;

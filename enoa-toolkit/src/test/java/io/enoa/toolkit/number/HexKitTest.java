@@ -1,10 +1,7 @@
 package io.enoa.toolkit.number;
 
 import io.enoa.toolkit.binary.EnoaBinary;
-import io.enoa.toolkit.file.FileKit;
 import org.junit.Test;
-
-import java.nio.file.Paths;
 
 public class HexKitTest {
 

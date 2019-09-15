@@ -16,6 +16,7 @@
 package io.enoa.yosart.kit.tip;
 
 import io.enoa.log.Log;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.yosart.Oysart;
 
@@ -29,7 +30,7 @@ public class OysartTip {
   private static final String MARK = "#";
 
   private static String format(String text, Object... args) {
-    if (TextKit.blanky(text))
+    if (Is.not().truthy(text))
       return text;
 
     Object[] fags = Stream.of(args).map(o -> o == null ? null : o.toString()).toArray(Object[]::new);

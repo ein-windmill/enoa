@@ -19,7 +19,7 @@ import io.enoa.docker.RegistryConfig;
 import io.enoa.docker.dket.registry.RResp;
 import io.enoa.http.Http;
 import io.enoa.http.protocol.HttpResponse;
-import io.enoa.toolkit.text.TextKit;
+import io.enoa.toolkit.is.Is;
 
 public class EOriginRegistryImpl extends AbstractOriginRegistry {
 
@@ -45,7 +45,7 @@ public class EOriginRegistryImpl extends AbstractOriginRegistry {
     Http http = super.http("_catalog");
     if (n != null)
       http.para("n", n);
-    if (TextKit.blankn(last))
+    if (Is.truthy(last))
       http.para("last", last);
     HttpResponse response = http.emit();
     return RResp.create(response);

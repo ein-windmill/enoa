@@ -17,7 +17,7 @@ package io.enoa.yosart;
 
 import io.enoa.log.Log;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
-import io.enoa.toolkit.text.TextKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.yosart.kernel.ext.*;
 import io.enoa.yosart.thr.OyExtException;
 
@@ -106,12 +106,12 @@ class YoExtd {
       throw new OyExtException(EnoaTipKit.message("eo.tip.yosart.ext_type_cant_null"));
     this.verifyReg(ext);
     if (ext instanceof YmRenderExt) {
-      if (TextKit.blanky(((YmRenderExt) ext).renderType()))
+      if (Is.not().truthy(((YmRenderExt) ext).renderType()))
         throw new OyExtException(EnoaTipKit.message("eo.tip.yosart.ext_render_type_cant_null", ext.getClass().getName()));
     }
-    if (TextKit.blanky(ext.name()))
+    if (Is.not().truthy(ext.name()))
       throw new OyExtException(EnoaTipKit.message("eo.tip.yosart.ext_name_cant_null", ext.getClass().getName()));
-    if (TextKit.blanky(ext.version()))
+    if (Is.not().truthy(ext.version()))
       throw new OyExtException(EnoaTipKit.message("eo.tip.yosart.ext_version_cant_null", ext.getClass().getName()));
     if (ext.weight() < 0 && ext.weight() > 10)
       throw new OyExtException(EnoaTipKit.message("eo.tip.yosart.ext_weight_range", ext.weight(), ext.getClass().getName()));
@@ -153,7 +153,7 @@ class YoExtd {
 
 //  YoExt ext(YoExt.Type type) {
 //    YoExt[] exts = this.exts(type);
-//    return CollectionKit.isEmpty(exts) ? null : exts[0];
+//    return Is.empty(exts) ? null : exts[0];
 //  }
 //
 //  YoExt[] exts(YoExt.Type type) {

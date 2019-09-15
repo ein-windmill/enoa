@@ -15,7 +15,7 @@
  */
 package io.enoa.toolkit.value;
 
-import io.enoa.toolkit.text.TextKit;
+import io.enoa.toolkit.is.Is;
 
 public class Vae {
 
@@ -26,7 +26,7 @@ public class Vae {
   public static <T> T blankdef(T origin, T def) {
     boolean blank = false;
     if (origin instanceof String) {
-      blank = TextKit.blanky((String) origin);
+      blank = Is.not().truthy((String) origin);
     }
     return origin == null || blank ? def : origin;
   }

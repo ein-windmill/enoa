@@ -15,7 +15,7 @@
  */
 package io.enoa.toolkit.prop;
 
-import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thr.EoException;
 import io.enoa.toolkit.value.EnoaValue;
@@ -59,7 +59,7 @@ public class PropKit {
         Stream.of(suffix).anyMatch(s ->
           f.getAbsolutePath()
             .endsWith(s.startsWith(".") ? s : TextKit.union(".", s))));
-      if (CollectionKit.isEmpty(fs))
+      if (Is.empty(fs))
         continue;
       for (File f : fs) {
         Prop prop = new Prop(f);

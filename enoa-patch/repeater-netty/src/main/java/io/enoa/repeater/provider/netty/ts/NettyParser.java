@@ -21,7 +21,7 @@ import io.enoa.repeater.factory.name.EoxNameRuleFactory;
 import io.enoa.repeater.http.Cookie;
 import io.enoa.repeater.http.UFile;
 import io.enoa.toolkit.collection.CollectionKit;
-import io.enoa.toolkit.text.TextKit;
+import io.enoa.toolkit.is.Is;
 import io.netty.handler.codec.http.cookie.ServerCookieDecoder;
 import io.netty.handler.codec.http.multipart.Attribute;
 import io.netty.handler.codec.http.multipart.FileUpload;
@@ -36,7 +36,7 @@ class NettyParser {
   private static ServerCookieDecoder cookieDecoder = ServerCookieDecoder.LAX;
 
   static Cookie[] parseCookies(String cookie) {
-    if (TextKit.blanky(cookie))
+    if (Is.not().truthy(cookie))
       return CollectionKit.emptyArray(Cookie.class);
     Set<io.netty.handler.codec.http.cookie.Cookie> cookies = cookieDecoder.decode(cookie);
     if (cookies == null)
@@ -67,7 +67,7 @@ class NettyParser {
             name = attribute.getName();
             String value = attribute.getValue();
             List<String> vals = binparas.get(name);
-            if (CollectionKit.notEmpty(vals)) {
+            if (Is.not().empty(vals)) {
               vals.add(value);
               continue;
             }

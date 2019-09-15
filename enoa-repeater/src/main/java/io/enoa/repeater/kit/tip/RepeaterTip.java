@@ -17,8 +17,7 @@ package io.enoa.repeater.kit.tip;
 
 import io.enoa.log.Log;
 import io.enoa.repeater.Repeater;
-import io.enoa.toolkit.collection.CollectionKit;
-import io.enoa.toolkit.text.TextKit;
+import io.enoa.toolkit.is.Is;
 
 import java.text.MessageFormat;
 import java.util.stream.Stream;
@@ -30,9 +29,9 @@ public class RepeaterTip {
 
 
   private static String format(String text, Object... args) {
-    if (TextKit.blanky(text))
+    if (Is.not().truthy(text))
       return text;
-    if (CollectionKit.isEmpty(args))
+    if (Is.empty(args))
       return text;
     Object[] fags = Stream.of(args).map(o -> o == null ? null : o.toString()).toArray(Object[]::new);
     return MessageFormat.format(text, fags);

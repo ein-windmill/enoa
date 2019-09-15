@@ -18,6 +18,7 @@ package io.enoa.stove.template.ast.build;
 import io.enoa.stove.template.StoveConfig;
 import io.enoa.stove.template.ast.tree.Ast;
 import io.enoa.stove.template.ast.tree.VarAst;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.text.TextKit;
 
 import java.nio.file.Path;
@@ -50,7 +51,7 @@ class AstVarBuilder {
 
         // 變量/轉義 前的文字字符
         String pretext = line.substring(fromIx, isEscape ? varIx0 - 1 : varIx0);
-        if (TextKit.blankn(pretext)) {
+        if (Is.truthy(pretext)) {
           _AstBuilder.instance().textBuilder().build(path, asts, pretext, ix, false);
         }
 

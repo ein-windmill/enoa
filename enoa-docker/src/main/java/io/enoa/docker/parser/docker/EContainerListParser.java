@@ -20,6 +20,7 @@ import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dket.docker.container.EContainer;
 import io.enoa.docker.dket.docker.container.EPort;
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
 
 import java.util.*;
@@ -38,7 +39,7 @@ class EContainerListParser extends AbstractParser<List<EContainer>> {
   public List<EContainer> ok(DockerConfig config, DResp resp) {
     ;
     List<Kv> kvs = config.json().parseArray(resp.string(), Kv.class);
-    if (CollectionKit.isEmpty(kvs)) {
+    if (Is.empty(kvs)) {
       return Collections.emptyList();
     }
     List<EContainer> rets = new ArrayList<>(kvs.size());

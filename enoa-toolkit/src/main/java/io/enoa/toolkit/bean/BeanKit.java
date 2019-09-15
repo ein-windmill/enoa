@@ -19,6 +19,7 @@ import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.convert.ConvertKit;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.factory.ListFactory;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.map.OKv;
 import io.enoa.toolkit.namecase.INameCase;
@@ -212,7 +213,7 @@ public class BeanKit {
       try {
 //        if (val instanceof Number) {
 //          Class<?>[] pts = method.getParameterTypes();
-//          if (CollectionKit.isEmpty(pts))
+//          if (Is.empty(pts))
 //            throw new IllegalArgumentException("NOT FOUND ARGUMENTS");
 //          method.invoke(ret, NumberKit.to((Number) val, pts[0]));
 //        } else {
@@ -226,7 +227,7 @@ public class BeanKit {
         Parameter[] paras = method.getParameters();
         throw new EoException(EnoaTipKit.message("eo.tip.toolkit.object_reduction_by_map_method_ill_arg",
           ReflectKit.methodString(clazz, method),
-          CollectionKit.notEmpty(paras) ? paras[0].getType().getName() : "null",
+          Is.not().empty(paras) ? paras[0].getType().getName() : "null",
           ReflectKit.intuitiveType(val.getClass().getName())),
           e);
       } catch (Exception e) {
@@ -259,7 +260,7 @@ public class BeanKit {
 
     if (val instanceof Number) {
       Class<?>[] pts = method.getParameterTypes();
-      if (CollectionKit.isEmpty(pts))
+      if (Is.empty(pts))
         throw new IllegalArgumentException("NOT FOUND ARGUMENTS");
       method.invoke(object, NumberKit.to((Number) val, pts[0]));
       return;

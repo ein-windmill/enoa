@@ -16,8 +16,8 @@
 package io.enoa.eml;
 
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
-import io.enoa.toolkit.text.TextKit;
 
 public class EmlConfig {
 
@@ -165,7 +165,7 @@ public class EmlConfig {
     }
 
     public Builder prop(String name, String value) {
-      if (TextKit.blanky(name))
+      if (Is.not().truthy(name))
         throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.email.conf_other_name_null"));
 
       if (this.prop == null)

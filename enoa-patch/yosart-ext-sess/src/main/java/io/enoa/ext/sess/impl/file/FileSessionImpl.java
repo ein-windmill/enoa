@@ -23,9 +23,9 @@ import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.digest.UUIDKit;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.file.FileKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.sys.ThrowableKit;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thr.EoException;
 import io.enoa.yosart.kernel.http.Session;
 import io.enoa.yosart.kernel.http.YoRequest;
@@ -92,7 +92,7 @@ class FileSessionImpl implements Session {
       builder.secure();
     if (this.httpOnly)
       builder.httpOnly();
-    if (TextKit.blankn(this.domain))
+    if (Is.truthy(this.domain))
       builder.domain(this.domain);
     if (this.hostOnly)
       builder.hostOnlyDomain(this.domain);
@@ -104,7 +104,7 @@ class FileSessionImpl implements Session {
   @Override
   public String[] names() {
     String sessVal = this._value == null ? this.request.cookie(this.sessKey) : this._value;
-    if (TextKit.blanky(sessVal)) {
+    if (Is.not().truthy(sessVal)) {
       Log.warn(EnoaTipKit.message("eo.tip.ext.sess.session_404", this.sessKey));
       return CollectionKit.emptyArray(String.class);
     }
@@ -120,7 +120,7 @@ class FileSessionImpl implements Session {
   @Override
   public <T> T get(String name) {
     String sessVal = this._value == null ? this.request.cookie(this.sessKey) : this._value;
-    if (TextKit.blanky(sessVal)) {
+    if (Is.not().truthy(sessVal)) {
       Log.warn(EnoaTipKit.message("eo.tip.ext.sess.session_404", this.sessKey));
       return null;
     }
@@ -136,7 +136,7 @@ class FileSessionImpl implements Session {
   @Override
   public Session rm(String name) {
     String sessVal = this._value == null ? this.request.cookie(this.sessKey) : this._value;
-    if (TextKit.blanky(sessVal))
+    if (Is.not().truthy(sessVal))
       throw new EoException(EnoaTipKit.message("eo.tip.ext.sess.session_404", this.sessKey));
     Kv data = this.deserialize(Paths.get(this.savePath.toString(), sessVal));
     data.remove(name);
@@ -149,7 +149,7 @@ class FileSessionImpl implements Session {
     if (this._value == null)
       this._value = this.request.cookie(this.sessKey);
 
-    if (TextKit.blanky(this._value)) {
+    if (Is.not().truthy(this._value)) {
       this._value = UUIDKit.next(false);
     }
     Path saveFile = Paths.get(this.savePath.toString(), this._value);

@@ -22,6 +22,7 @@ import io.enoa.repeater.http.ResponseBody;
 import io.enoa.template.EnoaEngine;
 import io.enoa.template.EnoaTemplate;
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.yosart.kernel.render.YoRender;
 
@@ -67,7 +68,7 @@ class TemplateRender implements YoRender {
   @Override
   public ResponseBody render() {
     EnoaTemplate template = this.engine.template(this.viewPath);
-    String view = CollectionKit.isEmpty(this.attr) ? template.render() : template.render(this.attr);
+    String view = Is.empty(this.attr) ? template.render() : template.render(this.attr);
     return ResponseBody.create(view, this.charset);
   }
 }

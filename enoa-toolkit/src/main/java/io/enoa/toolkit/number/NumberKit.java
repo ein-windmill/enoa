@@ -16,6 +16,7 @@
 package io.enoa.toolkit.number;
 
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.text.TextKit;
 
 import java.math.BigDecimal;
@@ -65,75 +66,6 @@ public final class NumberKit {
     return (negative ? result.negate() : result);
   }
 
-
-  /**
-   * 字符串是否數字, 支持最高 10 進制
-   * 同時支持負數浮點數校驗
-   *
-   * @param text text
-   * @return boolean
-   */
-  public static boolean isNumber(String text) {
-    if (TextKit.isBlank(text))
-      return false;
-    boolean hasDot = false;
-    for (int i = text.length(); i-- > 0; ) {
-      char at = text.charAt(i);
-      if (at == '-' && i == 0)
-        continue;
-      if (at == '.') {
-        if (hasDot)
-          return false;
-        hasDot = true;
-        continue;
-      }
-      if (Character.isDigit(at))
-        continue;
-      return false;
-    }
-    return true;
-  }
-
-  /**
-   * 字符串是否純數字
-   * 不允許負數
-   * <pre>
-   *     NumberKit.isDigit("1"); // true
-   *     NumberKit.isDigit("0"); //true
-   *     NumberKit.isDigit("-1"); // false
-   * </pre>
-   *
-   * @param text text
-   * @return boolean
-   */
-  public static boolean isDigit(String text) {
-    return isDigit(text, false);
-  }
-
-  /**
-   * 字符串是否純數字
-   * 是否允許負數
-   * <pre>
-   * NumberKit.isDigit("0", false); // true
-   * NumberKit.isDigit("-1", true); // true
-   * NumberKit.isDigit("-1", false); // false
-   * </pre>
-   *
-   * @param text     text
-   * @param negative 是否負數
-   * @return boolean
-   */
-  public static boolean isDigit(String text, boolean negative) {
-    for (int i = text.length(); i-- > 0; ) {
-      char at = text.charAt(i);
-      if (negative && at == '-' && i == 0)
-        continue;
-      if (Character.isDigit(at))
-        continue;
-      return false;
-    }
-    return true;
-  }
 
   public static Number to(Number origin, Class to) {
     if (origin == null) {
@@ -270,11 +202,11 @@ public final class NumberKit {
   }
 
   private static String trimmedNoDot(String text) {
-    if (TextKit.blanky(text))
+    if (Is.not().truthy(text))
       return "0";
     if (text.contains("."))
       text = text.substring(0, text.indexOf("."));
-    return TextKit.blanky(text) ? "0" : text;
+    return Is.not().truthy(text) ? "0" : text;
   }
 
   public static Integer integer(Number number) {

@@ -18,7 +18,7 @@ package io.enoa.docker.parser.docker;
 import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dket.docker.image.EImage;
-import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
 
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ class EImageListParser extends AbstractParser<List<EImage>> {
   @Override
   public List<EImage> ok(DockerConfig config, DResp resp) {
     List<Kv> kvs = config.json().parseArray(resp.string(), Kv.class);
-    if (CollectionKit.isEmpty(kvs))
+    if (Is.empty(kvs))
       return Collections.emptyList();
     List<EImage> rets = new ArrayList<>(kvs.size());
     kvs.forEach(kv -> rets.add(this.image(kv)));

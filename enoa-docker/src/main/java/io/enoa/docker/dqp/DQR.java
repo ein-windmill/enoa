@@ -18,8 +18,8 @@ package io.enoa.docker.dqp;
 import io.enoa.http.protocol.HttpPara;
 import io.enoa.json.Json;
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.value.EnoaValue;
 
 import java.io.Serializable;
@@ -71,7 +71,7 @@ public class DQR implements Serializable {
     if (value == null)
       return this;
     if (value instanceof String)
-      if (TextKit.blanky((String) value))
+      if (Is.not().truthy((String) value))
         return this;
 
     return this.put(name, value);
@@ -85,7 +85,7 @@ public class DQR implements Serializable {
   }
 
   public DQR putIf(String name, Collection collection) {
-    if (CollectionKit.isEmpty(collection))
+    if (Is.empty(collection))
       return this;
     return this.put(name, collection);
   }
@@ -93,7 +93,7 @@ public class DQR implements Serializable {
   public DQR put(DQR dqr) {
     if (dqr == null)
       return this;
-    if (CollectionKit.isEmpty(dqr.kv))
+    if (Is.empty(dqr.kv))
       return this;
     dqr.kv.forEach(this::put);
     return this;
@@ -104,7 +104,7 @@ public class DQR implements Serializable {
   }
 
   public Set<HttpPara> http() {
-    if (CollectionKit.isEmpty(this.kv))
+    if (Is.empty(this.kv))
       return Collections.emptySet();
     Set<HttpPara> paras = new HashSet<>();
     this.kv.forEach((key, val) -> {

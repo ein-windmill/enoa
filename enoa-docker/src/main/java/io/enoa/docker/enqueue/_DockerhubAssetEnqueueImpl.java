@@ -18,10 +18,10 @@ package io.enoa.docker.enqueue;
 import io.enoa.docker.dket.dockerhub.HRet;
 import io.enoa.docker.promise.DockerAssetPromise;
 import io.enoa.promise.AssetPromise;
+import io.enoa.promise.Promise;
 import io.enoa.promise.arg.*;
 import io.enoa.promise.async.AsyncRunner;
 import io.enoa.promise.builder.EPAssetPromiseBuilder;
-import io.enoa.promise.Promise;
 
 import java.util.concurrent.ExecutorService;
 

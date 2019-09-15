@@ -17,9 +17,9 @@ package io.enoa.repeater.http;
 
 import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.binary.EnoaBinary;
-import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.file.FileKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.stream.StreamKit;
 import io.enoa.toolkit.thr.EoException;
 
@@ -82,7 +82,7 @@ public abstract class ResponseBody {
   public String toString() {
     try {
       byte[] bytes = this.bytes();
-      if (CollectionKit.isEmpty(bytes))
+      if (Is.empty(bytes))
         return null;
       String body = StreamKit.string(bytes, EoConst.CHARSET);
       if (body == null)

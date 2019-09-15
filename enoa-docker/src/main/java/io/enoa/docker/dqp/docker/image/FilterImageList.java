@@ -19,6 +19,7 @@ import io.enoa.docker.dqp.DBack;
 import io.enoa.docker.dqp.DQR;
 import io.enoa.json.Json;
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
 
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public class FilterImageList implements DBack<DQPImageList> {
   }
 
   public FilterImageList before(String before) {
-    if (CollectionKit.isEmpty(this.before))
+    if (Is.empty(this.before))
       this.before = new ArrayList<>();
     this.before.add(before);
     return this;
@@ -68,7 +69,7 @@ public class FilterImageList implements DBack<DQPImageList> {
   }
 
   public FilterImageList dangling(Boolean dangling) {
-    if (CollectionKit.isEmpty(this.dangling))
+    if (Is.empty(this.dangling))
       this.dangling = new ArrayList<>();
     this.dangling.add(dangling);
     return this;
@@ -80,7 +81,7 @@ public class FilterImageList implements DBack<DQPImageList> {
   }
 
   public FilterImageList label(String label) {
-    if (CollectionKit.isEmpty(this.label))
+    if (Is.empty(this.label))
       this.label = new ArrayList<>();
     this.label.add(label);
     return this;
@@ -92,7 +93,7 @@ public class FilterImageList implements DBack<DQPImageList> {
   }
 
   public FilterImageList reference(String reference) {
-    if (CollectionKit.isEmpty(this.reference))
+    if (Is.empty(this.reference))
       this.reference = new ArrayList<>();
     this.reference.add(reference);
     return this;
@@ -104,7 +105,7 @@ public class FilterImageList implements DBack<DQPImageList> {
   }
 
   public FilterImageList since(String since) {
-    if (CollectionKit.isEmpty(this.since))
+    if (Is.empty(this.since))
       this.since = new ArrayList<>();
     this.since.add(since);
     return this;
@@ -117,15 +118,15 @@ public class FilterImageList implements DBack<DQPImageList> {
 
   DQR dqr() {
     Kv kv = Kv.create();
-    if (CollectionKit.notEmpty(this.before))
+    if (Is.not().empty(this.before))
       kv.set("before", this.before);
-    if (CollectionKit.notEmpty(this.dangling))
+    if (Is.not().empty(this.dangling))
       kv.set("dangling", this.dangling.stream().map(Object::toString).collect(Collectors.toList()));
-    if (CollectionKit.notEmpty(this.label))
+    if (Is.not().empty(this.label))
       kv.set("label", this.label);
-    if (CollectionKit.notEmpty(this.reference))
+    if (Is.not().empty(this.reference))
       kv.set("reference", this.reference);
-    if (CollectionKit.notEmpty(this.since))
+    if (Is.not().empty(this.since))
       kv.set("since", this.since);
     String json = Json.toJson(kv);
     CollectionKit.clear(kv);

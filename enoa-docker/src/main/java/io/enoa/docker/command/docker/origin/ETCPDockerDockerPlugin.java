@@ -15,17 +15,17 @@
  */
 package io.enoa.docker.command.docker.origin;
 
+import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dqp.DQH;
 import io.enoa.docker.dqp.DQR;
 import io.enoa.docker.dqp.common.DQPFilter;
 import io.enoa.docker.dqp.docker.plugin.DQPPluginInstall;
 import io.enoa.docker.dqp.docker.plugin.DQPPluginUpgrade;
-import io.enoa.docker.dket.docker.DResp;
 import io.enoa.http.Http;
 import io.enoa.http.protocol.HttpMethod;
 import io.enoa.http.protocol.HttpResponse;
 import io.enoa.json.Json;
-import io.enoa.toolkit.text.TextKit;
+import io.enoa.toolkit.is.Is;
 
 import java.util.Collection;
 
@@ -50,7 +50,7 @@ public class ETCPDockerDockerPlugin implements EOriginDockerPlugin {
   @Override
   public DResp privileges(String remote) {
     Http http = this.docker.http("plugins/privileges");
-    if (TextKit.blankn())
+    if (Is.truthy())
       http.para("remote", remote);
     HttpResponse response = http.emit();
     return DResp.create(response);
@@ -124,7 +124,7 @@ public class ETCPDockerDockerPlugin implements EOriginDockerPlugin {
   public DResp create(String id, String raw) {
     Http http = this.docker.http("plugins/create")
       .method(HttpMethod.POST);
-    if (TextKit.blankn())
+    if (Is.truthy())
       http.raw(raw);
     HttpResponse response = http.emit();
     return DResp.create(response);

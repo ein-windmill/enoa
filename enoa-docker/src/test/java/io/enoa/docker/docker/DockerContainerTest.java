@@ -29,6 +29,7 @@ import io.enoa.json.Json;
 import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.binary.EnoaBinary;
 import io.enoa.toolkit.file.FileKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.path.PathKit;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.value.Void;
@@ -290,7 +291,7 @@ public class DockerContainerTest extends AbstractDockerTest {
       Chunk.string((text, linebreak) -> System.out.println(text)));
     Assert.assertTrue(ret.ok());
     String tty = ret.data().log();
-    if (TextKit.blanky(tty))
+    if (Is.not().truthy(tty))
       throw new RuntimeException("No result");
     return tty;
   }

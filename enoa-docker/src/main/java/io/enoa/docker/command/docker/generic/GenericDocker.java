@@ -16,8 +16,8 @@
 package io.enoa.docker.command.docker.generic;
 
 import io.enoa.docker.command.docker._DockerConfigSupport;
-import io.enoa.docker.parser.docker.DIParser;
 import io.enoa.docker.dket.docker.DRet;
+import io.enoa.docker.parser.docker.DIParser;
 
 public interface GenericDocker extends _DockerConfigSupport {
 

@@ -15,7 +15,7 @@
  */
 package io.enoa.yosart;
 
-import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.yosart.kernel.data.YdAssets;
 import io.enoa.yosart.kernel.resources.OyResource;
 
@@ -55,7 +55,7 @@ public interface Oysart {
 
   static YoExt ext(YoExt.Type type) {
     YoExt[] exts = exts(type);
-    return CollectionKit.isEmpty(exts) ? null : exts[0];
+    return Is.empty(exts) ? null : exts[0];
   }
 
   static YoPlugin[] plugins() {

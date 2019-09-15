@@ -64,7 +64,7 @@ class _EnqueueThread implements Runnable {
 //      }
 //    } catch (Exception e) {
 //      List<PromiseCapture> captures = builder.captures();
-//      if (CollectionKit.isEmpty(captures)) {
+//      if (Is.empty(captures)) {
 //        e.printStackTrace();
 //        return;
 //      }

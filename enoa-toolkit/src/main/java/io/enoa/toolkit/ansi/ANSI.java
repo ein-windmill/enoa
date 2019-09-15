@@ -16,8 +16,8 @@
 package io.enoa.toolkit.ansi;
 
 import io.enoa.toolkit.mark.IMarkIx;
-import io.enoa.toolkit.text.TextReader;
 import io.enoa.toolkit.text.LineBreak;
+import io.enoa.toolkit.text.TextReader;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -15,8 +15,7 @@
  */
 package io.enoa.toolkit.text;
 
-import io.enoa.toolkit.collection.CollectionKit;
-import io.enoa.toolkit.digest.DigestKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.number.NumberKit;
 
 /**
@@ -50,97 +49,6 @@ public class TextKit {
     return str;
   }
 
-  public static boolean isBlank(String text) {
-    return blanky(text);
-  }
-
-  public static boolean isBlank(String... text) {
-    return blanky(text);
-  }
-
-  public static boolean notBlank(String text) {
-    return blankn(text);
-  }
-
-  public static boolean notBlank(String... text) {
-    return blankn(text);
-  }
-
-  /**
-   * 字符串为 null 或者内部字符全部为 ' ' '\t' '\n' '\r' 这四类字符时返回 true
-   */
-  public static boolean blanky(String text) {
-    if (text == null) {
-      return true;
-    }
-    int len = text.length();
-    if (len == 0) {
-      return true;
-    }
-    for (int i = 0; i < len; i++) {
-      switch (text.charAt(i)) {
-        case ' ':
-        case '\t':
-        case '\n':
-        case '\r':
-          // case '\b':
-          // case '\f':
-          break;
-        default:
-          return false;
-      }
-    }
-    return true;
-  }
-
-  public static boolean blanky(String... strings) {
-    if (CollectionKit.isEmpty(strings))
-      return true;
-    boolean pass = true;
-    for (String string : strings) {
-      if (blanky(string))
-        continue;
-      pass = false;
-      break;
-    }
-    return pass;
-  }
-
-  public static boolean blankn(String str) {
-    return !blanky(str);
-  }
-
-  public static boolean blankn(String... strings) {
-    if (CollectionKit.isEmpty(strings)) {
-      return false;
-    }
-    for (String str : strings) {
-      if (blanky(str)) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  /**
-   * 是否為 null
-   *
-   * @param paras paras
-   * @return boolean
-   */
-  public static boolean nully(Object... paras) {
-    if (paras == null)
-      return true;
-    for (Object para : paras) {
-      if (para == null)
-        return true;
-    }
-    return false;
-  }
-
-  public static boolean nulln(Object... paras) {
-    return !nully(paras);
-  }
 
 //  public static String join(String[] strings) {
 //    return join(strings, "");
@@ -173,7 +81,7 @@ public class TextKit {
    * @return String
    */
   public static String nospace(String text, boolean extreme) {
-    if (blanky(text))
+    if (Is.not().truthy(text))
       return text;
     if (!extreme)
       return text.trim();
@@ -257,7 +165,7 @@ public class TextKit {
   public static String format(String message, Object... formats) {
     if (message == null)
       return null;
-    if (CollectionKit.isEmpty(formats))
+    if (Is.empty(formats))
       return message;
     StringBuilder msg = new StringBuilder();
     StringBuilder ixb = new StringBuilder();
@@ -289,7 +197,7 @@ public class TextKit {
         }
       }
 
-      if (!NumberKit.isDigit(String.valueOf(c), false)) {
+      if (Is.not().digit(String.valueOf(c))) {
         msg.append('{').append(c);
         ixb.delete(0, ixb.length());
         fillMode = false;
@@ -343,7 +251,7 @@ public class TextKit {
   }
 
   public static String safeBlank(String text, String def) {
-    return TextKit.blanky(text) ? def : text;
+    return Is.not().truthy(text) ? def : text;
   }
 
 }

@@ -28,6 +28,7 @@ import io.enoa.repeater.provider.nanohttpd.server.plus._RepeaterNanoHTTPDSession
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.convert.ConvertKit;
 import io.enoa.toolkit.file.FileKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thr.EoException;
 
@@ -48,17 +49,17 @@ class NanoRequestWrapper extends EoxAbstractCosRequest {
     this.session = session;
     this.config = config;
     String contentType = this.header("content-type");
-    if (TextKit.blankn(contentType))
+    if (Is.truthy(contentType))
       contentType = contentType.toLowerCase();
     if ((this.method() == Method.POST || this.method() == Method.PUT) &&
-      (TextKit.blankn(contentType) && !contentType.startsWith("multipart/form-data"))) {
+      (Is.truthy(contentType) && !contentType.startsWith("multipart/form-data"))) {
       this.session.parseBody(body);
     }
     if (this.method() == Method.PUT) {
       this.parsePutPara(contentType);
     }
 
-    if (TextKit.blankn(contentType) && contentType.startsWith("multipart/form-data"))
+    if (Is.truthy(contentType) && contentType.startsWith("multipart/form-data"))
       super.handleUpload(session.getInputStream(), config, rule);
   }
 
@@ -69,10 +70,10 @@ class NanoRequestWrapper extends EoxAbstractCosRequest {
   private void parsePutPara(String contentType) {
     if (contentType != null && contentType.contains("x-www-form-urlencoded")) {
       String content = this.body.get("content");
-      if (TextKit.blanky(content))
+      if (Is.not().truthy(content))
         return;
       String body = FileKit.read(Paths.get(content)).string();
-      if (TextKit.blanky(body))
+      if (Is.not().truthy(body))
         return;
       Map<String, List<String>> para = EnoaHttpKit.parsePara(body);
       this.paraMap = super.mapListToArray(para);
@@ -104,7 +105,7 @@ class NanoRequestWrapper extends EoxAbstractCosRequest {
   @Override
   public String url() {
     String qs = this.session.getQueryParameterString();
-    if (TextKit.blanky(qs))
+    if (Is.not().truthy(qs))
       return this.uri();
 //    return String.format("%s?%s", this.uri(), this.session.getQueryParameterString());
     return TextKit.union(this.uri(), "?", this.session.getQueryParameterString());
@@ -178,7 +179,7 @@ class NanoRequestWrapper extends EoxAbstractCosRequest {
   @Override
   public String para(String name, String def) {
     String[] paras = this.paraValues(name);
-    if (CollectionKit.isEmpty(paras))
+    if (Is.empty(paras))
       return def;
     return ConvertKit.string(paras[0], def, Boolean.TRUE);
   }
@@ -219,7 +220,7 @@ class NanoRequestWrapper extends EoxAbstractCosRequest {
   @Override
   public String[] paraNames() {
     Map<String, String[]> paraMap = this.paraMap();
-    if (CollectionKit.isEmpty(paraMap))
+    if (Is.empty(paraMap))
       return CollectionKit.emptyArray(String.class);
     Set<String> paras = paraMap.keySet();
     return paras.toArray(new String[paras.size()]);

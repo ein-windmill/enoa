@@ -16,7 +16,7 @@
 package io.enoa.yosart.kit.yo;
 
 import io.enoa.repeater.http.Method;
-import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.yosart.Oysart;
 import io.enoa.yosart.kernel.resources.OyResource;
 
@@ -30,11 +30,11 @@ public class OyResourceKit {
     if (resources == null)
       return null;
     OyResource[] res = resources.get(action);
-    if (CollectionKit.isEmpty(res))
+    if (Is.empty(res))
       return null;
 
     for (OyResource re : res) {
-      if (CollectionKit.isEmpty(re.methods()))
+      if (Is.empty(re.methods()))
         return re;
       for (Method rme : re.methods()) {
         if (method == Method.OPTIONS || rme == method)

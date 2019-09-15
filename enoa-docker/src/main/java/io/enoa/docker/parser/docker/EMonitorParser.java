@@ -20,6 +20,7 @@ import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dket.docker.system.EActor;
 import io.enoa.docker.dket.docker.system.EMonitor;
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
 
 import java.util.Map;
@@ -37,7 +38,7 @@ class EMonitorParser extends AbstractParser<EMonitor> {
   @Override
   public EMonitor ok(DockerConfig config, DResp resp) {
     Kv kv = config.json().parse(resp.string(), Kv.class);
-    if (CollectionKit.isEmpty(kv))
+    if (Is.empty(kv))
       return null;
     EMonitor.Builder builder = new EMonitor.Builder()
       .action(kv.string("Action"))

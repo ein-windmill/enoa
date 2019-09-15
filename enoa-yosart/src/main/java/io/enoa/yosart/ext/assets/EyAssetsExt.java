@@ -21,8 +21,8 @@ import io.enoa.repeater.http.Request;
 import io.enoa.repeater.http.Response;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
 import io.enoa.toolkit.file.FileKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.mark.IMarkVal;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.yosart.Oysart;
 import io.enoa.yosart.kernel.data.YdAssets;
 import io.enoa.yosart.kernel.ext.YmAssetsExt;
@@ -188,7 +188,7 @@ public class EyAssetsExt implements YmAssetsExt {
 
   private String chooseContentType(Path path) {
     String contentType = FileKit.probeContentType(path);
-    return TextKit.blanky(contentType) ? "application/octet-stream" : contentType;
+    return Is.not().truthy(contentType) ? "application/octet-stream" : contentType;
   }
 
   private String uri(String context, String action, String filename) {

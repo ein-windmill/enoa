@@ -17,7 +17,7 @@ package io.enoa.template.provider.velocity;
 
 import io.enoa.template.EnoaTemplate;
 import io.enoa.template.EoEngineConfig;
-import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.context.Context;
@@ -49,7 +49,7 @@ class _VelocityTemplate extends EnoaTemplate {
   public String render(Map<?, ?> data) {
     StringWriter out = new StringWriter();
     Context context = null;
-    if (CollectionKit.notEmpty(data)) {
+    if (Is.not().empty(data)) {
       context = new VelocityContext();
       for (Object key : data.keySet()) {
         context.put(key.toString(), data.get(key));

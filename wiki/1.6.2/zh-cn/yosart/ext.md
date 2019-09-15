@@ -274,7 +274,7 @@ AnostSerializer serializer = (request, data) -> {
     return renderer.renderText(data.toString()).end();
   if (data instanceof EoResp) {
     EoResp resp = (EoResp) data;
-    if (TextKit.blankn(resp.message()))
+    if (Is.truthy(resp.message()))
       resp.message(resp.message());
   }
   Respend respend = renderer.renderJson(data);

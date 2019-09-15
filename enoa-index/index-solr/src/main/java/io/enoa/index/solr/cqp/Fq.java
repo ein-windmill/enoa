@@ -16,6 +16,7 @@
 package io.enoa.index.solr.cqp;
 
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.value.EnoaValue;
 
@@ -27,7 +28,7 @@ public class Fq implements Serializable {
   private Object value;
 
   public Fq(String field, Object value) {
-    if (TextKit.blanky(field))
+    if (Is.not().truthy(field))
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.solr.cqp_fq_field_null"));
     if (value == null)
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.solr.cqp_fq_value_null"));

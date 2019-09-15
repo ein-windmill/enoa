@@ -17,6 +17,7 @@ package io.enoa.trydb.tsql.template;
 
 import io.enoa.firetpl.FireBody;
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.trydb.dialect.IDialect;
 import io.enoa.trydb.tsql.Trysql;
 
@@ -53,7 +54,7 @@ public interface TSql extends Trysql<TSql> {
       public String toString() {
         StringBuilder ret = new StringBuilder();
         ret.append(this.sql());
-        if (CollectionKit.isEmpty(this.paras()))
+        if (Is.empty(this.paras()))
           return ret.toString();
         ret.append("       ----> [");
         ret.append(String.join(",", Arrays.stream(this.paras()).map(Object::toString).collect(Collectors.toList())));

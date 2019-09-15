@@ -18,8 +18,8 @@ package io.enoa.docker.dqp.common;
 import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.DQR;
 import io.enoa.json.Json;
-import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.convert.ConvertKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
 
 import java.util.*;
@@ -53,7 +53,7 @@ public class DQPFilter<T extends DQPFilter> implements DQP {
     if (this.filter == null)
       this.filter = new HashMap<>();
     Set<String> arr = this.filter.get(name);
-    if (CollectionKit.isEmpty(arr))
+    if (Is.empty(arr))
       arr = new HashSet<>();
     arr.add(value);
     this.filter.put(name, arr);
@@ -68,7 +68,7 @@ public class DQPFilter<T extends DQPFilter> implements DQP {
     if (this.filter == null)
       this.filter = new HashMap<>();
     Set<String> arr = this.filter.get(name);
-    if (CollectionKit.isEmpty(arr))
+    if (Is.empty(arr))
       arr = new HashSet<>();
     arr.addAll(vals);
     this.filter.put(name, arr);

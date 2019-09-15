@@ -16,10 +16,8 @@
 package io.enoa.log.kit;
 
 import io.enoa.log.Log;
-import io.enoa.log.provider.jdk.JdkLogProvider;
 import io.enoa.log.provider.slf4j.Slf4JLogProvider;
 import org.junit.Test;
-import org.slf4j.LoggerFactory;
 
 /**
  * Created by ein on 2017/8/14.

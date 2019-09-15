@@ -19,6 +19,7 @@ import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dket.docker.secret.ESecret;
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
 
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ class ESecretListParser extends AbstractParser<List<ESecret>> {
   @Override
   public List<ESecret> ok(DockerConfig config, DResp resp) {
     List<Kv> kvs = config.json().parseArray(resp.string(), Kv.class);
-    if (CollectionKit.isEmpty(kvs))
+    if (Is.empty(kvs))
       return Collections.emptyList();
     List<ESecret> rets = new ArrayList<>(kvs.size());
     kvs.forEach(kv -> rets.add(ESecretParser.instance().secret(kv)));

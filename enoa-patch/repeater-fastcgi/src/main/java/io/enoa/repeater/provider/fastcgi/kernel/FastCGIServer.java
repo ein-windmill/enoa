@@ -17,8 +17,8 @@ package io.enoa.repeater.provider.fastcgi.kernel;
 
 import io.enoa.log.Log;
 import io.enoa.repeater.http.Response;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.stream.StreamKit;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thr.EoException;
 
 import java.io.IOException;
@@ -59,8 +59,8 @@ public final class FastCGIServer {
 
   public void listen(String hostname, int port) throws IOException {
     ServerSocket server = new ServerSocket();
-    server.bind(TextKit.blanky(hostname) ? new InetSocketAddress(port) : new InetSocketAddress(hostname, port));
-    Log.debug("FastCGI server started on {}:{}", TextKit.blanky(hostname) ? "localhost" : hostname, port);
+    server.bind(Is.not().truthy(hostname) ? new InetSocketAddress(port) : new InetSocketAddress(hostname, port));
+    Log.debug("FastCGI server started on {}:{}", Is.not().truthy(hostname) ? "localhost" : hostname, port);
     try {
       this.accept(server);
     } catch (Exception e) {

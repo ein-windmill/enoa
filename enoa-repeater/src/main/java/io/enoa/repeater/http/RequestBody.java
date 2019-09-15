@@ -15,7 +15,7 @@
  */
 package io.enoa.repeater.http;
 
-import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.stream.StreamKit;
 
 import java.nio.ByteBuffer;
@@ -80,7 +80,7 @@ public abstract class RequestBody {
 //  }
 
   public static RequestBody create(byte[] body, Charset charset) {
-    if (CollectionKit.isEmpty(body))
+    if (Is.empty(body))
       return null;
     return new RequestBody() {
       @Override

@@ -21,7 +21,7 @@ import io.enoa.repeater.factory.ts.RepeaterTranslateFactory;
 import io.enoa.repeater.http.Cookie;
 import io.enoa.repeater.http.Request;
 import io.enoa.repeater.http.Response;
-import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.thr.EoException;
 
 import javax.servlet.ServletOutputStream;
@@ -67,7 +67,7 @@ public class JettyTranslateProvider implements RepeaterTranslateFactory<HttpServ
     if (resp.headers().stream().noneMatch(h -> h.name().equalsIgnoreCase("content-length")))
       oresp.setContentLengthLong(resp.contentLength());
 
-    if (CollectionKit.notEmpty(resp.cookies())) {
+    if (Is.not().empty(resp.cookies())) {
       for (Cookie cookie : resp.cookies()) {
         oresp.addHeader("Set-Cookie", cookie.toString());
       }

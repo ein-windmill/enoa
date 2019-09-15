@@ -27,7 +27,7 @@ import io.enoa.http.Http;
 import io.enoa.http.protocol.HttpMethod;
 import io.enoa.http.protocol.HttpResponse;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
-import io.enoa.toolkit.text.TextKit;
+import io.enoa.toolkit.is.Is;
 
 public class ETCPDockerImage implements EOriginDockerImage {
 
@@ -83,7 +83,7 @@ public class ETCPDockerImage implements EOriginDockerImage {
       if (dqr != null)
         http.para(dqr.http());
     }
-    if (TextKit.blankn(body))
+    if (Is.truthy(body))
       http.raw(body);
 
     HttpResponse response = chunk == null ?

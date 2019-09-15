@@ -24,14 +24,14 @@ import io.enoa.eml.entity.Attachment;
 import io.enoa.eml.entity.MailPerson;
 import io.enoa.eml.thr.EoEmailException;
 import io.enoa.promise.DonePromise;
+import io.enoa.promise.Promise;
 import io.enoa.promise.arg.PromiseCapture;
 import io.enoa.promise.arg.PromiseVoid;
 import io.enoa.promise.builder.EPDonePromiseBuilder;
-import io.enoa.promise.Promise;
 import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.binary.EnoaBinary;
-import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.stream.StreamKit;
 import io.enoa.toolkit.text.TextKit;
 
@@ -148,7 +148,7 @@ class EnoaEmlSender implements EmlSender {
 
   @Override
   public void emit() {
-    if (CollectionKit.isEmpty(this.tos))
+    if (Is.empty(this.tos))
       throw new EoEmailException(EnoaTipKit.message("eo.tip.email.send_emit_target_null"));
 
     EmlConfig config = this.sess.config();
@@ -172,13 +172,13 @@ class EnoaEmlSender implements EmlSender {
         message.addRecipient(Message.RecipientType.TO, this.addr(to, this.charset));
       }
       // 抄送
-      if (CollectionKit.notEmpty(this.ccs)) {
+      if (Is.not().empty(this.ccs)) {
         for (MailPerson cc : this.ccs) {
           message.addRecipient(Message.RecipientType.CC, this.addr(cc, this.charset));
         }
       }
       // 密送
-      if (CollectionKit.notEmpty(this.bccs)) {
+      if (Is.not().empty(this.bccs)) {
         for (MailPerson bcc : this.bccs) {
           message.addRecipient(Message.RecipientType.BCC, this.addr(bcc, this.charset));
         }
@@ -251,13 +251,13 @@ class EnoaEmlSender implements EmlSender {
       try {
         this.emit();
 
-        if (CollectionKit.notEmpty(builder.dones())) {
+        if (Is.not().empty(builder.dones())) {
           for (PromiseVoid done : builder.dones()) {
             done.execute();
           }
         }
       } catch (Exception e) {
-        if (CollectionKit.notEmpty(builder.captures())) {
+        if (Is.not().empty(builder.captures())) {
           for (PromiseCapture capture : builder.captures()) {
             capture.execute(e);
           }
@@ -273,7 +273,7 @@ class EnoaEmlSender implements EmlSender {
   }
 
   private InternetAddress addr(MailPerson personal, Charset charset) throws AddressException, UnsupportedEncodingException {
-    if (TextKit.blanky(personal.name()))
+    if (Is.not().truthy(personal.name()))
       return new InternetAddress(personal.email());
     return new InternetAddress(personal.email(), personal.name(), charset.name());
   }

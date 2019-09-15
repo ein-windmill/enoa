@@ -23,7 +23,7 @@ import io.enoa.repeater.http.Cookie;
 import io.enoa.repeater.http.Request;
 import io.enoa.repeater.http.Response;
 import io.enoa.repeater.provider.netty.server.plus._RepeaterNettyRequest;
-import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.thr.EoException;
 import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.HttpHeaderNames;
@@ -57,7 +57,7 @@ public class NettyTranslateProvider implements RepeaterTranslateFactory<_Repeate
       oresp.headers().set(HttpHeaderNames.CONTENT_TYPE, resp.contentType());
 
 
-    if (CollectionKit.isEmpty(resp.cookies()))
+    if (Is.empty(resp.cookies()))
       return oresp;
 
     for (Cookie cookie : resp.cookies()) {

@@ -17,7 +17,6 @@ package io.enoa.trydb.build;
 
 import io.enoa.toolkit.convert.ConvertKit;
 import io.enoa.toolkit.map.Kv;
-import io.enoa.toolkit.namecase.INameCase;
 import io.enoa.toolkit.sys.ReflectKit;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.trydb.TrydbConfig;
@@ -30,7 +29,6 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 

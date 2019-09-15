@@ -22,8 +22,8 @@ import io.enoa.repeater.http.UFile;
 import io.enoa.toolkit.alg.UnitConvKit;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.file.FileKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.stream.StreamKit;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thr.EoException;
 
 import java.io.ByteArrayOutputStream;
@@ -48,7 +48,7 @@ public abstract class EoxAbstractCosRequest extends EoxAbstractRequest {
    */
   protected void handleUpload(InputStream stream, EoxConfig config, EoxNameRuleFactory rule) {
     String contentType = this.header("content-type");
-    if (TextKit.blanky(contentType) || !contentType.startsWith("multipart/form-data"))
+    if (Is.not().truthy(contentType) || !contentType.startsWith("multipart/form-data"))
       return;
 
     try {
@@ -128,10 +128,10 @@ public abstract class EoxAbstractCosRequest extends EoxAbstractRequest {
   }
 
   protected Map<String, String[]> paraMap(Map<String, List<String>> map1) {
-    if (CollectionKit.notEmpty(this.binparas))
+    if (Is.not().empty(this.binparas))
       return super.paraMap(map1, this.binparas);
     Map<String, String[]> ret = this.mapListToArray(map1);
-    if (CollectionKit.notEmpty(ret))
+    if (Is.not().empty(ret))
       return Collections.unmodifiableMap(ret);
     return null;
   }
@@ -139,7 +139,7 @@ public abstract class EoxAbstractCosRequest extends EoxAbstractRequest {
   @Override
   public UFile[] files() {
     String contentType = this.header("content-type");
-    if (TextKit.blanky(contentType) || !contentType.startsWith("multipart/form-data"))
+    if (Is.not().truthy(contentType) || !contentType.startsWith("multipart/form-data"))
       return CollectionKit.emptyArray(UFile.class);
     return this.ufiles.toArray(new UFile[this.ufiles.size()]);
   }
@@ -152,7 +152,7 @@ public abstract class EoxAbstractCosRequest extends EoxAbstractRequest {
   @Override
   public UFile file(String name) {
     UFile[] files = this.files(name);
-    if (CollectionKit.isEmpty(files))
+    if (Is.empty(files))
       return null;
     return files[0];
   }

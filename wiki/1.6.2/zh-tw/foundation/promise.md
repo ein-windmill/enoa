@@ -99,13 +99,13 @@ public class Writer {
       try {
         FileKit.write(Paths.get("/tmp/test.txt"), binary.bytebuffer());
 
-        if (CollectionKit.notEmpty(builder.dones())) {
+        if (Is.not().empty(builder.dones())) {
           for (PromiseVoid done : builder.dones()) {
             done.execute();
           }
         }
       } catch (Exception e) {
-        if (CollectionKit.notEmpty(builder.captures())) {
+        if (Is.not().empty(builder.captures())) {
           for (PromiseCapture capture : builder.captures()) {
             capture.execute(e);
           }

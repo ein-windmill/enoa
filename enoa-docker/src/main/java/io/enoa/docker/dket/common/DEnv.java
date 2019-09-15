@@ -16,6 +16,7 @@
 package io.enoa.docker.dket.common;
 
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.text.TextKit;
 
 public class DEnv {
@@ -28,9 +29,9 @@ public class DEnv {
   }
 
   public DEnv(String name, String value) {
-    if (TextKit.blanky(name))
+    if (Is.not().truthy(name))
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.docker.env_name_null"));
-    if (TextKit.blanky(value))
+    if (Is.not().truthy(value))
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.docker.env_value_null"));
     this.name = name;
     this.value = value;

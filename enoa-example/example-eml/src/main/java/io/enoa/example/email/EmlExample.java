@@ -15,7 +15,10 @@
  */
 package io.enoa.example.email;
 
-import io.enoa.eml.*;
+import io.enoa.eml.Eml;
+import io.enoa.eml.EmlConfig;
+import io.enoa.eml.EmlProtocol;
+import io.enoa.eml.EmlSender;
 import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.digest.UUIDKit;
 import io.enoa.toolkit.path.PathKit;

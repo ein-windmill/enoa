@@ -15,7 +15,7 @@
  */
 package io.enoa.trydb;
 
-import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.text.PadKit;
 import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.value.EnoaValue;
@@ -41,7 +41,7 @@ class _TrydbSqlReporter implements ISqlReporter {
     StringBuilder sb = new StringBuilder();
     sb.append("SQL   ").append('(').append(mark).append(")=> ")
       .append(sql);
-    if (CollectionKit.notEmpty(paras)) {
+    if (Is.not().empty(paras)) {
       sb.append("\n");
       sb.append("PARAS ").append('(').append(mark).append(")=> ");
 //      sb.append(Arrays.toString(paras));
@@ -49,7 +49,7 @@ class _TrydbSqlReporter implements ISqlReporter {
         if (para == null)
           return null;
         String string = EnoaValue.with(para).string(null);
-        if (TextKit.blanky(string))
+        if (Is.not().truthy(string))
           return null;
         string = string.replace("\r", "\\r")
           .replace("\n", "\\n")

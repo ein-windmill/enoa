@@ -20,10 +20,9 @@ import io.enoa.repeater.http.Header;
 import io.enoa.repeater.http.HttpStatus;
 import io.enoa.repeater.http.Request;
 import io.enoa.repeater.http.Response;
-import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
-import io.enoa.toolkit.text.TextKit;
 import io.enoa.toolkit.thr.EoException;
 import io.enoa.yosart.Oysart;
 import io.enoa.yosart.kernel.ext.YmRenderExt;
@@ -51,7 +50,7 @@ class RespuseImpl implements Respuse {
 
   @Override
   public Respuse attr(String name, Object value) {
-    if (TextKit.blanky(name))
+    if (Is.not().truthy(name))
       return this;
     this.attr.set(name, value);
     return this;
@@ -77,7 +76,7 @@ class RespuseImpl implements Respuse {
         .contentType(contentType);
 
       Header[] headers = renderer.headers();
-      if (CollectionKit.isEmpty(headers)) {
+      if (Is.empty(headers)) {
         this.builder = builder;
         return this;
       }

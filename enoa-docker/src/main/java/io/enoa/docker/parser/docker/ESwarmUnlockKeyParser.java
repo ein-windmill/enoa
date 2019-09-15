@@ -19,6 +19,7 @@ import io.enoa.docker.DockerConfig;
 import io.enoa.docker.dket.docker.DResp;
 import io.enoa.docker.dket.docker.swarm.ESwarmUnlockKey;
 import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
 
 class ESwarmUnlockKeyParser extends AbstractParser<ESwarmUnlockKey> {
@@ -34,7 +35,7 @@ class ESwarmUnlockKeyParser extends AbstractParser<ESwarmUnlockKey> {
   @Override
   public ESwarmUnlockKey ok(DockerConfig config, DResp resp) {
     Kv kv = config.json().parse(resp.string(), Kv.class);
-    if (CollectionKit.isEmpty(kv))
+    if (Is.empty(kv))
       return null;
     ESwarmUnlockKey.Builder builder = new ESwarmUnlockKey.Builder()
       .unlockkey(kv.string("UnlockKey"));

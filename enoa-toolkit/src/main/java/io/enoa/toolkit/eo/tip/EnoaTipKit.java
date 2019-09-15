@@ -15,7 +15,7 @@
  */
 package io.enoa.toolkit.eo.tip;
 
-import io.enoa.toolkit.collection.CollectionKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.prop.Prop;
 import io.enoa.toolkit.thr.EoException;
 
@@ -68,7 +68,7 @@ public class EnoaTipKit {
       if ("file".equals(url.getProtocol())) {
         File resourcePath = new File(url.getPath());
         File[] files = resourcePath.listFiles(pathname -> pathname.getName().endsWith(".eo.properties"));
-        if (CollectionKit.isEmpty(files)) {
+        if (Is.empty(files)) {
           throw new EoException("Not found tip config file.");
         }
         for (File file : files) {

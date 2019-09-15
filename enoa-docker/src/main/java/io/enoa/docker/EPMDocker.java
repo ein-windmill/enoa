@@ -27,7 +27,7 @@ import io.enoa.docker.command.docker.origin.EnoaUNIXSOCKETDocker;
 import io.enoa.docker.command.docker.origin.OriginDocker;
 import io.enoa.docker.thr.DockerException;
 import io.enoa.toolkit.eo.tip.EnoaTipKit;
-import io.enoa.toolkit.text.TextKit;
+import io.enoa.toolkit.is.Is;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -59,7 +59,7 @@ public class EPMDocker {
     if (this.exists(name))
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.docker.name_exists"));
     String host = config.host();
-    if (TextKit.blanky(host))
+    if (Is.not().truthy(host))
       throw new IllegalArgumentException(EnoaTipKit.message("eo.tip.docker.host_null"));
 
     host = host.toLowerCase();

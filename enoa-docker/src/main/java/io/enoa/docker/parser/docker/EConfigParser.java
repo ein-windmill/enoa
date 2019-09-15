@@ -21,6 +21,7 @@ import io.enoa.docker.dket.docker.config.EConfig;
 import io.enoa.docker.dket.docker.config.EConfigSpec;
 import io.enoa.toolkit.collection.CollectionKit;
 import io.enoa.toolkit.date.DateKit;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.map.Kv;
 
 import java.util.Map;
@@ -45,7 +46,7 @@ class EConfigParser extends AbstractParser<EConfig> {
 
 
   EConfig config(Kv kv) {
-    if (CollectionKit.isEmpty(kv))
+    if (Is.empty(kv))
       return null;
     EConfig.Builder builder = new EConfig.Builder()
       .id(kv.string("ID"))

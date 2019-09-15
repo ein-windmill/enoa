@@ -17,9 +17,9 @@ package io.enoa.docker.command.docker.eo;
 
 import io.enoa.docker.command.docker.generic.EGenericDockerDistribution;
 import io.enoa.docker.command.docker.generic.GenericDocker;
-import io.enoa.docker.parser.docker.DIParser;
 import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.dket.docker.distribution.EDistribution;
+import io.enoa.docker.parser.docker.DIParser;
 
 public class EnoaDockerDistribution {
 
