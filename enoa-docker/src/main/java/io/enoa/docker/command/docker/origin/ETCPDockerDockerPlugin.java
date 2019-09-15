@@ -50,7 +50,7 @@ public class ETCPDockerDockerPlugin implements EOriginDockerPlugin {
   @Override
   public DResp privileges(String remote) {
     Http http = this.docker.http("plugins/privileges");
-    if (Is.truthy())
+    if (Is.truthy(remote))
       http.para("remote", remote);
     HttpResponse response = http.emit();
     return DResp.create(response);
@@ -124,7 +124,7 @@ public class ETCPDockerDockerPlugin implements EOriginDockerPlugin {
   public DResp create(String id, String raw) {
     Http http = this.docker.http("plugins/create")
       .method(HttpMethod.POST);
-    if (Is.truthy())
+    if (Is.truthy(raw))
       http.raw(raw);
     HttpResponse response = http.emit();
     return DResp.create(response);
