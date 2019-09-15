@@ -26,8 +26,8 @@ import io.enoa.http.provider.httphelper.async.HttpHelperExecutor;
 import io.enoa.http.proxy.HttpProxy;
 import io.enoa.toolkit.EoConst;
 import io.enoa.toolkit.binary.EnoaBinary;
+import io.enoa.toolkit.is.Is;
 import io.enoa.toolkit.sys.EnvKit;
-import io.enoa.toolkit.text.TextKit;
 
 import java.nio.file.Paths;
 import java.util.HashSet;
@@ -117,7 +117,7 @@ public class HttpExample {
       .then(HttpResponse::body)
       .then(HttpResponseBody::bytes)
       .<byte[]>then(body -> EnoaBinary.create(body, EoConst.CHARSET).string())
-      .<String>valid(TextKit::blankn)
+      .<String>valid(Is::truthy)
       .<String>valid(data -> data.length() > 30)
       .execute(System.out::println)
       .fail(System.err::println)
