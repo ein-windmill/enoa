@@ -81,7 +81,7 @@ public class TextKit {
    * @return String
    */
   public static String nospace(String text, boolean extreme) {
-    if (Is.not().blank(text))
+    if (Is.blank(text))
       return text;
     if (!extreme)
       return text.trim();
