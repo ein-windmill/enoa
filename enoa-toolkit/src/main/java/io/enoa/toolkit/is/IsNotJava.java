@@ -57,6 +57,11 @@ public class IsNotJava implements EoIs {
   }
 
   @Override
+  public boolean array(Object object) {
+    return !this.is.array(object);
+  }
+
+  @Override
   public boolean empty(Collection collection) {
     return !this.is.empty(collection);
   }

@@ -23,6 +23,8 @@ interface EoIs {
 
   boolean blank(String str);
 
+  boolean array(Object object);
+
   boolean empty(Collection collection);
 
   boolean empty(Map map);

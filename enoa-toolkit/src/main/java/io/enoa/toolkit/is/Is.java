@@ -57,6 +57,10 @@ public class Is {
     return is().blank(str);
   }
 
+  public static boolean array(Object object) {
+    return is().array(object);
+  }
+
   public static boolean empty(Collection collection) {
     return is().empty(collection);
   }

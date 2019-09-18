@@ -163,9 +163,9 @@ public class CollectionKit {
 //        Arrays.fill(array, 0);
 //  }
 
-  public static boolean isArray(Object object) {
-    return object != null && object.getClass().isArray();
-  }
+//  public static boolean isArray(Object object) {
+//    return object != null && object.getClass().isArray();
+//  }
 
   public static <T> T[] array(Object object) {
     List<T> rets = new ArrayList<>();
@@ -173,7 +173,7 @@ public class CollectionKit {
     if (object == null)
       return (T[]) rets.toArray();
 
-    if (!isArray(object))
+    if (Is.not().array(object))
       return (T[]) rets.toArray();
 
     int len = Array.getLength(object);

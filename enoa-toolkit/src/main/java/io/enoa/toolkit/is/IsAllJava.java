@@ -79,6 +79,13 @@ public class IsAllJava implements EoAIs {
   }
 
   @Override
+  public boolean array(Collection objects) {
+    if (objects == null)
+      return this.not;
+    return objects.stream().allMatch(i -> this.is.array(i));
+  }
+
+  @Override
   public boolean empty(Collection collection) {
     return this.is.empty(collection);
   }

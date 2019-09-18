@@ -139,7 +139,7 @@ class EnoaShell implements Shell {
         }
       } catch (Exception e) {
         List<PromiseCapture> captures = builder.captures();
-        if (CollectionKit.isArray(captures)) {
+        if (Is.array(captures)) {
           e.printStackTrace();
           return;
         }

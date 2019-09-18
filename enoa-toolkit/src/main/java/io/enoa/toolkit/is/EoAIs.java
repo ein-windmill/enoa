@@ -102,6 +102,16 @@ public interface EoAIs extends EoIs {
 
   boolean blank(Collection<String> strs);
 
+  @Override
+  default boolean array(Object object) {
+    return this.array(Stream.of(object).collect(Collectors.toList()));
+  }
+
+  default boolean array(Object... objects) {
+    return this.array(Stream.of(objects).collect(Collectors.toList()));
+  }
+
+  boolean array(Collection objects);
 
   @Override
   boolean empty(Collection collection);

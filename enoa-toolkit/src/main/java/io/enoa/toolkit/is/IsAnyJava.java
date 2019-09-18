@@ -79,6 +79,13 @@ public class IsAnyJava implements EoAIs {
   }
 
   @Override
+  public boolean array(Collection objects) {
+    if (objects == null)
+      return this.not;
+    return objects.stream().anyMatch(i -> this.is.array(i));
+  }
+
+  @Override
   public boolean empty(Collection collection) {
     return this.is.empty(collection);
   }

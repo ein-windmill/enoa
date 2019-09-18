@@ -113,6 +113,11 @@ public class IsJava implements EoIs {
   }
 
   @Override
+  public boolean array(Object object) {
+    return object != null && object.getClass().isArray();
+  }
+
+  @Override
   public boolean empty(Collection collection) {
     return collection == null || collection.isEmpty();
   }
