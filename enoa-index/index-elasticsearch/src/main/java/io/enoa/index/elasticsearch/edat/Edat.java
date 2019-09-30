@@ -18,6 +18,7 @@ package io.enoa.index.elasticsearch.edat;
 import io.enoa.http.protocol.HttpResponse;
 import io.enoa.http.protocol.HttpResponseBody;
 import io.enoa.index.elasticsearch.ElasticsearchConfig;
+import io.enoa.index.elasticsearch.types.bulk.EBulk;
 import io.enoa.index.elasticsearch.types.search.ESearch;
 import io.enoa.json.EnoaJson;
 import io.enoa.toolkit.is.Is;
@@ -76,6 +77,17 @@ public class Edat {
 
   public <T> Optional<ESearch<T>> toSearch(Type type) {
     Type t = TypeBuilder.with(ESearch.class)
+      .type(type)
+      .build();
+    return this.to(t);
+  }
+
+  public <T> Optional<EBulk<T>> toBulk(Class<T> clazz) {
+    return this.toBulk((Type) clazz);
+  }
+
+  public <T> Optional<EBulk<T>> toBulk(Type type) {
+    Type t = TypeBuilder.with(EBulk.class)
       .type(type)
       .build();
     return this.to(t);
