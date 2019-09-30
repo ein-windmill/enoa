@@ -18,7 +18,7 @@ package io.enoa.trydb;
 import io.enoa.trydb.async.ElegantEnqueueTrydb;
 import io.enoa.trydb.async.TAsyncSupport;
 import io.enoa.trydb.dialect.IDialect;
-import io.enoa.trydb.page.Page;
+import io.enoa.toolkit.page.Page;
 import io.enoa.trydb.tsql.Trysql;
 import io.enoa.trydb.tsql.psql.IPSql;
 

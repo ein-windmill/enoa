@@ -24,7 +24,7 @@ import io.enoa.toolkit.path.PathKit;
 import io.enoa.trydb.Trydb;
 import io.enoa.trydb.TrydbConfig;
 import io.enoa.trydb.dialect.PostgreSQLDialect;
-import io.enoa.trydb.page.Page;
+import io.enoa.toolkit.page.Page;
 import io.enoa.trydb.tsql.Trysql;
 import io.enoa.trydb.tsql.psql.IPSql;
 import org.junit.Before;

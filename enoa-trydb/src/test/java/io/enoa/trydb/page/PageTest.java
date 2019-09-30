@@ -2,6 +2,7 @@ package io.enoa.trydb.page;
 
 import io.enoa.json.Json;
 import io.enoa.json.provider.fastjson.FastjsonProvider;
+import io.enoa.toolkit.page.Page;
 import io.enoa.typebuilder.TypeBuilder;
 import org.junit.Before;
 import org.junit.Test;

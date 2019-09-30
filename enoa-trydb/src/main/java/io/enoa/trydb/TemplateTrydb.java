@@ -18,7 +18,7 @@ package io.enoa.trydb;
 import io.enoa.toolkit.map.Kv;
 import io.enoa.trydb.async.TAsyncSupport;
 import io.enoa.trydb.async.TemplateEnqueueTrydb;
-import io.enoa.trydb.page.Page;
+import io.enoa.toolkit.page.Page;
 import io.enoa.trydb.tsql.Trysql;
 import io.enoa.trydb.tsql.psql.IPSql;
 import io.enoa.trydb.tsql.template.TSql;

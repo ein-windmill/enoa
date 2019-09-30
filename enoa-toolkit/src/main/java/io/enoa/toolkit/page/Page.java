@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.enoa.trydb.page;
+package io.enoa.toolkit.page;
 
 import java.io.Serializable;
 import java.util.List;
