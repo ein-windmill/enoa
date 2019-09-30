@@ -1,3 +1,18 @@
+/*
+ * Copyright 2016 ikidou
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package io.enoa.index.elasticsearch;
 
 import io.enoa.http.protocol.HttpResponse;
@@ -10,6 +25,7 @@ import io.enoa.index.elasticsearch.types.search.ETotal;
 import io.enoa.json.EnoaJson;
 import io.enoa.toolkit.convert.ConvertKit;
 import io.enoa.toolkit.is.Is;
+import io.enoa.toolkit.map.Kv;
 import io.enoa.toolkit.page.Page;
 import io.enoa.typebuilder.TypeBuilder;
 
@@ -134,6 +150,22 @@ public interface EParser<R> {
         .collect(Collectors.toList());
       return new Page<>(pn, _size, tpg, _from, total, rows);
     };
+  }
+
+  static <T> EParser<T> bean(Class<T> clazz) {
+    return bean((Type) clazz);
+  }
+
+  static <T> EParser<T> bean(Type type) {
+    return (json, response, size, from) -> {
+      EParser<List<T>> lparser = list(type);
+      List<T> rets = lparser.parse(json, response);
+      return Is.empty(rets) ? null : rets.get(0);
+    };
+  }
+
+  static EParser<Kv> kv() {
+    return bean(Kv.class);
   }
 
 
