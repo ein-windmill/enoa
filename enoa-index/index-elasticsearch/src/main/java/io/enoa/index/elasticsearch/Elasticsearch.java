@@ -15,7 +15,6 @@
  */
 package io.enoa.index.elasticsearch;
 
-import io.enoa.index.elasticsearch.edat.Edat;
 import io.enoa.index.elasticsearch.eql.Eql;
 import io.enoa.index.elasticsearch.eql.fireql.EoFireql;
 import io.enoa.index.elasticsearch.eql.fireql.Fireql;
