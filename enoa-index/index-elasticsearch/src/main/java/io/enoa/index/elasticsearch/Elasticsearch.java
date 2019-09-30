@@ -64,23 +64,23 @@ public class Elasticsearch {
   }
 
 
-  public static Edat post(String uri, Eql eql) {
+  public static EsEmiter post(String uri, Eql eql) {
     return use().post(uri, eql);
   }
 
-  public static Edat delete(String uri) {
+  public static EsEmiter delete(String uri) {
     return use().delete(uri);
   }
 
-  public static Edat delete(String uri, Eql eql) {
+  public static EsEmiter delete(String uri, Eql eql) {
     return use().delete(uri, eql);
   }
 
-  public static Edat search(String uri) {
+  public static EsEmiter search(String uri) {
     return use().search(uri);
   }
 
-  public static Edat search(String uri, Eql eql) {
+  public static EsEmiter search(String uri, Eql eql) {
     return use().search(uri, eql);
   }
 }

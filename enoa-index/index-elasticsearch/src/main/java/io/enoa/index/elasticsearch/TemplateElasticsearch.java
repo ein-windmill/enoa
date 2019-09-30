@@ -31,75 +31,75 @@ public class TemplateElasticsearch {
     this.fireql = fireql;
   }
 
-  public Edat post(String uri, String tplname) {
+  public EsEmiter post(String uri, String tplname) {
     return this.elasticsearch.post(uri, this.fireql.eql(tplname));
   }
 
-  public Edat post(String uri, String tplname, Kv kv) {
+  public EsEmiter post(String uri, String tplname, Kv kv) {
     return this.elasticsearch.post(uri, this.fireql.eql(tplname, kv));
   }
 
-  public Edat post(String uri, String tplname, Map<String, ?> para) {
+  public EsEmiter post(String uri, String tplname, Map<String, ?> para) {
     return this.elasticsearch.post(uri, this.fireql.eql(tplname, para));
   }
 
-  public Edat delete(String uri) {
+  public EsEmiter delete(String uri) {
     return this.elasticsearch.delete(uri);
   }
 
-  public Edat delete(String uri, String tplname) {
+  public EsEmiter delete(String uri, String tplname) {
     return this.elasticsearch.delete(uri, this.fireql.eql(tplname));
   }
 
-  public Edat delete(String uri, String tplname, Kv kv) {
+  public EsEmiter delete(String uri, String tplname, Kv kv) {
     return this.elasticsearch.delete(uri, this.fireql.eql(tplname, kv));
   }
 
-  public Edat delete(String uri, String tplname, Map<String, ?> para) {
+  public EsEmiter delete(String uri, String tplname, Map<String, ?> para) {
     return this.elasticsearch.delete(uri, this.fireql.eql(tplname, para));
   }
 
-  public Edat search(String uri) {
+  public EsEmiter search(String uri) {
     return this.elasticsearch.search(uri);
   }
 
-  public Edat search(String uri, String tplname) {
+  public EsEmiter search(String uri, String tplname) {
     return this.elasticsearch.search(uri, this.fireql.eql(tplname));
   }
 
-  public Edat search(String uri, String tplname, Kv kv) {
+  public EsEmiter search(String uri, String tplname, Kv kv) {
     return this.elasticsearch.search(uri, this.fireql.eql(tplname, kv));
   }
 
-  public Edat search(String uri, String tplname, Map<String, ?> para) {
+  public EsEmiter search(String uri, String tplname, Map<String, ?> para) {
     return this.elasticsearch.search(uri, this.fireql.eql(tplname, para));
   }
 
-  public Edat update(String uri) {
+  public EsEmiter update(String uri) {
     return this.elasticsearch.update(uri);
   }
 
-  public Edat update(String uri, String tplname) {
+  public EsEmiter update(String uri, String tplname) {
     return this.elasticsearch.update(uri, this.fireql.eql(tplname));
   }
 
-  public Edat update(String uri, String tplname, Kv kv) {
+  public EsEmiter update(String uri, String tplname, Kv kv) {
     return this.elasticsearch.update(uri, this.fireql.eql(tplname, kv));
   }
 
-  public Edat update(String uri, String tplname, Map<String, ?> para) {
+  public EsEmiter update(String uri, String tplname, Map<String, ?> para) {
     return this.elasticsearch.update(uri, this.fireql.eql(tplname, para));
   }
 
-  public Edat bulk(String tplname) {
+  public EsEmiter bulk(String tplname) {
     return this.elasticsearch.bulk(this.fireql.eql(tplname));
   }
 
-  public Edat bulk(String tplname, Kv kv) {
+  public EsEmiter bulk(String tplname, Kv kv) {
     return this.elasticsearch.bulk(this.fireql.eql(tplname, kv));
   }
 
-  public Edat bulk(String tplname, Map<String, ?> para) {
+  public EsEmiter bulk(String tplname, Map<String, ?> para) {
     return this.elasticsearch.bulk(this.fireql.eql(tplname, para));
   }
 

@@ -32,6 +32,12 @@ public class Page<T> implements Serializable {
   public Page() {
   }
 
+  private static Page EMPTY = new Page<>();
+
+  public static <A> Page<A> empty() {
+    return EMPTY;
+  }
+
   public Page(int pageNumber, int pageSize, int totalPage, long offset, long totalRow, List<T> rows) {
     this.pn = pageNumber;
     this.ps = pageSize;

@@ -16,12 +16,8 @@
 package io.enoa.index.elasticsearch;
 
 import io.enoa.http.EoUrl;
-import io.enoa.http.Http;
 import io.enoa.http.protocol.HttpMethod;
-import io.enoa.http.protocol.HttpResponse;
-import io.enoa.index.elasticsearch.edat.Edat;
 import io.enoa.index.elasticsearch.eql.Eql;
-import io.enoa.toolkit.is.Is;
 
 public class EnoaElasticsearch {
 
@@ -31,55 +27,55 @@ public class EnoaElasticsearch {
     this.config = config;
   }
 
-  private Edat call(HttpMethod method, EoUrl url, Eql eql) {
-    Http http = this.config.http()
-      .method(method)
-      .url(url);
-
-    if (Is.not().nullx(eql)) {
-      String json = eql.eql();
-      if (Is.truthy(json)) {
-        http.raw(json).contentType("application/json");
-      }
-    }
-    HttpResponse response = http.emit();
-    return new Edat(this.config, response);
-  }
-
   private EoUrl url(String uri) {
     return EoUrl.with(this.config.host()).subpath(uri);
   }
 
-  public Edat post(String uri, Eql eql) {
-    return this.call(HttpMethod.POST, this.url(uri), eql);
+  public EsEmiter post(String uri, Eql eql) {
+    return new EsEmiter(this.config)
+      .method(HttpMethod.POST)
+      .url(this.url(uri))
+      .eql(eql);
   }
 
-  public Edat delete(String uri) {
-    return this.call(HttpMethod.DELETE, this.url(uri), null);
+  public EsEmiter delete(String uri) {
+    return this.delete(uri, null);
   }
 
-  public Edat delete(String uri, Eql eql) {
-    return this.call(HttpMethod.DELETE, this.url(uri), eql);
+  public EsEmiter delete(String uri, Eql eql) {
+    return new EsEmiter(this.config)
+      .method(HttpMethod.DELETE)
+      .url(this.url(uri))
+      .eql(eql);
   }
 
-  public Edat search(String uri) {
-    return this.call(HttpMethod.GET, this.url(uri).subpath("_search"), null);
+  public EsEmiter search(String uri) {
+    return this.search(uri, null);
   }
 
-  public Edat search(String uri, Eql eql) {
-    return this.call(HttpMethod.GET, this.url(uri).subpath("_search"), eql);
+  public EsEmiter search(String uri, Eql eql) {
+    return new EsEmiter(this.config)
+      .method(HttpMethod.GET)
+      .url(this.url(uri).subpath("_search"))
+      .eql(eql);
   }
 
-  public Edat update(String uri) {
-    return this.call(HttpMethod.POST, this.url(uri).subpath("_update"), null);
+  public EsEmiter update(String uri) {
+    return this.update(uri, null);
   }
 
-  public Edat update(String uri, Eql eql) {
-    return this.call(HttpMethod.POST, this.url(uri).subpath("_update"), eql);
+  public EsEmiter update(String uri, Eql eql) {
+    return new EsEmiter(this.config)
+      .method(HttpMethod.POST)
+      .url(this.url(uri).subpath("_update"))
+      .eql(eql);
   }
 
-  public Edat bulk(Eql eql) {
-    return this.call(HttpMethod.POST, EoUrl.with(this.config.host()).subpath("_bulk"), eql);
+  public EsEmiter bulk(Eql eql) {
+    return new EsEmiter(this.config)
+      .method(HttpMethod.POST)
+      .url(EoUrl.with(this.config.host()).subpath("_bulk"))
+      .eql(eql);
   }
 
 }

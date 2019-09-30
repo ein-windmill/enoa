@@ -246,7 +246,7 @@ class _HttpHelper implements Http {
       iterator.remove();
       itm.add(new HttpPara(para.name(), para.value(), true));
     }
-    itm.add(new HttpPara(name, String.valueOf(value), array));
+    itm.add(new HttpPara(name, value == null ? "" : String.valueOf(value), array));
     this.paras.addAll(itm);
     itm.clear();
     return this;
@@ -255,9 +255,7 @@ class _HttpHelper implements Http {
   @Override
   public Http para(String name, Object value) {
     if (name == null)
-      throw new IllegalArgumentException("name == null");
-    if (value == null)
-      throw new IllegalArgumentException("value == null => name: " + name);
+      return this;
     if (value.getClass().isArray()) {
       return this.para(name, this.toArr(value));
     }
@@ -267,9 +265,7 @@ class _HttpHelper implements Http {
   @Override
   public Http para(String name, Object[] values) {
     if (name == null)
-      throw new IllegalArgumentException("name == null");
-    if (values == null)
-      throw new IllegalArgumentException("values == null => name: " + name);
+      return this;
     for (Object value : values) {
       this.para(name, value, false);
     }
@@ -279,9 +275,7 @@ class _HttpHelper implements Http {
   @Override
   public Http para(String name, Collection values) {
     if (name == null)
-      throw new IllegalArgumentException("name == null");
-    if (values == null)
-      throw new IllegalArgumentException("values == null");
+      return this;
     values.forEach(c -> this.para(name, c, false));
     return this;
   }

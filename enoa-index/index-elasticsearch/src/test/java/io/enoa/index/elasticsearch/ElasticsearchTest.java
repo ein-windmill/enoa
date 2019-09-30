@@ -26,8 +26,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import java.util.Optional;
-
 public class ElasticsearchTest {
 
 
@@ -48,8 +46,8 @@ public class ElasticsearchTest {
   @Test
   @Ignore
   public void testSearch() {
-    Optional<ESearch<Kv>> dat = Elasticsearch.search("/iktest")
-      .toSearch(Kv.class);
+    ESearch<Kv> dat = Elasticsearch.search("/iktest")
+      .emit(EParser.search(Kv.class));
     System.out.println(dat);
   }
 
