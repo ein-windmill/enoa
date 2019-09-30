@@ -15,10 +15,11 @@
  */
 package io.enoa.index.elasticsearch.types.search;
 
+import io.enoa.index.elasticsearch.types.EShards;
 import io.enoa.index.elasticsearch.types.error.EError;
 import io.enoa.index.elasticsearch.types.error.IEError;
 
-public class ESearch<T> implements IEError {
+public class ESearch<T> implements IEError<Void> {
 
   private EError error;
   private Integer status;

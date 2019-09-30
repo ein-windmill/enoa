@@ -1,9 +1,28 @@
 package io.enoa.index.elasticsearch.types.error;
 
-public interface IEError {
+import java.util.Collections;
+import java.util.List;
 
-  EError getError();
+public interface IEError<I> {
 
-  Integer getStatus();
+  default Integer getTook() {
+    return 0;
+  }
+
+  default EError getError() {
+    return null;
+  }
+
+  default Integer getStatus() {
+    return 0;
+  }
+
+  default List<I> getItems() {
+    return Collections.emptyList();
+  }
+
+  default boolean esok() {
+    return this.getError() == null;
+  }
 
 }

@@ -9,8 +9,18 @@ public class EError {
   private EErrorResource resource;
   private String indexUuid;
   private String index;
+  private Integer shard;
 
   private List<EErrorRootCause> rootCause;
+
+  public Integer getShard() {
+    return shard;
+  }
+
+  public EError setShard(Integer shard) {
+    this.shard = shard;
+    return this;
+  }
 
   public String getType() {
     return type;
