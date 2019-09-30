@@ -99,11 +99,11 @@ public interface EParser<R> {
     };
   }
 
-  static <T> EParser<List<T>> list(Class<T> clazz) {
-    return list((Type) clazz);
+  static <T> EParser<List<T>> beans(Class<T> clazz) {
+    return beans((Type) clazz);
   }
 
-  static <T> EParser<List<T>> list(Type type) {
+  static <T> EParser<List<T>> beans(Type type) {
     return (json, response, size, from) -> {
       EParser<ESearch<T>> search = search(type);
       ESearch<T> _sch = search.parse(json, response);
@@ -116,6 +116,26 @@ public interface EParser<R> {
         .map(EHits::get_source)
         .collect(Collectors.toList());
     };
+  }
+
+  static <T> EParser<T> bean(Class<T> clazz) {
+    return bean((Type) clazz);
+  }
+
+  static <T> EParser<T> bean(Type type) {
+    return (json, response, size, from) -> {
+      EParser<List<T>> lparser = beans(type);
+      List<T> rets = lparser.parse(json, response);
+      return Is.empty(rets) ? null : rets.get(0);
+    };
+  }
+
+  static EParser<List<Kv>> kvs() {
+    return beans(Kv.class);
+  }
+
+  static EParser<Kv> kv() {
+    return bean(Kv.class);
   }
 
   static <T> EParser<Page<T>> page(Class<T> clazz) {
@@ -150,22 +170,6 @@ public interface EParser<R> {
         .collect(Collectors.toList());
       return new Page<>(pn, _size, tpg, _from, total, rows);
     };
-  }
-
-  static <T> EParser<T> bean(Class<T> clazz) {
-    return bean((Type) clazz);
-  }
-
-  static <T> EParser<T> bean(Type type) {
-    return (json, response, size, from) -> {
-      EParser<List<T>> lparser = list(type);
-      List<T> rets = lparser.parse(json, response);
-      return Is.empty(rets) ? null : rets.get(0);
-    };
-  }
-
-  static EParser<Kv> kv() {
-    return bean(Kv.class);
   }
 
 
