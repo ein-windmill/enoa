@@ -28,6 +28,7 @@ import java.util.UUID;
 public class EnjoyFiretpl implements Firetpl {
 
   private SectionKit section;
+  private boolean parsed;
 
   public EnjoyFiretpl(Path basePath, String template) {
     this(basePath, template, false);
@@ -37,7 +38,6 @@ public class EnjoyFiretpl implements Firetpl {
     this.section = new SectionKit(UUID.randomUUID().toString(), debug);
     this.section.setBaseSectionTemplatePath(basePath.toString());
     this.section.addSectionTemplate(template);
-    this.section.parseSectionTemplate();
   }
 
   public EnjoyFiretpl(String template) {
@@ -48,15 +48,21 @@ public class EnjoyFiretpl implements Firetpl {
     this.section = new SectionKit(UUID.randomUUID().toString(), debug);
     this.engine().setSourceFactory(new ClassPathSourceFactory());
     this.section.addSectionTemplate(template);
-    this.section.parseSectionTemplate();
   }
 
   public Engine engine() {
     return this.section.getEngine();
   }
 
+  private void parse() {
+    if (this.parsed) return;
+    this.section.parseSectionTemplate();
+    this.parsed = true;
+  }
+
   @Override
   public FireBody render(String name) {
+    this.parse();
     String section = this.section.getSection(name);
     if (section == null)
       throw new StoveException("Template name not found => " + name);
@@ -65,6 +71,7 @@ public class EnjoyFiretpl implements Firetpl {
 
   @Override
   public FireBody render(String name, Map<String, ?> para) {
+    this.parse();
     if (para == null) {
       return this.render(name);
     }
