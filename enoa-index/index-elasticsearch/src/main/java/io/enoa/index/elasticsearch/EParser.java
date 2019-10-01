@@ -145,7 +145,9 @@ public interface EParser<R> {
   static <T> EParser<Page<T>> page(Type type) {
     return (json, response, size, from) -> {
       Integer _size = ConvertKit.integer(size, 10);
+      _size = _size <= 0 ? 1 : _size;
       Long _from = ConvertKit.longer(from, 0L);
+      _from = _from < 0 ? 0 : _from;
       EParser<ESearch<T>> search = search(type);
       ESearch<T> _sch = search.parse(json, response);
       if (Is.nullx(_sch.getHits()))

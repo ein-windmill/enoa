@@ -38,4 +38,13 @@ public class EBulk<T> implements IEError<T> {
     this.items = items;
     return this;
   }
+
+  @Override
+  public String toString() {
+    return "EBulk{" +
+      "took=" + took +
+      ", errors=" + errors +
+      ", items=" + items +
+      '}';
+  }
 }

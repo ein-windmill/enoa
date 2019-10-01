@@ -28,6 +28,7 @@ import java.util.stream.Stream;
 
 public class EsEmiter implements IEs {
 
+  private EoUrl url;
   private Http http;
   private ElasticsearchConfig config;
   private Integer size;
@@ -40,7 +41,7 @@ public class EsEmiter implements IEs {
   }
 
   EsEmiter url(EoUrl url) {
-    this.http.url(url);
+    this.url = url;
     return this;
   }
 
@@ -57,6 +58,16 @@ public class EsEmiter implements IEs {
 
   public EsEmiter size(Integer size) {
     this.size = size;
+    return this;
+  }
+
+  public EsEmiter subpath(String subpath) {
+    this.url.subpath(subpath);
+    return this;
+  }
+
+  public EsEmiter subpath(String... subpaths) {
+    this.url.subpath(subpaths);
     return this;
   }
 
@@ -117,6 +128,7 @@ public class EsEmiter implements IEs {
 
   @Override
   public <T> T emit(EParser<T> parser) {
+    this.http.url(this.url);
     if (Is.not().nullx(this.size))
       this.http.para("size", this.size);
     if (Is.not().nullx(this.from))
