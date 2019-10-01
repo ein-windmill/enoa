@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Is {
 
-  private static IsJava is() {
+  public static IsJava is() {
     return IsJava.instance();
   }
 
