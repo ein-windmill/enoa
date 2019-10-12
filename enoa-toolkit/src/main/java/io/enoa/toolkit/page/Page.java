@@ -101,6 +101,15 @@ public class Page<T> implements Serializable {
     return this;
   }
 
+  public <J> Page<J> map(IRebuilder<T, J> rebuilder) {
+    List<J> newrows = rebuilder.to(this.rows);
+    return new Page<>(this.pn, this.ps, this.tpg, this.offset, this.trw, newrows);
+  }
+
+  public interface IRebuilder<O, A> {
+    List<A> to(List<O> rows);
+  }
+
   @Override
   public String toString() {
     return "Page{" +
