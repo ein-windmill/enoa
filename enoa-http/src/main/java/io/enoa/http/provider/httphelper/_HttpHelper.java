@@ -256,10 +256,10 @@ class _HttpHelper implements Http {
   public Http para(String name, Object value) {
     if (name == null)
       return this;
-    if (value.getClass().isArray()) {
+    if (value != null && value.getClass().isArray()) {
       return this.para(name, this.toArr(value));
     }
-    return this.para(name, value.toString(), false);
+    return this.para(name, value == null ? "" : value.toString(), false);
   }
 
   @Override
