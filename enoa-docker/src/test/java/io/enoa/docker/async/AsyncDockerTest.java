@@ -22,10 +22,12 @@ import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.docker.container.DQPContainerCreate;
 import io.enoa.docker.parser.docker.DIParser;
 import io.enoa.json.Json;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
 
+@Ignore
 public class AsyncDockerTest extends AbstractDockerTest {
 
   private void sleep() {
