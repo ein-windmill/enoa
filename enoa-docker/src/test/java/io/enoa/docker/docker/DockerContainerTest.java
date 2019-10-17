@@ -50,7 +50,7 @@ public class DockerContainerTest extends AbstractDockerTest {
 
   @Test
   public void testList() {
-    DRet<List<EContainer>> ret = Docker.container().list();
+    DRet<List<EContainer>> ret = super.docker().container().list();
     Assert.assertTrue(ret.ok());
     String json = Json.toJson(ret.data());
     System.out.println(json);
@@ -58,7 +58,7 @@ public class DockerContainerTest extends AbstractDockerTest {
 
   @Test
   public void testInspect() {
-    DRet<ECInspect> ret = Docker.container().inspect("gitbook");
+    DRet<ECInspect> ret = super.docker().container().inspect("gitbook");
     Assert.assertTrue(ret.ok());
     String json = Json.toJson(ret.data());
     System.out.println(json);
@@ -66,7 +66,7 @@ public class DockerContainerTest extends AbstractDockerTest {
 
   @Test
   public void testTop() {
-    DRet<EProcesses> ret = Docker.container().top("gitbook");
+    DRet<EProcesses> ret = super.docker().container().top("gitbook");
     Assert.assertTrue(ret.ok());
     String json = Json.toJson(ret.data());
     System.out.println(json);
@@ -74,8 +74,8 @@ public class DockerContainerTest extends AbstractDockerTest {
 
   @Test
   public void testLogs() {
-//    DRet<String> ret = Docker.container().logs("nginx", DQPContainerLogs.create().stdout());
-    DRet<String> ret = Docker.container().logs("nginx", DQP.docker().container().logs().stdout());
+//    DRet<String> ret = super.docker().container().logs("nginx", DQPContainerLogs.create().stdout());
+    DRet<String> ret = super.docker().container().logs("nginx", DQP.docker().container().logs().stdout());
     Assert.assertTrue(ret.ok());
     String logs = ret.data();
     System.out.println(logs);
@@ -83,7 +83,7 @@ public class DockerContainerTest extends AbstractDockerTest {
 
   @Test
   public void testChanges() {
-    DRet<List<EChange>> ret = Docker.container().changes("redis");
+    DRet<List<EChange>> ret = super.docker().container().changes("redis");
     Assert.assertTrue(ret.ok());
     String json = Json.toJson(ret.data());
     System.out.println(json);
@@ -91,7 +91,7 @@ public class DockerContainerTest extends AbstractDockerTest {
 
   @Test
   public void testExport() {
-    DRet<Void> ret = Docker.container().export("nginx");
+    DRet<Void> ret = super.docker().container().export("nginx");
     Assert.assertTrue(ret.ok());
     Void data = ret.data();
     System.out.println(data);
@@ -99,12 +99,12 @@ public class DockerContainerTest extends AbstractDockerTest {
 
   @Test
   public void testStatistics() {
-//    DRet<EStatistics> ret = Docker.container().statistics("nginx", DStream.<DRet<EStatistics>>builder(stats -> {
+//    DRet<EStatistics> ret = super.docker().container().statistics("nginx", DStream.<DRet<EStatistics>>builder(stats -> {
 //      Assert.assertTrue(stats.ok());
 //      String json = Json.toJson(stats.data());
 //      System.out.println(json);
 //    }).build());
-    DRet<EStatistics> ret = Docker.container().statistics("nginx", Chunk.generic(
+    DRet<EStatistics> ret = super.docker().container().statistics("nginx", Chunk.generic(
       bytes -> EnoaBinary.create(bytes).string(),
       (text, linebreak) -> System.out.println(text))
     );
@@ -115,28 +115,28 @@ public class DockerContainerTest extends AbstractDockerTest {
 
   @Test
   public void testResize() {
-    DRet<Void> ret = Docker.container().resize("nginx");
+    DRet<Void> ret = super.docker().container().resize("nginx");
     Assert.assertTrue(ret.ok());
     System.out.println(ret);
   }
 
   @Test
   public void testRestart() {
-    DRet<Void> ret = Docker.container().restart("nginx");
+    DRet<Void> ret = super.docker().container().restart("nginx");
     Assert.assertTrue(ret.ok());
     System.out.println(ret);
   }
 
   @Test
   public void testKill() {
-    DRet<Void> ret = Docker.container().kill("nginx");
+    DRet<Void> ret = super.docker().container().kill("nginx");
     Assert.assertTrue(ret.ok());
     System.out.println(ret);
   }
 
   @Test
   public void testUpdate() {
-    DRet<EUpdate> ret = Docker.container().update("nginx", DQPContainerUpdate.create());
+    DRet<EUpdate> ret = super.docker().container().update("nginx", DQPContainerUpdate.create());
     Assert.assertTrue(ret.ok());
     String json = Json.toJson(ret.data());
     System.out.println(json);
@@ -144,37 +144,37 @@ public class DockerContainerTest extends AbstractDockerTest {
 
   @Test
   public void testRename() {
-    DRet<Void> ret = Docker.container().rename("nginx", "nginxx");
+    DRet<Void> ret = super.docker().container().rename("nginx", "nginxx");
     Assert.assertTrue(ret.ok());
     System.out.println(ret);
   }
 
   @Test
   public void testPause() {
-    DRet<Void> ret = Docker.container().pause("nginx");
+    DRet<Void> ret = super.docker().container().pause("nginx");
     Assert.assertTrue(ret.ok());
     System.out.println(ret);
   }
 
   @Test
   public void testUnpause() {
-    DRet<Void> ret = Docker.container().unpause("nginx");
+    DRet<Void> ret = super.docker().container().unpause("nginx");
     Assert.assertTrue(ret.ok());
     System.out.println(ret);
   }
 
   @Test
   public void testArchive() {
-//    DRet<Void> ret = Docker.container().archive("nginx", "/home");
+//    DRet<Void> ret = super.docker().container().archive("nginx", "/home");
 //    Assert.assertTrue(ret.ok());
 ////    String json = Json.toJson(ret.data());
 //    System.out.println(ret);
-    DResp resp = Docker.origin().container().archive("nginx", "/homne");
+    DResp resp = super.origin().container().archive("nginx", "/homne");
   }
 
   @Test
   public void testPrune() {
-    DRet<ECPrune> ret = Docker.container().prune();
+    DRet<ECPrune> ret = super.docker().container().prune();
     Assert.assertTrue(ret.ok());
     String json = Json.toJson(ret.data());
     System.out.println(json);
@@ -183,7 +183,7 @@ public class DockerContainerTest extends AbstractDockerTest {
 
   @Test
   public void testCreate() {
-    DRet<ECreatedWithWarning> ret = Docker.container().create("test",
+    DRet<ECreatedWithWarning> ret = super.docker().container().create("test",
       DQP.docker().container().create()
         .interactive()
         .detach()
@@ -210,7 +210,7 @@ public class DockerContainerTest extends AbstractDockerTest {
 
   @Test
   public void testAttach() {
-    DRet<String> ret = Docker.container().attach("test",
+    DRet<String> ret = super.docker().container().attach("test",
       DQP.docker().container().attach()
         .stderr()
         .stdin()
@@ -224,7 +224,7 @@ public class DockerContainerTest extends AbstractDockerTest {
 
   @Test
   public void testWait() {
-    DRet<ECWait> ret = Docker.container().wait("test", "removed");
+    DRet<ECWait> ret = super.docker().container().wait("test", "removed");
     Assert.assertTrue(ret.ok());
     String json = Json.toJson(ret.data());
     System.out.println(json);
@@ -232,14 +232,14 @@ public class DockerContainerTest extends AbstractDockerTest {
 
   @Test
   public void testStart() {
-    DRet<Void> ret = Docker.container().start("test");
+    DRet<Void> ret = super.docker().container().start("test");
     Assert.assertTrue(ret.ok());
     System.out.println(ret);
   }
 
   @Test
   public void testStop() {
-    DRet<Void> ret = Docker.container().stop("nginx");
+    DRet<Void> ret = super.docker().container().stop("nginx");
     Assert.assertTrue(ret.ok());
     System.out.println(ret);
   }
@@ -247,7 +247,7 @@ public class DockerContainerTest extends AbstractDockerTest {
 
   @Test
   public void testRemove() {
-    DRet<Void> ret = Docker.container().remove("test");
+    DRet<Void> ret = super.docker().container().remove("test");
     Assert.assertTrue(ret.ok());
     System.out.println(ret);
   }
@@ -277,7 +277,7 @@ public class DockerContainerTest extends AbstractDockerTest {
   }
 
   private String dockerrun(Path path) {
-    DRet<EDRun> ret = Docker.run("dockerrun",
+    DRet<EDRun> ret = super.docker().run("dockerrun",
       DQP.docker().container().create()
         .interactive()
         .tty()

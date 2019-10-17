@@ -15,13 +15,18 @@
  */
 package io.enoa.docker;
 
+import io.enoa.docker.command.docker.eo.EoDocker;
+import io.enoa.docker.command.docker.origin.OriginDocker;
 import io.enoa.json.Json;
 import io.enoa.json.provider.gson.GsonProvider;
+import io.enoa.toolkit.digest.DigestKit;
 import org.junit.Before;
 import org.junit.Ignore;
 
 @Ignore
 public abstract class AbstractDockerTest {
+
+  private String name = DigestKit.saltSha512();
 
   @Before
   public void ibe() {
@@ -33,7 +38,19 @@ public abstract class AbstractDockerTest {
       .debug()
       .json(new GsonProvider())
       .build();
-    Docker.epm().install(config);
+    Docker.epm().install(name, config);
+  }
+
+  protected EoDocker docker() {
+    return Docker.use(this.name);
+  }
+
+  protected AsyncDocker async() {
+    return Docker.async(this.name);
+  }
+
+  protected OriginDocker origin() {
+    return Docker.origin(this.name);
   }
 
 }
