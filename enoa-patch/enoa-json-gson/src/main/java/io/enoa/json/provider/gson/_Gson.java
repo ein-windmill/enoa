@@ -61,7 +61,7 @@ class _Gson extends EnoaJson {
     if (_gson != null)
       return _gson;
 
-    GsonBuilder builder = new GsonBuilder();
+    GsonBuilder builder = this.gsonfig.gsonBuilder() == null ? new GsonBuilder() : this.gsonfig.gsonBuilder();
     if (this.gsonfig.fixPrecision()) {
       builder
         .registerTypeAdapterFactory(new MapTypeAdapterFactory())
