@@ -54,7 +54,6 @@ public class Gsonfig {
     private boolean fixPrecision;
 
     public Builder() {
-      this.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS";
       this.disableHtmlEscaping = Boolean.TRUE;
       this.fixPrecision = Boolean.FALSE;
     }
