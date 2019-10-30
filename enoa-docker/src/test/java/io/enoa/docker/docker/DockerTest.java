@@ -16,7 +16,6 @@
 package io.enoa.docker.docker;
 
 import io.enoa.docker.AbstractDockerTest;
-import io.enoa.docker.Docker;
 import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.dket.docker.dockerinfo.EDockerInfo;
 import io.enoa.docker.dket.docker.run.EDRun;
@@ -34,7 +33,7 @@ public class DockerTest extends AbstractDockerTest {
 
   @Test
   public void testInfo() {
-    DRet<EDockerInfo> ret = Docker.info();
+    DRet<EDockerInfo> ret = super.docker().info();
     Assert.assertTrue(ret.ok());
     String json = Json.toJson(ret.data());
     System.out.println(json);
@@ -53,7 +52,7 @@ public class DockerTest extends AbstractDockerTest {
       .volume("/d/data/tmp/preacher/zheok:/git")
       .cmd("branch")
       .cmd("-a");
-    DRet<EDRun> ret = Docker.run(name, dqp);
+    DRet<EDRun> ret = super.docker().run(name, dqp);
     Assert.assertTrue(ret.ok());
     return ret.data();
   }

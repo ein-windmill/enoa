@@ -23,6 +23,7 @@ import io.enoa.json.EnoaJson;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.text.DateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,7 +62,7 @@ class _Gson extends EnoaJson {
     if (_gson != null)
       return _gson;
 
-    GsonBuilder builder = new GsonBuilder();
+    GsonBuilder builder = this.gsonfig.gsonBuilder() == null ? new GsonBuilder() : this.gsonfig.gsonBuilder();
     if (this.gsonfig.fixPrecision()) {
       builder
         .registerTypeAdapterFactory(new MapTypeAdapterFactory())
@@ -74,22 +75,30 @@ class _Gson extends EnoaJson {
 
     if (this.gsonfig == null) {
       builder.disableHtmlEscaping()
-        .setDateFormat(datePattern == null ? "yyyy-MM-dd HH:mm:ss.SSS" : datePattern);
+        .setDateFormat(DateFormat.LONG);
       _gson = builder.create();
       CACHE.put(datePattern, _gson);
       return _gson;
     }
-//    GsonBuilder builder = new GsonBuilder();
+
     if (this.gsonfig.disableHtmlEscaping()) {
       builder.disableHtmlEscaping();
     }
-    if (this.gsonfig.dateFormat() != null) {
-      builder.setDateFormat(datePattern == null ? this.gsonfig.dateFormat() : datePattern);
+    if (this.gsonfig.dateFormat() == null) {
+      builder.setDateFormat(DateFormat.LONG);
     } else {
-      builder.setDateFormat(datePattern == null ? "yyyy-MM-dd HH:mm:ss.SSS" : datePattern);
+      if (datePattern == null) {
+        if (this.gsonfig.dateFormat() == null) {
+          builder.setDateFormat(DateFormat.LONG);
+        } else {
+          builder.setDateFormat(this.gsonfig.dateFormat());
+        }
+      } else {
+        builder.setDateFormat(datePattern);
+      }
     }
     _gson = builder.create();
-    CACHE.put(datePattern, _gson);
+    CACHE.put(datePattern == null ? "def" : datePattern, _gson);
     return _gson;
   }
 

@@ -29,7 +29,7 @@ public class DockerDistributionTest extends AbstractDockerTest {
 
   @Test
   public void testDistribution() {
-    DRet<EDistribution> ret = Docker.distribution().distribution("nginx");
+    DRet<EDistribution> ret = super.docker().distribution().distribution("nginx");
     Assert.assertTrue(ret.ok());
     String json = Json.toJson(ret.data());
     System.out.println(json);

@@ -16,7 +16,6 @@
 package io.enoa.docker.docker;
 
 import io.enoa.docker.AbstractDockerTest;
-import io.enoa.docker.Docker;
 import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.dket.docker.dockerinfo.EDockerInfo;
 import io.enoa.json.Json;
@@ -29,7 +28,7 @@ public class DockerSystemTest extends AbstractDockerTest {
 
   @Test
   public void testInfo() {
-    DRet<EDockerInfo> ret = Docker.system().info();
+    DRet<EDockerInfo> ret = super.docker().system().info();
     Assert.assertTrue(ret.ok());
     String json = Json.toJson(ret.data());
     System.out.println(json);
@@ -37,7 +36,7 @@ public class DockerSystemTest extends AbstractDockerTest {
 
   @Test
   public void testPing() {
-    DRet<String> ret = Docker.system().ping();
+    DRet<String> ret = super.docker().system().ping();
     Assert.assertTrue(ret.ok());
     Assert.assertEquals(ret.data(), "OK");
   }

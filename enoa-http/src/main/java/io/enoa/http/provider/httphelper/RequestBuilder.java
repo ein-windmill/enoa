@@ -107,8 +107,18 @@ class RequestBuilder {
       return;
 
     String _url = this.url.end();
+    String host;
     int ix = _url.indexOf("/", _url.indexOf("//") + 2);
-    String host = _url.substring(0, ix);
+    if (ix == -1) {
+      ix = _url.indexOf("?");
+      if (ix > 0) {
+        host = _url.substring(0, ix);
+      } else {
+        host = _url;
+      }
+    } else {
+      host = _url.substring(0, ix);
+    }
     this.request.header(new HttpHeader("Host", host));
   }
 

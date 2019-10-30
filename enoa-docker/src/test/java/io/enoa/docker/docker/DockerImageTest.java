@@ -17,7 +17,6 @@ package io.enoa.docker.docker;
 
 import io.enoa.chunk.Chunk;
 import io.enoa.docker.AbstractDockerTest;
-import io.enoa.docker.Docker;
 import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.dket.docker.image.*;
 import io.enoa.docker.dqp.DQP;
@@ -40,7 +39,7 @@ public class DockerImageTest extends AbstractDockerTest {
 
   @Test
   public void testList() {
-    DRet<List<EImage>> ret = Docker.image().list(DQPImageList.create().all());
+    DRet<List<EImage>> ret = super.docker().image().list(DQPImageList.create().all());
     Assert.assertTrue(ret.ok());
     String json = Json.toJson(ret.data());
     System.out.println(json);
@@ -59,7 +58,7 @@ public class DockerImageTest extends AbstractDockerTest {
 
 //    DRet<List<Kv>> ret = Docker.image().build(dockerfile, dqp, DStream.<Kv>builder(kv -> System.out.println(Json.toJson(kv))).build());
 
-    DRet<List<Kv>> ret = Docker.image().build(dockerfile, dqp, Chunk.builder((bytes, linebreak) -> {
+    DRet<List<Kv>> ret = super.docker().image().build(dockerfile, dqp, Chunk.builder((bytes, linebreak) -> {
       Kv kv = Json.parse(EnoaBinary.create(bytes).string(), Kv.class);
       System.out.println(kv);
     }).build());
@@ -70,7 +69,7 @@ public class DockerImageTest extends AbstractDockerTest {
 
   @Test
   public void testPrunebuild() {
-    DRet<EIPrune> ret = Docker.image().prunebuild();
+    DRet<EIPrune> ret = super.docker().image().prunebuild();
     Assert.assertTrue(ret.ok());
     String json = Json.toJson(ret.data());
     System.out.println(json);
@@ -78,7 +77,7 @@ public class DockerImageTest extends AbstractDockerTest {
 
   @Test
   public void testInspect() {
-    DRet<EIInspect> ret = Docker.image().inspect("ubuntu:16.04");
+    DRet<EIInspect> ret = super.docker().image().inspect("ubuntu:16.04");
     Assert.assertTrue(ret.ok());
     String json = Json.toJson(ret.data());
     System.out.println(json);
@@ -86,7 +85,7 @@ public class DockerImageTest extends AbstractDockerTest {
 
   @Test
   public void testHistory() {
-    DRet<List<EHistory>> ret = Docker.image().history("ubuntu:16:04");
+    DRet<List<EHistory>> ret = super.docker().image().history("ubuntu:16:04");
     Assert.assertTrue(ret.ok());
     String json = Json.toJson(ret.data());
     System.out.println(json);
@@ -94,14 +93,14 @@ public class DockerImageTest extends AbstractDockerTest {
 
   @Test
   public void testPush() {
-    DRet<Void> ret = Docker.image().push("ubuntu:16:04");
+    DRet<Void> ret = super.docker().image().push("ubuntu:16:04");
     Assert.assertTrue(ret.ok());
     System.out.println(ret);
   }
 
   @Test
   public void testTag() {
-    DRet<Void> ret = Docker.image().tag("ubuntu:16.04", DQPImageTag.create()
+    DRet<Void> ret = super.docker().image().tag("ubuntu:16.04", DQPImageTag.create()
       .repo("registry.host.com/ubuntu")
       .tag("16:04"));
     Assert.assertTrue(ret.ok());
@@ -110,7 +109,7 @@ public class DockerImageTest extends AbstractDockerTest {
 
   @Test
   public void testRemove() {
-    DRet<List<EIRemove>> ret = Docker.image().remove("ubuntu:16.04");
+    DRet<List<EIRemove>> ret = super.docker().image().remove("ubuntu:16.04");
     Assert.assertTrue(ret.ok());
     String json = Json.toJson(ret.data());
     System.out.println(json);
@@ -118,7 +117,7 @@ public class DockerImageTest extends AbstractDockerTest {
 
   @Test
   public void testSearch() {
-    DRet<List<EISearch>> ret = Docker.image().search(DQP.docker().image().search().term("nginx"));
+    DRet<List<EISearch>> ret = super.docker().image().search(DQP.docker().image().search().term("nginx"));
     Assert.assertTrue(ret.ok());
     String json = Json.toJson(ret.data());
     System.out.println(json);
@@ -126,7 +125,7 @@ public class DockerImageTest extends AbstractDockerTest {
 
   @Test
   public void testPruneimage() {
-    DRet<EImagePrune> ret = Docker.image().pruneimage();
+    DRet<EImagePrune> ret = super.docker().image().pruneimage();
     Assert.assertTrue(ret.ok());
     String json = Json.toJson(ret.data());
     System.out.println(json);
@@ -135,7 +134,7 @@ public class DockerImageTest extends AbstractDockerTest {
   @Test
   public void testCommit() {
     String body = "{}";
-    DRet<EICommit> ret = Docker.image().commit(body);
+    DRet<EICommit> ret = super.docker().image().commit(body);
     Assert.assertTrue(ret.ok());
     String json = Json.toJson(ret.data());
     System.out.println(json);
@@ -143,7 +142,7 @@ public class DockerImageTest extends AbstractDockerTest {
 
   @Test
   public void testExport() {
-    DRet<EnoaBinary> ret = Docker.image().export("nginx");
+    DRet<EnoaBinary> ret = super.docker().image().export("nginx");
     Assert.assertTrue(ret.ok());
     EnoaBinary binary = ret.data();
     FileKit.write(PathKit.debugPath().resolve("_tmp/nginx.tgz"), binary.bytebuffer());
@@ -152,7 +151,7 @@ public class DockerImageTest extends AbstractDockerTest {
 
   @Test
   public void testExportSeveral() {
-    DRet<EnoaBinary> ret = Docker.image().export(DQPImageExport.create().names("nginx"));
+    DRet<EnoaBinary> ret = super.docker().image().export(DQPImageExport.create().names("nginx"));
     Assert.assertTrue(ret.ok());
     EnoaBinary binary = ret.data();
     FileKit.write(PathKit.debugPath().resolve("_tmp/nginx.tgz"), binary.bytebuffer());
@@ -162,7 +161,7 @@ public class DockerImageTest extends AbstractDockerTest {
   @Test
   public void testLoad() {
     EnoaBinary binary = FileKit.read(PathKit.debugPath().resolve("_tmp/nginx.tgz"));
-    DRet<Void> ret = Docker.image().load(binary.bytes());
+    DRet<Void> ret = super.docker().image().load(binary.bytes());
     Assert.assertTrue(ret.ok());
     System.out.println(ret);
   }
@@ -170,7 +169,7 @@ public class DockerImageTest extends AbstractDockerTest {
 
   @Test
   public void testCreate() {
-    Docker.image().create(DQPImageCreate.create().fromimage("docker.io/alpine").tag("3.8"),
+    super.docker().image().create(DQPImageCreate.create().fromimage("docker.io/alpine").tag("3.8"),
       Chunk.generic(bytes -> EnoaBinary.create(bytes).string(), (text, linebreak) -> System.out.println(text)));
   }
 

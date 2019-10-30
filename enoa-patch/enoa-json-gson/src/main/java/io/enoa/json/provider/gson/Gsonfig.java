@@ -15,8 +15,11 @@
  */
 package io.enoa.json.provider.gson;
 
+import com.google.gson.GsonBuilder;
+
 public class Gsonfig {
 
+  private final GsonBuilder gsonBuilder;
   private final String dateFormat;
   private final boolean disableHtmlEscaping;
   private final boolean fixPrecision;
@@ -25,6 +28,11 @@ public class Gsonfig {
     this.dateFormat = builder.dateFormat;
     this.disableHtmlEscaping = builder.disableHtmlEscaping;
     this.fixPrecision = builder.fixPrecision;
+    this.gsonBuilder = builder.gsonBuilder;
+  }
+
+  public GsonBuilder gsonBuilder() {
+    return this.gsonBuilder;
   }
 
   public boolean fixPrecision() {
@@ -40,18 +48,23 @@ public class Gsonfig {
   }
 
   public static class Builder {
+    private GsonBuilder gsonBuilder;
     private String dateFormat;
     private boolean disableHtmlEscaping;
     private boolean fixPrecision;
 
     public Builder() {
-      this.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS";
       this.disableHtmlEscaping = Boolean.TRUE;
       this.fixPrecision = Boolean.FALSE;
     }
 
     public Gsonfig build() {
       return new Gsonfig(this);
+    }
+
+    public Builder gsonBuilder(GsonBuilder builder) {
+      this.gsonBuilder = builder;
+      return this;
     }
 
     public Builder fixPrecision() {

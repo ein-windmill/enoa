@@ -16,17 +16,18 @@
 package io.enoa.docker.async;
 
 import io.enoa.docker.AbstractDockerTest;
-import io.enoa.docker.Docker;
 import io.enoa.docker.dket.docker.DRet;
 import io.enoa.docker.dket.docker.dockerinfo.EDockerInfo;
 import io.enoa.docker.dqp.DQP;
 import io.enoa.docker.dqp.docker.container.DQPContainerCreate;
 import io.enoa.docker.parser.docker.DIParser;
 import io.enoa.json.Json;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.concurrent.TimeUnit;
 
+@Ignore
 public class AsyncDockerTest extends AbstractDockerTest {
 
   private void sleep() {
@@ -39,7 +40,7 @@ public class AsyncDockerTest extends AbstractDockerTest {
 
   @Test
   public void info() {
-    Docker.async()
+    super.async()
       .origin()
       .info()
       .enqueue()
@@ -47,7 +48,7 @@ public class AsyncDockerTest extends AbstractDockerTest {
       .capture(System.err::println)
       .always(() -> System.out.println("Always"));
 
-    Docker.async()
+    super.async()
       .generic()
       .info(DIParser.dockerinfo())
       .enqueue()
@@ -58,7 +59,7 @@ public class AsyncDockerTest extends AbstractDockerTest {
       .capture(System.err::println)
       .always(() -> System.out.println("Always"));
 
-    Docker.async()
+    super.async()
       .info()
       .enqueue()
       .asset(ret -> ret.ok())
@@ -88,7 +89,7 @@ public class AsyncDockerTest extends AbstractDockerTest {
       .image("alpine:3.8")
       .cmd("ls");
 
-    Docker.async()
+    super.async()
       .run("test", dqp)
       .enqueue()
       .asset(ret -> ret.ok())
