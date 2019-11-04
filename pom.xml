@@ -125,7 +125,7 @@
 
     <version-druid>1.1.11</version-druid>
     <version-hikaricp>3.2.0</version-hikaricp>
-    <version-c3p0>0.9.5.2</version-c3p0>
+    <version-c3p0>0.9.5.4</version-c3p0>
     <version-jdbc-pgsql>42.1.4</version-jdbc-pgsql>
     <version-jdbc-mysql>6.0.6</version-jdbc-mysql>
     <version-beetlsql>2.10.4</version-beetlsql>
