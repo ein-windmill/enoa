@@ -27,10 +27,10 @@ public class HttpHeader {
   public HttpHeader(String name, String value) {
     if (name == null)
       throw new IllegalArgumentException("Header name can not be null.");
-    if (value == null)
-      throw new IllegalArgumentException("Header value con not be null.");
+//    if (value == null)
+//      throw new IllegalArgumentException("Header value con not be null.");
     this.name = name;
-    this.value = value;
+    this.value = value == null ? "" : value;
   }
 
   public static Set<HttpHeader> of(String text) {
