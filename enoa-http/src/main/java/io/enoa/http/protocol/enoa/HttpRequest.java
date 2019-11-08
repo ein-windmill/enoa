@@ -19,6 +19,7 @@ import io.enoa.http.EoHttpConfig;
 import io.enoa.http.protocol.HttpHeader;
 import io.enoa.http.protocol.HttpMethod;
 import io.enoa.http.protocol.HttpVersion;
+import io.enoa.http.provider.httphelper.conn.ssl.TLSv;
 import io.enoa.http.proxy.HttpProxy;
 
 import java.nio.charset.Charset;
@@ -41,5 +42,7 @@ public interface HttpRequest {
   Charset charset();
 
   HttpProxy proxy();
+
+  TLSv tlsv();
 
 }

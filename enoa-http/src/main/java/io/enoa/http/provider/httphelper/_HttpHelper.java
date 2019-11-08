@@ -22,6 +22,7 @@ import io.enoa.http.protocol.enoa.IHttpHandler;
 import io.enoa.http.protocol.enoa.IHttpReporter;
 import io.enoa.http.provider.httphelper.async.HttpHelperExecutor;
 import io.enoa.http.provider.httphelper.conn._HttpHelperConn;
+import io.enoa.http.provider.httphelper.conn.ssl.TLSv;
 import io.enoa.http.provider.httphelper.http.req._HttpHelperRequest;
 import io.enoa.http.proxy.HttpProxy;
 
@@ -54,6 +55,8 @@ class _HttpHelper implements Http {
   private HttpHelperConfig config;
   private EoExecutor executor;
 
+  private TLSv tlsv;
+
   private List<IHttpHandler> handlers;
   private List<IHttpReporter> reporters;
 
@@ -66,6 +69,8 @@ class _HttpHelper implements Http {
     this.headers = new HashSet<>();
     this.headers.add(new HttpHeader("User-Agent", "Mozilla/5.0 Enoa/1.7.3-snapshot HttpHelper/4.0"));
     this.executor = HttpHelperExecutor.instance();
+
+    this.tlsv = TLSv.V_1_1;
   }
 
   private Object[] toArr(Object value) {
@@ -100,6 +105,7 @@ class _HttpHelper implements Http {
     builder.headers = this.headers;
     builder.formDatas = this.formDatas;
     builder.config = this.config;
+    builder.tlsv = this.tlsv;
     return builder.build();
   }
 
@@ -153,6 +159,12 @@ class _HttpHelper implements Http {
   @Override
   public HttpPromise enqueue(Chunk chunk) {
     return this.executor.enqueue(this.url, this, chunk);
+  }
+
+  @Override
+  public Http tlsv(TLSv tlsv) {
+    this.tlsv = tlsv;
+    return this;
   }
 
   @Override

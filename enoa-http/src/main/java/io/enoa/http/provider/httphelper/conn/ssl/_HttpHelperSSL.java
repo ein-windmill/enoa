@@ -20,20 +20,20 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import java.security.SecureRandom;
+import java.util.HashMap;
+import java.util.Map;
 
 public class _HttpHelperSSL {
 
-  private static final SSLSocketFactory sslSocket;
   private static final TrustAnyHostnameVerifier trustAnyHostnameVerifier = new TrustAnyHostnameVerifier();
 
-  static {
-    sslSocket = init();
-  }
+  private static Map<String, SSLSocketFactory> SSL_CACHE = new HashMap<>();
 
-  private static SSLSocketFactory init() {
+
+  private static SSLSocketFactory init(TLSv tlSv) {
     try {
       TrustManager[] e = new TrustManager[]{new TrustAnyTrustManager()};
-      SSLContext sslContext = SSLContext.getInstance("TLSv1.1", "SunJSSE");
+      SSLContext sslContext = SSLContext.getInstance(tlSv.val(), "SunJSSE");
       sslContext.init(null, e, new SecureRandom());
       return sslContext.getSocketFactory();
     } catch (Exception e) {
@@ -41,8 +41,13 @@ public class _HttpHelperSSL {
     }
   }
 
-  public static SSLSocketFactory sslSocket() {
-    return sslSocket;
+  public static SSLSocketFactory sslSocket(TLSv tlsv) {
+    SSLSocketFactory sslsocket = SSL_CACHE.get(tlsv.val());
+    if (sslsocket != null)
+      return sslsocket;
+    sslsocket = init(tlsv);
+    SSL_CACHE.put(tlsv.val(), sslsocket);
+    return sslsocket;
   }
 
   public static HostnameVerifier hostnameVerifier() {

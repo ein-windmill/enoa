@@ -19,6 +19,7 @@ import io.enoa.http.EoUrl;
 import io.enoa.http.HttpAuth;
 import io.enoa.http.kit.SafeURL;
 import io.enoa.http.protocol.*;
+import io.enoa.http.provider.httphelper.conn.ssl.TLSv;
 import io.enoa.http.provider.httphelper.http.req._HttpHelperRequest;
 import io.enoa.http.provider.httphelper.http.req._HttpHelperRequestBody;
 import io.enoa.http.proxy.HttpProxy;
@@ -63,6 +64,7 @@ class RequestBuilder {
   Set<HttpPara> paras;
   List<HttpFormData> formDatas;
   HttpHelperConfig config;
+  TLSv tlsv;
 
   private _HttpHelperRequest.Builder request;
   private _HttpHelperRequestBody body;
@@ -82,6 +84,7 @@ class RequestBuilder {
     this.request.method(this.method);
     this.request.proxy(this.proxy);
     this.request.body(this.body);
+    this.request.tlsv(this.tlsv);
     this.clear();
     return this.request.build();
   }

@@ -22,6 +22,7 @@ import io.enoa.http.protocol.HttpPara;
 import io.enoa.http.protocol.HttpPromise;
 import io.enoa.http.protocol.enoa.IHttpHandler;
 import io.enoa.http.protocol.enoa.IHttpReporter;
+import io.enoa.http.provider.httphelper.conn.ssl.TLSv;
 import io.enoa.http.proxy.HttpProxy;
 import io.enoa.http.proxy.TcpProxy;
 
@@ -65,6 +66,8 @@ public interface Http extends EoEmit {
   HttpPromise enqueue();
 
   HttpPromise enqueue(Chunk chunk);
+
+  Http tlsv(TLSv tlsv);
 
   Http handler(IHttpHandler handler);
 

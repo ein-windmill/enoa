@@ -69,7 +69,7 @@ public class _HttpHelperConn {
     是否 SSL
      */
     if (conn instanceof HttpsURLConnection) {
-      ((HttpsURLConnection) conn).setSSLSocketFactory(_HttpHelperSSL.sslSocket());
+      ((HttpsURLConnection) conn).setSSLSocketFactory(_HttpHelperSSL.sslSocket(this.request.tlsv()));
       ((HttpsURLConnection) conn).setHostnameVerifier(_HttpHelperSSL.hostnameVerifier());
     }
 

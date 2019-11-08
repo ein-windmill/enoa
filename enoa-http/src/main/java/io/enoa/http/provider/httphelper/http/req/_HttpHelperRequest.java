@@ -20,6 +20,7 @@ import io.enoa.http.protocol.HttpMethod;
 import io.enoa.http.protocol.HttpVersion;
 import io.enoa.http.protocol.enoa.HttpRequest;
 import io.enoa.http.provider.httphelper.HttpHelperConfig;
+import io.enoa.http.provider.httphelper.conn.ssl.TLSv;
 import io.enoa.http.proxy.HttpProxy;
 
 import java.nio.charset.Charset;
@@ -37,6 +38,8 @@ public class _HttpHelperRequest implements HttpRequest {
   private final HttpHelperConfig config;
   private final HttpVersion version;
 
+  private final TLSv tlsv;
+
   private _HttpHelperRequest(Builder builder) {
     this.method = builder.method;
     this.charset = builder.charset;
@@ -46,6 +49,7 @@ public class _HttpHelperRequest implements HttpRequest {
     this.headers = builder.headers;
     this.config = builder.config;
     this.version = builder.version;
+    this.tlsv = builder.tlsv;
   }
 
   @Override
@@ -71,6 +75,11 @@ public class _HttpHelperRequest implements HttpRequest {
   @Override
   public HttpProxy proxy() {
     return proxy;
+  }
+
+  @Override
+  public TLSv tlsv() {
+    return this.tlsv;
   }
 
   @Override
@@ -141,13 +150,21 @@ public class _HttpHelperRequest implements HttpRequest {
     private HttpHelperConfig config;
     private HttpVersion version;
 
+    private TLSv tlsv;
+
     public Builder() {
       this.version = HttpVersion.HTTP_1_1;
       this.method = HttpMethod.GET;
+      this.tlsv = TLSv.V_1_1;
     }
 
     public _HttpHelperRequest build() {
       return new _HttpHelperRequest(this);
+    }
+
+    public Builder tlsv(TLSv tlsv) {
+      this.tlsv = tlsv;
+      return this;
     }
 
     public Builder method(HttpMethod method) {
