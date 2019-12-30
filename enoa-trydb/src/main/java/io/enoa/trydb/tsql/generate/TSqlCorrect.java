@@ -24,7 +24,8 @@ class TSqlCorrect {
     if (value instanceof Number)
       return String.valueOf(value);
     String val = String.valueOf(value);
-    val = val.replace("'", "\\'");
+//    val = val.replace("'", "\\'");
+    // todo: there use database dialect to replace some char
     return TextKit.union("'", val, "'");
   }
 
