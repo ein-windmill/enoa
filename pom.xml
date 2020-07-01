@@ -127,7 +127,7 @@
     <version-hikaricp>3.2.0</version-hikaricp>
     <version-c3p0>0.9.5.4</version-c3p0>
     <version-jdbc-pgsql>42.1.4</version-jdbc-pgsql>
-    <version-jdbc-mysql>6.0.6</version-jdbc-mysql>
+    <version-jdbc-mysql>8.0.16</version-jdbc-mysql>
     <version-beetlsql>2.10.4</version-beetlsql>
     <version-mybatis>3.4.5</version-mybatis>
     <version-activerecord>3.3</version-activerecord>
