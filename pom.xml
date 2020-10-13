@@ -113,7 +113,7 @@
     <version-log4j>1.2.17</version-log4j>
     <version-log4j2>2.11.1</version-log4j2>
     <vension-slf4j>1.7.25</vension-slf4j>
-    <version-junit>4.12</version-junit>
+    <version-junit>4.13.1</version-junit>
 
     <version-fastjson>1.2.49</version-fastjson>
     <version-gson>2.8.5</version-gson>
