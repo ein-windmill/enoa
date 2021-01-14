@@ -239,8 +239,10 @@ class _HttpHelper implements Http {
   private Http para(String name, Object value, boolean array) {
     if (this.paras == null)
       this.paras = new HashSet<>();
-    if (value == null)
+    if (value == null) {
+      this.paras.add(new HttpPara(name, "", array));
       return this;
+    }
     if (value instanceof Path) {
       return this.para(name, (Path) value);
     }
@@ -260,7 +262,7 @@ class _HttpHelper implements Http {
       iterator.remove();
       itm.add(new HttpPara(para.name(), para.value(), true));
     }
-    itm.add(new HttpPara(name, value == null ? "" : String.valueOf(value), array));
+    itm.add(new HttpPara(name, String.valueOf(value), array));
     this.paras.addAll(itm);
     itm.clear();
     return this;
@@ -270,10 +272,13 @@ class _HttpHelper implements Http {
   public Http para(String name, Object value) {
     if (name == null)
       return this;
-    if (value != null && value.getClass().isArray()) {
+    if (value == null) {
+      return this.para(name, "", false);
+    }
+    if (value.getClass().isArray()) {
       return this.para(name, this.toArr(value));
     }
-    return this.para(name, value == null ? "" : value.toString(), false);
+    return this.para(name, value.toString(), false);
   }
 
   @Override
