@@ -239,6 +239,8 @@ class _HttpHelper implements Http {
   private Http para(String name, Object value, boolean array) {
     if (this.paras == null)
       this.paras = new HashSet<>();
+    if (value == null)
+      return this;
     if (value instanceof Path) {
       return this.para(name, (Path) value);
     }
@@ -278,6 +280,9 @@ class _HttpHelper implements Http {
   public Http para(String name, Object[] values) {
     if (name == null)
       return this;
+    if (values == null) {
+      return this.para(name, (Object) null);
+    }
     for (Object value : values) {
       this.para(name, value, false);
     }
@@ -288,14 +293,18 @@ class _HttpHelper implements Http {
   public Http para(String name, Collection values) {
     if (name == null)
       return this;
+    if (values == null) {
+      return this.para(name, (Object) null);
+    }
     values.forEach(c -> this.para(name, c, false));
     return this;
   }
 
   @Override
   public Http para(String name, Path path) {
-    if (path == null)
-      throw new IllegalArgumentException("path == null");
+    if (path == null) {
+      return this.para(name, (Object) null);
+    }
     if (!Files.isRegularFile(path))
       throw new RuntimeException(new FileNotFoundException("Not found this file: " + path.toString()));
     if (this.formDatas == null)
