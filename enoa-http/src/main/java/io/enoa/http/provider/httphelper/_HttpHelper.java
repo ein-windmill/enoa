@@ -37,40 +37,20 @@ import java.util.stream.Stream;
 
 class _HttpHelper implements Http {
 
-
-  private HttpMethod method;
-  private Charset charset;
-  private EoUrl url;
-  private boolean traditional;
-  private boolean encode;
-  private String raw;
-  private String contentType;
-  private HttpProxy proxy;
-  private HttpAuth auth;
-  private byte[] binary;
-  private Set<HttpCookie> cookies;
-  private Set<HttpPara> paras;
-  private Set<HttpHeader> headers;
-  private List<HttpFormData> formDatas;
-  private HttpHelperConfig config;
-  private EoExecutor executor;
-
-  private TLSv tlsv;
-
-  private List<IHttpHandler> handlers;
-  private List<IHttpReporter> reporters;
+  private EnoaRequestData data;
 
   _HttpHelper() {
-    this.traditional = true;
-    this.encode = false;
-    this.contentType = "application/x-www-form-urlencoded";
-    this.method = HttpMethod.GET;
-    this.charset = Charset.forName("UTF-8");
-    this.headers = new HashSet<>();
-    this.headers.add(new HttpHeader("User-Agent", "Mozilla/5.0 Enoa/1.7.3-snapshot HttpHelper/4.0"));
-    this.executor = HttpHelperExecutor.instance();
-
-    this.tlsv = TLSv.V_1_1;
+    this.data = new EnoaRequestData();
+    this.data.setTraditional(true);
+    this.data.setEncode(false);
+    this.data.setContentType("application/x-www-form-urlencoded");
+    this.data.setMethod(HttpMethod.GET);
+    this.data.setCharset(Charset.forName("UTF-8"));
+    Set<HttpHeader> headers = new HashSet<>();
+    headers.add(new HttpHeader("User-Agent", "Mozilla/5.0 Enoa/1.7.3-snapshot HttpHelper/4.0"));
+    this.data.setHeaders(headers);
+    this.data.setExecutor(HttpHelperExecutor.instance());
+    this.data.setTlsv(TLSv.V_1_2);
   }
 
   private Object[] toArr(Object value) {
@@ -84,28 +64,28 @@ class _HttpHelper implements Http {
 
 
   private _HttpHelperRequest readyrequest() {
-    if (this.config == null)
-      this.config = new HttpHelperConfig.Builder().build();
-    if (this.config.debug())
+    if (this.data.getConfig() == null)
+      this.data.setConfig(new HttpHelperConfig.Builder().build());
+    if (this.data.getConfig().debug())
       this.handler(IHttpHandler.def());
 
     RequestBuilder builder = new RequestBuilder();
-    builder.method = this.method;
-    builder.charset = this.charset;
-    builder.url = this.url;
-    builder.traditional = this.traditional;
-    builder.encode = this.encode;
-    builder.raw = this.raw;
-    builder.contentType = this.contentType;
-    builder.proxy = this.proxy;
-    builder.auth = this.auth;
-    builder.binary = this.binary;
-    builder.cookies = this.cookies;
-    builder.paras = this.paras;
-    builder.headers = this.headers;
-    builder.formDatas = this.formDatas;
-    builder.config = this.config;
-    builder.tlsv = this.tlsv;
+    builder.method = this.data.getMethod();
+    builder.charset = this.data.getCharset();
+    builder.url = this.data.getUrl();
+    builder.traditional = this.data.isTraditional();
+    builder.encode = this.data.isEncode();
+    builder.raw = this.data.getRaw();
+    builder.contentType = this.data.getContentType();
+    builder.proxy = this.data.getProxy();
+    builder.auth = this.data.getAuth();
+    builder.binary = this.data.getBinary();
+    builder.cookies = this.data.getCookies();
+    builder.paras = this.data.getParas();
+    builder.headers = this.data.getHeaders();
+    builder.formDatas = this.data.getFormDatas();
+    builder.config = this.data.getConfig();
+    builder.tlsv = this.data.getTlsv();
     return builder.build();
   }
 
@@ -113,17 +93,21 @@ class _HttpHelper implements Http {
   public HttpResponse emit() {
     _HttpHelperRequest request = this.readyrequest();
 
+    List<IHttpHandler> handlers = this.data.getHandlers();
+    HttpHelperConfig config = this.data.getConfig();
+    List<IHttpReporter> reporters = this.data.getReporters();
+
     // run handlers
-    if (this.handlers != null)
-      HttpExtExecutor.instance().handle(this.handlers, request);
+    if (handlers != null)
+      HttpExtExecutor.instance().handle(handlers, request);
 
     // do request
-    _HttpHelperConn conn = new _HttpHelperConn(this.config, request);
+    _HttpHelperConn conn = new _HttpHelperConn(config, request);
     HttpResponse response = conn.execute();
 
     // run reporters
-    if (this.reporters != null)
-      HttpExtExecutor.instance().report(this.reporters, response);
+    if (reporters != null)
+      HttpExtExecutor.instance().report(reporters, response);
 
     return response;
   }
@@ -132,18 +116,22 @@ class _HttpHelper implements Http {
   public HttpResponse chunk(Chunk chunk) {
     _HttpHelperRequest request = this.readyrequest();
 
+    List<IHttpHandler> handlers = this.data.getHandlers();
+    HttpHelperConfig config = this.data.getConfig();
+    List<IHttpReporter> reporters = this.data.getReporters();
+
     // run handlers
-    if (this.handlers != null)
-      HttpExtExecutor.instance().handle(this.handlers, request);
+    if (handlers != null)
+      HttpExtExecutor.instance().handle(handlers, request);
 
     // do request
-    _HttpHelperConn conn = new _HttpHelperConn(this.config, request);
+    _HttpHelperConn conn = new _HttpHelperConn(config, request);
     // HttpResponse response =
     HttpResponse response = conn.chunked(chunk);
 
     // run reporters
-    if (this.reporters != null)
-      HttpExtExecutor.instance().report(this.reporters, response);
+    if (reporters != null)
+      HttpExtExecutor.instance().report(reporters, response);
 
     return response;
   }
@@ -152,39 +140,39 @@ class _HttpHelper implements Http {
   public Http executor(EoExecutor executor) {
     if (executor == null)
       throw new IllegalArgumentException("executor == null");
-    this.executor = executor;
+    this.data.setExecutor(executor);
     return this;
   }
 
   @Override
   public HttpPromise enqueue(Chunk chunk) {
-    return this.executor.enqueue(this.url, this, chunk);
+    return this.data.getExecutor().enqueue(this.data.getUrl(), this, chunk);
   }
 
   @Override
   public Http tlsv(TLSv tlsv) {
-    this.tlsv = tlsv;
+    this.data.setTlsv(tlsv);
     return this;
   }
 
   @Override
   public HttpPromise enqueue() {
-    return this.executor.enqueue(this.url, this);
+    return this.data.getExecutor().enqueue(this.data.getUrl(), this);
   }
 
   @Override
   public Http handler(IHttpHandler handler) {
-    if (this.handlers == null)
-      this.handlers = new ArrayList<>();
-    this.handlers.add(handler);
+    if (this.data.getHandlers() == null)
+      this.data.setHandlers(new ArrayList<>());
+    this.data.getHandlers().add(handler);
     return this;
   }
 
   @Override
   public Http reporter(IHttpReporter reporter) {
-    if (this.reporters == null)
-      this.reporters = new ArrayList<>();
-    this.reporters.add(reporter);
+    if (this.data.getReporters() == null)
+      this.data.setReporters(new ArrayList<>());
+    this.data.getReporters().add(reporter);
     return this;
   }
 
@@ -192,13 +180,15 @@ class _HttpHelper implements Http {
   public Http method(HttpMethod method) {
     if (method == null)
       throw new IllegalArgumentException("method == null");
-    this.method = method;
+    this.data.setMethod(method);
     return this;
   }
 
   @Override
   public Http config(EoHttpConfig config) {
-    this.config = config instanceof HttpHelperConfig ? (HttpHelperConfig) config : new HttpHelperConfig(config);
+    this.data.setConfig(
+      config instanceof HttpHelperConfig ? (HttpHelperConfig) config : new HttpHelperConfig(config)
+    );
     return this;
   }
 
@@ -206,7 +196,7 @@ class _HttpHelper implements Http {
   public Http charset(Charset charset) {
     if (charset == null)
       throw new IllegalArgumentException("charset == null");
-    this.charset = charset;
+    this.data.setCharset(charset);
     return this;
   }
 
@@ -214,33 +204,33 @@ class _HttpHelper implements Http {
   public Http url(EoUrl url) {
     if (url == null)
       throw new IllegalArgumentException("url == null");
-    this.url = url;
+    this.data.setUrl(url);
     HttpPara[] paras = url.paras();
     if (paras.length == 0)
       return this;
-    if (this.paras == null)
-      this.paras = new HashSet<>();
-    this.paras.addAll(Stream.of(paras).collect(Collectors.toSet()));
+    if (this.data.getParas() == null)
+      this.data.setParas(new HashSet<>());
+    this.data.getParas().addAll(Stream.of(paras).collect(Collectors.toSet()));
     return this;
   }
 
   @Override
   public Http traditional(boolean traditional) {
-    this.traditional = traditional;
+    this.data.setTraditional(traditional);
     return this;
   }
 
   @Override
   public Http encode(boolean encode) {
-    this.encode = encode;
+    this.data.setEncode(encode);
     return this;
   }
 
   private Http para(String name, Object value, boolean array) {
-    if (this.paras == null)
-      this.paras = new HashSet<>();
+    if (this.data.getParas() == null)
+      this.data.setParas(new HashSet<>());
     if (value == null) {
-      this.paras.add(new HttpPara(name, "", array));
+      this.data.getParas().add(new HttpPara(name, "", array));
       return this;
     }
     if (value instanceof Path) {
@@ -248,7 +238,7 @@ class _HttpHelper implements Http {
     }
 
     Set<HttpPara> itm = new HashSet<>();
-    Iterator<HttpPara> iterator = this.paras.iterator();
+    Iterator<HttpPara> iterator = this.data.getParas().iterator();
     while (iterator.hasNext()) {
       HttpPara para = iterator.next();
       if (!para.name().equals(name))
@@ -263,7 +253,7 @@ class _HttpHelper implements Http {
       itm.add(new HttpPara(para.name(), para.value(), true));
     }
     itm.add(new HttpPara(name, String.valueOf(value), array));
-    this.paras.addAll(itm);
+    this.data.getParas().addAll(itm);
     itm.clear();
     return this;
   }
@@ -312,9 +302,9 @@ class _HttpHelper implements Http {
     }
     if (!Files.isRegularFile(path))
       throw new RuntimeException(new FileNotFoundException("Not found this file: " + path.toString()));
-    if (this.formDatas == null)
-      this.formDatas = new ArrayList<>();
-    this.formDatas.add(new HttpFormData(name, path));
+    if (this.data.getFormDatas() == null)
+      this.data.setFormDatas(new ArrayList<>());
+    this.data.getFormDatas().add(new HttpFormData(name, path));
     return this;
   }
 
@@ -322,9 +312,9 @@ class _HttpHelper implements Http {
   public Http para(String name, String filename, byte[] bytes) {
     if (name == null)
       throw new IllegalArgumentException("name == null");
-    if (this.formDatas == null)
-      this.formDatas = new ArrayList<>();
-    this.formDatas.add(new HttpFormData(name, filename == null ? name : filename, bytes));
+    if (this.data.getFormDatas() == null)
+      this.data.setFormDatas(new ArrayList<>());
+    this.data.getFormDatas().add(new HttpFormData(name, filename == null ? name : filename, bytes));
     return this;
   }
 
@@ -337,9 +327,9 @@ class _HttpHelper implements Http {
   public Http raw(String raw, String contentType) {
     if (raw == null)
       throw new IllegalArgumentException("raw == null");
-    this.raw = raw;
+    this.data.setRaw(raw);
     if (contentType != null)
-      this.contentType = contentType;
+      this.data.setContentType(contentType);
     return this;
   }
 
@@ -349,7 +339,7 @@ class _HttpHelper implements Http {
       throw new IllegalArgumentException("header == null");
 
     HttpHeader rmHeader = null;
-    for (HttpHeader ahr : this.headers) {
+    for (HttpHeader ahr : this.data.getHeaders()) {
       if (!ahr.name().equalsIgnoreCase(header.name())) {
         continue;
       }
@@ -359,8 +349,8 @@ class _HttpHelper implements Http {
       break;
     }
     if (rmHeader != null)
-      this.headers.remove(rmHeader);
-    this.headers.add(header);
+      this.data.getHeaders().remove(rmHeader);
+    this.data.getHeaders().add(header);
     if ("content-type".equals(header.name().toLowerCase()))
       this.contentType(header.value());
     return this;
@@ -372,15 +362,15 @@ class _HttpHelper implements Http {
       throw new IllegalArgumentException("name == null");
     if (value == null)
       throw new IllegalArgumentException("value == null");
-    if (this.cookies == null)
-      this.cookies = new HashSet<>();
-    this.cookies.add(new HttpCookie.Builder().name(name).value(value).build());
+    if (this.data.getCookies() == null)
+      this.data.setCookies(new HashSet<>());
+    this.data.getCookies().add(new HttpCookie.Builder().name(name).value(value).build());
     return this;
   }
 
   @Override
   public Http contentType(String contentType) {
-    this.contentType = contentType;
+    this.data.setContentType(contentType);
     return this;
   }
 
@@ -388,7 +378,7 @@ class _HttpHelper implements Http {
   public Http proxy(HttpProxy proxy) {
     if (proxy == null)
       throw new IllegalArgumentException("proxy == null");
-    this.proxy = proxy;
+    this.data.setProxy(proxy);
     return this;
   }
 
@@ -396,7 +386,7 @@ class _HttpHelper implements Http {
   public Http auth(HttpAuth auth) {
     if (auth == null)
       throw new IllegalArgumentException("auth == null");
-    this.auth = auth;
+    this.data.setAuth(auth);
     return this;
   }
 
@@ -404,8 +394,13 @@ class _HttpHelper implements Http {
   public Http binary(byte[] bytes) {
     if (bytes == null)
       throw new IllegalArgumentException("bytes == null");
-    this.binary = bytes;
+    this.data.setBinary(bytes);
     return this;
+  }
+
+  @Override
+  public HttpRequestData data() {
+    return this.data;
   }
 
   @Override

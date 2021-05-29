@@ -16,10 +16,7 @@
 package io.enoa.http;
 
 import io.enoa.chunk.Chunk;
-import io.enoa.http.protocol.HttpHeader;
-import io.enoa.http.protocol.HttpMethod;
-import io.enoa.http.protocol.HttpPara;
-import io.enoa.http.protocol.HttpPromise;
+import io.enoa.http.protocol.*;
 import io.enoa.http.protocol.enoa.IHttpHandler;
 import io.enoa.http.protocol.enoa.IHttpReporter;
 import io.enoa.http.provider.httphelper.conn.ssl.TLSv;
@@ -109,6 +106,31 @@ public interface Http extends EoEmit {
 
   Http para(String name, String filename, byte[] bytes);
 
+  default Http para(boolean condition, String name, Object value) {
+    if (!condition) return this;
+    return this.para(name, value);
+  }
+
+  default Http para(boolean condition, String name, Object... values) {
+    if (!condition) return this;
+    return this.para(name, values);
+  }
+
+  default Http para(boolean condition, String name, Collection values) {
+    if (!condition) return this;
+    return this.para(name, values);
+  }
+
+  default Http para(boolean condition, String name, Path path) {
+    if (!condition) return this;
+    return this.para(name, path);
+  }
+
+  default Http para(boolean condition, String name, String filename, byte[] bytes) {
+    if (!condition) return this;
+    return this.para(name, filename, bytes);
+  }
+
   default Http para(HttpPara para) {
     return this.para(para.name(), para.value());
   }
@@ -187,5 +209,7 @@ public interface Http extends EoEmit {
       throw new IllegalArgumentException("binary == null");
     return this.binary(binary.array());
   }
+
+  HttpRequestData data();
 
 }
