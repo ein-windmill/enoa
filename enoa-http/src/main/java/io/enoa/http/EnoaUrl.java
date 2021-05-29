@@ -196,7 +196,7 @@ public class EnoaUrl implements EoUrl {
 
     String paras = String.join("&", this.paras.stream()
       .map(para -> this.encode ? this.endWithEncode(para) : this.endNoEncode(para))
-      .collect(Collectors.toSet()));
+      .collect(Collectors.toCollection(LinkedHashSet::new)));
     return this.url.concat("?").concat(paras);
   }
 
