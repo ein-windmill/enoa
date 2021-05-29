@@ -45,11 +45,11 @@ public class EnoaUrl implements EoUrl {
     this.charset = Charset.forName("UTF-8");
     if (qIx == -1) {
       this.url = url;
-      this.paras = new HashSet<>();
+      this.paras = new LinkedHashSet<>();
     } else {
       this.url = url.substring(0, qIx);
       Set<HttpPara> pas = HttpPara.parse(url.substring(qIx + 1));
-      this.paras = new HashSet<>(pas);
+      this.paras = new LinkedHashSet<>(pas);
     }
 //    this.change = Boolean.FALSE;
     this.encode = Boolean.FALSE;
@@ -57,7 +57,7 @@ public class EnoaUrl implements EoUrl {
   }
 
   private EoUrl para(String name, Object value, boolean array) {
-    Set<HttpPara> itm = new HashSet<>();
+    Set<HttpPara> itm = new LinkedHashSet<>();
     Iterator<HttpPara> iterator = this.paras.iterator();
     while (iterator.hasNext()) {
       HttpPara para = iterator.next();
