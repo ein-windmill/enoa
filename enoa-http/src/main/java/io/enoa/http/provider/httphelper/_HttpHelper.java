@@ -209,8 +209,8 @@ class _HttpHelper implements Http {
     if (paras.length == 0)
       return this;
     if (this.data.getParas() == null)
-      this.data.setParas(new HashSet<>());
-    this.data.getParas().addAll(Stream.of(paras).collect(Collectors.toSet()));
+      this.data.setParas(new LinkedHashSet<>());
+    this.data.getParas().addAll(Stream.of(paras).collect(Collectors.toCollection(LinkedHashSet::new)));
     return this;
   }
 
@@ -228,17 +228,18 @@ class _HttpHelper implements Http {
 
   private Http para(String name, Object value, boolean array) {
     if (this.data.getParas() == null)
-      this.data.setParas(new HashSet<>());
+      this.data.setParas(new LinkedHashSet<>());
+    Set<HttpPara> paras = this.data.getParas();
     if (value == null) {
-      this.data.getParas().add(new HttpPara(name, "", array));
+      paras.add(new HttpPara(name, "", array));
       return this;
     }
     if (value instanceof Path) {
       return this.para(name, (Path) value);
     }
 
-    Set<HttpPara> itm = new HashSet<>();
-    Iterator<HttpPara> iterator = this.data.getParas().iterator();
+    Set<HttpPara> itm = new LinkedHashSet<>();
+    Iterator<HttpPara> iterator = paras.iterator();
     while (iterator.hasNext()) {
       HttpPara para = iterator.next();
       if (!para.name().equals(name))
@@ -253,7 +254,7 @@ class _HttpHelper implements Http {
       itm.add(new HttpPara(para.name(), para.value(), true));
     }
     itm.add(new HttpPara(name, String.valueOf(value), array));
-    this.data.getParas().addAll(itm);
+    paras.addAll(itm);
     itm.clear();
     return this;
   }
