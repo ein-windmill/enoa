@@ -1,6 +1,10 @@
 package io.enoa.toolkit.number;
 
 import io.enoa.toolkit.binary.EnoaBinary;
+import io.enoa.toolkit.collection.CollectionKit;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HexKit {
 
@@ -30,6 +34,10 @@ public class HexKit {
    * @return
    */
   public static String hex(byte[] bytes) {
+    return hex(bytes, null);
+  }
+
+  public static String hex(byte[] bytes, HexToStringOptions options) {
     StringBuilder hs = new StringBuilder();
     String _tmp;
     for (byte b : bytes) {
@@ -38,7 +46,50 @@ public class HexKit {
         hs.append('0');
       hs.append(_tmp);
     }
-    return hs.toString();
+    String hex = hs.toString();
+    if (options == null)
+      return hex;
+    List<String> rets = new ArrayList<>();
+    String[] cells = new String[2];
+    int celIx = 0;
+    for (int i = 0; i<hex.length(); i++) {
+      char ch = hex.charAt(i);
+      cells[celIx] = String.valueOf(ch);
+      celIx += 1;
+      if ((i + 1) % 2 == 0) {
+        rets.add(String.join("", cells));
+        if (options.spaceBetween) {
+          rets.add(" ");
+        }
+      }
+      if ((i + 1) % options.maxLineLength == 0) {
+        rets.add("\n");
+      }
+    }
+    String format = String.join("", rets);
+    CollectionKit.clear(rets);
+    return format;
+  }
+
+  public static class HexToStringOptions {
+    private boolean spaceBetween = true;
+    private int maxLineLength = 16;
+
+    public boolean isSpaceBetween() {
+      return spaceBetween;
+    }
+
+    public void setSpaceBetween(boolean spaceBetween) {
+      this.spaceBetween = spaceBetween;
+    }
+
+    public int getMaxLineLength() {
+      return maxLineLength;
+    }
+
+    public void setMaxLineLength(int maxLineLength) {
+      this.maxLineLength = maxLineLength;
+    }
   }
 
   /**
