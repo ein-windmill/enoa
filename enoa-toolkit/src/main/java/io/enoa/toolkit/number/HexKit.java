@@ -57,6 +57,7 @@ public class HexKit {
       cells[celIx] = String.valueOf(ch);
       celIx += 1;
       if ((i + 1) % 2 == 0) {
+        celIx = 0;
         rets.add(String.join("", cells));
         if (options.spaceBetween) {
           rets.add(" ");
